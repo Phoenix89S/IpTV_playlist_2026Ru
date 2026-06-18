@@ -1,32 +1,32 @@
-import os
-import requests
 import subprocess
+import requests
 
-# === 1. Скачиваем плейлист из старого репо ===
-SOURCE_URL = "https://raw.githubusercontent.com/Phoenix89S/Iptv_Ru2026/main/FullProverka.m3u"
-TARGET_FILE = "FullProverka.m3u"
+PLAYLIST = "test_channels.m3u"
+SOURCE_URL = f"https://raw.githubusercontent.com/Phoenix89S/iptv_Ru2026/main/{PLAYLIST}"
 
-print("Скачиваю плейлист из старого репозитория...")
+print("Скачиваю test_channels.m3u из старого репозитория...")
 data = requests.get(SOURCE_URL).text
 
-with open(TARGET_FILE, "w", encoding="utf-8") as f:
+# сохраняем файл в main (он нужен для коммита)
+with open(PLAYLIST, "w", encoding="utf-8") as f:
     f.write(data)
 
-print("Плейлист скачан и сохранён в main нового репо.")
+print("Плейлист скачан. Переключаюсь на gh-pages...")
 
-# === 2. Переключаемся на gh-pages ===
-print("Переключаюсь на ветку gh-pages...")
+# переключаемся на gh-pages
+subprocess.run(["git", "fetch"], check=True)
 subprocess.run(["git", "checkout", "gh-pages"], check=True)
 
-# === 3. Копируем файл в gh-pages ===
-print("Копирую файл в gh-pages...")
-subprocess.run(["cp", f"../{TARGET_FILE}", TARGET_FILE], check=False)
+print("Записываю файл в ветку gh-pages...")
+# просто перезаписываем файл в gh-pages
+with open(PLAYLIST, "w", encoding="utf-8") as f:
+    f.write(data)
 
-# === 4. Коммитим ===
-subprocess.run(["git", "add", TARGET_FILE], check=True)
-subprocess.run(["git", "commit", "-m", "Обновление плейлиста из main"], check=False)
+print("Коммичу изменения...")
+subprocess.run(["git", "add", PLAYLIST], check=True)
+subprocess.run(["git", "commit", "-m", "Обновление test_channels.m3u"], check=False)
 
-# === 5. Пушим ===
+print("Пушу в gh-pages...")
 subprocess.run(["git", "push", "origin", "gh-pages"], check=True)
 
-print("Готово. Плейлист перенесён в gh-pages.")
+print("Готово. test_channels.m3u перенесён в gh-pages.")
