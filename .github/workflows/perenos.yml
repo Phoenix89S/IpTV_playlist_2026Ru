@@ -2,8 +2,6 @@ name: Transfer test_channels.m3u
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 */3 * * *"
 
 jobs:
   transfer:
@@ -24,6 +22,9 @@ jobs:
 
     - name: Install requests
       run: pip install requests
+
+    - name: Export GitHub token
+      run: echo "${{ secrets.GITHUB_TOKEN }}" > /home/runner/work/_temp/_github_token
 
     - name: Configure Git identity
       run: |
