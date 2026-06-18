@@ -1,32 +1,43 @@
 import subprocess
 import requests
+import base64
 
-PLAYLIST = "test_channels.m3u"
-SOURCE_URL = f"https://raw.githubusercontent.com/Phoenix89S/iptv_Ru2026/main/{PLAYLIST}"
+OWNER = "Phoenix89S"
+REPO = "iptv_Ru2026"
+FILE_PATH = "test_channels.m3u"
+BRANCH = "main"
 
-print("Скачиваю test_channels.m3u из старого репозитория...")
-data = requests.get(SOURCE_URL).text
+API_URL = f"https://api.github.com/repos/{OWNER}/{REPO}/contents/{FILE_PATH}?ref={BRANCH}"
 
-# сохраняем файл в main (он нужен для коммита)
-with open(PLAYLIST, "w", encoding="utf-8") as f:
-    f.write(data)
+headers = {
+    "Authorization": f"token {open('/home/runner/work/_temp/_github_token', 'r').read().strip()}",
+    "Accept": "application/vnd.github.v3.raw"
+}
 
-print("Плейлист скачан. Переключаюсь на gh-pages...")
+print("Скачиваю test_channels.m3u из приватного репозитория...")
 
-# переключаемся на gh-pages
+response = requests.get(API_URL, headers=headers)
+
+if response.status_code != 200:
+    print("Ошибка скачивания:", response.text)
+    raise SystemExit("Не удалось скачать файл из приватного репо")
+
+data_json = response.json()
+file_content = base64.b64decode(data_json["content"]).decode("utf-8")
+
+with open(FILE_PATH, "w", encoding="utf-8") as f:
+    f.write(file_content)
+
+print("Файл скачан. Переключаюсь на gh-pages...")
+
 subprocess.run(["git", "fetch"], check=True)
 subprocess.run(["git", "checkout", "gh-pages"], check=True)
 
-print("Записываю файл в ветку gh-pages...")
-# просто перезаписываем файл в gh-pages
-with open(PLAYLIST, "w", encoding="utf-8") as f:
-    f.write(data)
+with open(FILE_PATH, "w", encoding="utf-8") as f:
+    f.write(file_content)
 
-print("Коммичу изменения...")
-subprocess.run(["git", "add", PLAYLIST], check=True)
+subprocess.run(["git", "add", FILE_PATH], check=True)
 subprocess.run(["git", "commit", "-m", "Обновление test_channels.m3u"], check=False)
-
-print("Пушу в gh-pages...")
 subprocess.run(["git", "push", "origin", "gh-pages"], check=True)
 
-print("Готово. test_channels.m3u перенесён в gh-pages.")
+print("Готово. test_channels.m3u перенесён из PRIVATE → gh-pages.")
