@@ -3,15 +3,20 @@ import requests
 import base64
 
 OWNER = "Phoenix89S"
-REPO = "iptv_Ru2026"
+REPO = "Iptv_Ru2026"  # ВАЖНО: с большой I
 FILE_PATH = "test_channels.m3u"
 BRANCH = "main"
 
 API_URL = f"https://api.github.com/repos/{OWNER}/{REPO}/contents/{FILE_PATH}?ref={BRANCH}"
 
+# GitHub token, который мы сохранили в YML
+TOKEN_PATH = "/home/runner/work/_temp/_github_token"
+with open(TOKEN_PATH, "r") as f:
+    TOKEN = f.read().strip()
+
 headers = {
-    "Authorization": f"token {open('/home/runner/work/_temp/_github_token', 'r').read().strip()}",
-    "Accept": "application/vnd.github.v3.raw"
+    "Authorization": f"token {TOKEN}",
+    "Accept": "application/vnd.github.v3+json"
 }
 
 print("Скачиваю test_channels.m3u из приватного репозитория...")
