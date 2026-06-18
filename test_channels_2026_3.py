@@ -1640,3 +1640,218 @@ def extract_group_from_title(title: str) -> str:
 # --------------------------------------------
 # 7.1.2. Фильтрация MEGA по канону ZABAVA
 # --------------------------------------------
+def load_and_filter_mega() -> list[tuple[str, str]]:
+    """
+    Специальная загрузка MEGA_URL:
+    • загружает MEGA через load_playlist_from_url()
+    • извлекает group-title
+    • сверяет с ZABAVA_CANON_GROUPS
+    • логирует RAW / OK / DROP
+    • возвращает только валидные каналы
+    """
+    skala("[7.1] [MEGA] Загружаю MEGA_URL…")
+    raw_channels = load_playlist_from_url(MEGA_URL)
+
+    filtered: list[tuple[str, str]] = []
+
+    for title, stream_url in raw_channels:
+        group = extract_group_from_title(title)
+
+        skala(f"[7.1] RAW: {group}")
+
+        if group in ZABAVA_CANON_GROUPS:
+            skala(f"[7.1] OK: {group}")
+            filtered.append((title, stream_url))
+        else:
+            skala(f"[7.1] DROP: {group}")
+
+    skala(f"[7.1] [MEGA] Пропущено каналов: {len(filtered)}")
+    return filtered
+
+
+# --------------------------------------------
+# 7.2. УТИЛИТЫ АРТЕФАКТОВ
+# --------------------------------------------
+def save_artifact(path: str, data) -> None:
+    skala(f"[7.2] Сохраняю артефакт: {path}")
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    skala(f"[7.2] Артефакт сохранён: {path}")
+
+
+def load_artifact(path: str):
+    skala(f"[7.2] Загружаю артефакт: {path}")
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    skala(f"[7.2] Артефакт загружен: {path}")
+    return data
+
+
+# --------------------------------------------
+# 7.3. ЕДИНАЯ ТОЧКА ЗАГРУЗКИ ИСТОЧНИКА
+# --------------------------------------------
+def load_source(url: str) -> list[tuple[str, str]]:
+    """
+    Универсальная загрузка:
+    • если это MEGA_URL → спец‑обработка 7.1
+    • иначе → обычная загрузка 7.0.1
+    """
+    if url == MEGA_URL:
+        skala("[7.3] MEGA_URL → спец‑загрузка через 7.1 (фильтрация)")
+        return load_and_filter_mega()
+    else:
+        skala(f"[7.3] Обычный источник → {url}")
+        return load_playlist_from_url(url)
+
+
+# --------------------------------------------
+# 7.4. ГЛАВНАЯ ФУНКЦИЯ ЭТАПА 7
+# --------------------------------------------
+def run_stage_7() -> list[tuple[str, str]]:
+    """
+    ЭТАП 7:
+    1) грузит и фильтрует MEGA → clean_mega.json
+    2) грузит Zabava-reg и Zabava-full
+    3) объединяет всё в единый чистый список
+    4) сохраняет sources_clean.json
+    5) возвращает список для дальнейших этапов (SHIFT / CANON / EPG)
+    """
+    skala("=== ЭТАП 7: старт ===")
+
+    # 1. Чистая MEGA
+    clean_mega = load_and_filter_mega()
+    save_artifact(CLEAN_MEGA_ARTIFACT, clean_mega)
+
+    # 2. Zabava источники
+    z_reg = load_playlist_from_url(ZABAVA_REG_URL)
+    z_full = load_playlist_from_url(ZABAVA_FULL_URL)
+
+    skala(f"[7.4] Zabava-reg: {len(z_reg)} каналов")
+    skala(f"[7.4] Zabava-full: {len(z_full)} каналов")
+
+    # 3. Объединение
+    all_sources: list[tuple[str, str]] = []
+    all_sources.extend(clean_mega)
+    all_sources.extend(z_reg)
+    all_sources.extend(z_full)
+
+    skala(f"[7.4] Всего каналов после объединения: {len(all_sources)}")
+
+    # 4. Сохранение общего артефакта
+    save_artifact(SOURCES_CLEAN_ARTIFACT, all_sources)
+
+    skala("=== ЭТАП 7: завершён. Чистые источники готовы для SHIFT/CANON/EPG ===")
+    return all_sources
+
+# ============================
+# 8. SHIFT_ENGINE
+# ============================
+
+def extract_city_from_title(title: str) -> str | None:
+    # 1) Если есть (Город)
+    m = re.search(r'\(([^)]+)\)', title)
+    if m:
+        return m.group(1).strip()
+
+    # 2) Если нет — пробуем последнее слово
+    parts = title.split()
+    if len(parts) >= 2:
+        return parts[-1].strip()
+
+    return None
+
+def FastParseChannel(raw_title: str, stream_url: str):
+    clean = raw_title.lower()
+    detected_city = None
+    detected_shift = None
+
+    # определяем город
+    for geo in CITY_INDEX.keys():
+        if geo.lower() in clean:
+            detected_city = geo
+            detected_shift, _ = CITY_INDEX.get(geo, (None, None))
+            break
+
+    # если shift не найден — считаем 0
+    if detected_shift is None:
+        detected_shift = 0
+
+    # определяем tvg-id
+    tvg_id = "unknown"
+    for _, (name, tvg) in FEDERAL_BUTTONS.items():
+        if name.lower() in clean:
+            tvg_id = tvg
+            break
+
+    # определяем кнопку
+    button = TVG_TO_BUTTON.get(tvg_id)
+
+    # пробуем авто z-code (но для кнопки 37 он будет None)
+    zcode = None
+    if detected_city and button:
+        zcode = smart_zcode(detected_city, tvg_id, button)
+
+    # формируем EXTINF
+    shift_str = f"+{detected_shift}" if detected_shift > 0 else str(detected_shift)
+    extra = f' z-code="{zcode}"' if zcode else ""
+
+    extinf = f'#EXTINF:-1 tvg-id="{tvg_id}" tvg-shift="{shift_str}"{extra},{raw_title}'
+    return extinf, detected_shift
+
+def ProcessHugeSources(channels: list[tuple[str, str]]) -> str:
+    buckets: dict[int, list[str]] = defaultdict(list)
+
+    for title, url in channels:
+        extinf, shift = FastParseChannel(title, url)
+        buckets[shift].append(extinf + "\n" + url)
+
+    final: list[str] = []
+
+    for shift in sorted(buckets.keys()):
+        sign = f"+{shift}" if shift > 0 else str(shift)
+        final.append(f"\n# --- ОРБИТА MSK {sign} ---\n")
+        final.extend(buckets[shift])
+
+    return "\n".join(final)
+
+def run_shift_stage() -> str:
+    skala("SHIFT: старт")
+
+    # 🔥 В SHIFT идут ВСЕ источники Zabava + MEGA
+    sources = [
+        MEGA_URL,
+        "https://raw.githubusercontent.com/CrocoUser/zabava-project/main/zabava-reg.m3u",
+        "https://raw.githubusercontent.com/CrocoUser/zabava-project/main/zabava-full.m3u"
+    ]
+
+    all_channels: list[tuple[str, str]] = []
+
+    for url in sources:
+        try:
+            skala(f"SHIFT: загружаю источник → {url}")
+            log_info(f"[SHIFT] Загружаю источник: {url}")
+
+            channels = load_playlist_from_url(url)
+
+            skala(f"SHIFT: загружено каналов → {len(channels)}")
+            log_info(f"[SHIFT] Загружено каналов: {len(channels)}")
+
+            all_channels.extend(channels)
+
+        except Exception as e:
+            skala(f"SHIFT: ошибка загрузки {url} — {e}")
+            log_warn(f"[SHIFT] Ошибка загрузки {url}: {e}")
+
+    skala(f"SHIFT: всего каналов после объединения → {len(all_channels)}")
+    log_info(f"[SHIFT] Всего каналов после объединения: {len(all_channels)}")
+
+    result = ProcessHugeSources(all_channels)
+
+    skala("SHIFT: этап завершён. Передаю данные в CANON‑робот.")
+    log_info("[SHIFT] Этап 1 завершён. Передаю данные в CANON‑робот.")
+
+    return result
+
+# ============================
+# 9. CANON_ENGINE
+# ============================
