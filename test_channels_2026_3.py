@@ -1397,3 +1397,246 @@ KANON = {
 # ============================
 # 5. Генерация основного канона (1–36 и 38+)
 # ============================
+
+def GenerateCanonFromButton1():
+    full = {}
+    for btn, (btn_name, tvg) in FEDERAL_BUTTONS.items():
+        if btn == 1:
+            full[1] = KANON_1
+            continue
+
+        # кнопка 37 НЕ генерируется здесь — у неё мини‑канон
+        if btn == 37:
+            continue
+
+        mapping = {}
+        for z1, name1 in KANON_1.items():
+            z_new = z1.replace(".1.", f".{btn}.")
+            name_new = name1.replace("Первый", btn_name)
+            mapping[z_new] = name_new
+
+        full[btn] = mapping
+
+    return full
+
+# ============================
+# 5.1 Мини‑канон для кнопки 37 (ТНВ)
+# ============================
+
+TNV_LIST = [
+    {"name": "ТНВ Планета", "city": "Челябинск"},
+    {"name": "ТНВ Планета", "city": "Челябинск"},
+    {"name": "ТНВ Планета", "city": "Екатеринбург"},
+    {"name": "ТНВ Планета", "city": "Ноябрьск"},
+    {"name": "ТНВ Планета", "city": "Чебоксары"},
+    {"name": "ТНВ Планета", "city": "Ижевск"},
+    {"name": "ТНВ Планета", "city": "Казань"},
+    {"name": "ТНВ-Татарстан", "city": "Татарстан"},
+    {"name": "ТНВ Планета", "city": "Нижний Новгород"},
+    {"name": "ТНВ Планета", "city": "Оренбург"},
+    {"name": "ТНВ Планета", "city": "Пенза"},
+    {"name": "ТНВ Планета", "city": "Самара"},
+    {"name": "ТНВ Планета", "city": "Саратов"},
+    {"name": "ТНВ Планета", "city": "Саранск"},
+    {"name": "ТНВ Планета", "city": "Ульяновск"},
+    {"name": "ТНВ Планета", "city": "Йошкар-Ола"},
+    {"name": "ТНВ Планета", "city": "Уфа"},
+]
+
+def GenerateMiniCanon37():
+    mini = {}
+    city_streams = defaultdict(int)
+
+    for item in TNV_LIST:
+        name = item["name"]
+        city = item["city"]
+
+        # city_idx из CITY_INDEX
+        if city not in CITY_INDEX:
+            continue  # пропускаем неизвестные города
+
+        shift, city_idx = CITY_INDEX[city]
+
+        # регион через auto_region_from_city
+        region = auto_region_from_city(city)
+        if not region:
+            region = "16"  # fallback: Татарстан
+
+        # порядковый номер потока
+        city_streams[city] += 1
+        stream_idx = city_streams[city]
+
+        # формируем Z-код
+        z = f"Z.R({region}).37.{city_idx}.{stream_idx}"
+
+        # имя без города
+        mini[z] = name
+
+    return mini
+
+# ============================
+# 5.2 Собираем общий KANON
+# ============================
+
+KANON = GenerateCanonFromButton1()
+
+# добавляем мини‑канон кнопки 37
+KANON[37] = GenerateMiniCanon37()
+
+# создаём быстрые индексы
+KANON_Z_TO_NAME = {}
+KANON_NAME_TO_Z = {}
+KANON_ORDER = []
+
+for btn, mapping in KANON.items():
+    for z, name in mapping.items():
+        KANON_Z_TO_NAME[z] = name
+        KANON_NAME_TO_Z[name.lower()] = z
+        KANON_ORDER.append(z)
+
+# ============================
+# 6. GEO / Z‑ENGINE
+# ============================
+
+def auto_region_from_city(city: str) -> str | None:
+    if city not in CITY_INDEX:
+        return None
+    shift, idx = CITY_INDEX[city]
+
+    if shift == -1:
+        return "39"
+    if shift == 0:
+        return "77"
+    if shift == 1:
+        return "73"
+    if shift == 2:
+        return "66"
+    if shift == 3:
+        return "55"
+    if shift == 4:
+        return "54"
+
+    return None
+
+def smart_zcode(city: str | None, tvg_id: str | None, button: int | None) -> str | None:
+    if not city or not tvg_id or not button:
+        return None
+
+    # кнопка 37 — мини‑канон, smart_zcode НЕ применяется
+    if button == 37:
+        return None
+
+    if city not in CITY_INDEX:
+        return None
+
+    shift, city_idx = CITY_INDEX[city]
+    region = auto_region_from_city(city)
+    if not region:
+        return None
+
+    return f"Z.R({region}).{button}.{city_idx}"
+
+def auto_canon_from_city(button: int, city: str) -> tuple[str | None, str | None]:
+    # кнопка 37 — мини‑канон, основной канон НЕ применяется
+    if button == 37:
+        return None, None
+
+    if button not in KANON:
+        return None, None
+
+    city_low = city.lower()
+
+    for z1, name1 in KANON[1].items():
+        if city_low in name1.lower():
+            z_new = z1.replace(".1.", f".{button}.")
+            btn_name = FEDERAL_BUTTONS[button][0]
+            name_new = name1.replace("Первый", btn_name)
+            return z_new, name_new
+
+    return None, None
+
+# ============================
+# 7. Загрузка и очистка источников
+# ============================
+
+MEGA_URL = "https://example.com/mega.m3u"
+ZABAVA_REG_URL = "https://raw.githubusercontent.com/CrocoUser/zabava-project/main/zabava-reg.m3u"
+ZABAVA_FULL_URL = "https://raw.githubusercontent.com/CrocoUser/zabava-project/main/zabava-full.m3u"
+
+CLEAN_MEGA_ARTIFACT = "clean_mega.json"
+SOURCES_CLEAN_ARTIFACT = "sources_clean.json"
+
+# Канон групп Zabava (пример, ты подставишь свой)
+ZABAVA_CANON_GROUPS = {
+    "GitHub - Zabava / Москва",
+    "GitHub - Zabava / Санкт-Петербург",
+    "GitHub - Zabava / Казань",
+    # ...
+}
+
+
+def skala(msg: str):
+    # твой логгер
+    print(msg)
+
+
+# --------------------------------------------
+# 7.0. БАЗОВАЯ ЗАГРУЗКА RAW-ТЕКСТА
+# --------------------------------------------
+def load_raw(url: str) -> str:
+    skala(f"[7.0] Загрузка источника: {url}")
+    try:
+        resp = requests.get(url, timeout=15)
+        resp.raise_for_status()
+        text = resp.text
+        count = text.count("#EXTINF")
+        skala(f"[7.0] Источник загружен: {url} ({count} каналов)")
+        return text
+    except Exception as e:
+        skala(f"[7.0] Ошибка загрузки источника: {url} — {e}")
+        raise
+
+
+# --------------------------------------------
+# 7.0.1. БАЗОВЫЙ РАЗБОР EXTINF → (title, url)
+# --------------------------------------------
+def load_playlist_from_url(url: str) -> list[tuple[str, str]]:
+    """
+    Базовая загрузка и разбор EXTINF → (title, stream_url).
+    Используется ВСЕМИ источниками, включая MEGA.
+    """
+    text = load_raw(url)
+    lines = text.splitlines()
+    channels: list[tuple[str, str]] = []
+    last_title: str | None = None
+
+    for line in lines:
+        if line.startswith("#EXTINF"):
+            # Берём всё после запятой как title
+            last_title = line.split(",", 1)[1].strip()
+        elif line.startswith("http"):
+            if last_title:
+                channels.append((last_title, line.strip()))
+                last_title = None
+
+    skala(f"[7.0.1] Разобрано каналов из {url}: {len(channels)}")
+    return channels
+
+
+# --------------------------------------------
+# 7.1.1. Извлечение group-title из title
+# --------------------------------------------
+def extract_group_from_title(title: str) -> str:
+    """
+    Пример:
+        "GitHub - Zabava / Москва | Первый канал"
+        → "GitHub - Zabava / Москва"
+    """
+    if "|" in title:
+        return title.split("|", 1)[0].strip()
+    return title.strip()
+
+
+# --------------------------------------------
+# 7.1.2. Фильтрация MEGA по канону ZABAVA
+# --------------------------------------------
