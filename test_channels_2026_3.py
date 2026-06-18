@@ -1855,3 +1855,452 @@ def run_shift_stage() -> str:
 # ============================
 # 9. CANON_ENGINE
 # ============================
+
+def normalize_channel_name(title: str) -> str:
+    t = title.strip()
+    while "  " in t:
+        t = t.replace("  ", " ")
+    t = t.replace(" |", "").replace("| ", "")
+    t = t.replace("[HD]", "").replace("(HD)", "").replace("HD", "HD")
+    t = re.sub(r"\(\s*\)", "", t)
+    t = t.replace(" ,", ",")
+    return t.strip()
+
+
+def smart_auto_tvg_id(title: str) -> str | None:
+    t = title.lower()
+
+    # точное совпадение
+    for btn, (name, tvg) in FEDERAL_BUTTONS.items():
+        if t == name.lower():
+            return tvg
+
+    # начинается с названия
+    for btn, (name, tvg) in FEDERAL_BUTTONS.items():
+        if t.startswith(name.lower()):
+            return tvg
+
+    # содержит название
+    for btn, (name, tvg) in FEDERAL_BUTTONS.items():
+        if name.lower() in t:
+            return tvg
+
+    # совпадает по первому слову
+    for btn, (name, tvg) in FEDERAL_BUTTONS.items():
+        first = name.split()[0].lower()
+        if first in t:
+            return tvg
+
+    return None
+
+
+def auto_button_from_tvg(tvg_id: str | None) -> int | None:
+    if not tvg_id:
+        return None
+    return TVG_TO_BUTTON.get(tvg_id)
+
+
+def parse_zcode(z: str):
+    m = re.match(r"Z\.R\((\d+)\)\.(\d+)\.(\d+)\.(\d+)", z)
+    if not m:
+        return None, None, None, None
+    region_code = int(m.group(1))
+    button = int(m.group(2))
+    city_idx = int(m.group(3))
+    stream_idx = int(m.group(4))
+    return region_code, button, city_idx, stream_idx
+
+
+def run_canon_stage(shift_text: str) -> str:
+    skala("CANON: старт")
+
+    lines = shift_text.splitlines()
+    pairs: list[tuple[str, str]] = []
+    current_extinf = None
+
+    # собираем пары EXTINF + URL
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+
+        if line.startswith("#EXTINF"):
+            current_extinf = line
+            skala(f"CANON: найден EXTINF → {line}")
+
+        elif line.startswith("http"):
+            if current_extinf:
+                pairs.append((current_extinf, line))
+                skala(f"CANON: связка EXTINF+URL → {current_extinf} | {line}")
+                current_extinf = None
+
+    normalized: list[tuple[str, str]] = []
+
+    # счётчик потоков ТНВ
+    tnv_streams = defaultdict(int)
+
+    for extinf, url in pairs:
+        try:
+            raw_title = extinf.split(",", 1)[1].strip()
+        except:
+            raw_title = ""
+
+        title = normalize_channel_name(raw_title)
+        skala(f"CANON: нормализованное имя → {title}")
+
+        # tvg-id
+        m_tvg = re.search(r'tvg-id="([^"]+)"', extinf)
+        tvg_id = m_tvg.group(1) if m_tvg else smart_auto_tvg_id(title)
+        skala(f"CANON: tvg-id → {tvg_id}")
+
+        # кнопка
+        button = auto_button_from_tvg(tvg_id)
+        skala(f"CANON: кнопка → {button}")
+
+        # shift
+        m_shift = re.search(r'tvg-shift="([^"]+)"', extinf)
+        tvg_shift = m_shift.group(1) if m_shift else "0"
+
+        # город
+        city = extract_city_from_title(title)
+        skala(f"CANON: город → {city}")
+
+        # z-code из SHIFT
+        m_z = re.search(r'z-code="([^"]+)"', extinf)
+        zcode = m_z.group(1) if m_z else None
+
+        if zcode:
+            skala(f"CANON: найден z-code из SHIFT → {zcode}")
+
+        # если z-code нет — пробуем авто
+        if not zcode:
+            zcode = smart_zcode(city, tvg_id, button)
+            skala(f"CANON: авто z-code → {zcode}")
+
+        canonical_title = title
+
+        # ============================
+        # ОСНОВНОЙ КАНОН (1–36, 38+)
+        # ============================
+        if city and button and button != 37:
+            z_auto, name_auto = auto_canon_from_city(button, city)
+            if z_auto and name_auto:
+                skala(f"CANON: основной канон → {name_auto} ({z_auto})")
+                zcode = z_auto
+                canonical_title = name_auto
+
+        # ============================
+        # МИНИ‑КАНОН ДЛЯ КНОПКИ 37
+        # ============================
+        if button == 37 and city:
+            if city in CITY_INDEX:
+                shift_val, city_idx = CITY_INDEX[city]
+                region = auto_region_from_city(city) or "16"
+
+                tnv_streams[city] += 1
+                stream_idx = tnv_streams[city]
+
+                zcode = f"Z.R({region}).37.{city_idx}.{stream_idx}"
+
+                canonical_title = "ТНВ Планета"
+                if "татарстан" in city.lower():
+                    canonical_title = "ТНВ-Татарстан"
+
+                skala(f"CANON: мини‑канон 37 → {canonical_title} ({zcode})")
+
+        # собираем атрибуты
+        attrs = []
+        if tvg_id:
+            attrs.append(f'tvg-id="{tvg_id}"')
+        attrs.append(f'tvg-shift="{tvg_shift}"')
+        if zcode:
+            attrs.append(f'z-code="{zcode}"')
+
+        # 🔥 ВСЁ, что выходит из CANON, идёт в одну группу:
+        attrs.append('group-title="Забава Эфирные Плюс"')
+
+        # ============================
+        # 🔥 ДОБАВЛЕНО: Z‑КОД В ИМЯ КАНАЛА
+        # ============================
+        if zcode:
+            display_name = f"{zcode} {canonical_title}"
+        else:
+            display_name = canonical_title
+
+        # ЗАМЕНА ТВОЕЙ СТРОКИ:
+        # new_extinf = f'#EXTINF:-1 {" ".join(attrs)},{canonical_title}'
+        new_extinf = f'#EXTINF:-1 {" ".join(attrs)},{display_name}'
+
+        normalized.append((new_extinf, url))
+
+    # удаляем дубли
+    seen = set()
+    unique: list[tuple[str, str]] = []
+
+    for extinf, url in normalized:
+        key = extinf + "|" + url
+        if key not in seen:
+            seen.add(key)
+            unique.append((extinf, url))
+
+    skala(f"CANON: после удаления дублей → {len(unique)} каналов")
+
+    # сортировка по Z‑коду
+    def sort_key(item: tuple[str, str]):
+        extinf, url = item
+
+        m_z = re.search(r'z-code="([^"]+)"', extinf)
+        if not m_z:
+            return (9999, 9999, 9999, 9999)
+
+        z = m_z.group(1)
+        region, button, city_idx, stream_idx = parse_zcode(z)
+
+        if region is None:
+            return (9998, 9998, 9998, 9998)
+
+        return (button, region, city_idx, stream_idx)
+
+    unique_sorted = sorted(unique, key=sort_key)
+    skala("CANON: сортировка завершена")
+
+    # финальный вывод
+    out_lines: list[str] = []
+    for extinf, url in unique_sorted:
+        out_lines.append(extinf)
+        out_lines.append(url)
+
+    skala("CANON: финальный вывод готов")
+    log_info("[CANON] Этап 2 завершён. Финальный плейлист готов.")
+
+    return "\n".join(out_lines)
+
+# ============================
+# 10. PIPELINE + main()
+# ============================
+
+def run_full_pipeline() -> str:
+    """
+    Финальный режим:
+    - загружаем базу (MAIN_URL) — это основа
+    - запускаем SHIFT (MEGA_URL + MAIN_URL)
+    - запускаем CANON поверх SHIFT
+    - оборачиваем канон в группу «Забава Эфирные Плюс»
+    - склеиваем: база + наша группа
+    """
+    log_info("[PIPELINE] Запуск полного пайплайна")
+    skala("Инициализация пайплайна")
+
+    source_stats = {}
+
+    # 1. База (MAIN_URL)
+    try:
+        skala("Загрузка базы MAIN_URL")
+        base_text = load_raw(MAIN_URL)
+        count_base = base_text.count("#EXTINF")
+        source_stats["База MAIN_URL"] = count_base
+        log_info(f"[PIPELINE] База загружена из MAIN_URL ({count_base} каналов)")
+        skala(f"База загружена ({count_base} каналов)")
+    except Exception as e:
+        log_error(f"[PIPELINE] Ошибка загрузки базы MAIN_URL: {e}")
+        base_text = ""
+        source_stats["База MAIN_URL"] = 0
+        skala("Ошибка загрузки базы MAIN_URL, база пуста")
+
+    # 2. SHIFT
+    skala("Запуск SHIFT_ENGINE")
+    shift_text = run_shift_stage()
+    count_shift = shift_text.count("#EXTINF")
+    source_stats["SHIFT итог"] = count_shift
+    log_info(f"[PIPELINE] SHIFT_ENGINE завершён ({count_shift} каналов)")
+    skala(f"SHIFT завершён ({count_shift} каналов)")
+
+    # 3. CANON
+    skala("Запуск CANON_ENGINE")
+    canon_text = run_canon_stage(shift_text)
+    count_canon = canon_text.count("#EXTINF")
+    source_stats["CANON итог"] = count_canon
+    log_info(f"[PIPELINE] CANON_ENGINE завершён ({count_canon} каналов)")
+    skala(f"CANON завершён ({count_canon} каналов)")
+
+    # 4. Заголовок #EXTM3U
+    if not base_text.lstrip().startswith("#EXTM3U"):
+        base_text = "#EXTM3U\n" + base_text
+
+    # 5. Обёртка канона
+    skala("Обёртка канонов в группу «Забава Эфирные Плюс»")
+    canon_group = wrap_canon_group(canon_text)
+
+    # 6. Итог
+    final = base_text.rstrip() + "\n" + canon_group
+    count_final = final.count("#EXTINF")
+    source_stats["ФИНАЛ"] = count_final
+    log_info(f"[PIPELINE] Финальная сборка завершена ({count_final} каналов)")
+    skala(f"Финальная сборка завершена ({count_final} каналов)")
+
+    # 7. Сводный отчёт
+    skala("Генерация сводного отчёта")
+    save_full_report(source_stats, shift_text, canon_text, base_text, final)
+
+    # 8. СОХРАНЕНИЕ ИТОГОВОГО ПЛЕЙЛИСТА (ДОБАВЛЕНО)
+    save_final_playlist(final)
+
+    return final
+
+
+# ==========================================
+# 5.1. ОБЁРТКА КАНОНА (ВОССТАНОВЛЕНА)
+# ==========================================
+def wrap_canon_group(text: str) -> str:
+    """
+    Обёртка финального CANON в группу «Забава Эфирные Плюс».
+    Добавляет EXTM3U и групповой тег.
+    """
+    header = (
+        "#EXTM3U\n"
+        '#EXTGRP: "Забава Эфирные Плюс"\n'
+    )
+    return header + text
+
+
+# ==========================================
+# 9. СВОДНЫЙ ОТЧЁТ (SAVE_FULL_REPORT)
+# ==========================================
+def save_full_report(stats: dict, shift_text: str, canon_text: str, base_text: str, final_text: str):
+    """
+    Сохраняет сводный отчёт в тот же репозиторий,
+    где лежит test_channels_2026_3.py.
+    Имя файла — уникальное, с timestamp.
+    """
+    import datetime
+
+    # Уникальное имя файла
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"full_report_{timestamp}.txt"
+
+    try:
+        with open(filename, "w", encoding="utf-8") as f:
+            f.write("=== СВОДНАЯ СТАТИСТИКА ===\n")
+            for k, v in stats.items():
+                f.write(f"{k}: {v}\n")
+
+            f.write("\n=== BASE (MAIN_URL) ===\n")
+            f.write(base_text)
+
+            f.write("\n=== SHIFT ===\n")
+            f.write(shift_text)
+
+            f.write("\n=== CANON ===\n")
+            f.write(canon_text)
+
+            f.write("\n=== FINAL ===\n")
+            f.write(final_text)
+
+        skala(f"Сводный отчёт сохранён → {filename}")
+        log_info(f"[REPORT] Сводный отчёт сохранён: {filename}")
+
+    except Exception as e:
+        skala(f"Ошибка сохранения сводного отчёта: {e}")
+        log_error(f"[REPORT] Ошибка сохранения сводного отчёта: {e}")
+
+
+# ==========================================
+# 11. ФУНКЦИЯ ЗАПИСИ ИТОГОВОГО ФАЙЛА
+# ==========================================
+def save_final(text: str, filename: str):
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write(text)
+
+
+# ==========================================
+# 11.1. СОХРАНЕНИЕ ИТОГОВОГО ПЛЕЙЛИСТА (ДОБАВЛЕНО)
+# ==========================================
+def save_final_playlist(final_text: str):
+    with open("Extra_channels2026.m3u", "w", encoding="utf-8") as f:
+        f.write(final_text)
+
+
+# ==========================================
+# 12. ХВОСТ (правильный)
+# ==========================================
+def main():
+    parser = argparse.ArgumentParser(description="Super_RTRS_2026 FINAL")
+
+    parser.add_argument(
+        "--mode",
+        choices=["full", "shift", "canon"],
+        default="full",
+        help="full = полный цикл, shift = только SHIFT_ENGINE, canon = только CANON_ENGINE"
+    )
+
+    parser.add_argument(
+        "-o",
+        "--output",
+        help="если указан — сохраняем в файл; если нет — выводим в консоль"
+    )
+
+    parser.add_argument(
+        "--input",
+        help="в режиме canon: путь к входному плейлисту (если не указан — берём результат SHIFT_ENGINE)"
+    )
+
+    args = parser.parse_args()
+
+    # -------------------------
+    # РЕЖИМ SHIFT
+    # -------------------------
+    if args.mode == "shift":
+        skala("Режим SHIFT")
+        text = run_shift_stage()
+        text = "#EXTM3U\n" + text
+
+        if args.output:
+            with open(args.output, "w", encoding="utf-8") as f:
+                f.write(text)
+            log_info(f"[MAIN] SHIFT сохранён в файл: {args.output}")
+            skala(f"SHIFT сохранён в файл {args.output}")
+        else:
+            print(text)
+        return
+
+    # -------------------------
+    # РЕЖИМ CANON
+    # -------------------------
+    if args.mode == "canon":
+        skala("Режим CANON")
+        if args.input:
+            with open(args.input, "r", encoding="utf-8") as f:
+                shift_text = f.read()
+        else:
+            shift_text = run_shift_stage()
+
+        text = run_canon_stage(shift_text)
+        if not text.startswith("#EXTM3U"):
+            text = "#EXTM3U\n" + text
+
+        if args.output:
+            with open(args.output, "w", encoding="utf-8") as f:
+                f.write(text)
+            log_info(f"[MAIN] CANON сохранён в файл: {args.output}")
+            skala(f"CANON сохранён в файл {args.output}")
+        else:
+            print(text)
+        return
+
+    # -------------------------
+    # РЕЖИМ FULL
+    # -------------------------
+    skala("Режим FULL")
+    text = run_full_pipeline()
+
+    if args.output:
+        with open(args.output, "w", encoding="utf-8") as f:
+            f.write(text)
+        log_info(f"[MAIN] FULL сохранён в файл: {args.output}")
+        skala(f"FULL сохранён в файл {args.output}")
+    else:
+        print(text)
+
+
+if __name__ == "__main__":
+    main()
