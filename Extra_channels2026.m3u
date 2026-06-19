@@ -1,5 +1,435 @@
+#EXTM3U url-tvg="http://epg.one/epg2.xml.gz" catchup="append" catchup-type="default" catchup-days="14" catchup-source="${url}&utc=${start}&lutc=${timestamp}" timeshift="0" tvg-rec="1" x-logos="https://logos.server/${tvg-id}.png" x-chno="auto" x-grouping="buttons" http-user-agent="Mozilla/5.0 (SmartTV; PhoenixEngine)" http-referrer="https://phoenix.local/" network-caching="2000" x-drm-system="none" x-origin="Phoenix Engine 2026" x-epg-provider="epg.one"
+
+#-------------------------- ШАПКА ПЛЕЙЛИСТА (ОБНОВЛЕННАЯ) --------------------------
+# EPG: It999 + Teleguide + Iptvx (Lite/Full)
+# Архив: 7 дней (Перемотка + Запись активны)
+#-----------------------------------------------------------------------------------
+
+#--------------------------------------- СПЕЦ БЛОК ТЕЛЕКАНАЛОВ ПЕРВЫЙ -----------------------------
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Первый канал
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R04_1TV/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Россия 1
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R04_ROSSIA1/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Матч ТВ
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R04_ROSSIA2/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] НТВ
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R03_NTV/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Пятый
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R02_5TV/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Россия К
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R02_ROSSIAK/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Россия 24
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_ROSSIA24/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Карусель
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_KARUSEL/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] ОТР
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R04_OTR/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] ТВ Центр
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R04_TVC/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] РЕН ТВ
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R02_RENTV/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] СТС
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R02_STS/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Домашний
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R04_DOMASHNY/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] ТВ-3
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R03_TV3/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Пятница!
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_FRIDAY/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Звезда
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R03_ZVEZDA/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] МИР
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R02_MIR_KLNG_FILIAL/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] ТНТ
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_TNT/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] МУЗ-TV
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R03_MUZTV/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Че!
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R02_PERETZ/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Ю
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R03_U/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Каскад
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_KASKAD/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Вести-Калининград (Запад)
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_WEST/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Первый городской
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_1GORODSKOY_KLGD/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] НТВ Хит
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_NTVHIT/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] НТВ Стиль
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_NTVSTYLE/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] НТВ Право
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_NTVPRAVO/variant.m3u8
+#-------------------------------------------- КОНЕЦ ПЕРВОГО БЛОКА КАНАЛОВ ------------------------------
+#----------------------------------------------ВТОРОЙ СПЕЦ БЛОК КАНАЛОВ ---------------------------------
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Первый канал
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_1TV/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Россия 1
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R04_ROSSIA1/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Матч ТВ
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R04_ROSSIA2/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спеcom",[MANUAL] НТВ
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R03_NTV/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Пятый
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R02_5TV/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Россия К
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R02_ROSSIAK/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Россия 24
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_ROSSIA24/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Карусель
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_KARUSEL/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] ОТР
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_OTR/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] ТВ Центр
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R04_TVC/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] РЕН ТВ
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R02_RENTV/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] СТС
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R02_STS/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Домашний
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R04_DOMASHNY/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] ТВ-3
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_TV3/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Пятница!
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_FRIDAY/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Звезда
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R03_ZVEZDA/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] МИР
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R02_MIR_KLNG_FILIAL/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] ТНТ
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_TNT/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] МУЗ-TV
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R03_MUZTV/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Че!
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R02_PERETZ/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Ю
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R03_U/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Каскад
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_KASKAD/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Вести-Калининград (Запад)
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_WEST/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Первый городской
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_1GORODSKOY_KLGD/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] НТВ Хит
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_NTVHIT/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] НТВ Стиль
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_NTVSTYLE/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] НТВ Право
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_NTVPRAVO/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] СТС Love
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_STSLOVE/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] СТС Kids
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_STSKIDS/variant.m3u8
+
+
+#---------------------------------------------------КОНЕЦ ВТОРОГО СПЕЦБЛОКА КАНАЛОВ ----------------------
+
+#------------------------------------------ТРЕТИЙ СПЕЦБЛОК КАНАЛОВ ----------------
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Киноужас
+https://rt-htlive.cdn.ngenix.net/hls/CH_KINOUZHAS/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Кинохит
+https://rt-htlive.cdn.ngenix.net/hls/CH_KINOHIT/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Кинопремьера
+https://rt-htlive.cdn.ngenix.net/hls/CH_KINOPREMIERA/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Мужское кино
+https://rt-htlive.cdn.ngenix.net/hls/CH_MUZHSKOEKINO/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Родное кино
+https://rt-htlive.cdn.ngenix.net/hls/CH_RODNOEKINO/variant.m3u8
+
+
+#---------------------------------КОГЕЦ ТРЕТЬЕГО СПЕЦ БЛОКА КАНАЛОВ --------------
+
+#--------------ЧЕТВЕРТЫЙ СПЕЦ БЛОК МОСКВА ----
+
+# ====================================================================
+# ПЕРВЫЙ МУЛЬТИПЛЕКС (РТРС-1) - МОСКВА
+# ====================================================================
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Первый канал (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R01_1TV/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Россия 1 (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R04_ROSSIA1/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Матч ТВ (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R04_ROSSIA2/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] НТВ (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R03_NTV/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Пятый канал (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R02_5TV/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Россия К (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R02_ROSSIAK/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Россия 24 (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R01_ROSSIA24/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Карусель (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R01_KARUSEL/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] ОТР (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R01_OTR/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] ТВ Центр (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R04_TVC/variant.m3u8
+
+
+# ====================================================================
+# ВТОРОЙ МУЛЬТИПЛЕКС (РТРС-2) - МОСКВА
+# ====================================================================
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] РЕН ТВ (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R02_RENTV/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Спас (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R03_SPAS/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] СТС (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R02_STS/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Домашний (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R04_DOMASHNY/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] ТВ-3 (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R01_TV3/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Пятница! (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R01_FRIDAY/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Звезда (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R03_ZVEZDA/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] МИР (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R02_MIR/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] ТНТ (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R01_TNT/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] МУЗ-ТВ (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R03_MUZTV/variant.m3u8
+
+
+# ====================================================================
+# ТРЕТИЙ МУЛЬТИПЛЕКС (РТРС-3) - МОСКОВСКИЙ РЕГИОНАЛЬНЫЙ
+# ====================================================================
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Че! (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R02_PERETZ/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Ю (Москва)
+https://rt-htlive.cdn.ngenix.net/hls/CH_R03_U/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Москва 24
+https://rt-htlive.cdn.ngenix.net/hls/CH_MOSKVA24/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Москва Доверие
+https://rt-htlive.cdn.ngenix.net/hls/CH_DOVERIE/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] 360° Подмосковье
+https://rt-htlive.cdn.ngenix.net/hls/CH_TV360PODMOSKOV_HD/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] РБК ТВ
+https://rt-htlive.cdn.ngenix.net/hls/CH_RBCTV/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Солнце
+https://rt-htlive.cdn.ngenix.net/hls/CH_SOLNTSE/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Суббота!
+https://rt-htlive.cdn.ngenix.net/hls/CH_SUBBOTA/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Ключ
+https://rt-htlive.cdn.ngenix.net/hls/CH_KLYUCH/variant.m3u8
+
+#EXTINF:-1 tvg-logo="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect width='28' height='28' rx='3' fill='%230b1018'/><text x='14' y='19' font-size='10' text-anchor='middle' fill='%232a3848' font-family='monospace'>TV</text></svg>' group-title="Эфирные ТВ Спец",[MANUAL] Известия
+https://rt-htlive.cdn.ngenix.net/hls/CH_IZVESTIA/variant.m3u8
+
+
+#------------КОНЕЦ ЧЕТВЕРТОГО СПЕЦ БЛОКА МОСКВА -----
+
+
+#EXTINF:-1, Твц 1
+https://stream8.cinerama.uz/1025/tracks-v1a1/mono.m3u8
+#EXTINF:-1, Твц 2
+https://stream8.cinerama.uz/1281/tracks-v1a1/mono.m3u8
+
+#--------
+
+# ---------------- ГРУППА: VIJU / VIASAT ----------------
+
+#EXTINF:-1 tvg-id="viju-plus-premier" tvg-logo="https://iptvx.one/picons/vip_premiere_hd.png" group-title="TV1000",viju+ Premiere
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/vip_premiere/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viju-plus-megahit" tvg-logo="https://iptvx.one/picons/vip_megahit_hd.png" group-title="TV1000",viju+ Megahit
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/vip_megahit/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viju-plus-serial" tvg-logo="https://iptvx.one/picons/vip_serial_hd.png" group-title="TV1000",viju+ Serial
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/vip_serial/2/index.m3u8
+
+#EXTINF:-1 tvg-id="tv1000" tvg-logo="https://iptvx.one/picons/tv1000.png" group-title="TV1000",TV1000
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/tv1000/2/index.m3u8
+
+#EXTINF:-1 tvg-id="tv1000-action" tvg-logo="https://iptvx.one/picons/tv1000_action.png" group-title="TV1000",TV1000 Action
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/tv1000_action/2/index.m3u8
+
+#EXTINF:-1 tvg-id="tv1000-russian" tvg-logo="https://iptvx.one/picons/tv1000_russian_cinema.png" group-title="TV1000",TV1000 Русское кино
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/tv1000_russian/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viasat-explore" tvg-logo="https://iptvx.one/picons/viasat_explore.png" group-title="TV1000",viju+ Explore
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/viasat_explore/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viasat-history" tvg-logo="https://iptvx.one/picons/viasat_history.png" group-title="TV1000",viju+ History
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/viasat_history/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viasat-nature" tvg-logo="https://iptvx.one/picons/viasat_nature.png" group-title="TV1000",viju+ Nature
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/viasat_nature/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viasat-sport" tvg-logo="https://iptvx.one/picons/viasat_sport.png" group-title="TV1000",viju+ Sport
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/viasat_sport/2/index.m3u8
+
+
+
 #EXTM3U
-#EXTM3U
+
+#---------------- ГРУППА: ЭФИРНЫЕ ТВ ТЕСТ (НОВАЯ ВЕРСИЯ) ----------------
+
+#EXTINF:-1 tvg-id="viju-tv1000" group-title="TV1000",69.1 viju TV1000
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/tv1000/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viju-tv1000-russian" group-title="TV1000",69.2 viju TV1000 Русское
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/tv1000_russian/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viju-tv1000-action" group-title="TV1000",69.3 viju TV1000 Action
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/tv1000_action/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viju-tv1000-novella" group-title="TV1000",69.4 viju TV1000 Новелла
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/tv1000_novella/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viju-tv1000-romantica" group-title="TV1000",69.5 viju TV1000 Romantica
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/viasat_romantica/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viju-explore" group-title="TV1000",69.6 viju Explore
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/viasat_explore/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viju-history" group-title="TV1000",69.7 viju History
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/viasat_history/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viju-nature" group-title="TV1000",69.8 viju Nature
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/viasat_nature/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viju-da-vinci" group-title="TV1000",69.9 viju Da Vinci
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/da_vinci/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viju-plus-premiere" group-title="TV1000",69.10 viju+ Premiere
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/vip_premiere/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viju-plus-megahit" group-title="TV1000",69.11 viju+ Megahit
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/vip_megahit/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viju-plus-comedy" group-title="TV1000",69.12 viju+ Comedy
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/vip_comedy/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viju-plus-serial" group-title="TV1000",69.13 viju+ Serial
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/vip_serial/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viju-plus-planet" group-title="TV1000",69.14 viju+ Planet
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/viasat_planet/2/index.m3u8
+
+#EXTINF:-1 tvg-id="viju-plus-sport" group-title="TV1000",69.15 viju+ Sport
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://a3569457567-s70378.cdn.ngenix.net/viasat_sport/2/index.m3u8
+
+
+
+
+
+
+
 #EXTGRP: "Забава Эфирные Плюс"
 #EXTINF:-1 tvg-id="tnv" tvg-shift="+2" z-code="Z.R(66).37.19.1" group-title="Забава Эфирные Плюс",Z.R(66).37.19.1 ТНВ Планета
 https://rt-ural-ekt-htlive.cdn.ngenix.net/hls/CH_R04_OTT_TNV_PLANETA_URAL/variant.m3u8
