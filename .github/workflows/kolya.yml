@@ -1,0 +1,72 @@
+name: Kolya Scanner
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"   # запуск каждые 6 часов
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install aiohttp
+
+      - name: Run Kolya Scanner
+        run: |
+          python Kolya_scanner.py
+
+      # ============================
+      #   КОМИТ В MAIN
+      # ============================
+      - name: Commit Kolya.m3u to main
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
+          git add Kolya.m3u
+
+          if git diff --cached --quiet; then
+            echo "No changes for main"
+          else
+            git commit -m "Update Kolya.m3u [main]"
+            git push origin main
+          fi
+
+      # ============================
+      #   КОМИТ В GH-PAGES
+      # ============================
+      - name: Push Kolya.m3u to gh-pages
+        run: |
+          git fetch origin gh-pages
+
+          git switch gh-pages || git checkout -b gh-pages
+
+          cp Kolya.m3u ./Kolya.m3u
+
+          git add Kolya.m3u
+
+          if git diff --cached --quiet; then
+            echo "No changes for gh-pages"
+          else
+            git commit -m "Update Kolya.m3u [gh-pages]"
+            git push origin gh-pages
+          fi
+
+      - name: Return to main
+        run: git switch main
