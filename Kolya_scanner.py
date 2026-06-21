@@ -15,46 +15,31 @@ import time
 #       • 317xxx — основной ГПМ-кластер (ТНТ, ТВ3, Пятница, 2x2)
 #       • 619xxx — музыкальный/цифровой кластер (ТНТ Music)
 #
-#   Цель:
-#       Найти ВСЕ живые HLS-потоки, включая скрытые,
-#       резервные, региональные, fallback и экспериментальные.
-#
-#   Почему Kolya Scanner?
-#       Потому что это тот самый «Коля из серверной»,
-#       который знает все ходы UMA и достаёт то,
-#       что обычные сканеры даже не видят.
+#   Итоговый файл:
+#       Kolya.m3u — финальный плейлист, который будет
+#       автоматически отправляться в ветки main и gh-pages.
 # ============================================================
 
-# ---------------------- CDN ДОМЕНЫ --------------------------
 DOMAINS = [
-    "https://bl.uma.media/live",     # Основной CDN
-    "https://edge.uma.media/live",   # Резервная площадка
-    "https://strm.uma.media/live"    # Fallback/региональный CDN
+    "https://bl.uma.media/live",
+    "https://edge.uma.media/live",
+    "https://strm.uma.media/live"
 ]
 
-# ---------------------- НОДЫ CDN ----------------------------
 NODES = ["1/1", "2/1", "3/1"]
 
-# ---------------------- ТИПЫ ПЛЕЙЛИСТОВ ---------------------
 PLAYLIST_FILES = ["playlist.m3u8", "master.m3u8"]
 
-# ---------------------- ПУЛЫ ID ------------------------------
 ID_RANGES = [
-    range(314000, 315000),  # 1000 ID
-    range(317000, 318000),  # 1000 ID
-    range(619000, 619400)   # 400 ID
+    range(314000, 315000),
+    range(317000, 318000),
+    range(619000, 619400)
 ]
 
-# ---------------------- КОНКУРЕНТНОСТЬ -----------------------
 CONCURRENCY_LIMIT = 150
-# ============================================================
 
 
 async def check_combination(session, semaphore, stream_id, domain, profile, node, file, results_list):
-    """
-    Проверяет одну конкретную комбинацию:
-    домен × профиль × нода × тип плейлиста.
-    """
     url = f"{domain}/{stream_id}/HLS/{profile}/{node}/{file}"
 
     async with semaphore:
@@ -64,17 +49,14 @@ async def check_combination(session, semaphore, stream_id, domain, profile, node
                     res_data = {
                         "id": stream_id,
                         "url": url,
-                        "domain": domain.split("//")[1].split("/")[0],
+                        "domain": domain.split('//')[1].split('/')[0],
                         "profile": profile,
                         "node": node,
                         "file": file
                     }
                     results_list.append(res_data)
 
-                    print(
-                        f"[FOUND] ID {stream_id} | "
-                        f"{res_data['domain']} | {profile} | {node} | {file}"
-                    )
+                    print(f"[FOUND] ID {stream_id} | {res_data['domain']} | {profile} | {node} | {file}")
                     return True
         except Exception:
             pass
@@ -83,10 +65,6 @@ async def check_combination(session, semaphore, stream_id, domain, profile, node
 
 
 async def worker(session, semaphore, stream_id, results_list):
-    """
-    Воркер для одного stream_id.
-    Генерирует ВСЕ возможные профили UMA Media.
-    """
     profiles = [
         "4614144_2",
         "4614144_3",
@@ -120,8 +98,7 @@ async def main():
 
     print("=== KOLYA SCANNER — PHOENIX MODE ===")
     print(f"ID к проверке: {len(all_ids)}")
-    print("Матрица: 3 домена × 5 профилей × 3 ноды × 2 файла")
-    print("Запуск асинхронной машины...\n")
+    print("Матрица: 3 домена × 5 профилей × 3 ноды × 2 файла\n")
 
     semaphore = asyncio.Semaphore(CONCURRENCY_LIMIT)
     connector = aiohttp.TCPConnector(limit=CONCURRENCY_LIMIT, ttl_dns_cache=300)
@@ -148,7 +125,8 @@ async def main():
             ]
             await asyncio.gather(*batch_tasks)
 
-    m3u_filename = "uma_media_total.m3u"
+    # ---------------------- M3U ВЫГРУЗКА ----------------------
+    m3u_filename = "Kolya.m3u"
     with open(m3u_filename, "w", encoding="utf-8") as f:
         f.write("#EXTM3U\n")
         for stream in sorted(found_streams, key=lambda x: x['id']):
@@ -159,7 +137,7 @@ async def main():
             )
             f.write(
                 f'#EXTINF:-1 tvg-id="uma-{stream["id"]}" '
-                f'group-title="UMA Scan", {channel_name}\n'
+                f'group-title="Kolya Scan", {channel_name}\n'
             )
             f.write(f"{stream['url']}\n")
 
@@ -168,7 +146,7 @@ async def main():
     print("\n==================================================")
     print(f"Сканирование завершено за {round(end_time - start_time, 2)} сек.")
     print(f"Найдено живых потоков: {len(found_streams)}")
-    print(f"Результат сохранён в: {m3u_filename}")
+    print(f"Результат сохранён в: Kolya.m3u")
     print("==================================================")
 
 
