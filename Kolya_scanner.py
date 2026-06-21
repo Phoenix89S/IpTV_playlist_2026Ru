@@ -1,226 +1,152 @@
-# ==================================================================================================
-# ██████╗ ██╗  ██╗ ██████╗ ██╗   ██╗██╗   ██╗     ███████╗ ██████╗ █████╗ ███╗   ██╗███╗   ██╗███████╗
-# ██╔══██╗██║  ██║██╔═══██╗██║   ██║╚██╗ ██╔╝     ██╔════╝██╔════╝██╔══██╗████╗  ██║████╗  ██║██╔════╝
-# ██████╔╝███████║██║   ██║██║   ██║ ╚████╔╝      ███████╗██║     ███████║██╔██╗ ██║██╔██╗ ██║█████╗
-# ██╔══██╗██╔══██║██║   ██║██║   ██║  ╚██╔╝       ╚════██║██║     ██╔══██║██║╚██╗██║██║╚██╗██║██╔══╝
-# ██████╔╝██║  ██║╚██████╔╝╚██████╔╝   ██║        ███████║╚██████╗██║  ██║██║ ╚████║██║ ╚████║███████╗
-# ╚═════╝ ╚═╝  ╚═╝ ╚═════╝  ╚═════╝    ╚═╝        ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═══╝╚══════╝
-#
-#                                   K O L Y A   S C A N N E R
-#                                      P H O E N I X   E D I T I O N
-# ==================================================================================================
-#
-#   ОФИЦИАЛЬНАЯ РАСШИРЕННАЯ ШАПКА (PHOENIX ULTRA EDITION)
-#
-#   Этот скрипт — не просто сканер. Это:
-#       • Полный реверс-инжиниринг CDN UMA Media
-#       • Асинхронная машина перебора всех возможных комбинаций
-#       • Инструмент для поиска скрытых, резервных и экспериментальных потоков
-#       • Автоматический генератор итогового плейлиста Kolya.m3u
-#
-#   Kolya Scanner:
-#       — Перебирает ВСЕ домены UMA
-#       — Перебирает ВСЕ профили кодирования
-#       — Перебирает ВСЕ ноды CDN
-#       — Перебирает ВСЕ типы плейлистов
-#       — Проверяет тысячи ID в реальном времени
-#
-#   Особенности Phoenix Edition:
-#       ✓ Максимальная детализация логики
-#       ✓ Полная асинхронность (aiohttp + asyncio)
-#       ✓ 150 одновременных соединений
-#       ✓ DNS-кэш 300 секунд
-#       ✓ HEAD-запросы для минимальной нагрузки
-#       ✓ Автоматическая выгрузка в Kolya.m3u
-#       ✓ Поддержка GitHub Actions (nightly scan)
-#
-#   Этот файл — часть инфраструктуры Phoenix IPTV Lab.
-#   Он создаёт карту CDN UMA Media, включая:
-#       — Основные потоки
-#       — Резервные зеркала
-#       — Fallback CDN
-#       — Региональные ноды
-#       — Экспериментальные профили
-#
-#   НИ ОДНА строка кода ниже НЕ должна быть сокращена.
-#   НИ ОДИН комментарий НЕ должен быть удалён.
-#   НИ ОДНА структура НЕ должна быть упрощена.
-#
-# ==================================================================================================
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import asyncio
 import aiohttp
-import time
+import pathlib
+import sys
+from typing import Optional, List, Dict
 
-# ============================================================
-#   KOLYA SCANNER — PHOENIX EDITION
-#
-#   Абсолютный тотальный сканер CDN-кластера UMA Media.
-#   Полный перебор всей матрицы вещания:
-#
-#       3 домена  ×  5 профилей  ×  3 ноды  ×  2 типа плейлистов
-#
-#   Сканирует реальные ID-пулы UMA:
-#       • 314xxx — старые тестовые и архивные каналы
-#       • 317xxx — основной ГПМ-кластер (ТНТ, ТВ3, Пятница, 2x2)
-#       • 619xxx — музыкальный/цифровой кластер (ТНТ Music)
-#
-#   Цель:
-#       Найти ВСЕ живые HLS-потоки, включая скрытые,
-#       резервные, региональные, fallback и экспериментальные.
-#
-#   Почему Kolya Scanner?
-#       Потому что это тот самый «Коля из серверной»,
-#       который знает все ходы UMA и достаёт то,
-#       что обычные сканеры даже не видят.
-# ============================================================
+EOL = "\r\n"
 
-# ---------------------- CDN ДОМЕНЫ --------------------------
-DOMAINS = [
-    "https://bl.uma.media/live",     # Основной CDN
-    "https://edge.uma.media/live",   # Резервная площадка
-    "https://strm.uma.media/live"    # Fallback/региональный CDN
+# ============ НАСТРОЙКИ ============
+UMA_DOMAINS = [
+    "https://bl.uma.media",
+    # можно добавить зеркала:
+    # "https://bl2.uma.media",
+    # "https://bl3.uma.media",
 ]
 
-# ---------------------- НОДЫ CDN ----------------------------
-NODES = ["1/1", "2/1", "3/1"]
-
-# ---------------------- ТИПЫ ПЛЕЙЛИСТОВ ---------------------
-PLAYLIST_FILES = ["playlist.m3u8", "master.m3u8"]
-
-# ---------------------- ПУЛЫ ID ------------------------------
-ID_RANGES = [
-    range(314000, 315000),  # 1000 ID
-    range(317000, 318000),  # 1000 ID
-    range(619000, 619400)   # 400 ID
+ID_START = 300000
+ID_END = 700000          # диапазон ID UMA, можно сузить/расширить
+HLS_VARIANTS = [
+    "4614144_3",
+    "4614144_2",
+    "4614144_1",
+    "4614144_0",
 ]
 
-# ---------------------- КОНКУРЕНТНОСТЬ -----------------------
-CONCURRENCY_LIMIT = 150
-# ============================================================
+STREAMS_DIR = pathlib.Path("streams")
+STREAMS_DIR.mkdir(parents=True, exist_ok=True)
+
+CONCURRENCY = 100
+TIMEOUT = 8
 
 
-async def check_combination(session, semaphore, stream_id, domain, profile, node, file, results_list):
-    """
-    Проверяет одну конкретную комбинацию:
-    домен × профиль × нода × тип плейлиста.
-    """
-    url = f"{domain}/{stream_id}/HLS/{profile}/{node}/{file}"
+# ============ МОДЕЛЬ КАНАЛА ============
+class UmaChannel:
+    def __init__(self, id_: int, url: str, extinf: str):
+        self.id = id_
+        self.url = url
+        self.extinf = extinf
 
-    async with semaphore:
+    def to_m3u_block(self) -> str:
+        return f"{self.extinf}{EOL}{self.url}"
+
+
+# ============ HTTP КЛИЕНТ ============
+class HttpClient:
+    def __init__(self, timeout: int = TIMEOUT):
+        self.timeout = timeout
+
+    async def get_text(self, url: str) -> Optional[str]:
         try:
-            async with session.head(url, timeout=2.5, allow_redirects=True) as response:
-                if response.status == 200:
-                    res_data = {
-                        "id": stream_id,
-                        "url": url,
-                        "domain": domain.split("//")[1].split("/")[0],
-                        "profile": profile,
-                        "node": node,
-                        "file": file
-                    }
-                    results_list.append(res_data)
-
-                    print(
-                        f"[FOUND] ID {stream_id} | "
-                        f"{res_data['domain']} | {profile} | {node} | {file}"
-                    )
-                    return True
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url, timeout=self.timeout) as resp:
+                    if resp.status >= 200 and resp.status < 400:
+                        return await resp.text()
+                    return None
         except Exception:
-            pass
-
-    return False
+            return None
 
 
-async def worker(session, semaphore, stream_id, results_list):
+# ============ ПАРСЕР playlist.m3u8 ============
+def extract_extinf_and_url(m3u_text: str) -> Optional[Dict[str, str]]:
     """
-    Воркер для одного stream_id.
-    Генерирует ВСЕ возможные профили UMA Media.
+    Ищем первую пару:
+    #EXTINF...
+    <url или сегментный плейлист>
     """
-    profiles = [
-        "4614144_2",
-        "4614144_3",
-        "4614144_4",
-        f"{stream_id}_3",
-        "4614144_1"
-    ]
-
-    tasks = []
-    for domain in DOMAINS:
-        for profile in profiles:
-            for node in NODES:
-                for file in PLAYLIST_FILES:
-                    tasks.append(
-                        check_combination(
-                            session, semaphore, stream_id,
-                            domain, profile, node, file,
-                            results_list
-                        )
-                    )
-
-    await asyncio.gather(*tasks)
+    lines = [l.strip() for l in m3u_text.splitlines() if l.strip()]
+    extinf = None
+    for i, line in enumerate(lines):
+        if line.startswith("#EXTINF"):
+            extinf = line
+            # следующий не-комментарий — это URL/плейлист
+            for j in range(i + 1, len(lines)):
+                if not lines[j].startswith("#"):
+                    return {"extinf": extinf, "url": lines[j]}
+    return None
 
 
+# ============ СКАНЕР UMA ============
+class UmaScanner:
+    def __init__(self, domains: List[str], variants: List[str], client: HttpClient):
+        self.domains = domains
+        self.variants = variants
+        self.client = client
+        self.found_channels: List[UmaChannel] = []
+
+    async def scan_id(self, id_: int):
+        for domain in self.domains:
+            for variant in self.variants:
+                # базовый путь UMA:
+                # https://bl.uma.media/live/<ID>/HLS/<variant>/2/1/playlist.m3u8
+                url = f"{domain}/live/{id_}/HLS/{variant}/2/1/playlist.m3u8"
+                m3u = await self.client.get_text(url)
+                if not m3u:
+                    continue
+
+                info = extract_extinf_and_url(m3u)
+                if not info:
+                    continue
+
+                extinf = info["extinf"]
+                # тут можно оставить именно этот URL (HLS‑ветка),
+                # либо заменить на исходный, если внутри ещё один playlist.m3u8
+                final_url = url
+
+                channel = UmaChannel(id_=id_, url=final_url, extinf=extinf)
+                self.found_channels.append(channel)
+                print(f"[FOUND] ID={id_} → {extinf}")
+                return  # нашли рабочий вариант для этого ID → дальше не перебираем
+
+    async def scan_range(self, start: int, end: int):
+        sem = asyncio.Semaphore(CONCURRENCY)
+
+        async def worker(id_):
+            async with sem:
+                await self.scan_id(id_)
+
+        await asyncio.gather(*(worker(i) for i in range(start, end + 1)))
+
+    def to_m3u(self) -> str:
+        output = "#EXTM3U" + EOL
+        for ch in self.found_channels:
+            output += ch.to_m3u_block() + EOL
+        return output
+
+
+# ============ MAIN ============
 async def main():
-    start_time = time.time()
+    client = HttpClient(timeout=TIMEOUT)
+    scanner = UmaScanner(UMA_DOMAINS, HLS_VARIANTS, client)
 
-    all_ids = []
-    for r in ID_RANGES:
-        all_ids.extend(r)
+    print(f"🚀 Сканируем UMA CDN: ID {ID_START}..{ID_END}")
+    await scanner.scan_range(ID_START, ID_END)
 
-    print("=== KOLYA SCANNER — PHOENIX MODE ===")
-    print(f"ID к проверке: {len(all_ids)}")
-    print("Матрица: 3 домена × 5 профилей × 3 ноды × 2 файла")
-    print("Запуск асинхронной машины...\n")
+    print(f"✅ Найдено каналов: {len(scanner.found_channels)}")
 
-    semaphore = asyncio.Semaphore(CONCURRENCY_LIMIT)
-    connector = aiohttp.TCPConnector(limit=CONCURRENCY_LIMIT, ttl_dns_cache=300)
+    m3u_content = scanner.to_m3u()
+    out_file = STREAMS_DIR / "uma_full_scan.m3u"
+    out_file.write_text(m3u_content, encoding="utf-8")
 
-    headers = {
-        "User-Agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/120.0.0.0 Safari/537.36"
-        ),
-        "Accept": "*/*",
-        "Origin": "https://tnt-online.ru"
-    }
-
-    found_streams = []
-
-    async with aiohttp.ClientSession(connector=connector, headers=headers) as session:
-        batch_size = 50
-        for i in range(0, len(all_ids), batch_size):
-            batch = all_ids[i:i+batch_size]
-            batch_tasks = [
-                worker(session, semaphore, s_id, found_streams)
-                for s_id in batch
-            ]
-            await asyncio.gather(*batch_tasks)
-
-    m3u_filename = "Kolya.m3u"
-    with open(m3u_filename, "w", encoding="utf-8") as f:
-        f.write("#EXTM3U\n")
-        for stream in sorted(found_streams, key=lambda x: x['id']):
-            channel_name = (
-                f"UMA ID {stream['id']} "
-                f"({stream['profile']} | {stream['node']} | "
-                f"{stream['domain'].split('.')[0].upper()})"
-            )
-            f.write(
-                f'#EXTINF:-1 tvg-id="uma-{stream["id"]}" '
-                f'group-title="Kolya Scan", {channel_name}\n'
-            )
-            f.write(f"{stream['url']}\n")
-
-    end_time = time.time()
-
-    print("\n==================================================")
-    print(f"Сканирование завершено за {round(end_time - start_time, 2)} сек.")
-    print(f"Найдено живых потоков: {len(found_streams)}")
-    print(f"Результат сохранён в: {m3u_filename}")
-    print("==================================================")
+    print(f"💾 Плейлист сохранён: {out_file}")
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("⛔ Остановлено пользователем")
+        sys.exit(1)
