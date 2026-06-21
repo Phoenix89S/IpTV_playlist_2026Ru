@@ -167,6 +167,7 @@ class UmaScanner:
         sem = asyncio.Semaphore(CONCURRENCY)
 
         async def worker(id_):
+            print(f"[KOLYA] Checking {id_}", flush=True)
             async with sem:
                 await self.scan_id(id_)
 
