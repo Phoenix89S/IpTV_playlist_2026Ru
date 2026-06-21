@@ -3,7 +3,7 @@ name: Kolya Scanner
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */6 * * *"   # запуск каждые 6 часов
+    - cron: "0 */6 * * *"
 
 permissions:
   contents: write
@@ -24,18 +24,28 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: |
-          pip install aiohttp
+        run: pip install aiohttp
 
-      - name: Run Kolya Scanner
+      - name: Run Kolya Scanner (in repo root)
         run: |
+          cd $GITHUB_WORKSPACE
           python Kolya_scanner.py
 
+      - name: Verify Kolya.m3u exists
+        run: |
+          cd $GITHUB_WORKSPACE
+          if [ ! -f Kolya.m3u ]; then
+            echo "ERROR: Kolya.m3u NOT FOUND!"
+            ls -la
+            exit 1
+          fi
+
       # ============================
-      #   КОМИТ В MAIN
+      #   COMMIT TO MAIN
       # ============================
       - name: Commit Kolya.m3u to main
         run: |
+          cd $GITHUB_WORKSPACE
           git config user.name "github-actions"
           git config user.email "actions@github.com"
 
@@ -49,15 +59,16 @@ jobs:
           fi
 
       # ============================
-      #   КОМИТ В GH-PAGES
+      #   COMMIT TO GH-PAGES
       # ============================
       - name: Push Kolya.m3u to gh-pages
         run: |
-          git fetch origin gh-pages
+          cd $GITHUB_WORKSPACE
 
+          git fetch origin gh-pages
           git switch gh-pages || git checkout -b gh-pages
 
-          cp Kolya.m3u ./Kolya.m3u
+          cp $GITHUB_WORKSPACE/Kolya.m3u ./Kolya.m3u
 
           git add Kolya.m3u
 
