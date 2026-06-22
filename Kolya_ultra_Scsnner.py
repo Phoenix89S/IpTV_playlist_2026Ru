@@ -160,18 +160,50 @@ class UmaScanner:
                 channel = UmaChannel(id_=id_, url=url, extinf=extinf, quality=quality)
                 self.found_channels.append(channel)
 
-                print(f"[FOUND] ID={id_} → {extinf}")
+                print(f"[FOUND] ID={id_} → {extinf}", flush=True)
                 return
 
     async def scan_range(self, start: int, end: int):
+        """
+        Потоковая обработка ID партиями, чтобы не создавать сотни тысяч корутин одновременно.
+        Печать статуса для каждого ID и печать статуса по партиям.
+        """
         sem = asyncio.Semaphore(CONCURRENCY)
 
         async def worker(id_):
-            print(f"[KOLYA] Checking {id_}", flush=True)
-            async with sem:
-                await self.scan_id(id_)
+            try:
+                print(f"[KOLYA] Checking {id_}", flush=True)
+                async with sem:
+                    await self.scan_id(id_)
+            except Exception as e:
+                print(f"[ERROR] id={id_} exception: {e}", flush=True)
 
-        await asyncio.gather(*(worker(i) for i in range(start, end + 1)))
+        print(f">>> STARTING scan_range {start}..{end}", flush=True)
+
+        tasks: List[asyncio.Task] = []
+        batch_num = 0
+        batch_size = CONCURRENCY  # запускать gather каждые CONCURRENCY задач
+
+        for i in range(start, end + 1):
+            # Создаём задачу, но не даём gather'у пытаться запланировать все сразу
+            tasks.append(asyncio.create_task(worker(i)))
+
+            # Периодически ждём завершения партии задач
+            if len(tasks) >= batch_size:
+                batch_num += 1
+                first_id = i - len(tasks) + 1
+                last_id = i
+                print(f">>> Awaiting batch {batch_num} IDs {first_id}-{last_id}", flush=True)
+                await asyncio.gather(*tasks)
+                tasks = []
+
+        # Дождаться оставшихся задач
+        if tasks:
+            batch_num += 1
+            print(f">>> Awaiting final batch {batch_num} (remaining {len(tasks)} tasks)", flush=True)
+            await asyncio.gather(*tasks)
+
+        print(">>> scan_range complete", flush=True)
 
     def to_m3u(self) -> str:
         output = "#EXTM3U" + EOL
@@ -188,16 +220,16 @@ async def main():
     client = HttpClient(timeout=TIMEOUT)
     scanner = UmaScanner(UMA_DOMAINS, HLS_VARIANTS, client)
 
-    print(f"🚀 Сканируем UMA CDN: ID {ID_START}..{ID_END}")
+    print(f"🚀 Сканируем UMA CDN: ID {ID_START}..{ID_END}", flush=True)
     await scanner.scan_range(ID_START, ID_END)
 
-    print(f"✅ Найдено каналов: {len(scanner.found_channels)}")
+    print(f"✅ Найдено каналов: {len(scanner.found_channels)}", flush=True)
 
     m3u_content = scanner.to_m3u()
     out_file = STREAMS_DIR / "uma_full_scan.m3u"
     out_file.write_text(m3u_content, encoding="utf-8")
 
-    print(f"💾 Плейлист сохранён: {out_file}")
+    print(f"💾 Плейлист сохранён: {out_file}", flush=True)
 
 
 if __name__ == "__main__":
