@@ -5190,7 +5190,40 @@ http://serv30.vintera.tv:8081/sarov/sarov_stream/playlist.m3u8
 # --------------------------------------------------------------------
 #
 
+#EXTINF:-1 group-title="Эфирные ТВ Плюс",103.1.E.F(00).103.1 Euronews EN
+https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/euronews/euronews-en.m3u8?ads.vf=wcz9wNOQ76u
+#EXTINF:-1 group-title="Эфирные ТВ Плюс",103.2.E.F(00).103.2 Euronews ES
+https://euronews-live-spa-es.fast.rakuten.tv/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6571/bitok/eyJzdGlkIjoiMDA0YjY0NTMtYjY2MC00ZTZkLTlkNzEtMTk3YTM3ZDZhZWIxIiwibWt0IjoiZXMiLCJjaCI6NjU3MSwicHRmIjoxfQ==/26034/euronews-es.m3u8
+#EXTINF:-1 group-title="Эфирные ТВ Плюс",103.3.E.F(00).103.3 Euronews LIVE (UK)
+https://jmp2.uk/stvp-CH26000037F
+#EXTINF:-1 group-title="Эфирные ТВ Плюс",103.4.E.F(00).103.4 Euronews LIVE (GB)
+https://jmp2.uk/stvp-GB2600019ON
+#EXTINF:-1 group-title="Эфирные ТВ Плюс",103.5.E.F(00).103.5 Euronews LIVE (AT)
+https://jmp2.uk/stvp-AT2600002KW
 
+#EXTINF:-1 group-title="Эфирные ТВ Плюс",104.1.E.F(00).104.1 FAN HD
+http://ott.watch/stream/6HAPZWKKG3/420.m3u8
+
+#EXTINF:-1 group-title="Эфирные ТВ Плюс",105.1.E.F(00).105.1 Europa Plus TV
+http://46.32.176.50/europaplus/index.m3u8
+
+#EXTINF:-1 group-title="Эфирные ТВ Плюс",106.1.E.F(00).106.1 FON Music
+https://cdn-01.bonus-tv.ru/tntmusic/playlist.m3u8
+
+#EXTINF:-1 group-title="Эфирные ТВ Плюс",107.1.E.F(00).107.1 NEXT-TV
+http://s45177.cdn.ngenix.net/hls/CH_R01_NEXTTV/variant.m3u8
+
+#EXTINF:-1 group-title="Эфирные ТВ Плюс",108.1.E.F(00).108.1 Живи!
+https://s70378.cdn.ngenix.net/jivi/2/index.m3u8
+#EXTINF:-1 group-title="Эфирные ТВ Плюс",108.2.E.F(00).108.2 Живи! HD
+http://31148.rafail1982.uz/Zhivi/index.m3u8
+
+#EXTINF:-1 group-title="Эфирные ТВ Плюс",109.1.E.F(00).109.1 СТС Kids
+http://flussonic.mkpnet.ru/tv-4af112c31b77e2a8/video.m3u8
+#EXTINF:-1 group-title="Эфирные ТВ Плюс",109.2.E.F(00).109.2 СТС Kids (Ngenix)
+https://s70378.cdn.ngenix.net/ctc_kids/2/index.m3u8
+#EXTINF:-1 group-title="Эфирные ТВ Плюс",109.3.E.F(00).109.3 СТС Kids HD
+http://31148.rafail1982.uz/STS_Kids_HD/index.m3u8
 
 
 
