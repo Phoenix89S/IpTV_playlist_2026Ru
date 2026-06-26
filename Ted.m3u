@@ -43,3 +43,79 @@ https://s70378.cdn.ngenix.net/viju_nature/2/index.m3u8
 
 #EXTINF:-1 tvg-name="viju Explore" group-title="Познавательные Viju",viju Explore
 https://s70378.cdn.ngenix.net/viju_explore/2/index.m3u8
+
+
+
+
+
+
+
+
+
+
+
+
+#---------------- ГРУППА: VIJU TV1000 ----------------
+
+# 1. viju TV1000
+#EXTINF:-1 group-title="Кино",viju TV1000
+https://cdn-01.bonus-tv.ru/viju_tv1000/playlist.m3u8
+
+# 2. viju TV1000 русское
+#EXTINF:-1 group-title="Кино",viju TV1000 русское
+https://cdn-01.bonus-tv.ru/viju_tv1000_rus/playlist.m3u8
+
+# 3. viju TV1000 action
+#EXTINF:-1 group-title="Кино",viju TV1000 action
+https://cdn-01.bonus-tv.ru/viju_tv1000_action/playlist.m3u8
+
+# 4. viju TV1000 новелла
+#EXTINF:-1 group-title="Кино",viju TV1000 новелла
+https://cdn-01.bonus-tv.ru/viju_tv1000_novella/playlist.m3u8
+
+# 5. viju TV1000 romantica
+#EXTINF:-1 group-title="Кино",viju TV1000 romantica
+https://cdn-01.bonus-tv.ru/viju_tv1000_romantica/playlist.m3u8
+
+# 6. viju+ premiere
+#EXTINF:-1 group-title="Кино",viju+ premiere
+https://cdn-01.bonus-tv.ru/viju_plus_premiere/playlist.m3u8
+
+# 7. viju+ megahit
+#EXTINF:-1 group-title="Кино",viju+ megahit
+https://cdn-01.bonus-tv.ru/viju_plus_megahit/playlist.m3u8
+
+# 8. viju+ comedy
+#EXTINF:-1 group-title="Кино",viju+ comedy
+https://cdn-01.bonus-tv.ru/viju_plus_comedy/playlist.m3u8
+
+# 9. viju+ serial
+#EXTINF:-1 group-title="Кино",viju+ serial
+https://cdn-01.bonus-tv.ru/viju_plus_serial/playlist.m3u8
+
+# 10. viju HISTORY
+#EXTINF:-1 group-title="Познавательные",viju HISTORY
+https://cdn-01.bonus-tv.ru/viju_history/playlist.m3u8
+
+# 11. viju EXPLORE
+#EXTINF:-1 group-title="Познавательные",viju EXPLORE
+https://cdn-01.bonus-tv.ru/viju_explore/playlist.m3u8
+
+# 12. viju NATURE
+#EXTINF:-1 group-title="Познавательные",viju NATURE
+https://cdn-01.bonus-tv.ru/viju_nature/playlist.m3u8
+
+# 13. viju+ planet
+#EXTINF:-1 group-title="Познавательные",viju+ planet
+https://cdn-01.bonus-tv.ru/viju_plus_planet/playlist.m3u8
+
+# 14. Da Vinci
+#EXTINF:-1 group-title="Познавательные",Da Vinci
+https://cdn-01.bonus-tv.ru/da_vinci/playlist.m3u8
+
+# 15. viju+ sport
+#EXTINF:-1 group-title="Спорт",viju+ sport
+https://cdn-01.bonus-tv.ru/viju_plus_sport/playlist.m3u8
+
+# ---------------- КОНЕЦ (TAIL) ----------------
+
