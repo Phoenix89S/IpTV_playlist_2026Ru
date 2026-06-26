@@ -1,0 +1,45 @@
+#EXTM3U
+
+# --- Каналы из вашего списка ---
+#EXTINF:-1 tvg-name="FAN HD" group-title="Кино",FAN HD
+https://s70378.cdn.ngenix.net/fan_hd/2/index.m3u8
+
+#EXTINF:-1 tvg-name="Настрой кино!" group-title="Кино",Настрой кино!
+https://s70378.cdn.ngenix.net/nastroy_kino/2/index.m3u8
+
+#EXTINF:-1 tvg-name="Киноужас" group-title="Кино",Киноужас
+https://s70378.cdn.ngenix.net/kino_uzhas/2/index.m3u8
+
+#EXTINF:-1 tvg-name="НСТ" group-title="Кино",НСТ (Настоящее Страшное Телевидение)
+https://s70378.cdn.ngenix.net/nst/2/index.m3u8
+
+#EXTINF:-1 tvg-name="Еда" group-title="Познавательные",Еда
+https://s70378.cdn.ngenix.net/eda/2/index.m3u8
+
+# --- Полная линейка каналов Viju ---
+#EXTINF:-1 tvg-name="viju TV1000" group-title="Кино Viju",viju TV1000
+https://s70378.cdn.ngenix.net/viju_tv1000/2/index.m3u8
+
+#EXTINF:-1 tvg-name="viju TV1000 Action" group-title="Кино Viju",viju TV1000 Action
+https://s70378.cdn.ngenix.net/viju_action/2/index.m3u8
+
+#EXTINF:-1 tvg-name="viju TV1000 Русское" group-title="Кино Viju",viju TV1000 Русское
+https://s70378.cdn.ngenix.net/viju_russian/2/index.m3u8
+
+#EXTINF:-1 tvg-name="viju Megahit" group-title="Кино Viju",viju Megahit
+https://s70378.cdn.ngenix.net/viju_megahit/2/index.m3u8
+
+#EXTINF:-1 tvg-name="viju Premiere" group-title="Кино Viju",viju Premiere
+https://s70378.cdn.ngenix.net/viju_premiere/2/index.m3u8
+
+#EXTINF:-1 tvg-name="viju Comedy" group-title="Кино Viju",viju Comedy
+https://s70378.cdn.ngenix.net/viju_comedy/2/index.m3u8
+
+#EXTINF:-1 tvg-name="viju History" group-title="Познавательные Viju",viju History
+https://s70378.cdn.ngenix.net/viju_history/2/index.m3u8
+
+#EXTINF:-1 tvg-name="viju Nature" group-title="Познавательные Viju",viju Nature
+https://s70378.cdn.ngenix.net/viju_nature/2/index.m3u8
+
+#EXTINF:-1 tvg-name="viju Explore" group-title="Познавательные Viju",viju Explore
+https://s70378.cdn.ngenix.net/viju_explore/2/index.m3u8
