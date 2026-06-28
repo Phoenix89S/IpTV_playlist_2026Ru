@@ -1,0 +1,41 @@
+name: Denis IPTV Builder
+
+on:
+  workflow_dispatch:        # ручной запуск
+  schedule:
+    - cron: "0 1 * * *"     # 04:00 МСК → 01:00 UTC
+    - cron: "0 15 */3 * *"  # 18:00 МСК → 15:00 UTC
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run Denis.py
+        run: |
+          python Denis.py
+
+      - name: Rename output
+        run: |
+          mv stable_new.m3u Denis_iptv_2026.m3u
+
+      - name: Commit result
+        run: |
+          git config --global user.name "PhoenixBot"
+          git config --global user.email "actions@github.com"
+          git add Denis_iptv_2026.m3u
+          git commit -m "Auto-build Denis_iptv_2026.m3u"
+          git push
