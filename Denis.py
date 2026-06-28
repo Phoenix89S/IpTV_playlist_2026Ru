@@ -150,7 +150,6 @@ def parse_m3u(content: str, source_id: str) -> List[Channel]:
 # ФИЛЬТРЫ
 # ==========================
 
-# 🔥 ТВОЙ ТОЧНЫЙ СПИСОК 18+
 ADULT_CHANNELS = [
     "brazzers-tv-europe",
     "centoxcento",
@@ -178,15 +177,12 @@ def is_adult_channel(name: str, group: Optional[str]) -> bool:
 
     return False
 
-# 🔥 ТВОЙ ТОЧНЫЙ ФИЛЬТР МУСОРА
 def is_bad_donor(url: str) -> bool:
     url_l = url.lower()
 
-    # ott.watch — режем всегда
     if "ott.watch/stream/" in url_l:
         return True
 
-    # ru2.tvtm.one — режем ТОЛЬКО если заканчивается на m3u8?
     if "ru2.tvtm.one" in url_l and url_l.endswith("m3u8?"):
         return True
 
@@ -282,13 +278,10 @@ def merge_with_persistence(old_channels, srcA_channels, srcB_channels):
     return result
 
 # ==========================
-# ЗАГРУЗКА (OLD НЕ СОЗДАЁТСЯ)
+# ЗАГРУЗКА
 # ==========================
 
 def load_m3u_file(path, source_id):
-    if not os.path.exists(path):
-        raise FileNotFoundError(f"[FATAL] Base playlist not found: {path}")
-
     with open(path, 'r', encoding='utf-8') as f:
         return parse_m3u(f.read(), source_id)
 
@@ -296,6 +289,35 @@ def load_m3u_url(url, source_id):
     r = requests.get(url, timeout=10)
     r.raise_for_status()
     return parse_m3u(r.text, source_id)
+
+def load_old_playlist():
+    old_files = [f for f in os.listdir('.') if f.startswith("Denis_iptv_stable_Old_") and f.endswith(".m3u")]
+
+    if not old_files:
+        log("[INFO] OLD playlist not found → first run mode (no OLD)")
+        return []
+
+    old_files.sort()
+    last_old = old_files[-1]
+    log(f"[INFO] Using OLD playlist: {last_old}")
+
+    with open(last_old, 'r', encoding='utf-8') as f:
+        return parse_m3u(f.read(), "OLD")
+
+def save_new_old():
+    old_files = [f for f in os.listdir('.') if f.startswith("Denis_iptv_stable_Old_") and f.endswith(".m3u")]
+
+    if not old_files:
+        next_num = 1
+    else:
+        old_files.sort()
+        last = old_files[-1]
+        num = int(last.split("_")[-1].split(".")[0])
+        next_num = num + 1
+
+    new_old_name = f"Denis_iptv_stable_Old_{next_num:03d}.m3u"
+    os.rename("stable_new.m3u", new_old_name)
+    log(f"[INFO] NEW OLD created: {new_old_name}")
 
 # ==========================
 # ВЫВОД
@@ -324,7 +346,7 @@ def write_m3u(path, channels):
 # ==========================
 
 def main():
-    old_channels = load_m3u_file("Denis_iptv_stable_Old.m3u", "OLD")
+    old_channels = load_old_playlist()
 
     srcA_channels = load_m3u_url(SOURCE_A.playlist_url, SOURCE_A.id)
     srcB_channels = load_m3u_url(SOURCE_B.playlist_url, SOURCE_B.id)
@@ -333,6 +355,8 @@ def main():
 
     write_m3u("stable_new.m3u", merged)
     log("[DONE] stable_new.m3u written")
+
+    save_new_old()
 
 if __name__ == "__main__":
     main()
