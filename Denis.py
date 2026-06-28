@@ -15,7 +15,7 @@ def build_scada_code(channel_number: int, stream_number: int = 1) -> str:
     return f"{channel_number}.{stream_number}.E.F(00).{channel_number}.{stream_number}"
 
 # ==========================
-# ИСТОЧНИКИ (САМОЕ ВЕРХУ)
+# ИСТОЧНИКИ
 # ==========================
 
 @dataclass
@@ -150,50 +150,45 @@ def parse_m3u(content: str, source_id: str) -> List[Channel]:
 # ФИЛЬТРЫ
 # ==========================
 
-BAD_PATTERNS = [
-    "ott.watch/stream/",
-    "ru2.tvtm.one",
-]
-
+# 🔥 ТВОЙ ТОЧНЫЙ СПИСОК 18+
 ADULT_CHANNELS = [
-    "brazzers",
-    "brazzers tv",
     "brazzers-tv-europe",
     "centoxcento",
     "dorcel",
-    "dorcel tv",
-    "dorcel xxx",
-    "eroxxx",
+    "dorcel-xxx",
     "eroxxxhd",
-    "erotic",
-    "extasy",
+    "3258",
     "extasytv",
     "fuuu tv",
-    "hustler",
     "hustler-hd",
     "passionxxx",
-    "penthouse",
-    "penthouse gold",
-    "penthouse reality",
+    "penthouse-gold",
+    "2779",
 ]
-
-def is_bad_donor(url: str) -> bool:
-    for p in BAD_PATTERNS:
-        if p in url:
-            return True
-    if "?" in url:
-        return True
-    return False
 
 def is_adult_channel(name: str, group: Optional[str]) -> bool:
     if group and group.lower().strip() == "для взрослых":
         return True
 
-    name_l = name.lower()
+    name_l = name.lower().strip()
 
     for bad in ADULT_CHANNELS:
         if bad in name_l:
             return True
+
+    return False
+
+# 🔥 ТВОЙ ТОЧНЫЙ ФИЛЬТР МУСОРА
+def is_bad_donor(url: str) -> bool:
+    url_l = url.lower()
+
+    # ott.watch — режем всегда
+    if "ott.watch/stream/" in url_l:
+        return True
+
+    # ru2.tvtm.one — режем ТОЛЬКО если заканчивается на m3u8?
+    if "ru2.tvtm.one" in url_l and url_l.endswith("m3u8?"):
+        return True
 
     return False
 
@@ -287,16 +282,12 @@ def merge_with_persistence(old_channels, srcA_channels, srcB_channels):
     return result
 
 # ==========================
-# ЗАГРУЗКА (ПРАВКА ВСТРОЕНА)
+# ЗАГРУЗКА (OLD НЕ СОЗДАЁТСЯ)
 # ==========================
 
 def load_m3u_file(path, source_id):
-    # Авто‑создание Denis_iptv_stable_Old.m3u
     if not os.path.exists(path):
-        log(f"[WARN] {path} not found → creating empty base playlist")
-        with open(path, "w", encoding="utf-8") as f:
-            f.write("#EXTM3U\n")
-        return []
+        raise FileNotFoundError(f"[FATAL] Base playlist not found: {path}")
 
     with open(path, 'r', encoding='utf-8') as f:
         return parse_m3u(f.read(), source_id)
@@ -329,7 +320,7 @@ def write_m3u(path, channels):
             f.write(best.url + "\n")
 
 # ==========================
-# MAIN (ПРАВКА ВСТРОЕНА)
+# MAIN
 # ==========================
 
 def main():
