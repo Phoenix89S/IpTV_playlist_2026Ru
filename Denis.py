@@ -3,6 +3,7 @@
 
 import re
 import requests
+import os
 from dataclasses import dataclass, field
 from typing import List, Optional
 
@@ -286,10 +287,17 @@ def merge_with_persistence(old_channels, srcA_channels, srcB_channels):
     return result
 
 # ==========================
-# ЗАГРУЗКА
+# ЗАГРУЗКА (ПРАВКА ВСТРОЕНА)
 # ==========================
 
 def load_m3u_file(path, source_id):
+    # Авто‑создание Denis_iptv_stable_Old.m3u
+    if not os.path.exists(path):
+        log(f"[WARN] {path} not found → creating empty base playlist")
+        with open(path, "w", encoding="utf-8") as f:
+            f.write("#EXTM3U\n")
+        return []
+
     with open(path, 'r', encoding='utf-8') as f:
         return parse_m3u(f.read(), source_id)
 
@@ -321,11 +329,11 @@ def write_m3u(path, channels):
             f.write(best.url + "\n")
 
 # ==========================
-# MAIN
+# MAIN (ПРАВКА ВСТРОЕНА)
 # ==========================
 
 def main():
-    old_channels = load_m3u_file("stable_old.m3u", "OLD")
+    old_channels = load_m3u_file("Denis_iptv_stable_Old.m3u", "OLD")
 
     srcA_channels = load_m3u_url(SOURCE_A.playlist_url, SOURCE_A.id)
     srcB_channels = load_m3u_url(SOURCE_B.playlist_url, SOURCE_B.id)
