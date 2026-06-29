@@ -33,35 +33,24 @@ def safe_int(value):
 # ==========================
 
 def normalize_channel_name(name: str) -> str:
-    # убираем ведущие запятые и пробелы
-    name = name.lstrip(" ,")
-
-    # заменяем неправильные дефисы
+    name = name.lstrip(" ,")  # убираем запятую и пробелы, точку НЕ трогаем
     name = name.replace("–", "-").replace("—", "-")
-
-    # убираем двойные пробелы
     name = re.sub(r"\s+", " ", name)
-
-    # убираем скобки вокруг регионов
     name = name.replace("(", "").replace(")", "")
-
     return name.strip()
 
 # ==========================
-# НОРМАЛИЗАЦИЯ TVG-ID
+# НОРМАЛИЗАЦИЯ TVG-ID (ТОЧКУ НЕ ТРОГАЕМ)
 # ==========================
 
 def normalize_tvg_id(tvg: str) -> str:
     if not tvg:
         return "1"
 
-    tvg = tvg.lstrip(" ,.")
+    tvg = tvg.strip()
+    tvg = tvg.lstrip(" ,")  # убираем только запятую и пробел — точку НЕ трогаем
 
-    digits = ''.join(ch for ch in tvg if ch.isdigit())
-    if digits:
-        return digits
-
-    return tvg.replace(" ", "").replace("-", "").lower()
+    return tvg  # номер остаётся как есть
 
 # ==========================
 # КАНОНИЧЕСКОЕ ИМЯ ДЛЯ EPG
@@ -153,6 +142,7 @@ def parse_m3u(content: str, source_id: str) -> List[Channel]:
             m = EXTINF_RE.match(line)
             if not m:
                 continue
+
             attrs = m.group('attrs')
             raw_name = m.group('name')
             current_name = normalize_channel_name(raw_name)
@@ -175,6 +165,7 @@ def parse_m3u(content: str, source_id: str) -> List[Channel]:
 
         elif line.startswith('#'):
             continue
+
         else:
             if current_name is None:
                 continue
@@ -183,7 +174,7 @@ def parse_m3u(content: str, source_id: str) -> List[Channel]:
             scada = build_scada_code(num_int, 1)
 
             ch = Channel(
-                number=current_number,
+                number=current_number,  # точка сохраняется
                 name=f"{scada} {current_name}",
                 group=current_group,
                 logo=current_logo,
@@ -286,7 +277,7 @@ def compute_quality_score(url: str) -> float:
 
 def merge_with_persistence(old_channels, srcA_channels, srcB_channels):
 
-    # ПЕРВЫЙ ЗАПУСК (OLD пустой)
+    # ПЕРВЫЙ ЗАПУСК
     if not old_channels:
         result = []
 
@@ -343,7 +334,7 @@ def merge_with_persistence(old_channels, srcA_channels, srcB_channels):
 
         return result
 
-    # ОБЫЧНЫЙ РЕЖИМ (OLD существует)
+    # ОБЫЧНЫЙ РЕЖИМ
 
     result: List[Channel] = []
 
