@@ -328,32 +328,6 @@ def save_new_old():
     shutil.copy("stable_new.m3u", new_old_name)
     log(f"[INFO] NEW OLD created: {new_old_name}")
 
-def playlist_changed(old_channels: List[Channel], merged_channels: List[Channel]) -> bool:
-    if not old_channels:
-        return True
-
-    index_old = {ch.number: ch for ch in old_channels}
-    index_new = {ch.number: ch for ch in merged_channels}
-
-    if len(index_old) != len(index_new):
-        return True
-
-    for number, old_ch in index_old.items():
-        new_ch = index_new.get(number)
-        if not new_ch:
-            return True
-
-        old_best = old_ch.best_stream or (old_ch.streams[0] if old_ch.streams else None)
-        new_best = new_ch.best_stream or (new_ch.streams[0] if new_ch.streams else None)
-
-        old_url = old_best.url if old_best else ""
-        new_url = new_best.url if new_best else ""
-
-        if old_url != new_url:
-            return True
-
-    return False
-
 def save_new_stable():
     stable_files = [f for f in os.listdir('.') if f.startswith("Denis_iptv_stable_") and f.endswith(".m3u")]
 
@@ -408,11 +382,7 @@ def main():
 
     if old_channels:
         save_new_old()
-
-    if playlist_changed(old_channels, merged):
         save_new_stable()
-    else:
-        log("[INFO] No changes → STABLE not updated")
 
 if __name__ == "__main__":
     main()
