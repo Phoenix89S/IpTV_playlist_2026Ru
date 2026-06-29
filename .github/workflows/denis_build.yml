@@ -1,10 +1,10 @@
 name: Denis IPTV Builder
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:        # ручной запуск
   schedule:
-    - cron: "0 1 * * *"
-    - cron: "0 15 */3 * *"
+    - cron: "0 1 * * *"     # 04:00 МСК → 01:00 UTC
+    - cron: "0 15 */3 * *"  # 18:00 МСК → 15:00 UTC
 
 jobs:
   build:
