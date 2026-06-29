@@ -16,17 +16,64 @@ def build_scada_code(channel_number: int, stream_number: int = 1) -> str:
     return f"{channel_number}.{stream_number}.E.F(00).{channel_number}.{stream_number}"
 
 # ==========================
-# SAFE INT (НОВАЯ ПРАВКА)
+# SAFE INT
 # ==========================
 
 def safe_int(value):
     try:
         return int(value)
     except:
-        digits = ''.join(ch for ch in value if ch.isdigit())
+        digits = ''.join(ch for ch in str(value) if ch.isdigit())
         if digits:
             return int(digits)
         return 1
+
+# ==========================
+# НОРМАЛИЗАЦИЯ ИМЕНИ КАНАЛА
+# ==========================
+
+def normalize_channel_name(name: str) -> str:
+    # убираем ведущие запятые и пробелы
+    name = name.lstrip(" ,")
+
+    # заменяем неправильные дефисы
+    name = name.replace("–", "-").replace("—", "-")
+
+    # убираем двойные пробелы
+    name = re.sub(r"\s+", " ", name)
+
+    # убираем скобки вокруг регионов
+    name = name.replace("(", "").replace(")", "")
+
+    return name.strip()
+
+# ==========================
+# НОРМАЛИЗАЦИЯ TVG-ID
+# ==========================
+
+def normalize_tvg_id(tvg: str) -> str:
+    if not tvg:
+        return "1"
+
+    tvg = tvg.lstrip(" ,.")
+
+    digits = ''.join(ch for ch in tvg if ch.isdigit())
+    if digits:
+        return digits
+
+    return tvg.replace(" ", "").replace("-", "").lower()
+
+# ==========================
+# КАНОНИЧЕСКОЕ ИМЯ ДЛЯ EPG
+# ==========================
+
+def canonical_name(name: str) -> str:
+    base = name.lower()
+    base = base.replace(" hd", "")
+    base = base.replace("hd", "")
+    base = base.replace("+", "")
+    base = re.sub(r"\s+", " ", base)
+    return base.strip()
 
 # ==========================
 # ИСТОЧНИКИ
@@ -107,7 +154,8 @@ def parse_m3u(content: str, source_id: str) -> List[Channel]:
             if not m:
                 continue
             attrs = m.group('attrs')
-            current_name = m.group('name').strip()
+            raw_name = m.group('name')
+            current_name = normalize_channel_name(raw_name)
 
             group = None
             logo = None
@@ -123,7 +171,7 @@ def parse_m3u(content: str, source_id: str) -> List[Channel]:
 
             current_group = group
             current_logo = logo
-            current_number = number or current_name
+            current_number = normalize_tvg_id(number or current_name)
 
         elif line.startswith('#'):
             continue
@@ -135,7 +183,7 @@ def parse_m3u(content: str, source_id: str) -> List[Channel]:
             scada = build_scada_code(num_int, 1)
 
             ch = Channel(
-                number=current_number or current_name,
+                number=current_number,
                 name=f"{scada} {current_name}",
                 group=current_group,
                 logo=current_logo,
@@ -233,14 +281,12 @@ def compute_quality_score(url: str) -> float:
         return 0.0
 
 # ==========================
-# MERGE + НЕПРОПАДАНИЕ (С ВСТАВКОЙ)
+# MERGE + НЕПРОПАДАНИЕ
 # ==========================
 
 def merge_with_persistence(old_channels, srcA_channels, srcB_channels):
 
-    # ==========================
     # ПЕРВЫЙ ЗАПУСК (OLD пустой)
-    # ==========================
     if not old_channels:
         result = []
 
@@ -249,11 +295,11 @@ def merge_with_persistence(old_channels, srcA_channels, srcB_channels):
 
         all_numbers = set(index_A.keys()) | set(index_B.keys())
 
-        for number in sorted(all_numbers):
+        for number in sorted(all_numbers, key=lambda x: safe_int(x)):
             srcA = index_A.get(number)
             srcB = index_B.get(number)
 
-            streams_candidates = []
+            streams_candidates: List[StreamInfo] = []
 
             if srcA and not is_adult_channel(srcA.name, srcA.group):
                 for s in srcA.streams:
@@ -269,6 +315,8 @@ def merge_with_persistence(old_channels, srcA_channels, srcB_channels):
                         s.quality_score = compute_quality_score(s.url)
                         streams_candidates.append(s)
 
+            streams_candidates = [s for s in streams_candidates if s.alive]
+
             if not streams_candidates:
                 continue
 
@@ -281,7 +329,7 @@ def merge_with_persistence(old_channels, srcA_channels, srcB_channels):
 
             ch = Channel(
                 number=number,
-                name=f"{build_scada_code(num_int, 1)} {ch_src.name}",
+                name=f"{build_scada_code(num_int, 1)} {normalize_channel_name(ch_src.name)}",
                 group=ch_src.group,
                 logo=ch_src.logo,
                 scada_code=build_scada_code(num_int, 1),
@@ -295,11 +343,9 @@ def merge_with_persistence(old_channels, srcA_channels, srcB_channels):
 
         return result
 
-    # ==========================
     # ОБЫЧНЫЙ РЕЖИМ (OLD существует)
-    # ==========================
 
-    result = []
+    result: List[Channel] = []
 
     index_old = {ch.number: ch for ch in old_channels}
     index_A = {ch.number: ch for ch in srcA_channels}
@@ -322,7 +368,7 @@ def merge_with_persistence(old_channels, srcA_channels, srcB_channels):
         srcA = index_A.get(number)
         srcB = index_B.get(number)
 
-        streams_candidates = []
+        streams_candidates: List[StreamInfo] = []
 
         if srcA and not is_adult_channel(srcA.name, srcA.group):
             for s in srcA.streams:
@@ -337,6 +383,8 @@ def merge_with_persistence(old_channels, srcA_channels, srcB_channels):
                     s.alive = True
                     s.quality_score = compute_quality_score(s.url)
                     streams_candidates.append(s)
+
+        streams_candidates = [s for s in streams_candidates if s.alive]
 
         if not streams_candidates:
             ch.best_stream = old_streams[0] if old_streams else None
