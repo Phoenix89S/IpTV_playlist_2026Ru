@@ -1,10 +1,10 @@
 name: Denis IPTV Builder
 
 on:
-  workflow_dispatch:        # ручной запуск
+  workflow_dispatch:
   schedule:
-    - cron: "0 1 * * *"     # 04:00 МСК → 01:00 UTC
-    - cron: "0 15 */3 * *"  # 18:00 МСК → 15:00 UTC
+    - cron: "0 1 * * *"
+    - cron: "0 15 */3 * *"
 
 jobs:
   build:
@@ -36,6 +36,6 @@ jobs:
         run: |
           git config --global user.name "PhoenixBot"
           git config --global user.email "actions@github.com"
-          git add Denis_iptv_2026.m3u
+          git add *.m3u
           git commit -m "Auto-build Denis_iptv_2026.m3u"
           git push
