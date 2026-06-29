@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-# iptv_parser_v3_single.py
+# Denis IPTV Builder / iptv_parser_v3_single.py
 
 import re
 import requests
 import os
+import shutil
 from dataclasses import dataclass, field
 from typing import List, Optional
 
@@ -147,7 +148,7 @@ def parse_m3u(content: str, source_id: str) -> List[Channel]:
     return channels
 
 # ==========================
-# ФИЛЬТРЫ
+# ФИЛЬТРЫ 18+
 # ==========================
 
 ADULT_CHANNELS = [
@@ -176,6 +177,10 @@ def is_adult_channel(name: str, group: Optional[str]) -> bool:
             return True
 
     return False
+
+# ==========================
+# ФИЛЬТР МУСОРНЫХ ДОНРОВ
+# ==========================
 
 def is_bad_donor(url: str) -> bool:
     url_l = url.lower()
@@ -304,6 +309,10 @@ def load_old_playlist():
     with open(last_old, 'r', encoding='utf-8') as f:
         return parse_m3u(f.read(), "OLD")
 
+# ==========================
+# STABLE / OLD СОХРАНЕНИЕ
+# ==========================
+
 def save_new_old():
     old_files = [f for f in os.listdir('.') if f.startswith("Denis_iptv_stable_Old_") and f.endswith(".m3u")]
 
@@ -316,8 +325,49 @@ def save_new_old():
         next_num = num + 1
 
     new_old_name = f"Denis_iptv_stable_Old_{next_num:03d}.m3u"
-    os.rename("stable_new.m3u", new_old_name)
+    shutil.copy("stable_new.m3u", new_old_name)
     log(f"[INFO] NEW OLD created: {new_old_name}")
+
+def playlist_changed(old_channels: List[Channel], merged_channels: List[Channel]) -> bool:
+    if not old_channels:
+        return True
+
+    index_old = {ch.number: ch for ch in old_channels}
+    index_new = {ch.number: ch for ch in merged_channels}
+
+    if len(index_old) != len(index_new):
+        return True
+
+    for number, old_ch in index_old.items():
+        new_ch = index_new.get(number)
+        if not new_ch:
+            return True
+
+        old_best = old_ch.best_stream or (old_ch.streams[0] if old_ch.streams else None)
+        new_best = new_ch.best_stream or (new_ch.streams[0] if new_ch.streams else None)
+
+        old_url = old_best.url if old_best else ""
+        new_url = new_best.url if new_best else ""
+
+        if old_url != new_url:
+            return True
+
+    return False
+
+def save_new_stable():
+    stable_files = [f for f in os.listdir('.') if f.startswith("Denis_iptv_stable_") and f.endswith(".m3u")]
+
+    if not stable_files:
+        next_num = 1
+    else:
+        stable_files.sort()
+        last = stable_files[-1]
+        num = int(last.split("_")[-1].split(".")[0])
+        next_num = num + 1
+
+    new_stable_name = f"Denis_iptv_stable_{next_num:03d}.m3u"
+    shutil.copy("stable_new.m3u", new_stable_name)
+    log(f"[INFO] NEW STABLE created: {new_stable_name}")
 
 # ==========================
 # ВЫВОД
@@ -356,7 +406,13 @@ def main():
     write_m3u("stable_new.m3u", merged)
     log("[DONE] stable_new.m3u written")
 
-    save_new_old()
+    if old_channels:
+        save_new_old()
+
+    if playlist_changed(old_channels, merged):
+        save_new_stable()
+    else:
+        log("[INFO] No changes → STABLE not updated")
 
 if __name__ == "__main__":
     main()
