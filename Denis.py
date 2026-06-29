@@ -16,6 +16,19 @@ def build_scada_code(channel_number: int, stream_number: int = 1) -> str:
     return f"{channel_number}.{stream_number}.E.F(00).{channel_number}.{stream_number}"
 
 # ==========================
+# SAFE INT (НОВАЯ ПРАВКА)
+# ==========================
+
+def safe_int(value):
+    try:
+        return int(value)
+    except:
+        digits = ''.join(ch for ch in value if ch.isdigit())
+        if digits:
+            return int(digits)
+        return 1
+
+# ==========================
 # ИСТОЧНИКИ
 # ==========================
 
@@ -118,11 +131,7 @@ def parse_m3u(content: str, source_id: str) -> List[Channel]:
             if current_name is None:
                 continue
 
-            try:
-                num_int = int(current_number)
-            except:
-                num_int = 1
-
+            num_int = safe_int(current_number)
             scada = build_scada_code(num_int, 1)
 
             ch = Channel(
@@ -268,13 +277,14 @@ def merge_with_persistence(old_channels, srcA_channels, srcB_channels):
             reserve = streams_sorted[-2] if len(streams_sorted) > 1 else None
 
             ch_src = srcA or srcB
+            num_int = safe_int(number)
 
             ch = Channel(
                 number=number,
-                name=f"{build_scada_code(int(number), 1)} {ch_src.name}",
+                name=f"{build_scada_code(num_int, 1)} {ch_src.name}",
                 group=ch_src.group,
                 logo=ch_src.logo,
-                scada_code=build_scada_code(int(number), 1),
+                scada_code=build_scada_code(num_int, 1),
                 streams=streams_candidates,
                 best_stream=best,
                 reserve_stream=reserve,
@@ -296,12 +306,14 @@ def merge_with_persistence(old_channels, srcA_channels, srcB_channels):
     index_B = {ch.number: ch for ch in srcB_channels}
 
     for number, old_ch in index_old.items():
+        num_int = safe_int(number)
+
         ch = Channel(
             number=old_ch.number,
             name=old_ch.name,
             group=old_ch.group,
             logo=old_ch.logo,
-            scada_code=old_ch.scada_code,
+            scada_code=build_scada_code(num_int, 1),
         )
 
         old_streams = [s for s in old_ch.streams if s.source_id == "OLD"]
