@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
-# Denis IPTV Builder / iptv_parser_v3_single.py
+# Denis IPTV Builder / iptv_parser_v4_commits_extended.py
 
-import re
-import requests
-import os
-import shutil
+import re, requests, os, shutil, base64
 from dataclasses import dataclass, field
 from typing import List, Optional
 
@@ -12,8 +9,8 @@ from typing import List, Optional
 # SCADA НУМЕРАЦИЯ КАНАЛОВ
 # ==========================
 
-def build_scada_code(channel_number: int, stream_number: int = 1) -> str:
-    return f"{channel_number}.{stream_number}.E.F(00).{channel_number}.{stream_number}"
+def build_scada_code(global_number: int, sub_number: int = 1) -> str:
+    return f"{global_number}.{sub_number}.E.F(00).{global_number}.{sub_number}"
 
 # ==========================
 # SAFE INT
@@ -29,7 +26,7 @@ def safe_int(value):
         return 1
 
 # ==========================
-# НОРМАЛИЗАЦИЯ ИМЕНИ КАНАЛА
+# НОРМАЛИЗАЦИЯ
 # ==========================
 
 def normalize_channel_name(name: str) -> str:
@@ -39,30 +36,12 @@ def normalize_channel_name(name: str) -> str:
     name = name.replace("(", "").replace(")", "")
     return name.strip()
 
-# ==========================
-# НОРМАЛИЗАЦИЯ TVG-ID (ТОЧКУ НЕ ТРОГАЕМ)
-# ==========================
-
 def normalize_tvg_id(tvg: str) -> str:
     if not tvg:
         return "1"
-
     tvg = tvg.strip()
-    tvg = tvg.lstrip(" ,")  # убираем только запятую и пробел — точку НЕ трогаем
-
-    return tvg  # номер остаётся как есть
-
-# ==========================
-# КАНОНИЧЕСКОЕ ИМЯ ДЛЯ EPG
-# ==========================
-
-def canonical_name(name: str) -> str:
-    base = name.lower()
-    base = base.replace(" hd", "")
-    base = base.replace("hd", "")
-    base = base.replace("+", "")
-    base = re.sub(r"\s+", " ", base)
-    return base.strip()
+    tvg = tvg.lstrip(" ,")  # точку НЕ трогаем
+    return tvg
 
 # ==========================
 # ИСТОЧНИКИ
@@ -114,11 +93,12 @@ class Channel:
     quality_history: List[StreamInfo] = field(default_factory=list)
 
 # ==========================
-# ЛОГГЕР
+# ФОРСИРОВАННЫЕ КАНАЛЫ
 # ==========================
 
-def log(msg: str):
-    print(msg)
+FORCED_CHANNELS = {
+    "День Победы": "http://iptv.mega.net.ru:8888/Den_pobedy_hd/index.m3u8"
+}
 
 # ==========================
 # ПАРСЕР M3U
@@ -142,7 +122,6 @@ def parse_m3u(content: str, source_id: str) -> List[Channel]:
             m = EXTINF_RE.match(line)
             if not m:
                 continue
-
             attrs = m.group('attrs')
             raw_name = m.group('name')
             current_name = normalize_channel_name(raw_name)
@@ -165,26 +144,18 @@ def parse_m3u(content: str, source_id: str) -> List[Channel]:
 
         elif line.startswith('#'):
             continue
-
         else:
             if current_name is None:
                 continue
 
-            num_int = safe_int(current_number)
-            scada = build_scada_code(num_int, 1)
-
             ch = Channel(
-                number=current_number,  # точка сохраняется
-                name=f"{scada} {current_name}",
+                number=current_number,
+                name=current_name,
                 group=current_group,
                 logo=current_logo,
-                scada_code=scada,
             )
 
-            stream = StreamInfo(
-                source_id=source_id,
-                url=line,
-            )
+            stream = StreamInfo(source_id=source_id, url=line)
             ch.streams.append(stream)
             channels.append(ch)
 
@@ -196,264 +167,54 @@ def parse_m3u(content: str, source_id: str) -> List[Channel]:
     return channels
 
 # ==========================
-# ФИЛЬТРЫ 18+
+# ЗАГРУЗКА КОММИТОВ
 # ==========================
 
-ADULT_CHANNELS = [
-    "brazzers-tv-europe",
-    "centoxcento",
-    "dorcel",
-    "dorcel-xxx",
-    "eroxxxhd",
-    "3258",
-    "extasytv",
-    "fuuu tv",
-    "hustler-hd",
-    "passionxxx",
-    "penthouse-gold",
-    "2779",
-]
-
-def is_adult_channel(name: str, group: Optional[str]) -> bool:
-    if group and group.lower().strip() == "для взрослых":
-        return True
-
-    name_l = name.lower().strip()
-
-    for bad in ADULT_CHANNELS:
-        if bad in name_l:
-            return True
-
-    return False
-
-# ==========================
-# ФИЛЬТР МУСОРНЫХ ДОНРОВ
-# ==========================
-
-def is_bad_donor(url: str) -> bool:
-    url_l = url.lower()
-
-    if "ott.watch/stream/" in url_l:
-        return True
-
-    if "ru2.tvtm.one" in url_l and url_l.endswith("m3u8?"):
-        return True
-
-    return False
-
-def check_stream_alive(url: str) -> bool:
-    if is_bad_donor(url):
-        return False
-    try:
-        r = requests.get(url, timeout=5, stream=True)
-        if r.status_code not in (200, 206):
-            return False
-        ctype = r.headers.get('Content-Type', '')
-        if 'text/html' in ctype.lower():
-            return False
-        return True
-    except Exception:
-        return False
-
-# ==========================
-# КАЧЕСТВО
-# ==========================
-
-def compute_quality_score(url: str) -> float:
-    try:
-        r = requests.get(url, timeout=5, stream=True)
-        if r.status_code not in (200, 206):
-            return 0.0
-        base = 50.0
-        latency = r.elapsed.total_seconds()
-        score = base - latency * 10
-        return max(0, min(score, 100))
-    except Exception:
-        return 0.0
-
-# ==========================
-# MERGE + НЕПРОПАДАНИЕ
-# ==========================
-
-def merge_with_persistence(old_channels, srcA_channels, srcB_channels):
-
-    # ПЕРВЫЙ ЗАПУСК
-    if not old_channels:
-        result = []
-
-        index_A = {ch.number: ch for ch in srcA_channels}
-        index_B = {ch.number: ch for ch in srcB_channels}
-
-        all_numbers = set(index_A.keys()) | set(index_B.keys())
-
-        for number in sorted(all_numbers, key=lambda x: safe_int(x)):
-            srcA = index_A.get(number)
-            srcB = index_B.get(number)
-
-            streams_candidates: List[StreamInfo] = []
-
-            if srcA and not is_adult_channel(srcA.name, srcA.group):
-                for s in srcA.streams:
-                    if check_stream_alive(s.url):
-                        s.alive = True
-                        s.quality_score = compute_quality_score(s.url)
-                        streams_candidates.append(s)
-
-            if srcB and not is_adult_channel(srcB.name, srcB.group):
-                for s in srcB.streams:
-                    if check_stream_alive(s.url):
-                        s.alive = True
-                        s.quality_score = compute_quality_score(s.url)
-                        streams_candidates.append(s)
-
-            streams_candidates = [s for s in streams_candidates if s.alive]
-
-            if not streams_candidates:
-                continue
-
-            streams_sorted = sorted(streams_candidates, key=lambda s: s.quality_score)
-            best = streams_sorted[-1]
-            reserve = streams_sorted[-2] if len(streams_sorted) > 1 else None
-
-            ch_src = srcA or srcB
-            num_int = safe_int(number)
-
-            ch = Channel(
-                number=number,
-                name=f"{build_scada_code(num_int, 1)} {normalize_channel_name(ch_src.name)}",
-                group=ch_src.group,
-                logo=ch_src.logo,
-                scada_code=build_scada_code(num_int, 1),
-                streams=streams_candidates,
-                best_stream=best,
-                reserve_stream=reserve,
-                quality_history=streams_sorted
-            )
-
-            result.append(ch)
-
-        return result
-
-    # ОБЫЧНЫЙ РЕЖИМ
-
-    result: List[Channel] = []
-
-    index_old = {ch.number: ch for ch in old_channels}
-    index_A = {ch.number: ch for ch in srcA_channels}
-    index_B = {ch.number: ch for ch in srcB_channels}
-
-    for number, old_ch in index_old.items():
-        num_int = safe_int(number)
-
-        ch = Channel(
-            number=old_ch.number,
-            name=old_ch.name,
-            group=old_ch.group,
-            logo=old_ch.logo,
-            scada_code=build_scada_code(num_int, 1),
-        )
-
-        old_streams = [s for s in old_ch.streams if s.source_id == "OLD"]
-        ch.streams.extend(old_streams)
-
-        srcA = index_A.get(number)
-        srcB = index_B.get(number)
-
-        streams_candidates: List[StreamInfo] = []
-
-        if srcA and not is_adult_channel(srcA.name, srcA.group):
-            for s in srcA.streams:
-                if check_stream_alive(s.url):
-                    s.alive = True
-                    s.quality_score = compute_quality_score(s.url)
-                    streams_candidates.append(s)
-
-        if srcB and not is_adult_channel(srcB.name, srcB.group):
-            for s in srcB.streams:
-                if check_stream_alive(s.url):
-                    s.alive = True
-                    s.quality_score = compute_quality_score(s.url)
-                    streams_candidates.append(s)
-
-        streams_candidates = [s for s in streams_candidates if s.alive]
-
-        if not streams_candidates:
-            ch.best_stream = old_streams[0] if old_streams else None
-            log(f"[KEEP] Channel {number}: both sources invalid, keeping OLD")
-        else:
-            streams_sorted = sorted(streams_candidates, key=lambda s: s.quality_score)
-            ch.quality_history.extend(streams_sorted)
-            best = streams_sorted[-1]
-            ch.best_stream = best
-            reserve = streams_sorted[-2] if len(streams_sorted) > 1 else (old_streams[0] if old_streams else None)
-            ch.reserve_stream = reserve
-            ch.streams.extend(streams_candidates)
-            log(f"[QUALITY] Channel {number}: {streams_sorted[0].quality_score} → {best.quality_score} (improved)")
-
-        result.append(ch)
-
-    return result
-
-# ==========================
-# ЗАГРУЗКА
-# ==========================
-
-def load_m3u_file(path, source_id):
-    with open(path, 'r', encoding='utf-8') as f:
-        return parse_m3u(f.read(), source_id)
-
-def load_m3u_url(url, source_id):
+def load_commits(source: Source) -> List[Channel]:
+    url = f"{source.git_repo}/commits?path={source.git_file}&per_page={source.commits_limit}"
     r = requests.get(url, timeout=10)
     r.raise_for_status()
-    return parse_m3u(r.text, source_id)
+    commits = r.json()
 
-def load_old_playlist():
-    old_files = [f for f in os.listdir('.') if f.startswith("Denis_iptv_stable_Old_") and f.endswith(".m3u")]
-
-    if not old_files:
-        log("[INFO] OLD playlist not found → first run mode (no OLD)")
-        return []
-
-    old_files.sort()
-    last_old = old_files[-1]
-    log(f"[INFO] Using OLD playlist: {last_old}")
-
-    with open(last_old, 'r', encoding='utf-8') as f:
-        return parse_m3u(f.read(), "OLD")
+    channels = []
+    for commit in commits:
+        sha = commit['sha']
+        file_url = f"{source.git_repo}/contents/{source.git_file}?ref={sha}"
+        r2 = requests.get(file_url, timeout=10)
+        r2.raise_for_status()
+        content = r2.json()
+        decoded = base64.b64decode(content['content']).decode('utf-8')
+        channels.extend(parse_m3u(decoded, source.id))
+    return channels
 
 # ==========================
-# STABLE / OLD СОХРАНЕНИЕ
+# MERGE
 # ==========================
 
-def save_new_old():
-    old_files = [f for f in os.listdir('.') if f.startswith("Denis_iptv_stable_Old_") and f.endswith(".m3u")]
+def merge_channels(srcA_channels, srcB_channels, commitsA, commitsB):
+    result: List[Channel] = []
+    global_counter = 1
 
-    if not old_files:
-        next_num = 1
-    else:
-        old_files.sort()
-        last = old_files[-1]
-        num = int(last.split("_")[-1].split(".")[0])
-        next_num = num + 1
+    all_channels = srcA_channels + srcB_channels + commitsA + commitsB
 
-    new_old_name = f"Denis_iptv_stable_Old_{next_num:03d}.m3u"
-    shutil.copy("stable_new.m3u", new_old_name)
-    log(f"[INFO] NEW OLD created: {new_old_name}")
+    for ch in all_channels:
+        sub_counter = 1
+        scada = build_scada_code(global_counter, sub_counter)
 
-def save_new_stable():
-    stable_files = [f for f in os.listdir('.') if f.startswith("Denis_iptv_stable_") and f.endswith(".m3u")]
+        # форсированные каналы
+        if ch.name in FORCED_CHANNELS:
+            forced_url = FORCED_CHANNELS[ch.name]
+            stream = StreamInfo(source_id="FORCED", url=forced_url, alive=True, quality_score=100)
+            ch.streams.append(stream)
 
-    if not stable_files:
-        next_num = 1
-    else:
-        stable_files.sort()
-        last = stable_files[-1]
-        num = int(last.split("_")[-1].split(".")[0])
-        next_num = num + 1
+        ch.scada_code = scada
+        ch.name = f"{scada} {ch.name}"
+        ch.best_stream = ch.streams[0] if ch.streams else None
 
-    new_stable_name = f"Denis_iptv_stable_{next_num:03d}.m3u"
-    shutil.copy("stable_new.m3u", new_stable_name)
-    log(f"[INFO] NEW STABLE created: {new_stable_name}")
+        result.append(ch)
+        global_counter += 1
+
+    return result
 
 # ==========================
 # ВЫВОД
@@ -482,19 +243,16 @@ def write_m3u(path, channels):
 # ==========================
 
 def main():
-    old_channels = load_old_playlist()
+    srcA_channels = parse_m3u(requests.get(SOURCE_A.playlist_url).text, SOURCE_A.id)
+    srcB_channels = parse_m3u(requests.get(SOURCE_B.playlist_url).text, SOURCE_B.id)
 
-    srcA_channels = load_m3u_url(SOURCE_A.playlist_url, SOURCE_A.id)
-    srcB_channels = load_m3u_url(SOURCE_B.playlist_url, SOURCE_B.id)
+    commitsA = load_commits(SOURCE_A)
+    commitsB = load_commits(SOURCE_B)
 
-    merged = merge_with_persistence(old_channels, srcA_channels, srcB_channels)
+    merged = merge_channels(srcA_channels, srcB_channels, commitsA, commitsB)
 
     write_m3u("stable_new.m3u", merged)
     log("[DONE] stable_new.m3u written")
-
-    if old_channels:
-        save_new_old()
-        save_new_stable()
 
 if __name__ == "__main__":
     main()
