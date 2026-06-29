@@ -224,10 +224,71 @@ def compute_quality_score(url: str) -> float:
         return 0.0
 
 # ==========================
-# MERGE + НЕПРОПАДАНИЕ
+# MERGE + НЕПРОПАДАНИЕ (С ВСТАВКОЙ)
 # ==========================
 
 def merge_with_persistence(old_channels, srcA_channels, srcB_channels):
+
+    # ==========================
+    # ПЕРВЫЙ ЗАПУСК (OLD пустой)
+    # ==========================
+    if not old_channels:
+        result = []
+
+        index_A = {ch.number: ch for ch in srcA_channels}
+        index_B = {ch.number: ch for ch in srcB_channels}
+
+        all_numbers = set(index_A.keys()) | set(index_B.keys())
+
+        for number in sorted(all_numbers):
+            srcA = index_A.get(number)
+            srcB = index_B.get(number)
+
+            streams_candidates = []
+
+            if srcA and not is_adult_channel(srcA.name, srcA.group):
+                for s in srcA.streams:
+                    if check_stream_alive(s.url):
+                        s.alive = True
+                        s.quality_score = compute_quality_score(s.url)
+                        streams_candidates.append(s)
+
+            if srcB and not is_adult_channel(srcB.name, srcB.group):
+                for s in srcB.streams:
+                    if check_stream_alive(s.url):
+                        s.alive = True
+                        s.quality_score = compute_quality_score(s.url)
+                        streams_candidates.append(s)
+
+            if not streams_candidates:
+                continue
+
+            streams_sorted = sorted(streams_candidates, key=lambda s: s.quality_score)
+            best = streams_sorted[-1]
+            reserve = streams_sorted[-2] if len(streams_sorted) > 1 else None
+
+            ch_src = srcA or srcB
+
+            ch = Channel(
+                number=number,
+                name=f"{build_scada_code(int(number), 1)} {ch_src.name}",
+                group=ch_src.group,
+                logo=ch_src.logo,
+                scada_code=build_scada_code(int(number), 1),
+                streams=streams_candidates,
+                best_stream=best,
+                reserve_stream=reserve,
+                quality_history=streams_sorted
+            )
+
+            result.append(ch)
+
+        return result
+
+    # ==========================
+    # ОБЫЧНЫЙ РЕЖИМ (OLD существует)
+    # ==========================
+
     result = []
 
     index_old = {ch.number: ch for ch in old_channels}
