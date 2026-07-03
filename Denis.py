@@ -10,9 +10,30 @@ from dataclasses import dataclass, field
 from typing import List, Optional
 
 # ==========================
+# TURBO режим
+# ==========================
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
+import numpy as np
+
+TURBO = True  # флаг включения турбо-режима
+
+async def turbo_load_sources():
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        loop = asyncio.get_event_loop()
+        srcA_future = loop.run_in_executor(pool, lambda: requests.get(SOURCE_A.playlist_url, timeout=10).text)
+        srcB_future = loop.run_in_executor(pool, lambda: requests.get(SOURCE_B.playlist_url, timeout=10).text)
+        srcA_text, srcB_text = await asyncio.gather(srcA_future, srcB_future)
+        srcA_channels = parse_m3u(srcA_text, SOURCE_A.id)
+        srcB_channels = parse_m3u(srcB_text, SOURCE_B.id)
+        commitsA_future = loop.run_in_executor(pool, lambda: load_commits(SOURCE_A))
+        commitsB_future = loop.run_in_executor(pool, lambda: load_commits(SOURCE_B))
+        commitsA, commitsB = await asyncio.gather(commitsA_future, commitsB_future)
+    return srcA_channels, srcB_channels, commitsA, commitsB
+
+# ==========================
 # ЛОГГЕР
 # ==========================
-
 def log(msg: str):
     print(msg)
 
@@ -38,13 +59,9 @@ def safe_int(value):
 # НОРМАЛИЗАЦИЯ ИМЕНИ КАНАЛА
 # ==========================
 def normalize_channel_name(name: str) -> str:
-    # убираем ведущие запятые и пробелы, точку не трогаем
     name = name.lstrip(" ,")
-    # заменяем неправильные дефисы
     name = name.replace("–", "-").replace("—", "-")
-    # убираем двойные пробелы
     name = re.sub(r"\s+", " ", name)
-    # убираем скобки вокруг регионов
     name = name.replace("(", "").replace(")", "")
     return name.strip()
 
@@ -54,7 +71,6 @@ def normalize_channel_name(name: str) -> str:
 def normalize_tvg_id(tvg: str) -> str:
     if not tvg:
         return "1"
-    # запятая убирается, точка сохраняется
     tvg = tvg.strip().lstrip(" ,")
     return tvg
 
@@ -108,15 +124,7 @@ class Channel:
 # ==========================
 # ФИЛЬТРЫ 18+
 # ==========================
-ADULT_CHANNELS = [
-    "brazzers",
-    "dorcel",
-    "hustler",
-    "penthouse",
-    "xxx",
-    "eroxxxhd",
-    "extasytv",
-]
+ADULT_CHANNELS = ["brazzers","dorcel","hustler","penthouse","xxx","eroxxxhd","extasytv"]
 
 def is_adult_channel(name: str, group: Optional[str]) -> bool:
     if group and group.lower().strip() == "для взрослых":
@@ -178,12 +186,10 @@ def parse_m3u(content: str, source_id: str) -> List[Channel]:
     current_group = None
     current_logo = None
     current_number = None
-
     for line in content.splitlines():
         line = line.strip()
         if not line:
             continue
-
         if line.startswith('#EXTINF'):
             m = EXTINF_RE.match(line)
             if not m:
@@ -191,11 +197,7 @@ def parse_m3u(content: str, source_id: str) -> List[Channel]:
             attrs = m.group('attrs')
             raw_name = m.group('name')
             current_name = normalize_channel_name(raw_name)
-
-            group = None
-            logo = None
-            number = None
-
+            group = None; logo = None; number = None
             for part in attrs.split():
                 if 'group-title=' in part:
                     group = part.split('=', 1)[1].strip('"')
@@ -203,36 +205,18 @@ def parse_m3u(content: str, source_id: str) -> List[Channel]:
                     logo = part.split('=', 1)[1].strip('"')
                 if 'tvg-id=' in part:
                     number = part.split('=', 1)[1].strip('"')
-
-            current_group = group
-            current_logo = logo
+            current_group = group; current_logo = logo
             current_number = normalize_tvg_id(number or current_name)
-
         elif line.startswith('#'):
             continue
         else:
             if current_name is None:
                 continue
-
-            ch = Channel(
-                number=current_number,
-                name=current_name,
-                group=current_group,
-                logo=current_logo,
-            )
-
-            stream = StreamInfo(
-                source_id=source_id,
-                url=line,
-            )
+            ch = Channel(number=current_number,name=current_name,group=current_group,logo=current_logo)
+            stream = StreamInfo(source_id=source_id,url=line)
             ch.streams.append(stream)
             channels.append(ch)
-
-            current_name = None
-            current_group = None
-            current_logo = None
-            current_number = None
-
+            current_name = None; current_group = None; current_logo = None; current_number = None
     return channels
 
 # ==========================
@@ -240,20 +224,15 @@ def parse_m3u(content: str, source_id: str) -> List[Channel]:
 # ==========================
 def load_commits(source: Source) -> List[Channel]:
     url = f"{source.git_repo}/commits?path={source.git_file}&per_page={source.commits_limit}"
-    r = requests.get(url, timeout=10)
-    r.raise_for_status()
-    commits = r.json()
-    channels: List[Channel] = []
-
+    r = requests.get(url, timeout=10); r.raise_for_status()
+    commits = r.json(); channels: List[Channel] = []
     for commit in commits:
         sha = commit["sha"]
         file_url = f"{source.git_repo}/contents/{source.git_file}?ref={sha}"
-        r2 = requests.get(file_url, timeout=10)
-        r2.raise_for_status()
+        r2 = requests.get(file_url, timeout=10); r2.raise_for_status()
         content = r2.json()
         decoded = base64.b64decode(content["content"]).decode("utf-8")
         channels.extend(parse_m3u(decoded, source.id))
-
     return channels
 
 # ==========================
@@ -275,17 +254,13 @@ def merge_channels(
 ) -> List[Channel]:
     result: List[Channel] = []
     global_counter = 1
-
-    # Индекс по номеру канала: собираем все источники в единый словарь
     index: dict[str, Channel] = {}
 
     def add_or_merge_channel(ch: Channel):
         key = ch.number
         if key in index:
             existing = index[key]
-            # объединяем потоки
             existing.streams.extend(ch.streams)
-            # если нет группы/лого — подтягиваем
             if not existing.group and ch.group:
                 existing.group = ch.group
             if not existing.logo and ch.logo:
@@ -293,39 +268,22 @@ def merge_channels(
         else:
             index[key] = ch
 
-    # добавляем каналы из источников и коммитов
-    for ch in srcA_channels:
-        add_or_merge_channel(ch)
-    for ch in srcB_channels:
-        add_or_merge_channel(ch)
-    for ch in commitsA:
-        add_or_merge_channel(ch)
-    for ch in commitsB:
-        add_or_merge_channel(ch)
+    for ch in srcA_channels: add_or_merge_channel(ch)
+    for ch in srcB_channels: add_or_merge_channel(ch)
+    for ch in commitsA: add_or_merge_channel(ch)
+    for ch in commitsB: add_or_merge_channel(ch)
+    for ch in old_channels: add_or_merge_channel(ch)
 
-    # добавляем каналы из OLD, чтобы они не пропадали
-    for ch in old_channels:
-        add_or_merge_channel(ch)
-
-    # теперь проходим по всем каналам
     for number, ch in sorted(index.items(), key=lambda kv: safe_int(kv[0])):
-        # фильтр 18+
         if is_adult_channel(ch.name, ch.group):
             log(f"[FILTER] Adult skipped: {ch.name}")
             continue
 
-        # форсированные каналы
         if ch.name in FORCED_CHANNELS:
             forced_url = FORCED_CHANNELS[ch.name]
-            forced_stream = StreamInfo(
-                source_id="FORCED",
-                url=forced_url,
-                alive=True,
-                quality_score=100.0,
-            )
+            forced_stream = StreamInfo(source_id="FORCED", url=forced_url, alive=True, quality_score=100.0)
             ch.streams.append(forced_stream)
 
-        # проверка живости и оценка качества
         streams_candidates: List[StreamInfo] = []
         for s in ch.streams:
             if check_stream_alive(s.url):
@@ -333,7 +291,6 @@ def merge_channels(
                 s.quality_score = compute_quality_score(s.url)
                 streams_candidates.append(s)
 
-        # если все потоки мёртвые, но канал был в OLD — не удаляем
         if not streams_candidates and old_channels:
             old_match = next((o for o in old_channels if o.number == ch.number), None)
             if old_match and old_match.best_stream:
@@ -343,10 +300,8 @@ def merge_channels(
                 ch.best_stream = old_match.streams[0]
                 log(f"[KEEP] Channel {ch.number}: sources invalid, keeping OLD first stream")
             else:
-                # нет живых потоков и нет нормального OLD — канал остаётся, но без best_stream
                 log(f"[WARN] Channel {ch.number}: no alive streams and no valid OLD, keeping channel without best_stream")
         else:
-            # выбираем лучший поток по качеству
             streams_sorted = sorted(streams_candidates, key=lambda s: s.quality_score)
             if streams_sorted:
                 best = streams_sorted[-1]
@@ -356,7 +311,6 @@ def merge_channels(
                 ch.quality_history.extend(streams_sorted)
                 log(f"[QUALITY] Channel {ch.number}: best={best.quality_score}, count={len(streams_sorted)}")
 
-        # сквозная нумерация + SCADA
         scada = build_scada_code(global_counter, 1)
         ch.scada_code = scada
         ch.name = f"{scada} {ch.name}"
@@ -377,10 +331,8 @@ def write_m3u(path: str, channels: List[Channel]):
             if not best:
                 continue
             attrs = []
-            if ch.group:
-                attrs.append(f'group-title="{ch.group}"')
-            if ch.logo:
-                attrs.append(f'tvg-logo="{ch.logo}"')
+            if ch.group: attrs.append(f'group-title="{ch.group}"')
+            if ch.logo: attrs.append(f'tvg-logo="{ch.logo}"')
             attrs.append(f'tvg-id="{ch.number}"')
             attrs.append(f'E-Kanon="{ch.scada_code}"')
             attr_str = " " + " ".join(attrs) if attrs else ""
@@ -391,92 +343,75 @@ def write_m3u(path: str, channels: List[Channel]):
 # MAIN
 # ==========================
 def main():
-    # Ищем историю STABLE и OLD
     stable_files = [f for f in os.listdir('.') if f.startswith("Denis_iptv_stable_") and f.endswith(".m3u")]
     old_files = [f for f in os.listdir('.') if f.startswith("Denis_iptv_stable_Old_") and f.endswith(".m3u")]
 
-    # Определяем, что использовать как OLD для защиты от удаления
     if old_files:
-        # OLD уже есть → используем последний как контрольную точку
-        old_files.sort()
-        last_old = old_files[-1]
+        old_files.sort(); last_old = old_files[-1]
         log(f"[INFO] Using OLD playlist: {last_old}")
         with open(last_old, "r", encoding="utf-8") as f:
             old_channels = parse_m3u(f.read(), "OLD")
         old_exists = True
     elif stable_files:
-        # OLD ещё нет, но есть STABLE → второй запуск
-        stable_files.sort()
-        last_stable = stable_files[-1]
+        stable_files.sort(); last_stable = stable_files[-1]
         log(f"[INFO] No OLD yet, using last STABLE as base: {last_stable}")
         with open(last_stable, "r", encoding="utf-8") as f:
             old_channels = parse_m3u(f.read(), "OLD")
-        old_exists = False  # это будет второй запуск, первый OLD создадим после merge
-    else:
-        # Первый запуск — нет ни STABLE, ни OLD
-        log("[INFO] First run → no STABLE and no OLD")
-        old_channels = []
         old_exists = False
+    else:
+        log("[INFO] First run → no STABLE and no OLD")
+        old_channels = []; old_exists = False
 
-    # Загружаем источники
-    log("[INFO] Loading source A playlist")
-    srcA_text = requests.get(SOURCE_A.playlist_url, timeout=10).text
-    srcA_channels = parse_m3u(srcA_text, SOURCE_A.id)
+    if TURBO:
+        log("[INFO] TURBO mode enabled → parallel loading")
+        srcA_channels, srcB_channels, commitsA, commitsB = asyncio.run(turbo_load_sources())
+    else:
+        log("[INFO] Loading source A playlist")
+        srcA_text = requests.get(SOURCE_A.playlist_url, timeout=10).text
+        srcA_channels = parse_m3u(srcA_text, SOURCE_A.id)
+        log("[INFO] Loading source B playlist")
+        srcB_text = requests.get(SOURCE_B.playlist_url, timeout=10).text
+        srcB_channels = parse_m3u(srcB_text, SOURCE_B.id)
+        log("[INFO] Loading commits for source A")
+        commitsA = load_commits(SOURCE_A)
+        log("[INFO] Loading commits for source B")
+        commitsB = load_commits(SOURCE_B)
 
-    log("[INFO] Loading source B playlist")
-    srcB_text = requests.get(SOURCE_B.playlist_url, timeout=10).text
-    srcB_channels = parse_m3u(srcB_text, SOURCE_B.id)
-
-    # Загружаем коммиты
-    log("[INFO] Loading commits for source A")
-    commitsA = load_commits(SOURCE_A)
-    log("[INFO] Loading commits for source B")
-    commitsB = load_commits(SOURCE_B)
-
-    # Слияние с учётом OLD и запрета на удаление
     log("[INFO] Merging channels with persistence")
     merged = merge_channels(old_channels, srcA_channels, srcB_channels, commitsA, commitsB)
 
-    # Записываем новый STABLE (рабочий плейлист)
+    if TURBO:
+        qualities = np.array([ch.best_stream.quality_score for ch in merged if ch.best_stream])
+        if qualities.size > 0:
+            log(f"[QUALITY] TURBO summary: max={np.max(qualities)}, avg={np.mean(qualities):.2f}, channels={len(qualities)}")
+
     write_m3u("stable_new.m3u", merged)
     log("[DONE] stable_new.m3u written")
 
-    # Создаём новую контрольную точку STABLE
     if stable_files:
-        stable_files.sort()
-        last_stable = stable_files[-1]
-        try:
-            num = int(last_stable.split("_")[-1].split(".")[0])
-        except Exception:
-            num = 0
+        stable_files.sort(); last_stable = stable_files[-1]
+        try: num = int(last_stable.split("_")[-1].split(".")[0])
+        except Exception: num = 0
         next_stable_num = num + 1
     else:
         next_stable_num = 1
-
     new_stable_name = f"Denis_iptv_stable_{next_stable_num:03d}.m3u"
     shutil.copy("stable_new.m3u", new_stable_name)
     log(f"[INFO] NEW STABLE created: {new_stable_name}")
 
-    # OLD создаём только со второго запуска и далее, как цепочку контрольных точек
     if old_files:
-        # OLD уже есть → создаём следующий
-        old_files.sort()
-        last_old = old_files[-1]
-        try:
-            num = int(last_old.split("_")[-1].split(".")[0])
-        except Exception:
-            num = 0
+        old_files.sort(); last_old = old_files[-1]
+        try: num = int(last_old.split("_")[-1].split(".")[0])
+        except Exception: num = 0
         next_old_num = num + 1
         new_old_name = f"Denis_iptv_stable_Old_{next_old_num:03d}.m3u"
         shutil.copy("stable_new.m3u", new_old_name)
         log(f"[INFO] NEW OLD created: {new_old_name}")
     elif stable_files:
-        # Это второй запуск → создаём первый OLD
         new_old_name = "Denis_iptv_stable_Old_001.m3u"
         shutil.copy("stable_new.m3u", new_old_name)
         log(f"[INFO] FIRST OLD created: {new_old_name}")
     else:
-        # Первый запуск → OLD не создаём
         log("[INFO] First run → OLD not created (will be created from second run)")
 
 if __name__ == "__main__":
