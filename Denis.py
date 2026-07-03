@@ -171,7 +171,6 @@ def parse_m3u(content: str, source_id: str) -> List[Channel]:
             channels.append(ch)
             current_name=None; current_group=None; current_logo=None; current_number=None
     return channels
-
 # ==========================
 # ЗАГРУЗКА КОММИТОВ
 # ==========================
@@ -212,10 +211,6 @@ def merge_channels(old_channels,srcA_channels,srcB_channels,commitsA,commitsB):
     for ch in commitsB: add_or_merge_channel(ch)
     for ch in old_channels: add_or_merge_channel(ch)
     for number,ch in sorted(index.items(), key=lambda kv: safe_int(kv[0])):
-        if is_adult_channel(ch.name,ch.group):
-            log(f"[FILTER] Adult skipped: {ch.name}")
-            continue
-for number,ch in sorted(index.items(), key=lambda kv: safe_int(kv[0])):
         # фильтр 18+
         if is_adult_channel(ch.name,ch.group):
             log(f"[FILTER] Adult skipped: {ch.name}")
@@ -265,7 +260,6 @@ for number,ch in sorted(index.items(), key=lambda kv: safe_int(kv[0])):
         global_counter+=1
 
     return result
-
 # ==========================
 # ВЫВОД M3U
 # ==========================
@@ -361,4 +355,4 @@ def main():
         log("[INFO] First run → OLD not created (will be created from second run)")
 
 if __name__=="__main__":
-    main() 
+    main()
