@@ -211,22 +211,31 @@ def merge_channels(old_channels,srcA_channels,srcB_channels,commitsA,commitsB):
     for ch in commitsA: add_or_merge_channel(ch)
     for ch in commitsB: add_or_merge_channel(ch)
     for ch in old_channels: add_or_merge_channel(ch)
-    for number,ch in
-
-for number,ch in sorted(index.items(), key=lambda kv: safe_int(kv[0])):
+    for number,ch in sorted(index.items(), key=lambda kv: safe_int(kv[0])):
         if is_adult_channel(ch.name,ch.group):
             log(f"[FILTER] Adult skipped: {ch.name}")
             continue
+for number,ch in sorted(index.items(), key=lambda kv: safe_int(kv[0])):
+        # фильтр 18+
+        if is_adult_channel(ch.name,ch.group):
+            log(f"[FILTER] Adult skipped: {ch.name}")
+            continue
+
+        # форсированные каналы
         if ch.name in FORCED_CHANNELS:
             forced_url=FORCED_CHANNELS[ch.name]
             forced_stream=StreamInfo(source_id="FORCED",url=forced_url,alive=True,quality_score=100.0)
             ch.streams.append(forced_stream)
+
+        # проверка живости и оценка качества
         streams_candidates=[]
         for s in ch.streams:
             if check_stream_alive(s.url):
                 s.alive=True
                 s.quality_score=compute_quality_score(s.url)
                 streams_candidates.append(s)
+
+        # если все потоки мёртвые, но канал был в OLD — не удаляем
         if not streams_candidates and old_channels:
             old_match=next((o for o in old_channels if o.number==ch.number),None)
             if old_match and old_match.best_stream:
@@ -246,11 +255,15 @@ for number,ch in sorted(index.items(), key=lambda kv: safe_int(kv[0])):
                 ch.reserve_stream=reserve
                 ch.quality_history.extend(streams_sorted)
                 log(f"[QUALITY] Channel {ch.number}: best={best.quality_score}, count={len(streams_sorted)}")
+
+        # SCADA‑нумерация
         scada=build_scada_code(global_counter,1)
         ch.scada_code=scada
         ch.name=f"{scada} {ch.name}"
+
         result.append(ch)
         global_counter+=1
+
     return result
 
 # ==========================
@@ -277,6 +290,7 @@ def write_m3u(path:str,channels:List[Channel]):
 def main():
     stable_files=[f for f in os.listdir('.') if f.startswith("Denis_iptv_stable_") and f.endswith(".m3u")]
     old_files=[f for f in os.listdir('.') if f.startswith("Denis_iptv_stable_Old_") and f.endswith(".m3u")]
+
     if old_files:
         old_files.sort(); last_old=old_files[-1]
         log(f"[INFO] Using OLD playlist: {last_old}")
@@ -292,6 +306,7 @@ def main():
     else:
         log("[INFO] First run → no STABLE and no OLD")
         old_channels=[]; old_exists=False
+
     if TURBO:
         log("[INFO] TURBO mode enabled → parallel loading")
         srcA_channels,srcB_channels,commitsA,commitsB=asyncio.run(turbo_load_sources())
@@ -306,14 +321,18 @@ def main():
         commitsA=load_commits(SOURCE_A)
         log("[INFO] Loading commits for source B")
         commitsB=load_commits(SOURCE_B)
+
     log("[INFO] Merging channels with persistence")
     merged=merge_channels(old_channels,srcA_channels,srcB_channels,commitsA,commitsB)
+
     if TURBO:
         qualities=np.array([ch.best_stream.quality_score for ch in merged if ch.best_stream])
         if qualities.size>0:
             log(f"[QUALITY] TURBO summary: max={np.max(qualities)}, avg={np.mean(qualities):.2f}, channels={len(qualities)}")
+
     write_m3u("stable_new.m3u",merged)
     log("[DONE] stable_new.m3u written")
+
     if stable_files:
         stable_files.sort(); last_stable=stable_files[-1]
         try: num=int(last_stable.split("_")[-1].split(".")[0])
@@ -321,9 +340,11 @@ def main():
         next_stable_num=num+1
     else:
         next_stable_num=1
+
     new_stable_name=f"Denis_iptv_stable_{next_stable_num:03d}.m3u"
     shutil.copy("stable_new.m3u",new_stable_name)
     log(f"[INFO] NEW STABLE created: {new_stable_name}")
+
     if old_files:
         old_files.sort(); last_old=old_files[-1]
         try: num=int(last_old.split("_")[-1].split(".")[0])
@@ -340,4 +361,4 @@ def main():
         log("[INFO] First run → OLD not created (will be created from second run)")
 
 if __name__=="__main__":
-    main()
+    main() 
