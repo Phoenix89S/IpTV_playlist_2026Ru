@@ -12,6 +12,7 @@ from typing import List, Optional
 # ==========================
 # ЛОГГЕР
 # ==========================
+
 def log(msg: str):
     print(msg)
 
