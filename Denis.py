@@ -200,7 +200,7 @@ SOURCE_A = Source(
     playlist_url="https://raw.githubusercontent.com/smolnp/IPTVru/gh-pages/IPTVdonor.m3u",
     git_repo="https://api.github.com/repos/smolnp/IPTVru",
     git_file="IPTVdonor.m3u",
-    commits_limit=11
+    commits_limit=8
 )
 
 SOURCE_B = Source(
@@ -208,7 +208,7 @@ SOURCE_B = Source(
     playlist_url="https://raw.githubusercontent.com/smolnp/IPTVru/iptv-pro/IPTVххх.m3u",
     git_repo="https://api.github.com/repos/smolnp/IPTVru",
     git_file="IPTVхх.m3u",
-    commits_limit=11
+    commits_limit=8
 )
 
 SOURCE_A_BACKUPS = [SOURCE_A.playlist_url]
