@@ -5224,6 +5224,10 @@ http://flussonic.mkpnet.ru/tv-4af112c31b77e2a8/video.m3u8
 https://s70378.cdn.ngenix.net/ctc_kids/2/index.m3u8
 #EXTINF:-1 group-title="Эфирные ТВ Плюс",109.3.E.F(00).109.3 СТС Kids HD
 http://31148.rafail1982.uz/STS_Kids_HD/index.m3u8
+#EXTINF:-1 group-title="Эфирные ТВ Плюс",175.1.E.F(00).175.1 Viasat Kino Comedy HD
+http://ukr2.ukrainske.tv/493/video.m3u8
+
+
 
 
 
