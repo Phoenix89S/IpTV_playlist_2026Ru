@@ -1,34 +1,135 @@
 #!/usr/bin/env python3
-# Denis IPTV Builder / iptv_parser_v9_full_turbo.py
+# Denis IPTV Builder / iptv_parser_v10_ultra.py
 
 import re
 import requests
 import os
 import shutil
 import base64
-import asyncio
-from concurrent.futures import ThreadPoolExecutor
-import numpy as np
+import sqlite3
+import time
+import threading
 from dataclasses import dataclass, field
 from typing import List, Optional
+from concurrent.futures import ThreadPoolExecutor
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+import numpy as np
 
 # ==========================
-# TURBO режим
+# TURBO CORE
 # ==========================
-TURBO = True  # флаг включения турбо-режима
+TURBO = True
 
-async def turbo_load_sources():
-    with ThreadPoolExecutor(max_workers=4) as pool:
-        loop = asyncio.get_event_loop()
-        srcA_future = loop.run_in_executor(pool, lambda: requests.get(SOURCE_A.playlist_url, timeout=10).text)
-        srcB_future = loop.run_in_executor(pool, lambda: requests.get(SOURCE_B.playlist_url, timeout=10).text)
-        srcA_text, srcB_text = await asyncio.gather(srcA_future, srcB_future)
-        srcA_channels = parse_m3u(srcA_text, SOURCE_A.id)
-        srcB_channels = parse_m3u(srcB_text, SOURCE_B.id)
-        commitsA_future = loop.run_in_executor(pool, lambda: load_commits(SOURCE_A))
-        commitsB_future = loop.run_in_executor(pool, lambda: load_commits(SOURCE_B))
-        commitsA, commitsB = await asyncio.gather(commitsA_future, commitsB_future)
-    return srcA_channels, srcB_channels, commitsA, commitsB
+HTTP_WORKERS = 32
+STREAM_WORKERS = 64
+
+_executor = ThreadPoolExecutor(
+    max_workers=min(128, (os.cpu_count() or 4) * 8)
+)
+
+_thread_local = threading.local()
+
+def get_session():
+    if not hasattr(_thread_local, "session"):
+        retry = Retry(
+            total=3,
+            connect=3,
+            read=3,
+            backoff_factor=0.5,
+            status_forcelist=[500, 502, 503, 504],
+            allowed_methods=None
+        )
+        adapter = HTTPAdapter(
+            pool_connections=HTTP_WORKERS,
+            pool_maxsize=HTTP_WORKERS,
+            max_retries=retry
+        )
+        session = requests.Session()
+        session.mount("http://", adapter)
+        session.mount("https://", adapter)
+        session.headers.update({
+            "User-Agent": "Denis-IPTV-Builder/10.0"
+        })
+        _thread_local.session = session
+    return _thread_local.session
+
+# ==========================
+# SMART HTTP ENGINE
+# ==========================
+_network_semaphore = threading.Semaphore(16)
+
+CONNECT_TIMEOUT = 5
+READ_TIMEOUT = 5
+DEFAULT_TIMEOUT = (CONNECT_TIMEOUT, READ_TIMEOUT)
+
+NETWORK_STATS = {"requests": 0, "errors": 0, "bytes": 0}
+
+def safe_get(url, **kwargs):
+    with _network_semaphore:
+        try:
+            r = get_session().get(url, **kwargs)
+            NETWORK_STATS["requests"] += 1
+            if r.ok:
+                NETWORK_STATS["bytes"] += len(r.content or b"")
+            return r
+        except Exception:
+            NETWORK_STATS["errors"] += 1
+            raise
+
+def request_json(url, timeout=DEFAULT_TIMEOUT):
+    r = safe_get(url, timeout=timeout)
+    r.raise_for_status()
+    return r.json()
+
+def request_text(url, timeout=DEFAULT_TIMEOUT):
+    r = safe_get(url, timeout=timeout)
+    r.raise_for_status()
+    return r.text
+
+# ==========================
+# TURBO CACHE
+# ==========================
+_stream_alive_cache = {}
+_stream_quality_cache = {}
+_commit_cache = {}
+
+# ==========================
+# ULTRA DATABASE (SQLite Cache)
+# ==========================
+DB_NAME = "Denis_iptv_cache.db"
+_db = sqlite3.connect(DB_NAME, check_same_thread=False)
+_db.execute("""
+CREATE TABLE IF NOT EXISTS stream_cache
+(
+    url TEXT PRIMARY KEY,
+    alive INTEGER,
+    quality REAL,
+    checked INTEGER
+)
+""")
+_db.commit()
+
+CACHE_TTL = 3600
+
+def db_get_stream(url):
+    row = _db.execute(
+        "SELECT alive, quality, checked FROM stream_cache WHERE url=?",
+        (url,)
+    ).fetchone()
+    if row is None:
+        return None
+    alive, quality, checked = row
+    if time.time() - checked > CACHE_TTL:
+        return None
+    return bool(alive), quality
+
+def db_put_stream(url, alive, quality):
+    _db.execute(
+        "INSERT OR REPLACE INTO stream_cache VALUES (?, ?, ?, ?)",
+        (url, int(alive), quality, int(time.time()))
+    )
+    _db.commit()
 
 # ==========================
 # ЛОГГЕР
@@ -36,11 +137,23 @@ async def turbo_load_sources():
 def log(msg: str):
     print(msg)
 
+ERROR_LOG = "Denis_iptv_errors.log"
+def log_error(text):
+    with open(ERROR_LOG, "a", encoding="utf-8") as f:
+        f.write(text + "\n")
+
 # ==========================
 # SCADA НУМЕРАЦИЯ
 # ==========================
+_scada_cache = {}
 def build_scada_code(global_number: int, sub_number: int = 1) -> str:
     return f"{global_number}.{sub_number}.E.F(00).{global_number}.{sub_number}"
+
+def build_scada_code_cached(global_number, sub_number=1):
+    key = (global_number, sub_number)
+    if key not in _scada_cache:
+        _scada_cache[key] = build_scada_code(global_number, sub_number)
+    return _scada_cache[key]
 
 # ==========================
 # SAFE INT
@@ -67,8 +180,7 @@ def normalize_channel_name(name: str) -> str:
 def normalize_tvg_id(tvg: str) -> str:
     if not tvg:
         return "1"
-    tvg = tvg.strip().lstrip(" ,")
-    return tvg
+    return tvg.strip().lstrip(" ,")
 
 # ==========================
 # ИСТОЧНИКИ
@@ -81,13 +193,33 @@ class Source:
     git_file: str
     commits_limit: int = 20
 
-SOURCE_A = Source("A",
-    "https://raw.githubusercontent.com/smolnp/IPTVru/gh-pages/IPTVdonor.m3u",
-    "https://api.github.com/repos/smolnp/IPTVru","IPTVdonor.m3u")
+SOURCE_A = Source(
+    id="A",
+    playlist_url="https://raw.githubusercontent.com/smolnp/IPTVru/gh-pages/IPTVdonor.m3u",
+    git_repo="https://api.github.com/repos/smolnp/IPTVru",
+    git_file="IPTVdonor.m3u",
+)
 
-SOURCE_B = Source("B",
-    "https://raw.githubusercontent.com/smolnp/IPTVru/iptv-pro/IPTVххх.m3u",
-    "https://api.github.com/repos/smolnp/IPTVru","IPTVхх.m3u")
+SOURCE_B = Source(
+    id="B",
+    playlist_url="https://raw.githubusercontent.com/smolnp/IPTVru/iptv-pro/IPTVххх.m3u",
+    git_repo="https://api.github.com/repos/smolnp/IPTVru",
+    git_file="IPTVхх.m3u",
+)
+
+SOURCE_A_BACKUPS = [SOURCE_A.playlist_url]
+SOURCE_B_BACKUPS = [SOURCE_B.playlist_url]
+
+def download_first_available(urls):
+    last_error = None
+    for url in urls:
+        try:
+            return request_text(url)
+        except Exception as e:
+            last_error = e
+            log(f"[WARN] Failed: {url}")
+            log_error(str(e))
+    raise RuntimeError(f"All sources failed: {last_error}")
 
 # ==========================
 # МОДЕЛИ
@@ -124,235 +256,296 @@ def is_adult_channel(name: str, group: Optional[str]) -> bool:
 
 def is_bad_donor(url: str) -> bool:
     url_l = url.lower()
-    return "ott.watch/stream/" in url_l or ("ru2.tvtm.one" in url_l and url_l.endswith("m3u8?"))
-
-def check_stream_alive(url: str) -> bool:
-    if is_bad_donor(url): return False
-    try:
-        r = requests.get(url, timeout=5, stream=True)
-        if r.status_code not in (200,206): return False
-        if 'text/html' in r.headers.get('Content-Type','').lower(): return False
+    if "ott.watch/stream/" in url_l:
         return True
-    except: return False
+    if "ru2.tvtm.one" in url_l and url_l.endswith("m3u8?"):
+        return True
+    return False
 
-def compute_quality_score(url: str) -> float:
+# ==========================
+# ULTRA NETWORK ENGINE
+# ==========================
+def analyze_stream_request(url: str):
+    if is_bad_donor(url):
+        return False, 0.0
     try:
-        r = requests.get(url, timeout=5, stream=True)
-        if r.status_code not in (200,206): return 0.0
-        return max(0,min(50.0 - r.elapsed.total_seconds()*10,100))
-    except: return 0.0
+        r = safe_get(url, timeout=DEFAULT_TIMEOUT, stream=True)
+        if r.status_code not in (200, 206):
+            return False, 0.0
+        ctype = r.headers.get("Content-Type", "")
+        if "text/html" in ctype.lower():
+            return False, 0.0
+        latency = r.elapsed.total_seconds()
+        score = max(0.0, min(50.0 - latency * 10, 100.0))
+        return True, score
+    except Exception:
+        return False, 0.0
 
-# ==========================
-# ПАРСЕР M3U
-# ==========================
-EXTINF_RE = re.compile(r'#EXTINF:-1(?P<attrs>[^,]*),(?P<name>.*)')
+def analyze_stream(stream: StreamInfo) -> Optional[StreamInfo]:
+    url = stream.url
 
-def parse_m3u(content: str, source_id: str) -> List[Channel]:
-    channels=[]; current_name=None; current_group=None; current_logo=None; current_number=None
-    for line in content.splitlines():
-        line=line.strip()
-        if not line: continue
-        if line.startswith('#EXTINF'):
-            m=EXTINF_RE.match(line)
-            if not m: continue
-            attrs=m.group('attrs'); raw_name=m.group('name')
-            current_name=normalize_channel_name(raw_name)
-            group=None; logo=None; number=None
-            for part in attrs.split():
-                if 'group-title=' in part: group=part.split('=',1)[1].strip('"')
-                if 'tvg-logo=' in part: logo=part.split('=',1)[1].strip('"')
-                if 'tvg-id=' in part: number=part.split('=',1)[1].strip('"')
-            current_group=group; current_logo=logo; current_number=normalize_tvg_id(number or current_name)
-        elif line.startswith('#'): continue
-        else:
-            if current_name is None: continue
-            ch=Channel(number=current_number,name=current_name,group=current_group,logo=current_logo)
-            ch.streams.append(StreamInfo(source_id=source_id,url=line))
-            channels.append(ch)
-            current_name=None; current_group=None; current_logo=None; current_number=None
-    return channels
-# ==========================
-# ЗАГРУЗКА КОММИТОВ
-# ==========================
-def load_commits(source: Source) -> List[Channel]:
-    url=f"{source.git_repo}/commits?path={source.git_file}&per_page={source.commits_limit}"
-    r=requests.get(url,timeout=10); r.raise_for_status()
-    commits=r.json(); channels=[]
-    for commit in commits:
-        sha=commit['sha']
-        file_url=f"{source.git_repo}/contents/{source.git_file}?ref={sha}"
-        r2=requests.get(file_url,timeout=10); r2.raise_for_status()
-        content=r2.json()
-        decoded=base64.b64decode(content['content']).decode('utf-8')
-        channels.extend(parse_m3u(decoded,source.id))
-    return channels
+    # Проверка SQLite-кэша
+    cached = db_get_stream(url)
+    if cached is not None:
+        alive, quality = cached
+        if alive:
+            stream.alive = True
+            stream.quality_score = quality
+            return stream
+        return
+def analyze_stream(stream: StreamInfo) -> Optional[StreamInfo]:
+    url = stream.url
 
-# ==========================
-# ФОРСИРОВАННЫЕ КАНАЛЫ
-# ==========================
-FORCED_CHANNELS={"День Победы":"http://iptv.mega.net.ru:8888/Den_pobedy_hd/index.m3u8"}
+    # Проверка SQLite-кэша
+    cached = db_get_stream(url)
+    if cached is not None:
+        alive, quality = cached
+        if alive:
+            stream.alive = True
+            stream.quality_score = quality
+            return stream
+        return None
 
-# ==========================
-# MERGE
-# ==========================
-def merge_channels(old_channels,srcA_channels,srcB_channels,commitsA,commitsB):
-    result=[]; global_counter=1; index={}
-    def add_or_merge_channel(ch:Channel):
-        key=ch.number
-        if key in index:
-            existing=index[key]
-            existing.streams.extend(ch.streams)
-            if not existing.group and ch.group: existing.group=ch.group
-            if not existing.logo and ch.logo: existing.logo=ch.logo
-        else: index[key]=ch
-    for ch in srcA_channels: add_or_merge_channel(ch)
-    for ch in srcB_channels: add_or_merge_channel(ch)
-    for ch in commitsA: add_or_merge_channel(ch)
-    for ch in commitsB: add_or_merge_channel(ch)
-    for ch in old_channels: add_or_merge_channel(ch)
-    for number,ch in sorted(index.items(), key=lambda kv: safe_int(kv[0])):
-        # фильтр 18+
-        if is_adult_channel(ch.name,ch.group):
-            log(f"[FILTER] Adult skipped: {ch.name}")
-            continue
+    # Проверка кэша текущего запуска
+    if url in _stream_alive_cache:
+        alive = _stream_alive_cache[url]
+        quality = _stream_quality_cache[url]
+        if alive:
+            stream.alive = True
+            stream.quality_score = quality
+            return stream
+        return None
 
-        # форсированные каналы
-        if ch.name in FORCED_CHANNELS:
-            forced_url=FORCED_CHANNELS[ch.name]
-            forced_stream=StreamInfo(source_id="FORCED",url=forced_url,alive=True,quality_score=100.0)
-            ch.streams.append(forced_stream)
+    # Сетевая проверка (объединённая alive+quality)
+    alive, quality = analyze_stream_request(url)
 
-        # проверка живости и оценка качества
-        streams_candidates=[]
-        for s in ch.streams:
-            if check_stream_alive(s.url):
-                s.alive=True
-                s.quality_score=compute_quality_score(s.url)
-                streams_candidates.append(s)
+    # Обновление кэшей
+    _stream_alive_cache[url] = alive
+    _stream_quality_cache[url] = quality
+    db_put_stream(url, alive, quality)
 
-        # если все потоки мёртвые, но канал был в OLD — не удаляем
-        if not streams_candidates and old_channels:
-            old_match=next((o for o in old_channels if o.number==ch.number),None)
-            if old_match and old_match.best_stream:
-                ch.best_stream=old_match.best_stream
-                log(f"[KEEP] Channel {ch.number}: sources invalid, keeping OLD best_stream")
-            elif old_match and old_match.streams:
-                ch.best_stream=old_match.streams[0]
-                log(f"[KEEP] Channel {ch.number}: sources invalid, keeping OLD first stream")
-            else:
-                log(f"[WARN] Channel {ch.number}: no alive streams and no valid OLD, keeping channel without best_stream")
-        else:
-            streams_sorted=sorted(streams_candidates,key=lambda s:s.quality_score)
-            if streams_sorted:
-                best=streams_sorted[-1]
-                ch.best_stream=best
-                reserve=streams_sorted[-2] if len(streams_sorted)>1 else None
-                ch.reserve_stream=reserve
-                ch.quality_history.extend(streams_sorted)
-                log(f"[QUALITY] Channel {ch.number}: best={best.quality_score}, count={len(streams_sorted)}")
+    if alive:
+        stream.alive = True
+        stream.quality_score = quality
+        return stream
 
-        # SCADA‑нумерация
-        scada=build_scada_code(global_counter,1)
-        ch.scada_code=scada
-        ch.name=f"{scada} {ch.name}"
+    return None
 
-        result.append(ch)
-        global_counter+=1
+
+def analyze_streams_parallel(streams: List[StreamInfo]) -> List[StreamInfo]:
+    if not streams:
+        return []
+
+    futures = [_executor.submit(analyze_stream, s) for s in streams]
+    result = []
+
+    for future in futures:
+        checked = future.result()
+        if checked is not None:
+            result.append(checked)
 
     return result
+def merge_channels(channels: List[Channel], old_channels: List[Channel]) -> List[Channel]:
+    index = {}
+    old_index = {old.number: old for old in old_channels}
+
+    for ch in channels:
+        old_match = old_index.get(ch.number)
+        if old_match:
+            # объединение с OLD
+            ch.streams.extend(old_match.streams)
+
+        # проверка потоков параллельно
+        streams_candidates = analyze_streams_parallel(ch.streams)
+
+        if streams_candidates:
+            best = max(streams_candidates, key=lambda s: s.quality_score)
+            ch.best_stream = best
+            if len(streams_candidates) > 1:
+                reserve = sorted(streams_candidates, key=lambda s: s.quality_score)[-2]
+                ch.reserve_stream = reserve
+
+        index[ch.number] = ch
+
+    # удаление дубликатов URL
+    for ch in index.values():
+        ch.streams = unique_streams(ch.streams)
+
+    return list(index.values())
+def load_single_commit(source: Source, sha: str) -> List[Channel]:
+    if sha in _commit_cache:
+        return _commit_cache[sha]
+    try:
+        file_url = f"{source.git_repo}/contents/{source.git_file}?ref={sha}"
+        content = request_json(file_url)
+        decoded = base64.b64decode(content["content"]).decode("utf-8")
+        parsed_channels = parse_m3u(decoded, source.id)
+        _commit_cache[sha] = parsed_channels
+        return parsed_channels
+    except Exception as e:
+        log(f"[WARN] Commit {sha[:8]} skipped: {e}")
+        log_error(str(e))
+        return []
+
+def load_commits(source: Source) -> List[Channel]:
+    url = f"{source.git_repo}/commits?path={source.git_file}&per_page={source.commits_limit}"
+    commits = request_json(url)
+    channels = []
+    futures = [_executor.submit(load_single_commit, source, commit["sha"]) for commit in commits]
+    for future in futures:
+        channels.extend(future.result())
+    return channels
+def unique_streams(streams: List[StreamInfo]) -> List[StreamInfo]:
+    unique = {}
+    result = []
+    for stream in streams:
+        if stream.url in unique:
+            continue
+        unique[stream.url] = True
+        result.append(stream)
+    return result
 # ==========================
-# ВЫВОД M3U
+# UNIQUE STREAMS
 # ==========================
-def write_m3u(path:str,channels:List[Channel]):
-    with open(path,"w",encoding="utf-8") as f:
+def unique_streams(streams: List[StreamInfo]) -> List[StreamInfo]:
+    unique = {}
+    result = []
+    for stream in streams:
+        if stream.url in unique:
+            continue
+        unique[stream.url] = True
+        result.append(stream)
+    return result
+
+# ==========================
+# MERGE ENGINE
+# ==========================
+def merge_channels(channels: List[Channel], old_channels: List[Channel]) -> List[Channel]:
+    index = {}
+    old_index = {old.number: old for old in old_channels}
+
+    for ch in channels:
+        old_match = old_index.get(ch.number)
+        if old_match:
+            ch.streams.extend(old_match.streams)
+
+        # проверка потоков параллельно
+        streams_candidates = analyze_streams_parallel(ch.streams)
+
+        if streams_candidates:
+            best = max(streams_candidates, key=lambda s: s.quality_score)
+            ch.best_stream = best
+            if len(streams_candidates) > 1:
+                reserve = sorted(streams_candidates, key=lambda s: s.quality_score)[-2]
+                ch.reserve_stream = reserve
+
+        index[ch.number] = ch
+
+    # удаление дубликатов URL
+    for ch in index.values():
+        ch.streams = unique_streams(ch.streams)
+
+    return list(index.values())
+
+# ==========================
+# GITHUB LOADER
+# ==========================
+def load_single_commit(source: Source, sha: str) -> List[Channel]:
+    if sha in _commit_cache:
+        return _commit_cache[sha]
+    try:
+        file_url = f"{source.git_repo}/contents/{source.git_file}?ref={sha}"
+        content = request_json(file_url)
+        decoded = base64.b64decode(content["content"]).decode("utf-8")
+        parsed_channels = parse_m3u(decoded, source.id)
+        _commit_cache[sha] = parsed_channels
+        return parsed_channels
+    except Exception as e:
+        log(f"[WARN] Commit {sha[:8]} skipped: {e}")
+        log_error(str(e))
+        return []
+
+def load_commits(source: Source) -> List[Channel]:
+    url = f"{source.git_repo}/commits?path={source.git_file}&per_page={source.commits_limit}"
+    commits = request_json(url)
+    channels = []
+    futures = [_executor.submit(load_single_commit, source, commit["sha"]) for commit in commits]
+    for future in futures:
+        channels.extend(future.result())
+    return channels
+
+# ==========================
+# PARSER M3U
+# ==========================
+def parse_m3u(text: str, source_id: str) -> List[Channel]:
+    channels = []
+    current = None
+    for line in text.splitlines():
+        line = line.strip()
+        if line.startswith("#EXTINF:"):
+            parts = line.split(",", 1)
+            info = parts[0]
+            name = normalize_channel_name(parts[1]) if len(parts) > 1 else "Unknown"
+            tvg_id = normalize_tvg_id(re.search(r'tvg-id="([^"]+)"', info).group(1) if 'tvg-id' in info else "")
+            group = re.search(r'group-title="([^"]+)"', info)
+            group = group.group(1) if group else None
+            logo = re.search(r'tvg-logo="([^"]+)"', info)
+            logo = logo.group(1) if logo else None
+            current = Channel(number=tvg_id, name=name, group=group, logo=logo, scada_code="")
+        elif line and not line.startswith("#") and current:
+            current.streams.append(StreamInfo(source_id=source_id, url=line))
+            channels.append(current)
+            current = None
+    return channels
+
+# ==========================
+# WRITE M3U
+# ==========================
+def write_m3u(filename: str, channels: List[Channel]):
+    with open(filename, "w", encoding="utf-8") as f:
         f.write("#EXTM3U\n")
         for ch in channels:
-            best=ch.best_stream or (ch.streams[0] if ch.streams else None)
-            if not best: continue
-            attrs=[]
-            if ch.group: attrs.append(f'group-title="{ch.group}"')
-            if ch.logo: attrs.append(f'tvg-logo="{ch.logo}"')
-            attrs.append(f'tvg-id="{ch.number}"')
-            attrs.append(f'E-Kanon="{ch.scada_code}"')
-            attr_str=" "+" ".join(attrs) if attrs else ""
-            f.write(f'#EXTINF:-1{attr_str},{ch.name}\n')
-            f.write(best.url+"\n")
+            if is_adult_channel(ch.name, ch.group):
+                continue
+            logo = f'tvg-logo="{ch.logo}" ' if ch.logo else ""
+            group = f'group-title="{ch.group}" ' if ch.group else ""
+            f.write(f'#EXTINF:-1 tvg-id="{ch.number}" {logo}{group},{ch.name}\n')
+            if ch.best_stream:
+                f.write(f"{ch.best_stream.url}\n")
+            if ch.reserve_stream:
+                f.write(f"{ch.reserve_stream.url}\n")
 
 # ==========================
 # MAIN
 # ==========================
 def main():
-    stable_files=[f for f in os.listdir('.') if f.startswith("Denis_iptv_stable_") and f.endswith(".m3u")]
-    old_files=[f for f in os.listdir('.') if f.startswith("Denis_iptv_stable_Old_") and f.endswith(".m3u")]
+    start_time = time.perf_counter()
 
-    if old_files:
-        old_files.sort(); last_old=old_files[-1]
-        log(f"[INFO] Using OLD playlist: {last_old}")
-        with open(last_old,"r",encoding="utf-8") as f:
-            old_channels=parse_m3u(f.read(),"OLD")
-        old_exists=True
-    elif stable_files:
-        stable_files.sort(); last_stable=stable_files[-1]
-        log(f"[INFO] No OLD yet, using last STABLE as base: {last_stable}")
-        with open(last_stable,"r",encoding="utf-8") as f:
-            old_channels=parse_m3u(f.read(),"OLD")
-        old_exists=False
-    else:
-        log("[INFO] First run → no STABLE and no OLD")
-        old_channels=[]; old_exists=False
+    # загрузка источников
+    srcA_text = download_first_available(SOURCE_A_BACKUPS)
+    srcB_text = download_first_available(SOURCE_B_BACKUPS)
 
-    if TURBO:
-        log("[INFO] TURBO mode enabled → parallel loading")
-        srcA_channels,srcB_channels,commitsA,commitsB=asyncio.run(turbo_load_sources())
-    else:
-        log("[INFO] Loading source A playlist")
-        srcA_text=requests.get(SOURCE_A.playlist_url,timeout=10).text
-        srcA_channels=parse_m3u(srcA_text,SOURCE_A.id)
-        log("[INFO] Loading source B playlist")
-        srcB_text=requests.get(SOURCE_B.playlist_url,timeout=10).text
-        srcB_channels=parse_m3u(srcB_text,SOURCE_B.id)
-        log("[INFO] Loading commits for source A")
-        commitsA=load_commits(SOURCE_A)
-        log("[INFO] Loading commits for source B")
-        commitsB=load_commits(SOURCE_B)
+    srcA_channels = parse_m3u(srcA_text, SOURCE_A.id)
+    srcB_channels = parse_m3u(srcB_text, SOURCE_B.id)
 
-    log("[INFO] Merging channels with persistence")
-    merged=merge_channels(old_channels,srcA_channels,srcB_channels,commitsA,commitsB)
+    commitsA = load_commits(SOURCE_A)
+    commitsB = load_commits(SOURCE_B)
 
-    if TURBO:
-        qualities=np.array([ch.best_stream.quality_score for ch in merged if ch.best_stream])
-        if qualities.size>0:
-            log(f"[QUALITY] TURBO summary: max={np.max(qualities)}, avg={np.mean(qualities):.2f}, channels={len(qualities)}")
+    merged = merge_channels(srcA_channels + srcB_channels + commitsA + commitsB, [])
 
-    write_m3u("stable_new.m3u",merged)
-    log("[DONE] stable_new.m3u written")
+    # запись файлов
+    write_m3u("stable_new.m3u", merged)
+    shutil.copy("stable_new.m3u", "Denis_iptv_2026.m3u")
+    log("[INFO] Denis_iptv_2026.m3u created")
 
-    if stable_files:
-        stable_files.sort(); last_stable=stable_files[-1]
-        try: num=int(last_stable.split("_")[-1].split(".")[0])
-        except Exception: num=0
-        next_stable_num=num+1
-    else:
-        next_stable_num=1
+    # автосейв
+    write_m3u("autosave_merge.m3u", merged)
 
-    new_stable_name=f"Denis_iptv_stable_{next_stable_num:03d}.m3u"
-    shutil.copy("stable_new.m3u",new_stable_name)
-    log(f"[INFO] NEW STABLE created: {new_stable_name}")
+    elapsed = time.perf_counter() - start_time
+    log(f"[INFO] Execution time: {elapsed:.2f} sec")
+    log(f"[INFO] Network stats: {NETWORK_STATS}")
 
-    if old_files:
-        old_files.sort(); last_old=old_files[-1]
-        try: num=int(last_old.split("_")[-1].split(".")[0])
-        except Exception: num=0
-        next_old_num=num+1
-        new_old_name=f"Denis_iptv_stable_Old_{next_old_num:03d}.m3u"
-        shutil.copy("stable_new.m3u",new_old_name)
-        log(f"[INFO] NEW OLD created: {new_old_name}")
-    elif stable_files:
-        new_old_name="Denis_iptv_stable_Old_001.m3u"
-        shutil.copy("stable_new.m3u",new_old_name)
-        log(f"[INFO] FIRST OLD created: {new_old_name}")
-    else:
-        log("[INFO] First run → OLD not created (will be created from second run)")
+    _executor.shutdown(wait=True)
 
-if __name__=="__main__":
+if __name__ == "__main__":
     main()
