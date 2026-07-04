@@ -486,16 +486,26 @@ def parse_m3u(text: str, source_id: str) -> List[Channel]:
             parts = line.split(",", 1)
             info = parts[0]
             name = normalize_channel_name(parts[1]) if len(parts) > 1 else "Unknown"
-            tvg_id = normalize_tvg_id(re.search(r'tvg-id="([^"]+)"', info).group(1) if 'tvg-id' in info else "")
-            group = re.search(r'group-title="([^"]+)"', info)
-            group = group.group(1) if group else None
-            logo = re.search(r'tvg-logo="([^"]+)"', info)
-            logo = logo.group(1) if logo else None
+
+            # безопасная обработка tvg-id
+            m = re.search(r'tvg-id="([^"]+)"', info)
+            tvg_id = normalize_tvg_id(m.group(1) if m else "")
+
+            # безопасная обработка group-title
+            m = re.search(r'group-title="([^"]+)"', info)
+            group = m.group(1) if m else None
+
+            # безопасная обработка tvg-logo
+            m = re.search(r'tvg-logo="([^"]+)"', info)
+            logo = m.group(1) if m else None
+
             current = Channel(number=tvg_id, name=name, group=group, logo=logo, scada_code="")
+
         elif line and not line.startswith("#") and current:
             current.streams.append(StreamInfo(source_id=source_id, url=line))
             channels.append(current)
             current = None
+
     return channels
 
 # ==========================
