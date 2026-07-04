@@ -14,7 +14,6 @@ from typing import List, Optional
 from concurrent.futures import ThreadPoolExecutor
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
-import numpy as np
 
 # ==========================
 # TURBO CORE
@@ -246,13 +245,14 @@ class Channel:
 # ==========================
 # ФИЛЬТРЫ
 # ==========================
-ADULT_CHANNELS = ["brazzers","dorcel","hustler","penthouse","xxx","eroxxxhd","extasytv"]
+ADULT_CHANNELS = ["brazzers","dorcel","hustler","penthouse","xxx","eroxxxhd","extasytv","redlight","playboy","venus","hot","sextv","adult","erotic"]
+GAMBLING_CHANNELS = ["casino","poker","bet","stake","1xbet","melbet","parimatch","fonbet"]
 
 def is_adult_channel(name: str, group: Optional[str]) -> bool:
     if group and group.lower().strip() == "для взрослых":
         return True
     name_l = name.lower().strip()
-    return any(bad in name_l for bad in ADULT_CHANNELS)
+    return any(bad in name_l for bad in ADULT_CHANNELS + GAMBLING_CHANNELS)
 
 def is_bad_donor(url: str) -> bool:
     url_l = url.lower()
@@ -269,7 +269,11 @@ def analyze_stream_request(url: str):
     if is_bad_donor(url):
         return False, 0.0
     try:
-        r = safe_get(url, timeout=DEFAULT_TIMEOUT, stream=True)
+        with _network_semaphore:
+            r = get_session().get(url, timeout=DEFAULT_TIMEOUT, stream=True, verify=False)
+            NETWORK_STATS["requests"] += 1
+            if r.ok:
+                NETWORK_STATS["bytes"] += len(r.content or b"")
         if r.status_code not in (200, 206):
             return False, 0.0
         ctype = r.headers.get("Content-Type", "")
@@ -279,20 +283,9 @@ def analyze_stream_request(url: str):
         score = max(0.0, min(50.0 - latency * 10, 100.0))
         return True, score
     except Exception:
+        NETWORK_STATS["errors"] += 1
         return False, 0.0
 
-def analyze_stream(stream: StreamInfo) -> Optional[StreamInfo]:
-    url = stream.url
-
-    # Проверка SQLite-кэша
-    cached = db_get_stream(url)
-    if cached is not None:
-        alive, quality = cached
-        if alive:
-            stream.alive = True
-            stream.quality_score = quality
-            return stream
-        return
 def analyze_stream(stream: StreamInfo) -> Optional[StreamInfo]:
     url = stream.url
 
@@ -331,20 +324,16 @@ def analyze_stream(stream: StreamInfo) -> Optional[StreamInfo]:
 
     return None
 
-
 def analyze_streams_parallel(streams: List[StreamInfo]) -> List[StreamInfo]:
     if not streams:
         return []
-
-    futures = [_executor.submit(analyze_stream, s) for s in streams]
+    checked_streams = list(_executor.map(analyze_stream, streams))
     result = []
-
-    for future in futures:
-        checked = future.result()
+    for checked in checked_streams:
         if checked is not None:
             result.append(checked)
-
     return result
+
 def merge_channels(channels: List[Channel], old_channels: List[Channel]) -> List[Channel]:
     index = {}
     old_index = {old.number: old for old in old_channels}
@@ -372,6 +361,7 @@ def merge_channels(channels: List[Channel], old_channels: List[Channel]) -> List
         ch.streams = unique_streams(ch.streams)
 
     return list(index.values())
+
 def load_single_commit(source: Source, sha: str) -> List[Channel]:
     if sha in _commit_cache:
         return _commit_cache[sha]
@@ -395,15 +385,7 @@ def load_commits(source: Source) -> List[Channel]:
     for future in futures:
         channels.extend(future.result())
     return channels
-def unique_streams(streams: List[StreamInfo]) -> List[StreamInfo]:
-    unique = {}
-    result = []
-    for stream in streams:
-        if stream.url in unique:
-            continue
-        unique[stream.url] = True
-        result.append(stream)
-    return result
+
 # ==========================
 # UNIQUE STREAMS
 # ==========================
@@ -416,63 +398,6 @@ def unique_streams(streams: List[StreamInfo]) -> List[StreamInfo]:
         unique[stream.url] = True
         result.append(stream)
     return result
-
-# ==========================
-# MERGE ENGINE
-# ==========================
-def merge_channels(channels: List[Channel], old_channels: List[Channel]) -> List[Channel]:
-    index = {}
-    old_index = {old.number: old for old in old_channels}
-
-    for ch in channels:
-        old_match = old_index.get(ch.number)
-        if old_match:
-            ch.streams.extend(old_match.streams)
-
-        # проверка потоков параллельно
-        streams_candidates = analyze_streams_parallel(ch.streams)
-
-        if streams_candidates:
-            best = max(streams_candidates, key=lambda s: s.quality_score)
-            ch.best_stream = best
-            if len(streams_candidates) > 1:
-                reserve = sorted(streams_candidates, key=lambda s: s.quality_score)[-2]
-                ch.reserve_stream = reserve
-
-        index[ch.number] = ch
-
-    # удаление дубликатов URL
-    for ch in index.values():
-        ch.streams = unique_streams(ch.streams)
-
-    return list(index.values())
-
-# ==========================
-# GITHUB LOADER
-# ==========================
-def load_single_commit(source: Source, sha: str) -> List[Channel]:
-    if sha in _commit_cache:
-        return _commit_cache[sha]
-    try:
-        file_url = f"{source.git_repo}/contents/{source.git_file}?ref={sha}"
-        content = request_json(file_url)
-        decoded = base64.b64decode(content["content"]).decode("utf-8")
-        parsed_channels = parse_m3u(decoded, source.id)
-        _commit_cache[sha] = parsed_channels
-        return parsed_channels
-    except Exception as e:
-        log(f"[WARN] Commit {sha[:8]} skipped: {e}")
-        log_error(str(e))
-        return []
-
-def load_commits(source: Source) -> List[Channel]:
-    url = f"{source.git_repo}/commits?path={source.git_file}&per_page={source.commits_limit}"
-    commits = request_json(url)
-    channels = []
-    futures = [_executor.submit(load_single_commit, source, commit["sha"]) for commit in commits]
-    for future in futures:
-        channels.extend(future.result())
-    return channels
 
 # ==========================
 # PARSER M3U
@@ -547,6 +472,23 @@ def main():
     write_m3u("stable_new.m3u", merged)
     shutil.copy("stable_new.m3u", "Denis_iptv_2026.m3u")
     log("[INFO] Denis_iptv_2026.m3u created")
+
+    # ==========================
+    # OLD PLAYLIST HANDLING
+    # ==========================
+    OLD_DIR = "Old"
+    os.makedirs(OLD_DIR, exist_ok=True)
+
+    old_files = sorted([f for f in os.listdir(OLD_DIR) if f.endswith(".m3u")])
+    old_count = len(old_files)
+
+    # OLD создаётся только начиная со второго запуска
+    if old_count > 0:
+        old_filename = os.path.join(OLD_DIR, f"old_{old_count+1}.m3u")
+        shutil.copy("stable_new.m3u", old_filename)
+        log(f"[INFO] OLD playlist saved: {old_filename}")
+    else:
+        log("[INFO] First run — OLD not created")
 
     # автосейв
     write_m3u("autosave_merge.m3u", merged)
