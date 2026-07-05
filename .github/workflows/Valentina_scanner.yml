@@ -1,16 +1,16 @@
 name: Valentina Scanner
 
 on:
-  workflow_dispatch:   # ручной пинок
+  workflow_dispatch:   # ручной запуск
   schedule:
     - cron: "0 3 */4 * *"    # каждые 4 дня в 03:00
     - cron: "0 3 20 * *"     # 20 числа месяца в 03:00
     - cron: "0 4 20 * *"     # 20 числа месяца в 04:00
 
 jobs:
-  scan-ngenix-4days:
+  scan-ngenix:
     runs-on: ubuntu-latest
-    if: github.event.schedule == '0 3 */4 * *'
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,61 +25,25 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Run Valentina.py scanner (4-day run)
+      - name: Run Valentina.py scanner
         run: python Valentina.py
 
-      - name: Upload artifacts
+      - name: Upload TXT report
         uses: actions/upload-artifact@v4
         with:
-          name: NgenixScan_4days
-          path: |
-            NgenixScan_report.txt
-            NgenixScan.m3u
+          name: NgenixScan_report
+          path: NgenixScan_report.txt
 
-  scan-ngenix-20-3am:
-    runs-on: ubuntu-latest
-    if: github.event.schedule == '0 3 20 * *'
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Upload M3U playlist
+        uses: actions/upload-artifact@v4
         with:
-          python-version: "3.11"
-      - name: Install dependencies
+          name: NgenixScan_playlist
+          path: NgenixScan.m3u
+
+      - name: Commit results back to repo
         run: |
-          python -m pip install --upgrade pip
-          pip install requests
-      - name: Run Valentina.py scanner (20th 03:00)
-        run: python Valentina.py
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: NgenixScan_20_3am
-          path: |
-            NgenixScan_report.txt
-            NgenixScan.m3u
-
-  scan-ngenix-20-4am:
-    runs-on: ubuntu-latest
-    if: github.event.schedule == '0 4 20 * *'
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests
-      - name: Run Valentina.py scanner (20th 04:00)
-        run: python Valentina.py
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: NgenixScan_20_4am
-          path: |
-            NgenixScan_report.txt
-            NgenixScan.m3u
+          git config --global user.name "Valentina Scanner Bot"
+          git config --global user.email "scanner@users.noreply.github.com"
+          git add NgenixScan_report.txt NgenixScan.m3u
+          git commit -m "Valentina scanner auto-update: $(date +'%Y-%m-%d %H:%M:%S')"
+          git push
