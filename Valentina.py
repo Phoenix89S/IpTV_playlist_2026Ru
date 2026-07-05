@@ -8,7 +8,7 @@ import re
 import gzip
 import xml.etree.ElementTree as ET
 import concurrent.futures
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from urllib.parse import quote
 import os
 
@@ -19,6 +19,11 @@ LOCAL_EPG = "epg2.xml.gz"
 
 # диапазон узлов NGENIX для перебора
 NODES = [f"s{n}" for n in range(10000, 80000, 1000)]  # шаг 1000
+# подпапки качества
+SUBDIRS = ["1", "2", "3", "4"]
+
+# фиксируем МСК (UTC+3)
+MSK = timezone(timedelta(hours=3))
 
 def download_epg(url=EPG_URL, local_file=LOCAL_EPG):
     print("[*] Скачивание EPG словаря...")
@@ -50,30 +55,29 @@ def load_channels_from_epg(local_file=LOCAL_EPG):
             channels.append({"id": cid, "names": names})
     return channels
 
-def fetch_playlist(path):
+def fetch_playlist(path, subdir="2"):
     safe_path = quote(path)
-    url = f"{BASE}/{safe_path}/2/index.m3u8"
+    url = f"{BASE}/{safe_path}/{subdir}/index.m3u8"
     headers = {"User-Agent": USER_AGENT}
     try:
         r = requests.get(url, headers=headers, timeout=5)
         if r.status_code == 200 and "#EXTM3U" in r.text:
-            return path, r.text
+            return f"{path}/{subdir}", r.text
     except Exception:
-        return path, None
-    return path, None
+        return f"{path}/{subdir}", None
+    return f"{path}/{subdir}", None
 
-# новая версия для перебора узлов
-def fetch_playlist_node(node, path):
+def fetch_playlist_node(node, path, subdir="2"):
     safe_path = quote(path)
-    url = f"https://{node}.cdn.ngenix.net/{safe_path}/2/index.m3u8"
+    url = f"https://{node}.cdn.ngenix.net/{safe_path}/{subdir}/index.m3u8"
     headers = {"User-Agent": USER_AGENT}
     try:
         r = requests.get(url, headers=headers, timeout=5, verify=False)
         if r.status_code == 200 and "#EXTM3U" in r.text:
-            return node, path, r.text
+            return node, f"{path}/{subdir}", r.text
     except Exception:
-        return node, path, None
-    return node, path, None
+        return node, f"{path}/{subdir}", None
+    return node, f"{path}/{subdir}", None
 
 def parse_hls_features(playlist_text):
     if not playlist_text:
@@ -96,19 +100,22 @@ def scan_all(channels):
     print(f"[+] Сформировано {len(unique_paths)} уникальных направлений для проверки.")
     print("="*60)
     with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:
-        future_to_path = {executor.submit(fetch_playlist, path): path for path in unique_paths}
-        for future in concurrent.futures.as_completed(future_to_path):
+        futures = []
+        for path in unique_paths:
+            for subdir in SUBDIRS:
+                futures.append(executor.submit(fetch_playlist, path, subdir))
+        for future in concurrent.futures.as_completed(futures):
             path, text = future.result()
             features = parse_hls_features(text)
             is_alive = bool(text)
             results[path] = {"features": features, "alive": is_alive}
             status = "[LIVE]" if is_alive else "[DEAD]"
             details = f" ({', '.join(features)})" if features else ""
-            print(f"{status} {path}{details}")
+            timestamp = datetime.now(MSK).strftime("%Y-%m-%d %H:%M:%S")
+            print(f"{timestamp} {status} {path}{details}")
     print("="*60)
     return results
 
-# новый режим: скан всех узлов
 def scan_nodes(channels):
     results = {}
     with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
@@ -118,27 +125,30 @@ def scan_nodes(channels):
                 for name in ch["names"]:
                     cleaned_path = name.strip().lower()
                     if cleaned_path:
-                        futures.append(executor.submit(fetch_playlist_node, node, cleaned_path))
+                        for subdir in SUBDIRS:
+                            futures.append(executor.submit(fetch_playlist_node, node, cleaned_path, subdir))
         for f in concurrent.futures.as_completed(futures):
             node, path, text = f.result()
             features = parse_hls_features(text)
             is_alive = bool(text)
             results.setdefault(node, {})[path] = {"features": features, "alive": is_alive}
             status = "[LIVE]" if is_alive else "[DEAD]"
-            print(f"{status} {node}/{path} {features}")
+            timestamp = datetime.now(MSK).strftime("%Y-%m-%d %H:%M:%S")
+            print(f"{timestamp} {status} {node}/{path} {features}")
     return results
 
 def write_skala_report(results, filename="NgenixScan_report.txt"):
     with open(filename, "w", encoding="utf-8") as f:
         f.write("СКАЛА-ТЕЛЕТАЙП ОТЧЁТ CDN NGENIX\n")
-        f.write(f"Дата: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+        f.write(f"Дата генерации: {datetime.now(MSK).strftime('%Y-%m-%d %H:%M:%S')} (МСК)\n")
         f.write("="*60 + "\n")
         for ch, meta in sorted(results.items()):
+            timestamp = datetime.now(MSK).strftime("%Y-%m-%d %H:%M:%S")
             if meta["alive"]:
                 info = ", ".join(meta["features"]) if meta["features"] else "Доступен"
-                f.write(f"[LIVE] {ch} :: {info}\n")
+                f.write(f"{timestamp} [LIVE] {ch} :: {info}\n")
             else:
-                f.write(f"[DEAD] {ch}\n")
+                f.write(f"{timestamp} [DEAD] {ch}\n")
         f.write("="*60 + "\n")
         f.write("КОНЕЦ ОТЧЁТА\n")
 
@@ -150,7 +160,8 @@ def write_m3u(results, filename="NgenixScan.m3u"):
             features_str = f" [{', '.join(meta['features'])}]" if meta['features'] else ""
             lines.append(f'#EXTINF:-1 http-user-agent="{USER_AGENT}",{display_name}{features_str}')
             lines.append(f"#EXTVLCOPT:http-user-agent={USER_AGENT}")
-            lines.append(f"{BASE}/{quote(ch)}/2/index.m3u8")
+            # путь уже содержит /subdir
+            lines.append(f"{BASE}/{quote(ch)}.m3u8")
     with open(filename, "w", encoding="utf-8") as f:
         f.write("\n".join(lines))
 
@@ -170,7 +181,6 @@ if __name__ == "__main__":
     # режим сканирования всех узлов
     print("[*] Запуск тотального сканирования узлов NGENIX...")
     nodes_data = scan_nodes(channels)
-    # можно сохранить отдельные отчёты по узлам
     for node, node_results in nodes_data.items():
         write_skala_report(node_results, filename=f"NgenixScan_report_{node}.txt")
 
