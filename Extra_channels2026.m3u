@@ -967,6 +967,17 @@ https://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV_4/variant.m3u8
 #EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV_7/variant.m3u8
 
+# 11.7 РЕН ТВ International
+#EXTINF:-1 group-title="Эфирные ТВ плюс" tvg-id="rentv-international" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/RenTV_international.png",11.7 РЕН ТВ International
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+Http://fs.uplink.kz/ren/tracks-v1a1/mono.ts.m3u8?token=onlinetv
+
+# 11.8 РЕН ТВ International
+#EXTINF:-1 group-title="Эфирные ТВ плюс" tvg-id="rentv-international-alt" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/RenTV_international.png",11.8 РЕН ТВ International
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/ren_tv/2/index.m3u8
+
+
 #---------------------------------------
 
 
