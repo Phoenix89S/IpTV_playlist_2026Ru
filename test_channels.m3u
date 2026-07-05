@@ -1096,9 +1096,10 @@ https://rt-nw-spb-htlive.cdn.ngenix.net/hls/CH_R01_TV3/variant.m3u8
 https://bl.rutube.ru/livestream/7bf12d9c050f9a7ef3728db5730432ae/index.m3u8?s=riJeRs_4YONNBUd3HTYJXg&e=2068506933&scheme=https
 
 # 15.2 ТВ-3 International
-#EXTINF:-1 tvg-id="tv3-international" tvg-logo="https://iptvx.one/picons/tv3.png" group-title="Эфирные ТВ плюс",15.2 ТВ-3 International
+#EXTINF:-1 tvg-id="tv3-international" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/TV3_international.png" group-title="Эфирные ТВ плюс",15.2 ТВ-3 International
 #EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/tv_3/2/index.m3u8
+
 
 
 #-------------кнопка 16: Пятница! ------------
