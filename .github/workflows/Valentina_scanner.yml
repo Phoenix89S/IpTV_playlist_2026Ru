@@ -1,11 +1,11 @@
 name: Valentina Scanner
 
 on:
-  workflow_dispatch:   # ручной запуск
+  workflow_dispatch:
   schedule:
-    - cron: "0 3 */4 * *"    # каждые 4 дня в 03:00
-    - cron: "0 3 20 * *"     # 20 числа месяца в 03:00
-    - cron: "0 4 20 * *"     # 20 числа месяца в 04:00
+    - cron: "0 3 */4 * *"
+    - cron: "0 3 20 * *"
+    - cron: "0 4 20 * *"
 
 jobs:
   scan-ngenix:
@@ -24,9 +24,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install requests
-
-      - name: Download EPG dictionary
-        run: curl -L https://epg.one/epg2.xml.gz -o epg2.xml.gz
 
       - name: Run Valentina.py scanner
         run: python Valentina.py
