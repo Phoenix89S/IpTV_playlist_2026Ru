@@ -5261,6 +5261,21 @@ https://s70378.cdn.ngenix.net/nickelodeon/2/index.m3u8
 #EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/nicktoons/2/index.m3u8
 
+#EXTINF:-1 group-title="Эфирные ТВ Плюс" http-user-agent="HlsWinkPlayer",178.1.E.F(01).178.1 HOLLYWOOD HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/amc/2/index.m3u8
+
+#EXTINF:-1 group-title="Эфирные ТВ Плюс" http-user-agent="HlsWinkPlayer",179.1.E.F(02).179.1 FILMBOX
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/filmbox/2/index.m3u8
+
+#EXTINF:-1 group-title="Эфирные ТВ Плюс" http-user-agent="HlsWinkPlayer",180.2.E.F(03).180.2 GALAXY
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/galaxy/2/index.m3u8
+
+#EXTINF:-1 group-title="Эфирные ТВ Плюс" http-user-agent="HlsWinkPlayer",181.1.E.F(04).181.1 GULLI GIRL
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/gulli/2/index.m3u8
 
 
 
