@@ -16,26 +16,26 @@ def Misha_Filippov_analizator(folder_path="icons"):
         if ext in valid_ext:
             icons.append(file)
 
-    # TXT файл со списком
+    # TXT файл со списком (в корне)
     with open("icons_list.txt", "w", encoding="utf-8") as txt:
         for icon in icons:
             txt.write(f"{folder_path}/{icon}\n")
 
-    # HTML файл
-    with open(os.path.join(folder_path, "head.html"), "w", encoding="utf-8") as html:
+    # HTML файл (в корне)
+    with open("head.html", "w", encoding="utf-8") as html:
         html.write("<!DOCTYPE html>\n<html lang='ru'>\n<head>\n<meta charset='UTF-8'>\n<title>Логотипы</title>\n</head>\n<body>\n<ul>\n")
         for icon in icons:
-            html.write(f"    <li><img src='{icon}' alt='{os.path.splitext(icon)[0]}'></li>\n")
+            html.write(f"    <li><img src='{folder_path}/{icon}' alt='{os.path.splitext(icon)[0]}'></li>\n")
         html.write("</ul>\n</body>\n</html>")
 
-    # XML файл
-    with open(os.path.join(folder_path, "head.xml"), "w", encoding="utf-8") as xml:
+    # XML файл (в корне)
+    with open("head.xml", "w", encoding="utf-8") as xml:
         xml.write("<?xml version='1.0' encoding='UTF-8'?>\n<icons>\n")
         for icon in icons:
             xml.write(f"    <icon path='{folder_path}/{icon}' name='{os.path.splitext(icon)[0]}' />\n")
         xml.write("</icons>")
 
-    print("✅ Готово! Созданы: icons_list.txt, icons/head.html и icons/head.xml.")
+    print("✅ Готово! Итоговые файлы сохранены в корне: icons_list.txt, head.html и head.xml.")
 
 
 if __name__ == "__main__":
