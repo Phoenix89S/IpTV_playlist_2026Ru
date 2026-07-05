@@ -23,8 +23,9 @@ NODES = [f"s{n}" for n in range(10000, 80000, 1000)]  # шаг 1000
 # подпапки качества
 SUBDIRS = ["1", "2", "3", "4"]
 
-# фиксируем МСК (UTC+3)
+# фиксируем МСК (UTC+3) и Калининград (UTC+2)
 MSK = timezone(timedelta(hours=3))
+KLG = timezone(timedelta(hours=2))
 
 # подавляем варнинги SSL
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -107,8 +108,7 @@ def scan_all(channels):
             cleaned_path = name.strip().lower()
             if cleaned_path:
                 unique_paths.add(cleaned_path)
-    print(f"[+] Сформировано {len(unique_paths)} уникальных направлений для проверки.")
-    print("="*60)
+    print("[*] Запущен перебор каналов и подпапок...")
     with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:
         futures = []
         for path in unique_paths:
@@ -119,30 +119,31 @@ def scan_all(channels):
             features = parse_hls_features(text)
             is_alive = bool(text)
             results[path] = {"features": features, "alive": is_alive, "timestamp": ts}
-            status = "[LIVE]" if is_alive else "[DEAD]"
-            details = f" ({', '.join(features)})" if features else ""
-            print(f"{ts.strftime('%Y-%m-%d %H:%M:%S')} {status} {path}{details}")
-    print("="*60)
+    print("[*] Перебор каналов завершён.")
+    print("----")
     return results
 
 def scan_nodes(channels):
     results = {}
+    print(f"[*] Запущен перебор узлов CDN ({len(NODES)} шт.)...")
     with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
-        futures = []
         for node in NODES:
+            print(f"[*] Проверка узла {node} начата")
+            futures = []
             for ch in channels:
                 for name in ch["names"]:
                     cleaned_path = name.strip().lower()
                     if cleaned_path:
                         for subdir in SUBDIRS:
                             futures.append(executor.submit(fetch_playlist_node, node, cleaned_path, subdir))
-        for f in concurrent.futures.as_completed(futures):
-            node, path, text, ts = f.result()
-            features = parse_hls_features(text)
-            is_alive = bool(text)
-            results.setdefault(node, {})[path] = {"features": features, "alive": is_alive, "timestamp": ts}
-            status = "[LIVE]" if is_alive else "[DEAD]"
-            print(f"{ts.strftime('%Y-%m-%d %H:%M:%S')} {status} {node}/{path} {features}")
+            for f in concurrent.futures.as_completed(futures):
+                node, path, text, ts = f.result()
+                features = parse_hls_features(text)
+                is_alive = bool(text)
+                results.setdefault(node, {})[path] = {"features": features, "alive": is_alive, "timestamp": ts}
+            print(f"[*] Проверка узла {node} завершена")
+            print("====")
+    print("[*] Перебор узлов завершён.")
     return results
 
 def write_skala_report(results, filename="NgenixScan_report.txt"):
@@ -174,18 +175,11 @@ def write_m3u(results, filename="NgenixScan.m3u"):
         f.write("\n".join(lines))
 
 if __name__ == "__main__":
-    print("[*] Запуск сканера ВАЛЕНТИНА...")
-    epg_file = download_epg()
-    channels = load_channels_from_epg(epg_file)
-    if not channels:
-        print("[-] Нет данных для анализа. Завершение.")
-        exit(1)
-
-    # режим сканирования одного узла
-    data = scan_all(channels)
-    write_skala_report(data)
-    write_m3u(data)
-
-    # режим сканирования всех узлов
-    print("[*] Запуск тотального сканирования узлов NGENIX...")
-    nodes_data
+    # Шапка СКАЛА.3
+    print("#==== СКАЛА.3. IPTV edition ===")
+    print(f"Дата (МСК): {datetime.now(MSK).strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"Дата (Калининград): {datetime.now(KLG).strftime('%Y-%m-%d %H:%M:%S')}")
+    print("Машина: Python script Valentina.py")
+    print("Цель: Поиск и мониторинг потоков каналов IPTV")
+    print("#===== конец шапки =====")
+    print
