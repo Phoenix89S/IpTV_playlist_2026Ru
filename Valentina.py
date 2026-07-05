@@ -17,11 +17,13 @@ BASE = "https://s70378.cdn.ngenix.net"
 EPG_URL = "https://epg.one/epg2.xml.gz"
 LOCAL_EPG = "epg2.xml.gz"
 
+# диапазон узлов NGENIX для перебора
+NODES = [f"s{n}" for n in range(10000, 80000, 1000)]  # шаг 1000
+
 def download_epg(url=EPG_URL, local_file=LOCAL_EPG):
     print("[*] Скачивание EPG словаря...")
     try:
-        # отключаем проверку SSL, чтобы не падать на просроченном сертификате
-        r = requests.get(url, timeout=20, verify=False)
+        r = requests.get(url, timeout=20, verify=False)  # отключаем проверку SSL
         r.raise_for_status()
         with open(local_file, "wb") as f:
             f.write(r.content)
@@ -60,6 +62,19 @@ def fetch_playlist(path):
         return path, None
     return path, None
 
+# новая версия для перебора узлов
+def fetch_playlist_node(node, path):
+    safe_path = quote(path)
+    url = f"https://{node}.cdn.ngenix.net/{safe_path}/2/index.m3u8"
+    headers = {"User-Agent": USER_AGENT}
+    try:
+        r = requests.get(url, headers=headers, timeout=5, verify=False)
+        if r.status_code == 200 and "#EXTM3U" in r.text:
+            return node, path, r.text
+    except Exception:
+        return node, path, None
+    return node, path, None
+
 def parse_hls_features(playlist_text):
     if not playlist_text:
         return []
@@ -91,6 +106,26 @@ def scan_all(channels):
             details = f" ({', '.join(features)})" if features else ""
             print(f"{status} {path}{details}")
     print("="*60)
+    return results
+
+# новый режим: скан всех узлов
+def scan_nodes(channels):
+    results = {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
+        futures = []
+        for node in NODES:
+            for ch in channels:
+                for name in ch["names"]:
+                    cleaned_path = name.strip().lower()
+                    if cleaned_path:
+                        futures.append(executor.submit(fetch_playlist_node, node, cleaned_path))
+        for f in concurrent.futures.as_completed(futures):
+            node, path, text = f.result()
+            features = parse_hls_features(text)
+            is_alive = bool(text)
+            results.setdefault(node, {})[path] = {"features": features, "alive": is_alive}
+            status = "[LIVE]" if is_alive else "[DEAD]"
+            print(f"{status} {node}/{path} {features}")
     return results
 
 def write_skala_report(results, filename="NgenixScan_report.txt"):
@@ -126,7 +161,17 @@ if __name__ == "__main__":
     if not channels:
         print("[-] Нет данных для анализа. Завершение.")
         exit(1)
+
+    # режим сканирования одного узла
     data = scan_all(channels)
     write_skala_report(data)
     write_m3u(data)
-    print("[+] Отчёт NgenixScan_report.txt и плейлист NgenixScan.m3u успешно сгенерированы.")
+
+    # режим сканирования всех узлов
+    print("[*] Запуск тотального сканирования узлов NGENIX...")
+    nodes_data = scan_nodes(channels)
+    # можно сохранить отдельные отчёты по узлам
+    for node, node_results in nodes_data.items():
+        write_skala_report(node_results, filename=f"NgenixScan_report_{node}.txt")
+
+    print("[+] Отчёты и плейлисты успешно сгенерированы.")
