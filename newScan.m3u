@@ -1,0 +1,26 @@
+#EXTM3U
+
+# Поток для канала: Домашний
+#EXTINF:-1 tvg-id="domashniy" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/Domashny.png" group-title="Эфирные ТВ плюс",Домашний
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/domashniy/2/index.m3u8
+
+# Поток для канала: Пятница
+#EXTINF:-1 tvg-id="pyatnica" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/Pyatnica.png" group-title="Эфирные ТВ плюс",Пятница
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/pyatnica/2/index.m3u8
+
+# Поток для канала: Карусель
+#EXTINF:-1 tvg-id="karusel" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/Karusel.png" group-title="Эфирные ТВ плюс",Карусель
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/karusel/2/index.m3u8
+
+# Поток для канала: Перец Интернешнл
+#EXTINF:-1 tvg-id="perets-international" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/Perets_international.png" group-title="Эфирные ТВ плюс",Перец Интернешнл
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/perets_int/2/index.m3u8
+
+# Поток для канала: Перец
+#EXTINF:-1 tvg-id="perets" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/Perets.png" group-title="Эфирные ТВ плюс",Перец
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/perets/2/index.m3u8
