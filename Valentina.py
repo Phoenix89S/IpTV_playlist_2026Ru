@@ -20,7 +20,8 @@ LOCAL_EPG = "epg2.xml.gz"
 def download_epg(url=EPG_URL, local_file=LOCAL_EPG):
     print("[*] Скачивание EPG словаря...")
     try:
-        r = requests.get(url, timeout=20)
+        # отключаем проверку SSL, чтобы не падать на просроченном сертификате
+        r = requests.get(url, timeout=20, verify=False)
         r.raise_for_status()
         with open(local_file, "wb") as f:
             f.write(r.content)
