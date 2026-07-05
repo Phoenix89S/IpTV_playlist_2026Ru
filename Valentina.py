@@ -11,6 +11,7 @@ import concurrent.futures
 from datetime import datetime, timedelta, timezone
 from urllib.parse import quote
 import os
+import urllib3
 
 USER_AGENT = "HlsWinkPlayer"
 BASE = "https://s70378.cdn.ngenix.net"
@@ -25,10 +26,19 @@ SUBDIRS = ["1", "2", "3", "4"]
 # фиксируем МСК (UTC+3)
 MSK = timezone(timedelta(hours=3))
 
+# подавляем варнинги SSL
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+# глобальная сессия с пулом соединений
+session = requests.Session()
+adapter = requests.adapters.HTTPAdapter(pool_connections=100, pool_maxsize=100)
+session.mount('https://', adapter)
+session.mount('http://', adapter)
+
 def download_epg(url=EPG_URL, local_file=LOCAL_EPG):
     print("[*] Скачивание EPG словаря...")
     try:
-        r = requests.get(url, timeout=20, verify=False)  # отключаем проверку SSL
+        r = session.get(url, timeout=20, verify=False)
         r.raise_for_status()
         with open(local_file, "wb") as f:
             f.write(r.content)
@@ -60,24 +70,24 @@ def fetch_playlist(path, subdir="2"):
     url = f"{BASE}/{safe_path}/{subdir}/index.m3u8"
     headers = {"User-Agent": USER_AGENT}
     try:
-        r = requests.get(url, headers=headers, timeout=5)
+        r = session.get(url, headers=headers, timeout=5, verify=False)
         if r.status_code == 200 and "#EXTM3U" in r.text:
-            return f"{path}/{subdir}", r.text
+            return f"{path}/{subdir}", r.text, datetime.now(MSK)
     except Exception:
-        return f"{path}/{subdir}", None
-    return f"{path}/{subdir}", None
+        return f"{path}/{subdir}", None, datetime.now(MSK)
+    return f"{path}/{subdir}", None, datetime.now(MSK)
 
 def fetch_playlist_node(node, path, subdir="2"):
     safe_path = quote(path)
     url = f"https://{node}.cdn.ngenix.net/{safe_path}/{subdir}/index.m3u8"
     headers = {"User-Agent": USER_AGENT}
     try:
-        r = requests.get(url, headers=headers, timeout=5, verify=False)
+        r = session.get(url, headers=headers, timeout=5, verify=False)
         if r.status_code == 200 and "#EXTM3U" in r.text:
-            return node, f"{path}/{subdir}", r.text
+            return node, f"{path}/{subdir}", r.text, datetime.now(MSK)
     except Exception:
-        return node, f"{path}/{subdir}", None
-    return node, f"{path}/{subdir}", None
+        return node, f"{path}/{subdir}", None, datetime.now(MSK)
+    return node, f"{path}/{subdir}", None, datetime.now(MSK)
 
 def parse_hls_features(playlist_text):
     if not playlist_text:
@@ -105,14 +115,13 @@ def scan_all(channels):
             for subdir in SUBDIRS:
                 futures.append(executor.submit(fetch_playlist, path, subdir))
         for future in concurrent.futures.as_completed(futures):
-            path, text = future.result()
+            path, text, ts = future.result()
             features = parse_hls_features(text)
             is_alive = bool(text)
-            results[path] = {"features": features, "alive": is_alive}
+            results[path] = {"features": features, "alive": is_alive, "timestamp": ts}
             status = "[LIVE]" if is_alive else "[DEAD]"
             details = f" ({', '.join(features)})" if features else ""
-            timestamp = datetime.now(MSK).strftime("%Y-%m-%d %H:%M:%S")
-            print(f"{timestamp} {status} {path}{details}")
+            print(f"{ts.strftime('%Y-%m-%d %H:%M:%S')} {status} {path}{details}")
     print("="*60)
     return results
 
@@ -128,13 +137,12 @@ def scan_nodes(channels):
                         for subdir in SUBDIRS:
                             futures.append(executor.submit(fetch_playlist_node, node, cleaned_path, subdir))
         for f in concurrent.futures.as_completed(futures):
-            node, path, text = f.result()
+            node, path, text, ts = f.result()
             features = parse_hls_features(text)
             is_alive = bool(text)
-            results.setdefault(node, {})[path] = {"features": features, "alive": is_alive}
+            results.setdefault(node, {})[path] = {"features": features, "alive": is_alive, "timestamp": ts}
             status = "[LIVE]" if is_alive else "[DEAD]"
-            timestamp = datetime.now(MSK).strftime("%Y-%m-%d %H:%M:%S")
-            print(f"{timestamp} {status} {node}/{path} {features}")
+            print(f"{ts.strftime('%Y-%m-%d %H:%M:%S')} {status} {node}/{path} {features}")
     return results
 
 def write_skala_report(results, filename="NgenixScan_report.txt"):
@@ -143,25 +151,25 @@ def write_skala_report(results, filename="NgenixScan_report.txt"):
         f.write(f"Дата генерации: {datetime.now(MSK).strftime('%Y-%m-%d %H:%M:%S')} (МСК)\n")
         f.write("="*60 + "\n")
         for ch, meta in sorted(results.items()):
-            timestamp = datetime.now(MSK).strftime("%Y-%m-%d %H:%M:%S")
+            ts = meta.get("timestamp", datetime.now(MSK))
             if meta["alive"]:
                 info = ", ".join(meta["features"]) if meta["features"] else "Доступен"
-                f.write(f"{timestamp} [LIVE] {ch} :: {info}\n")
+                f.write(f"{ts.strftime('%Y-%m-%d %H:%M:%S')} [LIVE] {ch} :: {info}\n")
             else:
-                f.write(f"{timestamp} [DEAD] {ch}\n")
+                f.write(f"{ts.strftime('%Y-%m-%d %H:%M:%S')} [DEAD] {ch}\n")
         f.write("="*60 + "\n")
         f.write("КОНЕЦ ОТЧЁТА\n")
 
 def write_m3u(results, filename="NgenixScan.m3u"):
     lines = ["#EXTM3U"]
-    for ch, meta in sorted(results.items()):
+    for ch_key, meta in sorted(results.items()):
         if meta["alive"]:
-            display_name = ch.upper()
+            path, subdir = ch_key.split('/')
+            display_name = f"{path.upper()} [Quality {subdir}]"
             features_str = f" [{', '.join(meta['features'])}]" if meta['features'] else ""
             lines.append(f'#EXTINF:-1 http-user-agent="{USER_AGENT}",{display_name}{features_str}')
             lines.append(f"#EXTVLCOPT:http-user-agent={USER_AGENT}")
-            # путь уже содержит /subdir
-            lines.append(f"{BASE}/{quote(ch)}.m3u8")
+            lines.append(f"{BASE}/{quote(path)}/{subdir}/index.m3u8")
     with open(filename, "w", encoding="utf-8") as f:
         f.write("\n".join(lines))
 
@@ -180,8 +188,4 @@ if __name__ == "__main__":
 
     # режим сканирования всех узлов
     print("[*] Запуск тотального сканирования узлов NGENIX...")
-    nodes_data = scan_nodes(channels)
-    for node, node_results in nodes_data.items():
-        write_skala_report(node_results, filename=f"NgenixScan_report_{node}.txt")
-
-    print("[+] Отчёты и плейлисты успешно сгенерированы.")
+    nodes_data
