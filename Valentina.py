@@ -5,22 +5,27 @@
 
 import requests
 import re
+import gzip
+import xml.etree.ElementTree as ET
 import concurrent.futures
 from datetime import datetime
-import string
 
 USER_AGENT = "HlsWinkPlayer"
 BASE = "https://s70378.cdn.ngenix.net"
+EPG_URL = "http://epg.one/epg2.xml.gz"
 
-# расширенный генератор кандидатов
-CANDIDATES = [f"ch{i}" for i in range(1, 2000)]
-CANDIDATES += list(string.ascii_lowercase)
-CANDIDATES += [f"{a}{b}" for a in string.ascii_lowercase for b in string.ascii_lowercase]
-CANDIDATES += [
-    "domashniy", "pyatnica", "karusel", "perets", "perets_int",
-    "sts", "tnt", "muztv", "rentv", "tv3", "matchtv",
-    "rossiya1", "rossiya24", "otr", "ntv"
-]
+def load_channels_from_epg(url):
+    r = requests.get(url, timeout=10)
+    r.raise_for_status()
+    data = gzip.decompress(r.content)
+    root = ET.fromstring(data)
+    channels = []
+    for ch in root.findall("channel"):
+        cid = ch.get("id")
+        names = [dn.text for dn in ch.findall("display-name") if dn.text]
+        if cid and names:
+            channels.append({"id": cid, "names": names})
+    return channels
 
 def fetch_playlist(path):
     url = f"{BASE}/{path}/2/index.m3u8"
@@ -39,10 +44,13 @@ def parse_extinf(playlist_text):
     matches = re.findall(r'#EXTINF:-1\s+(.*)', playlist_text)
     return [m.strip() for m in matches]
 
-def scan_all():
+def scan_all(channels):
     results = {}
     with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:
-        futures = [executor.submit(fetch_playlist, p) for p in CANDIDATES]
+        futures = []
+        for ch in channels:
+            for name in ch["names"]:
+                futures.append(executor.submit(fetch_playlist, name.lower()))
         for f in concurrent.futures.as_completed(futures):
             path, text = f.result()
             infos = parse_extinf(text)
@@ -83,7 +91,8 @@ def write_m3u(results, filename="NgenixScan.m3u"):
         f.write("\n".join(lines))
 
 if __name__ == "__main__":
-    data = scan_all()
+    channels = load_channels_from_epg(EPG_URL)
+    data = scan_all(channels)
     for ch, meta in data.items():
         print(f"{ch}: {meta}")
     write_skala_report(data)
