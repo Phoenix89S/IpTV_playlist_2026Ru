@@ -829,6 +829,9 @@ http://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA24/variant.m3u8?profile=3
 #EXTVLCOPT:http-user-agent=WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer
 http://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA24/variant.m3u8?profile=4
 
+# 7.3 Россия 24 Мир
+#EXTINF:-1 tvg-id="russia24" tvg-name="Россия 24 Мир" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/Russia_24_Mir.png" group-title="Эфирные ТВ плюс",7.3 Россия 24 Мир
+https://stream.smotrim.ru/hls2/russia24_int/playlist_3.m3u8
 
 
 #------------ кнопка 8: КАРУСЕЛЬ (Орбиты + Точное EPG) ------------
