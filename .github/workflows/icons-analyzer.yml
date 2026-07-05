@@ -1,0 +1,24 @@
+name: Icons Analyzer
+
+on:
+  workflow_dispatch:   # ручной запуск
+  schedule:
+    # каждые 3 дня в 04:00 MSK (01:00 UTC)
+    - cron: "0 1 */3 * *"
+    # каждое 30 число месяца в 05:00 MSK (02:00 UTC)
+    - cron: "0 2 30 * *"
+
+jobs:
+  analyze-icons:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Run Misha_Filippov_analizator
+        run: python Misha_Filippov_analizator.py
