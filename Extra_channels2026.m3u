@@ -1101,12 +1101,12 @@ http://cdn.kubteltv.workers.dev/?ID=277
 # --- Сектор 15: ТВ-3 ---
 
 # 15. ТВ-3 — РТРС №15
-#EXTINF:-1 tvg-id="tv3" tvg-logo="http://epg.it99.org/img/15.png" group-title="Эфирные ТВ плюс",15. ТВ-3
+#EXTINF:-1 tvg-id="tv3" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/TV3.png" group-title="Эфирные ТВ плюс",15. ТВ-3
 #EXTVLCOPT:http-user-agent=WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer
 https://rt-nw-spb-htlive.cdn.ngenix.net/hls/CH_R01_TV3/variant.m3u8
 
 # 15.1 ТВ-3 HD
-#EXTINF:-1 tvg-id="tv3-hd" tvg-logo="https://iptvx.one/picons/tv3_hd.png" group-title="Эфирные ТВ плюс",15.1 ТВ-3 HD
+#EXTINF:-1 tvg-id="tv3-hd" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/TV3_HD.png" group-title="Эфирные ТВ плюс",15.1 ТВ-3 HD
 #EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://bl.rutube.ru/livestream/7bf12d9c050f9a7ef3728db5730432ae/index.m3u8?s=riJeRs_4YONNBUd3HTYJXg&e=2068506933&scheme=https
 
