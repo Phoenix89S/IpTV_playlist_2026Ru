@@ -108,6 +108,7 @@ def scan_all(channels):
             cleaned_path = name.strip().lower()
             if cleaned_path:
                 unique_paths.add(cleaned_path)
+    print("----- начало процесса -----")
     print("[*] Запущен перебор каналов и подпапок...")
     with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:
         futures = []
@@ -125,9 +126,12 @@ def scan_all(channels):
 
 def scan_nodes(channels):
     results = {}
+    live_count = 0
+    node_count = 0
     print(f"[*] Запущен перебор узлов CDN ({len(NODES)} шт.)...")
     with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
         for node in NODES:
+            node_count += 1
             print(f"[*] Проверка узла {node} начата")
             futures = []
             for ch in channels:
@@ -140,10 +144,14 @@ def scan_nodes(channels):
                 node, path, text, ts = f.result()
                 features = parse_hls_features(text)
                 is_alive = bool(text)
+                if is_alive:
+                    live_count += 1
                 results.setdefault(node, {})[path] = {"features": features, "alive": is_alive, "timestamp": ts}
             print(f"[*] Проверка узла {node} завершена")
             print("====")
     print("[*] Перебор узлов завершён.")
+    print(f"[*] Проверено узлов: {node_count}")
+    print(f"[*] Найдено живых потоков: {live_count}")
     return results
 
 def write_skala_report(results, filename="NgenixScan_report.txt"):
@@ -178,8 +186,4 @@ if __name__ == "__main__":
     # Шапка СКАЛА.3
     print("#==== СКАЛА.3. IPTV edition ===")
     print(f"Дата (МСК): {datetime.now(MSK).strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"Дата (Калининград): {datetime.now(KLG).strftime('%Y-%m-%d %H:%M:%S')}")
-    print("Машина: Python script Valentina.py")
-    print("Цель: Поиск и мониторинг потоков каналов IPTV")
-    print("#===== конец шапки =====")
-    print
+    print(f"
