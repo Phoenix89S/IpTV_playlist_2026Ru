@@ -1,46 +1,22 @@
 #EXTM3U
-#EXTINF:-1 http-user-agent="HlsWinkPlayer",AMC [Media Stream]
+#EXTINF:-1 http-user-agent="HlsWinkPlayer",ATV [Quality 1] [Media Stream]
 #EXTVLCOPT:http-user-agent=HlsWinkPlayer
-https://s70378.cdn.ngenix.net/amc/2/index.m3u8
-#EXTINF:-1 http-user-agent="HlsWinkPlayer",CNBC [Media Stream]
+https://s70378.cdn.ngenix.net/atv/1/index.m3u8
+#EXTINF:-1 http-user-agent="HlsWinkPlayer",CNBC [Quality 1] [Media Stream]
 #EXTVLCOPT:http-user-agent=HlsWinkPlayer
-https://s70378.cdn.ngenix.net/cnbc/2/index.m3u8
-#EXTINF:-1 http-user-agent="HlsWinkPlayer",FIGHTBOX [Media Stream]
+https://s70378.cdn.ngenix.net/cnbc/1/index.m3u8
+#EXTINF:-1 http-user-agent="HlsWinkPlayer",FILMBOX [Quality 1] [Media Stream]
 #EXTVLCOPT:http-user-agent=HlsWinkPlayer
-https://s70378.cdn.ngenix.net/fightbox/2/index.m3u8
-#EXTINF:-1 http-user-agent="HlsWinkPlayer",FILMBOX [Media Stream]
+https://s70378.cdn.ngenix.net/filmbox/1/index.m3u8
+#EXTINF:-1 http-user-agent="HlsWinkPlayer",FREENEWS [Quality 1] [Media Stream]
 #EXTVLCOPT:http-user-agent=HlsWinkPlayer
-https://s70378.cdn.ngenix.net/filmbox/2/index.m3u8
-#EXTINF:-1 http-user-agent="HlsWinkPlayer",FREENEWS [Media Stream]
+https://s70378.cdn.ngenix.net/freenews/1/index.m3u8
+#EXTINF:-1 http-user-agent="HlsWinkPlayer",FREENEWS [Quality 2] [Media Stream]
 #EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/freenews/2/index.m3u8
-#EXTINF:-1 http-user-agent="HlsWinkPlayer",GALAXY [Media Stream]
-#EXTVLCOPT:http-user-agent=HlsWinkPlayer
-https://s70378.cdn.ngenix.net/galaxy/2/index.m3u8
-#EXTINF:-1 http-user-agent="HlsWinkPlayer",GULLI [Media Stream]
-#EXTVLCOPT:http-user-agent=HlsWinkPlayer
-https://s70378.cdn.ngenix.net/gulli/2/index.m3u8
-#EXTINF:-1 http-user-agent="HlsWinkPlayer",H2 [Media Stream]
+#EXTINF:-1 http-user-agent="HlsWinkPlayer",H2 [Quality 2] [Media Stream]
 #EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/h2/2/index.m3u8
-#EXTINF:-1 http-user-agent="HlsWinkPlayer",HISTORY [Media Stream]
-#EXTVLCOPT:http-user-agent=HlsWinkPlayer
-https://s70378.cdn.ngenix.net/history/2/index.m3u8
-#EXTINF:-1 http-user-agent="HlsWinkPlayer",MEZZO [Media Stream]
-#EXTVLCOPT:http-user-agent=HlsWinkPlayer
-https://s70378.cdn.ngenix.net/mezzo/2/index.m3u8
-#EXTINF:-1 http-user-agent="HlsWinkPlayer",NICKELODEON [Media Stream]
-#EXTVLCOPT:http-user-agent=HlsWinkPlayer
-https://s70378.cdn.ngenix.net/nickelodeon/2/index.m3u8
-#EXTINF:-1 http-user-agent="HlsWinkPlayer",NICKTOONS [Media Stream]
-#EXTVLCOPT:http-user-agent=HlsWinkPlayer
-https://s70378.cdn.ngenix.net/nicktoons/2/index.m3u8
-#EXTINF:-1 http-user-agent="HlsWinkPlayer",PLAYBOY [Media Stream]
-#EXTVLCOPT:http-user-agent=HlsWinkPlayer
-https://s70378.cdn.ngenix.net/playboy/2/index.m3u8
-#EXTINF:-1 http-user-agent="HlsWinkPlayer",RTVI [Media Stream]
-#EXTVLCOPT:http-user-agent=HlsWinkPlayer
-https://s70378.cdn.ngenix.net/rtvi/2/index.m3u8
-#EXTINF:-1 http-user-agent="HlsWinkPlayer",TERRA [Media Stream]
+#EXTINF:-1 http-user-agent="HlsWinkPlayer",TERRA [Quality 2] [Media Stream]
 #EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/terra/2/index.m3u8
