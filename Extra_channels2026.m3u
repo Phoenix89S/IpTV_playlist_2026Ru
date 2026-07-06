@@ -3185,6 +3185,11 @@ http://s05.wsbof.com/kinouzhas-hd-orig/mpegts?token=a0ac444f
 #EXTINF:-1 tvg-id="hct" tvg-logo="https://iptvx.one/picons/nst.png" group-title="Эфирные ТВ плюс",81.8 НСТ
 http://s05.wsbof.com/hct/mpegts?token=a0ac444f
 
+# 81.8.1 НСТ
+#EXTINF:-1 tvg-id="hct" tvg-logo="https://iptvx.one/picons/nst.png" group-title="Эфирные ТВ плюс",81.8.1 НСТ
+Http://176.118.197.101/HCT/index.m3u8
+
+
 
 # --- Сектор 81.9: Комедийный цех ---
 # 81.9 Комедия
