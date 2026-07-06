@@ -44,3 +44,7 @@ https://s70378.cdn.ngenix.net/rtvi/2/index.m3u8
 #EXTINF:-1 http-user-agent="HlsWinkPlayer",TERRA [Media Stream]
 #EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/terra/2/index.m3u8
+
+#EXTINF:-1 http-user-agent="HlsWinkPlayer",Trash [Media Stream]
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/trash/2/index.m3u8
