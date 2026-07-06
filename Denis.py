@@ -19,15 +19,15 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # ==========================
-# TURBO CORE
+# TURBO CORE (УСИЛЕННЫЙ ПУЛ)
 # ==========================
 TURBO = True
 
-HTTP_WORKERS = 32
-STREAM_WORKERS = 64
+HTTP_WORKERS = 128
+STREAM_WORKERS = 128
 
 _executor = ThreadPoolExecutor(
-    max_workers=min(128, (os.cpu_count() or 4) * 8)
+    max_workers=max(128, (os.cpu_count() or 4) * 16)
 )
 
 _thread_local = threading.local()
@@ -35,10 +35,10 @@ _thread_local = threading.local()
 def get_session():
     if not hasattr(_thread_local, "session"):
         retry = Retry(
-            total=3,
-            connect=3,
-            read=3,
-            backoff_factor=0.5,
+            total=2,
+            connect=2,
+            read=2,
+            backoff_factor=0.3,
             status_forcelist=[500, 502, 503, 504],
             allowed_methods=None
         )
@@ -51,15 +51,15 @@ def get_session():
         session.mount("http://", adapter)
         session.mount("https://", adapter)
         session.headers.update({
-            "User-Agent": "Denis-IPTV-Builder/10.0"
+            "User-Agent": "Denis-IPTV-Builder/10.0-Turbo"
         })
         _thread_local.session = session
     return _thread_local.session
 
 # ==========================
-# SMART HTTP ENGINE
+# SMART HTTP ENGINE (РАСШИРЕННЫЙ СЕМАФОР И ИСХОДНЫЕ ТАЙМАУТЫ)
 # ==========================
-_network_semaphore = threading.Semaphore(16)
+_network_semaphore = threading.Semaphore(128)
 
 CONNECT_TIMEOUT = 5
 READ_TIMEOUT = 5
@@ -97,10 +97,16 @@ _stream_quality_cache = {}
 _commit_cache = {}
 
 # ==========================
-# ULTRA DATABASE (SQLite Cache)
+# ULTRA DATABASE (SQLite С КНОПКОЙ ТУРБО)
 # ==========================
 DB_NAME = "Denis_iptv_cache.db"
 _db = sqlite3.connect(DB_NAME, check_same_thread=False)
+
+# Включение WAL-режима для многопоточной работы без блокировок файла базы
+_db.execute("PRAGMA journal_mode=WAL;")
+_db.execute("PRAGMA synchronous=NORMAL;")
+_db.execute("PRAGMA temp_store=MEMORY;")
+
 _db.execute("""
 CREATE TABLE IF NOT EXISTS stream_cache
 (
@@ -314,7 +320,7 @@ def analyze_stream(stream: StreamInfo) -> Optional[StreamInfo]:
             return stream
         return None
 
-    # Сетевая проверка (объединённая alive+quality)
+    # Сетевая проверка
     alive, quality = analyze_stream_request(url)
 
     # Обновление кэшей
@@ -346,10 +352,8 @@ def merge_channels(channels: List[Channel], old_channels: List[Channel]) -> List
     for ch in channels:
         old_match = old_index.get(ch.number)
         if old_match:
-            # объединение с OLD
             ch.streams.extend(old_match.streams)
 
-        # проверка потоков параллельно
         streams_candidates = analyze_streams_parallel(ch.streams)
 
         if streams_candidates:
@@ -361,7 +365,6 @@ def merge_channels(channels: List[Channel], old_channels: List[Channel]) -> List
 
         index[ch.number] = ch
 
-    # удаление дубликатов URL
     for ch in index.values():
         ch.streams = unique_streams(ch.streams)
 
@@ -417,15 +420,12 @@ def parse_m3u(text: str, source_id: str) -> List[Channel]:
             info = parts[0]
             name = normalize_channel_name(parts[1]) if len(parts) > 1 else "Unknown"
 
-            # безопасная обработка tvg-id
             m = re.search(r'tvg-id="([^"]+)"', info)
             tvg_id = normalize_tvg_id(m.group(1) if m else "")
 
-            # безопасная обработка group-title
             m = re.search(r'group-title="([^"]+)"', info)
             group = m.group(1) if m else None
 
-            # безопасная обработка tvg-logo
             m = re.search(r'tvg-logo="([^"]+)"', info)
             logo = m.group(1) if m else None
 
@@ -461,7 +461,6 @@ def write_m3u(filename: str, channels: List[Channel]):
 def main():
     start_time = time.perf_counter()
 
-    # загрузка источников
     srcA_text = download_first_available(SOURCE_A_BACKUPS)
     srcB_text = download_first_available(SOURCE_B_BACKUPS)
 
@@ -473,21 +472,16 @@ def main():
 
     merged = merge_channels(srcA_channels + srcB_channels + commitsA + commitsB, [])
 
-    # запись файлов
     write_m3u("stable_new.m3u", merged)
     shutil.copy("stable_new.m3u", "Denis_iptv_2026.m3u")
     log("[INFO] Denis_iptv_2026.m3u created")
 
-    # ==========================
-    # OLD PLAYLIST HANDLING
-    # ==========================
     OLD_DIR = "Old"
     os.makedirs(OLD_DIR, exist_ok=True)
 
     old_files = sorted([f for f in os.listdir(OLD_DIR) if f.endswith(".m3u")])
     old_count = len(old_files)
 
-    # OLD создаётся только начиная со второго запуска
     if old_count > 0:
         old_filename = os.path.join(OLD_DIR, f"old_{old_count+1}.m3u")
         shutil.copy("stable_new.m3u", old_filename)
@@ -495,7 +489,6 @@ def main():
     else:
         log("[INFO] First run — OLD not created")
 
-    # автосейв
     write_m3u("autosave_merge.m3u", merged)
 
     elapsed = time.perf_counter() - start_time
