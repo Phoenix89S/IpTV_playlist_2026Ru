@@ -185,4 +185,29 @@ def write_m3u(results, filename="NgenixScan.m3u"):
 if __name__ == "__main__":
     # Шапка СКАЛА.3
     print("#==== СКАЛА.3. IPTV edition ===")
-    print(f"Дата (МСК): {datetime.now(MSK).strftime('%Y-%m-%d %H:%M:%S')
+    print(f"Дата (МСК): {datetime.now(MSK).strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"Дата (КЛГ): {datetime.now(KLG).strftime('%Y-%m-%d %H:%M:%S')}")
+    print("#" + "="*30)
+    
+    try:
+        # 1. Скачиваем и парсим EPG для получения названий каналов
+        epg_file = download_epg()
+        channels = load_channels_from_epg(epg_file)
+        print(f"[+] Успешно загружено каналов из EPG: {len(channels)}")
+        
+        # 2. Запускаем основной сканер каналов через базовый CDN
+        # (Если вам нужен глобальный перебор узлов, замените scan_all на scan_nodes)
+        scan_results = scan_all(channels)
+        
+        # 3. Записываем отчеты на диск
+        write_skala_report(scan_results)
+        print("[+] Отчёт СКАЛА-ТЕЛЕТАЙП успешно сгенерирован (NgenixScan_report.txt).")
+        
+        write_m3u(scan_results)
+        print("[+] Плейлист M3U успешно сгенерирован (NgenixScan.m3u).")
+        
+        print("#" + "="*30)
+        print("[+] Работа скрипта Валентина успешно завершена.")
+        
+    except Exception as main_err:
+        print(f"\n[!] КРИТИЧЕСКАЯ ОШИБКА ВЫПОЛНЕНИЯ: {main_err}")
