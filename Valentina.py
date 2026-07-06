@@ -1,7 +1,9 @@
+# ====================================================================
 # Valentina.py
-# Универсальный сканер CDN NGENIX
+# Универсальный сканер CDN NGENIX + Тотальный Брутфорс-генератор
 # Автор: Phoenix + Copilot + Gemini
 # Стиль отчёта: СКАЛА (телетайп)
+# ====================================================================
 
 import requests
 import re
@@ -18,19 +20,19 @@ BASE = "https://s70378.cdn.ngenix.net"
 EPG_URL = "https://epg.one/epg2.xml.gz"
 LOCAL_EPG = "epg2.xml.gz"
 
-# диапазон узлов NGENIX для перебора
+# Диапазон узлов NGENIX для перебора (если используется scan_nodes)
 NODES = [f"s{n}" for n in range(10000, 80000, 1000)]  # шаг 1000
-# подпапки качества
+# Подпапки качества
 SUBDIRS = ["1", "2", "3", "4"]
 
-# фиксируем МСК (UTC+3) и Калининград (UTC+2)
+# Фиксируем МСК (UTC+3) и Калининград (UTC+2)
 MSK = timezone(timedelta(hours=3))
 KLG = timezone(timedelta(hours=2))
 
-# подавляем варнинги SSL
+# Подавляем варнинги SSL
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-# глобальная сессия с пулом соединений
+# Глобальная сессия с пулом соединений
 session = requests.Session()
 adapter = requests.adapters.HTTPAdapter(pool_connections=100, pool_maxsize=100)
 session.mount('https://', adapter)
@@ -78,18 +80,6 @@ def fetch_playlist(path, subdir="2"):
         return f"{path}/{subdir}", None, datetime.now(MSK)
     return f"{path}/{subdir}", None, datetime.now(MSK)
 
-def fetch_playlist_node(node, path, subdir="2"):
-    safe_path = quote(path)
-    url = f"https://{node}.cdn.ngenix.net/{safe_path}/{subdir}/index.m3u8"
-    headers = {"User-Agent": USER_AGENT}
-    try:
-        r = session.get(url, headers=headers, timeout=5, verify=False)
-        if r.status_code == 200 and "#EXTM3U" in r.text:
-            return node, f"{path}/{subdir}", r.text, datetime.now(MSK)
-    except Exception:
-        return node, f"{path}/{subdir}", None, datetime.now(MSK)
-    return node, f"{path}/{subdir}", None, datetime.now(MSK)
-
 def parse_hls_features(playlist_text):
     if not playlist_text:
         return []
@@ -109,7 +99,7 @@ def scan_all(channels):
             if cleaned_path:
                 unique_paths.add(cleaned_path)
     print("----- начало процесса -----")
-    print("[*] Запущен перебор каналов и подпапок...")
+    print("[*] Запущен внутренний перебор каналов и подпапок...")
     with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:
         futures = []
         for path in unique_paths:
@@ -120,41 +110,12 @@ def scan_all(channels):
             features = parse_hls_features(text)
             is_alive = bool(text)
             results[path] = {"features": features, "alive": is_alive, "timestamp": ts}
-    print("[*] Перебор каналов завершён.")
+    print("[*] Внутренний перебор каналов завершён.")
     print("----")
     return results
 
-def scan_nodes(channels):
-    results = {}
-    live_count = 0
-    node_count = 0
-    print(f"[*] Запущен перебор узлов CDN ({len(NODES)} шт.)...")
-    with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
-        for node in NODES:
-            node_count += 1
-            print(f"[*] Проверка узла {node} начата")
-            futures = []
-            for ch in channels:
-                for name in ch["names"]:
-                    cleaned_path = name.strip().lower()
-                    if cleaned_path:
-                        for subdir in SUBDIRS:
-                            futures.append(executor.submit(fetch_playlist_node, node, cleaned_path, subdir))
-            for f in concurrent.futures.as_completed(futures):
-                node, path, text, ts = f.result()
-                features = parse_hls_features(text)
-                is_alive = bool(text)
-                if is_alive:
-                    live_count += 1
-                results.setdefault(node, {})[path] = {"features": features, "alive": is_alive, "timestamp": ts}
-            print(f"[*] Проверка узла {node} завершена")
-            print("====")
-    print("[*] Перебор узлов завершён.")
-    print(f"[*] Проверено узлов: {node_count}")
-    print(f"[*] Найдено живых потоков: {live_count}")
-    return results
-
 def write_skala_report(results, filename="NgenixScan_report.txt"):
+    print("[*] Запись телетайп-отчёта...")
     with open(filename, "w", encoding="utf-8") as f:
         f.write("СКАЛА-ТЕЛЕТАЙП ОТЧЁТ CDN NGENIX\n")
         f.write(f"Дата генерации: {datetime.now(MSK).strftime('%Y-%m-%d %H:%M:%S')} (МСК)\n")
@@ -170,15 +131,51 @@ def write_skala_report(results, filename="NgenixScan_report.txt"):
         f.write("КОНЕЦ ОТЧЁТА\n")
 
 def write_m3u(results, filename="NgenixScan.m3u"):
+    """ Генерирует плейлист только из УСПЕШНО проверенных скриптом каналов """
+    print("[*] Запись LIVE-плейлиста...")
     lines = ["#EXTM3U"]
     for ch_key, meta in sorted(results.items()):
         if meta["alive"]:
-            path, subdir = ch_key.split('/')
+            if '/' in ch_key:
+                parts = ch_key.split('/')
+                subdir = parts[-1]
+                path = "/".join(parts[:-1])
+            else:
+                path = ch_key
+                subdir = "2"
+
             display_name = f"{path.upper()} [Quality {subdir}]"
             features_str = f" [{', '.join(meta['features'])}]" if meta['features'] else ""
             lines.append(f'#EXTINF:-1 http-user-agent="{USER_AGENT}",{display_name}{features_str}')
             lines.append(f"#EXTVLCOPT:http-user-agent={USER_AGENT}")
             lines.append(f"{BASE}/{quote(path)}/{subdir}/index.m3u8")
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+
+def write_full_bruteforce_m3u(channels, filename="Ngenix_Full_Bruteforce.m3u"):
+    """ 
+    Генерирует ТОТАЛЬНЫЙ сырой плейлист подстановок.
+    Сюда идут абсолютно ВСЕ каналы из EPG по ВСЕМ папкам качества (без проверки на LIVE).
+    Идеально для внешних чекеров.
+    """
+    lines = ["#EXTM3U\n# СКАЛА.3 — Полный брутфорс-список для внешнего сканирования\n"]
+    
+    unique_paths = set()
+    for ch in channels:
+        for name in ch["names"]:
+            cleaned_path = name.strip().lower()
+            if cleaned_path:
+                unique_paths.add(cleaned_path)
+                
+    print(f"[*] Сборка тотального плейлиста подстановок: {len(unique_paths)} каналов x {len(SUBDIRS)} папок качества...")
+    
+    for path in sorted(unique_paths):
+        for subdir in SUBDIRS:
+            pretty_name = f"{path.upper()} [БРУТФОРС Q:{subdir}]"
+            lines.append(f'#EXTINF:-1 http-user-agent="{USER_AGENT}" tvg-id="{path}", {pretty_name}')
+            lines.append(f"#EXTVLCOPT:http-user-agent={USER_AGENT}")
+            lines.append(f"{BASE}/{quote(path)}/{subdir}/index.m3u8\n")
+            
     with open(filename, "w", encoding="utf-8") as f:
         f.write("\n".join(lines))
 
@@ -188,26 +185,30 @@ if __name__ == "__main__":
     print(f"Дата (МСК): {datetime.now(MSK).strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"Дата (КЛГ): {datetime.now(KLG).strftime('%Y-%m-%d %H:%M:%S')}")
     print("#" + "="*30)
-    
+
     try:
-        # 1. Скачиваем и парсим EPG для получения названий каналов
+        # 1. Загрузка EPG
         epg_file = download_epg()
         channels = load_channels_from_epg(epg_file)
         print(f"[+] Успешно загружено каналов из EPG: {len(channels)}")
-        
-        # 2. Запускаем основной сканер каналов через базовый CDN
-        # (Если вам нужен глобальный перебор узлов, замените scan_all на scan_nodes)
+
+        # 2. ГЕНЕРАЦИЯ ТОТАЛЬНОГО СПИСКА (Полный брутфорс-лист подстановок)
+        write_full_bruteforce_m3u(channels)
+        print("[+] Тотальный брутфорс-плейлист успешно создан (Ngenix_Full_Bruteforce.m3u).")
+        print("-" * 30)
+
+        # 3. Запуск встроенного сканера (проверяет живые ссылки сам)
         scan_results = scan_all(channels)
-        
-        # 3. Записываем отчеты на диск
+
+        # 4. Запись результатов встроенной проверки
         write_skala_report(scan_results)
         print("[+] Отчёт СКАЛА-ТЕЛЕТАЙП успешно сгенерирован (NgenixScan_report.txt).")
-        
+
         write_m3u(scan_results)
-        print("[+] Плейлист M3U успешно сгенерирован (NgenixScan.m3u).")
-        
+        print("[+] Плейлист проверенных LIVE-каналов успешно сгенерирован (NgenixScan.m3u).")
+
         print("#" + "="*30)
-        print("[+] Работа скрипта Валентина успешно завершена.")
-        
+        print("[+] Работа скрипта Валентина успешно завершена. Все файлы готовы.")
+
     except Exception as main_err:
         print(f"\n[!] КРИТИЧЕСКАЯ ОШИБКА ВЫПОЛНЕНИЯ: {main_err}")
