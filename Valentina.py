@@ -185,5 +185,4 @@ def write_m3u(results, filename="NgenixScan.m3u"):
 if __name__ == "__main__":
     # Шапка СКАЛА.3
     print("#==== СКАЛА.3. IPTV edition ===")
-    print(f"Дата (МСК): {datetime.now(MSK).strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"
+    print(f"Дата (МСК): {datetime.now(MSK).strftime('%Y-%m-%d %H:%M:%S')
