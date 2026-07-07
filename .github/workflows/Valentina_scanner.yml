@@ -7,26 +7,44 @@ on:
     - cron: "0 3 20 * *"
     - cron: "0 4 20 * *"
 
+concurrency:
+  group: valentina-scan
+  cancel-in-progress: true
+
 jobs:
   scan-ngenix:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # === Turbo Python Setup ===
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: "pip"
 
+      # === Cache EPG file (ускоряет повторные запуски) ===
+      - name: Cache EPG
+        uses: actions/cache@v3
+        with:
+          path: epg2.xml.gz
+          key: epg-cache
+
+      # === Turbo pip ===
       - name: Install dependencies
+        shell: bash -l
         run: |
           python -m pip install --upgrade pip
           pip install requests
 
+      # === Turbo Valentina (ускоренный Python) ===
       - name: Run Valentina.py scanner
-        run: python Valentina.py
+        shell: bash -l
+        run: python -OO Valentina.py
 
       - name: Upload TXT report
         uses: actions/upload-artifact@v4
