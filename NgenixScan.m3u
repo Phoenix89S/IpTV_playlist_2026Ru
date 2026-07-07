@@ -23,33 +23,46 @@ https://s70378.cdn.ngenix.net/mezzo/1/index.m3u8
 
 
 
-365
+#EXTM3U
+
+#EXTINF:-1 tvg-name="365 Дней ТВ" tvg-id="365days.ru" group-title="Кино", tvg-logo="https://logo.example/365.png",365 Дней ТВ
 https://s70378.cdn.ngenix.net/365_dney_tv/2/index.m3u8
-41 Регион
+
+#EXTINF:-1 tvg-name="41 Регион" tvg-id="41region.ru" group-title="Региональные", tvg-logo="https://logo.example/41.png",41 Регион
 http://s14131.cdn.ngenix.net/hls/CH_R02_OTT_DV_KAM_41REG_OTT/variant.m3u8
-6ТВ Хабаровск
+
+#EXTINF:-1 tvg-name="6ТВ Хабаровск" tvg-id="6tv.ru" group-title="Региональные", tvg-logo="https://logo.example/6tv.png",6ТВ Хабаровск
 http://s97982.cdn.ngenix.net/hls/CH_R27_OTT_DV_HVSK_6TV/variant.m3u8
-6ТВ Хабаровск (Комсомольск-на Амуре)
+
+#EXTINF:-1 tvg-name="6ТВ Хабаровск КнА" tvg-id="6tv.ru" group-title="Региональные", tvg-logo="https://logo.example/6tv.png",6ТВ Хабаровск (Комсомольск-на-Амуре)
 http://s97982.cdn.ngenix.net/hls/CH_R27_OTT_DV_HVSK_6TVKMS/variant.m3u8
-8 канал Владивосток
+
+#EXTINF:-1 tvg-name="8 Канал Владивосток" tvg-id="8kanal.ru" group-title="Региональные", tvg-logo="https://logo.example/8kanal.png",8 Канал Владивосток
 http://s91030.cdn.ngenix.net/hls/CH_R01_OTT_DV_VLD_OTT8KANAL/variant.m3u8
 
-Amedia 1
+#EXTINF:-1 tvg-name="Amedia 1" tvg-id="Amedia1.ru" group-title="Кино", tvg-logo="https://logo.example/amedia1.png",Amedia 1
 https://s70378.cdn.ngenix.net/amedia_1/2/index.m3u8
-Amedia 2
+
+#EXTINF:-1 tvg-name="Amedia 2" tvg-id="Amedia2.ru" group-title="Кино", tvg-logo="https://logo.example/amedia2.png",Amedia 2
 https://s70378.cdn.ngenix.net/amedia_2/2/index.m3u8
-Amedia Hit
+
+#EXTINF:-1 tvg-name="Amedia Hit" tvg-id="AmediaHit.ru" group-title="Кино", tvg-logo="https://logo.example/amediahit.png",Amedia Hit
 https://s70378.cdn.ngenix.net/amedia_hit/2/index.m3u8
-Amedia Premium HD
+
+#EXTINF:-1 tvg-name="Amedia Premium HD" tvg-id="AmediaPremium.ru" group-title="Кино", tvg-logo="https://logo.example/amediapremium.png",Amedia Premium HD
 https://s70378.cdn.ngenix.net/amedia_premium_hd/3/index.m3u8
-Da Vinci
+
+#EXTINF:-1 tvg-name="Da Vinci" tvg-id="DaVinci.ru" group-title="Детские", tvg-logo="https://logo.example/davinci.png",Da Vinci
 https://s70378.cdn.ngenix.net/da_vinci/2/index.m3u8
-Fashion Box
+
+#EXTINF:-1 tvg-name="Fashion Box" tvg-id="FashionBox.ru" group-title="Развлекательные", tvg-logo="https://logo.example/fashionbox.png",Fashion Box
 https://s70378.cdn.ngenix.net/fashion_box/2/index.m3u8
-FX Life
+
+#EXTINF:-1 tvg-name="FX Life" tvg-id="FoxLife.ru" group-title="Развлекательные", tvg-logo="https://logo.example/foxlife.png",FX Life
 https://s70378.cdn.ngenix.net/fox_life/2/index.m3u8
 
-Docu Box
+#EXTINF:-1 tvg-name="DocuBox" tvg-id="DocuBox.ru" group-title="Документальные", tvg-logo="https://logo.example/docubox.png",DocuBox
 https://s70378.cdn.ngenix.net/docubox/2/index.m3u8
-FilmBox+ Festival
+
+#EXTINF:-1 tvg-name="FilmBox Festival" tvg-id="FilmBox.ru" group-title="Кино", tvg-logo="https://logo.example/filmbox.png",FilmBox+ Festival
 https://s70378.cdn.ngenix.net/filmbox_arthouse/2/index.m3u8
