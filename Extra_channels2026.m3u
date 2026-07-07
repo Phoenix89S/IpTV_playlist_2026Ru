@@ -10806,6 +10806,39 @@ https://s70378.cdn.ngenix.net/nostalgia/2/index.m3u8
 #EXTINF:-1 tvg-id="telekafe" group-title="Дополнительные Эфирные ТВ Плюс",80. Телекафе
 https://s70378.cdn.ngenix.net/telecafe/2/index.m3u8
 
+#EXTM3U
+
+# 13.5.1 СТС Kids
+#EXTINF:-1 group-title="СТС Кидс проверка",13.5.1 СТС Kids
+http://178.124.153.123:44400/stskids
+
+# 13.5.2 СТС Kids
+#EXTINF:-1 group-title="СТС Кидс проверка",13.5.2 СТС Kids
+https://s70379.cdn.ngenix.net/ctc_kids/2/index.m3u8
+
+# 13.5.3 СТС Kids
+#EXTINF:-1 group-title="СТС Кидс проверка",13.5.3 СТС Kids
+http://flussonic.mkpnet.ru/tv-4af112c31b77e2a8/video.m3u8
+
+# 13.5.4 СТС Kids
+#EXTINF:-1 group-title="СТС Кидс проверка",13.5.4 СТС Kids
+http://178.124.153.123:44400/stskids
+
+# 13.5.5 СТС Kids
+#EXTINF:-1 group-title="СТС Кидс проверка",13.5.5 СТС Kids
+http://37.186.70.39:40/play/97/index.m3u8
+
+# 13.5.6 СТС Kids
+#EXTINF:-1 group-title="СТС Кидс проверка",13.5.6 СТС Kids
+http://31.148.46.15:80/STS_Kids_HD/index.m3u8
+
+# 13.5.7 СТС Kids HD
+#EXTINF:-1 group-title="СТС Кидс проверка",13.5.7 СТС Kids HD
+http://31.148.46.15:80/STS_Kids_HD/index.m3u8
+
+# 13.5.8 СТС Kids HD
+#EXTINF:-1 group-title="СТС Кидс проверка",13.5.8 СТС Kids HD
+http://iptv.mega.net.ru:8888/CTC_Kids_HD/index.m3u8
 
 
 
