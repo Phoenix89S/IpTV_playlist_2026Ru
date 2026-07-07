@@ -12,18 +12,6 @@ https://s70378.cdn.ngenix.net/galaxy/1/index.m3u8
 #EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/mezzo/1/index.m3u8
 
-
-
-
-
-
-
-
-
-
-
-
-
 #EXTINF:-1 tvg-name="365 Дней ТВ" tvg-id="365days.ru" group-title="Кино", tvg-logo="https://logo.example/365.png",365 Дней ТВ
 https://s70378.cdn.ngenix.net/365_dney_tv/2/index.m3u8
 
