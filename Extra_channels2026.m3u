@@ -1115,7 +1115,9 @@ https://bl.rutube.ru/livestream/7bf12d9c050f9a7ef3728db5730432ae/index.m3u8?s=ri
 #EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/tv_3/2/index.m3u8
 
-
+# 15.3 ТВ3 Беларусь
+#EXTINF:-1 tvg-id="tv3-belarus" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/TV3.png" group-title="Эфирные ТВ плюс",15.3 ТВ3 Беларусь
+http://178.124.179.122:8088/TB-3/index.m3u8
 
 #-------------кнопка 16: Пятница! ------------
 
