@@ -24,3 +24,60 @@ https://s70378.cdn.ngenix.net/perets_int/2/index.m3u8
 #EXTINF:-1 tvg-id="perets" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/Perets.png" group-title="Эфирные ТВ плюс",Перец
 #EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/perets/2/index.m3u8
+
+
+#EXTINF:-1 tvg-id="trash-1" group-title="TRASH",TRASH 1
+https://s70378.cdn.ngenix.net/trash/2/index.m3u8
+
+#EXTINF:-1 tvg-id="trash-hd-2" group-title="TRASH",TRASH HD 2
+https://s70378.cdn.ngenix.net/trash_hd/3/index.m3u8
+
+#EXTINF:-1 tvg-id="trash-3" group-title="TRASH",TRASH 3
+http://s14131.cdn.ngenix.net/hls/CH_TRASH_TEST/variant.m3u8
+
+#EXTINF:-1 tvg-id="trash-hd-4" group-title="TRASH",TRASH HD 4
+http://s14131.cdn.ngenix.net/hls/CH_TRASH_HD/variant.m3u8
+
+#EXTINF:-1 tvg-id="trash-5" group-title="TRASH",TRASH 5
+http://s97982.cdn.ngenix.net/hls/CH_TRASH_TEST/variant.m3u8
+
+#EXTINF:-1 tvg-id="trash-hd-6" group-title="TRASH",TRASH HD 6
+http://s97982.cdn.ngenix.net/hls/CH_TRASH_HD/variant.m3u8
+
+#EXTINF:-1 tvg-id="trash-7" group-title="TRASH",TRASH 7
+http://s91030.cdn.ngenix.net/hls/CH_TRASH_TEST/variant.m3u8
+
+#EXTINF:-1 tvg-id="trash-hd-8" group-title="TRASH",TRASH HD 8
+http://s91030.cdn.ngenix.net/hls/CH_TRASH_HD/variant.m3u8
+
+#EXTINF:-1 tvg-id="trash-9" group-title="TRASH",TRASH 9
+http://s84942.cdn.ngenix.net/hls/CH_TRASH/variant.m3u8
+
+#EXTINF:-1 tvg-id="trash-hd-10" group-title="TRASH",TRASH HD 10
+http://s84942.cdn.ngenix.net/hls/CH_TRASH_HD/variant.m3u8
+
+#EXTINF:-1 tvg-id="trash-11" group-title="TRASH",TRASH 11
+http://s20441.cdn.ngenix.net/hls/CH_TRASH/variant.m3u8
+
+#EXTINF:-1 tvg-id="trash-hd-12" group-title="TRASH",TRASH HD 12
+http://s20441.cdn.ngenix.net/hls/CH_TRASH_HD/variant.m3u8
+
+#EXTINF:-1 tvg-id="trash-13" group-title="TRASH",TRASH 13
+https://s55766.cdn.ngenix.net/s55766-media-origin/trash/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="trash-hd-14" group-title="TRASH",TRASH HD 14
+https://s55766.cdn.ngenix.net/s55766-media-origin/trash_hd/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="trash-15" group-title="TRASH",TRASH 15
+http://s45177.cdn.ngenix.net/hls/CH_TRASH/variant.m3u8
+
+#EXTINF:-1 tvg-id="trash-hd-16" group-title="TRASH",TRASH HD 16
+http://s45177.cdn.ngenix.net/hls/CH_TRASH_HD/variant.m3u8
+
+#EXTINF:-1 tvg-id="trash-17" group-title="TRASH",TRASH 17
+http://s93498.cdn.ngenix.net/hls/CH_TRASH/variant.m3u8
+
+#EXTINF:-1 tvg-id="trash-hd-18" group-title="TRASH",TRASH HD 18
+http://s93498.cdn.ngenix.net/hls/CH_TRASH_HD/variant.m3u8
+
+
