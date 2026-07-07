@@ -333,4 +333,17 @@ https://s70378.cdn.ngenix.net/viju_sport/2/index.m3u8
 
 
 
+#EXTINF:-1 tvg-id="ctc-kids" tvg-logo="https://iptvx.one/picons/ctc_kids.png" group-title="Детские",СТС Kids (Поток 1)
+https://s70378.cdn.ngenix.net/ctc_kids/1/index.m3u8
+
+#EXTINF:-1 tvg-id="ctc-kids" tvg-logo="https://iptvx.one/picons/ctc_kids.png" group-title="Детские",СТС Kids (Поток 2)
+https://s70378.cdn.ngenix.net/ctc_kids/2/index.m3u8
+
+#EXTINF:-1 tvg-id="ctc-kids" tvg-logo="https://iptvx.one/picons/ctc_kids.png" group-title="Детские",СТС Kids (Поток 3)
+https://s70378.cdn.ngenix.net/ctc_kids/3/index.m3u8
+
+#EXTINF:-1 tvg-id="ctc-kids" tvg-logo="https://iptvx.one/picons/ctc_kids.png" group-title="Детские",СТС Kids (Поток 4)
+https://s70378.cdn.ngenix.net/ctc_kids/4/index.m3u8
+
+
 
