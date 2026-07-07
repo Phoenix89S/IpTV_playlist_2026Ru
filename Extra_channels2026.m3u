@@ -10731,6 +10731,9 @@ https://s70378.cdn.ngenix.net/docubox/2/index.m3u8
 https://s70378.cdn.ngenix.net/galaxy/2/index.m3u8
 #EXTINF:-1 tvg-id="nat-geo" group-title="Дополнительные Эфирные ТВ Плюс",43. Nat Geo
 https://s70378.cdn.ngenix.net/national_geographic/2/index.m3u8
+# 43.1 Nat Geo Wild
+#EXTINF:-1 tvg-id="nat-geo-wild" tvg-logo="https://iptvx.one/picons/nat_geo_wild_hd.png" group-title="Дополнительные Эфирные ТВ Плюс",43.1 Nat Geo Wild
+https://s70378.cdn.ngenix.net/national_geographic_wild/2/index.m3u8
 #EXTINF:-1 tvg-id="rtg-hd" group-title="Дополнительные Эфирные ТВ Плюс",44. RTG HD
 https://s70378.cdn.ngenix.net/rtg_hd/3/index.m3u8
 #EXTINF:-1 tvg-id="sci-fi" group-title="Дополнительные Эфирные ТВ Плюс",45. Sci-Fi
