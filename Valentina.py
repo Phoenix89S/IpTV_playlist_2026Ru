@@ -56,6 +56,124 @@ HTTP_STATS = {
 }
 
 # ====================================================================
+# Встроенный образец M3U Phoenix (можно расширять вручную)
+# ====================================================================
+
+PHOENIX_M3U_TEXT = r'''
+#EXTM3U
+
+# --- РЕГИОНАЛЬНЫЕ КАНАЛЫ ---
+#EXTINF:-1 tvg-id="41-region" group-title="Региональные",41 Регион
+http://s14131.cdn.ngenix.net/hls/CH_R02_OTT_DV_KAM_41REG_OTT/variant.m3u8
+#EXTINF:-1 tvg-id="6tv-khabarovsk" group-title="Региональные",6ТВ Хабаровск
+http://s97982.cdn.ngenix.net/hls/CH_R27_OTT_DV_HVSK_6TV/variant.m3u8
+#EXTINF:-1 tvg-id="6tv-kms" group-title="Региональные",6ТВ Хабаровск (Комсомольск-на Амуре)
+http://s97982.cdn.ngenix.net/hls/CH_R27_OTT_DV_HVSK_6TVKMS/variant.m3u8
+#EXTINF:-1 tvg-id="8kanal-vladivostok" group-title="Региональные",8 канал Владивосток
+http://s91030.cdn.ngenix.net/hls/CH_R01_OTT_DV_VLD_OTT8KANAL/variant.m3u8
+#EXTINF:-1 tvg-id="astv" group-title="Региональные",АСТВ
+http://s14553.cdn.ngenix.net/hls/CH_R65_OTT_DV_SLIN_ACTV/variant.m3u8
+#EXTINF:-1 tvg-id="amurskoe-tv" group-title="Региональные",Амурское Областное ТВ
+http://s84942.cdn.ngenix.net/hls/CH_R28_OTT_DV_BLAG_AOT/variant.m3u8
+#EXTINF:-1 tvg-id="gorod-24" group-title="Региональные",Город 24
+http://s84942.cdn.ngenix.net/hls/CH_R28_OTT_DV_BLAG_GOROD24/variant.m3u8
+#EXTINF:-1 tvg-id="gubernia-khabarovsk" group-title="Региональные",Губерния (Хабаровск)
+http://s97982.cdn.ngenix.net/hls/CH_R27_OTT_DV_HVSK_GUBERNYA/variant.m3u8
+
+# --- КИНО И СЕРИАЛЫ ---
+#EXTINF:-1 tvg-id="amedia-1" group-title="Кино и Сериалы",Amedia 1
+https://s70378.cdn.ngenix.net/amedia_1/2/index.m3u8
+#EXTINF:-1 tvg-id="amedia-2" group-title="Кино и Сериалы",Amedia 2
+https://s70378.cdn.ngenix.net/amedia_2/2/index.m3u8
+#EXTINF:-1 tvg-id="amedia-hit" group-title="Кино и Сериалы",Amedia Hit
+https://s70378.cdn.ngenix.net/amedia_hit/2/index.m3u8
+#EXTINF:-1 tvg-id="amedia-premium" group-title="Кино и Сериалы",Amedia Premium HD
+https://s70378.cdn.ngenix.net/amedia_premium_hd/3/index.m3u8
+#EXTINF:-1 tvg-id="filmbox-festival" group-title="Кино и Сериалы",FilmBox+ Festival
+https://s70378.cdn.ngenix.net/filmbox_arthouse/2/index.m3u8
+#EXTINF:-1 tvg-id="filmbox-one" group-title="Кино и Сериалы",FilmBox+ One
+https://s70378.cdn.ngenix.net/filmbox/2/index.m3u8
+#EXTINF:-1 tvg-id="hollywood-hd" group-title="Кино и Сериалы",Hollywood HD
+https://s70378.cdn.ngenix.net/amc/2/index.m3u8
+#EXTINF:-1 tvg-id="viju-comedy" group-title="Кино и Сериалы",Viju+ Comedy
+https://s70378.cdn.ngenix.net/vip_comedy/2/index.m3u8
+#EXTINF:-1 tvg-id="viju-megahit" group-title="Кино и Сериалы",Viju+ Megahit
+https://s70378.cdn.ngenix.net/vip_megahit/2/index.m3u8
+#EXTINF:-1 tvg-id="viju-premiere" group-title="Кино и Сериалы",Viju+ Premiere
+https://s70378.cdn.ngenix.net/vip_premiere/2/index.m3u8
+#EXTINF:-1 tvg-id="viju-serial" group-title="Кино и Сериалы",Viju+ Serial
+https://s70378.cdn.ngenix.net/vip_serial/2/index.m3u8
+#EXTINF:-1 tvg-id="dom-kino" group-title="Кино и Сериалы",Дом Кино
+https://s70378.cdn.ngenix.net/dom_kino/2/index.m3u8
+#EXTINF:-1 tvg-id="dom-kino-premium" group-title="Кино и Сериалы",Дом Кино Премиум
+https://s70378.cdn.ngenix.net/dom_kino_premium_hd/3/index.m3u8
+#EXTINF:-1 tvg-id="evrokino" group-title="Кино и Сериалы",Еврокино
+https://s70378.cdn.ngenix.net/evrokino/2/index.m3u8
+
+# --- ПОЗНАВАТЕЛЬНЫЕ ---
+#EXTINF:-1 tvg-id="365-dney" group-title="Познавательные",365 дней ТВ
+https://s70378.cdn.ngenix.net/365_dney_tv/2/index.m3u8
+#EXTINF:-1 tvg-id="da-vinci" group-title="Познавательные",Da Vinci
+https://s70378.cdn.ngenix.net/da_vinci/2/index.m3u8
+#EXTINF:-1 tvg-id="docubox" group-title="Познавательные",Docu Box
+https://s70378.cdn.ngenix.net/docubox/2/index.m3u8
+#EXTINF:-1 tvg-id="galaxy" group-title="Познавательные",Galaxy
+https://s70378.cdn.ngenix.net/galaxy/2/index.m3u8
+#EXTINF:-1 tvg-id="nat-geo" group-title="Познавательные",Nat Geo
+https://s70378.cdn.ngenix.net/national_geographic/2/index.m3u8
+#EXTINF:-1 tvg-id="rtg-hd" group-title="Познавательные",RTG HD
+https://s70378.cdn.ngenix.net/rtg_hd/3/index.m3u8
+#EXTINF:-1 tvg-id="sci-fi" group-title="Познавательные",Sci-Fi
+https://s70378.cdn.ngenix.net/sony_sci_fi/2/index.m3u8
+#EXTINF:-1 tvg-id="terra" group-title="Познавательные",Terra
+https://s70378.cdn.ngenix.net/terra/2/index.m3u8
+#EXTINF:-1 tvg-id="the-explorers" group-title="Познавательные",The Explorers
+https://s70378.cdn.ngenix.net/the_explorers/2/index.m3u8
+#EXTINF:-1 tvg-id="travel-adventure" group-title="Познавательные",Travel + Adventure
+https://s70378.cdn.ngenix.net/travel_and_adventure/2/index.m3u8
+#EXTINF:-1 tvg-id="viju-explore" group-title="Познавательные",Viju Explore
+https://s70378.cdn.ngenix.net/viasat_explore/2/index.m3u8
+#EXTINF:-1 tvg-id="viju-history" group-title="Познавательные",Viju History
+https://s70378.cdn.ngenix.net/viasat_history/2/index.m3u8
+#EXTINF:-1 tvg-id="viju-nature" group-title="Познавательные",Viju Nature
+https://s70378.cdn.ngenix.net/viasat_nature/2/index.m3u8
+#EXTINF:-1 tvg-id="vremya" group-title="Познавательные",Время
+https://s70378.cdn.ngenix.net/vremia/2/index.m3u8
+#EXTINF:-1 tvg-id="glazami-turista" group-title="Познавательные",Глазами туриста
+https://s70378.cdn.ngenix.net/glazami_turista/1/index.m3u8
+#EXTINF:-1 tvg-id="dikiy" group-title="Познавательные",Дикий
+https://s70378.cdn.ngenix.net/dikiy/2/index.m3u8
+
+# --- ДЕТСКИЕ ---
+#EXTINF:-1 tvg-id="gulli-girl" group-title="Детские",Gulli Girl
+https://s70378.cdn.ngenix.net/gulli/2/index.m3u8
+#EXTINF:-1 tvg-id="nickelodeon" group-title="Детские",Nickelodeon
+https://s70378.cdn.ngenix.net/nickelodeon/2/index.m3u8
+#EXTINF:-1 tvg-id="tiji" group-title="Детские",Tiji
+https://s70378.cdn.ngenix.net/tiji/2/index.m3u8
+#EXTINF:-1 tvg-id="detskiy-mir" group-title="Детские",Детский мир
+https://s70378.cdn.ngenix.net/detskij_mir/2/index.m3u8
+
+# --- СПОРТ ---
+#EXTINF:-1 tvg-id="mma-tv" group-title="Спорт",MMA TV
+https://s70378.cdn.ngenix.net/m1_global/2/index.m3u8
+#EXTINF:-1 tvg-id="udar" group-title="Спорт",UDAR
+https://s70378.cdn.ngenix.net/ufc/2/index.m3u8
+#EXTINF:-1 tvg-id="boks-tv" group-title="Спорт",Бокс ТВ
+https://s70378.cdn.ngenix.net/boks_tv/2/index.m3u8
+
+# --- МУЗЫКА И СТИЛЬ ---
+#EXTINF:-1 tvg-id="fashion-box" group-title="Музыка и Стиль",Fashion Box
+https://s70378.cdn.ngenix.net/fashion_box/2/index.m3u8
+#EXTINF:-1 tvg-id="fx-life" group-title="Музыка и Стиль",FX Life
+https://s70378.cdn.ngenix.net/fox_life/2/index.m3u8
+#EXTINF:-1 tvg-id="mezzo" group-title="Музыка и Стиль",Mezzo
+https://s70378.cdn.ngenix.net/mezzo/2/index.m3u8
+#EXTINF:-1 tvg-id="muzzone" group-title="Музыка и Стиль",Muzzone
+https://s70378.cdn.ngenix.net/muzzone/2/index.m3u8
+'''
+
+# ====================================================================
 # Базовые функции EPG / HLS
 # ====================================================================
 
@@ -151,10 +269,169 @@ def parse_hls_features(playlist_text):
     return ["M3U8 OK"]
 
 # ====================================================================
+# Дополнительные функции: M3U-парсер и карта соответствий EPG → CDN
+# ====================================================================
+
+def load_channels_from_m3u_text(m3u_text):
+    """
+    Загружает реальные CDN-пути каналов из встроенного M3U-текста Phoenix.
+    Возвращает список путей, которые Валентина должна сканировать.
+    """
+    channels = []
+    for line in m3u_text.splitlines():
+        line = line.strip()
+        if line.startswith("http://") or line.startswith("https://"):
+            try:
+                # Отделяем часть после .net/
+                if ".cdn.ngenix.net/" in line:
+                    path = line.split(".cdn.ngenix.net/")[1]
+                else:
+                    path = line.split(".net/")[1]
+                # Убираем index.m3u8 / variant.m3u8
+                path = path.replace("index.m3u8", "")
+                path = path.replace("variant.m3u8", "")
+                path = path.rstrip("/")
+                channels.append(path)
+            except Exception:
+                continue
+    print(f"[+] Загружено реальных CDN-каналов из встроенного M3U: {len(channels)}")
+    return channels
+
+LEGACY_NAME_MAP = {
+    # Viju / VIP
+    "viju premiere": "vip_premiere",
+    "viju megahit": "vip_megahit",
+    "viju comedy": "vip_comedy",
+    "viju serial": "vip_serial",
+    # Nat Geo / Terra / Explorers / Travel
+    "nat geo": "national_geographic",
+    "national geographic": "national_geographic",
+    "terra": "terra",
+    "the explorers": "the_explorers",
+    "travel + adventure": "travel_and_adventure",
+    "travel adventure": "travel_and_adventure",
+    # Дом Кино / Amedia / Sci-Fi
+    "дом кино премиум": "dom_kino_premium_hd",
+    "dom kino premium": "dom_kino_premium_hd",
+    "amedia premium": "amedia_premium_hd",
+    "amedia premium hd": "amedia_premium_hd",
+    "sci-fi": "sony_sci_fi",
+    "sony sci-fi": "sony_sci_fi",
+    # Познавательные
+    "365 дней тв": "365_dney_tv",
+    "365 dney tv": "365_dney_tv",
+    "глазами туриста": "glazami_turista",
+    "glazami turista": "glazami_turista",
+    "дикий": "dikiy",
+    "dikiy": "dikiy",
+    # Детские
+    "gulli girl": "gulli",
+    "nickelodeon": "nickelodeon",
+    "tiji": "tiji",
+    "детский мир": "detskij_mir",
+    "detskiy mir": "detskij_mir",
+    # Спорт
+    "mma tv": "m1_global",
+    "udar": "ufc",
+    "бокс тв": "boks_tv",
+    "boks tv": "boks_tv",
+    # Музыка и стиль
+    "fashion box": "fashion_box",
+    "fx life": "fox_life",
+    "mezzo": "mezzo",
+    "muzzone": "muzzone",
+}
+
+def normalize_name(name):
+    return name.strip().lower().replace("ё", "е")
+
+def build_epg_cdn_mapping(epg_channels, m3u_paths):
+    """
+    Строит карту соответствий EPG → CDN.
+    Использует:
+    - имена из EPG
+    - реальные пути из M3U
+    - ручную базу старых названий
+    """
+    mapping = {}
+
+    # Прямые совпадения по имени (name → path, если имя входит в путь)
+    for ch in epg_channels:
+        for raw_name in ch["names"]:
+            name = normalize_name(raw_name)
+            for path in m3u_paths:
+                if name.replace(" ", "_") in path.lower():
+                    mapping[name] = path
+
+    # Старые названия (ручная база)
+    for name, path in LEGACY_NAME_MAP.items():
+        mapping[normalize_name(name)] = path
+
+    # Региональные CH_Rxx пути — добавляем как есть
+    for path in m3u_paths:
+        if path.startswith("CH_"):
+            mapping[path.lower()] = path
+
+    print(f"[+] Построена карта соответствий EPG → CDN: {len(mapping)} каналов")
+    return mapping
+
+def build_scan_targets(epg_channels, mapping, m3u_paths):
+    """
+    Формирует единый список путей для сканирования:
+    - все имена из EPG (как есть, в нижнем регистре)
+    - все соответствия EPG → CDN из mapping
+    - все пути из M3U
+    """
+    unique_paths = set()
+
+    # 1. Имена из EPG (как базовые пути)
+    for ch in epg_channels:
+        for raw_name in ch["names"]:
+            cleaned = normalize_name(raw_name)
+            if cleaned:
+                unique_paths.add(cleaned)
+
+    # 2. Соответствия EPG → CDN
+    for name, path in mapping.items():
+        unique_paths.add(path)
+
+    # 3. Все пути из M3U
+    for path in m3u_paths:
+        unique_paths.add(path)
+
+    print(f"[+] Единый список путей для сканирования: {len(unique_paths)} направлений")
+    return sorted(unique_paths)
+
+# ====================================================================
 # Внутренний сканер каналов (для реальных данных)
 # ====================================================================
 
+def scan_all_paths(paths):
+    """
+    Сканирует все пути из единого списка (EPG + M3U + mapping).
+    """
+    results = {}
+    print("----- начало процесса -----")
+    print(f"[*] Запущен внутренний перебор каналов и подпапок... ({len(paths)} уникальных направлений)")
+    with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:
+        futures = []
+        for path in paths:
+            for subdir in SUBDIRS:
+                futures.append(executor.submit(fetch_playlist, path, subdir))
+        for future in concurrent.futures.as_completed(futures):
+            path, text, ts = future.result()
+            features = parse_hls_features(text)
+            is_alive = bool(text)
+            results[path] = {"features": features, "alive": is_alive, "timestamp": ts}
+    print("[*] Внутренний перебор каналов завершён.")
+    print("----")
+    return results
+
 def scan_all(channels):
+    """
+    СТАРЫЙ ВАРИАНТ: сканирование только по именам из EPG.
+    Оставлен для совместимости, но основной режим — scan_all_paths().
+    """
     results = {}
     unique_paths = set()
     for ch in channels:
@@ -182,7 +459,43 @@ def scan_all(channels):
 # Перебор узлов CDN (реальное использование NODES)
 # ====================================================================
 
+def scan_nodes_paths(paths):
+    """
+    Перебор узлов CDN по единому списку путей (EPG + M3U + mapping).
+    """
+    results = {}
+    live_count = 0
+    node_count = 0
+    print(f"[*] Запущен перебор узлов CDN ({len(NODES)} шт.)...")
+    with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
+        for node in NODES:
+            node_count += 1
+            print(f"[*] Проверка узла {node}.cdn.ngenix.net начата")
+            futures = []
+            for cleaned_path in paths:
+                for subdir in SUBDIRS:
+                    futures.append(executor.submit(fetch_playlist_node, node, cleaned_path, subdir))
+            node_results = {}
+            for f in concurrent.futures.as_completed(futures):
+                node_name, path, text, ts = f.result()
+                features = parse_hls_features(text)
+                is_alive = bool(text)
+                if is_alive:
+                    live_count += 1
+                node_results[path] = {"features": features, "alive": is_alive, "timestamp": ts}
+            results[node] = node_results
+            print(f"[*] Проверка узла {node}.cdn.ngenix.net завершена")
+            print("====")
+    print("[*] Перебор узлов завершён.")
+    print(f"[*] Проверено узлов: {node_count}")
+    print(f"[*] Найдено живых потоков (по всем узлам): {live_count}")
+    return results
+
 def scan_nodes(channels):
+    """
+    СТАРЫЙ ВАРИАНТ: перебор узлов только по именам из EPG.
+    Оставлен для совместимости, но основной режим — scan_nodes_paths().
+    """
     results = {}
     live_count = 0
     node_count = 0
@@ -342,18 +655,33 @@ if __name__ == "__main__":
     print("#" + "="*30)
 
     try:
+        # 1. EPG
         epg_file = download_epg()
         channels = load_channels_from_epg(epg_file)
 
+        # 2. Встроенный M3U Phoenix
+        phoenix_m3u_paths = load_channels_from_m3u_text(PHOENIX_M3U_TEXT)
+
+        # 3. Карта соответствий EPG → CDN
+        epg_cdn_mapping = build_epg_cdn_mapping(channels, phoenix_m3u_paths)
+
+        # 4. Единый список путей для сканирования
+        scan_paths = build_scan_targets(channels, epg_cdn_mapping, phoenix_m3u_paths)
+
+        # 5. Тотальный брутфорс по EPG-именам (как было)
         write_full_bruteforce_m3u(channels)
-        scan_results = scan_all(channels)
+
+        # 6. Внутренний перебор по единому списку путей
+        scan_results = scan_all_paths(scan_paths)
         write_skala_report(scan_results)
         write_m3u(scan_results)
 
-        nodes_results = scan_nodes(channels)
+        # 7. Перебор узлов CDN по единому списку путей
+        nodes_results = scan_nodes_paths(scan_paths)
         for node, node_data in nodes_results.items():
             write_skala_report(node_data, filename=f"NgenixScan_report_{node}.txt")
 
+        # 8. HTTP-статистика
         print("#" + "="*30)
         print("[*] HTTP-статистика:")
         print(f"[*] Проверено запросов: {HTTP_STATS['total']}")
@@ -364,6 +692,7 @@ if __name__ == "__main__":
         print(f"[*] 500: {HTTP_STATS['500']}")
         print(f"[*] Прочие: {HTTP_STATS['other']}")
 
+        # 9. Эмуляция ленты ДРЭГ
         simulate_skala3_full()
 
         print("#" + "="*30)
