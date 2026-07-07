@@ -80,4 +80,23 @@ http://s93498.cdn.ngenix.net/hls/CH_TRASH/variant.m3u8
 #EXTINF:-1 tvg-id="trash-hd-18" group-title="TRASH",TRASH HD 18
 http://s93498.cdn.ngenix.net/hls/CH_TRASH_HD/variant.m3u8
 
+#---------------- ГРУППА: ДОПОЛНИТЕЛЬНЫЕ ЭФИРНЫЕ ТВ ПЛЮС / ТЕСТ ----------------
+
+# --- Сектор: Viju+ Planet ---
+# Viju+ Planet
+#EXTINF:-1 tvg-id="viju-planet" tvg-logo="https://iptvx.one/picons/viju_planet.png" group-title="Дополнительные Эфирные ТВ Плюс/тест",Viju+ Planet
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/vip_planet/2/index.m3u8
+
+
+# --- Сектор: Viju+ Romantica ---
+# Viju+ Romantica
+#EXTINF:-1 tvg-id="viju-romantica" tvg-logo="https://iptvx.one/picons/viju_romantica.png" group-title="Дополнительные Эфирные ТВ Плюс/тест",Viju+ Romantica
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/vip_Romantica/2/index.m3u8
+
+
+#
+# --------------------------------------------------------------------
+#
 
