@@ -11,3 +11,45 @@ https://s70378.cdn.ngenix.net/galaxy/1/index.m3u8
 #EXTINF:-1 http-user-agent="HlsWinkPlayer",MEZZO [Quality 1] [Media Stream]
 #EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/mezzo/1/index.m3u8
+
+
+
+
+
+
+
+
+
+
+
+
+365
+https://s70378.cdn.ngenix.net/365_dney_tv/2/index.m3u8
+41 Регион
+http://s14131.cdn.ngenix.net/hls/CH_R02_OTT_DV_KAM_41REG_OTT/variant.m3u8
+6ТВ Хабаровск
+http://s97982.cdn.ngenix.net/hls/CH_R27_OTT_DV_HVSK_6TV/variant.m3u8
+6ТВ Хабаровск (Комсомольск-на Амуре)
+http://s97982.cdn.ngenix.net/hls/CH_R27_OTT_DV_HVSK_6TVKMS/variant.m3u8
+8 канал Владивосток
+http://s91030.cdn.ngenix.net/hls/CH_R01_OTT_DV_VLD_OTT8KANAL/variant.m3u8
+
+Amedia 1
+https://s70378.cdn.ngenix.net/amedia_1/2/index.m3u8
+Amedia 2
+https://s70378.cdn.ngenix.net/amedia_2/2/index.m3u8
+Amedia Hit
+https://s70378.cdn.ngenix.net/amedia_hit/2/index.m3u8
+Amedia Premium HD
+https://s70378.cdn.ngenix.net/amedia_premium_hd/3/index.m3u8
+Da Vinci
+https://s70378.cdn.ngenix.net/da_vinci/2/index.m3u8
+Fashion Box
+https://s70378.cdn.ngenix.net/fashion_box/2/index.m3u8
+FX Life
+https://s70378.cdn.ngenix.net/fox_life/2/index.m3u8
+
+Docu Box
+https://s70378.cdn.ngenix.net/docubox/2/index.m3u8
+FilmBox+ Festival
+https://s70378.cdn.ngenix.net/filmbox_arthouse/2/index.m3u8
