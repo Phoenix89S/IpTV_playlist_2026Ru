@@ -279,65 +279,58 @@ https://s70378.cdn.ngenix.net/da_vinci/2/index.m3u8
 #EXTINF:-1 tvg-id="vip-sport" tvg-logo="https://iptvx.one/picons/vip_sport_hd.png" group-title="Спорт",viju Sport
 https://s70378.cdn.ngenix.net/vip_sport/2/index.m3u8
 
+#EXTM3U
 
 # --- Фильмы и сериалы (TV1000 → Viju) ---
-TV1000
-Viju TV1000
+
+#EXTINF:-1 group-title="Фильмы и сериалы" tvg-id="viju-tv1000" tvg-logo="https://iptvx.one/picons/viju_tv1000.png",Viju TV1000
 https://s70378.cdn.ngenix.net/viju_tv1000/2/index.m3u8
 
-TV1000 Русское
-Viju TV1000 Русское
+#EXTINF:-1 group-title="Фильмы и сериалы" tvg-id="viju-tv1000-russian" tvg-logo="https://iptvx.one/picons/viju_tv1000_rus.png",Viju TV1000 Русское
 https://s70378.cdn.ngenix.net/viju_tv1000_rus/2/index.m3u8
 
-TV1000 Action
-Viju TV1000 Action
+#EXTINF:-1 group-title="Фильмы и сериалы" tvg-id="viju-tv1000-action" tvg-logo="https://iptvx.one/picons/viju_tv1000_action.png",Viju TV1000 Action
 https://s70378.cdn.ngenix.net/viju_tv1000_action/2/index.m3u8
 
-TV1000 Новелла
-Viju TV1000 Новелла
+#EXTINF:-1 group-title="Фильмы и сериалы" tvg-id="viju-tv1000-novella" tvg-logo="https://iptvx.one/picons/viju_tv1000_novella.png",Viju TV1000 Новелла
 https://s70378.cdn.ngenix.net/viju_tv1000_novella/2/index.m3u8
 
-TV1000 Romantica
-Viju TV1000 Romantica
+#EXTINF:-1 group-title="Фильмы и сериалы" tvg-id="viju-tv1000-romantica" tvg-logo="https://iptvx.one/picons/viju_tv1000_romantica.png",Viju TV1000 Romantica
 https://s70378.cdn.ngenix.net/viju_tv1000_romantica/2/index.m3u8
 
 
 # --- Познавательные (Viasat → Viju) ---
-Viasat Explore
-Viju Explore
+
+#EXTINF:-1 group-title="Познавательные" tvg-id="viju-explore" tvg-logo="https://iptvx.one/picons/viju_explore.png",Viju Explore
 https://s70378.cdn.ngenix.net/viasat_explore/2/index.m3u8
 
-Viasat History
-Viju History
+#EXTINF:-1 group-title="Познавательные" tvg-id="viju-history" tvg-logo="https://iptvx.one/picons/viju_history.png",Viju History
 https://s70378.cdn.ngenix.net/viasat_history/2/index.m3u8
 
-Viasat Nature
-Viju Nature
+#EXTINF:-1 group-title="Познавательные" tvg-id="viju-nature" tvg-logo="https://iptvx.one/picons/viju_nature.png",Viju Nature
 https://s70378.cdn.ngenix.net/viasat_nature/2/index.m3u8
 
 
 # --- Развлекательные (VIP → Viju+) ---
-VIP Comedy
-Viju+ Comedy
+
+#EXTINF:-1 group-title="Развлекательные" tvg-id="viju-plus-comedy" tvg-logo="https://iptvx.one/picons/viju_plus_comedy.png",Viju+ Comedy
 https://s70378.cdn.ngenix.net/vip_comedy/2/index.m3u8
 
-VIP Megahit
-Viju+ Megahit
+#EXTINF:-1 group-title="Развлекательные" tvg-id="viju-plus-megahit" tvg-logo="https://iptvx.one/picons/viju_plus_megahit.png",Viju+ Megahit
 https://s70378.cdn.ngenix.net/vip_megahit/2/index.m3u8
 
-VIP Premiere
-Viju+ Premiere
+#EXTINF:-1 group-title="Развлекательные" tvg-id="viju-plus-premiere" tvg-logo="https://iptvx.one/picons/viju_plus_premiere.png",Viju+ Premiere
 https://s70378.cdn.ngenix.net/vip_premiere/2/index.m3u8
 
-VIP Serial
-Viju+ Serial
+#EXTINF:-1 group-title="Развлекательные" tvg-id="viju-plus-serial" tvg-logo="https://iptvx.one/picons/viju_plus_serial.png",Viju+ Serial
 https://s70378.cdn.ngenix.net/vip_serial/2/index.m3u8
 
 
 # --- Спорт (VIP Sport → Viju+ Sport) ---
-VIP Sport
-Viju+ Sport
+
+#EXTINF:-1 group-title="Спорт" tvg-id="viju-plus-sport" tvg-logo="https://iptvx.one/picons/viju_plus_sport.png",Viju+ Sport
 https://s70378.cdn.ngenix.net/viju_sport/2/index.m3u8
+
 
 
 
