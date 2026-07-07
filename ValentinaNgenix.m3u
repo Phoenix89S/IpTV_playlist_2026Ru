@@ -280,7 +280,64 @@ https://s70378.cdn.ngenix.net/da_vinci/2/index.m3u8
 https://s70378.cdn.ngenix.net/vip_sport/2/index.m3u8
 
 
+# --- Фильмы и сериалы (TV1000 → Viju) ---
+TV1000
+Viju TV1000
+https://s70378.cdn.ngenix.net/viju_tv1000/2/index.m3u8
 
+TV1000 Русское
+Viju TV1000 Русское
+https://s70378.cdn.ngenix.net/viju_tv1000_rus/2/index.m3u8
+
+TV1000 Action
+Viju TV1000 Action
+https://s70378.cdn.ngenix.net/viju_tv1000_action/2/index.m3u8
+
+TV1000 Новелла
+Viju TV1000 Новелла
+https://s70378.cdn.ngenix.net/viju_tv1000_novella/2/index.m3u8
+
+TV1000 Romantica
+Viju TV1000 Romantica
+https://s70378.cdn.ngenix.net/viju_tv1000_romantica/2/index.m3u8
+
+
+# --- Познавательные (Viasat → Viju) ---
+Viasat Explore
+Viju Explore
+https://s70378.cdn.ngenix.net/viasat_explore/2/index.m3u8
+
+Viasat History
+Viju History
+https://s70378.cdn.ngenix.net/viasat_history/2/index.m3u8
+
+Viasat Nature
+Viju Nature
+https://s70378.cdn.ngenix.net/viasat_nature/2/index.m3u8
+
+
+# --- Развлекательные (VIP → Viju+) ---
+VIP Comedy
+Viju+ Comedy
+https://s70378.cdn.ngenix.net/vip_comedy/2/index.m3u8
+
+VIP Megahit
+Viju+ Megahit
+https://s70378.cdn.ngenix.net/vip_megahit/2/index.m3u8
+
+VIP Premiere
+Viju+ Premiere
+https://s70378.cdn.ngenix.net/vip_premiere/2/index.m3u8
+
+VIP Serial
+Viju+ Serial
+https://s70378.cdn.ngenix.net/vip_serial/2/index.m3u8
+
+
+# --- Спорт (VIP Sport → Viju+ Sport) ---
+VIP Sport
+Viju+ Sport
+https://s70378.cdn.ngenix.net/viju_sport/2/index.m3u8
 
 
 
