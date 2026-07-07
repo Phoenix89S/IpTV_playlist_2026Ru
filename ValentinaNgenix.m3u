@@ -90,3 +90,126 @@ https://s70378.cdn.ngenix.net/docubox/2/index.m3u8
 
 #EXTINF:-1 tvg-name="FilmBox Festival" tvg-id="FilmBox.ru" group-title="Кино", tvg-logo="https://logo.example/filmbox.png",FilmBox+ Festival
 https://s70378.cdn.ngenix.net/filmbox_arthouse/2/index.m3u8
+
+
+
+# --- РЕГИОНАЛЬНЫЕ КАНАЛЫ ---
+#EXTINF:-1 tvg-id="41-region" group-title="Региональные",41 Регион
+http://s14131.cdn.ngenix.net/hls/CH_R02_OTT_DV_KAM_41REG_OTT/variant.m3u8
+#EXTINF:-1 tvg-id="6tv-khabarovsk" group-title="Региональные",6ТВ Хабаровск
+http://s97982.cdn.ngenix.net/hls/CH_R27_OTT_DV_HVSK_6TV/variant.m3u8
+#EXTINF:-1 tvg-id="6tv-kms" group-title="Региональные",6ТВ Хабаровск (Комсомольск-на Амуре)
+http://s97982.cdn.ngenix.net/hls/CH_R27_OTT_DV_HVSK_6TVKMS/variant.m3u8
+#EXTINF:-1 tvg-id="8kanal-vladivostok" group-title="Региональные",8 канал Владивосток
+http://s91030.cdn.ngenix.net/hls/CH_R01_OTT_DV_VLD_OTT8KANAL/variant.m3u8
+#EXTINF:-1 tvg-id="astv" group-title="Региональные",АСТВ
+http://s14553.cdn.ngenix.net/hls/CH_R65_OTT_DV_SLIN_ACTV/variant.m3u8
+#EXTINF:-1 tvg-id="amurskoe-tv" group-title="Региональные",Амурское Областное ТВ
+http://s84942.cdn.ngenix.net/hls/CH_R28_OTT_DV_BLAG_AOT/variant.m3u8
+#EXTINF:-1 tvg-id="gorod-24" group-title="Региональные",Город 24
+http://s84942.cdn.ngenix.net/hls/CH_R28_OTT_DV_BLAG_GOROD24/variant.m3u8
+#EXTINF:-1 tvg-id="gubernia-khabarovsk" group-title="Региональные",Губерния (Хабаровск)
+http://s97982.cdn.ngenix.net/hls/CH_R27_OTT_DV_HVSK_GUBERNYA/variant.m3u8
+
+# --- КИНО И СЕРИАЛЫ ---
+#EXTINF:-1 tvg-id="amedia-1" group-title="Кино и Сериалы",Amedia 1
+https://s70378.cdn.ngenix.net/amedia_1/2/index.m3u8
+#EXTINF:-1 tvg-id="amedia-2" group-title="Кино и Сериалы",Amedia 2
+https://s70378.cdn.ngenix.net/amedia_2/2/index.m3u8
+#EXTINF:-1 tvg-id="amedia-hit" group-title="Кино и Сериалы",Amedia Hit
+https://s70378.cdn.ngenix.net/amedia_hit/2/index.m3u8
+#EXTINF:-1 tvg-id="amedia-premium" group-title="Кино и Сериалы",Amedia Premium HD
+https://s70378.cdn.ngenix.net/amedia_premium_hd/3/index.m3u8
+#EXTINF:-1 tvg-id="filmbox-festival" group-title="Кино и Сериалы",FilmBox+ Festival
+https://s70378.cdn.ngenix.net/filmbox_arthouse/2/index.m3u8
+#EXTINF:-1 tvg-id="filmbox-one" group-title="Кино и Сериалы",FilmBox+ One
+https://s70378.cdn.ngenix.net/filmbox/2/index.m3u8
+#EXTINF:-1 tvg-id="hollywood-hd" group-title="Кино и Сериалы",Hollywood HD
+https://s70378.cdn.ngenix.net/amc/2/index.m3u8
+#EXTINF:-1 tvg-id="viju-comedy" group-title="Кино и Сериалы",Viju+ Comedy
+https://s70378.cdn.ngenix.net/vip_comedy/2/index.m3u8
+#EXTINF:-1 tvg-id="viju-megahit" group-title="Кино и Сериалы",Viju+ Megahit
+https://s70378.cdn.ngenix.net/vip_megahit/2/index.m3u8
+#EXTINF:-1 tvg-id="viju-premiere" group-title="Кино и Сериалы",Viju+ Premiere
+https://s70378.cdn.ngenix.net/vip_premiere/2/index.m3u8
+#EXTINF:-1 tvg-id="viju-serial" group-title="Кино и Сериалы",Viju+ Serial
+https://s70378.cdn.ngenix.net/vip_serial/2/index.m3u8
+#EXTINF:-1 tvg-id="dom-kino" group-title="Кино и Сериалы",Дом Кино
+https://s70378.cdn.ngenix.net/dom_kino/2/index.m3u8
+#EXTINF:-1 tvg-id="dom-kino-premium" group-title="Кино и Сериалы",Дом Кино Премиум
+https://s70378.cdn.ngenix.net/dom_kino_premium_hd/3/index.m3u8
+#EXTINF:-1 tvg-id="evrokino" group-title="Кино и Сериалы",Еврокино
+https://s70378.cdn.ngenix.net/evrokino/2/index.m3u8
+
+# --- ПОЗНАВАТЕЛЬНЫЕ ---
+#EXTINF:-1 tvg-id="365-dney" group-title="Познавательные",365 дней ТВ
+https://s70378.cdn.ngenix.net/365_dney_tv/2/index.m3u8
+#EXTINF:-1 tvg-id="da-vinci" group-title="Познавательные",Da Vinci
+https://s70378.cdn.ngenix.net/da_vinci/2/index.m3u8
+#EXTINF:-1 tvg-id="docubox" group-title="Познавательные",Docu Box
+https://s70378.cdn.ngenix.net/docubox/2/index.m3u8
+#EXTINF:-1 tvg-id="galaxy" group-title="Познавательные",Galaxy
+https://s70378.cdn.ngenix.net/galaxy/2/index.m3u8
+#EXTINF:-1 tvg-id="nat-geo" group-title="Познавательные",Nat Geo
+https://s70378.cdn.ngenix.net/national_geographic/2/index.m3u8
+#EXTINF:-1 tvg-id="rtg-hd" group-title="Познавательные",RTG HD
+https://s70378.cdn.ngenix.net/rtg_hd/3/index.m3u8
+#EXTINF:-1 tvg-id="sci-fi" group-title="Познавательные",Sci-Fi
+https://s70378.cdn.ngenix.net/sony_sci_fi/2/index.m3u8
+#EXTINF:-1 tvg-id="terra" group-title="Познавательные",Terra
+https://s70378.cdn.ngenix.net/terra/2/index.m3u8
+#EXTINF:-1 tvg-id="the-explorers" group-title="Познавательные",The Explorers
+https://s70378.cdn.ngenix.net/the_explorers/2/index.m3u8
+#EXTINF:-1 tvg-id="travel-adventure" group-title="Познавательные",Travel + Adventure
+https://s70378.cdn.ngenix.net/travel_and_adventure/2/index.m3u8
+#EXTINF:-1 tvg-id="viju-explore" group-title="Познавательные",Viju Explore
+https://s70378.cdn.ngenix.net/viasat_explore/2/index.m3u8
+#EXTINF:-1 tvg-id="viju-history" group-title="Познавательные",Viju History
+https://s70378.cdn.ngenix.net/viasat_history/2/index.m3u8
+#EXTINF:-1 tvg-id="viju-nature" group-title="Познавательные",Viju Nature
+https://s70378.cdn.ngenix.net/viasat_nature/2/index.m3u8
+#EXTINF:-1 tvg-id="vremya" group-title="Познавательные",Время
+https://s70378.cdn.ngenix.net/vremia/2/index.m3u8
+#EXTINF:-1 tvg-id="glazami-turista" group-title="Познавательные",Глазами туриста
+https://s70378.cdn.ngenix.net/glazami_turista/1/index.m3u8
+#EXTINF:-1 tvg-id="dikiy" group-title="Познавательные",Дикий
+https://s70378.cdn.ngenix.net/dikiy/2/index.m3u8
+
+# --- ДЕТСКИЕ ---
+#EXTINF:-1 tvg-id="gulli-girl" group-title="Детские",Gulli Girl
+https://s70378.cdn.ngenix.net/gulli/2/index.m3u8
+#EXTINF:-1 tvg-id="nickelodeon" group-title="Детские",Nickelodeon
+https://s70378.cdn.ngenix.net/nickelodeon/2/index.m3u8
+#EXTINF:-1 tvg-id="tiji" group-title="Детские",Tiji
+https://s70378.cdn.ngenix.net/tiji/2/index.m3u8
+#EXTINF:-1 tvg-id="detskiy-mir" group-title="Детские",Детский мир
+https://s70378.cdn.ngenix.net/detskij_mir/2/index.m3u8
+
+# --- СПОРТ ---
+#EXTINF:-1 tvg-id="mma-tv" group-title="Спорт",MMA TV
+https://s70378.cdn.ngenix.net/m1_global/2/index.m3u8
+#EXTINF:-1 tvg-id="udar" group-title="Спорт",UDAR
+https://s70378.cdn.ngenix.net/ufc/2/index.m3u8
+#EXTINF:-1 tvg-id="boks-tv" group-title="Спорт",Бокс ТВ
+https://s70378.cdn.ngenix.net/boks_tv/2/index.m3u8
+
+# --- МУЗЫКА И СТИЛЬ ---
+#EXTINF:-1 tvg-id="fashion-box" group-title="Музыка и Стиль",Fashion Box
+https://s70378.cdn.ngenix.net/fashion_box/2/index.m3u8
+#EXTINF:-1 tvg-id="fx-life" group-title="Музыка и Стиль",FX Life
+https://s70378.cdn.ngenix.net/fox_life/2/index.m3u8
+#EXTINF:-1 tvg-id="mezzo" group-title="Музыка и Стиль",Mezzo
+https://s70378.cdn.ngenix.net/mezzo/2/index.m3u8
+#EXTINF:-1 tvg-id="muzzone" group-title="Музыка и Стиль",Muzzone
+https://s70378.cdn.ngenix.net/muzzone/2/index.m3u8
+
+
+
+
+
+
+
+
+
+
+
