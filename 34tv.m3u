@@ -1,0 +1,52 @@
+#EXTM3U
+
+#EXTINF:-1 group-title="ИНФОРМАЦИОННЫЕ",Настоящее время HD
+http://vjl8lxsx.megatv.fun/iptv/PSQ3LNVTTR4RSG8FC4UXC5CX/9179/index.m3u8
+#EXTINF:-1 group-title="ИНФОРМАЦИОННЫЕ",Дождь
+http://vjl8lxsx.megatv.fun/iptv/PSQ3LNVTTR4RSG8FC4UXC5CX/2030/index.m3u8
+#EXTINF:-1 group-title="ИНФОРМАЦИОННЫЕ",Дождь HD
+http://vjl8lxsx.megatv.fun/iptv/PSQ3LNVTTR4RSG8FC4UXC5CX/20083/index.m3u8
+#EXTINF:-1 group-title="ИНФОРМАЦИОННЫЕ", Euronews
+http://vjl8lxsx.megatv.fun/iptv/PSQ3LNVTTR4RSG8FC4UXC5CX/9215/index.m3u8
+#EXTINF:-1 group-title="ИНФОРМАЦИОННЫЕ", Euronews Russia
+http://vjl8lxsx.megatv.fun/iptv/PSQ3LNVTTR4RSG8FC4UXC5CX/828/index.m3u8
+#EXTINF:-1 tvg-id="national-geographic" tvg-logo="https://iptvx.one/picons/national-geographic.png" group-title="ПОЗНАВАТЕЛЬНЫЕ",National Geographic
+http://vjl8lxsx.megatv.fun/iptv/PSQ3LNVTTR4RSG8FC4UXC5CX/14001/index.m3u8
+#EXTINF:-1 tvg-id="discovery" tvg-logo="https://iptvx.one/picons/national-geographic.png" group-title="ПОЗНАВАТЕЛЬНЫЕ",Discovery
+http://vjl8lxsx.megatv.fun/iptv/PSQ3LNVTTR4RSG8FC4UXC5CX/140/index.m3u8
+#EXTINF:-1 group-title="РАЗВЛЕКАТЕЛЬНЫЕ",Дорама HD
+http://vjl8lxsx.megatv.fun/iptv/PSQ3LNVTTR4RSG8FC4UXC5CX/2131/index.m3u8
+#EXTINF:-1 group-title="РАЗВЛЕКАТЕЛЬНЫЕ",Gametoon
+http://vjl8lxsx.megatv.fun/iptv/PSQ3LNVTTR4RSG8FC4UXC5CX/5049/index.m3u8
+#EXTINF:-1 group-title="ДЕТСКИЕ",NICKELODEON
+http://dmi3y-tv6.ru/hls/CH_NICKELODEON.m3u8
+#EXTINF:-1 group-title="ДЕТСКИЕ",NICKELODEON HD
+http://dmi3y-tv6.ru/hls/CH_NICKELODEONHD.m3u8
+#EXTINF:-1 group-title="ДЕТСКИЕ",NickToons
+http://dmi3y-tv6.ru/hls/CH_NICKTOONS.m3u8
+#EXTINF:-1 group-title="ДЕТСКИЕ",Nick Jr
+http://dmi3y-tv6.ru/hls/CH_NICKJR.m3u8
+#EXTINF:-1 tvg-id="nat-geo-wild" tvg-logo="https://iptvx.one/picons/nat-geo-wild.png" group-title="ПОЗНАВАТЕЛЬНЫЕ",Nat Geo Wild
+http://vjl8lxsx.megatv.fun/iptv/PSQ3LNVTTR4RSG8FC4UXC5CX/2067/index.m3u8
+#EXTINF:-1 group-title="ПОЗНАВАТЕЛЬНЫЕ",Discovery Channel
+http://dmi3y-tv6.ru/hls/CH_DISCOVERY_CHANNEL.m3u8
+#EXTINF:-1 group-title="ПОЗНАВАТЕЛЬНЫЕ",NATIONAL GEOGRAPHIC
+http://dmi3y-tv6.ru/hls/CH_NATIONALGEOGRAPHIC.m3u8
+#EXTINF:-1 group-title="ПОЗНАВАТЕЛЬНЫЕ",NATIONAL GEOGRAPHIC WILD
+http://dmi3y-tv6.ru/hls/CH_NATIONALGEOGRAPHICWILD.m3u8
+#EXTINF:-1 group-title="ПОЗНАВАТЕЛЬНЫЕ",Curiosity Stream
+http://dmi3y-tv6.ru/hls/blrus/voka/CH_CURIOSITY_STREAM.m3u8
+#EXTINF:-1 group-title="ПОЗНАВАТЕЛЬНЫЕ",Curiosity Stream HD
+http://dmi3y-tv6.ru/hls/blrus/voka/CH_CURIOSITY_STREAMHD.m3u8
+#EXTINF:-1 group-title="ПОЗНАВАТЕЛЬНЫЕ",Terra Incognita
+http://dmi3y-tv6.ru/hls/blrus/voka/CH_TERRA_INCOGNITA.m3u8
+#EXTINF:-1 group-title="ПОЗНАВАТЕЛЬНЫЕ",Terra Incognita HD720
+http://dmi3y-tv6.ru/hls/blrus/voka/CH_TERRA_INCOGNITAHD720.m3u8
+#EXTINF:-1 group-title="ПОЗНАВАТЕЛЬНЫЕ",HISTORY
+http://dmi3y-tv6.ru/hls/CH_HISTORY.m3u8
+#EXTINF:-1 group-title="ПОЗНАВАТЕЛЬНЫЕ",Galaxy TV
+http://dmi3y-tv6.ru/hls/CH_GALAXYTV.m3u8
+#EXTINF:-1 group-title="ПОЗНАВАТЕЛЬНЫЕ",Ocean TV
+http://dmi3y-tv6.ru/hls/CH_OCEANTV.m3u8
+#EXTINF:-1 group-title="ПОЗНАВАТЕЛЬНЫЕ",RTG HD
+http://dmi3y-tv6.ru/hls/CH_RTGHD.m3u8
