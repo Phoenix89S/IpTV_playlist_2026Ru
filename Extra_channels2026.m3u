@@ -10763,8 +10763,8 @@ https://s70378.cdn.ngenix.net/ocean_tv/2/index.m3u8
 #EXTINF:-1 tvg-id="tochkatv" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/Tochka_RF.png" group-title="Дополнительные Эфирные ТВ Плюс",57. Точка РФ
 https://s70378.cdn.ngenix.net/hd_life/2/index.m3u8
 
-#EXTINF:-1 tvg-id="tass" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/TASS.png" group-title="Дополнительные Эфирные ТВ Плюс",57.1 ТАСС (Заглушка)
-udp://@239.255.255.250:1234
+#EXTINF:-1 tvg-id="tass" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/TASS.png" group-title="Дополнительные Эфирные ТВ Плюс",57.1 ТАСС
+https://tass-hls.servicecdn.ru/httpstreamer/tass-loop-main.stream/playlist.m3u8
 
 #EXTINF:-1 tvg-id="gulli-girl" group-title="Дополнительные Эфирные ТВ Плюс",58. Gulli Girl
 https://s70378.cdn.ngenix.net/gulli/2/index.m3u8
