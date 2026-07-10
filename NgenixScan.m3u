@@ -187,3 +187,7 @@ http://94.230.129.31:8080/TB3/index.m3u8
 # 15.5.4 ТВ-3 Беларусь (Пользовательский повтор)
 #EXTINF:-1 tvg-id="tv3-by" tvg-logo="https://iptvx.one/picons/tv3_by.png" group-title="Белорусские",15.5.4 ТВ-3 Беларусь (Частый)
 http://93.189.224.246:52900/play/a00f/index.m3u8
+
+#EXTINF:-1 tvg-id="trash" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/Trash.png" group-title="Дополнительные Эфирные ТВ Плюс",57.3 TRASH HD
+https://vsetv.glavnee.online/trash_hd/index.m3u8
+
