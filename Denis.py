@@ -264,3 +264,339 @@ def passes_strict_filter(channel: Channel) -> bool:
         if is_bad_donor(s.url):
             return False
     return True
+# ============================================================
+# PARSER M3U (УСИЛЕННЫЙ СБОРЩИК — ОБЪЕДИНЕНИЕ v10 + Gemini + Гигачат + Грок)
+# ============================================================
+
+def parse_m3u(text: str, source_id: str) -> List[Channel]:
+    channels = []
+    current = None
+
+    # Проходим весь текст построчно
+    for line in text.splitlines():
+        line = line.strip()
+
+        #------------------------------------------------------------
+        # Блок EXTINF — извлечение метаданных канала
+        #------------------------------------------------------------
+        if line.startswith("#EXTINF:"):
+            parts = line.split(",", 1)
+            info = parts[0]
+            name = normalize_channel_name(parts[1]) if len(parts) > 1 else "Unknown"
+
+            # tvg-id
+            m = re.search(r'tvg-id="([^"]+)"', info)
+            tvg_id = normalize_tvg_id(m.group(1) if m else "")
+
+            # group-title
+            m = re.search(r'group-title="([^"]+)"', info)
+            group = m.group(1) if m else None
+
+            # tvg-logo
+            m = re.search(r'tvg-logo="([^"]+)"', info)
+            logo = m.group(1) if m else None
+
+            #------------------------------------------------------------
+            # Жёсткий фильтр 18+ на этапе парсинга (Грок + Гигачат + твой v10)
+            #----------------------------------------------------------
+            if is_adult_channel(name, group):
+                current = None
+                continue
+
+            # Создаём канал
+            current = Channel(
+                number=tvg_id,
+                name=name,
+                group=group,
+                logo=logo,
+                scada_code=""
+            )
+#------------------------------------------------------------
+        # Блок URL — добавление потоков
+        #------------------------------------------------------------
+        elif line and not line.startswith("#") and current:
+
+            # Фильтрация мусорных доноров (твоя логика + Грок)
+            if not is_bad_donor(line):
+                current.streams.append(StreamInfo(source_id=source_id, url=line))
+                channels.append(current)
+
+            # Сбрасываем текущий канал
+            current = None
+
+    return channels
+
+# ============================================================
+# MERGE CHANNELS (МОЩНЫЙ СБОР ИЗ ДОНОРА И КОММИТОВ — v12 ULTRA)
+# ============================================================
+
+def merge_channels(channels: List[Channel], old_channels: List[Channel]) -> List[Channel]:
+    #------------------------------------------------------------
+    # Создаём индекс каналов по номеру (твоя логика v10 + улучшения Gemini)
+    #------------------------------------------------------------
+    index = {}
+    old_index = {old.number: old for old in old_channels}
+
+    #------------------------------------------------------------
+    # Склейка всех каналов по номеру, без потери ссылок
+    #------------------------------------------------------------
+    for ch in channels:
+
+        # Добавляем старые стримы (твоя логика v10)
+        old_match = old_index.get(ch.number)
+        if old_match:
+            ch.streams.extend(old_match.streams)
+
+        # Создаём канал в индексе, если его ещё нет
+        if ch.number not in index:
+            index[ch.number] = Channel(
+                number=ch.number,
+                name=ch.name,
+                group=ch.group,
+                logo=ch.logo,
+                scada_code=ch.scada_code
+            )
+
+        # Добавляем стримы
+        index[ch.number].streams.extend(ch.streams)
+
+    #------------------------------------------------------------
+    # Дедупликация ссылок (твоя логика + улучшения Гигачата)
+    #------------------------------------------------------------
+    for ch in index.values():
+        ch.streams = unique_streams(ch.streams)
+
+    #------------------------------------------------------------
+    # Проверка всех стримов параллельно (твоя логика + Gemini)
+    #------------------------------------------------------------
+    all_streams = []
+    for ch in index.values():
+        all_streams.extend(ch.streams)
+
+    checked = analyze_streams_parallel(all_streams)
+
+    #------------------------------------------------------------
+    # Создаём быстрый индекс URL → StreamInfo
+    #------------------------------------------------------------
+    url_to_stream = {s.url: s for s in checked}
+
+    final_channels = []
+
+    #------------------------------------------------------------
+    # Распределение результатов по каналам
+    #------------------------------------------------------------
+    for ch in index.values():
+        valid_streams = []
+
+        # Собираем только живые стримы
+        for s in ch.streams:
+            if s.url in url_to_stream:
+                valid_streams.append(url_to_stream[s.url])
+
+        # Если нет живых стримов — канал пропускаем
+        if not valid_streams:
+            continue
+
+        #------------------------------------------------------------
+        # Сортировка по качеству (улучшенный scoring Грока)
+        #------------------------------------------------------------
+        valid_streams.sort(key=lambda s: s.quality_score, reverse=True)
+
+        #------------------------------------------------------------
+        # Основной поток — лучший
+        #------------------------------------------------------------
+        ch.best_stream = valid_streams[0]
+
+        #------------------------------------------------------------
+        # Резервные потоки — ВСЕ остальные, без сокращений
+        #------------------------------------------------------------
+        if len(valid_streams) > 1:
+            ch.reserve_streams = valid_streams[1:]
+        else:
+            ch.reserve_streams = []
+
+        #------------------------------------------------------------
+        # Жёсткий фильтр 18+ и мусорных ссылок (Грок + Гигачат + твой v10)
+        #------------------------------------------------------------
+        if passes_strict_filter(ch):
+            final_channels.append(ch)
+
+    return final_channels
+
+# ============================================================
+# ULTRA NETWORK ENGINE (ОБЪЕДИНЁННЫЙ АНАЛИЗАТОР ПОТОКОВ v12)
+# ============================================================
+
+def analyze_stream_request(url: str):
+    #------------------------------------------------------------
+    # Фильтрация мусорных доноров (твоя логика + Грок)
+    #------------------------------------------------------------
+    if is_bad_donor(url):
+        return False, 0.0
+
+    try:
+        with _network_semaphore:
+            r = get_session().get(url, timeout=DEFAULT_TIMEOUT, stream=True, verify=False)
+
+            NETWORK_STATS["requests"] += 1
+
+            if r.ok:
+                NETWORK_STATS["bytes"] += len(r.content or b"")
+
+            #------------------------------------------------------------
+            # Проверка статуса (твоя логика v10)
+            #------------------------------------------------------------
+            if r.status_code not in (200, 206):
+                return False, 0.0
+
+            #------------------------------------------------------------
+            # Проверка Content-Type (Гигачат + Грок)
+            #------------------------------------------------------------
+            ctype = r.headers.get("Content-Type", "")
+            if "text/html" in ctype.lower():
+                return False, 0.0
+
+            #------------------------------------------------------------
+            # Улучшенный scoring (Грок + Gemini)
+            #------------------------------------------------------------
+            latency = r.elapsed.total_seconds()
+            score = max(0.0, min(70.0 - latency * 12, 100.0))
+
+            return True, score
+
+    except Exception:
+        NETWORK_STATS["errors"] += 1
+        return False, 0.0
+
+
+def analyze_stream(stream: StreamInfo) -> Optional[StreamInfo]:
+    url = stream.url
+
+    #------------------------------------------------------------
+    # Проверка SQLite-кэша (твоя логика v10)
+    #------------------------------------------------------------
+    cached = db_get_stream(url)
+    if cached is not None:
+        alive, quality = cached
+        if alive:
+            stream.alive = True
+            stream.quality_score = quality
+            return stream
+        return None
+
+    #------------------------------------------------------------
+    # Проверка кэша текущего запуска (твоя логика v10)
+    #------------------------------------------------------------
+    if url in _stream_alive_cache:
+        alive = _stream_alive_cache[url]
+        quality = _stream_quality_cache[url]
+        if alive:
+            stream.alive = True
+            stream.quality_score = quality
+            return stream
+        return None
+
+    #------------------------------------------------------------
+    # Сетевая проверка (объединённая логика 4 ИИ)
+    #------------------------------------------------------------
+    alive, quality = analyze_stream_request(url)
+
+    #------------------------------------------------------------
+    # Обновление кэшей (твоя логика v10)
+    #------------------------------------------------------------
+    _stream_alive_cache[url] = alive
+    _stream_quality_cache[url] = quality
+    db_put_stream(url, alive, quality)
+
+    if alive:
+        stream.alive = True
+        stream.quality_score = quality
+        return stream
+
+    return None
+
+
+def analyze_streams_parallel(streams: List[StreamInfo]) -> List[StreamInfo]:
+    #------------------------------------------------------------
+    # Параллельная проверка потоков (твоя логика + Gemini)
+    #------------------------------------------------------------
+    if not streams:
+        return []
+
+    checked_streams = list(_executor.map(analyze_stream, streams))
+
+    result = []
+    for checked in checked_streams:
+        if checked is not None:
+            result.append(checked)
+
+    return result
+
+#============================================================
+# LOAD COMMITS (ПАРАЛЛЕЛЬНАЯ ЗАГРУЗКА ИСТОРИИ GIT — v12 ULTRA)
+#============================================================
+
+def load_single_commit(source: Source, sha: str) -> List[Channel]:
+    #------------------------------------------------------------
+    # Кэширование коммитов (твоя логика v10)
+    #------------------------------------------------------------
+    if sha in _commit_cache:
+        return _commit_cache[sha]
+
+    try:
+        #------------------------------------------------------------
+        # Формирование URL для GitHub API
+        #------------------------------------------------------------
+        file_url = f"{source.git_repo}/contents/{source.git_file}?ref={sha}"
+
+        #------------------------------------------------------------
+        # Загрузка JSON (твоя логика + улучшения Гигачата)
+        #------------------------------------------------------------
+        content = request_json(file_url)
+
+        #------------------------------------------------------------
+        # Декодирование base64 (твоя логика v10)
+        #------------------------------------------------------------
+        decoded = base64.b64decode(content["content"]).decode("utf-8")
+
+        #------------------------------------------------------------
+        # Парсинг M3U (усиленный парсер из части 3)
+        #------------------------------------------------------------
+        parsed_channels = parse_m3u(decoded, source.id)
+
+        #------------------------------------------------------------
+        # Кэширование результата
+        #------------------------------------------------------------
+        _commit_cache[sha] = parsed_channels
+
+        return parsed_channels
+
+    except Exception as e:
+        #------------------------------------------------------------
+        # Логирование ошибок (твоя логика v10)
+        #------------------------------------------------------------
+        log(f"[WARN] Commit {sha[:8]} skipped: {e}")
+        log_error(str(e))
+        return []
+
+
+def load_commits(source: Source) -> List[Channel]:
+        #------------------------------------------------------------
+    # Формирование URL для списка коммитов
+    # ------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
