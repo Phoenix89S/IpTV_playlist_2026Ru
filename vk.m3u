@@ -146,7 +146,6 @@ http://15.204.53.12:80/VIPPremiereHD/playlist.m3u8
 #EXTINF:-1,VIPSerialHD
 http://15.204.53.12:80/VIPSerialHD/playlist.m3u8
 
-#EXTM3U
 #EXTINF:-1,SportKlubHD
 http://176.61.157.250/SportKlubHD/index.m3u8
 #EXTINF:-1,N1
@@ -224,20 +223,7 @@ http://176.61.157.250/ViasatHistory/index.m3u8
 #EXTINF:-1,ViasatExplorer
 http://176.61.157.250/ViasatExplorer/index.m3u8
 55.m3u
-2 КБ
-Оценили 25 человек
-1.9K просмотров
-Иван Смирнов
-30 мая в 20:40
-·
-в TV IPTV
-Единственный IPTV сервис с оригинальным качеством каналов. Без сжатия: Full HD, 4K UHD, Belarus, Deutchland, Poland, Unaited Kingdom, Italy, Lithuania, Belarus, Georgia, Armenia, Azerbaijan Usbekistan, Turkey, Israel. Тематические пакеты СПОРТ, КИНО. Корректно работающий архив.
-https://itv.live/?r=94b4f4d32d292e
 
-Оценили 4 человека
-TV IPTV
-29 мая в 21:08
-#EXTM3U
 #EXTINF:-1,FILMBOX
 http://193.239.186.231/FILMBOX/index.m3u8
 #EXTINF:-1,ARD
@@ -256,25 +242,7 @@ http://193.239.186.231/NGC/index.m3u8
 http://193.239.186.231/ESPN/index.m3u8
 #EXTINF:-1,ESPN2
 http://193.239.186.231/ESPN2/index.m3u8
-Оценили 25 человек
-2.2K просмотров
-Ali Israfilov
-29 мая в 13:08
-·
-в TV IPTV
-Balkan TV Channels
 
-http://5.57.74.130:8000/playlist.m3u8
-
-Arabian TV CHANNELS
-
-http://77.137.40.221:8000/playlist.m3u8
-Оценили 7 человек
-Ali Israfilov
-28 мая в 2:04
-·
-в TV IPTV
-#EXTM3U
 #EXTINF:-1,ZDF HD
 http://45.136.153.199:80/ZDF/mono.m3u8
 #EXTINF:-1,3SAT
