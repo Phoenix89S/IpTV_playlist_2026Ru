@@ -322,7 +322,51 @@ http://89.108.183.22:8060/hls/19/19.m3u8
 http://89.108.183.22:8060/hls/20/20.m3u8
 
 
+#EXTINF:-1,cnn
+http://176.122.125.10:8080/cnn/index.m3u8
+#EXTINF:-1,eurosport1HD
+http://176.122.125.10:8080/eurosport1HD/index.m3u8
+#EXTINF:-1,CinePlusHD
+http://176.122.125.10:8080/CinePlusHD/index.m3u8
+#EXTINF:-1,CinePlusKids
+http://176.122.125.10:8080/CinePlusKids/index.m3u8
+#EXTINF:-1,svarogichi
+http://176.122.125.10:8080/svarogichi/index.m3u8
+#EXTINF:-1,5ch
+http://176.122.125.10:8080/5ch/index.m3u8
 
+#EXTINF:-1,KinoKazka
+http://176.122.125.10:8080/KinoKazka/index.m3u8
+#EXTINF:-1,m1
+http://176.122.125.10:8080/m1/index.m3u8
+#EXTINF:-1,m2
+http://176.122.125.10:8080/m2/index.m3u8
+#EXTINF:-1,starcinema
+http://176.122.125.10:8080/starcinema/index.m3u8
+#EXTINF:-1,enterfilm
+http://176.122.125.10:8080/enterfilm/index.m3u8
+#EXTINF:-1,tethd
+http://176.122.125.10:8080/tethd/index.m3u8
+#EXTINF:-1,interplus
+http://176.122.125.10:8080/interplus/index.m3u8
+#EXTINF:-1,bolt
+http://176.122.125.10:8080/bolt/index.m3u8
+#EXTINF:-1,plusplus
+http://176.122.125.10:8080/plusplus/index.m3u8
+#EXTINF:-1,espresso
+http://176.122.125.10:8080/espresso/index.m3u8
+#EXTINF:-1,k1
+http://176.122.125.10:8080/k1/index.m3u8
+#EXTINF:-1,k2
+http://176.122.125.10:8080/k2/index.m3u8
+#EXTINF:-1,news24
+http://176.122.125.10:8080/news24/index.m3u8
+#EXTINF:-1,mega
+http://176.122.125.10:8080/mega/index.m3u8
+#EXTINF:-1,zoom
+http://176.122.125.10:8080/zoom/index.m3u8
+#EXTINF:-1,ntn
+http://176.122.125.10:8080/ntn/index.m3u8
 
 
 
