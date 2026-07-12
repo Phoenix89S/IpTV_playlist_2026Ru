@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-Denis IPTV Builder / iptv_parser_v12_ultra.py
+#Denis IPTV Builder / iptv_parser_v12_ultra.py
 
 import re
 import requests
