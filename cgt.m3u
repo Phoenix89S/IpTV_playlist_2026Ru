@@ -492,6 +492,76 @@ rtmp://212.0.213.132//NickJr
 #EXTINF:-1 tvg-logo="https://iptvx.one/picons/detkinoint-tviksel.png",Детское кино Int (768×432)
 https://v2.catcast.tv/content/38720/index.m3u8
 
+http://chanson.hostingradio.ru:8041/chanson256.mp3
+#EXTINF:-1 tvg-logo="https://iptvx.one/picons/radio-vania.png",Радио Ваня
+http://icecast-radiovanya.cdnvideo.ru:8000/radiovanya
+#EXTINF:-1 tvg-logo="https://iptvx.one/picons/retro-fm.png",Ретро FM
+http://emgregion.hostingradio.ru:8064/moscow.retrofm.mp3
+#EXTINF:-1 tvg-logo="https://iptvx.one/picons/xit-fm.png",Хит FM
+http://hitfm.hostingradio.ru/hitfm128.mp3
+#EXTINF:-1 tvg-logo="https://iptvx.one/picons/yumor-fm.png",Юмор FM
+http://ic7.101.ru:8000/v5_1
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/1t5RRm05/Pixaloop-09-11-2021-21-03-10-1660000.gif",Обновление:28.03.2025
+http://194.26.229.213/zastavka/index.m3u8
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/jjkkG8Pc/Imagem-Telegram-Logo-PNG-Preto.png",Android TV + Free TV
+http://194.26.229.213/intro/index.m3u8
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/25VcB58T/auto-x2-1.jpg",🔺 INFO 🔺Посмотри!!!
+https://small.fileditchstuff.me/s16/GICICSAOHtplVtVKlcb.mp4
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/3rkRjpjC/photo-2024-01-14-15-41-50.jpg",CHD-TV RU Rock HD
+http://194.26.229.213/chdtv_ru_rock/index.m3u8
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/MHNdgRXj/photo-2024-01-14-15-42-03.jpg",CHD-TV Rock
+http://194.26.229.213/chdtv_rock/index.m3u8
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/RCgvJhdQ/image.png",СоюзМультфильм
+http://194.26.229.213/souzmultfilm/index.m3u8
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/BvqS8HVV/1.png",Чип и Дейл
+http://194.26.229.213/chip-n-dale-rescue-rangers/index.m3u8
+#EXTINF:-1 tvg-logo="https://sunset-media.org/assets/img/sunsetmusicicon.png",Sunset Music
+https://stream.sunset-media.org:443/AfBrazXsUK/J9hGT3vYuv/2.m3u8
+#EXTINF:-1 tvg-logo="https://sunset-media.org/assets/img/sunsetspaceicon.png",Sunset Space
+https://stream.sunset-media.org:443/AfBrazXsUK/J9hGT3vYuv/3.m3u8
+#EXTINF:-1 tvg-logo="https://sunset-media.org/assets/img/sunsetkidsicon.png",Sunset Kids
+https://stream.sunset-media.org:443/AfBrazXsUK/J9hGT3vYuv/5.m3u8
+#EXTINF:-1 tvg-logo="https://sunset-media.org/assets/img/fantasticpic.png",Sunset Fantastic
+https://stream.sunset-media.org/AfBrazXsUK/J9hGT3vYuv/8.m3u8
+#EXTINF:-1 tvg-logo="https://sunset-media.org/assets/img/serial.png",Sunset Serial
+https://stream.sunset-media.org/AfBrazXsUK/J9hGT3vYuv/9.m3u8
+#EXTINF:-1 tvg-logo="../Channel/logo/TV1000 HD.png",TV1000 HD
+https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/TV1000_HD.smil/tracks-v1a1/mono.m3u8?filter.tracks=v1v2v3a1&md5=drVbRyiaEbVJ_ZYOey7AXQ&e=1743575189&hls_proxy_host=e2c000defa6aa845b219ba5ca0db8ad5
+#EXTINF:-1 tvg-logo="../Channel/logo/TV1000 Action.png",TV1000 Action
+https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/TV1000_Action_HD.smil/tracks-v1a1/mono.m3u8?filter.tracks=v1v2v3a1&md5=AUEALxAtkmYmIibPESjtdw&e=1743575210&hls_proxy_host=e2c000defa6aa845b219ba5ca0db8ad5
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/J4wRwcQn/i-TV-Cinema-Logo.png",ITV Cinema
+https://iptv.itv.uz/hls/live/t/UAcSEExX5UamlFqFOIaXIA/e/1767191403/4000/index.m3u8
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/MTbNhVZc/i-TV-Music-Logo.png",ITV Music
+https://iptv.itv.uz/hls/live/t/IDvfbmZ5Ibmqs0plMhNejg/e/1767191403/4001/index.m3u8
+#EXTINF:-1,IPTVPLAY ФАНТАСТИКА HD
+http://92.53.64.197:5050/IPTVPLAYFANTASTIKA.tv/video.m3u8?token=m3VIth-Rou_bM1
+#EXTINF:-1,IPTVPLAY ПАМЯТЬ HD
+http://92.53.64.197:5050/IPTVPLAYPAMYAT.tv/video.m3u8?token=m3VIth-Rou_bM1
+#EXTINF:-1,IPTVPLAY УЖАСТИК HD
+http://92.53.64.197:5050/IPTVPLAYUZHASTIK.tv/video.m3u8?token=m3VIth-Rou_bM1
+#EXTINF:-1,IPTVPLAY PROMO HD
+http://92.53.64.197:5050/IPTVPLAYPROMO.tv/video.m3u8?token=m3VIth-Rou_bM1
+#EXTINF:-1,IPTVPLAY МультСказки HD
+http://92.53.64.197:5050/IPTVPLAYMultSkazki.tv/video.m3u8?token=m3VIth-Rou_bM1
+#EXTINF:-1 tvg-logo="../Channel/logo/Скиф.png",Скиф ТВ
+http://95.46.208.8:24432/skif
+#EXTINF:-1,OstWest
+http://95.67.12.82:9077
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
