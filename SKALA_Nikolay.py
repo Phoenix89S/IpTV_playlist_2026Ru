@@ -6,6 +6,7 @@ import re
 import time
 import requests
 from urllib.parse import urljoin
+import random
 
 SRC_URL = "https://iptv-org.github.io/iptv/regions/cis.m3u"
 
@@ -18,30 +19,33 @@ HEADERS = {
 }
 
 #===========================================================
-# СКАЛА/ДРЭГ — ШТАТНЫЕ И АВАРИЙНЫЕ СТРОКИ
+# СКАЛА/ДРЭГ — ТЫ ВСТАВИШЬ СЮДА ПОЛНЫЕ СЛОВАРИ
 #===========================================================
 
 NORMAL_LINES = [
-    "00:00:10  N_ТЕПЛ      1600 МВТ",
-    "00:00:30  N_ЭЛЕКТР     480 МВТ",
-    "00:01:15  ОЗР_ПРИЗМА  24.2 СТЕРЖ",
-    "00:05:00  ПАР_РЕАКТ_СТАБИЛЕН",
+    # вставишь сам
 ]
 
-DREG_LINES = [
-    "01:23:30.0  СИГНАЛ    ПАР_ОБЪЕМНЫЙ_АКТИВНАЯ_ЗОНА_РОСТ",
-    "01:23:35.0  СИГНАЛ    N_НЕЙТРОННАЯ_МЕДЛЕННЫЙ_РОСТ",
-    "01:23:37.0  СИГНАЛ    АР_РЕГУЛЯТОРЫ_ДВИЖЕНИЕ_ВНИЗ",
-    "01:23:40.0  СИГНАЛ    НАЖАТИЕ_КНОПКИ_АЗ_5",
+PREFAIL_LINES = [
+    # вставишь сам
 ]
 
-import random
+FAIL_LINES = [
+    # вставишь сам
+]
+
+#===========================================================
+# ФУНКЦИИ ВЫБОРА СТРОКИ
+#===========================================================
 
 def get_normal_line():
-    return random.choice(NORMAL_LINES)
+    return random.choice(NORMAL_LINES) if NORMAL_LINES else "00:00:10  N_ТЕПЛ      1600 МВТ"
 
-def get_dreg_line():
-    return random.choice(DREG_LINES)
+def get_prefail_line():
+    return random.choice(PREFAIL_LINES) if PREFAIL_LINES else "01:23:30.0  СИГНАЛ    ПАР_ОБЪЕМНЫЙ_АКТИВНАЯ_ЗОНА_РОСТ"
+
+def get_fail_line():
+    return random.choice(FAIL_LINES) if FAIL_LINES else "01:23:40.0  СИГНАЛ    НАЖАТИЕ_КНОПКИ_АЗ_5    =  АКТИВЕН"
 
 #===========================================================
 # СКАЛА/ДРЭГ ЛОГГЕР
@@ -60,8 +64,15 @@ def log_ok(channel_name, url):
     print(line)
     LOG_LINES.append(line)
 
-def log_chernobyl(channel_name, url):
-    extra = get_dreg_line()
+def log_prefail(channel_name, url):
+    extra = get_prefail_line()
+    t = time.strftime("%Y-%m-%d %H:%M:%S")
+    line = f"[{t}] :: {channel_name} :: сигнал потерян (!). {extra} :: {url}"
+    print(line)
+    LOG_LINES.append(line)
+
+def log_fail(channel_name, url):
+    extra = get_fail_line()
     t = time.strftime("%Y-%m-%d %H:%M:%S")
     line = f"[{t}] :: {channel_name} :: сигнал потерян (!). {extra} :: {url}"
     print(line)
@@ -110,23 +121,28 @@ def is_alive(extinf, url):
 
         # Сервер не ответил → авария
         if r.status_code != 200:
-            log_chernobyl(channel_name, url)
+            log_fail(channel_name, url)
             return False
 
         text = r.text
         segs = re.findall(r"(.*\.ts)", text)
 
+        # Если сегмент найден
         if segs:
             seg = segs[0]
             seg_url = urljoin(url, seg)
             log(f"SEG_CHECK :: {channel_name} :: {seg_url}")
 
             r2 = requests.get(seg_url, headers=HEADERS, timeout=10, stream=True)
+
+            # Сегмент отвечает → нормальная строка
             if r2.status_code == 200:
                 log_ok(channel_name, url)
                 return True
+
+            # Сегмент не отвечает → предаварийная строка
             else:
-                log_chernobyl(channel_name, seg_url)
+                log_prefail(channel_name, seg_url)
                 return False
 
         # Поток активен, но без сегментов
@@ -135,7 +151,7 @@ def is_alive(extinf, url):
 
     except Exception:
         # Любая ошибка сети → авария
-        log_chernobyl(channel_name, url)
+        log_fail(channel_name, url)
         return False
 
 #===========================================================
