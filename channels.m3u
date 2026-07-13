@@ -588,3 +588,8 @@ rtp://@235.1.1.6:5678
 #EXTVLCOPT:udp-caching=2000
 rtp://@235.1.1.12:5678
 
+#EXTINF:-1 tvg-id="ViasatKinoComedy.ua" tvg-name="Viasat Kino Comedy" tvg-logo="https://i.imgur.com/qVYt8kP.png" group-title="movies;comedy",Viasat Kino Comedy
+http://ukr2.ukrainske.tv:80/493/video.m3u8?token=keytvainua
+#EXTINF:-1 tvg-id="ViasatKinoComedy.ua" tvg-name="Viasat Kino Comedy" tvg-logo="https://i.imgur.com/qVYt8kP.png" group-title="movies;comedy",Viasat Kino Comedy
+http://c3921155.edmonst.net/iptv/42L7TCH8YYKLBRHNPV52HBRN/31764/index.m3u8
+
