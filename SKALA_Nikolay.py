@@ -18,6 +18,32 @@ HEADERS = {
 }
 
 #===========================================================
+# СКАЛА/ДРЭГ — ШТАТНЫЕ И АВАРИЙНЫЕ СТРОКИ
+#===========================================================
+
+NORMAL_LINES = [
+    "00:00:10  N_ТЕПЛ      1600 МВТ",
+    "00:00:30  N_ЭЛЕКТР     480 МВТ",
+    "00:01:15  ОЗР_ПРИЗМА  24.2 СТЕРЖ",
+    "00:05:00  ПАР_РЕАКТ_СТАБИЛЕН",
+]
+
+DREG_LINES = [
+    "01:23:30.0  СИГНАЛ    ПАР_ОБЪЕМНЫЙ_АКТИВНАЯ_ЗОНА_РОСТ",
+    "01:23:35.0  СИГНАЛ    N_НЕЙТРОННАЯ_МЕДЛЕННЫЙ_РОСТ",
+    "01:23:37.0  СИГНАЛ    АР_РЕГУЛЯТОРЫ_ДВИЖЕНИЕ_ВНИЗ",
+    "01:23:40.0  СИГНАЛ    НАЖАТИЕ_КНОПКИ_АЗ_5",
+]
+
+import random
+
+def get_normal_line():
+    return random.choice(NORMAL_LINES)
+
+def get_dreg_line():
+    return random.choice(DREG_LINES)
+
+#===========================================================
 # СКАЛА/ДРЭГ ЛОГГЕР
 #===========================================================
 
@@ -27,21 +53,17 @@ def log(msg):
     print(line)
     LOG_LINES.append(line)
 
-def log_ok(msg):
+def log_ok(channel_name, url):
+    extra = get_normal_line()
     t = time.strftime("%Y-%m-%d %H:%M:%S")
-    line = f"[{t}] :: OK :: {msg}"
-    print(line)
-    LOG_LINES.append(line)
-
-def log_fail(msg):
-    t = time.strftime("%Y-%m-%d %H:%M:%S")
-    line = f"[{t}] :: FAIL :: {msg}"
+    line = f"[{t}] :: {channel_name} :: сигнал стабилен (!). {extra} :: {url}"
     print(line)
     LOG_LINES.append(line)
 
 def log_chernobyl(channel_name, url):
+    extra = get_dreg_line()
     t = time.strftime("%Y-%m-%d %H:%M:%S")
-    line = f"[{t}] :: {channel_name} :: сигнал потерян (!). СТОПОРНЫЕ КРАНЫ ЗАКРЫТЫ! :: {url}"
+    line = f"[{t}] :: {channel_name} :: сигнал потерян (!). {extra} :: {url}"
     print(line)
     LOG_LINES.append(line)
 
@@ -73,14 +95,20 @@ def parse_m3u(lines):
             channels.append(current)
             current = {}
 
-    log_ok(f"PARSE_M3U :: {len(channels)} каналов разобрано")
+    log(f"OK :: PARSE_M3U :: {len(channels)} каналов разобрано")
     return channels
+
+#===========================================================
+# ПРОВЕРКА ЖИВОСТИ ПОТОКА
+#===========================================================
 
 def is_alive(extinf, url):
     channel_name = extract_name(extinf)
 
     try:
         r = requests.get(url, headers=HEADERS, timeout=10, stream=True)
+
+        # Сервер не ответил → авария
         if r.status_code != 200:
             log_chernobyl(channel_name, url)
             return False
@@ -95,18 +123,24 @@ def is_alive(extinf, url):
 
             r2 = requests.get(seg_url, headers=HEADERS, timeout=10, stream=True)
             if r2.status_code == 200:
-                log_ok(f"{channel_name} :: поток активен :: {url}")
+                log_ok(channel_name, url)
                 return True
             else:
                 log_chernobyl(channel_name, seg_url)
                 return False
 
-        log_ok(f"{channel_name} :: поток активен (без сегментов) :: {url}")
+        # Поток активен, но без сегментов
+        log_ok(channel_name, url)
         return True
 
-    except Exception as e:
+    except Exception:
+        # Любая ошибка сети → авария
         log_chernobyl(channel_name, url)
         return False
+
+#===========================================================
+# СОХРАНЕНИЕ ПЛЕЙЛИСТОВ И ОТЧЁТОВ
+#===========================================================
 
 def save_playlist(channels):
     with open(OUT_PLAYLIST, "w", encoding="utf-8") as f:
@@ -115,7 +149,7 @@ def save_playlist(channels):
             f.write(ch["extinf"] + "\n")
             f.write(ch["url"] + "\n")
 
-    log_ok(f"Плейлист сохранён :: {OUT_PLAYLIST} :: {len(channels)} каналов")
+    log(f"OK :: Плейлист сохранён :: {OUT_PLAYLIST} :: {len(channels)} каналов")
 
 def save_old_playlist():
     if os.path.exists(OUT_PLAYLIST):
@@ -123,7 +157,7 @@ def save_old_playlist():
             data = src.read()
         with open(OUT_PLAYLIST_OLD, "w", encoding="utf-8") as dst:
             dst.write(data)
-        log_ok(f"OLD-плейлист создан :: {OUT_PLAYLIST_OLD}")
+        log(f"OK :: OLD-плейлист создан :: {OUT_PLAYLIST_OLD}")
 
 def save_report():
     if not os.path.exists(REPORT_DIR):
@@ -141,7 +175,7 @@ def save_report():
         for line in LOG_LINES:
             f.write(line + "\n")
 
-    log_ok(f"Отчёт сохранён :: {path}")
+    log(f"OK :: Отчёт сохранён :: {path}")
 
 #===========================================================
 # MAIN
