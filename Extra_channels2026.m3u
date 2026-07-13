@@ -1087,8 +1087,12 @@ https://zabava-htlive.cdn.ngenix.net/hls/CH_DOMASHNY_7/variant.m3u8
 #-----------------------------------------------------------------------------
 
 
-#EXTINF:-1 tvg-id="kluch" tvg-name="Ключ" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/Iptv_Ru2026/main/icons/kluch.png" group-title="Эфирные ТВ плюс" [MANUAL],270.Ключ
+#EXTINF:-1 tvg-id="kluch" tvg-name="Ключ" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/Iptv_Ru2026/main/icons/kluch.png" group-title="Эфирные ТВ плюс" [MANUAL],270.0 Ключ
+http://cdn.kubteltv.workers.dev/?ID=277
+
+#EXTINF:-1 tvg-id="kluch" tvg-name="Ключ" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/Iptv_Ru2026/main/icons/kluch.png" group-title="Эфирные ТВ плюс" [MANUAL],270.1 Ключ
 http://hls127.freeott.top:8080/Kluch/video.m3u8
+
 
 
 
