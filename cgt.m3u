@@ -548,7 +548,89 @@ http://95.46.208.8:24432/skif
 #EXTINF:-1,OstWest
 http://95.67.12.82:9077
 
-
+http://65.21.85.175:8000/play/a01h/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Индийское кино.png",Индия
+http://65.21.85.175:8000/play/a01u/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/КВН ТВ.png",КВН ТВ
+http://65.21.85.175:8000/play/a013/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Индийское кино.png",ИНДИЙСКОЕ КИНО
+http://65.21.85.175:8000/play/a00o/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Кинохит.png",КИНОХИТ
+http://65.21.85.175:8000/play/a00p/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Кинокомедия.png",Кинокомедия
+http://65.21.85.175:8000/play/a01g/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Киномикс.png",Киномикс
+http://65.21.85.175:8000/play/a01c/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Кинопоказ HD.png",Кинопоказ
+http://65.21.85.175:8000/play/a02a/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Кинопремьера.png",Кинопремьера
+http://65.21.85.175:8000/play/a02b/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Киносвидание.png",Киносвидание
+http://65.21.85.175:8000/play/a01a/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Киносемья.png",Киносемья
+http://65.21.85.175:8000/play/a01b/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Мир.png",МИР
+http://65.21.85.175:8000/play/a00d/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Муз ТВ.png",МузТВ
+http://65.21.85.175:8000/play/a00t/index.m3u8?token=livetv
+#EXTINF:-1,ТВ3
+http://65.21.85.175:8000/play/a00u/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/ТВЦ.png",ТВЦ
+http://65.21.85.175:8000/play/a00v/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Мужское кино.png",Мужское кино
+http://65.21.85.175:8000/play/a01o/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/RU.TV HD.png",RU.TV
+http://65.21.85.175:8000/play/a00q/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Мир 24.png",МИР 24
+http://65.21.85.175:8000/play/a029/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Ani.png",ANI
+http://65.21.85.175:8000/play/a00h/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Cartoon Network.png",CARTOON NETWORK
+http://65.21.85.175:8000/play/a00i/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Дикий.png",ДИКИЙ
+http://65.21.85.175:8000/play/a00k/index.m3u8?token=livetv
+#EXTINF:-1,Солнце
+http://65.21.85.175:8000/play/a00l/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Мама.png",Мама
+http://65.21.85.175:8000/play/a01l/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Супер.png",Супергерои
+http://65.21.85.175:8000/play/a01r/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Детский мир.png",ДЕТСКИЙ МИР
+http://65.21.85.175:8000/play/a00j/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Мир Баскетбола.png",МИР БАСКЕТБОЛА
+http://65.21.85.175:8000/play/a00c/index.m3u8?token=livetv
+#EXTINF:-1 tvg-logo="../Channel/logo/Первый канал HD2.png",Первый канал Евразия
+http://sc.id-tv.kz/1KanalEvraziya_34_35.m3u8
+#EXTINF:-1 tvg-logo="../Channel/logo/Наше новое кино.png",Наше новое кино
+http://sc.id-tv.kz/Nnk_hd.m3u8
+#EXTINF:-1 tvg-logo="../Channel/logo/Индийское кино.png",Индийское кино
+http://sc.id-tv.kz/Indiiskoe_kino.m3u8
+#EXTINF:-1 tvg-logo="../Channel/logo/Amedia Hit.png",Amedia 1
+http://sc.id-tv.kz/A1.m3u8
+#EXTINF:-1 tvg-logo="../Channel/logo/Amedia Hit.png",Amedia 2
+http://sc.id-tv.kz/A2_36_37.m3u8
+#EXTINF:-1 tvg-logo="../Channel/logo/360° Новости.png",360° International
+http://sc.id-tv.kz/360.m3u8
+#EXTINF:-1 tvg-logo="../Channel/logo/FastnFunBox.png",Astana
+http://sc.id-tv.kz/Astana.m3u8
+#EXTINF:-1,Atameken Business
+http://sc.id-tv.kz/Atameken.m3u8
+#EXTINF:-1,Caspian News
+http://sc.id-tv.kz/CaspianNews.m3u8
+#EXTINF:-1,DW Europe
+http://sc.id-tv.kz/DW.m3u8
+#EXTINF:-1 tvg-logo="../Channel/logo/MTV Hits.png",HIT TV
+http://sc.id-tv.kz/HitTV.m3u8
+#EXTINF:-1 tvg-logo="../Channel/logo/Хабар 24.png",Хабар
+http://sc.id-tv.kz/Khabar.m3u8
+#EXTINF:-1 tvg-logo="../Channel/logo/Хабар 24.png",Хабар 24
+http://sc.id-tv.kz/Khabar_24.m3u8
+#EXTINF:-1 tvg-logo="../Channel/logo/Мир 24.png",Мир 24
+http://sc.id-tv.kz/Mir24.m3u8
+#EXTINF:-1 tvg-logo="../Channel/logo/НСТ.png",НСТ
+http://sc.id-tv.kz/NSTV.m3u8
+#EXTINF:-1,КТК
+http://sc.id-tv.kz/KTK_34_35.m3u8
 
 
 
