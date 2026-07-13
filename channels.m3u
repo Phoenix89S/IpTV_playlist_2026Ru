@@ -1,0 +1,590 @@
+#EXTM3U m3uautoload=1 cache=300 deinterlace=8
+
+#EXTINF:0 tvg-name="Первый Канал" group-title="Информационные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/1.jpeg", Первый Канал
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.1:5678
+
+#EXTINF:0 tvg-name="Первый HD" group-title="Информационные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/2.jpeg", Первый HD
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.76:5678
+
+#EXTINF:0 tvg-name="Россия 1" group-title="Информационные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/3.jpeg", Россия 1
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.2:5678
+
+#EXTINF:0 tvg-name="Матч ТВ" group-title="Информационные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", Матч ТВ
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.3:5678
+
+#EXTINF:0 tvg-name="Россия 24" group-title="Информационные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/6.jpeg", Россия 24
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.7:5678
+
+#EXTINF:0 tvg-name="Россия HD" group-title="Информационные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/7.jpeg", Россия HD
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.77:5678
+
+#EXTINF:0 tvg-name="ТВЦ" group-title="Информационные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/10.jpeg", ТВЦ
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.10:5678
+
+#EXTINF:0 tvg-name="НТВ" group-title="Информационные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/11.jpeg", НТВ
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.4:5678
+
+#EXTINF:0 tvg-name="Домашний" group-title="Информационные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/13.jpeg", Домашний
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.14:5678
+
+#EXTINF:0 tvg-name="Звезда" group-title="Информационные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/21.jpeg", Звезда
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.17:5678
+
+#EXTINF:0 tvg-name="5 канал" group-title="Информационные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/23.jpeg", 5 канал
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.5:5678
+
+#EXTINF:0 tvg-name="Иллюзион+" group-title="Информационные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/55.jpeg", Иллюзион+
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.205:1234
+
+#EXTINF:0 tvg-name="Татарстан - Новый век" group-title="Информационные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/103.jpeg", Татарстан - Новый век
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.180:1234
+
+#EXTINF:0 tvg-name="Euronews" group-title="Информационные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/90.jpeg", Euronews
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.215:1234
+
+#EXTINF:0 tvg-name="Russia Today Doc HD" group-title="Информационные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", Russia Today Doc HD
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.249:1234
+
+#EXTINF:0 tvg-name="Раменское ТВ" group-title="Информационные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", Раменское ТВ
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.101:5678
+
+#EXTINF:0 tvg-name="СТС" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/12.jpeg", СТС
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.13:5678
+
+#EXTINF:0 tvg-name="РЕН ТВ" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/14.jpeg", РЕН ТВ
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.11:5678
+
+#EXTINF:0 tvg-name="ТНТ" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/15.jpeg", ТНТ
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.19:5678
+
+#EXTINF:0 tvg-name="Канал Ю" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/16.jpeg", Канал Ю
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.44:5678
+
+#EXTINF:0 tvg-name="Пятница" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/17.jpeg", Пятница
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.16:5678
+
+#EXTINF:0 tvg-name="ТВ-3" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/22.jpeg", ТВ-3
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.15:5678
+
+#EXTINF:0 tvg-name="Усадьба" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/126.jpeg", Усадьба
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.68:5678
+
+#EXTINF:0 tvg-name="FOX Life" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/45.jpeg", FOX Life
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.82:1234
+
+#EXTINF:0 tvg-name="VH1 Russia" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/66.jpeg", VH1 Russia
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.141:1234
+
+#EXTINF:0 tvg-name="VH1 Classic" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/67.jpeg", VH1 Classic
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.40:1234
+
+#EXTINF:0 tvg-name="Europa Plus TV" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/69.jpeg", Europa Plus TV
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.146:1234
+
+#EXTINF:0 tvg-name="Общественное Телевидение России" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/88.jpeg", Общественное Телевидение России
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.9:5678
+
+#EXTINF:0 tvg-name="Fashion TV" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/93.jpeg", Fashion TV
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.207:1234
+
+#EXTINF:0 tvg-name="World Fashion Channel" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/94.jpeg", World Fashion Channel
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.226:1234
+
+#EXTINF:0 tvg-name="МИР" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/97.jpeg", МИР
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.18:5678
+
+#EXTINF:0 tvg-name="Живи!" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/100.jpeg", Живи!
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.71:5678
+
+#EXTINF:0 tvg-name="О!" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", О!
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.92:5678
+
+#EXTINF:0 tvg-name="Авто Плюс" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", Авто Плюс
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.47:5678
+
+#EXTINF:0 tvg-name="Мама" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", Мама
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.73:5678
+
+#EXTINF:0 tvg-name="О!2" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", О!2
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.223:1234
+
+#EXTINF:0 tvg-name="FOX" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/46.jpeg", FOX
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.81:1234
+
+#EXTINF:0 tvg-name="Sony Sci-fi" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/47.jpeg", Sony Sci-fi
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.91:1234
+
+#EXTINF:0 tvg-name="Мир HD" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", Мир HD
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.251:1234
+
+#EXTINF:0 tvg-name="СТС Love" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", СТС Love
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@235.1.1.102:5678
+
+#EXTINF:0 tvg-name="Paramount Comedy Russia" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/107.jpeg", Paramount Comedy Russia
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.147:1234
+
+#EXTINF:0 tvg-name="Че!" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", Че!
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.33:5678
+
+#EXTINF:0 tvg-name="Настоящее Страшное ТВ" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/56.jpeg", Настоящее Страшное ТВ
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.210:1234
+
+#EXTINF:0 tvg-name="ТНТ4" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", ТНТ4
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.30:5678
+
+#EXTINF:0 tvg-name="E TV" group-title="Развлекательные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", E TV
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.69:5678
+
+#EXTINF:0 tvg-name="FAN" group-title="Детские" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", FAN
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.74:5678
+
+#EXTINF:0 tvg-name="Disney Channel" group-title="Детские" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/57.jpeg", Disney Channel
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.89:1234
+
+#EXTINF:0 tvg-name="Карусель" group-title="Детские" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/58.jpeg", Карусель
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.8:5678
+
+#EXTINF:0 tvg-name="Nickelodeon HD" group-title="Детские" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/61.jpeg", Nickelodeon HD
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.242:1234
+
+#EXTINF:0 tvg-name="JimJam" group-title="Детские" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/64.jpeg", JimJam
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.51:1234
+
+#EXTINF:0 tvg-name="Da Vinci Learning" group-title="Детские" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/65.jpeg", Da Vinci Learning
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.23:5678
+
+#EXTINF:0 tvg-name="Tiji" group-title="Детские" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", Tiji
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.72:1234
+
+#EXTINF:0 tvg-name="Cartoon Network" group-title="Детские" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/59.jpeg", Cartoon Network
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.66:1234
+
+#EXTINF:0 tvg-name="Мульт" group-title="Детские" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", Мульт
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.65:5678
+
+#EXTINF:0 tvg-name="CCTV русский" group-title="Кино" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/53.jpeg", CCTV русский
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.169:1234
+
+#EXTINF:0 tvg-name="Еврокино" group-title="Кино" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/52.jpeg", Еврокино
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.211:1234
+
+#EXTINF:0 tvg-name="Русский Иллюзион" group-title="Кино" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/54.jpeg", Русский Иллюзион
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.204:1234
+
+#EXTINF:0 tvg-name="TV 1000 Action" group-title="Кино" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/108.jpeg", TV 1000 Action
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.26:5678
+
+#EXTINF:0 tvg-name="TV 1000 Русское Кино" group-title="Кино" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/110.jpeg", TV 1000 Русское Кино
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.49:5678
+
+#EXTINF:0 tvg-name="Дом Кино" group-title="Кино" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/50.jpeg", Дом Кино
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.75:5678
+
+#EXTINF:0 tvg-name="TV XXI" group-title="Кино" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/51.jpeg", TV XXI
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.208:1234
+
+#EXTINF:0 tvg-name="Русский Роман" group-title="Кино" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/125.jpeg", Русский Роман
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.36:5678
+
+#EXTINF:0 tvg-name="Русский бестселлер" group-title="Кино" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", Русский бестселлер
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.78:5678
+
+#EXTINF:0 tvg-name="Discovery HD" group-title="Наука" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/30.jpeg", Discovery HD
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.246:1234
+
+#EXTINF:0 tvg-name="Viasat Explorer Russia" group-title="Наука" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/111.jpeg", Viasat Explorer Russia
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.25:5678
+
+#EXTINF:0 tvg-name="Viasat History" group-title="Наука" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/112.jpeg", Viasat History
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.54:5678
+
+#EXTINF:0 tvg-name="Animal Planet HD" group-title="Наука" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/33.jpeg", Animal Planet HD
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.241:1234
+
+#EXTINF:0 tvg-name="National Geographic" group-title="Наука" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/34.jpeg", National Geographic
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.63:1234
+
+#EXTINF:0 tvg-name="Домашние Животные" group-title="Наука" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/118.jpeg", Домашние Животные
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.45:5678
+
+#EXTINF:0 tvg-name="National Geographic Wild" group-title="Наука" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/35.jpeg", National Geographic Wild
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.50:1234
+
+#EXTINF:0 tvg-name="National Geographic Wild HD" group-title="Наука" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/36.jpeg", National Geographic Wild HD
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.240:1234
+
+#EXTINF:0 tvg-name="Viasat Nature East" group-title="Наука" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/113.jpeg", Viasat Nature East
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.24:5678
+
+#EXTINF:0 tvg-name="24 Техно" group-title="Наука" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/37.jpeg", 24 Техно
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.200:1234
+
+#EXTINF:0 tvg-name="24 Док" group-title="Наука" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/38.jpeg", 24 Док
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.232:1234
+
+#EXTINF:0 tvg-name="Наука 2.0" group-title="Наука" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/39.jpeg", Наука 2.0
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.143:1234
+
+#EXTINF:0 tvg-name="Зоопарк" group-title="Наука" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/120.jpeg", Зоопарк
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.206:1234
+
+#EXTINF:0 tvg-name="RTG TV HD" group-title="Наука" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", RTG TV HD
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.244:1234
+
+#EXTINF:0 tvg-name="Живая планета" group-title="Наука" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", Живая планета
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.46:5678
+
+#EXTINF:0 tvg-name="Здоровое ТВ" group-title="Наука" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", Здоровое ТВ
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.61:5678
+
+#EXTINF:0 tvg-name="АРЕНА" group-title="Спорт" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", АРЕНА
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.88:1234
+
+#EXTINF:0 tvg-name="Viasat Sport" group-title="Спорт" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/114.jpeg", Viasat Sport
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.52:5678
+
+#EXTINF:0 tvg-name="МАТЧ ТВ! HD" group-title="Спорт" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", МАТЧ ТВ! HD
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.85:5678
+
+#EXTINF:0 tvg-name="Футбол" group-title="Спорт" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", Футбол
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.91.89:1234
+
+#EXTINF:0 tvg-name="Extreme Sports" group-title="Спорт" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/81.jpeg", Extreme Sports
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.49:1234
+
+#EXTINF:0 tvg-name="Охота и рыбалка" group-title="Спорт" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/123.jpeg", Охота и рыбалка
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.60:5678
+
+#EXTINF:0 tvg-name="MTV Dance" group-title="Музыкальные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/18.jpeg", MTV Dance
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.46:1234
+
+#EXTINF:0 tvg-name="MTV Live HD" group-title="Музыкальные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/19.jpeg", MTV Live HD
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.247:1234
+
+#EXTINF:0 tvg-name="MCM Top" group-title="Музыкальные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/68.jpeg", MCM Top
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.48:1234
+
+#EXTINF:0 tvg-name="Bridge TV Classic" group-title="Музыкальные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/70.jpeg", Bridge TV Classic
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.88:5678
+
+#EXTINF:0 tvg-name="Музыка Первого" group-title="Музыкальные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/73.jpeg", Музыка Первого
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.43:5678
+
+#EXTINF:0 tvg-name="BRiDGE TV HITS" group-title="Музыкальные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", BRiDGE TV HITS
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.89:5678
+
+#EXTINF:0 tvg-name="ТНТ-Music" group-title="Музыкальные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", ТНТ-Music
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.67:5678
+
+#EXTINF:0 tvg-name="Муз-тв" group-title="Музыкальные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/129.jpeg", Муз-тв
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.20:5678
+
+#EXTINF:0 tvg-name="Шансон ТВ" group-title="Музыкальные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/75.jpeg", Шансон ТВ
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.42:5678
+
+#EXTINF:0 tvg-name="Mezzo" group-title="Музыкальные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/74.jpeg", Mezzo
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+udp://@224.0.90.8:1234
+
+#EXTINF:0 tvg-name="BRiDGE TV Русский хит" group-title="Музыкальные" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", BRiDGE TV Русский хит
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.83:5678
+
+#EXTINF:0 tvg-name="Россия К" group-title="Культура" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/5.jpeg", Россия К
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.6:5678
+
+#EXTINF:0 tvg-name="Спас-ТВ" group-title="Культура" tvg-logo="http://stalker.ip-home.net/stalker_portal/misc/logos/jpeg/120/.jpeg", Спас-ТВ
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=yadif2x
+#EXTVLCOPT:udp-caching=2000
+rtp://@235.1.1.12:5678
+
