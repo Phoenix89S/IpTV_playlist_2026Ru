@@ -191,3 +191,19 @@ http://93.189.224.246:52900/play/a00f/index.m3u8
 #EXTINF:-1 tvg-id="trash" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/Trash.png" group-title="Дополнительные Эфирные ТВ Плюс",57.3 TRASH HD
 https://vsetv.glavnee.online/trash_hd/index.m3u8
 
+#EXTINF:-1 tvg-logo="https://i.imgur.com/scDKOLS.png" group-title="Дополнительные Эфирные ТВ Плюс",86. Bollywood HD Russia (576p)
+https://xykt-fix.github.io/cinerama_edge01/hls/BOLLYWOOD_RU/Movie009.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/KPXMa3U.png" group-title="Дополнительные Эфирные ТВ Плюс",87. Channel 5 International (576p)
+http://178.134.1.158:8081/5channel/index.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/b5e9qUA.png" group-title="Дополнительные Эфирные ТВ Плюс",88. Cinema
+http://catchup.videoline.ru/cinema/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/gY3XkoO.png" group-title="Дополнительные Эфирные ТВ Плюс",89. Den Pobedy (1080p)
+https://tchaikovsky.af-stream.com:991/s/xzztutfc/den-pobedy-hd/video.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/QwqM5j6.png" group-title="Дополнительные Эфирные ТВ Плюс",90. Hit FM
+https://hitfm.nfthost.net/hls/hitfm/live_all/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/6k9LYOw.png" group-title="Дополнительные Эфирные ТВ Плюс",91. NSC+ (720p)
+https://live.15plusmg.ru/memfs/5a03fc7a-8417-4874-b56f-91b8aeba1210.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/4KiYSln.png" group-title="Дополнительные Эфирные ТВ Плюс",92. Pobeda (1080p)
+https://tchaikovsky.af-stream.com:991/s/xzztutfc/pobeda-hd/video.m3u8
+
+
