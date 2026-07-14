@@ -1,0 +1,195 @@
+#EXTM3U url-tvg="http://epg.one/epg2.xml.gz"
+#EXTINF:-1,1. 41 Регион
+http://s14131.cdn.ngenix.net/hls/CH_R02_OTT_DV_KAM_41REG_OTT/variant.m3u8
+#EXTINF:-1,2. 6ТВ Хабаровск
+http://s97982.cdn.ngenix.net/hls/CH_R27_OTT_DV_HVSK_6TV/variant.m3u8
+#EXTINF:-1,3. 6ТВ Хабаровск (Комсомольск-на Амуре)
+http://s97982.cdn.ngenix.net/hls/CH_R27_OTT_DV_HVSK_6TVKMS/variant.m3u8
+#EXTINF:-1 tvg-id="3026",4. 8 канал Владивосток
+http://s91030.cdn.ngenix.net/hls/CH_R01_OTT_DV_VLD_OTT8KANAL/variant.m3u8
+#EXTINF:-1,5. АСТВ
+http://s14553.cdn.ngenix.net/hls/CH_R65_OTT_DV_SLIN_ACTV/variant.m3u8
+#EXTINF:-1,6. Амурское Областное ТВ
+http://s84942.cdn.ngenix.net/hls/CH_R28_OTT_DV_BLAG_AOT/variant.m3u8
+#EXTINF:-1,7. Город 24
+http://s84942.cdn.ngenix.net/hls/CH_R28_OTT_DV_BLAG_GOROD24/variant.m3u8
+#EXTINF:-1 tvg-id="6751",8. Губерния (Хабаровск)
+http://s97982.cdn.ngenix.net/hls/CH_R27_OTT_DV_HVSK_GUBERNYA/variant.m3u8
+#EXTINF:-1,9. Известия (Биробиджан)
+http://s97982.cdn.ngenix.net/hls/CH_R79_OTT_DV_HVSK_NTK/variant.m3u8
+#EXTINF:-1,10. Известия (Магадан)
+http://s20441.cdn.ngenix.net/hls/CH_R49_MGTK/variant.m3u8
+#EXTINF:-1,11. Камчатка 1
+http://s14131.cdn.ngenix.net/hls/CH_R41_OTT_DV_KAM_KAMCHATKA/variant.m3u8
+#EXTINF:-1,12. Карибу ТВ
+http://s20441.cdn.ngenix.net/hls/CH_R49_OTTKARIBU/variant.m3u8
+#EXTINF:-1,13. Колыма Плюс
+http://s20441.cdn.ngenix.net/hls/CH_R49_OTT_DV_MGDN_KOLYMA/variant.m3u8
+#EXTINF:-1,14. Next TV
+http://s45177.cdn.ngenix.net/hls/CH_R01_NEXTTV/variant.m3u8
+#EXTINF:-1,15. ОТВ Сахалин
+http://s14553.cdn.ngenix.net/hls/CH_R65_OTT_DV_SLIN_OTV_SLIN/variant.m3u8
+#EXTINF:-1,16. Телемикс
+http://s91030.cdn.ngenix.net/hls/CH_R25_TMX/variant.m3u8
+#EXTINF:-1,17. Туса 24
+http://s93498.cdn.ngenix.net/hls/CH_R01_TUVA24/variant.m3u8
+#EXTINF:-1,18. Тында ТВ
+http://s84942.cdn.ngenix.net/hls/CH_R28_TYNDATV/variant.m3u8
+#EXTINF:-1,19. Учалы ТВ
+http://s45177.cdn.ngenix.net/hls/CH_R02_UCHALYTV/variant.m3u8
+#EXTINF:-1,20. Хабаровск ТВ
+http://s97982.cdn.ngenix.net/hls/CH_R27_OTT_DV_HVSK_HABAROVSK/variant.m3u8
+#EXTINF:-1 tvg-id="1371",21. Amedia 1
+https://s70378.cdn.ngenix.net/amedia_1/2/index.m3u8
+#EXTINF:-1 tvg-id="1371",22. Amedia 2
+https://s70378.cdn.ngenix.net/amedia_2/2/index.m3u8
+#EXTINF:-1 tvg-id="2007",23. Amedia Hit
+https://s70378.cdn.ngenix.net/amedia_hit/2/index.m3u8
+#EXTINF:-1 tvg-id="1372",24. Amedia Premium HD
+https://s70378.cdn.ngenix.net/amedia_premium_hd/3/index.m3u8
+#EXTINF:-1,25. FilmBox+ Festival
+https://s70378.cdn.ngenix.net/filmbox_arthouse/2/index.m3u8
+#EXTINF:-1 tvg-id="3690",26. FilmBox+ One
+https://s70378.cdn.ngenix.net/filmbox/2/index.m3u8
+#EXTINF:-1 tvg-id="934",27. Hollywood HD
+https://s70378.cdn.ngenix.net/amc/2/index.m3u8
+#EXTINF:-1 tvg-id="1011",28. Viju+ Comedy
+https://s70378.cdn.ngenix.net/vip_comedy/2/index.m3u8
+#EXTINF:-1 tvg-id="1012",29. Viju+ Megahit
+https://s70378.cdn.ngenix.net/vip_megahit/2/index.m3u8
+#EXTINF:-1 tvg-id="1013",30. Viju+ Premiere
+https://s70378.cdn.ngenix.net/vip_premiere/2/index.m3u8
+#EXTINF:-1,31. Viju+ Serial
+https://s70378.cdn.ngenix.net/vip_serial/2/index.m3u8
+#EXTINF:-1 tvg-id="834",32. Дом Кино
+https://s70378.cdn.ngenix.net/dom_kino/2/index.m3u8
+#EXTINF:-1 tvg-id="2020",33. Дом Кино Премиум
+https://s70378.cdn.ngenix.net/dom_kino_premium_hd/3/index.m3u8
+#EXTINF:-1 tvg-id="352",34. Еврокино
+https://s70378.cdn.ngenix.net/evrokino/2/index.m3u8
+#EXTINF:-1 tvg-id="2403",35. Иллюзион+
+https://s70378.cdn.ngenix.net/illusion_plus/2/index.m3u8
+#EXTINF:-1 tvg-id="5203",36. Индия
+https://s70378.cdn.ngenix.net/zee_tv/2/index.m3u8
+#EXTINF:-1 tvg-id="2275",37. Мир сериала
+https://s70378.cdn.ngenix.net/mir_seriala/2/index.m3u8
+#EXTINF:-1,38. ТВ 21
+https://s70378.cdn.ngenix.net/tv_xxi/2/index.m3u8
+#EXTINF:-1,39. 365
+https://s70378.cdn.ngenix.net/365_dney_tv/2/index.m3u8
+#EXTINF:-1 tvg-id="410",40. Da Vinci
+https://s70378.cdn.ngenix.net/da_vinci/2/index.m3u8
+#EXTINF:-1,41. Docu Box
+https://s70378.cdn.ngenix.net/docubox/2/index.m3u8
+#EXTINF:-1 tvg-id="2418",42. Galaxy
+https://s70378.cdn.ngenix.net/galaxy/2/index.m3u8
+#EXTINF:-1,43. Nat Geo
+https://s70378.cdn.ngenix.net/national_geographic/2/index.m3u8
+#EXTINF:-1 tvg-id="648",44. RTG HD
+https://s70378.cdn.ngenix.net/rtg_hd/3/index.m3u8
+#EXTINF:-1 tvg-id="516",45. Sci-Fi
+https://s70378.cdn.ngenix.net/sony_sci_fi/2/index.m3u8
+#EXTINF:-1 tvg-id="7632",46. Terra
+https://s70378.cdn.ngenix.net/terra/2/index.m3u8
+#EXTINF:-1 tvg-id="9082",47. The Explorers
+https://s70378.cdn.ngenix.net/the_explorers/2/index.m3u8
+#EXTINF:-1 tvg-id="1035",48. Travel + Adventure
+https://s70378.cdn.ngenix.net/travel_and_adventure/2/index.m3u8
+#EXTINF:-1,49. Viju Explore
+https://s70378.cdn.ngenix.net/viasat_explore/2/index.m3u8
+#EXTINF:-1 tvg-id="277",50. Viju History
+https://s70378.cdn.ngenix.net/viasat_history/2/index.m3u8
+#EXTINF:-1,51. Viju Nature
+https://s70378.cdn.ngenix.net/viasat_nature/2/index.m3u8
+#EXTINF:-1 tvg-id="669",52. Время
+https://s70378.cdn.ngenix.net/vremia/2/index.m3u8
+#EXTINF:-1 tvg-id="5979",53. Глазами туриста
+https://s70378.cdn.ngenix.net/glazami_turista/1/index.m3u8
+#EXTINF:-1 tvg-id="2283",54. Дикий
+https://s70378.cdn.ngenix.net/dikiy/2/index.m3u8
+#EXTINF:-1,55. Зоопарк
+https://s70378.cdn.ngenix.net/zoopark/2/index.m3u8
+#EXTINF:-1,56. Океан ТВ
+https://s70378.cdn.ngenix.net/ocean_tv/2/index.m3u8
+#EXTINF:-1,57. Точка РФ
+https://s70378.cdn.ngenix.net/hd_life/2/index.m3u8
+#EXTINF:-1,57.1 ТАСС (Заглушка)
+https://tass-hls.servicecdn.ru/httpstreamer/tass-loop-main.stream/playlist.m3u8
+#EXTINF:-1,58. Gulli Girl
+https://s70378.cdn.ngenix.net/gulli/2/index.m3u8
+#EXTINF:-1 tvg-id="423",59. Nickelodeon
+https://s70378.cdn.ngenix.net/nickelodeon/2/index.m3u8
+#EXTINF:-1,60. Tiji
+https://s70378.cdn.ngenix.net/tiji/2/index.m3u8
+#EXTINF:-1 tvg-id="923",61. Детский мир
+https://s70378.cdn.ngenix.net/detskij_mir/2/index.m3u8
+#EXTINF:-1,62. Карусель Int.
+https://s70378.cdn.ngenix.net/karusel/2/index.m3u8
+#EXTINF:-1 tvg-id="2481",63. СТС Kids
+https://s70378.cdn.ngenix.net/ctc_kids/2/index.m3u8
+#EXTINF:-1 tvg-id="5169",64. Супергерои
+https://s70378.cdn.ngenix.net/malish/1/index.m3u8
+#EXTINF:-1,65. MMA TV
+https://s70378.cdn.ngenix.net/m1_global/2/index.m3u8
+#EXTINF:-1,66. UDAR
+https://s70378.cdn.ngenix.net/ufc/2/index.m3u8
+#EXTINF:-1,67. Бокс ТВ
+https://s70378.cdn.ngenix.net/boks_tv/2/index.m3u8
+#EXTINF:-1 tvg-id="2476",68. Красная линия
+https://s55766.cdn.ngenix.net/s55766-media-origin/rline_high/tracks-v1a1/mono.m3u8
+#EXTINF:-1,69. Мир
+https://s70378.cdn.ngenix.net/mir/2/index.m3u8
+#EXTINF:-1 tvg-id="2078",70. МИР 24
+https://s70378.cdn.ngenix.net/mir_24/2/index.m3u8
+#EXTINF:-1,71. РБК
+http://iptv.mega.net.ru:8888/RBK/index.m3u8
+#EXTINF:-1,72. Рен ТВ Int.
+https://s70378.cdn.ngenix.net/ren_tv/2/index.m3u8
+#EXTINF:-1,73. ТВ3
+https://s70378.cdn.ngenix.net/tv_3/2/index.m3u8
+#EXTINF:-1 tvg-id="9097",74. Fashion Box
+https://s70378.cdn.ngenix.net/fashion_box/2/index.m3u8
+#EXTINF:-1 tvg-id="615",75. FX Life
+https://s70378.cdn.ngenix.net/fox_life/2/index.m3u8
+#EXTINF:-1 tvg-id="575",76. Mezzo
+https://s70378.cdn.ngenix.net/mezzo/2/index.m3u8
+#EXTINF:-1,77. Muzzone
+https://s70378.cdn.ngenix.net/muzzone/2/index.m3u8
+#EXTINF:-1,78. ЖивиЖиви
+https://s70378.cdn.ngenix.net/jivi/2/index.m3u8
+#EXTINF:-1 tvg-id="783",79. Ностальгия
+https://s70378.cdn.ngenix.net/nostalgia/2/index.m3u8
+#EXTINF:-1 tvg-id="2304",80. Телекафе
+https://s70378.cdn.ngenix.net/telecafe/2/index.m3u8
+#EXTINF:-1,81.1. alpha Cinema (1080p)
+https://live.15plusmg.ru/memfs/b389173a-df4e-4171-8904-e249893e71eb.m3u8
+#EXTINF:-1,81.2. alpha Moretime (1080p)
+https://live.15plusmg.ru/memfs/3546fc09-2eba-459d-9a1f-9a2fc39e50bd.m3u8
+#EXTINF:-1,81.3. 15+ Music (1080p)
+https://live.15plusmg.ru/memfs/ce3366b1-bf25-4e24-96bb-1adf0d44bd3d.m3u8
+#EXTINF:-1 tvg-id="681",82. Europa Plus TV (1080p)
+http://31.148.48.15/Europa_Plus_HD/index.m3u8
+#EXTINF:-1,83. РИА Новости (720p)
+https://live-rian.cdnvideo.ru/rian/rus-radio/playlist.m3u8
+#EXTINF:-1,84. Euronews Russian (720p)
+https://cdn-euronews.akamaized.net/live/eds/euronews-ru/25071/index.m3u8
+#EXTINF:-1,85. Hit HD (1080p)
+http://hls127.freeott.top:8080/XitHD/video.m3u8
+#EXTINF:-1,86. Bolt (576p)
+http://hls127.freeott.top:8080/Bolt/video.m3u8
+#EXTINF:-1,87.1. BRIDGE (576p)
+http://31.148.48.15/Bridge_TV/index.m3u8
+#EXTINF:-1,87.2. BRIDGE Classic (576p)
+http://31.148.48.15/Bridge_TV_Classic/index.m3u8
+#EXTINF:-1,87.3. BRIDGE Deluxe (1080p)
+http://31.148.48.15/Bridge_TV_HD/index.m3u8
+#EXTINF:-1,87.4. BRIDGE Hits (576p)
+http://31.148.48.15/Bridge_TV_Dance/index.m3u8
+#EXTINF:-1,88.1. Bollywood HD Russia (576p)
+https://xykt-fix.github.io/cinerama_edge01/hls/BOLLYWOOD_RU/Movie009.m3u8
+#EXTINF:-1,88.2. Hollywood HD (1080p)
+http://31.148.48.15/MGM_HD/index.m3u8
+#EXTINF:-1,89.1 Euronews Russian (720p)
+https://cdn-euronews.akamaized.net/live/eds/euronews-ru/25071/index.m3u8
+#EXTINF:-1,89.2 Mir Kazakhstan (576p)
+http://tvcdn01.esilnet.kz/tv/mir/index.m3u8
