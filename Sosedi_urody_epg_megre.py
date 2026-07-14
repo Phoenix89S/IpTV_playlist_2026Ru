@@ -37,10 +37,6 @@ def download(url):
 # ---------------------------------------------------------
 
 def ensure_epg_xml():
-    """
-    Если epg2.xml уже существует — используем его.
-    Если нет — скачиваем epg2.xml.gz, распаковываем, сохраняем.
-    """
     if os.path.exists(EPG_XML_FILE):
         log(f"EPG XML FOUND → using local {EPG_XML_FILE}")
         return
@@ -75,7 +71,7 @@ def load_epg_local():
     for ch in root.findall("channel"):
         cid = ch.get("id")
 
-        # Собираем ВСЕ варианты display-name для канала
+        # Собираем ВСЕ варианты display-name
         for disp in ch.findall("display-name"):
             if disp.text:
                 name = disp.text.strip()
@@ -89,6 +85,16 @@ def load_epg_local():
 # PARSE M3U (СОХРАНЯЕМ RAW EXTINF)
 # ---------------------------------------------------------
 
+def clean_name(name):
+    """
+    Убираем номер канала:
+    '21. болт' → 'болт'
+    '5 БСТ' → 'БСТ'
+    '104. МАТЧ!' → 'МАТЧ!'
+    """
+    # Убираем ведущие цифры + точку + пробел
+    return re.sub(r'^\s*\d+\s*[\.\-]?\s*', '', name).strip()
+
 def parse_m3u(text):
     log("M3U → parsing playlist...")
     lines = text.splitlines()
@@ -99,9 +105,9 @@ def parse_m3u(text):
         if line.startswith("#EXTINF"):
             current = {"raw": line, "url": None, "name": None}
 
-            # имя канала — всё после запятой
             if "," in line:
-                current["name"] = line.split(",", 1)[1].strip()
+                raw_name = line.split(",", 1)[1].strip()
+                current["name"] = clean_name(raw_name)
 
         elif line.startswith("http"):
             if current:
@@ -117,10 +123,6 @@ def parse_m3u(text):
 # ---------------------------------------------------------
 
 def match_channel_strict(ch, epg_channels):
-    """
-    Строгое совпадение имени канала.
-    Если имя из M3U == одному из display-name из EPG → возвращаем id.
-    """
     return epg_channels.get(ch["name"])
 
 # ---------------------------------------------------------
