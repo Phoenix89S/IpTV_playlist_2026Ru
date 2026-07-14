@@ -5,7 +5,6 @@ import requests
 import gzip
 import io
 import xml.etree.ElementTree as ET
-from difflib import SequenceMatcher
 import os
 
 M3U_URL = "https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/prowerka_epg.m3u"
@@ -37,10 +36,6 @@ def download(url):
 # ---------------------------------------------------------
 
 def ensure_epg_xml():
-    """
-    Если epg2.xml уже существует — используем его.
-    Если нет — скачиваем epg2.xml.gz, распаковываем, сохраняем.
-    """
     if os.path.exists(EPG_XML_FILE):
         log(f"EPG XML FOUND → using local {EPG_XML_FILE}")
         return
@@ -69,11 +64,15 @@ def load_epg_local():
 
     root = ET.fromstring(xml)
 
-    epg_channels = {}
+    epg_channels = {}  # name → id
+
     for ch in root.findall("channel"):
         cid = ch.get("id")
         name = ch.findtext("display-name") or ""
-        epg_channels[cid] = name
+        name = name.strip()
+
+        if name:
+            epg_channels[name] = cid
 
     log(f"EPG → loaded {len(epg_channels)} channels from local XML")
     return epg_channels
@@ -90,10 +89,7 @@ def parse_m3u(text):
 
     for line in lines:
         if line.startswith("#EXTINF"):
-            current = {"raw": line, "url": None, "tvg-id": None, "name": None}
-
-            if 'tvg-id="' in line:
-                current["tvg-id"] = line.split('tvg-id="')[1].split('"')[0]
+            current = {"raw": line, "url": None, "name": None}
 
             if "," in line:
                 current["name"] = line.split(",", 1)[1].strip()
@@ -108,33 +104,17 @@ def parse_m3u(text):
     return channels
 
 # ---------------------------------------------------------
-# MATCHING
+# STRICT NAME MATCH
 # ---------------------------------------------------------
 
-def fuzzy(a, b):
-    return SequenceMatcher(None, a.lower(), b.lower()).ratio()
-
-def match_channel(ch, epg_channels):
-    name = ch["name"] or ""
-    tvgid = ch["tvg-id"]
-
-    # 1) прямой match
-    if tvgid and tvgid in epg_channels:
-        return tvgid
-
-    # 2) фаззи match
-    best_id = None
-    best_score = 0.0
-
-    for cid, cname in epg_channels.items():
-        score = fuzzy(name, cname)
-        if score > best_score:
-            best_score = score
-            best_id = cid
-
-    if best_score >= 0.67:
-        return best_id
-
+def match_channel_strict(ch, epg_channels):
+    """
+    Строгое совпадение имени канала.
+    Если имя из M3U == имени из EPG → возвращаем id.
+    """
+    name = ch["name"]
+    if name in epg_channels:
+        return epg_channels[name]
     return None
 
 # ---------------------------------------------------------
@@ -148,8 +128,8 @@ def build(channels, epg_channels):
     out.append('#EXTM3U url-tvg="http://epg.one/epg2.xml.gz"')
 
     for ch in channels:
-        epg_id = match_channel(ch, epg_channels)
-        name = ch["name"] or ""
+        epg_id = match_channel_strict(ch, epg_channels)
+        name = ch["name"]
         url = ch["url"]
 
         if epg_id:
@@ -167,13 +147,10 @@ def build(channels, epg_channels):
 # ---------------------------------------------------------
 
 def main():
-    # Этап 1 — гарантируем наличие локальной epg2.xml
     ensure_epg_xml()
 
-    # Этап 2 — загружаем локальную XMLTV базу
     epg_channels = load_epg_local()
 
-    # Загружаем M3U
     log("START → downloading M3U...")
     m3u_bytes = download(M3U_URL)
     m3u_text = m3u_bytes.decode("utf-8", errors="ignore")
