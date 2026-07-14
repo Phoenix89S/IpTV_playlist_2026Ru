@@ -1,12 +1,9 @@
 name: Sosedi_urody_epg_megre
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+  workflow_dispatch:        # ручной пинок
   schedule:
-    - cron: "0 */6 * * *"   # каждые 6 часов обновление EPG
+    - cron: "53 0 * * *"    # запуск каждый день в 03:53 по Москве (00:53 UTC)
 
 jobs:
   build:
