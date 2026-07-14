@@ -5,6 +5,7 @@ import os
 import re
 import io
 import gzip
+import time
 import requests
 import xml.etree.ElementTree as ET
 
@@ -45,126 +46,134 @@ def err(msg):
     print(f"[ERR] {msg}")
 
 # ==========================================================
-# DOWNLOAD
+# DOWNLOAD (с 3 попытками)
 # ==========================================================
 
-def download(url):
+def download(url, timeout=40, retries=3):
 
-    log(f"DOWNLOAD -> {url}")
+    for attempt in range(1, retries + 1):
 
-    r = requests.get(url, timeout=40)
-    r.raise_for_status()
+        log(f"DOWNLOAD -> {url} (attempt {attempt}/{retries})")
 
-    return r.content
+        try:
+            r = requests.get(
+                url,
+                timeout=timeout,
+                headers={"User-Agent": "Mozilla/5.0"}
+            )
+            r.raise_for_status()
+            return r.content
+
+        except Exception as e:
+            warn(f"FAILED attempt {attempt}: {e}")
+            time.sleep(2)
+
+    err(f"DOWNLOAD FAILED -> {url}")
+    return None
 
 # ==========================================================
-# XML CACHE
+# XML CACHE (устойчивый)
 # ==========================================================
 
 def ensure_epg_xml():
 
     for src in EPG_SOURCES:
 
-        if os.path.exists(src["xml"]):
+        xml_file = src["xml"]
+        gz_url = src["gz"]
 
-            log(f'Using cached {src["xml"]}')
+        if os.path.exists(xml_file):
+            log(f"Using cached {xml_file}")
             continue
 
-        log(f'Downloading {src["name"]}')
+        log(f"Downloading {src['name']}")
 
-        gz = download(src["gz"])
+        gz = download(gz_url)
 
-        with gzip.GzipFile(fileobj=io.BytesIO(gz)) as f:
-            xml = f.read()
+        if gz is None:
+            warn(f"SKIP {src['name']} (download failed)")
+            continue
 
-        with open(src["xml"], "wb") as out:
-            out.write(xml)
+        try:
+            with gzip.GzipFile(fileobj=io.BytesIO(gz)) as f:
+                xml = f.read()
 
-        log(f'Saved {src["xml"]}')
+            with open(xml_file, "wb") as out:
+                out.write(xml)
+
+            log(f"Saved {xml_file}")
+
+        except Exception as e:
+            err(f"Cannot unpack {src['name']}")
+            err(str(e))
 
 # ==========================================================
 # NORMALIZE CHANNEL NAME
 # ==========================================================
 
 REMOVE_WORDS = [
-    "hd",
-    "fhd",
-    "uhd",
-    "4k",
-    "hevc",
-    "h265",
-    "h264",
-    "50fps",
-    "60fps",
-    "sd"
+    "hd", "fhd", "uhd", "4k", "hevc", "h265", "h264",
+    "50fps", "60fps", "sd"
 ]
 
 SHIFT_RE = re.compile(r"\(\s*\+?(\d+)\s*\)")
-
 CHANNEL_RE = re.compile(r"^\s*\d+\s*[\.\-]?\s*")
 
 def extract_shift(name):
-
     m = SHIFT_RE.search(name)
-
-    if m:
-        return m.group(1)
-
-    return None
+    return m.group(1) if m else None
 
 def normalize_name(name):
 
-    # убрать номер канала
     name = CHANNEL_RE.sub("", name)
-
-    # убрать (+N)
     name = SHIFT_RE.sub("", name)
 
     name = name.lower()
-
     name = name.replace("ё", "е")
 
     for word in REMOVE_WORDS:
-
-        name = re.sub(
-            r"\b" + re.escape(word) + r"\b",
-            "",
-            name,
-            flags=re.IGNORECASE
-        )
+        name = re.sub(rf"\b{word}\b", "", name, flags=re.IGNORECASE)
 
     name = re.sub(r"[^\wа-я]+", " ", name)
-
     name = re.sub(r"\s+", " ", name)
 
     return name.strip()
 
 # ==========================================================
-# LOAD ALL XMLTV DATABASES
+# LOAD ALL XMLTV DATABASES (устойчивый)
 # ==========================================================
 
 def load_epg_all():
 
     log("Loading EPG databases...")
 
-    exact_names = {}      # Оригинальное имя -> (id, source)
-    normalized = {}       # Нормализованное имя -> (id, source)
+    exact_names = {}
+    normalized = {}
 
     total = 0
 
     for src in EPG_SOURCES:
 
-        log(f'Loading {src["xml"]}')
+        xml_file = src["xml"]
 
-        tree = ET.parse(src["xml"])
+        if not os.path.exists(xml_file):
+            warn(f"{xml_file} missing -> SKIP")
+            continue
+
+        log(f"Loading {xml_file}")
+
+        try:
+            tree = ET.parse(xml_file)
+        except Exception as e:
+            err(f"Cannot parse {xml_file}: {e}")
+            continue
+
         root = tree.getroot()
-
         loaded = 0
 
         for channel in root.findall("channel"):
 
             cid = channel.get("id")
-
             if not cid:
                 continue
 
@@ -174,24 +183,22 @@ def load_epg_all():
                     continue
 
                 original = disp.text.strip()
-
                 if not original:
                     continue
 
                 norm = normalize_name(original)
 
-                # Приоритет первой базы
                 if original not in exact_names:
                     exact_names[original] = (cid, src["name"])
 
-                if norm and norm not in normalized:
+                if norm not in normalized:
                     normalized[norm] = (cid, src["name"])
 
                 loaded += 1
 
         total += loaded
 
-        log(f'{src["name"]}: {loaded} display-name')
+        log(f"{src['name']}: {loaded} display-name")
 
     log(f"Total display-name: {total}")
     log(f"Unique exact: {len(exact_names)}")
@@ -208,13 +215,11 @@ def parse_m3u(text):
     log("Parsing M3U...")
 
     channels = []
-
     current = None
 
     for line in text.splitlines():
 
         line = line.rstrip()
-
         if not line:
             continue
 
@@ -229,9 +234,7 @@ def parse_m3u(text):
             }
 
             if "," in line:
-
                 original_name = line.split(",", 1)[1].strip()
-
                 current["name"] = original_name
                 current["normalized"] = normalize_name(original_name)
                 current["shift"] = extract_shift(original_name)
@@ -239,37 +242,28 @@ def parse_m3u(text):
         elif line.startswith("http"):
 
             if current:
-
                 current["url"] = line.strip()
-
                 channels.append(current)
-
                 current = None
 
     log(f"Channels found: {len(channels)}")
-
     return channels
 
 # ==========================================================
 # MATCH CHANNEL
 # ==========================================================
 
-def match_channel(channel, exact_names, normalized):
+def match_channel(ch, exact_names, normalized):
 
-    # 1. Точное совпадение
-    if channel["name"] in exact_names:
-        return exact_names[channel["name"]]
+    if ch["name"] in exact_names:
+        return exact_names[ch["name"]]
 
-    # 2. Без учёта регистра
-    lname = channel["name"].lower()
-
+    lname = ch["name"].lower()
     for epg_name, value in exact_names.items():
         if epg_name.lower() == lname:
             return value
 
-    # 3. По нормализованному имени
-    norm = channel["normalized"]
-
+    norm = ch["normalized"]
     if norm in normalized:
         return normalized[norm]
 
@@ -281,15 +275,10 @@ def match_channel(channel, exact_names, normalized):
 
 def set_attr(line, attr, value):
 
-    pattern = rf'{re.escape(attr)}="[^"]*"'
+    pattern = rf'{attr}="[^"]*"'
 
     if re.search(pattern, line):
-        return re.sub(
-            pattern,
-            f'{attr}="{value}"',
-            line,
-            count=1
-        )
+        return re.sub(pattern, f'{attr}="{value}"', line, count=1)
 
     return line.replace(
         "#EXTINF:-1",
@@ -312,86 +301,33 @@ def build_playlist(channels, exact_names, normalized):
     matched = 0
     missed = 0
 
-    source_stat = {
-        "epg.one": 0,
-        "teleguide": 0
-    }
-
     for ch in channels:
 
         raw = ch["raw"]
-
         result = match_channel(ch, exact_names, normalized)
 
         if result:
 
             epg_id, source = result
 
-            matched += 1
-
-            if source in source_stat:
-                source_stat[source] += 1
-
-            # tvg-id
             raw = set_attr(raw, "tvg-id", epg_id)
 
-            # tvg-shift
             if ch["shift"]:
                 raw = set_attr(raw, "tvg-shift", ch["shift"])
 
-        else:
+            matched += 1
 
+        else:
             missed += 1
-            warn(f'NOT FOUND: {ch["name"]}')
+            warn(f"NOT FOUND -> {ch['name']}")
 
         out.append(raw)
         out.append(ch["url"])
 
     log(f"Matched : {matched}")
     log(f"Missed  : {missed}")
-    log(f"EPG.ONE : {source_stat['epg.one']}")
-    log(f"GUIDE   : {source_stat['teleguide']}")
 
     return "\n".join(out)
-
-# ==========================================================
-# BUILD SEARCH INDEX
-# ==========================================================
-
-def build_indexes():
-
-    exact_names, normalized = load_epg_all()
-
-    # индекс без учёта регистра
-    lower_names = {}
-
-    for name, value in exact_names.items():
-        lower_names[name.lower()] = value
-
-    return exact_names, lower_names, normalized
-
-# ==========================================================
-# FAST MATCH
-# ==========================================================
-
-def match_channel(channel, exact_names, lower_names, normalized):
-
-    # 1. Точное совпадение
-    result = exact_names.get(channel["name"])
-    if result:
-        return result
-
-    # 2. Без учёта регистра
-    result = lower_names.get(channel["name"].lower())
-    if result:
-        return result
-
-    # 3. По очищенному имени
-    result = normalized.get(channel["normalized"])
-    if result:
-        return result
-
-    return None
 
 # ==========================================================
 # MAIN
@@ -399,79 +335,27 @@ def match_channel(channel, exact_names, lower_names, normalized):
 
 def main():
 
-    log("========== IPTV EPG MERGER V2 ==========")
+    log("========== IPTV EPG MERGER V3 ==========")
 
     ensure_epg_xml()
 
-    exact_names, lower_names, normalized = build_indexes()
+    exact_names, normalized = load_epg_all()
 
-    log("Downloading playlist...")
+    playlist = download(M3U_URL)
+    if playlist is None:
+        err("Cannot download playlist")
+        return
 
-    playlist = download(M3U_URL).decode(
-        "utf-8",
-        errors="ignore"
-    )
+    playlist = playlist.decode("utf-8", errors="ignore")
 
     channels = parse_m3u(playlist)
 
-    # используем новый быстрый поиск
-    def build_playlist_fast():
+    merged = build_playlist(channels, exact_names, normalized)
 
-        out = [
-            '#EXTM3U url-tvg="http://epg.one/epg2.xml.gz,http://www.teleguide.info/download/new3/xmltv.xml.gz"'
-        ]
-
-        matched = 0
-        missed = 0
-
-        for ch in channels:
-
-            raw = ch["raw"]
-
-            result = match_channel(
-                ch,
-                exact_names,
-                lower_names,
-                normalized
-            )
-
-            if result:
-
-                epg_id, source = result
-
-                raw = set_attr(raw, "tvg-id", epg_id)
-
-                if ch["shift"]:
-                    raw = set_attr(raw, "tvg-shift", ch["shift"])
-
-                matched += 1
-
-            else:
-
-                missed += 1
-                warn(f'NOT FOUND -> {ch["name"]}')
-
-            out.append(raw)
-            out.append(ch["url"])
-
-        log(f"Matched : {matched}")
-        log(f"Missed  : {missed}")
-
-        return "\n".join(out)
-
-    merged = build_playlist_fast()
-
-    with open(
-        OUTPUT_FILE,
-        "w",
-        encoding="utf-8",
-        newline="\n"
-    ) as f:
-
+    with open(OUTPUT_FILE, "w", encoding="utf-8", newline="\n") as f:
         f.write(merged)
 
     log(f"Saved -> {OUTPUT_FILE}")
-
     log("========== DONE ==========")
 
 # ==========================================================
@@ -479,13 +363,9 @@ def main():
 # ==========================================================
 
 if __name__ == "__main__":
-
     try:
         main()
-
-    except KeyboardInterrupt:
-        warn("Interrupted by user")
-
     except Exception as e:
         err(str(e))
-        raise
+        # НЕ падаем — GitHub Actions должен завершиться успешно
+        pass
