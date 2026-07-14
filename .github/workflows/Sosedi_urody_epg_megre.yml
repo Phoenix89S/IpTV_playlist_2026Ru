@@ -1,0 +1,45 @@
+name: Sosedi_urody_epg_megre
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 */6 * * *"   # каждые 6 часов обновление EPG
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run EPG merge engine
+        run: |
+          python Sosedi_urody_epg_megre.py
+
+      - name: Upload merged playlist
+        uses: actions/upload-artifact@v4
+        with:
+          name: merged_epg_playlist
+          path: merged_epg_playlist.m3u
+
+      - name: Commit updated playlist
+        run: |
+          git config --global user.name "Phoenix-AutoEPG"
+          git config --global user.email "actions@github.com"
+          git add merged_epg_playlist.m3u || true
+          git commit -m "Auto-update merged EPG playlist" || true
+          git push || true
