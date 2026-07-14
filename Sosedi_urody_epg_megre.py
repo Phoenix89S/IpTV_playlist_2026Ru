@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import requests
-import gzip
-import io
-import xml.etree.ElementTree as ET
 import os
 import re
+import io
+import gzip
+import requests
+import xml.etree.ElementTree as ET
 
 M3U_URL = "https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/prowerka_epg.m3u"
 EPG_GZ_URL = "http://epg.one/epg2.xml.gz"
-EPG_XML_FILE = "epg2.xml"   # локальная XML-база EPG
+EPG_XML_FILE = "epg2.xml"
 
 # ---------------------------------------------------------
 # LOGGING
@@ -28,126 +28,177 @@ def log_err(msg):
 
 def download(url):
     log(f"DOWNLOAD → {url}")
-    r = requests.get(url, timeout=25)
+
+    r = requests.get(url, timeout=30)
     r.raise_for_status()
+
     return r.content
 
 # ---------------------------------------------------------
-# STAGE 1 — UNPACK & SAVE XML
+# DOWNLOAD / UNPACK XML
 # ---------------------------------------------------------
 
 def ensure_epg_xml():
+
     if os.path.exists(EPG_XML_FILE):
-        log(f"EPG XML FOUND → using local {EPG_XML_FILE}")
+        log(f"Using local {EPG_XML_FILE}")
         return
 
-    log("EPG XML NOT FOUND → downloading epg2.xml.gz...")
-    gz_bytes = download(EPG_GZ_URL)
+    log("Downloading EPG...")
 
-    log("EPG → decompressing...")
-    with gzip.GzipFile(fileobj=io.BytesIO(gz_bytes)) as f:
-        xml_data = f.read()
+    gz = download(EPG_GZ_URL)
 
-    log(f"EPG → saving XML → {EPG_XML_FILE}")
-    with open(EPG_XML_FILE, "wb") as f:
-        f.write(xml_data)
+    with gzip.GzipFile(fileobj=io.BytesIO(gz)) as f:
+        xml = f.read()
 
-    log("EPG XML SAVED.")
+    with open(EPG_XML_FILE, "wb") as out:
+        out.write(xml)
+
+    log("EPG saved.")
 
 # ---------------------------------------------------------
-# STAGE 2 — LOAD LOCAL XMLTV (ALL display-name VARIANTS)
+# LOAD XMLTV
 # ---------------------------------------------------------
 
 def load_epg_local():
-    log(f"EPG → loading local XML {EPG_XML_FILE}")
 
-    with open(EPG_XML_FILE, "rb") as f:
-        xml = f.read()
+    log("Loading XMLTV...")
 
-    root = ET.fromstring(xml)
+    tree = ET.parse(EPG_XML_FILE)
+    root = tree.getroot()
 
-    epg_channels = {}  # name → id
+    epg = {}
 
-    for ch in root.findall("channel"):
-        cid = ch.get("id")
+    for channel in root.findall("channel"):
 
-        # Собираем ВСЕ варианты display-name
-        for disp in ch.findall("display-name"):
-            if disp.text:
-                name = disp.text.strip()
-                if name:
-                    epg_channels[name] = cid
+        cid = channel.get("id")
 
-    log(f"EPG → loaded {len(epg_channels)} names from XML")
-    return epg_channels
+        if not cid:
+            continue
+
+        for disp in channel.findall("display-name"):
+
+            if disp.text is None:
+                continue
+
+            name = disp.text.strip()
+
+            if not name:
+                continue
+
+            # Сохраняем ВСЕ display-name как есть
+            epg[name] = cid
+
+    log(f"Loaded {len(epg)} names.")
+
+    return epg
 
 # ---------------------------------------------------------
-# PARSE M3U (СОХРАНЯЕМ RAW EXTINF)
+# PARSE M3U
 # ---------------------------------------------------------
-
-def clean_name(name):
-    """
-    Убираем номер канала:
-    '21. болт' → 'болт'
-    '5 БСТ' → 'БСТ'
-    '104. МАТЧ!' → 'МАТЧ!'
-    """
-    # Убираем ведущие цифры + точку + пробел
-    return re.sub(r'^\s*\d+\s*[\.\-]?\s*', '', name).strip()
 
 def parse_m3u(text):
-    log("M3U → parsing playlist...")
-    lines = text.splitlines()
+
+    log("Parsing playlist...")
+
     channels = []
+
     current = None
 
-    for line in lines:
+    for line in text.splitlines():
+
+        line = line.rstrip()
+
         if line.startswith("#EXTINF"):
-            current = {"raw": line, "url": None, "name": None}
+
+            current = {
+                "raw": line,
+                "url": "",
+                "name": ""
+            }
 
             if "," in line:
-                raw_name = line.split(",", 1)[1].strip()
-                current["name"] = clean_name(raw_name)
+                current["name"] = line.split(",",1)[1].strip()
 
         elif line.startswith("http"):
+
             if current:
-                current["url"] = line.strip()
+                current["url"] = line
                 channels.append(current)
                 current = None
 
-    log(f"M3U → found {len(channels)} channels")
+    log(f"Found {len(channels)} channels.")
+
     return channels
 
 # ---------------------------------------------------------
-# STRICT NAME MATCH
+# MATCH CHANNEL
 # ---------------------------------------------------------
 
-def match_channel_strict(ch, epg_channels):
-    return epg_channels.get(ch["name"])
+def match_channel(ch, epg):
+
+    name = ch["name"]
+
+    # Строгое совпадение имени
+    if name in epg:
+        return epg[name]
+
+    # Без учёта регистра
+    lower = name.lower()
+    for epg_name, epg_id in epg.items():
+        if epg_name.lower() == lower:
+            return epg_id
+
+    return None
 
 # ---------------------------------------------------------
-# BUILD NEW M3U (СОХРАНЯЕМ ВСЕ АТРИБУТЫ, МЕНЯЕМ ТОЛЬКО tvg-id)
+# BUILD PLAYLIST
 # ---------------------------------------------------------
 
-def build(channels, epg_channels):
-    log("BUILD → constructing merged playlist...")
+def build(channels, epg):
 
-    out = ['#EXTM3U url-tvg="http://epg.one/epg2.xml.gz"']
+    log("Building playlist...")
+
+    out = [
+        '#EXTM3U url-tvg="http://epg.one/epg2.xml.gz"'
+    ]
+
+    matched = 0
 
     for ch in channels:
+
         raw = ch["raw"]
         url = ch["url"]
 
-        epg_id = match_channel_strict(ch, epg_channels)
+        epg_id = match_channel(ch, epg)
 
         if epg_id:
+
+            matched += 1
+
+            # Если tvg-id уже есть — заменить
             if 'tvg-id="' in raw:
-                raw = re.sub(r'tvg-id="[^"]*"', f'tvg-id="{epg_id}"', raw)
+
+                raw = re.sub(
+                    r'tvg-id="[^"]*"',
+                    f'tvg-id="{epg_id}"',
+                    raw,
+                    count=1
+                )
+
+            # Если нет — добавить сразу после #EXTINF:-1
             else:
-                raw = raw.replace("#EXTINF:-1", f'#EXTINF:-1 tvg-id="{epg_id}"', 1)
+
+                raw = raw.replace(
+                    "#EXTINF:-1",
+                    f'#EXTINF:-1 tvg-id="{epg_id}"',
+                    1
+                )
 
         out.append(raw)
         out.append(url)
+
+    log(f"Matched {matched} of {len(channels)} channels.")
 
     return "\n".join(out)
 
@@ -156,22 +207,37 @@ def build(channels, epg_channels):
 # ---------------------------------------------------------
 
 def main():
+
     ensure_epg_xml()
 
-    epg_channels = load_epg_local()
+    epg = load_epg_local()
 
-    log("START → downloading M3U...")
-    m3u_bytes = download(M3U_URL)
-    m3u_text = m3u_bytes.decode("utf-8", errors="ignore")
+    log("Downloading playlist...")
 
-    channels = parse_m3u(m3u_text)
+    m3u = download(M3U_URL).decode(
+        "utf-8",
+        errors="ignore"
+    )
 
-    merged = build(channels, epg_channels)
+    channels = parse_m3u(m3u)
 
-    with open("merged_epg_playlist.m3u", "w", encoding="utf-8") as f:
+    merged = build(channels, epg)
+
+    output = "merged_epg_playlist.m3u"
+
+    with open(output, "w", encoding="utf-8") as f:
         f.write(merged)
 
-    log("DONE → merged_epg_playlist.m3u created.")
+    log(f"Playlist saved: {output}")
+
+# ---------------------------------------------------------
+# START
+# ---------------------------------------------------------
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        log_err("Interrupted by user.")
+    except Exception as e:
+        log_err(str(e))
