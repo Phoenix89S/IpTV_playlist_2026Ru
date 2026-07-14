@@ -5685,6 +5685,24 @@ https://cdn-euronews.akamaized.net/live/eds/euronews-ru/25071/index.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/jl3MNPe.png" group-title="Дополнительные Эфирные ТВ Плюс",85. Hit HD (1080p)
 http://hls127.freeott.top:8080/XitHD/video.m3u8
 
+#EXTINF:-1 tvg-logo="https://i.imgur.com/YdIHXOR.png" group-title="Дополнительные Эфирные ТВ Плюс",86. Bolt (576p)
+http://hls127.freeott.top:8080/Bolt/video.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/qYObfrG.png" group-title="Дополнительные Эфирные ТВ Плюс",87.1. BRIDGE (576p)
+http://31.148.48.15/Bridge_TV/index.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/JJTQq81.png" group-title="Дополнительные Эфирные ТВ Плюс",87.2. BRIDGE Classic (576p)
+http://31.148.48.15/Bridge_TV_Classic/index.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/EazL8w7.png" group-title="Дополнительные Эфирные ТВ Плюс",87.3. BRIDGE Deluxe (1080p)
+http://31.148.48.15/Bridge_TV_HD/index.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/sIW9oR4.png" group-title="Дополнительные Эфирные ТВ Плюс",87.4. BRIDGE Hits (576p)
+http://31.148.48.15/Bridge_TV_Dance/index.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/scDKOLS.png" group-title="Дополнительные Эфирные ТВ Плюс",88.1. Bollywood HD Russia (576p)
+https://xykt-fix.github.io/cinerama_edge01/hls/BOLLYWOOD_RU/Movie009.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/1j7cT2I.png" group-title="Дополнительные Эфирные ТВ Плюс",88.2. Hollywood HD (1080p)
+http://31.148.48.15/MGM_HD/index.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/8t9mdg9.png" group-title="Дополнительные Эфирные ТВ Плюс",89.1 Euronews Russian (720p)
+https://cdn-euronews.akamaized.net/live/eds/euronews-ru/25071/index.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/AqWaJT8.png" group-title="Дополнительные Эфирные ТВ Плюс",89.2 Mir Kazakhstan (576p)
+http://tvcdn01.esilnet.kz/tv/mir/index.m3u8
 
 
 
