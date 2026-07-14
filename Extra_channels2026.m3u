@@ -10817,7 +10817,24 @@ https://s70378.cdn.ngenix.net/nostalgia/2/index.m3u8
 #EXTINF:-1 tvg-id="telekafe" group-title="Дополнительные Эфирные ТВ Плюс",80. Телекафе
 https://s70378.cdn.ngenix.net/telecafe/2/index.m3u8
 
-#EXTM3U
+#EXTINF:-1 tvg-logo="https://i.imgur.com/146OgfU.png" group-title="Дополнительные Эфирные ТВ Плюс",81.1. alpha Cinema (1080p)
+https://live.15plusmg.ru/memfs/b389173a-df4e-4171-8904-e249893e71eb.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/ibQfUr7.png" group-title="Дополнительные Эфирные ТВ Плюс",81.2. alpha Moretime (1080p)
+https://live.15plusmg.ru/memfs/3546fc09-2eba-459d-9a1f-9a2fc39e50bd.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/kj21hwd.png" group-title="Дополнительные Эфирные ТВ Плюс",81.3. 15+ Music (1080p)
+https://live.15plusmg.ru/memfs/ce3366b1-bf25-4e24-96bb-1adf0d44bd3d.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/GLc4qrc.png" group-title="Дополнительные Эфирные ТВ Плюс",82. Europa Plus TV (1080p)
+http://31.148.48.15/Europa_Plus_HD/index.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/RIA_novosti_sputnik.png" group-title="Дополнительные Эфирные ТВ Плюс",83. РИА Новости (720p)
+https://live-rian.cdnvideo.ru/rian/rus-radio/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/8t9mdg9.png" group-title="Дополнительные Эфирные ТВ Плюс",84. Euronews Russian (720p)
+https://cdn-euronews.akamaized.net/live/eds/euronews-ru/25071/index.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/jl3MNPe.png" group-title="Дополнительные Эфирные ТВ Плюс",85. Hit HD (1080p)
+http://hls127.freeott.top:8080/XitHD/video.m3u8
+
+
+
+
 
 # 13.5.1 СТС Kids
 #EXTINF:-1 group-title="СТС Кидс проверка",13.5.1 СТС Kids
