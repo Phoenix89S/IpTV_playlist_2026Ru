@@ -1,0 +1,38 @@
+name: Generate-M3U-Scanner
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run m3u_scanner.py
+        run: |
+          python3 m3u_scanner.py
+
+      - name: Upload playlist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kubtel_playlist
+          path: playlist.m3u
+
+      - name: Commit & Push playlist.m3u
+        run: |
+          git config user.name "Phoenix-Auto"
+          git config user.email "actions@github.com"
+          git add playlist.m3u
+          git commit -m "Auto-update playlist.m3u"
+          git push
