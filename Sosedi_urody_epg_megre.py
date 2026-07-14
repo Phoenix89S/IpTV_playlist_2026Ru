@@ -19,13 +19,13 @@ EPG_SOURCES = [
     {
         "name": "epg.one",
         "xml": "epg2.xml",
-        "gz": "http://epg.one/epg2.xml.gz",
+        "gz": "https://epg.one/epg2.xml.gz",
         "priority": 1
     },
     {
         "name": "teleguide",
         "xml": "teleguide.xml",
-        "gz": "http://www.teleguide.info/download/new3/xmltv.xml.gz",
+        "gz": "https://www.teleguide.info/download/new3/xmltv.xml.gz",
         "priority": 2
     }
 ]
@@ -59,7 +59,7 @@ def download(url, timeout=40, retries=3):
             r = requests.get(
                 url,
                 timeout=timeout,
-                headers={"User-Agent": "Mozilla/5.0"}
+                headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
             )
             r.raise_for_status()
             return r.content
@@ -82,7 +82,8 @@ def ensure_epg_xml():
         xml_file = src["xml"]
         gz_url = src["gz"]
 
-        if os.path.exists(xml_file):
+        # Проверяем, существует ли файл и не пустой ли он
+        if os.path.exists(xml_file) and os.path.getsize(xml_file) > 0:
             log(f"Using cached {xml_file}")
             continue
 
@@ -106,6 +107,9 @@ def ensure_epg_xml():
         except Exception as e:
             err(f"Cannot unpack {src['name']}")
             err(str(e))
+            # Если распаковка не удалась, удаляем битый файл, чтобы не мешал в будущем
+            if os.path.exists(xml_file):
+                os.remove(xml_file)
 
 # ==========================================================
 # NORMALIZE CHANNEL NAME
@@ -134,7 +138,8 @@ def normalize_name(name):
     for word in REMOVE_WORDS:
         name = re.sub(rf"\b{word}\b", "", name, flags=re.IGNORECASE)
 
-    name = re.sub(r"[^\wа-я]+", " ", name)
+    # Очистка спецсимволов, оставляем только буквы и цифры
+    name = re.sub(r"[^\wа-яa-z0-9]+", " ", name)
     name = re.sub(r"\s+", " ", name)
 
     return name.strip()
@@ -166,6 +171,11 @@ def load_epg_all():
             tree = ET.parse(xml_file)
         except Exception as e:
             err(f"Cannot parse {xml_file}: {e}")
+            # Если файл поврежден, удалим его, чтобы в следующий раз он скачался заново
+            try:
+                os.remove(xml_file)
+            except:
+                pass
             continue
 
         root = tree.getroot()
@@ -295,7 +305,7 @@ def build_playlist(channels, exact_names, normalized):
     log("Building playlist...")
 
     out = [
-        '#EXTM3U url-tvg="http://epg.one/epg2.xml.gz,http://www.teleguide.info/download/new3/xmltv.xml.gz"'
+        '#EXTM3U url-tvg="https://epg.one/epg2.xml.gz,https://www.teleguide.info/download/new3/xmltv.xml.gz"'
     ]
 
     matched = 0
@@ -346,7 +356,8 @@ def main():
         err("Cannot download playlist")
         return
 
-    playlist = playlist.decode("utf-8", errors="ignore")
+    # Декодируем с поддержкой utf-8-sig для удаления возможного BOM-маркера в начале файла
+    playlist = playlist.decode("utf-8-sig", errors="ignore")
 
     channels = parse_m3u(playlist)
 
@@ -367,5 +378,4 @@ if __name__ == "__main__":
         main()
     except Exception as e:
         err(str(e))
-        # НЕ падаем — GitHub Actions должен завершиться успешно
         pass
