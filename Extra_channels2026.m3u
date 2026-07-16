@@ -10751,8 +10751,18 @@ https://s70378.cdn.ngenix.net/national_geographic/2/index.m3u8
 http://hls127.freeott.top:8080/Nat_Geo_Wild_SD/video.m3u8
 
 
-#EXTINF:-1 tvg-id="rtg-hd" group-title="Дополнительные Эфирные ТВ Плюс",44. RTG HD
+#EXTINF:-1 tvg-id="RTG_HD" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/RTG_HD.png" group-title="Дополнительные Эфирные ТВ Плюс",44. RTG HD
 https://s70378.cdn.ngenix.net/rtg_hd/3/index.m3u8
+
+#EXTINF:-1 tvg-id="RTG_Int" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/RTG_Int.png" group-title="Дополнительные Эфирные ТВ Плюс",44.1 RTG Int.
+http://213.91.179.28:8000/play/a0bw
+
+#EXTINF:-1 tvg-id="RTG_TV" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/RTG_HD.png" group-title="Дополнительные Эфирные ТВ Плюс",44.2 RTG TV (720p)
+http://31.148.48.15/RTG_HD/index.m3u8
+#EXTINF:-1 tvg-id="RTG_HD" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/RTG_HD.png" group-title="Дополнительные Эфирные ТВ Плюс",44.3 RTG HD
+https://s70378.cdn.ngenix.net/rtg_hd/2/index.m3u8
+
+
 #EXTINF:-1 tvg-id="300001" group-title="Дополнительные Эфирные ТВ Плюс",45. Sci-Fi
 https://s70378.cdn.ngenix.net/sony_sci_fi/2/index.m3u8
 #EXTINF:-1 tvg-id="3218" group-title="Дополнительные Эфирные ТВ Плюс",46. Terra
