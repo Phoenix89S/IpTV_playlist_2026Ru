@@ -4218,6 +4218,10 @@ http://212.86.228.87:5027/udp/239.1.0.67:1234
 #EXTINF:-1 tvg-id="football" tvg-logo="https://iptvx.one/picons/ntv-plus-football.png" group-title="НТВ+",1.14 НТВ+ Футбол
 http://212.86.228.87:5027/udp/239.1.0.68:1234
 
+#EXTINF:-1 tvg-id="ntv_vitrina" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/NTV_logo_2003.svg/1280px-NTV_logo_2003.svg.png" group-title="НТВ",1.15 NTV Vitrina (720p)
+https://cdn.ntv.ru/vitrina/index.m3u8
+
+
 #---------------- КОНЕЦ КЛАСТЕРА НТВ -----------
 
 
