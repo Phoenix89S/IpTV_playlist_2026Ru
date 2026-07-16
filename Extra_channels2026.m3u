@@ -1366,6 +1366,11 @@ http://cdn.ntv.ru/th_pravo/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="neizvestnaya-rosia" tvg-logo="https://iptvx.one/picons/neizvestnaya-rosia.png" group-title="Эфирные ТВ плюс",27.5 Неизвестная Россия HD
 https://cdn.ntv.ru/unknown_russia/tracks-v1a1/playlist.m3u8
 
+#27.6 НТВ Витрина - Семейство НТВ
+#EXTINF:-1 tvg-id="ntv_vitrina" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/NTV_logo_2003.svg/1280px-NTV_logo_2003.svg.png" group-title="Эфирные ТВ плюс",27.6 NTV Vitrina (720p)
+https://cdn.ntv.ru/vitrina/index.m3u8
+
+
 #-------------кнопка 28-28.2: Группа 5 канал ------------
 
 # 28. Пятый канал HD — HD-версия РТРС №5
