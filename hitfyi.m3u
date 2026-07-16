@@ -103,3 +103,112 @@ https://cdn.ntv.ru/ntvhit/index.m3u8
 # НТВ Сериал HD
 #EXTINF:-1 tvg-id="ntv_serial_hd" group-title="НТВ",НТВ Сериал HD
 https://cdn.ntv.ru/ntvserialhd/index.m3u8
+
+
+# 1.01 Первый канал
+#EXTINF:-1 tvg-id="1tv" group-title="CDN НТВ",1.01 Первый канал
+https://cdn.ntv.ru/1tv/index.m3u8
+
+# 1.02 Россия 1
+#EXTINF:-1 tvg-id="russia1" group-title="CDN НТВ",1.02 Россия 1
+https://cdn.ntv.ru/russia1/index.m3u8
+
+# 1.03 Матч ТВ
+#EXTINF:-1 tvg-id="matchtv" group-title="CDN НТВ",1.03 Матч ТВ
+https://cdn.ntv.ru/matchtv/index.m3u8
+
+# 1.04 НТВ
+#EXTINF:-1 tvg-id="ntv" group-title="CDN НТВ",1.04 НТВ
+https://cdn.ntv.ru/ntv/index.m3u8
+
+# 1.05 Пятый канал
+#EXTINF:-1 tvg-id="5kanal" group-title="CDN НТВ",1.05 Пятый канал
+https://cdn.ntv.ru/5kanal/index.m3u8
+
+# 1.06 Россия К
+#EXTINF:-1 tvg-id="russia_k" group-title="CDN НТВ",1.06 Россия К
+https://cdn.ntv.ru/russiak/index.m3u8
+
+# 1.07 Россия 24
+#EXTINF:-1 tvg-id="russia24" group-title="CDN НТВ",1.07 Россия 24
+https://cdn.ntv.ru/russia24/index.m3u8
+
+# 1.08 Карусель
+#EXTINF:-1 tvg-id="karusel" group-title="CDN НТВ",1.08 Карусель
+https://cdn.ntv.ru/karusel/index.m3u8
+
+# 1.09 ОТР
+#EXTINF:-1 tvg-id="otr" group-title="CDN НТВ",1.09 ОТР
+https://cdn.ntv.ru/otr/index.m3u8
+
+# 1.10 ТВ Центр
+#EXTINF:-1 tvg-id="tvc" group-title="CDN НТВ",1.10 ТВ Центр
+https://cdn.ntv.ru/tvc/index.m3u8
+
+# 1.11 РЕН ТВ
+#EXTINF:-1 tvg-id="rentv" group-title="CDN НТВ",1.11 РЕН ТВ
+https://cdn.ntv.ru/rentv/index.m3u8
+
+# 1.12 Спас
+#EXTINF:-1 tvg-id="spas" group-title="CDN НТВ",1.12 Спас
+https://cdn.ntv.ru/spas/index.m3u8
+
+# 1.13 СТС
+#EXTINF:-1 tvg-id="sts" group-title="CDN НТВ",1.13 СТС
+https://cdn.ntv.ru/sts/index.m3u8
+
+# 1.14 Домашний
+#EXTINF:-1 tvg-id="domashniy" group-title="CDN НТВ",1.14 Домашний
+https://cdn.ntv.ru/domashniy/index.m3u8
+
+# 1.15 ТВ3
+#EXTINF:-1 tvg-id="tv3" group-title="CDN НТВ",1.15 ТВ3
+https://cdn.ntv.ru/tv3/index.m3u8
+
+# 1.16 Пятница
+#EXTINF:-1 tvg-id="pyatnica" group-title="CDN НТВ",1.16 Пятница
+https://cdn.ntv.ru/pyatnica/index.m3u8
+
+# 1.17 Звезда
+#EXTINF:-1 tvg-id="zvezda" group-title="CDN НТВ",1.17 Звезда
+https://cdn.ntv.ru/zvezda/index.m3u8
+
+# 1.18 Мир
+#EXTINF:-1 tvg-id="mir" group-title="CDN НТВ",1.18 Мир
+https://cdn.ntv.ru/mir/index.m3u8
+
+# 1.19 ТНТ
+#EXTINF:-1 tvg-id="tnt" group-title="CDN НТВ",1.19 ТНТ
+https://cdn.ntv.ru/tnt/index.m3u8
+
+# 1.20 Муз ТВ
+#EXTINF:-1 tvg-id="muztv" group-title="CDN НТВ",1.20 Муз ТВ
+https://cdn.ntv.ru/muztv/index.m3u8
+
+# 1.15 НТВ Витрина (720p)
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/NTV_logo_2003.svg/1280px-NTV_logo_2003.svg.png" group-title="CDN НТВ",1.15 НТВ Витрина (720p)
+https://cdn.ntv.ru/vitrina/index.m3u8
+
+# 1.16 НТВ Мир
+#EXTINF:-1 tvg-id="ntv_mir" group-title="CDN НТВ",1.16 НТВ Мир
+https://cdn.ntv.ru/ntvmir/index.m3u8
+
+# 1.17 НТВ Право
+#EXTINF:-1 tvg-id="ntv_pravo" group-title="CDN НТВ",1.17 НТВ Право
+https://cdn.ntv.ru/ntvpravo/index.m3u8
+
+# 1.18 НТВ Беларусь
+#EXTINF:-1 tvg-id="ntv_belarus" group-title="CDN НТВ",1.18 НТВ Беларусь
+https://cdn.ntv.ru/ntvbelarus/index.m3u8
+
+# 1.19 НТВ Стиль
+#EXTINF:-1 tvg-id="ntv_style" group-title="CDN НТВ",1.19 НТВ Стиль
+https://cdn.ntv.ru/ntvstyle/index.m3u8
+
+# 1.20 НТВ Хит
+#EXTINF:-1 tvg-id="ntv_hit" group-title="CDN НТВ",1.20 НТВ Хит
+https://cdn.ntv.ru/ntvhit/index.m3u8
+
+# 1.21 НТВ Сериал HD
+#EXTINF:-1 tvg-id="ntv_serial_hd" group-title="CDN НТВ",1.21 НТВ Сериал HD
+https://cdn.ntv.ru/ntvserialhd/index.m3u8
