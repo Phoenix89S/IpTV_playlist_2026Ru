@@ -1,0 +1,105 @@
+#EXTM3U
+
+# 1 Первый канал
+#EXTINF:-1 tvg-id="1tv" group-title="Эфирные ТВ плюс",Первый канал
+https://cdn.ntv.ru/1tv/index.m3u8
+
+# 2 Россия 1
+#EXTINF:-1 tvg-id="russia1" group-title="Эфирные ТВ плюс",Россия 1
+https://cdn.ntv.ru/russia1/index.m3u8
+
+# 3 Матч ТВ
+#EXTINF:-1 tvg-id="matchtv" group-title="Эфирные ТВ плюс",Матч ТВ
+https://cdn.ntv.ru/matchtv/index.m3u8
+
+# 4 НТВ
+#EXTINF:-1 tvg-id="ntv" group-title="Эфирные ТВ плюс",НТВ
+https://cdn.ntv.ru/ntv/index.m3u8
+
+# 5 Пятый канал
+#EXTINF:-1 tvg-id="5kanal" group-title="Эфирные ТВ плюс",Пятый канал
+https://cdn.ntv.ru/5kanal/index.m3u8
+
+# 6 Россия К
+#EXTINF:-1 tvg-id="russia_k" group-title="Эфирные ТВ плюс",Россия К
+https://cdn.ntv.ru/russiak/index.m3u8
+
+# 7 Россия 24
+#EXTINF:-1 tvg-id="russia24" group-title="Эфирные ТВ плюс",Россия 24
+https://cdn.ntv.ru/russia24/index.m3u8
+
+# 8 Карусель
+#EXTINF:-1 tvg-id="karusel" group-title="Эфирные ТВ плюс",Карусель
+https://cdn.ntv.ru/karusel/index.m3u8
+
+# 9 ОТР
+#EXTINF:-1 tvg-id="otr" group-title="Эфирные ТВ плюс",ОТР
+https://cdn.ntv.ru/otr/index.m3u8
+
+# 10 ТВ Центр
+#EXTINF:-1 tvg-id="tvc" group-title="Эфирные ТВ плюс",ТВ Центр
+https://cdn.ntv.ru/tvc/index.m3u8
+
+# 11 РЕН ТВ
+#EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ плюс",РЕН ТВ
+https://cdn.ntv.ru/rentv/index.m3u8
+
+# 12 Спас
+#EXTINF:-1 tvg-id="spas" group-title="Эфирные ТВ плюс",Спас
+https://cdn.ntv.ru/spas/index.m3u8
+
+# 13 СТС
+#EXTINF:-1 tvg-id="sts" group-title="Эфирные ТВ плюс",СТС
+https://cdn.ntv.ru/sts/index.m3u8
+
+# 14 Домашний
+#EXTINF:-1 tvg-id="domashniy" group-title="Эфирные ТВ плюс",Домашний
+https://cdn.ntv.ru/domashniy/index.m3u8
+
+# 15 ТВ3
+#EXTINF:-1 tvg-id="tv3" group-title="Эфирные ТВ плюс",ТВ3
+https://cdn.ntv.ru/tv3/index.m3u8
+
+# 16 Пятница
+#EXTINF:-1 tvg-id="pyatnica" group-title="Эфирные ТВ плюс",Пятница
+https://cdn.ntv.ru/pyatnica/index.m3u8
+
+# 17 Звезда
+#EXTINF:-1 tvg-id="zvezda" group-title="Эфирные ТВ плюс",Звезда
+https://cdn.ntv.ru/zvezda/index.m3u8
+
+# 18 Мир
+#EXTINF:-1 tvg-id="mir" group-title="Эфирные ТВ плюс",Мир
+https://cdn.ntv.ru/mir/index.m3u8
+
+# 19 ТНТ
+#EXTINF:-1 tvg-id="tnt" group-title="Эфирные ТВ плюс",ТНТ
+https://cdn.ntv.ru/tnt/index.m3u8
+
+# 20 Муз ТВ
+#EXTINF:-1 tvg-id="muztv" group-title="Эфирные ТВ плюс",Муз ТВ
+https://cdn.ntv.ru/muztv/index.m3u8
+
+# НТВ Мир
+#EXTINF:-1 tvg-id="ntv_mir" group-title="НТВ",НТВ Мир
+https://cdn.ntv.ru/ntvmir/index.m3u8
+
+# НТВ Право
+#EXTINF:-1 tvg-id="ntv_pravo" group-title="НТВ",НТВ Право
+https://cdn.ntv.ru/ntvpravo/index.m3u8
+
+# НТВ Беларусь
+#EXTINF:-1 tvg-id="ntv_belarus" group-title="НТВ",НТВ Беларусь
+https://cdn.ntv.ru/ntvbelarus/index.m3u8
+
+# НТВ Стиль
+#EXTINF:-1 tvg-id="ntv_style" group-title="НТВ",НТВ Стиль
+https://cdn.ntv.ru/ntvstyle/index.m3u8
+
+# НТВ Хит
+#EXTINF:-1 tvg-id="ntv_hit" group-title="НТВ",НТВ Хит
+https://cdn.ntv.ru/ntvhit/index.m3u8
+
+# НТВ Сериал HD
+#EXTINF:-1 tvg-id="ntv_serial_hd" group-title="НТВ",НТВ Сериал HD
+https://cdn.ntv.ru/ntvserialhd/index.m3u8
