@@ -5697,8 +5697,11 @@ https://s70378.cdn.ngenix.net/da_vinci/2/index.m3u8
 https://s70378.cdn.ngenix.net/docubox/2/index.m3u8
 #EXTINF:-1 tvg-id="galaxy" group-title="Дополнительные Эфирные ТВ Плюс",42. Galaxy
 https://s70378.cdn.ngenix.net/galaxy/2/index.m3u8
-#EXTINF:-1 tvg-id="nat-geo" group-title="Дополнительные Эфирные ТВ Плюс",43. Nat Geo
+#EXTINF:-1 tvg-id="national-geographic" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/National_Geographic_Ru.png" group-title="Дополнительные Эфирные ТВ Плюс",43. Nat Geo
 https://s70378.cdn.ngenix.net/national_geographic/2/index.m3u8
+
+#EXTINF:-1 tvg-id="national-geographic-wild" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/icons/Nat_Geo_Wild.png" group-title="Дополнительные Эфирные ТВ Плюс",43.1 Nat Geo Wild
+http://hls127.freeott.top:8080/Nat_Geo_Wild_SD/video.m3u8
 #EXTINF:-1 tvg-id="rtg-hd" group-title="Дополнительные Эфирные ТВ Плюс",44. RTG HD
 https://s70378.cdn.ngenix.net/rtg_hd/3/index.m3u8
 #EXTINF:-1 tvg-id="300001" group-title="Дополнительные Эфирные ТВ Плюс",45. Sci-Fi
