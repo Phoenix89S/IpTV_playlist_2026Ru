@@ -10781,6 +10781,14 @@ https://s70378.cdn.ngenix.net/hd_life/2/index.m3u8
 https://tass-hls.servicecdn.ru/httpstreamer/tass-loop-main.stream/playlist.m3u8
 #EXTINF:-1 tvg-id="300082" group-title="Дополнительные Эфирные ТВ Плюс",58. Gulli Girl
 https://s70378.cdn.ngenix.net/gulli/2/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.imgur.com/kqYssbW.png" group-title="Дополнительные Эфирные ТВ Плюс",58.1. Gulli
+http://99.27.51.147:8080/Gulli/index.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/lbViDuC.png" group-title="Дополнительные Эфирные ТВ Плюс",58.2. Gulli Girl (720p)
+https://stream8.cinerama.uz/1445/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/kqYssbW.png" group-title="Дополнительные Эфирные ТВ Плюс",58.3. Gulli HD (720p)
+http://41.205.77.102/GULLI/index.m3u8
+
 #EXTINF:-1 tvg-id="nickelodeon" group-title="Дополнительные Эфирные ТВ Плюс",59. Nickelodeon
 https://s70378.cdn.ngenix.net/nickelodeon/2/index.m3u8
 #EXTINF:-1 tvg-id="100054" group-title="Дополнительные Эфирные ТВ Плюс",60. Tiji
