@@ -809,3 +809,7 @@ https://stream8.cinerama.uz/1424/tracks-v1a1/mono.m3u8
 https://stream8.cinerama.uz/1424/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-logo="http://epg.one/img2/2800.pnghttp://epg.one/img2/2801.png" group-title="4K4K",Инсайт ТВ UHDLove Nature 4K
 http://starcius-cinema.com/10840/index.m3u8?token=010101010101
+
+#EXTINF:-1 tvg-id="scream" tvg-logo="https://iptvx.one/picons/scream.png" group-title="Кинозал",Scream (HD)
+http://88.218.242.237:8000/play/a00c
+
