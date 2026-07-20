@@ -7,7 +7,7 @@ https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1/variant.m3u8
 https://zabava-htlive.cdn.ngenix.net/hls/CH_NTV/variant.m3u8
 #EXTINF:-1 tvg-logo="http://epg.one/img2/18.png" group-title="новости",РЕН ТВ UHD
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV/variant.m3u8
-#EXTINF:-1 tvg-logo="http://epg.one/img2/9052.pnghttp://epg.one/img2/9051.pnghttp://epg.one/img2/2032.pnghttp://epg.one/img2/743.pnghttp://epg.one/img2/6596.pnghttp://epg.one/img2/6598.pnghttp://epg.one/img2/743.png" group-title="новостиновостиновостиновостиновостиновостиновости",Экоспаскоми (Коми)Sky Sports News HD 50 UKКрик ТВ HDРБК HD 50BBC First HD UKBBC Scotland HD UKРБК HD
+#EXTINF:-1 tvg-logo="http://epg.one/img2/9052.pnghttp://epg.one/img2/9051.pnghttp://epg.one/img2/2032.pnghttp://epg.one/img2/743.pnghttp://epg.one/img2/6596.pnghttp://epg.one/img2/6598.pnghttp://epg.one/img2/743.png" group-title="новостиновостиновостиновостиновостиновостиновости",Экоспаскоми (Коми)Sky Sports News HD 50 РБК HD
 http://online.video.rbc.ru/online/rbctvhd_1080p/index.m3u8
 #EXTINF:-1 tvg-logo="http://epg.one/img2/711.pnghttp://epg.one/img2/711.pnghttp://epg.one/img2/2264.png" group-title="новостиновостиновости",Россия 1 +0 (Элиста)Россия 1 +0 (Тамбов)Инфоканал
 https://github.com/CrocoUser/files/raw/refs/heads/main/infokanal.m3u8
