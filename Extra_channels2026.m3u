@@ -10878,6 +10878,18 @@ http://31.148.48.15/Bridge_TV_Classic/index.m3u8
 http://31.148.48.15/Bridge_TV_HD/index.m3u8
 #EXTINF:-1 tvg-id="bridge-hits" tvg-logo="https://i.imgur.com/sIW9oR4.png" group-title="Дополнительные Эфирные ТВ Плюс",87.4. BRIDGE Hits (576p)
 http://31.148.48.15/Bridge_TV_Dance/index.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/591.png" group-title="Дополнительные Эфирные ТВ Плюс",87.5. Bridge Русский Хит
+http://193.25.8.59:8000/rusong
+#EXTINF:-1 tvg-logo="http://epg.one/img2/151.png" group-title="Дополнительные Эфирные ТВ Плюс",87.6. Bridge TV
+http://46.32.176.50/bridgetv/index.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/2024.png" group-title="Дополнительные Эфирные ТВ Плюс",87.7. Bridge Hits
+http://5.188.159.128:8070/Bridge_TV_Hits/index.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/4621.png" group-title="Дополнительные Эфирные ТВ Плюс",87.8. Bridge Шлягер
+http://31.210.208.171:8080/bridge_shlyager/index.m3u8?token=+W2MSER
+#EXTINF:-1 tvg-logo="http://epg.one/img2/6188.png" group-title="Дополнительные Эфирные ТВ Плюс",87.9. Bridge Rock
+http://31.210.208.171:8080/bridge_rock/index.m3u8?token=+W2MSER
+
+
 #EXTINF:-1 tvg-id="bollywood-hd" tvg-logo="https://i.imgur.com/scDKOLS.png" group-title="Дополнительные Эфирные ТВ Плюс",88.1. Bollywood HD Russia (576p)
 https://xykt-fix.github.io/cinerama_edge01/hls/BOLLYWOOD_RU/Movie009.m3u8
 #EXTINF:-1 tvg-id="hollywood-hd" tvg-logo="https://i.imgur.com/1j7cT2I.png" group-title="Дополнительные Эфирные ТВ Плюс",88.2. Hollywood HD (1080p)
