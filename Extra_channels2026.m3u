@@ -11076,7 +11076,7 @@ http://cdn2.ntv.ru/th_hit/playlist.m3u8
 http://31.210.208.171:8080/fan/index.m3u8?token=+W2MSER
 #EXTINF:-1 tvg-logo="http://epg.one/img2/1754.png" group-title="ЭфирныеТВ Плюс Мир",4.11 НТВ Сериал
 http://ott.watch/stream/6HAPZWKKG3/301.m3u8
-#EXTINF:-1 tvg-logo="http://epg.one/img2/518.png" group-title="кино",НСТ
+#EXTINF:-1 tvg-logo="http://epg.one/img2/518.png" group-title="ЭфирныеТВ Плюс Мир",НСТ
 http://ott.watch/stream/6HAPZWKKG3/207.m3u8
 #EXTINF:-1 tvg-logo="http://epg.one/img2/2275.png" group-title="ЭфирныеТВ Плюс Мир",Мир Сериала
 http://31.148.48.15:80/Mir_Seriala/index.m3u8
