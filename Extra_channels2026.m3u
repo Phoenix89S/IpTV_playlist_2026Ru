@@ -11010,7 +11010,92 @@ https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1/variant.m3u8
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1_2/variant.m3u8
 #EXTINF:-1 tvg-logo="http://epg.one/img2/3001.png" group-title="ЭфирныеТВ Плюс Мир" timeshift="+4",Россия 1 +4
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1_4/variant.m3u8
-
+#EXTINF:-1 tvg-logo="http://epg.one/img2/3002.png" group-title="ЭфирныеТВ Плюс Мир" timeshift="+6",Россия 1 +6
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1_7/variant.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/711.png" group-title="ЭфирныеТВ Плюс Мир",Россия 1 +8
+https://vgtrkregion-reg.cdnvideo.ru/vgtrk/8/russia1-hd/index.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/1683.png" group-title="ЭфирныеТВ Плюс Мир",Россия 24
+http://91.210.192.13:1000/russia-24
+#EXTINF:-1 tvg-id="russua-24" tvg-logo="http://epg.one/img2/1683.png" group-title="ЭфирныеТВ Плюс Мир" timeshift="+0",Россия 24 HD
+http://91.210.192.13:1000/russia-24
+#EXTINF:-1 tvg-logo="http://epg.one/img2/2975.png" group-title="ЭфирныеТВ Плюс Мир" timeshift="+2",Россия 24 +2
+http://rt-ural-ekt-htlive.cdn.ngenix.net/hls/CH_R01_OTT_ROSSIA24_EKT/variant.m3u8?version=2
+#EXTINF:-1 tvg-logo="http://epg.one/img2/88038.png" group-title="ЭфирныеТВ Плюс Мир",Известия Магадан
+http://s20441.cdn.ngenix.net/hls/CH_R49_MGTK/variant.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/2271.png" group-title="ЭфирныеТВ Плюс Мир",Известия HD
+http://s20441.cdn.ngenix.net/hls/CH_R49_MGTK/variant.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/2547.png" group-title="ЭфирныеТВ Плюс Мир",РТР Планета
+https://player.smotrim.ru/iframe/stream/live_id/63251
+#EXTINF:-1 tvg-logo="http://epg.one/img2/9057.png" group-title="ЭфирныеТВ Плюс Мир",Viju TV1000 Новелла HD
+http://starcius-cinema.com/10114/index.m3u8?token=010101010101
+#EXTINF:-1 tvg-logo="http://epg.one/img2/9065.png" group-title="ЭфирныеТВ Плюс Мир",VHS-ка HD
+http://starcius-cinema.com/10113/index.m3u8?token=010101010101
+#EXTINF:-1 tvg-logo="http://epg.one/img2/935.png" group-title="ЭфирныеТВ Плюс Мир",black HD
+http://ott.watch/stream/6HAPZWKKG3/263.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/1322.png" group-title="ЭфирныеТВ Плюс Мир",СТС Love
+https://zabava-htlive.cdn.ngenix.net/hls/CH_STSLOVE/variant.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/2492.png" group-title="ЭфирныеТВ Плюс Мир",Amedia 2
+http://31148.rafail1982.uz/A2/index.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/799.png" group-title="ЭфирныеТВ Плюс Мир",Киносерия
+https://stream8.cinerama.uz/1235/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/352.png" group-title="ЭфирныеТВ Плюс Мир",Еврокино
+http://ott.watch/stream/6HAPZWKKG3/385.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/7314.png" group-title="ЭфирныеТВ Плюс Мир",Кинеко
+http://31.148.48.15/Kineko_HD/index.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/834.png" group-title="ЭфирныеТВ Плюс Мир",Дом Кино
+https://stream8.cinerama.uz/1054/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/1371.png" group-title="ЭфирныеТВ Плюс Мир",Amedia 1
+http://31148.rafail1982.uz/A1/index.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/1372.png" group-title="ЭфирныеТВ Плюс Мир",Amedia Premium
+http://45.145.32.13:20440/amedia_premium_hd/index.m3u8?token=test
+#EXTINF:-1 tvg-logo="http://epg.one/img2/1584.png" group-title="ЭфирныеТВ Плюс Мир",Мужское Кино
+https://stream8.cinerama.uz/1237/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/608.png" group-title="ЭфирныеТВ Плюс Мир",Hollywood
+https://stream8.cinerama.uz/1443/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/935.png" group-title="ЭфирныеТВ Плюс Мир",.black
+http://ott.watch/stream/6HAPZWKKG3/263.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/994.png" group-title="ЭфирныеТВ Плюс Мир",Русский бестселлер
+http://ott.watch/stream/6HAPZWKKG3/208.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/401.png" group-title="ЭфирныеТВ Плюс Мир",Русский роман
+http://vod.tuva.ru/rusroman/index.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/1570.png" group-title="ЭфирныеТВ Плюс Мир",Русский детектив
+http://ott.watch/stream/6HAPZWKKG3/204.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/477.png" group-title="ЭфирныеТВ Плюс Мир",Любимое Кино
+http://176.118.197.101/LubimoeKino/index.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/1037.png" group-title="ЭфирныеТВ Плюс Мир",Кино ТВ
+http://vod.tuva.ru/kinotv/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/1620.png" group-title="ЭфирныеТВ Плюс Мир",Комедия
+http://ott.watch/stream/6HAPZWKKG3/68.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/7942.png" group-title="ЭфирныеТВ Плюс Мир",Eye Cyber HD
+http://176.118.197.101/MirSeriala/index.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/2359.png" group-title="ЭфирныеТВ Плюс Мир",FAN
+http://31.210.208.171:8080/fan/index.m3u8?token=+W2MSER
+#EXTINF:-1 tvg-logo="http://epg.one/img2/2041.png" group-title="ЭфирныеТВ Плюс Мир",4.12 НТВ Хит
+http://cdn2.ntv.ru/th_hit/playlist.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/2359.png" group-title="ЭфирныеТВ Плюс Мир",FAN HD
+http://31.210.208.171:8080/fan/index.m3u8?token=+W2MSER
+#EXTINF:-1 tvg-logo="http://epg.one/img2/1754.png" group-title="ЭфирныеТВ Плюс Мир",4.11 НТВ Сериал
+http://ott.watch/stream/6HAPZWKKG3/301.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/518.png" group-title="кино",НСТ
+http://ott.watch/stream/6HAPZWKKG3/207.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/2275.png" group-title="ЭфирныеТВ Плюс Мир",Мир Сериала
+http://31.148.48.15:80/Mir_Seriala/index.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/2402.png" group-title="ЭфирныеТВ Плюс Мир",Ретро
+http://176.118.197.101/Retro/index.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/2403.png" group-title="ЭфирныеТВ Плюс Мир",Иллюзион+
+http://176.118.197.101/Illuzion+/index.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/3357.png" group-title="ЭфирныеТВ Плюс Мир",Мосфильм. Золотая коллекция
+http://178.134.1.158:8081/mosfilm/index.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/3361.png" group-title="ЭфирныеТВ Плюс Мир",Trash HD
+http://starcius-cinema.com/10206/index.m3u8?token=010101010101
+#EXTINF:-1 tvg-logo="http://epg.one/img2/2732.png" group-title="ЭфирныеТВ Плюс Мир",Премиальное HD
+http://ott.watch/stream/6HAPZWKKG3/421.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/774.png" group-title="ЭфирныеТВ Плюс Мир",FlixSnip HD
+http://45.145.32.13:20440/flixsnip/index.m3u8?token=test
+#EXTINF:-1 tvg-logo="http://epg.one/img2/4682.pnghttp://epg.one/img2/4683.pnghttp://epg.one/img2/4684.pnghttp://epg.one/img2/4685.pnghttp://epg.one/img2/4686.pnghttp://epg.one/img2/4687.png" group-title="ЭфирныеТВ Плюс Мир",CineMan Marvel
+http://ott.watch/stream/D17LBTRCERA/354.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/4688.pnghttp://epg.one/img2/4689.pnghttp://epg.one/img2/4690.png" group-title="ЭфирныеТВ Плюс Мир",CineMan VHS
+http://ott.watch/stream/D17LBTRCERA/474.m3u8
 
 
 
