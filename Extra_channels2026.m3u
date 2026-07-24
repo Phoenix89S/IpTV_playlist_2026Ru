@@ -10964,6 +10964,53 @@ https://s70378.cdn.ngenix.net/jivi/3/index.m3u8
 #EXTINF:-1 tvg-id="jivi" tvg-logo="https://iptvx.one/picons/jivi.png" group-title="Спорт и Здоровье",1.4 Живи
 https://s70378.cdn.ngenix.net/jivi/4/index.m3u8
 
+#EXTINF:-1 tvg-logo="http://epg.one/img2/146.png" tvg-country="Россия" tvg-language="русский" group-title="ЭфирныеТВ Плюс Мир" timeshift-days="7" catchup-days="14",Первый канал UHD
+http://serv30.vintera.tv:8081/restream/1_old/playlist.m3u8?wmsAuthSign=c2VydmVyX3RpbWU9Ny82LzIwMjUgMTo0OToyMyBQTSZoYXNoX3ZhbHVlPTVDZkpPbWo5L3dvM2tqNnQ5dDQvK3c9PSZ2YWxpZG1pbnV0ZXM9NDgw
+#EXTINF:-1 tvg-logo="http://epg.one/img2/711.png" group-title="ЭфирныеТВ Плюс Мир",Россия 1 UHD
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1/variant.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/162.png" group-title="ЭфирныеТВ Плюс Мир",НТВ UHD
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NTV/variant.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/162.png" group-title="ЭфирныеТВ Плюс Мир",НТВ +2
+http://cdn2.ntv.ru/ntv2/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/427.png" group-title="ЭфирныеТВ Плюс Мир",Пятый канал +2
+http://zabava-htlive.cdn.ngenix.net/hls/CH_5TV_2/variant.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/743.png" group-title="ЭфирныеТВ Плюс Мир",РБК HD
+http://online.video.rbc.ru/online/rbctvhd_1080p/index.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/743.png" group-title="ЭфирныеТВ Плюс Мир",РБК
+http://online.video.rbc.ru/online/rbctvhd_1080p/index.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/334.png" group-title="ЭфирныеТВ Плюс Мир",Москва 24
+https://rt-mos-htlive.cdn.ngenix.net/hls/CH_R04_OTT_MOSKOV24/variant.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/2078.png" group-title="ЭфирныеТВ Плюс Мир",Мир 24
+https://hls-mirtv.cdnvideo.ru/mirtv-parampublish/mir24_2500/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/690.png" group-title="ЭфирныеТВ Плюс Мир",Санкт-Петербург
+https://live-topspb-geo.cdnvideo.ru/topspb-m4f/m4f-stream/playlist.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/18.png" group-title="ЭфирныеТВ Плюс Мир",РЕН ТВ UHD
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV/variant.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/2265.png" group-title="ЭфирныеТВ Плюс Мир",360
+https://live-vgtrksmotrim.cdnvideo.ru/vgtrksmotrim/smotrim-live-03-srt.smil/playlist.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/2267.png" group-title="ЭфирныеТВ Плюс Мир",CGTN
+https://stream8.cinerama.uz/1253/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/2269.png" group-title="ЭфирныеТВ Плюс Мир",RT News
+https://rt-glb.rttv.com/live/rtnews/playlist.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/2398.png" group-title="ЭфирныеТВ Плюс Мир",Вместе-РФ
+https://qcpdqumitwf.a.trbcdn.net/livemastersrt/pr4mw_lvie-vmesterf-srt.smil/playlist.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/146.png" group-title="ЭфирныеТВ Плюс Мир",Первый канал
+http://serv30.vintera.tv:8081/restream/1_old/playlist.m3u8?wmsAuthSign=c2VydmVyX3RpbWU9Ny82LzIwMjUgMTo0OToyMyBQTSZoYXNoX3ZhbHVlPTVDZkpPbWo5L3dvM2tqNnQ5dDQvK3c9PSZ2YWxpZG1pbnV0ZXM9NDgw
+#EXTINF:-1 tvg-logo="http://epg.one/img2/2034.png" group-title="ЭфирныеТВ Плюс Мир" timeshift="+2",Первый канал +2
+http://rt-ural-ekt-htlive.cdn.ngenix.net/hls/CH_R03_OTT_1TV_EKT/variant.m3u8?version=2
+#EXTINF:-1 tvg-logo="http://epg.one/img2/3025.png" group-title="ЭфирныеТВ Плюс Мир",Первый канал ( +4 Тува)
+http://tv.tuva.ru/ort/index.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/20.png" group-title="ЭфирныеТВ Плюс Мир" timeshift="+6",Первый канал +6
+http://zabava-htlive.cdn.ngenix.net/hls/CH_1TVSD_6/variant.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/3027.png" group-title="ЭфирныеТВ Плюс Мир" timeshift="+6",Первый канал +8
+http://zabava-htlive.cdn.ngenix.net/hls/CH_1TVSD_8/variant.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/711.png" group-title="ЭфирныеТВ Плюс Мир",Россия 1
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1/variant.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/3000.png" group-title="ЭфирныеТВ Плюс Мир" timeshift="+2",Россия 1 +2
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1_2/variant.m3u8
+#EXTINF:-1 tvg-logo="http://epg.one/img2/3001.png" group-title="ЭфирныеТВ Плюс Мир" timeshift="+4",Россия 1 +4
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1_4/variant.m3u8
+
 
 
 
