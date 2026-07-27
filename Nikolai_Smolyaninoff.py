@@ -1,8 +1,7 @@
 # ============================================================
-#  Сканер Николая Смольянинова — УЛЬТРА-АГРЕССИВНЫЙ (Исправленный)
-#  20 федеральных + всё НТВ + кино + детские + спорт + документальные
-#  Ищет ВСЕ потоки + парсит master/media + проверяет живость сегментов
-#  Лог: СКАЛА ЧАЭС — телетайп
+# Сканер Николая Смольянинова — УЛЬТРА-АГРЕССИВНЫЙ (финал)
+# 20 федеральных + всё НТВ + кино + детские + спорт + документальные
+# Ищет ВСЕ потоки + парсит master/media + проверяет живость сегментов
 # ============================================================
 
 import requests
@@ -144,22 +143,22 @@ CHANNEL_META = {
 }
 
 # ------------------------------------------------------------
-#  АГРЕССИВНОЕ РАСШИРЕНИЕ ID (Оптимизировано)
+#  АГРЕССИВНОЕ РАСШИРЕНИЕ ID
 # ------------------------------------------------------------
 def expand_ids(base_ids):
-    extra = set()
-    suffixes = ["", "_hd", "-hd", "_sd", "-sd", "_hq", "_lq", "hd", "sd", "_tv"]
+    extra = []
+    suffixes = ["", "hd", "-hd", "sd", "-sd", "hq", "lq", "_tv"]
     for cid in base_ids:
-        variants = {cid, cid.replace("_", "-"), cid.replace("-", "_")}
-        for var in variants:
-            for s in suffixes:
-                extra.add(var + s)
-    return list(extra)
+        for s in suffixes:
+            extra.append(cid + s)
+            extra.append(cid.replace("_", "-") + s)
+            extra.append(cid.replace("-", "_") + s)
+    return list(dict.fromkeys(extra))
 
 ALL_IDS = expand_ids(list(CHANNEL_META.keys()))
 
 # ------------------------------------------------------------
-#  CDN ПУТИ
+#  CDN ПУТИ И НАСТРОЙКИ
 # ------------------------------------------------------------
 CDN_BASES = [
     "https://cdn.ntv.ru/{id}/",
@@ -168,9 +167,6 @@ CDN_BASES = [
     "http://cdn2.ntv.ru/{id}/",
 ]
 
-# ------------------------------------------------------------
-#  ВСЕ ВОЗМОЖНЫЕ ПЛЕЙЛИСТЫ
-# ------------------------------------------------------------
 PLAYLIST_NAMES = [
     "playlist.m3u8", "index.m3u8", "mono.m3u8", "master.m3u8", "live.m3u8",
     "tracks-v1a1/mono.m3u8", "tracks-v1a1/playlist.m3u8", "tracks-v1a1/index.m3u8",
@@ -181,7 +177,9 @@ PLAYLIST_NAMES = [
 ]
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                  "AppleWebKit/537.36 (KHTML, like Gecko) "
+                  "Chrome/120.0.0.0 Safari/537.36",
     "Accept": "*/*",
     "Connection": "close",
 }
@@ -258,26 +256,20 @@ def extract_and_verify_streams(master_url: str, content: str):
 
     for mpl_url, quality in media_playlists:
         mpl_content = fetch_text(mpl_url, timeout=5)
-        if not mpl_content:
-            results.append((mpl_url, quality, False))
-            continue
-
         alive = False
-        for line in mpl_content.splitlines():
-            line = line.strip()
-            if not line or line.startswith("#"):
-                continue
-            if any(line.lower().endswith(ext) for ext in (".ts", ".m4s", ".mp4", ".aac")):
-                seg_url = urljoin(mpl_url.rsplit("/", 1)[0] + "/", line)
-                if check_segment_alive(seg_url):
-                    alive = True
-                break
-
-        if not alive and ("#EXTINF" in mpl_content or "#EXT-X-MEDIA-SEQUENCE" in mpl_content):
-            alive = True
-
+        if mpl_content:
+            for line in mpl_content.splitlines():
+                line = line.strip()
+                if not line or line.startswith("#"):
+                    continue
+                if any(line.lower().endswith(ext) for ext in (".ts", ".m4s", ".mp4", ".aac")):
+                    seg_url = urljoin(mpl_url.rsplit("/", 1)[0] + "/", line)
+                    if check_segment_alive(seg_url):
+                        alive = True
+                    break
+            if not alive and ("#EXTINF" in mpl_content or "#EXT-X-MEDIA-SEQUENCE" in mpl_content):
+                alive = True
         results.append((mpl_url, quality, alive))
-
     return results
 
 # ------------------------------------------------------------
@@ -287,16 +279,16 @@ def scan_one_id(channel_id: str):
     found = []
     name, group = CHANNEL_META.get(channel_id, (channel_id, "Прочие"))
 
-    base_id = channel_id
-    for s in ("_hd", "-hd", "_sd", "-sd", "_hq", "_lq", "hd", "sd"):
+    baseid = channel_id
+    for s in ("hd", "-hd", "sd", "-sd", "hq", "lq", "_tv"):
         if channel_id.endswith(s) and len(channel_id) > len(s):
-            base_id = channel_id[:-len(s)]
+            baseid = channel_id[:-len(s)]
             break
-    if base_id in CHANNEL_META:
-        name, group = CHANNEL_META[base_id]
+    if baseid in CHANNEL_META:
+        name, group = CHANNEL_META[baseid]
 
-    for base_tmpl in CDN_BASES:
-        base = base_tmpl.format(id=channel_id)
+    for basetmpl in CDN_BASES:
+        base = basetmpl.format(id=channel_id)
         for pl_name in PLAYLIST_NAMES:
             url = urljoin(base, pl_name)
             content = fetch_text(url)
@@ -328,114 +320,46 @@ def scan_one_id(channel_id: str):
 def main():
     start = time.perf_counter()
     print("===========================================================")
-    print("СКАЛА-ЧАЭС УЛЬТРА-АГРЕССИВНЫЙ")
-    print("Ищет ВСЕ потоки + проверяет живость каждого сегмента")
-    print("Особый приоритет: НТВ Мир + НТВ Беларусь")
+    print("СКАЛА-ЧАЭС УЛЬТРА-АГРЕССИВНЫЙ (финал)")
+    print("Ищет ВСЕ потоки + помечает сомнительные")
     print("===========================================================\n")
 
     all_results = []
-    log_lines = []
+    seen_urls = set()
 
     with ThreadPoolExecutor(max_workers=18) as pool:
         futures = {pool.submit(scan_one_id, cid): cid for cid in ALL_IDS}
         for future in as_completed(futures):
-            cid = futures[future]
-            try:
-                results = future.result()
-            except Exception as e:
-                results = []
-                print(f"Ошибка {cid}: {e}")
+            res = future.result()
+            for item in res:
+                if item["url"] not in seen_urls:
+                    seen_urls.add(item["url"])
+                    all_results.append(item)
 
-            elapsed = time.perf_counter() - start
-            if results:
-                for r in results:
-                    status = "ЖИВОЙ" if r["alive"] else "сомнительный"
-                    msg = (f"{elapsed:7.2f} — СКАЛА: {r['name']:22} "
-                           f"[{r['quality']:8}] [{status:12}] → {r['url']}")
-                    print(msg)
-                    log_lines.append(msg)
-                all_results.extend(results)
-            else:
-                msg = f"{elapsed:7.2f} — СКАЛА: {cid:22} отброшен"
-                print(msg)
-                log_lines.append(msg)
+    # Разделение и сортировка: живые идут первыми
+    alive_channels = [c for c in all_results if c["alive"]]
+    doubtful_channels = [c for c in all_results if not c["alive"]]
 
-    # ------------------------------------------------------------
-    #  ДЕДУПЛИКАЦИЯ ПО URL (живые имеют приоритет)
-    # ------------------------------------------------------------
-    unique = {}
-    for r in all_results:
-        url = r["url"]
-        if url not in unique or (r["alive"] and not unique[url]["alive"]):
-            unique[url] = r
-    all_results = list(unique.values())
+    final_list = alive_channels + doubtful_channels
 
-    # ------------------------------------------------------------
-    #  СОРТИРОВКА: живые → НТВ → имя → качество
-    # ------------------------------------------------------------
-    all_results.sort(key=lambda x: (
-        0 if x["alive"] else 1,
-        0 if x["group"] == "НТВ" else 1,
-        x["name"],
-        x["quality"]
-    ))
-
-    alive_count = sum(1 for r in all_results if r["alive"])
-    dead_count = len(all_results) - alive_count
-
-    # ------------------------------------------------------------
-    #  ГЕНЕРАЦИЯ ПЛЕЙЛИСТА
-    # ------------------------------------------------------------
-    playlist_name = "smolnp.m3u"
-    with open(playlist_name, "w", encoding="utf-8") as f:
+    # Запись в плейлист M3U8
+    output_filename = "Nikolai_Smolyaninoff_playlist.m3u8"
+    with open(output_filename, "w", encoding="utf-8") as f:
         f.write("#EXTM3U\n")
-        for r in all_results:
-            status = "ЖИВОЙ" if r["alive"] else "сомнительный"
+        for item in final_list:
+            status = "живой" if item["alive"] else "сомнительный"
             f.write(
-                f'#EXTINF:-1 tvg-name="{r["name"]}" '
-                f'group-title="{r["group"]}" '
-                f'tvg-id="{r["id"]}" '
-                f'tvg-status="{status}",{r["name"]}\n'
-                f'{r["url"]}\n'
+                f'#EXTINF:-1 tvg-name="{item["name"]}" group-title="{item["group"]}" '
+                f'tvg-status="{status}",{item["name"]}\n'
             )
+            f.write(f'{item["url"]}\n')
 
-    # ------------------------------------------------------------
-    #  ГЕНЕРАЦИЯ ОТЧЁТА
-    # ------------------------------------------------------------
-    report_name = "smolnp.txt"
-    with open(report_name, "w", encoding="utf-8") as rep:
-        rep.write("СКАЛА-ЧАЭС УЛЬТРА-АГРЕССИВНЫЙ — ОТЧЁТ СКАНИРОВАНИЯ\n")
-        rep.write("=" * 80 + "\n\n")
-
-        rep.write("=== ТЕЛЕТАЙП ===\n")
-        for line in log_lines:
-            rep.write(line + "\n")
-
-        rep.write("\n\n=== НАЙДЕННЫЕ ПОТОКИ ===\n")
-        for r in all_results:
-            status = "ЖИВОЙ" if r["alive"] else "сомнительный"
-            rep.write(f"\n{r['name']} [{r['quality']}] [{status}]\n")
-            rep.write(f"  ID      : {r['id']}\n")
-            rep.write(f"  Группа  : {r['group']}\n")
-            rep.write(f"  URL     : {r['url']}\n")
-            rep.write(f"  Источник: {r['source']}\n")
-
-        rep.write("\n\n=== ИТОГИ ===\n")
-        rep.write(f"Живых потоков: {alive_count}\n")
-        rep.write(f"Сомнительных: {dead_count}\n")
-        rep.write(f"Всего уникальных потоков: {len(all_results)}\n")
-
-    # ------------------------------------------------------------
-    #  ФИНАЛЬНЫЙ ВЫВОД
-    # ------------------------------------------------------------
-    print("\n===========================================================")
-    print(f"Плейлист сохранён      : {playlist_name}")
-    print(f"Отчёт сохранён         : {report_name}")
-    print(f"Живых потоков          : {alive_count}")
-    print(f"Сомнительных потоков   : {dead_count}")
-    print(f"Всего уникальных потоков: {len(all_results)}")
-    print("===========================================================\n")
-
+    elapsed = time.perf_counter() - start
+    print(f"Готово за {elapsed:.2f} сек!")
+    print(f"Всего найдено ссылок: {len(final_list)}")
+    print(f" - Подтвержденных (живых): {len(alive_channels)}")
+    print(f" - Сомнительных: {len(doubtful_channels)}")
+    print(f"Плейлист сохранен в файл: {output_filename}")
 
 if __name__ == "__main__":
     main()
