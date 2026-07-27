@@ -1,32 +1,65 @@
-- name: Versioning smolnp files
+name: Smolyaninov Ultra Scanner
+
+on:
+  workflow_dispatch:        # КНОПКА ЗАПУСКА
+  schedule:
+    - cron: "0 3 */5 * *"   # АВТОМАТ КАЖДЫЕ 5 ДНЕЙ
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Ultra Scanner
+        run: python Nikolai_Smolyaninoff.py
+
+      - name: Prepare folders
+        run: mkdir -p output
+
+      - name: Versioning smolnp files
         run: |
-          mkdir -p output
+          BASE="smolnp"
 
-          # Base names
-          BASE_M3U="smolnp"
-          BASE_TXT="smolnp"
-
-          # Find next version number
-          LAST_NUM=$(ls -1 | grep -E "${BASE_M3U}_[0-9]+\.m3u" | sed -E 's/.*_([0-9]+)\.m3u/\1/' | sort -n | tail -1)
-          if [ -z "$LAST_NUM" ]; then
-            NEXT_NUM=1
-          else
-            NEXT_NUM=$((LAST_NUM + 1))
+          # Если базовые файлы отсутствуют — создаём
+          if [ ! -f "${BASE}.m3u" ]; then
+            cp ${BASE}.m3u .
+          fi
+          if [ ! -f "${BASE}.txt" ]; then
+            cp ${BASE}.txt .
           fi
 
-          # New filenames
-          NEW_M3U="${BASE_M3U}_${NEXT_NUM}.m3u"
-          NEW_TXT="${BASE_TXT}_${NEXT_NUM}.txt"
+          # Ищем последнюю версию
+          LAST=$(ls -1 | grep -E "${BASE}_[0-9]+\.m3u" | sed -E 's/.*_([0-9]+)\.m3u/\1/' | sort -n | tail -1)
 
-          # Copy original files to versioned names
-          cp smolnp.m3u "$NEW_M3U"
-          cp smolnp.txt "$NEW_TXT"
+          if [ -z "$LAST" ]; then
+            NEXT=1
+          else
+            NEXT=$((LAST + 1))
+          fi
 
-          # Copy everything to output/
-          cp smolnp.m3u smolnp.txt output/
+          NEW_M3U="${BASE}_${NEXT}.m3u"
+          NEW_TXT="${BASE}_${NEXT}.txt"
+
+          # Создаём новые версии
+          cp ${BASE}.m3u "$NEW_M3U"
+          cp ${BASE}.txt "$NEW_TXT"
+
+          # Копируем всё в output/
+          cp ${BASE}.m3u ${BASE}.txt output/
           cp "$NEW_M3U" "$NEW_TXT" output/
 
-      - name: Commit and push updated files
+      - name: Commit and push
         run: |
           git config user.name "Phoenix-Auto"
           git config user.email "actions@github.com"
@@ -35,5 +68,5 @@
           git add smolnp_*.m3u smolnp_*.txt
           git add output/
 
-          git commit -m "Auto-update smolnp files (versioned)"
+          git commit -m "Auto-update smolnp files (versioned)" || echo "No changes"
           git push
