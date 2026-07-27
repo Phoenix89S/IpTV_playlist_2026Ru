@@ -781,16 +781,20 @@ https://zabava-htlive.cdn.ngenix.net/hls/CH_NTV/variant.m3u8
 #------------------------- НТВ Мир ---------------
 
 # 4.12. НТВ Мир (CDN2)
-#EXTINF:-1 tvg-id="ntv-mir" tvg-name="НТВ Мир (CDN2)" tvg-logo="https://iptvx.one/picons/ntv-mir.png" group-title="Общественные",4.12. НТВ Мир (CDN2)
+#EXTINF:-1 tvg-id="ntv-mir" tvg-name="НТВ Мир (CDN2)" tvg-logo="https://iptvx.one/picons/ntv-mir.png" group-title="Эфирные ТВ плюс",4.12. НТВ Мир (CDN2)
 http://cdn2.ntv.ru/ntv0_hd/playlist.m3u8
 
 # 4.12.1. НТВ Мир (CDN rewind)
-#EXTINF:-1 tvg-id="ntv-mir" tvg-name="НТВ Мир (CDN rewind)" tvg-logo="https://iptvx.one/picons/ntv-mir.png" group-title="Общественные",4.12.1. НТВ Мир (CDN rewind)
+#EXTINF:-1 tvg-id="ntv-mir" tvg-name="НТВ Мир (CDN rewind)" tvg-logo="https://iptvx.one/picons/ntv-mir.png" group-title="Эфирные ТВ плюс",4.12.1. НТВ Мир (CDN rewind)
 http://cdn.ntv.ru/ntv0_hd/tracks-v1a1/rewind-7150.m3u8
 
-# 4.12.2. НТВ Мир
-#EXTINF:-1 tvg-id="ntv-mir" tvg-name="НТВ Мир" tvg-logo="https://iptvx.one/picons/ntv-mir.png" group-title="Общественные",4.12.2. НТВ Мир
+# 4.12.2. НТВ Мир (mono)
+#EXTINF:-1 tvg-id="ntv-mir" tvg-name="НТВ Мир (mono)" tvg-logo="https://iptvx.one/picons/ntv-mir.png" group-title="Эфирные ТВ плюс",4.12.2. НТВ Мир (mono)
 http://cdn.ntv.ru/ntv_mir/tracks-v3a1/mono.m3u8
+
+# 4.12.3. НТВ Мир (index)
+#EXTINF:-1 tvg-id="ntv-mir" tvg-name="НТВ Мир (index)" tvg-logo="https://iptvx.one/picons/ntv-mir.png" group-title="Эфирные ТВ плюс",4.12.3. НТВ Мир
+https://cdn.ntv.ru/ntvmir/index.m3u8
 
 
 #----------------------------------------------------------------------
