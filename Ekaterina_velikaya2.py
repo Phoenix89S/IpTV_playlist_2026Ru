@@ -624,6 +624,28 @@ CHANNEL_META = {
     "otr_central": ("ОТР Центральный", "Центральные"),
     "mir_central": ("Мир Центральный", "Центральные"),
     "zvezda_central": ("Zvezda Central", "Центральные"),
+
+    # --- VIJU / TV1000 / VIASAT КИНО ---
+        "tv1000": ["viju_tv1000", "viju_tv1000_rus", "tv1000_russian", "viasat_tv1000"],
+        "tv1000_action": ["viju_tv1000_action", "viju_action", "tv1000action"],
+        "tv1000_russian": ["viju_tv1000_russkoe", "viju_tv1000_rus", "tv1000_rus", "tv1000russian"],
+        "tv1000_world": ["viju_tv1000_world", "viasat_world"],
+        "viju_megahit": ["viju_plus_megahit", "viju_plus_hit", "tv1000_megahit", "viasat_megahit"],
+        "viju_premiere": ["viju_plus_premiere", "tv1000_premiere", "viasat_premiere"],
+        "viju_comedy": ["viju_plus_comedy", "tv1000_comedy", "viasat_comedy"],
+        "viju_serial": ["viju_plus_serial", "tv1000_serial", "viasat_serial"],
+        "viju_thriller": ["viju_plus_thriller", "tv1000_thriller"],
+        "viju_dark": ["viju_plus_dark", "tv1000_dark"],
+        "viju_horror": ["viju_plus_horror", "tv1000_horror"],
+
+        # --- VIJU / VIASAT ПРИРОДА И ПОЗНАВАТЕЛЬНОЕ ---
+        "viasat_nature": ["viju_nature", "viju_plus_nature", "ch_viasat_nature"],
+        "viasat_explore": ["viju_explore", "viju_plus_explore", "ch_viasat_explore"],
+        "viasat_history": ["viju_history", "viju_plus_history", "ch_viasat_history"],
+        "planet_earth_hd": ["viju_planet", "viju_plus_planet", "planet_earth"],
+
+        # --- VIJU / VIASAT СПОРТ ---
+        "viju_sport": ["viju_plus_sport", "viasat_sport", "ch_viasat_sport"],
 }
 
 
