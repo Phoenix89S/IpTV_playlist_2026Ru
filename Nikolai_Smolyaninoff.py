@@ -1,5 +1,5 @@
 # ============================================================
-#  Сканер Николая Смольянинова — УЛЬТРА-АГРЕССИВНЫЙ (финал)
+#  Сканер Николая Смольянинова — УЛЬТРА-АГРЕССИВНЫЙ (Исправленный)
 #  20 федеральных + всё НТВ + кино + детские + спорт + документальные
 #  Ищет ВСЕ потоки + парсит master/media + проверяет живость сегментов
 #  Лог: СКАЛА ЧАЭС — телетайп
@@ -144,17 +144,17 @@ CHANNEL_META = {
 }
 
 # ------------------------------------------------------------
-#  АГРЕССИВНОЕ РАСШИРЕНИЕ ID
+#  АГРЕССИВНОЕ РАСШИРЕНИЕ ID (Оптимизировано)
 # ------------------------------------------------------------
 def expand_ids(base_ids):
-    extra = []
+    extra = set()
     suffixes = ["", "_hd", "-hd", "_sd", "-sd", "_hq", "_lq", "hd", "sd", "_tv"]
     for cid in base_ids:
-        for s in suffixes:
-            extra.append(cid + s)
-            extra.append(cid.replace("_", "-") + s)
-            extra.append(cid.replace("-", "_") + s)
-    return list(dict.fromkeys(extra))
+        variants = {cid, cid.replace("_", "-"), cid.replace("-", "_")}
+        for var in variants:
+            for s in suffixes:
+                extra.add(var + s)
+    return list(extra)
 
 ALL_IDS = expand_ids(list(CHANNEL_META.keys()))
 
@@ -351,8 +351,6 @@ def main():
                 for r in results:
                     status = "ЖИВОЙ" if r["alive"] else "сомнительный"
                     msg = (f"{elapsed:7.2f} — СКАЛА: {r['name']:22} "
-                           f
-msg = (f"{elapsed:7.2f} — СКАЛА: {r['name']:22} "
                            f"[{r['quality']:8}] [{status:12}] → {r['url']}")
                     print(msg)
                     log_lines.append(msg)
@@ -381,6 +379,9 @@ msg = (f"{elapsed:7.2f} — СКАЛА: {r['name']:22} "
         x["name"],
         x["quality"]
     ))
+
+    alive_count = sum(1 for r in all_results if r["alive"])
+    dead_count = len(all_results) - alive_count
 
     # ------------------------------------------------------------
     #  ГЕНЕРАЦИЯ ПЛЕЙЛИСТА
@@ -420,8 +421,6 @@ msg = (f"{elapsed:7.2f} — СКАЛА: {r['name']:22} "
             rep.write(f"  Источник: {r['source']}\n")
 
         rep.write("\n\n=== ИТОГИ ===\n")
-        alive_count = sum(1 for r in all_results if r["alive"])
-        dead_count = len(all_results) - alive_count
         rep.write(f"Живых потоков: {alive_count}\n")
         rep.write(f"Сомнительных: {dead_count}\n")
         rep.write(f"Всего уникальных потоков: {len(all_results)}\n")
