@@ -1,0 +1,30 @@
+name: Smolyaninov Scanner
+
+on:
+  schedule:
+    - cron: "0 3 */5 * *"   # запуск каждые 5 дней в 03:00
+  workflow_dispatch:         # ручной запуск (пинок)
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Smolyaninov Scanner
+        run: python Nikolai_Smolyaninoff.py
+
+      - name: Upload playlist artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: smolyaninov-playlist
+          path: Nikolai_Smolyaninoff.m3u
