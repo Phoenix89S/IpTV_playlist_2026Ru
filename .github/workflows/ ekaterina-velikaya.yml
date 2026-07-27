@@ -1,0 +1,48 @@
+name: Ekaterina Velikaya Scanner
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"   # запуск каждые 6 часов
+
+jobs:
+  scan-ngenix:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run Ekaterina Velikaya Scanner
+        run: |
+          python Ekaterina_velikaya2.py
+
+      - name: Upload SCALA report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ngenix-report
+          path: ngenix_report.txt
+
+      - name: Upload M3U playlist
+        uses: actions/upload-artifact@v4
+        with:
+          name: ngenix-found
+          path: ngenix_found.m3u
+
+      - name: Commit results to repo
+        run: |
+          git config --global user.name "SCALA Bot"
+          git config --global user.email "scala-bot@example.com"
+          git add ngenix_report.txt ngenix_found.m3u
+          git commit -m "Ekaterina Velikaya report + M3U updated"
+          git push
