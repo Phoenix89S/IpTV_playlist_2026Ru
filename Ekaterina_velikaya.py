@@ -219,7 +219,6 @@ CHANNEL_META = {
     "boxing_world": ("Boxing World", "Спорт"),
     "hockey_world": ("Hockey World", "Спорт"),
     "football_world": ("Football World", "Спорт"),
-
 }
 
 # ------------------------------------------------------------
@@ -453,37 +452,682 @@ CHANNEL_META = {
     "universe_tv": ("Universe TV", "Познавательные"),
 }
 
+# ------------------------------------------------------------
+    #  КУЛИНАРИЯ / ЕДА
+    # ------------------------------------------------------------
 
+    # Российские кулинарные
+    "eda": ("Еда", "Кулинария"),
+    "eda_hd": ("Еда HD", "Кулинария"),
+    "kitchen_tv": ("Kitchen TV", "Кулинария"),
+    "chef_tv": ("Chef TV", "Кулинария"),
+    "my_cuisine": ("Моя Кухня", "Кулинария"),
+    "kulinarnyi": ("Кулинарный", "Кулинария"),
+    "kulinaria_hd": ("Кулинария HD", "Кулинария"),
 
+    # Международные кулинарные
+    "food_network": ("Food Network", "Кулинария"),
+    "gusto_tv": ("Gusto TV", "Кулинария"),
+    "bon_appetit": ("Bon Appétit TV", "Кулинария"),
+    "fine_living": ("Fine Living", "Кулинария"),
+    "hgtv_food": ("HGTV Food", "Кулинария"),
 
+    # Viju Cooking / Food
+    "viju_cooking": ("Viju Cooking", "Кулинария"),
+    "viju_food": ("Viju Food", "Кулинария"),
 
+    # Дополнительные кулинарные каналы
+    "cook_tv": ("Cook TV", "Кулинария"),
+    "cook_hd": ("Cook HD", "Кулинария"),
+    "chef_plus": ("Chef+", "Кулинария"),
+    "kitchen_plus": ("Kitchen+", "Кулинария"),
+    "taste_tv": ("Taste TV", "Кулинария"),
+    "world_cuisine": ("World Cuisine", "Кулинария"),
+    "gourmet_tv": ("Gourmet TV", "Кулинария"),
+    "culinary_world": ("Culinary World", "Кулинария"),
+    "sweet_tv": ("Sweet TV", "Кулинария"),
+    "dessert_tv": ("Dessert TV", "Кулинария"),
+    "baking_tv": ("Baking TV", "Кулинария"),
+    "grill_tv": ("Grill TV", "Кулинария"),
+    "bbq_tv": ("BBQ TV", "Кулинария"),
+    "vegan_tv": ("Vegan TV", "Кулинария"),
+    "healthy_food_tv": ("Healthy Food TV", "Кулинария"),
+}
 
+# ------------------------------------------------------------
+    #  МУЗЫКАЛЬНЫЕ КАНАЛЫ
+    # ------------------------------------------------------------
 
+    # Bridge TV (вся линейка)
+    "bridge_tv": ("Bridge TV", "Музыка"),
+    "bridge_hits": ("Bridge Hits", "Музыка"),
+    "bridge_deluxe": ("Bridge Deluxe", "Музыка"),
+    "bridge_classic": ("Bridge Classic", "Музыка"),
+    "bridge_fresh": ("Bridge Fresh", "Музыка"),
 
+    # MTV / VH1
+    "mtv": ("MTV", "Музыка"),
+    "mtv_live_hd": ("MTV Live HD", "Музыка"),
+    "mtv_hits": ("MTV Hits", "Музыка"),
+    "mtv_rocks": ("MTV Rocks", "Музыка"),
+    "mtv_dance": ("MTV Dance", "Музыка"),
+    "vh1": ("VH1", "Музыка"),
+    "vh1_classic": ("VH1 Classic", "Музыка"),
 
+    # Mezzo
+    "mezzo": ("Mezzo", "Музыка"),
+    "mezzo_live_hd": ("Mezzo Live HD", "Музыка"),
+    "mezzo_classic": ("Mezzo Classic", "Музыка"),
 
+    # Music Box (вся линейка)
+    "russian_music_box": ("Russian Music Box", "Музыка"),
+    "music_box_ru": ("Music Box Russia", "Музыка"),
+    "music_box_hd": ("Music Box HD", "Музыка"),
+    "music_box_ua": ("Music Box UA", "Музыка"),
 
+    # Europa Plus TV / Музыка Первого / Союз
+    "europa_plus_tv": ("Europa Plus TV", "Музыка"),
+    "music_first": ("Музыка Первого", "Музыка"),
+    "soyuz": ("Союз", "Музыка"),
 
+    # Дополнительные российские музыкальные
+    "muz_tv": ("Муз-ТВ", "Музыка"),
+    "rutv": ("RU.TV", "Музыка"),
+    "tnt_music": ("ТНТ Music", "Музыка"),
+    "sts_love_music": ("СТС Love Music", "Музыка"),
+    "zhara_tv": ("Жара ТВ", "Музыка"),
 
+    # Международные музыкальные
+    "trace_urban": ("Trace Urban", "Музыка"),
+    "trace_latin": ("Trace Latin", "Музыка"),
+    "trace_africa": ("Trace Africa", "Музыка"),
+    "trace_tropical": ("Trace Tropical", "Музыка"),
+    "deluxe_music": ("Deluxe Music", "Музыка"),
+    "unitv": ("UniTV", "Музыка"),
+    "4fun_tv": ("4Fun TV", "Музыка"),
+    "clubland_tv": ("Clubland TV", "Музыка"),
+    "dance_tv": ("Dance TV", "Музыка"),
+    "party_tv": ("Party TV", "Музыка"),
 
+    # Редкие музыкальные каналы из русских IPTV‑плейлистов
+    "hit_tv": ("Hit TV", "Музыка"),
+    "top_music": ("Top Music", "Музыка"),
+    "global_music": ("Global Music", "Музыка"),
+    "music_plus": ("Music+", "Музыка"),
+    "music_360": ("Music 360", "Музыка"),
+    "retro_music": ("Retro Music", "Музыка"),
+    "classic_music": ("Classic Music", "Музыка"),
+    "jazz_tv": ("Jazz TV", "Музыка"),
+    "rock_tv": ("Rock TV", "Музыка"),
+    "metal_tv": ("Metal TV", "Музыка"),
+    "hiphop_tv": ("HipHop TV", "Музыка"),
+    "rap_tv": ("Rap TV", "Музыка"),
+    "pop_tv": ("Pop TV", "Музыка"),
+    "kpop_tv": ("K‑Pop TV", "Музыка"),
+    "edm_tv": ("EDM TV", "Музыка"),
+}
 
+# ------------------------------------------------------------
+    #  РЕГИОНАЛЬНЫЕ КАНАЛЫ РОССИИ — РАСШИРЕННЫЙ СПИСОК
+    # ------------------------------------------------------------
 
+    # Москва
+    "moskva_24": ("Москва 24", "Региональные"),
+    "moskva_doverie": ("Москва Доверие", "Региональные"),
+    "moskva_1": ("Москва 1", "Региональные"),
+    "tvcentr_moscow": ("ТВ Центр Москва", "Региональные"),
 
+    # Санкт‑Петербург
+    "peterburg_5": ("Санкт-Петербург 5", "Региональные"),
+    "peterburg_78": ("78 канал", "Региональные"),
+    "peterburg_otv": ("ОТВ Петербург", "Региональные"),
+    "peterburg_len_tv": ("Лен ТВ", "Региональные"),
 
+    # Московская область
+    "360": ("360 Подмосковье", "Региональные"),
+    "chekhov_tv": ("Чехов ТВ", "Региональные"),
+    "balashikha_tv": ("Балашиха ТВ", "Региональные"),
+    "korolev_tv": ("Королёв ТВ", "Региональные"),
 
+    # Ленинградская область
+    "len_obl_tv": ("ЛенОбл ТВ", "Региональные"),
+    "vsevolozhsk_tv": ("Всеволожск ТВ", "Региональные"),
 
+    # Татарстан
+    "tatarstan_tv": ("Татарстан ТВ", "Региональные"),
+    "tnv": ("ТНВ", "Региональные"),
+    "tnv_planeta": ("ТНВ Планета", "Региональные"),
+    "kazan_first": ("Первый Казанский", "Региональные"),
 
+    # Башкортостан
+    "bashkortostan_tv": ("Башкортостан ТВ", "Региональные"),
+    "bst": ("БСТ", "Региональные"),
+    "ufa_tv": ("Уфа ТВ", "Региональные"),
 
+    # Краснодарский край
+    "krasnodar_tv": ("Краснодар ТВ", "Региональные"),
+    "kuban_24": ("Кубань 24", "Региональные"),
+    "sochi_tv": ("Сочи ТВ", "Региональные"),
 
+    # Свердловская область
+    "ekb_tv": ("Екатеринбург ТВ", "Региональные"),
+    "ekb_4": ("4 канал Екатеринбург", "Региональные"),
+    "ekb_otv": ("ОТВ Екатеринбург", "Региональные"),
 
+    # Новосибирская область
+    "novosibirsk_tv": ("Новосибирск ТВ", "Региональные"),
+    "nsk_otv": ("ОТВ Новосибирск", "Региональные"),
 
+    # Самарская область
+    "samara_tv": ("Самара ТВ", "Региональные"),
+    "samara_guberniya": ("Губерния Самара", "Региональные"),
 
+    # Пермский край
+    "perm_tv": ("Пермь ТВ", "Региональные"),
+    "rifei_perm": ("Рифей Пермь", "Региональные"),
 
+    # Омская область
+    "omsk_tv": ("Омск ТВ", "Региональные"),
+    "omsk_12": ("12 канал Омск", "Региональные"),
 
+    # Томская область
+    "tomsk_tv": ("Томск ТВ", "Региональные"),
+    "tomsk_vest": ("Вести Томск", "Региональные"),
 
+    # Волгоградская область
+    "volgograd_tv": ("Волгоград ТВ", "Региональные"),
+    "volgograd_1": ("Первый Волгоградский", "Региональные"),
 
+    # Владивосток / Приморье
+    "vladivostok_tv": ("Владивосток ТВ", "Региональные"),
+    "primorye_tv": ("Приморье ТВ", "Региональные"),
 
+    # Калининградская область (твоя область)
+    "kaliningrad_tv": ("Калининград ТВ", "Региональные"),
+    "balt_tv": ("Балтик ТВ", "Региональные"),
+    "west_tv": ("Запад ТВ", "Региональные"),
+    "kaliningrad_1": ("Первый Калининградский", "Региональные"),
 
+    # Челябинская область
+    "chelyabinsk_tv": ("Челябинск ТВ", "Региональные"),
+    "cheltv_31": ("31 канал Челябинск", "Региональные"),
+
+    # Иркутская область
+    "irkutsk_tv": ("Иркутск ТВ", "Региональные"),
+    "irkutsk_as_baikal": ("АС Байкал ТВ", "Региональные"),
+
+    # Хабаровский край
+    "khabarovsk_tv": ("Хабаровск ТВ", "Региональные"),
+    "dv_tv": ("ДВ ТВ", "Региональные"),
+
+    # Якутия
+    "yakutia_tv": ("Якутия 24", "Региональные"),
+    "sakha_tv": ("Саха ТВ", "Региональные"),
+
+    # Карелия
+    "karelia_tv": ("Карелия ТВ", "Региональные"),
+    "ptz_tv": ("Петрозаводск ТВ", "Региональные"),
+
+    # Коми
+    "komi_tv": ("Коми ТВ", "Региональные"),
+    "siktivkar_tv": ("Сыктывкар ТВ", "Региональные"),
+
+    # Мордовия
+    "mordovia_tv": ("Мордовия ТВ", "Региональные"),
+
+    # Марий Эл
+    "mariel_tv": ("Марий Эл ТВ", "Региональные"),
+
+    # Удмуртия
+    "udmurtia_tv": ("Удмуртия ТВ", "Региональные"),
+
+    # Чувашия
+    "chuvashia_tv": ("Чувашия ТВ", "Региональные"),
+
+    # Алтай
+    "altai_tv": ("Алтай ТВ", "Региональные"),
+    "barnaul_tv": ("Барнаул ТВ", "Региональные"),
+
+    # Кемерово / Кузбасс
+    "kemerovo_tv": ("Кемерово ТВ", "Региональные"),
+    "kuzbass_tv": ("Кузбасс ТВ", "Региональные"),
+
+    # Тюмень
+    "tyumen_tv": ("Тюмень ТВ", "Региональные"),
+    "region_tyumen": ("Регион-Тюмень", "Региональные"),
+
+    # ОТР региональные версии
+    "otr_region": ("ОТР Регион", "Региональные"),
+    "otr_local": ("ОТР Локальный", "Региональные"),
+
+    # ТВЦ региональные версии
+    "tvc_region": ("ТВЦ Регион", "Региональные"),
+    "tvc_local": ("ТВЦ Локальный", "Региональные"),
+
+    # Муниципальные каналы
+    "city_tv": ("City TV", "Региональные"),
+    "gorod_tv": ("Город ТВ", "Региональные"),
+    "local_tv": ("Local TV", "Региональные"),
+    "municipal_tv": ("Муниципальный ТВ", "Региональные"),
+
+    # Региональные версии федеральных сетей
+    "tnt_region": ("ТНТ Регион", "Региональные"),
+    "sts_region": ("СТС Регион", "Региональные"),
+    "che_region": ("Че Регион", "Региональные"),
+    "yu_region": ("Ю Регион", "Региональные"),
+    "tv3_region": ("ТВ-3 Регион", "Региональные"),
+}
+
+# ------------------------------------------------------------
+    #  РУССКОЯЗЫЧНЫЕ ЗАРУБЕЖНЫЕ — РАСШИРЕННЫЙ СПИСОК
+    # ------------------------------------------------------------
+
+    # Европа (Германия, Чехия, Латвия, Литва, Эстония)
+    "rtvi": ("RTVi", "Русскоязычные зарубежные"),
+    "rtvi_europe": ("RTVi Europe", "Русскоязычные зарубежные"),
+    "rtvi_germany": ("RTVi Germany", "Русскоязычные зарубежные"),
+    "rtvi_baltic": ("RTVi Baltic", "Русскоязычные зарубежные"),
+
+    "ostankino_international": ("Останкино International", "Русскоязычные зарубежные"),
+    "ostankino_europe": ("Останкино Europe", "Русскоязычные зарубежные"),
+
+    "russia_today_eu": ("Russia Today EU", "Русскоязычные зарубежные"),
+    "russia_today_de": ("Russia Today DE", "Русскоязычные зарубежные"),
+
+    "baltic_plus": ("Baltic+", "Русскоязычные зарубежные"),
+    "baltic_tv": ("Baltic TV", "Русскоязычные зарубежные"),
+
+    # США / Канада
+    "rtvi_usa": ("RTVi USA", "Русскоязычные зарубежные"),
+    "russian_america_tv": ("Russian America TV", "Русскоязычные зарубежные"),
+    "russian_television_network": ("Russian Television Network", "Русскоязычные зарубежные"),
+    "russian_channel_one_usa": ("Первый канал USA", "Русскоязычные зарубежные"),
+    "russian_tv_usa": ("Russian TV USA", "Русскоязычные зарубежные"),
+    "russian_canada_tv": ("Russian Canada TV", "Русскоязычные зарубежные"),
+
+    # Израиль
+    "israel_plus": ("Israel+", "Русскоязычные зарубежные"),
+    "israel_9": ("9 канал Израиль", "Русскоязычные зарубежные"),
+    "israel_rus_tv": ("Israel Russian TV", "Русскоязычные зарубежные"),
+
+    # Украина (русскоязычные каналы)
+    "inter_plus": ("Интер+", "Русскоязычные зарубежные"),
+    "1plus1_international": ("1+1 International", "Русскоязычные зарубежные"),
+    "ictv_international": ("ICTV International", "Русскоязычные зарубежные"),
+    "novy_channel_int": ("Новый канал International", "Русскоязычные зарубежные"),
+    "stb_int": ("СТБ International", "Русскоязычные зарубежные"),
+    "ukraine_24_int": ("Украина 24 International", "Русскоязычные зарубежные"),
+
+    # Беларусь
+    "belarus_1": ("Беларусь 1", "Русскоязычные зарубежные"),
+    "belarus_2": ("Беларусь 2", "Русскоязычные зарубежные"),
+    "belarus_3": ("Беларусь 3", "Русскоязычные зарубежные"),
+    "belarus_5": ("Беларусь 5", "Русскоязычные зарубежные"),
+    "belsat": ("Белсат", "Русскоязычные зарубежные"),
+
+    # Казахстан
+    "kazakhstan_tv": ("Казахстан ТВ", "Русскоязычные зарубежные"),
+    "khabar": ("Хабар", "Русскоязычные зарубежные"),
+    "khabar_24": ("Хабар 24", "Русскоязычные зарубежные"),
+    "ktk": ("КТК", "Русскоязычные зарубежные"),
+    "ntk_kz": ("НТК Казахстан", "Русскоязычные зарубежные"),
+
+    # Грузия
+    "rustavi_2_int": ("Rustavi 2 International", "Русскоязычные зарубежные"),
+    "imedi_int": ("Imedi International", "Русскоязычные зарубежные"),
+
+    # Армения
+    "armenia_tv": ("Армения ТВ", "Русскоязычные зарубежные"),
+    "armenia_1": ("Армения 1", "Русскоязычные зарубежные"),
+    "armenia_24": ("Армения 24", "Русскоязычные зарубежные"),
+
+    # Киргизия
+    "kyrgyzstan_tv": ("Кыргызстан ТВ", "Русскоязычные зарубежные"),
+    "osh_tv": ("Ош ТВ", "Русскоязычные зарубежные"),
+
+    # Молдова
+    "moldova_1": ("Молдова 1", "Русскоязычные зарубежные"),
+    "moldova_2": ("Молдова 2", "Русскоязычные зарубежные"),
+    "moldova_int": ("Moldova International", "Русскоязычные зарубежные"),
+
+    # Латвия / Литва / Эстония
+    "latvia_rus_tv": ("Latvia Russian TV", "Русскоязычные зарубежные"),
+    "lithuania_rus_tv": ("Lithuania Russian TV", "Русскоязычные зарубежные"),
+    "estonia_rus_tv": ("Estonia Russian TV", "Русскоязычные зарубежные"),
+
+    # Русские международные версии крупных сетей
+    "euronews_russian": ("Euronews Russian", "Русскоязычные зарубежные"),
+    "dw_russian": ("DW Russian", "Русскоязычные зарубежные"),
+    "bbc_russian": ("BBC Russian", "Русскоязычные зарубежные"),
+    "france24_russian": ("France24 Russian", "Русскоязычные зарубежные"),
+    "cgtn_russian": ("CGTN Russian", "Русскоязычные зарубежные"),
+
+    # Настоящее Время (все версии)
+    "current_time": ("Настоящее Время", "Русскоязычные зарубежные"),
+    "current_time_eu": ("Настоящее Время Европа", "Русскоязычные зарубежные"),
+    "current_time_usa": ("Настоящее Время США", "Русскоязычные зарубежные"),
+
+    # Мигрантские русские каналы
+    "diaspora_tv": ("Diaspora TV", "Русскоязычные зарубежные"),
+    "russian_world_tv": ("Russian World TV", "Русскоязычные зарубежные"),
+    "russian_family_tv": ("Russian Family TV", "Русскоязычные зарубежные"),
+}
+
+# ------------------------------------------------------------
+    #  МЕЖДУНАРОДНЫЕ КАНАЛЫ — РАСШИРЕННЫЙ СПИСОК
+    # ------------------------------------------------------------
+
+    # Discovery (вся линейка)
+    "discovery_channel": ("Discovery Channel", "Международные"),
+    "discovery_science": ("Discovery Science", "Международные"),
+    "discovery_turbo": ("Discovery Turbo", "Международные"),
+    "discovery_world": ("Discovery World", "Международные"),
+    "discovery_id": ("Investigation Discovery", "Международные"),
+    "discovery_civilization": ("Discovery Civilization", "Международные"),
+    "discovery_history": ("Discovery History", "Международные"),
+
+    # National Geographic
+    "natgeo": ("National Geographic", "Международные"),
+    "natgeo_wild": ("NatGeo Wild", "Международные"),
+
+    # Viasat (вся линейка)
+    "viasat_nature": ("Viasat Nature", "Международные"),
+    "viasat_explore": ("Viasat Explore", "Международные"),
+    "viasat_history": ("Viasat History", "Международные"),
+    "viasat_film": ("Viasat Film", "Международные"),
+    "viasat_film_family": ("Viasat Film Family", "Международные"),
+    "viasat_film_action": ("Viasat Film Action", "Международные"),
+
+    # Sony / AXN / SyFy / Universal / Paramount
+    "sony_channel": ("Sony Channel", "Международные"),
+    "sony_turbo": ("Sony Turbo", "Международные"),
+    "axn": ("AXN", "Международные"),
+    "axn_black": ("AXN Black", "Международные"),
+    "axn_white": ("AXN White", "Международные"),
+    "syfy": ("SyFy", "Международные"),
+    "universal_channel": ("Universal Channel", "Международные"),
+    "paramount_channel": ("Paramount Channel", "Международные"),
+    "paramount_comedy": ("Paramount Comedy", "Международные"),
+
+    # TLC / HGTV / Food Network / Fine Living
+    "tlc": ("TLC", "Международные"),
+    "hgtv": ("HGTV", "Международные"),
+    "food_network": ("Food Network", "Международные"),
+    "fine_living": ("Fine Living", "Международные"),
+
+    # MTV / VH1 / Mezzo
+    "mtv": ("MTV", "Международные"),
+    "mtv_live_hd": ("MTV Live HD", "Международные"),
+    "mtv_hits": ("MTV Hits", "Международные"),
+    "vh1": ("VH1", "Международные"),
+    "vh1_classic": ("VH1 Classic", "Международные"),
+    "mezzo": ("Mezzo", "Международные"),
+    "mezzo_live_hd": ("Mezzo Live HD", "Международные"),
+
+    # Eurosport / Спорт международный
+    "eurosport_1": ("Eurosport 1", "Международные"),
+    "eurosport_2": ("Eurosport 2", "Международные"),
+    "fightbox": ("FightBox", "Международные"),
+    "fastnfunbox": ("Fast&FunBox", "Международные"),
+    "extreme_sports": ("Extreme Sports", "Международные"),
+    "ufc_channel": ("UFC Channel", "Международные"),
+    "fuel_tv": ("Fuel TV", "Международные"),
+    "trace_sport_stars": ("Trace Sport Stars", "Международные"),
+
+    # DocuBox / FilmBox / FashionBox / FunBox
+    "docubox": ("DocuBox", "Международные"),
+    "filmbox": ("FilmBox", "Международные"),
+    "filmbox_plus": ("FilmBox Plus", "Международные"),
+    "filmbox_family": ("FilmBox Family", "Международные"),
+    "fashionbox": ("FashionBox", "Международные"),
+    "funbox": ("FunBox", "Международные"),
+
+    # Travel / Nature / Science
+    "travelxp": ("TravelXP", "Международные"),
+    "travel_channel": ("Travel Channel", "Международные"),
+    "planet_earth_hd": ("Planet Earth HD", "Международные"),
+    "wildlife_tv": ("Wildlife TV", "Международные"),
+    "nature_hd": ("Nature HD", "Международные"),
+    "ocean_tv": ("Ocean TV", "Международные"),
+
+    # Музыка международная
+    "trace_urban": ("Trace Urban", "Международные"),
+    "trace_latin": ("Trace Latin", "Международные"),
+    "trace_africa": ("Trace Africa", "Международные"),
+    "deluxe_music": ("Deluxe Music", "Международные"),
+    "clubland_tv": ("Clubland TV", "Международные"),
+
+    # Кино международное
+    "amc": ("AMC", "Международные"),
+    "amc_thriller": ("AMC Thriller", "Международные"),
+    "amc_fear": ("AMC Fear", "Международные"),
+    "mgm": ("MGM Channel", "Международные"),
+    "warner_tv": ("Warner TV", "Международные"),
+    "tcm": ("TCM", "Международные"),
+    "hbo": ("HBO", "Международные"),
+    "hbo_2": ("HBO 2", "Международные"),
+    "hbo_3": ("HBO 3", "Международные"),
+
+    # Детские международные
+    "cartoon_network": ("Cartoon Network", "Международные"),
+    "boomerang": ("Boomerang", "Международные"),
+    "nickelodeon": ("Nickelodeon", "Международные"),
+    "nick_jr": ("Nick Jr", "Международные"),
+    "baby_tv": ("Baby TV", "Международные"),
+    "jimjam": ("JimJam", "Международные"),
+    "gulli": ("Gulli", "Международные"),
+    "tiji": ("TiJi", "Международные"),
+
+    # Дополнительные международные каналы
+    "cgtn": ("CGTN", "Международные"),
+    "france24": ("France 24", "Международные"),
+    "dw": ("Deutsche Welle", "Международные"),
+    "bbc_world": ("BBC World News", "Международные"),
+    "cnn_international": ("CNN International", "Международные"),
+    "sky_news": ("Sky News", "Международные"),
+    "al_jazeera": ("Al Jazeera", "Международные"),
+    "nhk_world": ("NHK World", "Международные"),
+    "rai_italia": ("RAI Italia", "Международные"),
+    "tv5_monde": ("TV5 Monde", "Международные"),
+    "rt_doc": ("RT Documentary", "Международные"),
+}
+
+# ------------------------------------------------------------
+    #  АВТО / ТЕХНО / МОДА / ЛАЙФСТАЙЛ — РАСШИРЕННЫЙ СПИСОК
+    # ------------------------------------------------------------
+
+    # АВТО
+    "avto_plus": ("Авто Плюс", "Авто/Техно"),
+    "avto_24": ("Авто 24", "Авто/Техно"),
+    "motorsport_tv": ("Motorsport TV", "Авто/Техно"),
+    "nascar_tv": ("NASCAR TV", "Авто/Техно"),
+    "f1_tv": ("Formula 1 TV", "Авто/Техно"),
+    "auto_world": ("Auto World", "Авто/Техно"),
+    "car_channel": ("Car Channel", "Авто/Техно"),
+    "drive_tv": ("Drive TV", "Авто/Техно"),
+    "garage_tv": ("Garage TV", "Авто/Техно"),
+    "tuning_tv": ("Tuning TV", "Авто/Техно"),
+    "retro_auto_tv": ("Retro Auto TV", "Авто/Техно"),
+
+    # ТЕХНО / ГАДЖЕТЫ / IT
+    "techno_24": ("Техно 24", "Авто/Техно"),
+    "hitech_tv": ("HiTech TV", "Авто/Техно"),
+    "gadget_tv": ("Gadget TV", "Авто/Техно"),
+    "digital_world": ("Digital World", "Авто/Техно"),
+    "future_tv": ("Future TV", "Авто/Техно"),
+    "innovation_tv": ("Innovation TV", "Авто/Техно"),
+    "science_360": ("Science 360", "Авто/Техно"),
+    "tech_tv": ("Tech TV", "Авто/Техно"),
+    "robotics_tv": ("Robotics TV", "Авто/Техно"),
+    "ai_tv": ("AI TV", "Авто/Техно"),
+
+    # МОДА
+    "fashion_tv": ("Fashion TV", "Мода/Лайфстайл"),
+    "fashionbox": ("FashionBox", "Мода/Лайфстайл"),
+    "fashion_one": ("Fashion One", "Мода/Лайфстайл"),
+    "fashion_world": ("Fashion World", "Мода/Лайфстайл"),
+    "style_tv": ("Style TV", "Мода/Лайфстайл"),
+    "glamour_tv": ("Glamour TV", "Мода/Лайфстайл"),
+    "luxury_tv": ("Luxury TV", "Мода/Лайфстайл"),
+
+    # ЛАЙФСТАЙЛ / СТИЛЬ ЖИЗНИ
+    "lifestyle_tv": ("Lifestyle TV", "Мода/Лайфстайл"),
+    "life_tv": ("Life TV", "Мода/Лайфстайл"),
+    "living_tv": ("Living TV", "Мода/Лайфстайл"),
+    "home_tv": ("Home TV", "Мода/Лайфстайл"),
+    "family_tv": ("Family TV", "Мода/Лайфстайл"),
+    "happy_tv": ("Happy TV", "Мода/Лайфстайл"),
+    "relax_tv": ("Relax TV", "Мода/Лайфстайл"),
+    "zen_tv": ("Zen TV", "Мода/Лайфстайл"),
+
+    # ДОМ / РЕМОНТ / ИНТЕРЬЕР
+    "hgtv": ("HGTV", "Мода/Лайфстайл"),
+    "fine_living": ("Fine Living", "Мода/Лайфстайл"),
+    "home_design_tv": ("Home Design TV", "Мода/Лайфстайл"),
+    "interior_tv": ("Interior TV", "Мода/Лайфстайл"),
+    "renovation_tv": ("Renovation TV", "Мода/Лайфстайл"),
+    "diy_tv": ("DIY TV", "Мода/Лайфстайл"),
+    "garden_tv": ("Garden TV", "Мода/Лайфстайл"),
+    "home_plus": ("Home+", "Мода/Лайфстайл"),
+
+    # ПУТЕШЕСТВИЯ / ОТДЫХ
+    "travelxp": ("TravelXP", "Мода/Лайфстайл"),
+    "travel_channel": ("Travel Channel", "Мода/Лайфстайл"),
+    "myzen": ("MyZen TV", "Мода/Лайфстайл"),
+    "ocean_tv": ("Ocean TV", "Мода/Лайфстайл"),
+    "planet_hd": ("Planet HD", "Мода/Лайфстайл"),
+    "earth_hd": ("Earth HD", "Мода/Лайфстайл"),
+
+    # ФИТНЕС / ЗДОРОВЬЕ
+    "fitness_tv": ("Fitness TV", "Мода/Лайфстайл"),
+    "health_tv": ("Health TV", "Мода/Лайфстайл"),
+    "yoga_tv": ("Yoga TV", "Мода/Лайфстайл"),
+    "wellness_tv": ("Wellness TV", "Мода/Лайфстайл"),
+    "sport_life_tv": ("Sport Life TV", "Мода/Лайфстайл"),
+    "body_tv": ("Body TV", "Мода/Лайфстайл"),
+
+    # КРАСОТА / УХОД
+    "beauty_tv": ("Beauty TV", "Мода/Лайфстайл"),
+    "makeup_tv": ("Makeup TV", "Мода/Лайфстайл"),
+    "spa_tv": ("SPA TV", "Мода/Лайфстайл"),
+    "cosmetics_tv": ("Cosmetics TV", "Мода/Лайфстайл"),
+
+    # Редкие каналы из российских IPTV‑плейлистов
+    "auto_mania": ("Auto Mania", "Авто/Техно"),
+    "tech_plus": ("Tech+", "Авто/Техно"),
+    "fashion_plus": ("Fashion+", "Мода/Лайфстайл"),
+    "lifestyle_plus": ("Lifestyle+", "Мода/Лайфстайл"),
+    "home_style": ("Home Style", "Мода/Лайфстайл"),
+    "drive_plus": ("Drive+", "Авто/Техно"),
+    "garage_plus": ("Garage+", "Авто/Техно"),
+}
+
+# ------------------------------------------------------------
+    #  ЦЕНТРАЛЬНОЕ ТЕЛЕВИДЕНИЕ / ЦЕНТР — РАСШИРЕННЫЙ СПИСОК
+    # ------------------------------------------------------------
+
+    # Центральные каналы, не входящие в мультиплексы, но имеющие федеральный охват
+    "che": ("Че", "Центральные"),
+    "yu": ("Ю", "Центральные"),
+    "sts_love": ("СТС Love", "Центральные"),
+    "tnt4": ("ТНТ4", "Центральные"),
+    "super": ("Супер", "Центральные"),
+    "subbota": ("Суббота!", "Центральные"),
+    "2x2": ("2x2", "Центральные"),
+    "zvezda": ("Звезда", "Центральные"),
+    "mir": ("Мир", "Центральные"),
+    "tv3": ("ТВ-3", "Центральные"),
+    "pyatnica": ("Пятница!", "Центральные"),
+    "muz_tv": ("Муз-ТВ", "Центральные"),
+
+    # Центральные версии федеральных сетей
+    "tnt_central": ("ТНТ Центральный", "Центральные"),
+    "sts_central": ("СТС Центральный", "Центральные"),
+    "che_central": ("Че Центральный", "Центральные"),
+    "yu_central": ("Ю Центральный", "Центральные"),
+    "tv3_central": ("ТВ-3 Центральный", "Центральные"),
+    "rentv_central": ("РЕН ТВ Центральный", "Центральные"),
+    "ntv_central": ("НТВ Центральный", "Центральные"),
+    "tvc_central": ("ТВЦ Центральный", "Центральные"),
+
+    # Центральные информационные каналы
+    "rbk": ("РБК", "Центральные"),
+    "dozhd": ("Дождь", "Центральные"),
+    "current_time": ("Настоящее Время", "Центральные"),
+    "rt_doc": ("RT Documentary", "Центральные"),
+    "rtvi": ("RTVi", "Центральные"),
+    "euronews_russian": ("Euronews Russian", "Центральные"),
+
+    # Центральные развлекательные каналы
+    "sts_love_hd": ("СТС Love HD", "Центральные"),
+    "tnt_music": ("ТНТ Music", "Центральные"),
+    "zhara_tv": ("Жара ТВ", "Центральные"),
+    "rutv": ("RU.TV", "Центральные"),
+    "muz_tv_hd": ("Муз-ТВ HD", "Центральные"),
+
+    # Центральные познавательные каналы
+    "nauka": ("Наука", "Центральные"),
+    "techno_24": ("Техно 24", "Центральные"),
+    "ocean_tv": ("Ocean TV", "Центральные"),
+    "myzen": ("MyZen TV", "Центральные"),
+    "zhivaya_planeta": ("Живая Планета", "Центральные"),
+    "moya_planeta": ("Моя Планета", "Центральные"),
+
+    # Центральные кулинарные каналы
+    "eda": ("Еда", "Центральные"),
+    "eda_hd": ("Еда HD", "Центральные"),
+    "kitchen_tv": ("Kitchen TV", "Центральные"),
+    "chef_tv": ("Chef TV", "Центральные"),
+
+    # Центральные спортивные каналы (не мультиплекс)
+    "khl": ("КХЛ", "Центральные"),
+    "khl_prime": ("КХЛ Prime", "Центральные"),
+    "khl_world": ("КХЛ World", "Центральные"),
+    "start": ("Старт", "Центральные"),
+    "start_basket": ("Старт Баскет", "Центральные"),
+    "start_triumf": ("Старт Триумф", "Центральные"),
+
+    # Центральные кино‑каналы
+    "dom_kino": ("Дом Кино", "Центральные"),
+    "dom_kino_premium_hd": ("Дом Кино Премиум HD", "Центральные"),
+    "evrokino": ("Еврокино", "Центральные"),
+    "illusion_plus": ("Иллюзион+", "Центральные"),
+    "tv_xxi": ("ТВ XXI", "Центральные"),
+    "365_dney_tv": ("365 дней ТВ", "Центральные"),
+    "kino_tv": ("Кино ТВ", "Центральные"),
+    "kinomix": ("Киномикс", "Центральные"),
+    "kinohit": ("Кинохит", "Центральные"),
+    "kinopokaz": ("Кинопоказ", "Центральные"),
+
+    # Центральные музыкальные каналы
+    "bridge_tv": ("Bridge TV", "Центральные"),
+    "bridge_hits": ("Bridge Hits", "Центральные"),
+    "bridge_deluxe": ("Bridge Deluxe", "Центральные"),
+    "bridge_fresh": ("Bridge Fresh", "Центральные"),
+    "bridge_classic": ("Bridge Classic", "Центральные"),
+
+    # Центральные тематические каналы
+    "fashion_tv": ("Fashion TV", "Центральные"),
+    "fashionbox": ("FashionBox", "Центральные"),
+    "home_tv": ("Home TV", "Центральные"),
+    "lifestyle_tv": ("Lifestyle TV", "Центральные"),
+    "fitness_tv": ("Fitness TV", "Центральные"),
+    "health_tv": ("Health TV", "Центральные"),
+    "yoga_tv": ("Yoga TV", "Центральные"),
+    "wellness_tv": ("Wellness TV", "Центральные"),
+
+    # Центральные международные русские версии
+    "bbc_russian": ("BBC Russian", "Центральные"),
+    "dw_russian": ("DW Russian", "Центральные"),
+    "france24_russian": ("France24 Russian", "Центральные"),
+    "cgtn_russian": ("CGTN Russian", "Центральные"),
+
+    # Центральные версии региональных сетей
+    "otr_central": ("ОТР Центральный", "Центральные"),
+    "tvc_central": ("ТВЦ Центральный", "Центральные"),
+    "mir_central": ("Мир Центральный", "Центральные"),
+    "zvezda_central": ("Звезда Центральный", "Центральные"),
+}
 
 def generate_slug_candidates(key: str) -> List[str]:
     candidates = [key]
