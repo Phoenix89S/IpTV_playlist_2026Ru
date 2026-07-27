@@ -1,35 +1,39 @@
-name: Smolyaninov Scanner
-
-on:
-  schedule:
-    - cron: "0 3 */5 * *"   # запуск каждые 5 дней в 03:00 UTC
-  workflow_dispatch:         # ручной запуск (пинок)
-
-jobs:
-  scan:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
-        run: pip install requests
-
-      - name: Run Smolyaninov Scanner
-        run: python Nikolai_Smolyaninoff.py
-
-      - name: Commit playlist and report
+- name: Versioning smolnp files
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           mkdir -p output
-          mv smolnp.m3u output/
-          mv smolnp.txt output/
+
+          # Base names
+          BASE_M3U="smolnp"
+          BASE_TXT="smolnp"
+
+          # Find next version number
+          LAST_NUM=$(ls -1 | grep -E "${BASE_M3U}_[0-9]+\.m3u" | sed -E 's/.*_([0-9]+)\.m3u/\1/' | sort -n | tail -1)
+          if [ -z "$LAST_NUM" ]; then
+            NEXT_NUM=1
+          else
+            NEXT_NUM=$((LAST_NUM + 1))
+          fi
+
+          # New filenames
+          NEW_M3U="${BASE_M3U}_${NEXT_NUM}.m3u"
+          NEW_TXT="${BASE_TXT}_${NEXT_NUM}.txt"
+
+          # Copy original files to versioned names
+          cp smolnp.m3u "$NEW_M3U"
+          cp smolnp.txt "$NEW_TXT"
+
+          # Copy everything to output/
+          cp smolnp.m3u smolnp.txt output/
+          cp "$NEW_M3U" "$NEW_TXT" output/
+
+      - name: Commit and push updated files
+        run: |
+          git config user.name "Phoenix-Auto"
+          git config user.email "actions@github.com"
+
+          git add smolnp.m3u smolnp.txt
+          git add smolnp_*.m3u smolnp_*.txt
           git add output/
-          git commit -m "Автообновление плейлиста и отчёта (СКАЛА ЧАЭС)"
+
+          git commit -m "Auto-update smolnp files (versioned)"
           git push
