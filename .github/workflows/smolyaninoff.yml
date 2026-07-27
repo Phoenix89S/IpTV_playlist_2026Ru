@@ -23,8 +23,28 @@ jobs:
       - name: Run Smolyaninov Scanner
         run: python Nikolai_Smolyaninoff.py
 
-      - name: Upload playlist artifact
+      - name: Generate report
+        run: |
+          echo "=== Отчёт СКАЛА ЧАЭС ===" > Smolyaninoff_report.txt
+          echo "Дата запуска: $(date)" >> Smolyaninoff_report.txt
+          echo "Файл плейлиста: Nikolai_Smolyaninoff.m3u" >> Smolyaninoff_report.txt
+          echo "Статус: завершено успешно" >> Smolyaninoff_report.txt
+
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: smolyaninov-playlist
-          path: Nikolai_Smolyaninoff.m3u
+          name: smolyaninov-results
+          path: |
+            Nikolai_Smolyaninoff.m3u
+            Smolyaninoff_report.txt
+
+      - name: Commit playlist and report
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          mkdir -p output
+          mv Nikolai_Smolyaninoff.m3u output/
+          mv Smolyaninoff_report.txt output/
+          git add output/
+          git commit -m "Автообновление плейлиста и отчёта (СКАЛА ЧАЭС)"
+          git push
