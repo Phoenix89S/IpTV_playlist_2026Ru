@@ -1,0 +1,9 @@
+#EXTM3U
+#EXTINF:-1 group-title="НТВ",ntv2
+http://cdn.ntv.ru/ntv2/index.m3u8
+#EXTINF:-1 group-title="НТВ",ntv2
+http://cdn.ntv.ru/ntv2/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="НТВ",ntv2
+http://cdn2.ntv.ru/ntv2/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="НТВ",ntv2
+https://cdn.ntv.ru/ntv2/playlist.m3u8
