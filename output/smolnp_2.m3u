@@ -945,3 +945,9 @@ http://cdn2.ntv.ru/th_hit/tracks-v2a1/mono.m3u8
 http://cdn2.ntv.ru/unknown_russia/tracks-v4a1/mono.m3u8
 #EXTINF:-1 tvg-name="НТВ HD" group-title="Федеральные" tvg-id="ntv0_hd" tvg-status="сомнительный",НТВ HD
 http://cdn.ntv.ru/ntv0_hd/tracks-v2a1/mono.m3u8
+
+
+
+
+#EXTINF:-1 tvg-name="НТВ HD" group-title="Федеральные" tvg-id="ntv0_hd" tvg-status="ЖИВОЙ",НТВ Мир
+http://cdn2.ntv.ru/ntv0_mir/tracks-v1a1/mono.m3u8
