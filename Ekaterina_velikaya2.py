@@ -625,27 +625,48 @@ CHANNEL_META = {
     "mir_central": ("Мир Центральный", "Центральные"),
     "zvezda_central": ("Zvezda Central", "Центральные"),
 
-    # --- VIJU / TV1000 / VIASAT КИНО ---
-        "tv1000": ["viju_tv1000", "viju_tv1000_rus", "tv1000_russian", "viasat_tv1000"],
-        "tv1000_action": ["viju_tv1000_action", "viju_action", "tv1000action"],
-        "tv1000_russian": ["viju_tv1000_russkoe", "viju_tv1000_rus", "tv1000_rus", "tv1000russian"],
-        "tv1000_world": ["viju_tv1000_world", "viasat_world"],
-        "viju_megahit": ["viju_plus_megahit", "viju_plus_hit", "tv1000_megahit", "viasat_megahit"],
-        "viju_premiere": ["viju_plus_premiere", "tv1000_premiere", "viasat_premiere"],
-        "viju_comedy": ["viju_plus_comedy", "tv1000_comedy", "viasat_comedy"],
-        "viju_serial": ["viju_plus_serial", "tv1000_serial", "viasat_serial"],
-        "viju_thriller": ["viju_plus_thriller", "tv1000_thriller"],
-        "viju_dark": ["viju_plus_dark", "tv1000_dark"],
-        "viju_horror": ["viju_plus_horror", "tv1000_horror"],
+    # ==========================
+    # VIJU / VIASAT
+    # ==========================
 
-        # --- VIJU / VIASAT ПРИРОДА И ПОЗНАВАТЕЛЬНОЕ ---
-        "viasat_nature": ["viju_nature", "viju_plus_nature", "ch_viasat_nature"],
-        "viasat_explore": ["viju_explore", "viju_plus_explore", "ch_viasat_explore"],
-        "viasat_history": ["viju_history", "viju_plus_history", "ch_viasat_history"],
-        "planet_earth_hd": ["viju_planet", "viju_plus_planet", "planet_earth"],
+    "viju_tv1000": ("viju TV1000", "Viasat"),
+    "viju_tv1000_russian": ("viju TV1000 Русское", "Viasat"),
+    "viju_action": ("viju Action", "Viasat"),
+    "viju_comedy": ("viju Comedy", "Viasat"),
+    "viju_megahit": ("viju Megahit", "Viasat"),
+    "viju_premiere": ("viju Premiere", "Viasat"),
+    "viju_serial": ("viju Serial", "Viasat"),
+    "viju_thriller": ("viju Thriller", "Viasat"),
+    "viju_dark": ("viju Dark", "Viasat"),
+    "viju_horror": ("viju Horror", "Viasat"),
 
-        # --- VIJU / VIASAT СПОРТ ---
-        "viju_sport": ["viju_plus_sport", "viasat_sport", "ch_viasat_sport"],
+    "viju_history": ("viju History", "Viasat"),
+    "viju_explore": ("viju Explore", "Viasat"),
+    "viju_nature": ("viju Nature", "Viasat"),
+
+    "viju_plus_history": ("viju+ History", "Viasat"),
+    "viju_plus_explore": ("viju+ Explore", "Viasat"),
+    "viju_plus_nature": ("viju+ Nature", "Viasat"),
+
+    "viju_plus_megahit": ("viju+ Megahit", "Viasat"),
+    "viju_plus_premiere": ("viju+ Premiere", "Viasat"),
+    "viju_plus_comedy": ("viju+ Comedy", "Viasat"),
+    "viju_plus_serial": ("viju+ Serial", "Viasat"),
+    "viju_plus_thriller": ("viju+ Thriller", "Viasat"),
+    "viju_plus_dark": ("viju+ Dark", "Viasat"),
+    "viju_plus_horror": ("viju+ Horror", "Viasat"),
+
+    "viju_sport": ("viju Sport", "Viasat"),
+    "viju_plus_sport": ("viju+ Sport", "Viasat"),
+
+    "viasat_nature": ("Viasat Nature", "Viasat"),
+    "viasat_explore": ("Viasat Explore", "Viasat"),
+    "viasat_history": ("Viasat History", "Viasat"),
+    "viasat_sport": ("Viasat Sport", "Viasat"),
+    "viasat_film": ("Viasat Film", "Viasat"),
+    "viasat_film_action": ("Viasat Film Action", "Viasat"),
+    "viasat_film_family": ("Viasat Film Family", "Viasat"),
+    "viasat_tv1000": ("Viasat TV1000", "Viasat"),
 }
 
 
