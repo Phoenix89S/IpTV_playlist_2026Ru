@@ -667,6 +667,27 @@ CHANNEL_META = {
     "viasat_film_action": ("Viasat Film Action", "Viasat"),
     "viasat_film_family": ("Viasat Film Family", "Viasat"),
     "viasat_tv1000": ("Viasat TV1000", "Viasat"),
+
+    # ==========================
+    # VIJU / VIASAT
+    # ==========================
+
+    "viju_tv1000": ("viju TV1000", "Viasat"),
+    "viju_tv1000_russian": ("viju TV1000 Русское", "Viasat"),
+    "viju_tv1000_action": ("viju TV1000 Action", "Viasat"),
+    "viju_tv1000_novella": ("viju TV1000 Novella", "Viasat"),
+    "viju_tv1000_romantica": ("viju TV1000 Romantica", "Viasat"),
+
+    "viju_plus_premiere": ("viju+ Premiere", "Viasat"),
+    "viju_plus_megahit": ("viju+ Megahit", "Viasat"),
+    "viju_plus_comedy": ("viju+ Comedy", "Viasat"),
+    "viju_plus_serial": ("viju+ Serial", "Viasat"),
+    "viju_plus_planet": ("viju+ Planet", "Viasat"),
+    "viju_plus_sport": ("viju+ Sport", "Viasat"),
+
+    "viju_explore": ("viju Explore", "Viasat"),
+    "viju_nature": ("viju Nature", "Viasat"),
+    "viju_history": ("viju History", "Viasat"),
 }
 
 
