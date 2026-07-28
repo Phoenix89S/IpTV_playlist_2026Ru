@@ -3,7 +3,7 @@ name: Ekaterina Velikaya Scanner
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */6 * * *"   # запуск каждые 6 часов
+    - cron: "0 */6 * * *"
 
 jobs:
   scan-ngenix:
@@ -27,22 +27,53 @@ jobs:
         run: |
           python Ekaterina_velikaya2.py
 
+      - name: Prepare output folder
+        run: mkdir -p output
+
+      - name: Versioning report and playlist
+        run: |
+          BASE_M3U="ngenix_found"
+          BASE_TXT="ngenix_report"
+
+          LAST=$(ls -1 | grep -E "${BASE_M3U}_[0-9]+\.m3u" | \
+            sed -E 's/.*_([0-9]+)\.m3u/\1/' | \
+            sort -n | tail -1)
+
+          if [ -z "$LAST" ]; then
+            NEXT=1
+          else
+            NEXT=$((LAST + 1))
+          fi
+
+          NEW_M3U="${BASE_M3U}_${NEXT}.m3u"
+          NEW_TXT="${BASE_TXT}_${NEXT}.txt"
+
+          cp "${BASE_M3U}.m3u" "$NEW_M3U"
+          cp "${BASE_TXT}.txt" "$NEW_TXT"
+
+          cp "${BASE_M3U}.m3u" "${BASE_TXT}.txt" output/
+          cp "$NEW_M3U" "$NEW_TXT" output/
+
       - name: Upload SCALA report
         uses: actions/upload-artifact@v4
         with:
           name: ngenix-report
-          path: ngenix_report.txt
+          path: output/
 
       - name: Upload M3U playlist
         uses: actions/upload-artifact@v4
         with:
           name: ngenix-found
-          path: ngenix_found.m3u
+          path: output/
 
       - name: Commit results to repo
         run: |
-          git config --global user.name "SCALA Bot"
-          git config --global user.email "scala-bot@example.com"
+          git config user.name "SCALA Bot"
+          git config user.email "scala-bot@example.com"
+
           git add ngenix_report.txt ngenix_found.m3u
-          git commit -m "Ekaterina Velikaya report + M3U updated"
+          git add ngenix_report_*.txt ngenix_found_*.m3u
+          git add output/
+
+          git commit -m "Ekaterina Velikaya report + M3U updated (versioned)" || echo "No changes"
           git push
