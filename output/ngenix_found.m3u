@@ -6,17 +6,17 @@ https://s70378.cdn.ngenix.net/karusel/1/index.m3u8
 #EXTINF:-1 tvg-id="karusel" group-title="Эфирные ТВ Плюс",3. Карусель
 https://s70378.cdn.ngenix.net/karusel/index.m3u8
 #EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ Плюс",4. РЕН ТВ
-https://s70378.cdn.ngenix.net/ren_tv/2/index.m3u8
-#EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ Плюс",5. РЕН ТВ
 https://s70378.cdn.ngenix.net/ren_tv/1/index.m3u8
+#EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ Плюс",5. РЕН ТВ
+https://s70378.cdn.ngenix.net/ren_tv/2/index.m3u8
 #EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ Плюс",6. РЕН ТВ
 https://s70378.cdn.ngenix.net/ren_tv/index.m3u8
 #EXTINF:-1 tvg-id="tv3" group-title="Эфирные ТВ Плюс",7. ТВ-3
-https://s70378.cdn.ngenix.net/tv_3/2/index.m3u8
+https://s70378.cdn.ngenix.net/tv_3/1/index.m3u8
 #EXTINF:-1 tvg-id="tv3" group-title="Эфирные ТВ Плюс",8. ТВ-3
 https://s70378.cdn.ngenix.net/tv_3/index.m3u8
 #EXTINF:-1 tvg-id="tv3" group-title="Эфирные ТВ Плюс",9. ТВ-3
-https://s70378.cdn.ngenix.net/tv_3/1/index.m3u8
+https://s70378.cdn.ngenix.net/tv_3/2/index.m3u8
 #EXTINF:-1 tvg-id="mir" group-title="Эфирные ТВ Плюс",10. Мир
 https://s70378.cdn.ngenix.net/mir/2/index.m3u8
 #EXTINF:-1 tvg-id="mir" group-title="Эфирные ТВ Плюс",11. Мир
@@ -24,11 +24,11 @@ https://s70378.cdn.ngenix.net/mir/1/index.m3u8
 #EXTINF:-1 tvg-id="mir" group-title="Эфирные ТВ Плюс",12. Мир
 https://s70378.cdn.ngenix.net/mir/index.m3u8
 #EXTINF:-1 tvg-id="ocean_tv" group-title="Эфирные ТВ Плюс",13. Ocean TV
-https://s70378.cdn.ngenix.net/ocean_tv/2/index.m3u8
+https://s70378.cdn.ngenix.net/ocean_tv/index.m3u8
 #EXTINF:-1 tvg-id="ocean_tv" group-title="Эфирные ТВ Плюс",14. Ocean TV
 https://s70378.cdn.ngenix.net/ocean_tv/1/index.m3u8
 #EXTINF:-1 tvg-id="ocean_tv" group-title="Эфирные ТВ Плюс",15. Ocean TV
-https://s70378.cdn.ngenix.net/ocean_tv/index.m3u8
+https://s70378.cdn.ngenix.net/ocean_tv/2/index.m3u8
 #EXTINF:-1 tvg-id="viasat_nature" group-title="Эфирные ТВ Плюс",16. viju_nature
 https://s70378.cdn.ngenix.net/viasat_nature/index.m3u8
 #EXTINF:-1 tvg-id="viasat_explore" group-title="Эфирные ТВ Плюс",17. viju_explore
@@ -36,11 +36,11 @@ https://s70378.cdn.ngenix.net/viasat_explore/index.m3u8
 #EXTINF:-1 tvg-id="viasat_history" group-title="Эфирные ТВ Плюс",18. viju_history
 https://s70378.cdn.ngenix.net/viasat_history/index.m3u8
 #EXTINF:-1 tvg-id="tiji" group-title="Эфирные ТВ Плюс",19. TiJi
-https://s70378.cdn.ngenix.net/tiji/2/index.m3u8
-#EXTINF:-1 tvg-id="tiji" group-title="Эфирные ТВ Плюс",20. TiJi
-https://s70378.cdn.ngenix.net/tiji/1/index.m3u8
-#EXTINF:-1 tvg-id="tiji" group-title="Эфирные ТВ Плюс",21. TiJi
 https://s70378.cdn.ngenix.net/tiji/index.m3u8
+#EXTINF:-1 tvg-id="tiji" group-title="Эфирные ТВ Плюс",20. TiJi
+https://s70378.cdn.ngenix.net/tiji/2/index.m3u8
+#EXTINF:-1 tvg-id="tiji" group-title="Эфирные ТВ Плюс",21. TiJi
+https://s70378.cdn.ngenix.net/tiji/1/index.m3u8
 #EXTINF:-1 tvg-id="gulli" group-title="Эфирные ТВ Плюс",22. Gulli
 https://s70378.cdn.ngenix.net/gulli/index.m3u8
 #EXTINF:-1 tvg-id="gulli" group-title="Эфирные ТВ Плюс",23. Gulli
@@ -56,31 +56,31 @@ https://s70378.cdn.ngenix.net/nicktoons/2/index.m3u8
 #EXTINF:-1 tvg-id="nicktoons" group-title="Эфирные ТВ Плюс",28. NickToons
 https://s70378.cdn.ngenix.net/nicktoons/index.m3u8
 #EXTINF:-1 tvg-id="baby_tv" group-title="Эфирные ТВ Плюс",29. Baby TV
-https://s70378.cdn.ngenix.net/baby_tv/index.m3u8
-#EXTINF:-1 tvg-id="baby_tv" group-title="Эфирные ТВ Плюс",30. Baby TV
 https://s70378.cdn.ngenix.net/baby_tv/1/index.m3u8
-#EXTINF:-1 tvg-id="baby_tv" group-title="Эфирные ТВ Плюс",31. Baby TV
+#EXTINF:-1 tvg-id="baby_tv" group-title="Эфирные ТВ Плюс",30. Baby TV
 https://s70378.cdn.ngenix.net/baby_tv/2/index.m3u8
+#EXTINF:-1 tvg-id="baby_tv" group-title="Эфирные ТВ Плюс",31. Baby TV
+https://s70378.cdn.ngenix.net/baby_tv/index.m3u8
 #EXTINF:-1 tvg-id="match_planeta" group-title="Эфирные ТВ Плюс",32. Матч! Планета
 https://s70378.cdn.ngenix.net/match_planeta/index.m3u8
 #EXTINF:-1 tvg-id="fightbox" group-title="Эфирные ТВ Плюс",33. FightBox
-https://s70378.cdn.ngenix.net/fightbox/2/index.m3u8
+https://s70378.cdn.ngenix.net/fightbox/index.m3u8
 #EXTINF:-1 tvg-id="fightbox" group-title="Эфирные ТВ Плюс",34. FightBox
 https://s70378.cdn.ngenix.net/fightbox/1/index.m3u8
 #EXTINF:-1 tvg-id="fightbox" group-title="Эфирные ТВ Плюс",35. FightBox
-https://s70378.cdn.ngenix.net/fightbox/index.m3u8
+https://s70378.cdn.ngenix.net/fightbox/2/index.m3u8
 #EXTINF:-1 tvg-id="trace_sport_stars" group-title="Эфирные ТВ Плюс",36. Trace Sport Stars
 https://s70378.cdn.ngenix.net/trace_sport_stars/index.m3u8
 #EXTINF:-1 tvg-id="amedia_1" group-title="Эфирные ТВ Плюс",37. Amedia 1
-https://s70378.cdn.ngenix.net/amedia_1/2/index.m3u8
-#EXTINF:-1 tvg-id="amedia_1" group-title="Эфирные ТВ Плюс",38. Amedia 1
 https://s70378.cdn.ngenix.net/amedia_1/1/index.m3u8
-#EXTINF:-1 tvg-id="amedia_1" group-title="Эфирные ТВ Плюс",39. Amedia 1
+#EXTINF:-1 tvg-id="amedia_1" group-title="Эфирные ТВ Плюс",38. Amedia 1
 https://s70378.cdn.ngenix.net/amedia_1/index.m3u8
+#EXTINF:-1 tvg-id="amedia_1" group-title="Эфирные ТВ Плюс",39. Amedia 1
+https://s70378.cdn.ngenix.net/amedia_1/2/index.m3u8
 #EXTINF:-1 tvg-id="amedia_2" group-title="Эфирные ТВ Плюс",40. Amedia 2
-https://s70378.cdn.ngenix.net/amedia_2/2/index.m3u8
-#EXTINF:-1 tvg-id="amedia_2" group-title="Эфирные ТВ Плюс",41. Amedia 2
 https://s70378.cdn.ngenix.net/amedia_2/index.m3u8
+#EXTINF:-1 tvg-id="amedia_2" group-title="Эфирные ТВ Плюс",41. Amedia 2
+https://s70378.cdn.ngenix.net/amedia_2/2/index.m3u8
 #EXTINF:-1 tvg-id="amedia_2" group-title="Эфирные ТВ Плюс",42. Amedia 2
 https://s70378.cdn.ngenix.net/amedia_2/1/index.m3u8
 #EXTINF:-1 tvg-id="amedia_premium_hd" group-title="Эфирные ТВ Плюс",43. Amedia Premium HD
@@ -88,9 +88,9 @@ https://s70378.cdn.ngenix.net/amedia_premium_hd/index.m3u8
 #EXTINF:-1 tvg-id="amedia_hit" group-title="Эфирные ТВ Плюс",44. Amedia Hit
 https://s70378.cdn.ngenix.net/amedia_hit/index.m3u8
 #EXTINF:-1 tvg-id="filmbox" group-title="Эфирные ТВ Плюс",45. FilmBox
-https://s70378.cdn.ngenix.net/filmbox/1/index.m3u8
-#EXTINF:-1 tvg-id="filmbox" group-title="Эфирные ТВ Плюс",46. FilmBox
 https://s70378.cdn.ngenix.net/filmbox/2/index.m3u8
+#EXTINF:-1 tvg-id="filmbox" group-title="Эфирные ТВ Плюс",46. FilmBox
+https://s70378.cdn.ngenix.net/filmbox/1/index.m3u8
 #EXTINF:-1 tvg-id="filmbox" group-title="Эфирные ТВ Плюс",47. FilmBox
 https://s70378.cdn.ngenix.net/filmbox/index.m3u8
 #EXTINF:-1 tvg-id="filmbox_arthouse" group-title="Эфирные ТВ Плюс",48. FilmBox Arthouse
@@ -102,9 +102,9 @@ https://s70378.cdn.ngenix.net/amc/1/index.m3u8
 #EXTINF:-1 tvg-id="amc" group-title="Эфирные ТВ Плюс",51. AMC
 https://s70378.cdn.ngenix.net/amc/index.m3u8
 #EXTINF:-1 tvg-id="dom_kino" group-title="Эфирные ТВ Плюс",52. Дом Кино
-https://s70378.cdn.ngenix.net/dom_kino/2/index.m3u8
-#EXTINF:-1 tvg-id="dom_kino" group-title="Эфирные ТВ Плюс",53. Дом Кино
 https://s70378.cdn.ngenix.net/dom_kino/index.m3u8
+#EXTINF:-1 tvg-id="dom_kino" group-title="Эфирные ТВ Плюс",53. Дом Кино
+https://s70378.cdn.ngenix.net/dom_kino/2/index.m3u8
 #EXTINF:-1 tvg-id="dom_kino" group-title="Эфирные ТВ Плюс",54. Дом Кино
 https://s70378.cdn.ngenix.net/dom_kino/1/index.m3u8
 #EXTINF:-1 tvg-id="dom_kino_premium_hd" group-title="Эфирные ТВ Плюс",55. Дом Кино Премиум HD
@@ -120,47 +120,47 @@ https://s70378.cdn.ngenix.net/illusion_plus/index.m3u8
 #EXTINF:-1 tvg-id="mir_seriala" group-title="Эфирные ТВ Плюс",60. Мир сериала
 https://s70378.cdn.ngenix.net/mir_seriala/index.m3u8
 #EXTINF:-1 tvg-id="tv_xxi" group-title="Эфирные ТВ Плюс",61. ТВ XXI
-https://s70378.cdn.ngenix.net/tv_xxi/1/index.m3u8
+https://s70378.cdn.ngenix.net/tv_xxi/index.m3u8
 #EXTINF:-1 tvg-id="tv_xxi" group-title="Эфирные ТВ Плюс",62. ТВ XXI
 https://s70378.cdn.ngenix.net/tv_xxi/2/index.m3u8
 #EXTINF:-1 tvg-id="tv_xxi" group-title="Эфирные ТВ Плюс",63. ТВ XXI
-https://s70378.cdn.ngenix.net/tv_xxi/index.m3u8
+https://s70378.cdn.ngenix.net/tv_xxi/1/index.m3u8
 #EXTINF:-1 tvg-id="365_dney_tv" group-title="Эфирные ТВ Плюс",64. 365 дней ТВ
 https://s70378.cdn.ngenix.net/365_dney_tv/index.m3u8
 #EXTINF:-1 tvg-id="galaxy" group-title="Эфирные ТВ Плюс",65. Galaxy
 https://s70378.cdn.ngenix.net/galaxy/2/index.m3u8
 #EXTINF:-1 tvg-id="galaxy" group-title="Эфирные ТВ Плюс",66. Galaxy
-https://s70378.cdn.ngenix.net/galaxy/1/index.m3u8
-#EXTINF:-1 tvg-id="galaxy" group-title="Эфирные ТВ Плюс",67. Galaxy
 https://s70378.cdn.ngenix.net/galaxy/index.m3u8
+#EXTINF:-1 tvg-id="galaxy" group-title="Эфирные ТВ Плюс",67. Galaxy
+https://s70378.cdn.ngenix.net/galaxy/1/index.m3u8
 #EXTINF:-1 tvg-id="sony_channel" group-title="Эфирные ТВ Плюс",68. Sony Channel
 https://s70378.cdn.ngenix.net/sony_channel/index.m3u8
 #EXTINF:-1 tvg-id="sony_turbo" group-title="Эфирные ТВ Плюс",69. Sony Turbo
 https://s70378.cdn.ngenix.net/sony_turbo/index.m3u8
 #EXTINF:-1 tvg-id="history_2" group-title="Эфирные ТВ Плюс",70. History 2
-https://s70378.cdn.ngenix.net/history_2/1/index.m3u8
-#EXTINF:-1 tvg-id="history_2" group-title="Эфирные ТВ Плюс",71. History 2
 https://s70378.cdn.ngenix.net/history_2/2/index.m3u8
+#EXTINF:-1 tvg-id="history_2" group-title="Эфирные ТВ Плюс",71. History 2
+https://s70378.cdn.ngenix.net/history_2/1/index.m3u8
 #EXTINF:-1 tvg-id="history_2" group-title="Эфирные ТВ Плюс",72. History 2
 https://s70378.cdn.ngenix.net/history_2/index.m3u8
 #EXTINF:-1 tvg-id="docubox" group-title="Эфирные ТВ Плюс",73. DocuBox
-https://s70378.cdn.ngenix.net/docubox/1/index.m3u8
+https://s70378.cdn.ngenix.net/docubox/index.m3u8
 #EXTINF:-1 tvg-id="docubox" group-title="Эфирные ТВ Плюс",74. DocuBox
 https://s70378.cdn.ngenix.net/docubox/2/index.m3u8
 #EXTINF:-1 tvg-id="docubox" group-title="Эфирные ТВ Плюс",75. DocuBox
-https://s70378.cdn.ngenix.net/docubox/index.m3u8
+https://s70378.cdn.ngenix.net/docubox/1/index.m3u8
 #EXTINF:-1 tvg-id="nostalgia" group-title="Эфирные ТВ Плюс",76. Ностальгия
-https://s70378.cdn.ngenix.net/nostalgia/1/index.m3u8
-#EXTINF:-1 tvg-id="nostalgia" group-title="Эфирные ТВ Плюс",77. Ностальгия
-https://s70378.cdn.ngenix.net/nostalgia/2/index.m3u8
-#EXTINF:-1 tvg-id="nostalgia" group-title="Эфирные ТВ Плюс",78. Ностальгия
 https://s70378.cdn.ngenix.net/nostalgia/index.m3u8
+#EXTINF:-1 tvg-id="nostalgia" group-title="Эфирные ТВ Плюс",77. Ностальгия
+https://s70378.cdn.ngenix.net/nostalgia/1/index.m3u8
+#EXTINF:-1 tvg-id="nostalgia" group-title="Эфирные ТВ Плюс",78. Ностальгия
+https://s70378.cdn.ngenix.net/nostalgia/2/index.m3u8
 #EXTINF:-1 tvg-id="da_vinci" group-title="Эфирные ТВ Плюс",79. Da Vinci
-https://s70378.cdn.ngenix.net/da_vinci/2/index.m3u8
+https://s70378.cdn.ngenix.net/da_vinci/1/index.m3u8
 #EXTINF:-1 tvg-id="da_vinci" group-title="Эфирные ТВ Плюс",80. Da Vinci
 https://s70378.cdn.ngenix.net/da_vinci/index.m3u8
 #EXTINF:-1 tvg-id="da_vinci" group-title="Эфирные ТВ Плюс",81. Da Vinci
-https://s70378.cdn.ngenix.net/da_vinci/1/index.m3u8
+https://s70378.cdn.ngenix.net/da_vinci/2/index.m3u8
 #EXTINF:-1 tvg-id="kitchen_tv" group-title="Эфирные ТВ Плюс",82. Kitchen TV
 https://s70378.cdn.ngenix.net/kitchen_tv/index.m3u8
 #EXTINF:-1 tvg-id="mezzo" group-title="Эфирные ТВ Плюс",83. Mezzo
@@ -172,21 +172,21 @@ https://s70378.cdn.ngenix.net/mezzo/index.m3u8
 #EXTINF:-1 tvg-id="tnt_music" group-title="Эфирные ТВ Плюс",86. ТНТ Music
 https://s70378.cdn.ngenix.net/tnt_music/2/index.m3u8
 #EXTINF:-1 tvg-id="tnt_music" group-title="Эфирные ТВ Плюс",87. ТНТ Music
-https://s70378.cdn.ngenix.net/tnt_music/1/index.m3u8
-#EXTINF:-1 tvg-id="tnt_music" group-title="Эфирные ТВ Плюс",88. ТНТ Music
 https://s70378.cdn.ngenix.net/tnt_music/index.m3u8
+#EXTINF:-1 tvg-id="tnt_music" group-title="Эфирные ТВ Плюс",88. ТНТ Music
+https://s70378.cdn.ngenix.net/tnt_music/1/index.m3u8
 #EXTINF:-1 tvg-id="rtvi" group-title="Эфирные ТВ Плюс",89. RTVi
-https://s70378.cdn.ngenix.net/rtvi/2/index.m3u8
-#EXTINF:-1 tvg-id="rtvi" group-title="Эфирные ТВ Плюс",90. RTVi
-https://s70378.cdn.ngenix.net/rtvi/1/index.m3u8
-#EXTINF:-1 tvg-id="rtvi" group-title="Эфирные ТВ Плюс",91. RTVi
 https://s70378.cdn.ngenix.net/rtvi/index.m3u8
+#EXTINF:-1 tvg-id="rtvi" group-title="Эфирные ТВ Плюс",90. RTVi
+https://s70378.cdn.ngenix.net/rtvi/2/index.m3u8
+#EXTINF:-1 tvg-id="rtvi" group-title="Эфирные ТВ Плюс",91. RTVi
+https://s70378.cdn.ngenix.net/rtvi/1/index.m3u8
 #EXTINF:-1 tvg-id="tv5_monde" group-title="Эфирные ТВ Плюс",92. TV5 Monde
-https://s70378.cdn.ngenix.net/tv5_monde/1/index.m3u8
-#EXTINF:-1 tvg-id="tv5_monde" group-title="Эфирные ТВ Плюс",93. TV5 Monde
-https://s70378.cdn.ngenix.net/tv5_monde/2/index.m3u8
-#EXTINF:-1 tvg-id="tv5_monde" group-title="Эфирные ТВ Плюс",94. TV5 Monde
 https://s70378.cdn.ngenix.net/tv5_monde/index.m3u8
+#EXTINF:-1 tvg-id="tv5_monde" group-title="Эфирные ТВ Плюс",93. TV5 Monde
+https://s70378.cdn.ngenix.net/tv5_monde/1/index.m3u8
+#EXTINF:-1 tvg-id="tv5_monde" group-title="Эфирные ТВ Плюс",94. TV5 Monde
+https://s70378.cdn.ngenix.net/tv5_monde/2/index.m3u8
 #EXTINF:-1 tvg-id="fashion_tv" group-title="Эфирные ТВ Плюс",95. Fashion TV
 https://s70378.cdn.ngenix.net/fashion_tv/index.m3u8
 #EXTINF:-1 tvg-id="viasat_sport" group-title="Эфирные ТВ Плюс",96. viju_plus_sport
@@ -198,4 +198,6 @@ https://s70378.cdn.ngenix.net/vip_megahit/index.m3u8
 #EXTINF:-1 tvg-id="vip_comedy" group-title="Эфирные ТВ Плюс",99. viju_plus_comedy
 https://s70378.cdn.ngenix.net/vip_comedy/index.m3u8
 #EXTINF:-1 tvg-id="vip_serial" group-title="Эфирные ТВ Плюс",100. viju_plus_serial
+https://s70378.cdn.ngenix.net/vip_serial/1/index.m3u8
+#EXTINF:-1 tvg-id="vip_serial" group-title="Эфирные ТВ Плюс",101. viju_plus_serial
 https://s70378.cdn.ngenix.net/vip_serial/index.m3u8
