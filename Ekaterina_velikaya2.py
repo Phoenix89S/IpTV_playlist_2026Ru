@@ -845,7 +845,8 @@ def generate_slug_candidates(key: str) -> List[str]:
 
     return list(dict.fromkeys(candidates))
 
-
+#--------------------------------
+# исправлено надеюсь
 # -------------------------------
 # Валидатор HLS-потока
 # -------------------------------
