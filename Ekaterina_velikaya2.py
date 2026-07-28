@@ -880,36 +880,41 @@ def probe_url(session: Any, url: str, timeout: float = 2.5, user_agent: str = "H
 # Движок сканирования (СКАЛА — ТОТАЛЬНЫЙ СБОР)
 # -------------------------------
 
+import requests
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import Dict, Tuple
+
 def scan_ngenix_node(
     cdn_hosts: list = None, 
     meta_dict: Dict[str, Tuple[str, str]] = CHANNEL_META,
     start_index: int = 1,
     group_override: str = "Эфирные ТВ Плюс",
     timeout: float = 2.5,
-    max_workers: int = 25
+    max_workers: int = 35
 ):
+    # Если список хостов не передан, формируем весь пул узлов Ngenix (s70375..s70380 + s55766)
     if cdn_hosts is None:
-        cdn_hosts = ["s70378.cdn.ngenix.net", "s55766.cdn.ngenix.net"]
+        cdn_hosts = [f"s{i}.cdn.ngenix.net" for i in range(70375, 70381)] + ["s55766.cdn.ngenix.net"]
 
-    print(f"=== [СКАЛА] Запуск тотального сбора и вытряхивания узлов: {cdn_hosts} ===")
+    print(f"=== [СКАЛА] Тотальный запуск валидатора по {len(cdn_hosts)} узлам Ngenix ===")
 
     tasks = []
     task_urls_set = set()
 
-    # Шаблоны путей под разные узлы
-    path_templates = [
-        # Узел s70378 и аналогичные
+    # Разделяем шаблоны путей строго по типам узлов, чтобы не плодить 404
+    s703xx_templates = [
         "/{slug}/2/index.m3u8",
         "/{slug}/1/index.m3u8",
         "/hls/{slug}/variant.m3u8",
-        "/{slug}/index.m3u8",
-        
-        # Узел s55766 (rline / media-origin)
+        "/{slug}/index.m3u8"
+    ]
+
+    s55766_templates = [
         "/s55766-media-origin/rline_high/index.m3u8",
         "/s55766-media-origin/{slug}_high/index.m3u8",
         "/s55766-media-origin/{slug}/index.m3u8",
         "/s55766-media-origin/{slug}_low/index.m3u8",
-        "/s55766-media-origin/{slug}/variant.m3u8",
+        "/s55766-media-origin/{slug}/variant.m3u8"
     ]
 
     # -------------------------------------------------------------
@@ -929,7 +934,13 @@ def scan_ngenix_node(
         for slug in slugs:
             known_slugs.add(slug.lower())
             for host in cdn_hosts:
-                proto = "http" if "s55766" in host else "https"
+                if "s55766" in host:
+                    proto = "http"
+                    path_templates = s55766_templates
+                else:
+                    proto = "https"
+                    path_templates = s703xx_templates
+
                 for path_tmpl in path_templates:
                     url = f"{proto}://{host}" + path_tmpl.format(slug=slug)
                     if url not in task_urls_set:
@@ -944,7 +955,7 @@ def scan_ngenix_node(
                         })
 
     # -------------------------------------------------------------
-    # 2. "ВЫТРЯХИВАНИЕ": Генерируем слепой перебор (брутфорс кандидатов)
+    # 2. "ВЫТРЯХИВАНИЕ": Брутфорс кандидатов по всему пулу узлов
     # -------------------------------------------------------------
     brute_candidates = set()
     
@@ -952,23 +963,38 @@ def scan_ngenix_node(
     for i in range(1, 101):
         brute_candidates.update([f"ch{i}", f"ch_{i}", f"stream{i}", f"channel{i}", f"test{i}"])
     
-    # 2.2 Частые ТВ-алиасы и короткие имена
+    # 2.2 Частые ТВ-алиасы, базовые каналы и ПОЛНЫЙ ПАКЕТ VIJU+ / TV1000
     common_words = [
         "rline", "rline_high", "rline_low", "live", "main", "hd", "sd",
         "1tv", "rossiya1", "rossiya24", "match", "ntv", "5tv", "kultura",
         "karusel", "ort", "tnt", "sts", "ren", "spas", "domashny", "tv3",
-        "p пятница", "friday", "zvezda", "mir", "muz", "murtv", "u-tv", "utv",
-        "viju", "viasat", "cinema", "moskva24", "izvestia", "subbota",
-        "kinopremiera", "kinohit", "kinofilm", "red", "sci-fi", "vip_serial"
+        "friday", "zvezda", "mir", "muz", "murtv", "u-tv", "utv",
+        "moskva24", "izvestia", "subbota", "kinopremiera", "kinohit", "kinofilm", 
+        "red", "sci-fi", "cinema",
+        
+        # --- Семейство Viju / Viju+ / TV1000 / VIP ---
+        "viju", "viju_plus", "viju_tv1000",
+        "viju_plus_romantic", "viju_romantic", "viju_plus_serial", "viju_serial",
+        "viju_plus_megahit", "viju_megahit", "viju_plus_premiere", "viju_premiere",
+        "viju_plus_sport", "viju_sport", "viju_plus_nature", "viju_nature",
+        "viju_plus_explore", "viju_explore", "viju_plus_planet", "viju_planet",
+        "viasat", "vip", "vip_serial", "vip_megahit", "vip_premiere", "vip_comedy",
+        "tv1000", "tv1000_action", "tv1000_russian", "tv1000_ru"
     ]
     brute_candidates.update(common_words)
 
-    # Исключаем то, что уже было добавлено из словаря
+    # Исключаем то, что уже проверяется из словаря
     extra_slugs = brute_candidates - known_slugs
 
     for slug in extra_slugs:
         for host in cdn_hosts:
-            proto = "http" if "s55766" in host else "https"
+            if "s55766" in host:
+                proto = "http"
+                path_templates = s55766_templates
+            else:
+                proto = "https"
+                path_templates = s703xx_templates
+
             for path_tmpl in path_templates:
                 url = f"{proto}://{host}" + path_tmpl.format(slug=slug)
                 if url not in task_urls_set:
@@ -982,8 +1008,10 @@ def scan_ngenix_node(
                         "is_known": False
                     })
 
+    print(f"[СКАЛА] Сформировано {len(tasks)} уникальных точечных запросов.")
+
     # -------------------------------------------------------------
-    # 3. Сканирование в многопоточном режиме
+    # 3. Многопоточное сканирование
     # -------------------------------------------------------------
     found_channels = []
     found_urls = set()
@@ -1025,7 +1053,7 @@ def scan_ngenix_node(
         if session:
             session.close()
 
-    # Сортировка: Сначала известные каналы по порядку словаря, потом найденные брутом
+    # Сортировка: сначала известные каналы по порядку словаря, потом брутфорс
     meta_keys = list(meta_dict.keys())
     found_channels.sort(
         key=lambda x: (0 if x["is_known"] else 1, meta_keys.index(x["key"]) if x["key"] in meta_keys else 9999)
@@ -1035,9 +1063,10 @@ def scan_ngenix_node(
     # 4. Запись отчёта и плейлиста
     # -------------------------------------------------------------
     with open("ngenix_report.txt", "w", encoding="utf-8") as f:
-        f.write("СКАЛА Вер 3.9.1 — NGENIX TOTAL SWEEP REPORT\n")
+        f.write("СКАЛА Вер 3.9.3 — NGENIX MULTI-NODE SWEEP REPORT\n")
         f.write("=========================================\n")
-        f.write(f"Проверено комбинаций URL (Словарь + Брут): {len(tasks)}\n")
+        f.write(f"Сканируемые узлы ({len(cdn_hosts)}): {', '.join(cdn_hosts)}\n")
+        f.write(f"Проверено комбинаций URL: {len(tasks)}\n")
         f.write(f"Успешно найдено рабочих потоков: {len(found_channels)}\n")
         f.write("=========================================\n\n")
 
@@ -1054,24 +1083,32 @@ def scan_ngenix_node(
             f.write(f'#EXTINF:-1 tvg-id="{ch["key"]}" group-title="{ch["group"]}",{i}. {ch["title"]}\n')
             f.write(f'{ch["url"]}\n')
 
-    print("\n[СКАЛА] Тотальное вытряхивание завершено!")
-    print(f" — Всего найдено активных потоков: {len(found_channels)}")
+    print("\n[СКАЛА] Тотальный прогон завершён!")
+    print(f" — Найдено уникальных рабочих потоков: {len(found_channels)}")
     print(" — Отчёт: ngenix_report.txt")
     print(" — Сгенерирован M3U: ngenix_found.m3u")
 
 
 if __name__ == "__main__":
+    target_nodes = [
+        "s70375.cdn.ngenix.net",
+        "s70376.cdn.ngenix.net",
+        "s70377.cdn.ngenix.net",
+        "s70378.cdn.ngenix.net",
+        "s70379.cdn.ngenix.net",
+        "s70380.cdn.ngenix.net",
+        "s55766.cdn.ngenix.net"
+    ]
+
     scan_ngenix_node(
-        cdn_hosts=[
-            "s70378.cdn.ngenix.net",
-            "s55766.cdn.ngenix.net"
-        ],
+        cdn_hosts=target_nodes,
         meta_dict=CHANNEL_META,
         start_index=1,
         group_override="Эфирные ТВ Плюс",
         timeout=2.5,
-        max_workers=25
+        max_workers=35
     )
+
 
 
 
