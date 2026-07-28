@@ -896,7 +896,7 @@ def scan_ngenix_node(
         "/hls/{slug}/variant.m3u8"
     ]
 
-        for key, meta_data in meta_dict.items():
+      for key, meta_data in meta_dict.items():
         # Защищённая распаковка: извлекаем title и group независимо от длины кортежа/списка
         if isinstance(meta_data, (list, tuple)):
             title = meta_data[0]
@@ -917,7 +917,6 @@ def scan_ngenix_node(
                     "url": url
                 })
 
-
     found_channels = []
     found_keys = set()
     scanned_logs = []
@@ -927,7 +926,7 @@ def scan_ngenix_node(
     try:
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
             future_map = {
-                executor.submit(probe_url, session, item["url"], timeout): item 
+                executor.submit(probe_url, session, item["url"], timeout): item
                 for item in tasks
             }
 
@@ -984,13 +983,14 @@ def scan_ngenix_node(
 
 if __name__ == "__main__":
     scan_ngenix_node(
-        cdn_host="s70378.cdn.ngenix.net", 
+        cdn_host="s70378.cdn.ngenix.net",
         meta_dict=CHANNEL_META,
         start_index=1,
         group_override="Эфирные ТВ Плюс",
         timeout=2.5,
         max_workers=20
     )
+
 
 
 
