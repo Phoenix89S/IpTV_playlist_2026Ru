@@ -896,7 +896,7 @@ def scan_ngenix_node(
         "/hls/{slug}/variant.m3u8"
     ]
 
-      for key, meta_data in meta_dict.items():
+    for key, meta_data in meta_dict.items():
         # Защищённая распаковка: извлекаем title и group независимо от длины кортежа/списка
         if isinstance(meta_data, (list, tuple)):
             title = meta_data[0]
@@ -990,7 +990,6 @@ if __name__ == "__main__":
         timeout=2.5,
         max_workers=20
     )
-
 
 
 
