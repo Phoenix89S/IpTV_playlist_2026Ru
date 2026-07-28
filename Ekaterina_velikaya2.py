@@ -688,6 +688,130 @@ CHANNEL_META = {
     "viju_explore": ("viju Explore", "Viasat"),
     "viju_nature": ("viju Nature", "Viasat"),
     "viju_history": ("viju History", "Viasat"),
+
+    # ==========================================================
+    # VIJU TV1000
+    # ==========================================================
+    "tv1000": "viju_tv1000",
+    "viju_tv1000": "viju_tv1000",
+    "viju tv1000": "viju_tv1000",
+    "viasat_tv1000": "viju_tv1000",
+    "viasat tv1000": "viju_tv1000",
+
+    "tv1000_russian": "viju_tv1000_russian",
+    "tv1000 russian": "viju_tv1000_russian",
+    "tv1000_rus": "viju_tv1000_russian",
+    "tv1000_russkoe": "viju_tv1000_russian",
+    "tv1000_russian_movie": "viju_tv1000_russian",
+    "tv1000_русское": "viju_tv1000_russian",
+    "tv1000_русское_кино": "viju_tv1000_russian",
+    "tv1000 русское": "viju_tv1000_russian",
+    "tv1000 русское кино": "viju_tv1000_russian",
+    "viju_tv1000_russian": "viju_tv1000_russian",
+    "viju tv1000 russian": "viju_tv1000_russian",
+    "viju tv1000 русское": "viju_tv1000_russian",
+
+    "tv1000_action": "viju_tv1000_action",
+    "tv1000 action": "viju_tv1000_action",
+    "tv1000action": "viju_tv1000_action",
+    "viju_action": "viju_tv1000_action",
+    "viju action": "viju_tv1000_action",
+    "viju_tv1000_action": "viju_tv1000_action",
+    "viju tv1000 action": "viju_tv1000_action",
+
+    "tv1000_novella": "viju_tv1000_novella",
+    "tv1000 novella": "viju_tv1000_novella",
+    "viju_tv1000_novella": "viju_tv1000_novella",
+    "viju tv1000 novella": "viju_tv1000_novella",
+
+    "tv1000_romantica": "viju_tv1000_romantica",
+    "tv1000 romantica": "viju_tv1000_romantica",
+    "viju_tv1000_romantica": "viju_tv1000_romantica",
+    "viju tv1000 romantica": "viju_tv1000_romantica",
+
+    # ==========================================================
+    # VIJU+
+    # ==========================================================
+    "viju_plus_premiere": "viju_plus_premiere",
+    "viju+_premiere": "viju_plus_premiere",
+    "viju+ premiere": "viju_plus_premiere",
+    "viju plus premiere": "viju_plus_premiere",
+    "vip_premiere": "viju_plus_premiere",
+    "vip premiere": "viju_plus_premiere",
+    "vippremiere": "viju_plus_premiere",
+
+    "viju_plus_megahit": "viju_plus_megahit",
+    "viju+_megahit": "viju_plus_megahit",
+    "viju+ megahit": "viju_plus_megahit",
+    "viju plus megahit": "viju_plus_megahit",
+    "vip_megahit": "viju_plus_megahit",
+    "vip megahit": "viju_plus_megahit",
+    "vipmegahit": "viju_plus_megahit",
+
+    "viju_plus_comedy": "viju_plus_comedy",
+    "viju+_comedy": "viju_plus_comedy",
+    "viju+ comedy": "viju_plus_comedy",
+    "viju plus comedy": "viju_plus_comedy",
+    "vip_comedy": "viju_plus_comedy",
+    "vip comedy": "viju_plus_comedy",
+    "vipcomedy": "viju_plus_comedy",
+
+    "viju_plus_serial": "viju_plus_serial",
+    "viju+_serial": "viju_plus_serial",
+    "viju+ serial": "viju_plus_serial",
+    "viju plus serial": "viju_plus_serial",
+    "vip_serial": "viju_plus_serial",
+    "vip serial": "viju_plus_serial",
+    "vipserial": "viju_plus_serial",
+
+    "viju_plus_planet": "viju_plus_planet",
+    "viju+_planet": "viju_plus_planet",
+    "viju+ planet": "viju_plus_planet",
+    "viju plus planet": "viju_plus_planet",
+    "vip_planet": "viju_plus_planet",
+    "vip planet": "viju_plus_planet",
+    "viasat_planet": "viju_plus_planet",
+    "viasat planet": "viju_plus_planet",
+    "planet_hd": "viju_plus_planet",
+
+    "viju_plus_sport": "viju_plus_sport",
+    "viju+_sport": "viju_plus_sport",
+    "viju+ sport": "viju_plus_sport",
+    "viju plus sport": "viju_plus_sport",
+    "vip_sport": "viju_plus_sport",
+    "vip sport": "viju_plus_sport",
+    "viasat_sport": "viju_plus_sport",
+    "viasat sport": "viju_plus_sport",
+
+    # ==========================================================
+    # VIJU EXPLORE
+    # ==========================================================
+    "viju_explore": "viju_explore",
+    "viju explore": "viju_explore",
+    "viasat_explore": "viju_explore",
+    "viasat explore": "viju_explore",
+    "explore_hd": "viju_explore",
+    "explore hd": "viju_explore",
+
+    # ==========================================================
+    # VIJU NATURE
+    # ==========================================================
+    "viju_nature": "viju_nature",
+    "viju nature": "viju_nature",
+    "viasat_nature": "viju_nature",
+    "viasat nature": "viju_nature",
+    "nature_hd": "viju_nature",
+    "nature hd": "viju_nature",
+
+    # ==========================================================
+    # VIJU HISTORY
+    # ==========================================================
+    "viju_history": "viju_history",
+    "viju history": "viju_history",
+    "viasat_history": "viju_history",
+    "viasat history": "viju_history",
+    "history_hd": "viju_history",
+    "history hd": "viju_history",
 }
 
 
