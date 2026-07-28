@@ -109,6 +109,8 @@ https://s70378.cdn.ngenix.net/dom_kino/2/index.m3u8
 https://s70378.cdn.ngenix.net/dom_kino/1/index.m3u8
 #EXTINF:-1 tvg-id="dom_kino_premium_hd" group-title="Эфирные ТВ Плюс",55. Дом Кино Премиум HD
 https://s70378.cdn.ngenix.net/dom_kino_premium_hd/index.m3u8
+#EXTINF:-1 tvg-id="dom_kino_premium_hd" group-title="Эфирные ТВ Плюс",55.1 Дом Кино Премиум 
+https://s70378.cdn.ngenix.net/dom_kino_premium/index.m3u8
 #EXTINF:-1 tvg-id="evrokino" group-title="Эфирные ТВ Плюс",56. Еврокино
 https://s70378.cdn.ngenix.net/evrokino/2/index.m3u8
 #EXTINF:-1 tvg-id="evrokino" group-title="Эфирные ТВ Плюс",57. Еврокино
