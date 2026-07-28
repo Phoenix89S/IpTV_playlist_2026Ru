@@ -896,7 +896,15 @@ def scan_ngenix_node(
         "/hls/{slug}/variant.m3u8"
     ]
 
-    for key, (title, group) in meta_dict.items():
+        for key, meta_data in meta_dict.items():
+        # Защищённая распаковка: извлекаем title и group независимо от длины кортежа/списка
+        if isinstance(meta_data, (list, tuple)):
+            title = meta_data[0]
+            group = meta_data[1] if len(meta_data) > 1 else "Разное"
+        else:
+            title = str(meta_data)
+            group = "Разное"
+
         slugs = generate_slug_candidates(key)
         for slug in slugs:
             for path_tmpl in path_templates:
@@ -908,6 +916,7 @@ def scan_ngenix_node(
                     "slug": slug,
                     "url": url
                 })
+
 
     found_channels = []
     found_keys = set()
