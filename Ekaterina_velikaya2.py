@@ -877,35 +877,47 @@ def probe_url(session: Any, url: str, timeout: float = 2.5, user_agent: str = "H
 
 
 # -------------------------------
-# Движок сканирования
+# Движок сканирования (СКАЛА — ТОТАЛЬНЫЙ СБОР)
 # -------------------------------
 
 def scan_ngenix_node(
-    cdn_host: str = "s70378.cdn.ngenix.net", 
+    cdn_hosts: list = None, 
     meta_dict: Dict[str, Tuple[str, str]] = CHANNEL_META,
     start_index: int = 1,
     group_override: str = "Эфирные ТВ Плюс",
     timeout: float = 2.5,
-    max_workers: int = 20
+    max_workers: int = 25
 ):
-    print(f"=== [СКАЛА] Запуск валидатора: {cdn_host} ===")
+    if cdn_hosts is None:
+        cdn_hosts = ["s70378.cdn.ngenix.net", "s55766.cdn.ngenix.net"]
+
+    print(f"=== [СКАЛА] Запуск тотального сбора и вытряхивания узлов: {cdn_hosts} ===")
 
     tasks = []
-    # Расширенный список шаблонов путей под разные узлы Ngenix
+    task_urls_set = set()
+
+    # Шаблоны путей под разные узлы
     path_templates = [
-        # Для узла s70378
+        # Узел s70378 и аналогичные
         "/{slug}/2/index.m3u8",
         "/{slug}/1/index.m3u8",
         "/hls/{slug}/variant.m3u8",
+        "/{slug}/index.m3u8",
         
-        # Для узла s55766 (rline)
+        # Узел s55766 (rline / media-origin)
+        "/s55766-media-origin/rline_high/index.m3u8",
         "/s55766-media-origin/{slug}_high/index.m3u8",
         "/s55766-media-origin/{slug}/index.m3u8",
         "/s55766-media-origin/{slug}_low/index.m3u8",
+        "/s55766-media-origin/{slug}/variant.m3u8",
     ]
 
+    # -------------------------------------------------------------
+    # 1. Сбор задач ИЗ СЛОВАРЯ (CHANNEL_META)
+    # -------------------------------------------------------------
+    known_slugs = set()
+
     for key, meta_data in meta_dict.items():
-        # Защищённая распаковка: извлекаем title и group независимо от длины кортежа/списка
         if isinstance(meta_data, (list, tuple)):
             title = meta_data[0]
             group = meta_data[1] if len(meta_data) > 1 else "Разное"
@@ -915,18 +927,66 @@ def scan_ngenix_node(
 
         slugs = generate_slug_candidates(key)
         for slug in slugs:
-            for path_tmpl in path_templates:
-                url = f"https://{cdn_host}" + path_tmpl.format(slug=slug)
-                tasks.append({
-                    "key": key,
-                    "title": title,
-                    "group": group_override if group_override else group,
-                    "slug": slug,
-                    "url": url
-                })
+            known_slugs.add(slug.lower())
+            for host in cdn_hosts:
+                proto = "http" if "s55766" in host else "https"
+                for path_tmpl in path_templates:
+                    url = f"{proto}://{host}" + path_tmpl.format(slug=slug)
+                    if url not in task_urls_set:
+                        task_urls_set.add(url)
+                        tasks.append({
+                            "key": key,
+                            "title": title,
+                            "group": group_override if group_override else group,
+                            "slug": slug,
+                            "url": url,
+                            "is_known": True
+                        })
 
+    # -------------------------------------------------------------
+    # 2. "ВЫТРЯХИВАНИЕ": Генерируем слепой перебор (брутфорс кандидатов)
+    # -------------------------------------------------------------
+    brute_candidates = set()
+    
+    # 2.1 Номера каналов (ch1..ch100, stream1..stream50, test1..test10)
+    for i in range(1, 101):
+        brute_candidates.update([f"ch{i}", f"ch_{i}", f"stream{i}", f"channel{i}", f"test{i}"])
+    
+    # 2.2 Частые ТВ-алиасы и короткие имена
+    common_words = [
+        "rline", "rline_high", "rline_low", "live", "main", "hd", "sd",
+        "1tv", "rossiya1", "rossiya24", "match", "ntv", "5tv", "kultura",
+        "karusel", "ort", "tnt", "sts", "ren", "spas", "domashny", "tv3",
+        "p пятница", "friday", "zvezda", "mir", "muz", "murtv", "u-tv", "utv",
+        "viju", "viasat", "cinema", "moskva24", "izvestia", "subbota",
+        "kinopremiera", "kinohit", "kinofilm", "red", "sci-fi", "vip_serial"
+    ]
+    brute_candidates.update(common_words)
+
+    # Исключаем то, что уже было добавлено из словаря
+    extra_slugs = brute_candidates - known_slugs
+
+    for slug in extra_slugs:
+        for host in cdn_hosts:
+            proto = "http" if "s55766" in host else "https"
+            for path_tmpl in path_templates:
+                url = f"{proto}://{host}" + path_tmpl.format(slug=slug)
+                if url not in task_urls_set:
+                    task_urls_set.add(url)
+                    tasks.append({
+                        "key": f"unmapped_{slug}",
+                        "title": f"[НЕИЗВЕСТНЫЙ] {slug.upper()}",
+                        "group": "Находки Ngenix (Неразмечено)",
+                        "slug": slug,
+                        "url": url,
+                        "is_known": False
+                    })
+
+    # -------------------------------------------------------------
+    # 3. Сканирование в многопоточном режиме
+    # -------------------------------------------------------------
     found_channels = []
-    found_keys = set()
+    found_urls = set()
     scanned_logs = []
 
     session = requests.Session() if requests else None
@@ -949,32 +1009,42 @@ def scan_ngenix_node(
                     "ok": ok,
                     "status": status,
                     "latency": latency,
-                    "error": err
+                    "error": err,
+                    "is_known": item["is_known"]
                 }
                 scanned_logs.append(log_entry)
 
-                if ok and item["key"] not in found_keys:
-                    found_keys.add(item["key"])
+                if ok and item["url"] not in found_urls:
+                    found_urls.add(item["url"])
                     found_channels.append(item)
-                    print(f"[НАЙДЕН HLS] {item['title']} -> {item['url']} ({int(latency)} ms)")
+                    
+                    tag_str = "ИЗ СЛОВАРЯ" if item["is_known"] else "НАХОДКА!"
+                    print(f"[{tag_str}] {item['title']} -> {item['url']} ({int(latency)} ms)")
 
     finally:
         if session:
             session.close()
 
+    # Сортировка: Сначала известные каналы по порядку словаря, потом найденные брутом
     meta_keys = list(meta_dict.keys())
-    found_channels.sort(key=lambda x: meta_keys.index(x["key"]))
+    found_channels.sort(
+        key=lambda x: (0 if x["is_known"] else 1, meta_keys.index(x["key"]) if x["key"] in meta_keys else 9999)
+    )
 
+    # -------------------------------------------------------------
+    # 4. Запись отчёта и плейлиста
+    # -------------------------------------------------------------
     with open("ngenix_report.txt", "w", encoding="utf-8") as f:
-        f.write("СКАЛА Вер 3.9.1 — NGENIX FINDER REPORT\n")
+        f.write("СКАЛА Вер 3.9.1 — NGENIX TOTAL SWEEP REPORT\n")
         f.write("=========================================\n")
-        f.write(f"Проверено комбинаций URL: {len(tasks)}\n")
-        f.write(f"Успешно найдено каналов: {len(found_channels)}\n")
+        f.write(f"Проверено комбинаций URL (Словарь + Брут): {len(tasks)}\n")
+        f.write(f"Успешно найдено рабочих потоков: {len(found_channels)}\n")
         f.write("=========================================\n\n")
 
         for log in scanned_logs:
             tag = "OK" if log["ok"] else "FAIL"
-            f.write(f"[СКАЛА] [{tag}] Канал: {log['title']} | Key: {log['key']}\n")
+            kind = "KNOWN" if log["is_known"] else "DISCOVERY"
+            f.write(f"[СКАЛА] [{tag}] [{kind}] Канал: {log['title']} | Key: {log['key']}\n")
             f.write(f"        URL: {log['url']}\n")
             f.write(f"        Статус: {log['status']} | Latency: {int(log['latency'])} ms | Error: {log['error']}\n\n")
 
@@ -984,26 +1054,25 @@ def scan_ngenix_node(
             f.write(f'#EXTINF:-1 tvg-id="{ch["key"]}" group-title="{ch["group"]}",{i}. {ch["title"]}\n')
             f.write(f'{ch["url"]}\n')
 
-    print("\n[СКАЛА] Поиск завершён!")
+    print("\n[СКАЛА] Тотальное вытряхивание завершено!")
+    print(f" — Всего найдено активных потоков: {len(found_channels)}")
     print(" — Отчёт: ngenix_report.txt")
     print(" — Сгенерирован M3U: ngenix_found.m3u")
 
 
 if __name__ == "__main__":
-    cdn_nodes = [
-        "s70378.cdn.ngenix.net",
-        "s55766.cdn.ngenix.net",
-    ]
+    scan_ngenix_node(
+        cdn_hosts=[
+            "s70378.cdn.ngenix.net",
+            "s55766.cdn.ngenix.net"
+        ],
+        meta_dict=CHANNEL_META,
+        start_index=1,
+        group_override="Эфирные ТВ Плюс",
+        timeout=2.5,
+        max_workers=25
+    )
 
-    for node in cdn_nodes:
-        scan_ngenix_node(
-            cdn_host=node,
-            meta_dict=CHANNEL_META,
-            start_index=1,
-            group_override="Эфирные ТВ Плюс",
-            timeout=2.5,
-            max_workers=20
-        )
 
 
 
