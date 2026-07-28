@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: "0 */6 * * *"
 
+# Выдаем права на запись для успешного git push
+permissions:
+  contents: write
+
 jobs:
   scan-ngenix:
     runs-on: ubuntu-latest
@@ -35,7 +39,8 @@ jobs:
           BASE_M3U="ngenix_found"
           BASE_TXT="ngenix_report"
 
-          LAST=$(ls -1 | grep -E "${BASE_M3U}_[0-9]+\.m3u" | \
+          # Ищем последний индекс версионирования
+          LAST=$(ls -1 2>/dev/null | grep -E "${BASE_M3U}_[0-9]+\.m3u" | \
             sed -E 's/.*_([0-9]+)\.m3u/\1/' | \
             sort -n | tail -1)
 
@@ -48,22 +53,20 @@ jobs:
           NEW_M3U="${BASE_M3U}_${NEXT}.m3u"
           NEW_TXT="${BASE_TXT}_${NEXT}.txt"
 
-          cp "${BASE_M3U}.m3u" "$NEW_M3U"
-          cp "${BASE_TXT}.txt" "$NEW_TXT"
+          # Копируем свежие результаты с версионированием
+          [ -f "${BASE_M3U}.m3u" ] && cp "${BASE_M3U}.m3u" "$NEW_M3U"
+          [ -f "${BASE_TXT}.txt" ] && cp "${BASE_TXT}.txt" "$NEW_TXT"
 
-          cp "${BASE_M3U}.m3u" "${BASE_TXT}.txt" output/
-          cp "$NEW_M3U" "$NEW_TXT" output/
+          # Дублируем всё в папку output для артефактов
+          [ -f "${BASE_M3U}.m3u" ] && cp "${BASE_M3U}.m3u" output/
+          [ -f "${BASE_TXT}.txt" ] && cp "${BASE_TXT}.txt" output/
+          [ -f "$NEW_M3U" ] && cp "$NEW_M3U" output/
+          [ -f "$NEW_TXT" ] && cp "$NEW_TXT" output/
 
-      - name: Upload SCALA report
+      - name: Upload Scan Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ngenix-report
-          path: output/
-
-      - name: Upload M3U playlist
-        uses: actions/upload-artifact@v4
-        with:
-          name: ngenix-found
+          name: ngenix-scan-results
           path: output/
 
       - name: Commit results to repo
@@ -75,5 +78,5 @@ jobs:
           git add ngenix_report_*.txt ngenix_found_*.m3u
           git add output/
 
-          git commit -m "Ekaterina Velikaya report + M3U updated (versioned)" || echo "No changes"
+          git commit -m "Ekaterina Velikaya report + M3U updated (versioned)" || echo "No changes to commit"
           git push
