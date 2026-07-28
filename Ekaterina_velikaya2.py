@@ -891,10 +891,17 @@ def scan_ngenix_node(
     print(f"=== [СКАЛА] Запуск валидатора: {cdn_host} ===")
 
     tasks = []
+    # Расширенный список шаблонов путей под разные узлы Ngenix
     path_templates = [
+        # Для узла s70378
         "/{slug}/2/index.m3u8",
         "/{slug}/1/index.m3u8",
-        "/hls/{slug}/variant.m3u8"
+        "/hls/{slug}/variant.m3u8",
+        
+        # Для узла s55766 (rline)
+        "/s55766-media-origin/{slug}_high/index.m3u8",
+        "/s55766-media-origin/{slug}/index.m3u8",
+        "/s55766-media-origin/{slug}_low/index.m3u8",
     ]
 
     for key, meta_data in meta_dict.items():
@@ -983,14 +990,20 @@ def scan_ngenix_node(
 
 
 if __name__ == "__main__":
-    scan_ngenix_node(
-        cdn_host="s70378.cdn.ngenix.net",
-        meta_dict=CHANNEL_META,
-        start_index=1,
-        group_override="Эфирные ТВ Плюс",
-        timeout=2.5,
-        max_workers=20
-    )
+    cdn_nodes = [
+        "s70378.cdn.ngenix.net",
+        "s55766.cdn.ngenix.net",
+    ]
+
+    for node in cdn_nodes:
+        scan_ngenix_node(
+            cdn_host=node,
+            meta_dict=CHANNEL_META,
+            start_index=1,
+            group_override="Эфирные ТВ Плюс",
+            timeout=2.5,
+            max_workers=20
+        )
 
 
 
