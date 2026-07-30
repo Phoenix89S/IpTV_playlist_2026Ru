@@ -1,4 +1,4 @@
-name: Ekaterina Velikaya Scanner
+Name: Ekaterina Velikaya Scanner
 
 on:
   workflow_dispatch:
@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Загружаем всю историю для корректного git pull/rebase
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -79,4 +81,9 @@ jobs:
           git add output/
 
           git commit -m "Ekaterina Velikaya report + M3U updated (versioned)" || echo "No changes to commit"
-          git push
+          
+          # Затягиваем свежие изменения с репозитория перед пушем
+          git pull --rebase origin main
+          
+          # Отправляем результаты в репозиторий
+          git push origin main
