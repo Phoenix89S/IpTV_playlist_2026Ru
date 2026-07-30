@@ -1,0 +1,30 @@
+#EXTM3U
+
+# --- ГРУППА: Кабельные ТВ Премиум ---
+#EXTINF:-1 group-title="Кабельные ТВ Премиум",Cinema
+http://176.118.197.101/Cinema/index.m3u8
+
+#EXTINF:-1 group-title="Кабельные ТВ Премиум",Комедия
+http://176.118.197.101/Komediya/index.m3u8
+
+
+# --- ГРУППА: Cinema ---
+#EXTINF:-1 group-title="Cinema",Cinema
+http://194.152.35.17/cinema/index.m3u8
+
+#EXTINF:-1 group-title="Cinema",Cinema
+http://iptv.mega.net.ru:8888/Cinema/index.m3u8
+
+#EXTINF:-1 group-title="Cinema",Cinema
+https://stream8.cinerama.uz/1227/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 group-title="Cinema",Cinema
+https://cdn4.skygo.mn/live/disk1/CinemaTV/HLSv3-FTA/CinemaTV.m3u8
+
+
+# --- ГРУППА: Комедия ---
+#EXTINF:-1 group-title="Комедия",Комедия
+http://188.113.190.15/214/tracks-v1a1/index.m3u8
+
+#EXTINF:-1 group-title="Комедия",Комедия
+http://ott.watch/stream/6HAPZWKKG3/68.m3u8
