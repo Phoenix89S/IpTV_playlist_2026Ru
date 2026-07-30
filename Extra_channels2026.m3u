@@ -11988,6 +11988,12 @@ https://s70378.cdn.ngenix.net/vip_serial/1/index.m3u8
 #EXTINF:-1 tvg-id="vip_serial" group-title="Кабельные ТВ Плюс",101. viju_plus_serial
 https://s70378.cdn.ngenix.net/vip_serial/index.m3u8
 
+# --- ГРУППА: Кабельные ТВ Премиум ---
+#EXTINF:-1 group-title="Кабельные ТВ Премиум",1. Cinema
+http://176.118.197.101/Cinema/index.m3u8
+
+#EXTINF:-1 group-title="Кабельные ТВ Премиум",2. Комедия
+http://176.118.197.101/Komediya/index.m3u8
 
 
 
@@ -11999,6 +12005,11 @@ https://s70378.cdn.ngenix.net/vip_serial/index.m3u8
 
 
 
+
+
+
+
+##### продолжение ниже:
 
 
 
