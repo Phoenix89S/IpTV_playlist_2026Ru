@@ -1,11 +1,10 @@
-Name: Ekaterina Velikaya Scanner
+name: Ekaterina Velikaya Scanner
 
 on:
   workflow_dispatch:
   schedule:
     - cron: "0 */6 * * *"
 
-# Выдаем права на запись для успешного git push
 permissions:
   contents: write
 
@@ -17,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Загружаем всю историю для корректного git pull/rebase
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -41,8 +40,7 @@ jobs:
           BASE_M3U="ngenix_found"
           BASE_TXT="ngenix_report"
 
-          # Ищем последний индекс версионирования
-          LAST=$(ls -1 2>/dev/null | grep -E "${BASE_M3U}_[0-9]+\.m3u" | \
+          LAST=\( (ls -1 2>/dev/null | grep -E " \){BASE_M3U}_[0-9]+\.m3u" | \
             sed -E 's/.*_([0-9]+)\.m3u/\1/' | \
             sort -n | tail -1)
 
@@ -52,16 +50,14 @@ jobs:
             NEXT=$((LAST + 1))
           fi
 
-          NEW_M3U="${BASE_M3U}_${NEXT}.m3u"
-          NEW_TXT="${BASE_TXT}_${NEXT}.txt"
+          NEW_M3U="\( {BASE_M3U}_ \){NEXT}.m3u"
+          NEW_TXT="\( {BASE_TXT}_ \){NEXT}.txt"
 
-          # Копируем свежие результаты с версионированием
-          [ -f "${BASE_M3U}.m3u" ] && cp "${BASE_M3U}.m3u" "$NEW_M3U"
-          [ -f "${BASE_TXT}.txt" ] && cp "${BASE_TXT}.txt" "$NEW_TXT"
+          [ -f "\( {BASE_M3U}.m3u" ] && cp " \){BASE_M3U}.m3u" "$NEW_M3U"
+          [ -f "\( {BASE_TXT}.txt" ] && cp " \){BASE_TXT}.txt" "$NEW_TXT"
 
-          # Дублируем всё в папку output для артефактов
-          [ -f "${BASE_M3U}.m3u" ] && cp "${BASE_M3U}.m3u" output/
-          [ -f "${BASE_TXT}.txt" ] && cp "${BASE_TXT}.txt" output/
+          [ -f "\( {BASE_M3U}.m3u" ] && cp " \){BASE_M3U}.m3u" output/
+          [ -f "\( {BASE_TXT}.txt" ] && cp " \){BASE_TXT}.txt" output/
           [ -f "$NEW_M3U" ] && cp "$NEW_M3U" output/
           [ -f "$NEW_TXT" ] && cp "$NEW_TXT" output/
 
@@ -76,14 +72,16 @@ jobs:
           git config user.name "SCALA Bot"
           git config user.email "scala-bot@example.com"
 
-          git add ngenix_report.txt ngenix_found.m3u
-          git add ngenix_report_*.txt ngenix_found_*.m3u
-          git add output/
+          git add ngenix_report.txt ngenix_found.m3u || true
+          git add ngenix_report_*.txt ngenix_found_*.m3u || true
+          git add output/ || true
 
           git commit -m "Ekaterina Velikaya report + M3U updated (versioned)" || echo "No changes to commit"
-          
-          # Затягиваем свежие изменения с репозитория перед пушем
+
           git pull --rebase origin main
-          
-          # Отправляем результаты в репозиторий
-          git push origin main
+
+          git push origin main || {
+            echo "Push rejected, pulling again and retrying..."
+            git pull --rebase origin main
+            git push origin main
+          }
