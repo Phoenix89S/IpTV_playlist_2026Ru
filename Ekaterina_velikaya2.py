@@ -876,33 +876,93 @@ def probe_url(session: Any, url: str, timeout: float = 2.5, user_agent: str = "H
         return False, 0, latency, str(e)
 
 
-# -------------------------------
-# Движок сканирования (СКАЛА — ТОТАЛЬНЫЙ СБОР)
-# -------------------------------
+# ---------------------------------------------------------------
+# Движок сканирования «СКАЛА» v5.0 (Приоритет: Словари -> EPG -> Брут)
+# ---------------------------------------------------------------
 
 import requests
+import gzip
+import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Dict, Tuple
 
-def scan_ngenix_node(
-    cdn_hosts: list = None, 
+EPG_URL = "http://epg.one/epg2.xml.gz"
+
+def load_epg_one_data(url: str = EPG_URL) -> dict:
+    """
+    Загружает epg2.xml.gz, разбирает ID, названия, логотипы.
+    Возвращает словарь: {tvg_id: {"title": ..., "logo": ..., "slugs": [...]}}
+    """
+    print(f"[СКАЛА-EPG] Загрузка базы EPG.one с {url}...")
+    epg_data = {}
+
+    try:
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        resp = requests.get(url, headers=headers, timeout=20)
+        
+        if resp.status_code != 200:
+            print(f"[СКАЛА-EPG] Ошибка скачивания EPG: Статус {resp.status_code}")
+            return epg_data
+
+        xml_content = gzip.decompress(resp.content)
+        root = ET.fromstring(xml_content)
+
+        for channel in root.findall("channel"):
+            tvg_id = channel.get("id")
+            if not tvg_id:
+                continue
+
+            names = [elem.text.strip() for elem in channel.findall("display-name") if elem.text]
+            main_name = names[0] if names else tvg_id
+
+            icon_elem = channel.find("icon")
+            icon_url = icon_elem.get("src") if icon_elem is not None else ""
+
+            slugs = set()
+            slugs.add(tvg_id.lower())
+            clean_id = tvg_id.replace(".", "_").replace("-", "_").lower()
+            slugs.add(clean_id)
+
+            epg_data[tvg_id] = {
+                "title": main_name,
+                "logo": icon_url,
+                "slugs": list(slugs)
+            }
+
+        print(f"[СКАЛА-EPG] Успешно загружено записей из EPG: {len(epg_data)} шт.")
+        return epg_data
+
+    except Exception as e:
+        print(f"[СКАЛА-EPG] Ошибка парсинга EPG: {e}")
+        return {}
+
+
+def scan_ngenix_node_prioritized(
+    epg_url: str = EPG_URL,
+    cdn_hosts: list = None,
     meta_dict: Dict[str, Tuple[str, str]] = CHANNEL_META,
-    start_index: int = 1,
     group_override: str = "Эфирные ТВ Плюс",
     timeout: float = 2.5,
-    max_workers: int = 35
+    max_workers: int = 40
 ):
-    # Если список хостов не передан, формируем весь пул узлов Ngenix (s70375..s70380 + s55766)
     if cdn_hosts is None:
-        cdn_hosts = [f"s{i}.cdn.ngenix.net" for i in range(70375, 70381)] + ["s55766.cdn.ngenix.net"]
+        cdn_hosts = [
+            "s70375.cdn.ngenix.net", "s70376.cdn.ngenix.net", "s70377.cdn.ngenix.net",
+            "s70378.cdn.ngenix.net", "s70379.cdn.ngenix.net", "s70380.cdn.ngenix.net",
+            "s55766.cdn.ngenix.net", "s20441.cdn.ngenix.net", "s34351.cdn.ngenix.net",
+            "s45177.cdn.ngenix.net", "s91030.cdn.ngenix.net", "s97982.cdn.ngenix.net"
+        ]
 
-    print(f"=== [СКАЛА] Тотальный запуск валидатора по {len(cdn_hosts)} узлам Ngenix ===")
+    print(f"=== [СКАЛА] Запуск сканера по {len(cdn_hosts)} узлам Ngenix ===")
+
+    # Загружаем базу EPG.one для обогащения логотипами и именами
+    epg_data = load_epg_one_data(epg_url)
 
     tasks = []
     task_urls_set = set()
+    used_slugs = set()
 
-    # Разделяем шаблоны путей строго по типам узлов, чтобы не плодить 404
-    s703xx_templates = [
+    standard_templates = [
         "/{slug}/2/index.m3u8",
         "/{slug}/1/index.m3u8",
         "/hls/{slug}/variant.m3u8",
@@ -917,107 +977,118 @@ def scan_ngenix_node(
         "/s55766-media-origin/{slug}/variant.m3u8"
     ]
 
-    # -------------------------------------------------------------
-    # 1. Сбор задач ИЗ СЛОВАРЯ (CHANNEL_META)
-    # -------------------------------------------------------------
-    known_slugs = set()
+    def add_task_batch(slug_list, key_id, title_name, group_name, logo_url, source_label, priority_code):
+        for slug in slug_list:
+            slug_lower = slug.lower()
+            used_slugs.add(slug_lower)
 
+            for host in cdn_hosts:
+                if "s55766" in host or "s20441" in host:
+                    protocols = ["http"]
+                else:
+                    protocols = ["https", "http"]
+
+                path_templates = s55766_templates if "s55766" in host else standard_templates
+
+                for proto in protocols:
+                    for path_tmpl in path_templates:
+                        url = f"{proto}://{host}" + path_tmpl.format(slug=slug_lower)
+                        if url not in task_urls_set:
+                            task_urls_set.add(url)
+                            tasks.append({
+                                "key": key_id,
+                                "title": title_name,
+                                "group": group_name,
+                                "logo": logo_url,
+                                "slug": slug_lower,
+                                "url": url,
+                                "source": source_label,
+                                "priority": priority_code
+                            })
+
+    # -------------------------------------------------------------
+    # ПРИОРИТЕТ 1: НАШИ СЛОВАРИ (CHANNEL_META)
+    # -------------------------------------------------------------
     for key, meta_data in meta_dict.items():
         if isinstance(meta_data, (list, tuple)):
             title = meta_data[0]
-            group = meta_data[1] if len(meta_data) > 1 else "Разное"
+            group = meta_data[1] if len(meta_data) > 1 else group_override
         else:
             title = str(meta_data)
-            group = "Разное"
+            group = group_override
+
+        # Ищем логотип из EPG.one по совпадению ключа tvg-id
+        epg_match = epg_data.get(key, {})
+        logo = epg_match.get("logo", "")
 
         slugs = generate_slug_candidates(key)
-        for slug in slugs:
-            known_slugs.add(slug.lower())
-            for host in cdn_hosts:
-                if "s55766" in host:
-                    proto = "http"
-                    path_templates = s55766_templates
-                else:
-                    proto = "https"
-                    path_templates = s703xx_templates
-
-                for path_tmpl in path_templates:
-                    url = f"{proto}://{host}" + path_tmpl.format(slug=slug)
-                    if url not in task_urls_set:
-                        task_urls_set.add(url)
-                        tasks.append({
-                            "key": key,
-                            "title": title,
-                            "group": group_override if group_override else group,
-                            "slug": slug,
-                            "url": url,
-                            "is_known": True
-                        })
+        add_task_batch(
+            slug_list=slugs,
+            key_id=key,
+            title_name=title,
+            group_name=group,
+            logo_url=logo,
+            source_label="СЛОВАРЬ",
+            priority_code=1
+        )
 
     # -------------------------------------------------------------
-    # 2. "ВЫТРЯХИВАНИЕ": Брутфорс кандидатов по всему пулу узлов
+    # ПРИОРИТЕТ 2: ОСТАЛЬНАЯ БАЗА EPG.ONE
+    # -------------------------------------------------------------
+    for tvg_id, info in epg_data.items():
+        if tvg_id in meta_dict:
+            continue  # Пропускаем, так как уже обработано в Приоритете 1
+
+        add_task_batch(
+            slug_list=info["slugs"],
+            key_id=tvg_id,
+            title_name=info["title"],
+            group_name="EPG.one База",
+            logo_url=info["logo"],
+            source_label="EPG.ONE",
+            priority_code=2
+        )
+
+    # -------------------------------------------------------------
+    # ПРИОРИТЕТ 3: РАСШИРЕННЫЙ БРУТФОРС
     # -------------------------------------------------------------
     brute_candidates = set()
-    
-    # 2.1 Номера каналов (ch1..ch100, stream1..stream50, test1..test10)
+
     for i in range(1, 101):
-        brute_candidates.update([f"ch{i}", f"ch_{i}", f"stream{i}", f"channel{i}", f"test{i}"])
-    
-    # 2.2 Частые ТВ-алиасы, базовые каналы и ПОЛНЫЙ ПАКЕТ VIJU+ / TV1000
+        brute_candidates.update([f"ch{i}", f"ch_{i}", f"stream{i}", f"channel{i}"])
+
     common_words = [
         "rline", "rline_high", "rline_low", "live", "main", "hd", "sd",
-        "1tv", "rossiya1", "rossiya24", "match", "ntv", "5tv", "kultura",
-        "karusel", "ort", "tnt", "sts", "ren", "spas", "domashny", "tv3",
-        "friday", "zvezda", "mir", "muz", "murtv", "u-tv", "utv",
-        "moskva24", "izvestia", "subbota", "kinopremiera", "kinohit", "kinofilm", 
-        "red", "sci-fi", "cinema",
-        
-        # --- Семейство Viju / Viju+ / TV1000 / VIP ---
-        "viju", "viju_plus", "viju_tv1000",
-        "viju_plus_romantic", "viju_romantic", "viju_plus_serial", "viju_serial",
-        "viju_plus_megahit", "viju_megahit", "viju_plus_premiere", "viju_premiere",
-        "viju_plus_sport", "viju_sport", "viju_plus_nature", "viju_nature",
-        "viju_plus_explore", "viju_explore", "viju_plus_planet", "viju_planet",
-        "viasat", "vip", "vip_serial", "vip_megahit", "vip_premiere", "vip_comedy",
-        "tv1000", "tv1000_action", "tv1000_russian", "tv1000_ru"
+        "viju", "viju_plus", "viju_plus_romantic", "viju_plus_serial",
+        "viju_plus_megahit", "viju_plus_premiere", "viju_plus_sport",
+        "viasat", "vip", "vip_serial", "tv1000", "tv1000_action",
+        "CH_R49_MGTK", "CH_R03_TOOKY", "CH_R02_BASHKORTOSTAN24",
+        "CH_R25_OTT_DV_VLD_OTV", "CH_R27_GUBERNYA", "CH_R14_OTT_DV_YKT_YKT", "CH_R01_VOSTOK24_OTT"
     ]
     brute_candidates.update(common_words)
 
-    # Исключаем то, что уже проверяется из словаря
-    extra_slugs = brute_candidates - known_slugs
+    extra_slugs = brute_candidates - used_slugs
 
     for slug in extra_slugs:
-        for host in cdn_hosts:
-            if "s55766" in host:
-                proto = "http"
-                path_templates = s55766_templates
-            else:
-                proto = "https"
-                path_templates = s703xx_templates
+        add_task_batch(
+            slug_list=[slug],
+            key_id=f"unmapped_{slug}",
+            title_name=f"[БРУТ] {slug.upper()}",
+            group_name="Находки Ngenix (Брутфорс)",
+            logo_url="",
+            source_label="BRUTEFORCE",
+            priority_code=3
+        )
 
-            for path_tmpl in path_templates:
-                url = f"{proto}://{host}" + path_tmpl.format(slug=slug)
-                if url not in task_urls_set:
-                    task_urls_set.add(url)
-                    tasks.append({
-                        "key": f"unmapped_{slug}",
-                        "title": f"[НЕИЗВЕСТНЫЙ] {slug.upper()}",
-                        "group": "Находки Ngenix (Неразмечено)",
-                        "slug": slug,
-                        "url": url,
-                        "is_known": False
-                    })
-
-    print(f"[СКАЛА] Сформировано {len(tasks)} уникальных точечных запросов.")
+    print(f"[СКАЛА] Всего сформировано {len(tasks)} проверочных комбинаций.")
 
     # -------------------------------------------------------------
-    # 3. Многопоточное сканирование
+    # МНОГОПОТОЧНЫЙ ПРОГОН
     # -------------------------------------------------------------
     found_channels = []
     found_urls = set()
-    scanned_logs = []
 
-    session = requests.Session() if requests else None
+    session = requests.Session()
 
     try:
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
@@ -1030,85 +1101,34 @@ def scan_ngenix_node(
                 item = future_map[future]
                 ok, status, latency, err = future.result()
 
-                log_entry = {
-                    "title": item["title"],
-                    "key": item["key"],
-                    "url": item["url"],
-                    "ok": ok,
-                    "status": status,
-                    "latency": latency,
-                    "error": err,
-                    "is_known": item["is_known"]
-                }
-                scanned_logs.append(log_entry)
-
                 if ok and item["url"] not in found_urls:
                     found_urls.add(item["url"])
                     found_channels.append(item)
-                    
-                    tag_str = "ИЗ СЛОВАРЯ" if item["is_known"] else "НАХОДКА!"
-                    print(f"[{tag_str}] {item['title']} -> {item['url']} ({int(latency)} ms)")
+                    print(f"[{item['source']}] Найдено: {item['title']} -> {item['url']} ({int(latency)} ms)")
 
     finally:
-        if session:
-            session.close()
+        session.close()
 
-    # Сортировка: сначала известные каналы по порядку словаря, потом брутфорс
-    meta_keys = list(meta_dict.keys())
-    found_channels.sort(
-        key=lambda x: (0 if x["is_known"] else 1, meta_keys.index(x["key"]) if x["key"] in meta_keys else 9999)
-    )
+    # Сортировка результата: 1) По приоритету источника, 2) По порядку в словаре/EPG
+    found_channels.sort(key=lambda x: x["priority"])
 
     # -------------------------------------------------------------
-    # 4. Запись отчёта и плейлиста
+    # СОХРАНЕНИЕ В M3U
     # -------------------------------------------------------------
-    with open("ngenix_report.txt", "w", encoding="utf-8") as f:
-        f.write("СКАЛА Вер 3.9.3 — NGENIX MULTI-NODE SWEEP REPORT\n")
-        f.write("=========================================\n")
-        f.write(f"Сканируемые узлы ({len(cdn_hosts)}): {', '.join(cdn_hosts)}\n")
-        f.write(f"Проверено комбинаций URL: {len(tasks)}\n")
-        f.write(f"Успешно найдено рабочих потоков: {len(found_channels)}\n")
-        f.write("=========================================\n\n")
-
-        for log in scanned_logs:
-            tag = "OK" if log["ok"] else "FAIL"
-            kind = "KNOWN" if log["is_known"] else "DISCOVERY"
-            f.write(f"[СКАЛА] [{tag}] [{kind}] Канал: {log['title']} | Key: {log['key']}\n")
-            f.write(f"        URL: {log['url']}\n")
-            f.write(f"        Статус: {log['status']} | Latency: {int(log['latency'])} ms | Error: {log['error']}\n\n")
-
-    with open("ngenix_found.m3u", "w", encoding="utf-8") as f:
-        f.write("#EXTM3U\n")
-        for i, ch in enumerate(found_channels, start=start_index):
-            f.write(f'#EXTINF:-1 tvg-id="{ch["key"]}" group-title="{ch["group"]}",{i}. {ch["title"]}\n')
+    with open("ngenix_prioritized_found.m3u", "w", encoding="utf-8") as f:
+        f.write('#EXTM3U url-tvg="http://epg.one/epg2.xml.gz"\n')
+        for i, ch in enumerate(found_channels, start=1):
+            logo_attr = f' tvg-logo="{ch["logo"]}"' if ch["logo"] else ""
+            f.write(f'#EXTINF:-1 tvg-id="{ch["key"]}"{logo_attr} group-title="{ch["group"]}",{i}. {ch["title"]}\n')
             f.write(f'{ch["url"]}\n')
 
     print("\n[СКАЛА] Тотальный прогон завершён!")
-    print(f" — Найдено уникальных рабочих потоков: {len(found_channels)}")
-    print(" — Отчёт: ngenix_report.txt")
-    print(" — Сгенерирован M3U: ngenix_found.m3u")
+    print(f" — Найдено рабочих каналов: {len(found_channels)}")
+    print(" — Результат выгружен в: ngenix_prioritized_found.m3u")
 
 
 if __name__ == "__main__":
-    target_nodes = [
-        "s70375.cdn.ngenix.net",
-        "s70376.cdn.ngenix.net",
-        "s70377.cdn.ngenix.net",
-        "s70378.cdn.ngenix.net",
-        "s70379.cdn.ngenix.net",
-        "s70380.cdn.ngenix.net",
-        "s55766.cdn.ngenix.net"
-    ]
-
-    scan_ngenix_node(
-        cdn_hosts=target_nodes,
-        meta_dict=CHANNEL_META,
-        start_index=1,
-        group_override="Эфирные ТВ Плюс",
-        timeout=2.5,
-        max_workers=35
-    )
-
+    scan_ngenix_node_prioritized()
 
 
 
