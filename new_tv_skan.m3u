@@ -1,0 +1,22 @@
+#EXTM3U
+
+#EXTINF:-1,TV1000 Action
+https://s34351.cdn.ngenix.net/hls/tv1000_action/variant.m3u8
+
+#EXTINF:-1,TV1000
+http://s97982.cdn.ngenix.net/tv1000/1/index.m3u8
+
+#EXTINF:-1,TV1000 Russian
+https://s34351.cdn.ngenix.net/hls/tv1000_russian/variant.m3u8
+
+#EXTINF:-1,TV1000 World
+https://s34351.cdn.ngenix.net/hls/tv1000_world/variant.m3u8
+
+#EXTINF:-1,TV1000 Premium
+https://s34351.cdn.ngenix.net/hls/tv1000_premium/variant.m3u8
+
+#EXTINF:-1,TV1000 Thriller
+https://s34351.cdn.ngenix.net/hls/tv1000_thriller/variant.m3u8
+
+#EXTINF:-1,TV1000 Dark
+https://s34351.cdn.ngenix.net/hls/tv1000_dark/variant.m3u8
