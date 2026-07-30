@@ -877,11 +877,12 @@ def probe_url(session: Any, url: str, timeout: float = 2.5, user_agent: str = "H
 
 
 # ---------------------------------------------------------------
-# Движок сканирования «СКАЛА» v5.0 (Приоритет: Словари -> EPG -> Брут)
+# Движок сканирования «СКАЛА» v5.1 (Тихий консольный режим + Тхт Отчёт)
 # ---------------------------------------------------------------
 
 import requests
 import gzip
+import re
 import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Dict, Tuple
@@ -889,19 +890,11 @@ from typing import Dict, Tuple
 EPG_URL = "http://epg.one/epg2.xml.gz"
 
 def load_epg_one_data(url: str = EPG_URL) -> dict:
-    """
-    Загружает epg2.xml.gz, разбирает ID, названия, логотипы.
-    Возвращает словарь: {tvg_id: {"title": ..., "logo": ..., "slugs": [...]}}
-    """
-    print(f"[СКАЛА-EPG] Загрузка базы EPG.one с {url}...")
     epg_data = {}
-
     try:
         headers = {'User-Agent': 'Mozilla/5.0'}
         resp = requests.get(url, headers=headers, timeout=20)
-        
         if resp.status_code != 200:
-            print(f"[СКАЛА-EPG] Ошибка скачивания EPG: Статус {resp.status_code}")
             return epg_data
 
         xml_content = gzip.decompress(resp.content)
@@ -928,16 +921,37 @@ def load_epg_one_data(url: str = EPG_URL) -> dict:
                 "logo": icon_url,
                 "slugs": list(slugs)
             }
-
-        print(f"[СКАЛА-EPG] Успешно загружено записей из EPG: {len(epg_data)} шт.")
         return epg_data
-
-    except Exception as e:
-        print(f"[СКАЛА-EPG] Ошибка парсинга EPG: {e}")
+    except Exception:
         return {}
 
 
-def scan_ngenix_node_prioritized(
+def probe_url_and_detect_quality(session: requests.Session, url: str, timeout: float = 2.5):
+    """
+    Проверяет доступность потока и при наличии вариантного m3u8 считывает качество (RESOLUTION/BANDWIDTH).
+    """
+    try:
+        resp = session.get(url, timeout=timeout, headers={'User-Agent': 'HlsWinkPlayer'}, allow_redirects=True)
+        if resp.status_code == 200 and ("#EXTM3U" in resp.text or "octet-stream" in resp.headers.get("Content-Type", "")):
+            # Анализ качества (если это Variant Playlist)
+            resolutions = re.findall(r'RESOLUTION=(\d+x\d+)', resp.text)
+            bitrates = re.findall(r'BANDWIDTH=(\d+)', resp.text)
+            
+            quality_str = "Стандартное (Single Stream)"
+            if resolutions:
+                unique_res = sorted(list(set(resolutions)), key=lambda x: int(x.split('x')[0]), reverse=True)
+                quality_str = f"Варианты: {', '.join(unique_res)}"
+            elif bitrates:
+                max_bw = max([int(b) for b in bitrates]) // 1000
+                quality_str = f"Bitrate: ~{max_bw} kbps"
+
+            return True, quality_str
+    except Exception:
+        pass
+    return False, "Неизвестно"
+
+
+def scan_ngenix_quiet(
     epg_url: str = EPG_URL,
     cdn_hosts: list = None,
     meta_dict: Dict[str, Tuple[str, str]] = CHANNEL_META,
@@ -945,6 +959,8 @@ def scan_ngenix_node_prioritized(
     timeout: float = 2.5,
     max_workers: int = 40
 ):
+    print("Этап 1: Инициализация и загрузка EPG.one — в процессе...", flush=True)
+    
     if cdn_hosts is None:
         cdn_hosts = [
             "s70375.cdn.ngenix.net", "s70376.cdn.ngenix.net", "s70377.cdn.ngenix.net",
@@ -953,11 +969,10 @@ def scan_ngenix_node_prioritized(
             "s45177.cdn.ngenix.net", "s91030.cdn.ngenix.net", "s97982.cdn.ngenix.net"
         ]
 
-    print(f"=== [СКАЛА] Запуск сканера по {len(cdn_hosts)} узлам Ngenix ===")
-
-    # Загружаем базу EPG.one для обогащения логотипами и именами
     epg_data = load_epg_one_data(epg_url)
+    print("Этап 1: Готово. (База EPG загружена)", flush=True)
 
+    print("Этап 2: Сборка поисковой сетки (Словари -> EPG -> Брутфорс) — в процессе...", flush=True)
     tasks = []
     task_urls_set = set()
     used_slugs = set()
@@ -983,11 +998,7 @@ def scan_ngenix_node_prioritized(
             used_slugs.add(slug_lower)
 
             for host in cdn_hosts:
-                if "s55766" in host or "s20441" in host:
-                    protocols = ["http"]
-                else:
-                    protocols = ["https", "http"]
-
+                protocols = ["http"] if ("s55766" in host or "s20441" in host) else ["https", "http"]
                 path_templates = s55766_templates if "s55766" in host else standard_templates
 
                 for proto in protocols:
@@ -1006,115 +1017,59 @@ def scan_ngenix_node_prioritized(
                                 "priority": priority_code
                             })
 
-    # -------------------------------------------------------------
-    # ПРИОРИТЕТ 1: НАШИ СЛОВАРИ (CHANNEL_META)
-    # -------------------------------------------------------------
+    # 1. Приоритет: Словари
     for key, meta_data in meta_dict.items():
-        if isinstance(meta_data, (list, tuple)):
-            title = meta_data[0]
-            group = meta_data[1] if len(meta_data) > 1 else group_override
-        else:
-            title = str(meta_data)
-            group = group_override
-
-        # Ищем логотип из EPG.one по совпадению ключа tvg-id
+        title = meta_data[0] if isinstance(meta_data, (list, tuple)) else str(meta_data)
+        group = meta_data[1] if isinstance(meta_data, (list, tuple)) and len(meta_data) > 1 else group_override
         epg_match = epg_data.get(key, {})
         logo = epg_match.get("logo", "")
-
         slugs = generate_slug_candidates(key)
-        add_task_batch(
-            slug_list=slugs,
-            key_id=key,
-            title_name=title,
-            group_name=group,
-            logo_url=logo,
-            source_label="СЛОВАРЬ",
-            priority_code=1
-        )
+        add_task_batch(slugs, key, title, group, logo, "СЛОВАРЬ", 1)
 
-    # -------------------------------------------------------------
-    # ПРИОРИТЕТ 2: ОСТАЛЬНАЯ БАЗА EPG.ONE
-    # -------------------------------------------------------------
+    # 2. Приоритет: EPG.one
     for tvg_id, info in epg_data.items():
-        if tvg_id in meta_dict:
-            continue  # Пропускаем, так как уже обработано в Приоритете 1
+        if tvg_id not in meta_dict:
+            add_task_batch(info["slugs"], tvg_id, info["title"], "EPG.one База", info["logo"], "EPG.ONE", 2)
 
-        add_task_batch(
-            slug_list=info["slugs"],
-            key_id=tvg_id,
-            title_name=info["title"],
-            group_name="EPG.one База",
-            logo_url=info["logo"],
-            source_label="EPG.ONE",
-            priority_code=2
-        )
+    # 3. Приоритет: Брутфорс
+    brute_candidates = set(f"ch{i}" for i in range(1, 101))
+    brute_candidates.update(["rline", "rline_high", "main", "hd", "viju_plus", "viasat", "CH_R49_MGTK"])
+    for slug in (brute_candidates - used_slugs):
+        add_task_batch([slug], f"unmapped_{slug}", f"[БРУТ] {slug.upper()}", "Находки (Брутфорс)", "", "BRUTEFORCE", 3)
 
-    # -------------------------------------------------------------
-    # ПРИОРИТЕТ 3: РАСШИРЕННЫЙ БРУТФОРС
-    # -------------------------------------------------------------
-    brute_candidates = set()
+    print(f"Этап 2: Готово. (Сформировано комбинаций: {len(tasks)})", flush=True)
 
-    for i in range(1, 101):
-        brute_candidates.update([f"ch{i}", f"ch_{i}", f"stream{i}", f"channel{i}"])
-
-    common_words = [
-        "rline", "rline_high", "rline_low", "live", "main", "hd", "sd",
-        "viju", "viju_plus", "viju_plus_romantic", "viju_plus_serial",
-        "viju_plus_megahit", "viju_plus_premiere", "viju_plus_sport",
-        "viasat", "vip", "vip_serial", "tv1000", "tv1000_action",
-        "CH_R49_MGTK", "CH_R03_TOOKY", "CH_R02_BASHKORTOSTAN24",
-        "CH_R25_OTT_DV_VLD_OTV", "CH_R27_GUBERNYA", "CH_R14_OTT_DV_YKT_YKT", "CH_R01_VOSTOK24_OTT"
-    ]
-    brute_candidates.update(common_words)
-
-    extra_slugs = brute_candidates - used_slugs
-
-    for slug in extra_slugs:
-        add_task_batch(
-            slug_list=[slug],
-            key_id=f"unmapped_{slug}",
-            title_name=f"[БРУТ] {slug.upper()}",
-            group_name="Находки Ngenix (Брутфорс)",
-            logo_url="",
-            source_label="BRUTEFORCE",
-            priority_code=3
-        )
-
-    print(f"[СКАЛА] Всего сформировано {len(tasks)} проверочных комбинаций.")
-
-    # -------------------------------------------------------------
-    # МНОГОПОТОЧНЫЙ ПРОГОН
-    # -------------------------------------------------------------
+    print("Этап 3: Сканирование узлов и проверка качества потоков — в процессе...", flush=True)
     found_channels = []
     found_urls = set()
-
     session = requests.Session()
 
     try:
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
             future_map = {
-                executor.submit(probe_url, session, item["url"], timeout): item
+                executor.submit(probe_url_and_detect_quality, session, item["url"], timeout): item
                 for item in tasks
             }
 
             for future in as_completed(future_map):
                 item = future_map[future]
-                ok, status, latency, err = future.result()
+                is_ok, quality_info = future.result()
 
-                if ok and item["url"] not in found_urls:
+                if is_ok and item["url"] not in found_urls:
                     found_urls.add(item["url"])
+                    item["quality"] = quality_info
                     found_channels.append(item)
-                    print(f"[{item['source']}] Найдено: {item['title']} -> {item['url']} ({int(latency)} ms)")
 
     finally:
         session.close()
 
-    # Сортировка результата: 1) По приоритету источника, 2) По порядку в словаре/EPG
+    # Сортировка по иерархии приоритетов
     found_channels.sort(key=lambda x: x["priority"])
+    print("Этап 3: Готово. (Сканирование завершено)", flush=True)
 
-    # -------------------------------------------------------------
-    # СОХРАНЕНИЕ В M3U
-    # -------------------------------------------------------------
+    print("Этап 4: Формирование плейлиста M3U и Текстового отчёта TXT — в процессе...", flush=True)
+
+    # 1. Запись плейлиста m3u
     with open("ngenix_prioritized_found.m3u", "w", encoding="utf-8") as f:
         f.write('#EXTM3U url-tvg="http://epg.one/epg2.xml.gz"\n')
         for i, ch in enumerate(found_channels, start=1):
@@ -1122,13 +1077,44 @@ def scan_ngenix_node_prioritized(
             f.write(f'#EXTINF:-1 tvg-id="{ch["key"]}"{logo_attr} group-title="{ch["group"]}",{i}. {ch["title"]}\n')
             f.write(f'{ch["url"]}\n')
 
-    print("\n[СКАЛА] Тотальный прогон завершён!")
-    print(f" — Найдено рабочих каналов: {len(found_channels)}")
-    print(" — Результат выгружен в: ngenix_prioritized_found.m3u")
+    # 2. Запись подробного отчёта в scan_report.txt
+    with open("scan_report.txt", "w", encoding="utf-8") as r:
+        r.write("=========================================================\n")
+        r.write("        ОТЧЁТ О СКАНИРОВАНИИ И ГОТОВНОСТИ СИСТЕМЫ        \n")
+        r.write("=========================================================\n\n")
+        r.write(f"1. ОБЩАЯ СТАТИСТИКА:\n")
+        r.write(f"   — Всего сформировано комбинаций: {len(tasks)}\n")
+        r.write(f"   — Найдено рабочих каналов: {len(found_channels)}\n")
+        r.write(f"   — Загружено записей из EPG.one: {len(epg_data)}\n\n")
 
+        r.write("2. ДЕТАЛИЗАЦИЯ ИСТОЧНИКОВ:\n")
+        from collections import Counter
+        sources_cnt = Counter([ch["source"] for ch in found_channels])
+        for src, count in sources_cnt.items():
+            r.write(f"   — [{src}]: {count} каналов\n")
+        r.write("\n")
+
+        r.write("=========================================================\n")
+        r.write("               СПИСОК НАЙДЕННЫХ КАНАЛОВ                  \n")
+        r.write("=========================================================\n\n")
+
+        for i, ch in enumerate(found_channels, start=1):
+            r.write(f"№ {i} | {ch['title']}\n")
+            r.write(f"   • Источник: [{ch['source']}] | Группа: {ch['group']}\n")
+            r.write(f"   • TVG ID: {ch['key']}\n")
+            r.write(f"   • Качество: {ch['quality']}\n")
+            r.write(f"   • Логотип EPG: {ch['logo'] if ch['logo'] else 'Отсутствует'}\n")
+            r.write(f"   • Ссылка: {ch['url']}\n")
+            r.write("-" * 57 + "\n")
+
+    print("Этап 4: Готово. (Отчёт и плейлист успешно сформированы!)", flush=True)
+    print("\n[УСПЕХ] Готовые файлы в директории:")
+    print("  1. Плейлист: ngenix_prioritized_found.m3u")
+    print("  2. Отчёт:    scan_report.txt")
 
 if __name__ == "__main__":
-    scan_ngenix_node_prioritized()
+    scan_ngenix_quiet()
+
 
 
 
