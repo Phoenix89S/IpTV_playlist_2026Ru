@@ -3386,6 +3386,11 @@ http://127.0.0.1:1234
 #EXTINF:-1 tvg-id="trash" tvg-name="TRASH" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/Iptv_Ru2026/main/icons/TRASH.png" group-title="Эфирные ТВ плюс",90.13 TRASH
 https://tinyurl.com/aleks-u-romki-2/6396/index.m3u8
 
+# 90.13.1.1 Trash HD
+#EXTINF:-1 tvg-id="trash" tvg-name="Trash HD" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/Iptv_Ru2026/main/icons/TRASH.png" group-title="Эфирные ТВ плюс",90.13.1.1 Trash HD
+http://5.188.159.128:8070/Trash_HD/index.m3u8
+
+
 # 90.13.1 Заглушка
 #EXTINF:-1 group-title="Эфирные ТВ плюс",90.13.1 Заглушка
 http://127.0.0.1:1234
