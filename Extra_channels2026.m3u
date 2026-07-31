@@ -2106,7 +2106,11 @@ https://rt-fra.rttv.com/live/rtfrance/playlist.m3u8
 
 # 48.0 Телеканал Еда
 #EXTINF:-1 tvg-id="eda-tv" tvg-name="Еда" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/Iptv_Ru2026/main/icons/eda.png" group-title="Эфирные ТВ плюс",48.0 Еда
-https://tinyurl.com/aleks-u-romki-2/6009/index.m3u8
+https://tinyurl.com/aleks-u-romki-2/6009/index.m3u8 
+
+# 48.0.1 Телеканал Еда
+#EXTINF:-1 tvg-id="eda-tv" tvg-name="Еда" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/Iptv_Ru2026/main/icons/eda.png" group-title="Эфирные ТВ плюс",48.0.1 Еда
+http://146.158.15.254:8000/play/a009/index.m3u8
 
 
 
