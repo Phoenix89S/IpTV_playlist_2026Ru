@@ -796,6 +796,17 @@ http://cdn.ntv.ru/ntv_mir/tracks-v3a1/mono.m3u8
 #EXTINF:-1 tvg-id="ntv-mir" tvg-name="НТВ Мир (index)" tvg-logo="https://iptvx.one/picons/ntv-mir.png" group-title="Эфирные ТВ плюс",4.12.3. НТВ Мир
 https://cdn.ntv.ru/ntvmir/index.m3u8
 
+# 4.12.4 НТВ Мир
+#EXTINF:-1 group-title="Эфирные ТВ" tvg-id="ntv-mir",4.12.4 НТВ-Мир
+https://streaming.thestream.cyou/live/213-req_offset_28000000-req_window_0-1k_v5.m3u8
+
+#4.12.5 НТВ Мир
+#EXTINF:-1 group-title="Эфирные ТВ",4.12.5 НТВ Мир (3)
+https://streaming.televizor-24-tochka.ru/live/213.m3u8
+
+# 4.12.6 НТВ Мир.
+#EXTINF:0 group-title="Эфирные ТВ",4.12.6 НТВ Мир
+http://s05.wsbof.com/ntv-mir/mpegts?token=a0ac444f
 
 #----------------------------------------------------------------------
 
