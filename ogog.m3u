@@ -447,3 +447,42 @@ http://185.78.112.47:8077/CHGTRK-GROZNIY/index.m3u8
 http://185.78.112.47:8077/arirang/index.m3u8
 #EXTINF:-1,bloomberg
 http://185.78.112.47:8077/bloomberg/index.m3u8
+
+
+#EXTINF:-1,BRIDGE Classic
+http://5.188.159.128:8070/Bridge_TV_Classic/index.m3u8
+#EXTINF:-1,BRIDGE Hits
+http://5.188.159.128:8070/Bridge_TV_Hits/index.m3u8
+#EXTINF:-1,Cartoon Network
+http://5.188.159.128:8070/Cartoon_Network/index.m3u8
+#EXTINF:-1,Discovery
+http://5.188.159.128:8070/DiscoveryChannel/index.m3u8
+#EXTINF:-1,Hollywood HD
+http://5.188.159.128:8070/HOLLYWOOD_HD/index.m3u8
+#EXTINF:-1,Кинопремьера
+http://5.188.159.128:8070/KINOPREMIERA/index.m3u8
+#EXTINF:-1,.red
+http://5.188.159.128:8070/RED/index.m3u8
+#EXTINF:-1,Trash HD
+http://5.188.159.128:8070/Trash_HD/index.m3u8
+#EXTINF:-1,BRIDGE
+http://5.188.159.128:8070/bridgetv/index.m3u8
+#EXTINF:-1,Киносвидание
+http://5.188.159.128:8070/kinosvidanie/index.m3u8
+#EXTINF:-1,MEGOGO Спорт
+http://5.188.159.128:8070/megogo_sport/index.m3u8
+#EXTINF:-1,Мир 24
+http://5.188.159.128:8070/mir_24/index.m3u8
+#EXTINF:-1,НТВ Мир (Казахстан)
+http://5.188.159.128:8070/ntvmir_TV/index.m3u8
+#EXTINF:-1,РУ ТВ
+http://5.188.159.128:8070/rutv/index.m3u8
+#EXTINF:-1,UDAR
+http://5.188.159.128:8070/udar/index.m3u8
+
+
+
+
+
+
+
