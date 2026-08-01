@@ -45,6 +45,114 @@ http://cdn2.ntv.ru/ntv-msk_hd/index.m3u8
 http://cdn2.ntv.ru/ntv-spb/index.m3u8
 #EXTINF:-1 ,Unknown_26
 http://cdn2.ntv.ru/th_hit/index.m3u8
+
+
+#------------------дополнительно: НТВ -----------
+
+#--------- НТВ (+0) дополнительные потоки ---------
+
+#EXTINF:-1 tvg-id="NTV" tvg-name="НТВ HD (CDN2)" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/Iptv_Ru2026/main/icons/NTV_0HD.png" group-title="Эфирные ТВ плюс",4.1.1. НТВ HD (CDN2)
+http://cdn2.ntv.ru/ntv0_hd/index.m3u8
+
+#EXTINF:-1 tvg-id="NTV" tvg-name="НТВ SD Foreign" tvg-logo="https://raw.githubusercontent.com/Phoenix89S/Iptv_Ru2026/main/icons/NTV_-1SD.png" group-title="Эфирные ТВ плюс",4.1.2. НТВ Foreign
+http://cdn2.ntv.ru/ntv0_foreign/index.m3u8
+
+
+#--------- НТВ (+1) дополнительные потоки ---------
+
+#EXTINF:-1 tvg-id="NTV+1" tvg-name="НТВ (+1) SD" group-title="Эфирные ТВ плюс",4.2.1. НТВ (+1) SD
+http://cdn2.ntv.ru/ntv1_sd/index.m3u8
+
+
+#--------- НТВ (+2) дополнительные потоки ---------
+
+#EXTINF:-1 tvg-id="NTV+2" tvg-name="НТВ (+2) SD" group-title="Эфирные ТВ плюс",4.3.1. НТВ (+2) SD
+http://cdn2.ntv.ru/ntv2_sd/index.m3u8
+
+
+#--------- НТВ (+4) дополнительные потоки ---------
+
+#EXTINF:-1 tvg-id="NTV+4" tvg-name="НТВ (+4) SD" group-title="Эфирные ТВ плюс",4.5.1. НТВ (+4) SD
+http://cdn2.ntv.ru/ntv4_sd/index.m3u8
+
+
+#--------- НТВ (+7) дополнительные потоки ---------
+
+#EXTINF:-1 tvg-id="NTV+7" tvg-name="НТВ (+7) SD" group-title="Эфирные ТВ плюс",4.8.1. НТВ (+7) SD
+http://cdn2.ntv.ru/ntv7_sd/index.m3u8
+
+
+#--------- НТВ Москва дополнительные потоки ---------
+
+#EXTINF:-1 tvg-id="ntv-msk" tvg-name="НТВ Москва HD" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Эфирные ТВ плюс",4.13.1. НТВ Москва HD
+http://cdn2.ntv.ru/ntv-msk_hd/index.m3u8
+
+
+#--------- Тематические каналы ---------
+
+#EXTINF:-1 tvg-id="ntv-th-hit" tvg-name="НТВ Hit" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Эфирные ТВ плюс",4.15. НТВ Hit
+http://cdn2.ntv.ru/th_hit/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-th-pravo" tvg-name="НТВ Право" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Эфирные ТВ плюс",4.16. НТВ Право
+http://cdn2.ntv.ru/th_pravo/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-th-serial" tvg-name="НТВ Serial" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Эфирные ТВ плюс",4.17. НТВ Serial
+http://cdn2.ntv.ru/th_serial/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-th-style" tvg-name="НТВ Style" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Эфирные ТВ плюс",4.18. НТВ Style
+http://cdn2.ntv.ru/th_style/index.m3u8
+
+
+#--------- Сериалы НТВ ---------
+
+#EXTINF:-1 tvg-id="ntv-pes" tvg-name="НТВ Пёс" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Эфирные ТВ плюс",4.19.1. НТВ Пёс
+http://cdn-dvr.ntv.ru/Pes/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-balabol" tvg-name="НТВ Балабол" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Эфирные ТВ плюс",4.19.2. НТВ Балабол
+http://cdn-dvr.ntv.ru/Balabol/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-nevskiy" tvg-name="НТВ Невский" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Эфирные ТВ плюс",4.19.3. НТВ Невский
+http://cdn-dvr.ntv.ru/Nevskiy/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-shef" tvg-name="НТВ Шеф" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Эфирные ТВ плюс",4.19.4. НТВ Шеф
+http://cdn-dvr.ntv.ru/Shef/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-skoraja" tvg-name="НТВ Скорая помощь" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Эфирные ТВ плюс",4.19.5. НТВ Скорая помощь
+http://cdn-dvr.ntv.ru/Skoraja_pomosh/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-sledstvie" tvg-name="НТВ Следствие" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Эфирные ТВ плюс",4.19.6. НТВ Следствие
+http://cdn-dvr.ntv.ru/sledstvie/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-super" tvg-name="НТВ Супер" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Эфирные ТВ плюс",4.19.7. НТВ Супер
+http://cdn-dvr.ntv.ru/Super/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-svoya-igra" tvg-name="НТВ Своя игра" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Эфирные ТВ плюс",4.19.8. НТВ Своя игра
+http://cdn-dvr.ntv.ru/svoya_igra/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-5min" tvg-name="НТВ 5 минут тишины" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Эфирные ТВ плюс",4.19.9. НТВ 5 минут тишины
+http://cdn-dvr.ntv.ru/5_minut_tishiny/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-perviy-otdel" tvg-name="НТВ Первый отдел" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Эфирные ТВ плюс",4.19.10. НТВ Первый отдел
+http://cdn-dvr.ntv.ru/Perviy_otdel/index.m3u8
+
+#-----------------еще не конец--------
+
+#----------технический канал с логотипом------------
+
+#EXTINF:-1 tvg-id="ntv-live7" tvg-name="НТВ Live7 HD" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Технические каналы",4.T1 НТВ Live7 HD
+http://cdn2.ntv.ru/live7_decklink/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-unknown-russia" tvg-name="НТВ Unknown Russia" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Технические каналы",4.T2 НТВ Unknown Russia
+http://cdn2.ntv.ru/unknown_russia/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-vitrina" tvg-name="НТВ Vitrina" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Технические каналы",4.T3 НТВ Vitrina
+http://cdn2.ntv.ru/vitrina/index.m3u8
+
+#----------------конец блока НТВ и кнопки 4 ----------------
+
+
+
+
 #EXTINF:-1 ,Unknown_24
 http://cdn2.ntv.ru/th_pravo/index.m3u8
 #EXTINF:-1 ,Unknown_25
