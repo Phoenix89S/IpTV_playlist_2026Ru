@@ -252,7 +252,14 @@ http://145.239.5.177/566a/index.m3u8
 
 
 
-
+#EXTINF:-1,МАТЧ! HD
+http://91.201.172.14:35001
+#EXTINF:-1,Матч!Футбол 1 HD
+http://91.201.172.14:35002
+#EXTINF:-1,Digi Sport 1 HD
+http://91.201.172.14:35005
+#EXTINF:-1,Digi Sport 2 HD
+http://91.201.172.14:35006
 
 #EXTINF:-1,cnn
 http://176.122.125.10:8080/cnn/index.m3u8
