@@ -3,15 +3,29 @@
 
 """
 ===============================================================================
-ПРОЕКТ: ПЁТР I — ОКНО В ЕВРОПУ (v16.7.0.3 AI Edition)
-ОПИСАНИЕ: Асинхронный брутфорсер CDN-узлов, парсер EPG, логгер СКАЛА / ДРЭГ
-          с учётом AI-рейтингов, возрастных ограничений (censorship) и АЗ-5.
+ПРОЕКТ: ПЁТР I — ОКНО В ЕВРОПУ (v18.9.3.6.001 AI Gold Edition)
+ОПИСАНИЕ: Автономный асинхронный брутфорсер CDN-узлов, парсер EPG,
+          логгер СКАЛА / ДРЭГ с полным учётом AI-рейтингов,
+          возрастных цензов (censorship) и авто-подгрузкой зависимостей.
 ===============================================================================
 """
 
+import subprocess
+import sys
+
+# =============================================================================
+# 0. АВТО-УСТАНОВКА МОДУЛЕЙ ДЛЯ GITHUB ACTIONS / RUNNER
+# =============================================================================
+REQUIRED_PACKAGES = ["requests", "aiohttp"]
+for pkg in REQUIRED_PACKAGES:
+    try:
+        __import__(pkg)
+    except ImportError:
+        print(f"[СКАЛА] Внимание: Модуль '{pkg}' не обнаружен. Авто-установка...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", pkg])
+
 import os
 import re
-import sys
 import time
 import gzip
 import signal
@@ -63,7 +77,7 @@ def save_to_main_and_output(filename, content):
 # 2. БЛОК СКАЛА / ДРЭГ (ЛОГГЕР С ПОДДЕРЖКОЙ АЗ-5)
 # =============================================================================
 class SKALA_DREG_Logger:
-    def __init__(self, system_name="ПЕТР_I_ОКНО_В_ЕВПРОПУ_v16.7.0.3_AI", main_log=FILE_MAIN_LOG):
+    def __init__(self, system_name="ПЕТР_I_ОКНО_В_ЕВРОПУ_v18.9.3.6.001", main_log=FILE_MAIN_LOG):
         self.system_name = system_name
         self.main_log = main_log
         self.run_index = RUN_INDEX
@@ -250,7 +264,7 @@ CHANNEL_DICTIONARY = {
 }
 
 def fetch_and_parse_epg():
-    logger.skala_phase("ПАРСИНГ_EPG", "Загрузка и 'шуршание' по базам epg.one")
+    logger.skala_phase("ПАРСИНГ_EPG", "Загрузка и парсинг баз epg.one")
     epg_urls = ["https://epg.one/epg.xml.gz", "https://epg.one/epg2.xml.gz"]
     epg_map = {}
 
@@ -333,7 +347,7 @@ def main():
     best_cdn = bruteforce_cdn_nodes()
     epg_db = fetch_and_parse_epg()
     
-    logger.skala_phase("СКАНИРОВАНИЕ_СЛОВАРА", "Проверка доступности каналов и ценза")
+    logger.skala_phase("СКАНИРОВАНИЕ_СЛОВАРА", "Проверка доступности каналов, рейтинга и ценза")
     valid_channels = []
     
     for slug, info in CHANNEL_DICTIONARY.items():
@@ -351,7 +365,7 @@ def main():
     m3u_lines = [
         '#EXTM3U url-tvg="https://epg.one/epg.xml.gz, https://epg.one/epg2.xml.gz" refresh="3600"',
         '# --------------------------------------------------------------------',
-        '# ПЛЕЙЛИСТ ПЁТР I: ЭФИРНЫЕ ТВ ПЛЮС (CENSORSHIP & RATING EDITION)',
+        '# ПЛЕЙЛИСТ ПЁТР I: ЭФИРНЫЕ ТВ ПЛЮС (FULL CENSORSHIP & RATING EDITION)',
         '# --------------------------------------------------------------------'
     ]
     
