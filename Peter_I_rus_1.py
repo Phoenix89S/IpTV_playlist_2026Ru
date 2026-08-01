@@ -3,7 +3,7 @@
 """
 ===============================================================================
 Скрипт: Peter_I_rus.py
-Версия: 13.3 AI Edition
+Версия: 13.4 AI Edition (Ultra Pattern Edition)
 
 Сохранение выходных файлов одновременно в main и output/:
 1. Peter_I_Full_report.txt   — Основной лог (СКАЛА / ДРЭГ)
@@ -26,11 +26,11 @@ OUTPUT_DIR = "output"
 def save_to_main_and_output(filename, content):
     """Сохранение файла в корень проекта (main) и в папку output/"""
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    
+
     # 1. Запись в корень (main)
     with open(filename, "w", encoding="utf-8") as f:
         f.write(content)
-        
+
     # 2. Запись в папку output/
     output_path = os.path.join(OUTPUT_DIR, filename)
     with open(output_path, "w", encoding="utf-8") as f:
@@ -40,7 +40,7 @@ def save_to_main_and_output(filename, content):
 # БЛОК СКАЛА / ДРЭГ (ОСНОВНОЙ ЛОГ)
 # -----------------------------------------------------------------------------
 class SKALA_DREG_Logger:
-    def __init__(self, system_name="ПЕТР_I_ОКНО_В_ЕВПРОПУ_v13.3_AI", main_log="Peter_I_Full_report.txt"):
+    def __init__(self, system_name="ПЕТР_I_ОКНО_В_ЕВПРОПУ_v13.4_AI", main_log="Peter_I_Full_report.txt"):
         self.system_name = system_name
         self.main_log = main_log
         self.t_start = None
@@ -91,10 +91,11 @@ logger = SKALA_DREG_Logger()
 # -----------------------------------------------------------------------------
 # НАСТРОЙКИ И АНАЛИЗ РЕЙТИНГОВ
 # -----------------------------------------------------------------------------
+# ОСНОВНОЙ УЛЬТРА-ПАТТЕРН СТОИТ НА ПЕРВОМ МЕСТЕ
 BASE_HOSTS = [
+    "http://s80718.cdn.ngenix.net/hls/",
     "http://a3285272783-s80718.cdn.ngenix.net/hls/",
-    "http://a787201481-s80718.cdn.ngenix.net/hls/",
-    "http://s80718.cdn.ngenix.net/hls/"
+    "http://a787201481-s80718.cdn.ngenix.net/hls/"
 ]
 
 ENDPOINTS = [
@@ -114,8 +115,8 @@ TIMEOUT = 3.5
 
 def calculate_stars_and_age(title, url, latency_ms, has_epg):
     """Расчет звезд (1-5) по Q-Score + Определение возрастного рейтинга."""
-    if "1920x1080" in url:
-        q_res, res_label = 1.0, "1080p FHD"
+    if "1920x1080" in url or "variant.m3u8" in url:
+        q_res, res_label = 1.0, "1080p FHD/Auto"
     elif "1280x720" in url:
         q_res, res_label = 0.75, "720p HD"
     else:
@@ -153,33 +154,25 @@ def inspect_and_resolve_node(raw_line, title=""):
         return None, 0.0
     slug = slug_match.group(0)
 
+    # Приоритет всегда у ультра-паттерна s80718.cdn.ngenix.net/hls/
     target_hosts = list(BASE_HOSTS)
-    for host in BASE_HOSTS:
-        domain = urllib.parse.urlparse(host).netloc
-        if domain in raw_line:
-            target_hosts.remove(host)
-            target_hosts.insert(0, host)
-            break
 
     for host in target_hosts:
+        # Проверяем ультра-паттерн напрямую (variant.m3u8)
         master_url = f"{host}{slug}/variant.m3u8"
         t0 = time.perf_counter()
         try:
             r = requests.get(master_url, headers=HEADERS, timeout=TIMEOUT)
             latency = (time.perf_counter() - t0) * 1000
             if r.status_code == 200 and "#EXTM3U" in r.text:
-                tracks = re.findall(r'([\w_.-]+(?:/playlist\.m3u8|\.m3u8))', r.text)
-                if tracks:
-                    best_track = next((t for t in tracks if "1920x1080" in t), tracks[0])
-                    resolved_url = f"{host}{slug}/{best_track}" if not best_track.startswith("http") else best_track
-                    logger.dreg(slug, "ОПРОС_МАНИФЕСТА_200_OK", f"Задержка: {latency:.1f}ms -> {best_track}")
-                    return resolved_url, latency
-                logger.dreg(slug, "ОПРОС_МАНИФЕСТА_200_OK", f"Задержка: {latency:.1f}ms -> variant.m3u8")
+                # Если сработал основной ультра-паттерн s80718 — отдаем его напрямую!
+                logger.dreg(slug, "УЛЬТРА_ПАТТЕРН_200_OK", f"Задержка: {latency:.1f}ms -> {master_url}")
                 return master_url, latency
         except requests.RequestException:
             pass
 
-        for ep in ENDPOINTS:
+        # Фолбэк по альтернативным эндпоинтам, если variant.m3u8 не ответил напрямую
+        for ep in ENDPOINTS[1:]:
             direct_url = f"{host}{slug}/{ep}"
             t0 = time.perf_counter()
             try:
@@ -195,20 +188,20 @@ def inspect_and_resolve_node(raw_line, title=""):
     return None, 0.0
 
 def step_0_repair_raw_list(raw_input_text):
-    logger.skala_phase("ЭТАП_0_СТАРТ", "Разбор и восстановление оборванных ссылок")
+    logger.skala_phase("ЭТАП_0_СТАРТ", "Разбор и приведение ссылок к ультра-паттерну")
     results = {}
     lines = [l.strip() for l in raw_input_text.strip().split('\n') if l.strip()]
-    
+
     current_title = "Неизвестный канал"
     for line in lines:
         if line.startswith("#EXTINF"):
-            # Очистка названия канала от лишних пробелов после запятой
+            # Очистка названия канала от лишних пробелов
             current_title = line.split(",")[-1].strip()
         elif "CH_" in line:
             resolved_url, latency = inspect_and_resolve_node(line, current_title)
             if resolved_url:
                 results[current_title] = {"url": resolved_url, "latency": latency}
-                
+
     return results
 
 def step_1_dictionary_scan(existing_results, channels_to_scan):
@@ -220,7 +213,7 @@ def step_1_dictionary_scan(existing_results, channels_to_scan):
             logger.dreg(title, "ПРОПУСК_ДУБЛИКАТА", "Уже восстановлен на Этапе 0")
             continue
 
-        dummy_line = f"http://a3285272783-s80718.cdn.ngenix.net/hls/{slug}/"
+        dummy_line = f"http://s80718.cdn.ngenix.net/hls/{slug}/"
         resolved_url, latency = inspect_and_resolve_node(dummy_line, title)
         if resolved_url:
             results[title] = {"url": resolved_url, "latency": latency}
@@ -264,11 +257,11 @@ def step_2_epg_and_ai_metrics(channels_map):
         stars, age_limit, q_score, res_label, lat_str = calculate_stars_and_age(title, url, latency, has_epg)
 
         tvg_attr = f' tvg-id="{tvg_id}"' if tvg_id else ''
-        group_title = "Премиум качество" if q_score >= 0.8 else "Стандарт"
-        
-        extinf = f'#EXTINF:-1{tvg_attr} rating="{stars}" age="{age_limit}" q-score="{q_score}" group-title="{group_title}" tvg-name="{title}",{title} [{stars} | {age_limit} | {res_label}]'
+        group_title = "Эфирные ТВ плюс"
+
+        extinf = f'#EXTINF:-1{tvg_attr} rating="{stars}" age="{age_limit}" q-score="{q_score}" group-title="{group_title}" tvg-name="{title}",{title}'
         final_playlist_items.append((extinf, url))
-        
+
         logger.dreg(title, "РЕЙТИНГ_ФИКСАЦИЯ", f"Звезды: [{stars}] | Ценз: [{age_limit:<3}] | Пинг: {lat_str} | Режим: {res_label}")
         rating_report_lines.append(f"{title:<25} | {stars} | Возраст: {age_limit:<4} | Q-Score: {q_score:<4} | Пинг: {lat_str:<7} | {res_label}")
 
@@ -292,7 +285,7 @@ def save_m3u_playlist(playlist_items, m3u_file="Peter_I_full.m3u"):
 def save_rating_report(rating_report_lines, report_file="Peter_I_rating_report.txt"):
     logger.skala_phase("СОХРАНЕНИЕ_РЕЙТИНГА", f"Запись рейтингового отчета [{report_file}] в main и {OUTPUT_DIR}/")
     now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    
+
     lines = [
         "=" * 95,
         f" СИСТЕМА ПЕТР I :: СВОДНЫЙ РЕЙТИНГОВЫЙ ОТЧЕТ КАНАЛОВ ({now_str})",
@@ -311,7 +304,6 @@ def save_rating_report(rating_report_lines, report_file="Peter_I_rating_report.t
 if __name__ == "__main__":
     logger.skala_start()
 
-    # Входной массив ссылок с вашей структуры
     RAW_INPUT = """
     #EXTINF:-1 ,.Red
     a3285272783-s80718.cdn.ngenix.net/hls/CH_REDHD/video_..
@@ -355,7 +347,6 @@ if __name__ == "__main__":
     a3285272783-s80718.cdn.ngenix.net//hls//CH_FAST_SPORT..
     """
 
-    # Дополнительные каналы для проверки по словарю (Этап 1)
     CHANNELS_TO_SCAN = {
         "Матч Премьер": "CH_MATCHPREMIER"
     }
@@ -364,12 +355,10 @@ if __name__ == "__main__":
         recovered_map = step_0_repair_raw_list(RAW_INPUT)
         full_map = step_1_dictionary_scan(recovered_map, CHANNELS_TO_SCAN)
         final_items, report_lines = step_2_epg_and_ai_metrics(full_map)
-        
-        # Сохранение плейлиста и рейтингов
+
         save_m3u_playlist(final_items, "Peter_I_full.m3u")
         save_rating_report(report_lines, "Peter_I_rating_report.txt")
-        
-        # Финализация лога СКАЛА / ДРЭГ
+
         logger.skala_stop(status="НОРМА (200 OK)")
     except Exception as fatal_error:
         logger.skala_phase("АВАРИЯ", f"Критический сбой: {fatal_error}")
