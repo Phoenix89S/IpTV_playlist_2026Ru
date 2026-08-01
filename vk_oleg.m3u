@@ -443,6 +443,38 @@ http://a3285272783-s80718.cdn.ngenix.net/hls/CH_KINOKOMEDIYA/video_800x450_avc1/
 #EXTINF:-1 tvg-id="kinosvidanie" group-title="Эфирные ТВ плюс" tvg-name="КИНОСВИДАНИЕ",КИНОСВИДАНИЕ
 http://a3285272783-s80718.cdn.ngenix.net/hls/CH_KINOSVIDANIE/video_800x450_avc1/playlist.m3u8
 
+#EXTINF:-1 tvg-id="ntv0" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Россия эфирные ТВ" ,4.1 НТВ 0
+http://cdn2.ntv.ru/ntv0/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv1" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Россия эфирные ТВ" ,4.2 НТВ 1
+http://cdn2.ntv.ru/ntv1/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv2" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Россия эфирные ТВ" ,4.3 НТВ 2
+http://cdn2.ntv.ru/ntv2/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv4" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Россия эфирные ТВ" ,4.4 НТВ 4
+http://cdn2.ntv.ru/ntv4/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv7" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Россия эфирные ТВ" ,4.5 НТВ 7
+http://cdn2.ntv.ru/ntv7/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-msk" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Россия эфирные ТВ" ,4.6 НТВ Москва
+http://cdn2.ntv.ru/ntv-msk/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-spb" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Россия эфирные ТВ" ,4.7 НТВ Санкт-Петербург
+http://cdn2.ntv.ru/ntv-spb/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-th-hit" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Россия эфирные ТВ" ,4.8 НТВ Hit
+http://cdn2.ntv.ru/th_hit/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-th-pravo" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Россия эфирные ТВ" ,4.9 НТВ Право
+http://cdn2.ntv.ru/th_pravo/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-th-serial" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Россия эфирные ТВ" ,4.10 НТВ Serial
+http://cdn2.ntv.ru/th_serial/index.m3u8
+
+#EXTINF:-1 tvg-id="ntv-th-style" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Россия эфирные ТВ" ,4.11 НТВ Style
+http://cdn2.ntv.ru/th_style/index.m3u8
 
 
 
