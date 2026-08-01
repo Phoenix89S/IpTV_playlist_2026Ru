@@ -97,66 +97,134 @@ http://40.160.24.58/HLN_SD/index.m3u8
 http://40.160.24.58/HBO_2_SD/index.m3u8
 
 
-#EXTINF:-1 ,Патриот
-starcius-cinema.com/10244/index.m3u8
-#EXTINF:-1 ,Апостроф
-starcius-cinema.com/10660/index.m3u8
-#EXTINF:-1 ,9 Канал HD Израиль
-starcius-cinema.com/11152/index.m3u8
-#EXTINF:-1 ,Ertis Казахстан
-starcius-cinema.com/11490/index.m3u8
-#EXTINF:-1 ,Music Vox TV
-starcius-cinema.com/11581/index.m3u8
-#EXTINF:-1 ,7 ТВ HD Молдова
-starcius-cinema.com/11711/index.m3u8
-#EXTINF:-1 ,GRT Молдова
-starcius-cinema.com/11712/index.m3u8
-#EXTINF:-1 ,starcius-7D7 TV
-starcius-cinema.com/12042/index.m3u8
-#EXTINF:-1 ,Music Shannel
-starcius-cinema.com/20662/index.m3u8
-#EXTINF:-1 ,N/A
-starcius-cinema.com/20690/index.m3u8
-#EXTINF:-1 ,N/A
-starcius-cinema.com/20691/index.m3u8
-#EXTINF:-1 ,Шант High Vision
-starcius-cinema.com/20692/index.m3u8
-#EXTINF:-1 ,N/A3
-starcius-cinema.com/20693/index.m3u8
-#EXTINF:-1 ,N/A4
-starcius-cinema.com/20694/index.m3u8
-#EXTINF:-1 ,Hay Kino
-starcius-cinema.com/20695/index.m3u8
-#EXTINF:-1 ,Музыка
-starcius-cinema.com/20696/index.m3u8
-#EXTINF:-1 ,Кетрон
-starcius-cinema.com/20697/index.m3u8
-#EXTINF:-1 ,N/A
-starcius-cinema.com/20698/index.m3u8
-#EXTINF:-1 ,Bazmoc
-starcius-cinema.com/20699/index.m3u8
-#EXTINF:-1 ,Шант Premium
-starcius-cinema.com/20700/index.m3u8
-#EXTINF:-1 ,Шант Сериал
-starcius-cinema.com/20701/index.m3u8
-#EXTINF:-1, Kinoman
-starcius-cinema.com/20702/index.m3u8
-#EXTINF:-1 ,Free News
-starcius-cinema.com/20705/index.m3u8
-#EXTINF:-1 ,Шант HD
-starcius-cinema.com/20706/index.m3u8
-#EXTINF:-1 ,Шант Kids
-starcius-cinema.com/20711/index.m3u8
-#EXTINF:-1, Шант Музыка
-starcius-cinema.com/20712/index.m3u8
-#EXTINF:-1, Song
-starcius-cinema.com/20713/index.m3u8
-#EXTINF:-1 ,N/A
-starcius-cinema.com/20714/index.m3u8
-#EXTINF:-1 ,N/A
-starcius-cinema.com/20715/index.m3u8
-Оценили 7 человек
-
+#EXTINF:-1,E
+http://145.239.5.177/111/index.m3u8
+#EXTINF:-1,TV Mana
+http://145.239.5.177/141/index.m3u8
+#EXTINF:-1,RTV
+http://145.239.5.177/147/index.m3u8
+#EXTINF:-1,Nollywood TV
+http://145.239.5.177/148/index.m3u8
+#EXTINF:-1,Unknown_205
+http://145.239.5.177/205/index.m3u8
+#EXTINF:-1,Unknown_206
+http://145.239.5.177/206/index.m3u8
+#EXTINF:-1,TRACE URBAN
+http://145.239.5.177/209/index.m3u8
+#EXTINF:-1,TRACE TOCA
+http://145.239.5.177/210/index.m3u8
+#EXTINF:-1,CGTN Francais
+http://145.239.5.177/214/index.m3u8
+#EXTINF:-1,Unknown_215
+http://145.239.5.177/215/index.m3u8
+#EXTINF:-1,RTS 2
+http://145.239.5.177/224/index.m3u8
+#EXTINF:-1,Arte
+http://145.239.5.177/300/index.m3u8
+#EXTINF:-1,France 5
+http://145.239.5.177/305/index.m3u8
+#EXTINF:-1,franceinfo:
+http://145.239.5.177/306/index.m3u8
+#EXTINF:-1,RTL9
+http://145.239.5.177/308/index.m3u8
+#EXTINF:-1,Animaux
+http://145.239.5.177/314/index.m3u8
+#EXTINF:-1,TFX
+http://145.239.5.177/315/index.m3u8
+#EXTINF:-1,TV Breizh
+http://145.239.5.177/318/index.m3u8
+#EXTINF:-1,Unknown_319
+http://145.239.5.177/319/index.m3u8
+#EXTINF:-1,M6 Music
+http://145.239.5.177/320/index.m3u8
+#EXTINF:-1,Unknown_321
+http://145.239.5.177/321/index.m3u8
+#EXTINF:-1,Chasse & Peche
+http://145.239.5.177/322/index.m3u8
+#EXTINF:-1,RTBF La Une
+http://145.239.5.177/329/index.m3u8
+#EXTINF:-1,RTBF La Trois
+http://145.239.5.177/330/index.m3u8
+#EXTINF:-1,W9
+http://145.239.5.177/331/index.m3u8
+#EXTINF:-1,AB1
+http://145.239.5.177/332/index.m3u8
+#EXTINF:-1,RMC Life
+http://145.239.5.177/333/index.m3u8
+#EXTINF:-1,Cine+ Emotion
+http://145.239.5.177/337/index.m3u8
+#EXTINF:-1,Unknown_341
+http://145.239.5.177/341/index.m3u8
+#EXTINF:-1,Unknown_349
+http://145.239.5.177/349/index.m3u8
+#EXTINF:-1,KTO
+http://145.239.5.177/354/index.m3u8
+#EXTINF:-1,Serie Club
+http://145.239.5.177/355/index.m3u8
+#EXTINF:-1,Teva
+http://145.239.5.177/356/index.m3u8
+#EXTINF:-1,Europe2Pop TV
+http://145.239.5.177/361/index.m3u8
+#EXTINF:-1,LCI
+http://145.239.5.177/368/index.m3u8
+#EXTINF:-1,Carac1
+http://145.239.5.177/371/index.m3u8
+#EXTINF:-1,beIN Sports 4 Max
+http://145.239.5.177/515/index.m3u8
+#EXTINF:-1,Unknown_518
+http://145.239.5.177/518/index.m3u8
+#EXTINF:-1,RMC Sport 1
+http://145.239.5.177/525/index.m3u8
+#EXTINF:-1,Eurosport 2
+http://145.239.5.177/530/index.m3u8
+#EXTINF:-1,L'Equipe
+http://145.239.5.177/549/index.m3u8
+#EXTINF:-1,beIN Sports 3
+http://145.239.5.177/559/index.m3u8
+#EXTINF:-1,Unknown_568
+http://145.239.5.177/568/index.m3u8
+#EXTINF:-1,Unknown_569
+http://145.239.5.177/569/index.m3u8
+#EXTINF:-1,Unknown_570
+http://145.239.5.177/570/index.m3u8
+#EXTINF:-1,beIN Sports 5 Max
+http://145.239.5.177/572/index.m3u8
+#EXTINF:-1,Unknown_573
+http://145.239.5.177/573/index.m3u8
+#EXTINF:-1,TF1
+http://145.239.5.177/301a/index.m3u8
+#EXTINF:-1,Unknown_309
+http://145.239.5.177/309a/index.m3u8
+#EXTINF:-1,Unknown_312
+http://145.239.5.177/312a/index.m3u8
+#EXTINF:-1,W9
+http://145.239.5.177/331a/index.m3u8
+#EXTINF:-1,Unknown_353
+http://145.239.5.177/353a/index.m3u8
+#EXTINF:-1,Cap Terre
+http://145.239.5.177/359a/index.m3u8
+#EXTINF:-1,beIN Sports 3
+http://145.239.5.177/514a/index.m3u8
+#EXTINF:-1,RMC Sport Live 3
+http://145.239.5.177/526a/index.m3u8
+#EXTINF:-1,AUTOMOTO
+http://145.239.5.177/529a/index.m3u8
+#EXTINF:-1,Unknown_556
+http://145.239.5.177/556a/index.m3u8
+#EXTINF:-1,beIN Sports 1
+http://145.239.5.177/557a/index.m3u8
+#EXTINF:-1,beIN Sports 2
+http://145.239.5.177/558a/index.m3u8
+#EXTINF:-1,BFM Business
+http://145.239.5.177/561a/index.m3u8
+#EXTINF:-1,Unknown_562
+http://145.239.5.177/562a/index.m3u8
+#EXTINF:-1,ACI SPORT TV
+http://145.239.5.177/564a/index.m3u8
+#EXTINF:-1,Unknown_565
+http://145.239.5.177/565a/index.m3u8
+#EXTINF:-1,Sky Sports Premier League
+http://145.239.5.177/566a/index.m3u8
 
 
 
