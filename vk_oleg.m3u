@@ -1,7 +1,56 @@
-Валера Джамбеков
-19 мая в 5:24
-·
-в TV IPTV
+
+#EXTM3U
+#EXTINF:-1,Das Erste
+http://5.180.164.197:8080/DASERSTE/index.m3u8
+#EXTINF:-1,ZDF
+http://5.180.164.197:8080/ZDF/index.m3u8
+#EXTINF:-1,RTL
+http://5.180.164.197:8080/RTL/index.m3u8
+#EXTINF:-1,n-tv
+http://5.180.164.197:8080/NTV/index.m3u8
+#EXTINF:-1,3sat
+http://5.180.164.197:8080/3SAT/index.m3u8
+#EXTINF:-1,SAT1
+http://5.180.164.197:8080/SAT1/index.m3u8
+#EXTINF:-1,ProSieben
+http://5.180.164.197:8080/PRO7/index.m3u8
+#EXTINF:-1,TV5 Europe
+http://5.180.164.197:8080/TV5MONDE/index.m3u8
+#EXTINF:-1,kabel eins
+http://5.180.164.197:8080/KABEL1/index.m3u8
+#EXTINF:-1,WELT
+http://5.180.164.197:8080/WELT/index.m3u8
+#EXTINF:-1,SAT1
+http://5.180.164.197:8080/SIXX/index.m3u8
+#EXTINF:-1,SAT1 Gold
+http://5.180.164.197:8080/SAT1GOLD/index.m3u8
+#EXTINF:-1,Pro7 MAXX
+http://5.180.164.197:8080/PRO7MAXX/index.m3u8
+#EXTINF:-1,zdf neo
+http://5.180.164.197:8080/ZDFNEO/index.m3u8
+#EXTINF:-1,France 24 (en Francais)
+http://5.180.164.197:8080/FRANCE24FR/index.m3u8
+#EXTINF:-1,France 24 (in English)
+http://5.180.164.197:8080/FRANCE24EN/index.m3u8
+#EXTINF:-1,CNN
+http://5.180.164.197:8080/CNN/index.m3u8
+#EXTINF:-1,kabel eins Doku
+http://5.180.164.197:8080/KABEL1DOKU/index.m3u8
+#EXTINF:-1,CNBC
+http://5.180.164.197:8080/CNBC/index.m3u8
+#EXTINF:-1,ONE
+http://5.180.164.197:8080/ONE/index.m3u8
+#EXTINF:-1,Bloomberg Europe TV
+http://5.180.164.197:8080/BLOOMBERG/index.m3u8
+#EXTINF:-1,Sky News Intl
+http://5.180.164.197:8080/SKYNEWS/index.m3u8
+#EXTINF:-1,VOX
+http://5.180.164.197:8080/VOX/index.m3u8
+
+
+
+
+
 #EXTINF:-1,ulpravdatv
 http://live-3.otcnet.ru/ulpravdatv/index.m3u8
 #EXTINF:-1,congresstv
