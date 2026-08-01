@@ -1,0 +1,49 @@
+name: Run Peter_I_rus_1.py Generator
+
+on:
+  schedule:
+    # Запуск каждые 6 часов
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Кнопка для ручного запуска из вкладки Actions
+  push:
+    paths:
+      - 'Peter_I_rus_1.py' # Автозапуск при изменении кода скрипта
+
+jobs:
+  run-peter-i:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Права на запись результативных файлов в репозиторий
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Execute Peter_I_rus_1.py
+        run: |
+          python Peter_I_rus_1.py
+
+      - name: Commit and push generated files
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Индексируем сгенерированные скриптом файлы
+          git add Peter_I_full.m3u Peter_I_rating_report.txt Peter_I_Full_report.txt output/ || true
+
+          if git diff --staged --quiet; then
+            echo "Изменений в плейлистах и отчетах нет."
+          else
+            git commit -m "Auto-update IPTV playlists and reports via Peter_I_rus_1.py [$(date -u +'%Y-%m-%d %H:%M UTC')]"
+            git push
+          fi
