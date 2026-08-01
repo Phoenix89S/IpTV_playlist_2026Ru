@@ -369,6 +369,65 @@ a3285272783-s80718.cdn.ngenix.net/hls/CH_BOKS_TVHD/vi..
 a3285272783-s80718.cdn.ngenix.net//hls//CH_FAST_SPORT..
 
 
+#EXTINF:-1 group-title="Кино",.Red
+http://a3285272783-s80718.cdn.ngenix.net/hls/CH_REDHD/video_1920x1080_avc1/playlist.m3u8
+
+#EXTINF:-1 group-title="Кино",КИНОКОМЕДИЯ
+http://a3285272783-s80718.cdn.ngenix.net/hls/CH_KINOKOMEDIYA/variant.m3u8
+
+#EXTINF:-1 group-title="Кино",КИНОСВИДАНИЕ
+http://a3285272783-s80718.cdn.ngenix.net/hls/CH_KINOSVIDANIYE/variant.m3u8
+
+#EXTINF:-1 group-title="Кино",КИНОСЕРИЯ
+http://a3285272783-s80718.cdn.ngenix.net/hls/CH_KINOSERIYA/variant.m3u8
+
+#EXTINF:-1 group-title="Кино",КИНОУЖАС
+http://a3285272783-s80718.cdn.ngenix.net/hls/CH_KINOUZHAS/variant.m3u8
+
+#EXTINF:-1 group-title="Кино",Hollywood HD
+http://a3285272783-s80718.cdn.ngenix.net/hls/CH_HOLLYWOODHD/variant.m3u8
+
+#EXTINF:-1 group-title="Развлекательные",FlixSnip
+http://a3285272783-s80718.cdn.ngenix.net/hls/CH_FLIXSNIPHD/video_1920x1080_avc1/playlist.m3u8
+
+#EXTINF:-1 group-title="Кино",FOX
+http://a3285272783-s80718.cdn.ngenix.net/hls/CH_FOX/video_1920x1080_avc1/playlist.m3u8
+
+#EXTINF:-1 group-title="Кино",Еврокино
+http://a3285272783-s80718.cdn.ngenix.net/hls/CH_EVROKINO/video_1920x1080_avc1/playlist.m3u8
+
+#EXTINF:-1 group-title="Кино",Filmbox
+http://a3285272783-s80718.cdn.ngenix.net/hls/CH_FILMBOX/video_1920x1080_avc1/playlist.m3u8
+
+#EXTINF:-1 group-title="Познавательные",ВРЕМЯ
+http://a3285272783-s80718.cdn.ngenix.net/hls/CH_VREMIA/video_1920x1080_avc1/playlist.m3u8
+
+#EXTINF:-1 group-title="Познавательные",ДИКИЙ
+http://a3285272783-s80718.cdn.ngenix.net/hls/CH_DIKIY/video_1920x1080_avc1/playlist.m3u8
+
+#EXTINF:-1 group-title="Познавательные",ЗООПАРК
+http://a3285272783-s80718.cdn.ngenix.net/hls/CH_ZOOPARK/video_1920x1080_avc1/playlist.m3u8
+
+#EXTINF:-1 group-title="Информационные",RTVI
+http://a3285272783-s80718.cdn.ngenix.net/hls/CH_RTVI/video_1920x1080_avc1/playlist.m3u8
+
+#EXTINF:-1 group-title="Федеральные",МИР
+http://a3285272783-s80718.cdn.ngenix.net/hls/CH_MIR/video_1920x1080_avc1/playlist.m3u8
+
+#EXTINF:-1 group-title="Детские",КАРУСЕЛЬ
+http://a3285272783-s80718.cdn.ngenix.net/hls/CH_KARUSEL/video_1920x1080_avc1/playlist.m3u8
+
+#EXTINF:-1 group-title="Спорт",KHL HD
+http://a3285272783-s80718.cdn.ngenix.net/hls/CH_KHL/video_1920x1080_avc1/playlist.m3u8
+
+#EXTINF:-1 group-title="Спорт",Удар HD
+http://a787201481-s80718.cdn.ngenix.net/hls/CH_UDARHD/video_1920x1080_avc1/playlist.m3u8
+
+#EXTINF:-1 group-title="Спорт",Бокс ТВ
+http://a3285272783-s80718.cdn.ngenix.net/hls/CH_BOKS_TVHD/video_1920x1080_avc1/playlist.m3u8
+
+#EXTINF:-1 group-title="Спорт",Fast Sports
+http://a3285272783-s80718.cdn.ngenix.net/hls/CH_FAST_SPORTS/video_1920x1080_avc1/playlist.m3u8
 
 
 
