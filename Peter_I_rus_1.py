@@ -3,10 +3,10 @@
 
 """
 ===============================================================================
-ПРОЕКТ: ПЁТР I — ОКНО В ЕВРОПУ (v18.9.3.6.001 AI Gold Edition)
-ОПИСАНИЕ: Автономный асинхронный брутфорсер CDN-узлов, парсер EPG,
-          логгер СКАЛА / ДРЭГ с полным учётом AI-рейтингов,
-          возрастных цензов (censorship) и авто-подгрузкой зависимостей.
+ПРОЕКТ: ПЁТР I — ОКНО В ЕВРОПУ (v18.9.3.6.002 AI Dual-Engine)
+ОПИСАНИЕ: Асинхронный брутфорсер CDN-узлов, двойное сканирование (с EPG и 
+          прямой брутфорс БЕЗ EPG), логгер СКАЛА / ДРЭГ с полным учётом 
+          AI-рейтингов, возрастных цензов и авто-подгрузкой зависимостей.
 ===============================================================================
 """
 
@@ -77,7 +77,7 @@ def save_to_main_and_output(filename, content):
 # 2. БЛОК СКАЛА / ДРЭГ (ЛОГГЕР С ПОДДЕРЖКОЙ АЗ-5)
 # =============================================================================
 class SKALA_DREG_Logger:
-    def __init__(self, system_name="ПЕТР_I_ОКНО_В_ЕВРОПУ_v18.9.3.6.001", main_log=FILE_MAIN_LOG):
+    def __init__(self, system_name="ПЕТР_I_ОКНО_В_ЕВРОПУ_v18.9.3.6.002", main_log=FILE_MAIN_LOG):
         self.system_name = system_name
         self.main_log = main_log
         self.run_index = RUN_INDEX
@@ -250,6 +250,7 @@ def run_extra_deep_scan():
 # =============================================================================
 # 5. СЛОВАРИ И ВОЗРАСТНЫЕ ОГРАНИЧЕНИЯ (CENSORSHIP)
 # =============================================================================
+# 5.1 Основной словарь каналов (С EPG)
 CHANNEL_DICTIONARY = {
     "CH_MATCHTV":  {"name": "Матч!", "tvg_id": "match-tv", "logo": "https://naggdd.github.io/iptv/logos/match.png", "censorship": "16+"},
     "CH_DOMASHNIY":{"name": "Домашний", "tvg_id": "domashny", "logo": "https://iptvx.one/picons/domashniy.png", "censorship": "16+"},
@@ -262,6 +263,16 @@ CHANNEL_DICTIONARY = {
     "CH_MUZTV":    {"name": "МУЗ-ТВ", "tvg_id": "muz-tv", "logo": "https://iptvx.one/picons/muztv.png", "censorship": "16+"},
     "CH_CHAZ":     {"name": "Че", "tvg_id": "chetv", "logo": "https://iptvx.one/picons/che.png", "censorship": "16+"}
 }
+
+# 5.2 Пул брутфорс-потоков БЕЗ EPG (прямые хэши и технические слоты)
+NO_EPG_BRUTEFORCE_SLUGS = [
+    {"slug": "a32852727830", "name": "Брутфорс-Поток #0", "logo": "", "censorship": "16+"},
+    {"slug": "a32852727831", "name": "Брутфорс-Поток #1", "logo": "", "censorship": "16+"},
+    {"slug": "a32852727832", "name": "Брутфорс-Поток #2", "logo": "", "censorship": "16+"},
+    {"slug": "a32852727833", "name": "Брутфорс-Поток #3", "logo": "", "censorship": "16+"},
+    {"slug": "a32852727834", "name": "Брутфорс-Поток #4", "logo": "", "censorship": "16+"},
+    {"slug": "CH_TEST_LIVE", "name": "Тест Слот Live",  "logo": "", "censorship": "16+"},
+]
 
 def fetch_and_parse_epg():
     logger.skala_phase("ПАРСИНГ_EPG", "Загрузка и парсинг баз epg.one")
@@ -321,8 +332,8 @@ def check_channel_and_rate(slug, info, target_cdn):
             return {
                 "slug": clean_slug,
                 "name": info["name"],
-                "tvg_id": info["tvg_id"],
-                "logo": info["logo"],
+                "tvg_id": info.get("tvg_id", "no-epg"),
+                "logo": info.get("logo", ""),
                 "censorship": censorship,
                 "url": stream_url,
                 "ping": ping_ms,
@@ -347,7 +358,8 @@ def main():
     best_cdn = bruteforce_cdn_nodes()
     epg_db = fetch_and_parse_epg()
     
-    logger.skala_phase("СКАНИРОВАНИЕ_СЛОВАРА", "Проверка доступности каналов, рейтинга и ценза")
+    # 7.1 Проверка основного словаря (С EPG)
+    logger.skala_phase("СКАНИРОВАНИЕ_СЛОВАРА", "Проверка доступности каналов (Блок с EPG)")
     valid_channels = []
     
     for slug, info in CHANNEL_DICTIONARY.items():
@@ -359,13 +371,27 @@ def main():
         if res:
             valid_channels.append(res)
             
-    # Формирование M3U с тегами q-score, censorship и возрастом в названии
+    # 7.2 Прямой брутфорс каналов БЕЗ EPG
+    logger.skala_phase("БРУТФОРС_БЕЗ_EPG", "Сканирование технических слотов без EPG")
+    for b_item in NO_EPG_BRUTEFORCE_SLUGS:
+        slug = b_item["slug"]
+        info = {
+            "name": b_item["name"],
+            "tvg_id": "no-epg",
+            "logo": b_item["logo"],
+            "censorship": b_item["censorship"]
+        }
+        res = check_channel_and_rate(slug, info, best_cdn)
+        if res:
+            valid_channels.append(res)
+            
+    # 7.3 Формирование M3U с тегами q-score, censorship и возрастом в названии
     logger.skala_phase("СБОРКА_M3U", f"Формирование файла {FILE_M3U}")
     
     m3u_lines = [
         '#EXTM3U url-tvg="https://epg.one/epg.xml.gz, https://epg.one/epg2.xml.gz" refresh="3600"',
         '# --------------------------------------------------------------------',
-        '# ПЛЕЙЛИСТ ПЁТР I: ЭФИРНЫЕ ТВ ПЛЮС (FULL CENSORSHIP & RATING EDITION)',
+        '# ПЛЕЙЛИСТ ПЁТР I: ЭФИРНЫЕ ТВ ПЛЮС (DUAL ENGINE: EPG + NO-EPG BRUTE)',
         '# --------------------------------------------------------------------'
     ]
     
@@ -382,10 +408,10 @@ def main():
         
     save_to_main_and_output(FILE_M3U, "\n".join(m3u_lines))
     
-    # Дополнительный Deep Scan
+    # 7.4 Дополнительный Deep Scan
     run_extra_deep_scan()
     
-    # Расширенный отчёт по рейтингам и ограничениям
+    # 7.5 Расширенный отчёт по рейтингам и ограничениям
     logger.skala_phase("ОТЧЕТ_РЕЙТИНГА", f"Формирование сводки {FILE_RATING_LOG}")
     
     rating_lines = [
