@@ -293,3 +293,51 @@ http://live-3.otcnet.ru/pskov/index.m3u8
 http://live-3.otcnet.ru/dimgrad/index.m3u8
 #EXTINF:-1 ,Спортивный
 http://live-3.otcnet.ru/sportivny/index.m3u8
+
+
+#EXTINF:-1 ,Смотрим 100% Любовь HD
+https://stream.smotrim.ru/hls/fasttv01/playlist_3.m3u8
+#EXTINF:-1 ,Смотрим 100% Мужское HD
+https://stream.smotrim.ru/hls/fasttv02/playlist_3.m3u8
+#EXTINF:-1 ,Смотрим 100% Классика HD
+https://stream.smotrim.ru/hls/fasttv03/playlist_3.m3u8
+#EXTINF:-1,Смотрим 100% Праздник HD
+https://stream.smotrim.ru/hls/fasttv04/playlist_3.m3u8
+#EXTINF:-1 ,Смотрим 100% Детское HD
+https://stream.smotrim.ru/hls/fasttv05/playlist_3.m3u8
+#EXTINF:-1 ,Смотрим 100% Факты HD
+https://stream.smotrim.ru/hls/fasttv06/playlist_3.m3u8
+#EXTINF:-1,НТВ Следствие вели
+cdn.iptvcinema.ru/lb1/sledstvie.m3u8?/index.m3u8
+#EXTINF:-1,НТВ Шеф
+cdn.iptvcinema.ru/lb1/shef.m3u8?/index.m3u8
+#EXTINF:-1,НТВ Первый отдел
+cdn.iptvcinema.ru/lb1/perviyotdel.m3u8?/index.m3u8
+#EXTINF:-1,НТВ Балабол
+cdn.iptvcinema.ru/lb1/balabol.m3u8?/index.m3u8
+#EXTINF:-1,НТВ 5 Минут тишины
+cdn.iptvcinema.ru/lb1/5minut.m3u8?/index.m3u8
+#EXTINF:-1,НТВ Невский
+cdn.iptvcinema.ru/lb1/nevskiy.m3u8?/index.m3u8
+#EXTINF:-1,НТВ Пёс
+cdn.iptvcinema.ru/lb1/pyos.m3u8?/index.m3u8
+#EXTINF:-1,НТВ Скорая помощь
+cdn.iptvcinema.ru/lb1/skorayapomosh.m3u8?/index.m3u8
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
