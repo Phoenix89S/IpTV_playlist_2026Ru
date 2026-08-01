@@ -1,50 +1,69 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-===============================================================================
-Скрипт: Peter_I_rus.py
-Версия: 13.4 AI Edition (Ultra Pattern Edition)
-
-Сохранение выходных файлов одновременно в main и output/:
-1. Peter_I_Full_report.txt   — Основной лог (СКАЛА / ДРЭГ)
-2. Peter_I_rating_report.txt — Рейтинговый отчет
-3. Peter_I_full.m3u          — Итоговый плейлист
-===============================================================================
-"""
-
 import os
 import re
+import sys
 import time
-import gzip
-import urllib.parse
-from datetime import datetime
-import xml.etree.ElementTree as ET
+import signal
 import requests
+from datetime import datetime
 
-OUTPUT_DIR = "output"
+# -----------------------------------------------------------------------------
+# ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ ДЛЯ АВТО-ИНКРЕМЕНТА ИМЕН (_1 ... _N)
+# -----------------------------------------------------------------------------
+def get_next_run_index(base_name="Peter_I_full", output_dir="output"):
+    """
+    Сканирует текущую директорию и папки вывода, ищет файлы вида base_name_N.m3u
+    и возвращает следующий номер N = n + 1.
+    """
+    max_idx = 0
+    pattern = re.compile(rf"^{re.escape(base_name)}_(\d+)\.(m3u|txt)$", re.IGNORECASE)
+
+    paths_to_check = [".", output_dir]
+    for path in paths_to_check:
+        if os.path.exists(path):
+            for fname in os.listdir(path):
+                match = pattern.match(fname)
+                if match:
+                    idx = int(match.group(1))
+                    if idx > max_idx:
+                        max_idx = idx
+
+    return max_idx + 1
+
+# Определяем текущий порядковый номер запуска _N
+RUN_INDEX = get_next_run_index()
+
+# Формируем динамические имена выходных файлов
+FILE_M3U = f"Peter_I_full_{RUN_INDEX}.m3u"
+FILE_MAIN_LOG = f"Peter_I_Full_report_{RUN_INDEX}.txt"
+FILE_RATING_LOG = f"Peter_I_rating_report_{RUN_INDEX}.txt"
 
 def save_to_main_and_output(filename, content):
-    """Сохранение файла в корень проекта (main) и в папку output/"""
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-
-    # 1. Запись в корень (main)
+    """Сохраняет файл в корень и дублирует в директорию /output"""
+    out_dir = "output"
+    os.makedirs(out_dir, exist_ok=True)
+    
     with open(filename, "w", encoding="utf-8") as f:
         f.write(content)
-
-    # 2. Запись в папку output/
-    output_path = os.path.join(OUTPUT_DIR, filename)
-    with open(output_path, "w", encoding="utf-8") as f:
+        
+    out_path = os.path.join(out_dir, filename)
+    with open(out_path, "w", encoding="utf-8") as f:
         f.write(content)
 
+
 # -----------------------------------------------------------------------------
-# БЛОК СКАЛА / ДРЭГ (ОСНОВНОЙ ЛОГ)
+# БЛОК СКАЛА / ДРЭГ (ОСНОВНОЙ ЛОГ) С АЗ-5 И АВТО-ИНКРЕМЕНТОМ ИМЕН
 # -----------------------------------------------------------------------------
 class SKALA_DREG_Logger:
-    def __init__(self, system_name="ПЕТР_I_ОКНО_В_ЕВПРОПУ_v13.4_AI", main_log="Peter_I_Full_report.txt"):
+    def __init__(self, system_name="ПЕТР_I_ОКНО_В_ЕВПРОПУ_v13.4_AI", main_log=FILE_MAIN_LOG):
         self.system_name = system_name
         self.main_log = main_log
+        self.run_index = RUN_INDEX
         self.t_start = None
         self.log_buffer = []
+
+        # Константы кинетики СУЗ
+        self.ROD_TRAVEL_DISTANCE_M = 7.0  # Длина хода стержня (м)
+        self.ROD_SPEED_MPS = 0.40         # Скорость спуска стержней (м/с)
 
     def _write(self, text):
         print(text)
@@ -55,8 +74,9 @@ class SKALA_DREG_Logger:
         now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
         border = "=" * 95
         self._write(border)
-        self._write(f" СКАЛА [ПУСК] :: СИСТЕМА [{self.system_name}]")
+        self._write(f" СКАЛА [ПУСК] :: СИСТЕМА [{self.system_name}] :: СЕАНС #{self.run_index}")
         self._write(f" СКАЛА [ВРЕМЯ НАЧАЛА]: {now_str}")
+        self._write(f" СКАЛА [ВЫХОДНЫЕ ФАЙЛЫ]: {FILE_M3U} | {FILE_MAIN_LOG} | {FILE_RATING_LOG}")
         self._write(border)
 
     def skala_phase(self, phase_name, detail=""):
@@ -71,295 +91,92 @@ class SKALA_DREG_Logger:
         elapsed = time.perf_counter() - self.t_start
         self._write(f"ДРЭГ  | +{elapsed:07.3f}s | [{channel_or_slug:<18}] | {action:<28} | {detail}")
 
+    def trigger_az5(self, reason="РУЧНОЙ ОСТАНОВ WORKFLOW / INTERRUPT"):
+        """Симуляция нажатия кнопки АЗ-5 при остановке процесса"""
+        t_end = time.perf_counter() if self.t_start else 0.0
+        total_time_before_az5 = t_end - self.t_start if self.t_start else 0.0
+        now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
+        
+        # Расчет кинетики погружения поглотителей
+        az5_insertion_time = self.ROD_TRAVEL_DISTANCE_M / self.ROD_SPEED_MPS
+        total_shutdown_time = total_time_before_az5 + az5_insertion_time
+
+        border = "!" * 95
+        self._write(border)
+        self._write(f" !!! [НАЖАТИЕ КНОПКИ АЗ-5] !!! [СЕАНС #{self.run_index}]")
+        self._write(" !!! СИГНАЛ АВАРИЙНОЙ ЗАЩИТЫ :: ГЛУШЕНИЕ РЕАКТОРНОЙ УСТАНОВКИ !!!")
+        self._write(f" СКАЛА [ВРЕМЯ СБРОСА СТЕРЖНЕЙ СУЗ]: {now_str}")
+        self._write(f" СКАЛА [ПРИЧИНА ОСТАНОВА]:            {reason}")
+        self._write(f" СКАЛА [СКОРОСТЬ СПУСКА СТЕРЖНЕЙ]:    {self.ROD_SPEED_MPS:.2f} м/с (Ход: {self.ROD_TRAVEL_DISTANCE_M:.1f} м)")
+        self._write(f" СКАЛА [ВРЕМЯ ПОГРУЖЕНИЯ СУЗ (АЗ-5)]: {az5_insertion_time:.2f} сек")
+        self._write(f" СКАЛА [НАРАБОТКА ДО НАЖАТИЯ АЗ-5]:   {total_time_before_az5:.3f} сек")
+        self._write(f" СКАЛА [ПОЛНОЕ ВРЕМЯ ОСТАНОВА (ИТОГО)]:{total_shutdown_time:.3f} сек")
+        self._write(border)
+
+        save_to_main_and_output(self.main_log, "\n".join(self.log_buffer) + "\n")
+
     def skala_stop(self, status="НОРМА (200 OK)"):
         t_end = time.perf_counter()
         total_time = t_end - self.t_start
         now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
         border = "=" * 95
         self._write(border)
-        self._write(f" СКАЛА [ОСТАНОВ] :: СИСТЕМА [{self.system_name}]")
+        self._write(f" СКАЛА [ОСТАНОВ] :: СИСТЕМА [{self.system_name}] :: СЕАНС #{self.run_index}")
         self._write(f" СКАЛА [ВРЕМЯ ОКОНЧАНИЯ]: {now_str}")
         self._write(f" СКАЛА [ОБЩЕЕ ВРЕМЯ НАРАБОТКИ]: {total_time:.3f} сек")
         self._write(f" СКАЛА [СТАТУС ИСПОЛНЕНИЯ]: {status}")
         self._write(border)
 
-        # Сохранение основного лога в main и output/
         save_to_main_and_output(self.main_log, "\n".join(self.log_buffer) + "\n")
 
 logger = SKALA_DREG_Logger()
 
-# -----------------------------------------------------------------------------
-# НАСТРОЙКИ И АНАЛИЗ РЕЙТИНГОВ
-# -----------------------------------------------------------------------------
-# ОСНОВНОЙ УЛЬТРА-ПАТТЕРН СТОИТ НА ПЕРВОМ МЕСТЕ
-BASE_HOSTS = [
-    "http://s80718.cdn.ngenix.net/hls/",
-    "http://a3285272783-s80718.cdn.ngenix.net/hls/",
-    "http://a787201481-s80718.cdn.ngenix.net/hls/"
-]
+# Перехват аварийных сигналов
+def handle_abort_signal(sig, frame):
+    logger.trigger_az5(reason=f"Перехвачен системный сигнал отмены ({sig})")
+    sys.exit(130)
 
-ENDPOINTS = [
-    "variant.m3u8",
-    "video_1920x1080_avc1/playlist.m3u8",
-    "video_1280x720_avc1/playlist.m3u8",
-    "index.m3u8"
-]
+signal.signal(signal.SIGINT, handle_abort_signal)
+signal.signal(signal.SIGTERM, handle_abort_signal)
 
-EPG_URLS = [
-    "http://epg.one/epg.xml.gz",
-    "http://epg.one/epg2.xml.gz"
-]
-
-HEADERS = {"User-Agent": "HlsWinkPlayer"}
-TIMEOUT = 3.5
-
-def calculate_stars_and_age(title, url, latency_ms, has_epg):
-    """Расчет звезд (1-5) по Q-Score + Определение возрастного рейтинга."""
-    if "1920x1080" in url or "variant.m3u8" in url:
-        q_res, res_label = 1.0, "1080p FHD/Auto"
-    elif "1280x720" in url:
-        q_res, res_label = 0.75, "720p HD"
-    else:
-        q_res, res_label = 0.50, "SD/Auto"
-
-    s_lat = 1.0 if latency_ms < 150 else (0.8 if latency_ms < 350 else 0.5)
-    u_epg = 1.0 if has_epg else 0.2
-    q_score = (q_res * 0.4) + (s_lat * 0.4) + (u_epg * 0.2)
-
-    stars_count = max(1, min(5, round(q_score * 5)))
-    stars_str = "★" * stars_count + "☆" * (5 - stars_count)
-
-    age_match = re.search(r'(\d+\+)', title)
-    if age_match:
-        age_limit = age_match.group(1)
-    else:
-        t_low = title.lower()
-        if any(w in t_low for w in ["удар", "ночной", "erotika", "18+"]):
-            age_limit = "18+"
-        elif any(w in t_low for w in ["кино", "fox", "боевик", "хит", "ужас", "hollywood"]):
-            age_limit = "16+"
-        elif any(w in t_low for w in ["мульт", "детский", "карусель", "0+"]):
-            age_limit = "0+"
-        else:
-            age_limit = "12+"
-
-    return stars_str, age_limit, round(q_score, 2), res_label, f"{latency_ms:.1f}ms"
 
 # -----------------------------------------------------------------------------
-# ОСНОВНАЯ ЛОГИКА И СКАНИРОВАНИЕ
+# МОДУЛЬ БРУТФОРСА CDN УЗЛОВ
 # -----------------------------------------------------------------------------
-def inspect_and_resolve_node(raw_line, title=""):
-    slug_match = re.search(r'CH_[A-Z0-9_]+', raw_line)
-    if not slug_match:
-        return None, 0.0
-    slug = slug_match.group(0)
-
-    # Приоритет всегда у ультра-паттерна s80718.cdn.ngenix.net/hls/
-    target_hosts = list(BASE_HOSTS)
-
-    for host in target_hosts:
-        # Проверяем ультра-паттерн напрямую (variant.m3u8)
-        master_url = f"{host}{slug}/variant.m3u8"
-        t0 = time.perf_counter()
-        try:
-            r = requests.get(master_url, headers=HEADERS, timeout=TIMEOUT)
-            latency = (time.perf_counter() - t0) * 1000
-            if r.status_code == 200 and "#EXTM3U" in r.text:
-                # Если сработал основной ультра-паттерн s80718 — отдаем его напрямую!
-                logger.dreg(slug, "УЛЬТРА_ПАТТЕРН_200_OK", f"Задержка: {latency:.1f}ms -> {master_url}")
-                return master_url, latency
-        except requests.RequestException:
-            pass
-
-        # Фолбэк по альтернативным эндпоинтам, если variant.m3u8 не ответил напрямую
-        for ep in ENDPOINTS[1:]:
-            direct_url = f"{host}{slug}/{ep}"
-            t0 = time.perf_counter()
-            try:
-                r = requests.head(direct_url, headers=HEADERS, timeout=TIMEOUT)
-                latency = (time.perf_counter() - t0) * 1000
-                if r.status_code == 200:
-                    logger.dreg(slug, "ПРЯМОЙ_ЗАПРОС_200_OK", f"Задержка: {latency:.1f}ms -> {ep}")
-                    return direct_url, latency
-            except requests.RequestException:
-                pass
-
-    logger.dreg(slug, "ОТКАЗ_ПОТОКА", "Все узлы недоступны")
-    return None, 0.0
-
-def step_0_repair_raw_list(raw_input_text):
-    logger.skala_phase("ЭТАП_0_СТАРТ", "Разбор и приведение ссылок к ультра-паттерну")
-    results = {}
-    lines = [l.strip() for l in raw_input_text.strip().split('\n') if l.strip()]
-
-    current_title = "Неизвестный канал"
-    for line in lines:
-        if line.startswith("#EXTINF"):
-            # Очистка названия канала от лишних пробелов
-            current_title = line.split(",")[-1].strip()
-        elif "CH_" in line:
-            resolved_url, latency = inspect_and_resolve_node(line, current_title)
-            if resolved_url:
-                results[current_title] = {"url": resolved_url, "latency": latency}
-
-    return results
-
-def step_1_dictionary_scan(existing_results, channels_to_scan):
-    logger.skala_phase("ЭТАП_1_СТАРТ", f"Проверка через словарь ({len(channels_to_scan)} шт.)")
-    results = dict(existing_results)
-
-    for title, slug in channels_to_scan.items():
-        if title in results:
-            logger.dreg(title, "ПРОПУСК_ДУБЛИКАТА", "Уже восстановлен на Этапе 0")
-            continue
-
-        dummy_line = f"http://s80718.cdn.ngenix.net/hls/{slug}/"
-        resolved_url, latency = inspect_and_resolve_node(dummy_line, title)
-        if resolved_url:
-            results[title] = {"url": resolved_url, "latency": latency}
-
-    return results
-
-def step_2_epg_and_ai_metrics(channels_map):
-    logger.skala_phase("ЭТАП_2_СТАРТ", "Загрузка EPG и расчет рейтингов")
-    epg_database = {}
-
-    for epg_url in EPG_URLS:
-        t0 = time.perf_counter()
-        try:
-            r = requests.get(epg_url, timeout=10)
-            latency = (time.perf_counter() - t0) * 1000
-            if r.status_code == 200:
-                xml_data = gzip.decompress(r.content)
-                root = ET.fromstring(xml_data)
-                count = 0
-                for channel in root.findall("channel"):
-                    cid = channel.get("id")
-                    for name_elem in channel.findall("display-name"):
-                        cname = name_elem.text.strip() if name_elem.text else ""
-                        if cname:
-                            epg_database[cname.lower()] = cid
-                            count += 1
-                logger.skala_phase("EPG_УСПЕХ", f"База загружена ({latency:.1f}ms): {count} каналов")
-                break
-        except Exception as e:
-            logger.skala_phase("EPG_ОШИБКА", f"{epg_url} -> {e}")
-
-    final_playlist_items = []
-    rating_report_lines = []
-
-    for title, data in channels_map.items():
-        url = data["url"]
-        latency = data["latency"]
-        tvg_id = epg_database.get(title.lower(), "")
-        has_epg = bool(tvg_id)
-
-        stars, age_limit, q_score, res_label, lat_str = calculate_stars_and_age(title, url, latency, has_epg)
-
-        tvg_attr = f' tvg-id="{tvg_id}"' if tvg_id else ''
-        group_title = "Эфирные ТВ плюс"
-
-        extinf = f'#EXTINF:-1{tvg_attr} rating="{stars}" age="{age_limit}" q-score="{q_score}" group-title="{group_title}" tvg-name="{title}",{title}'
-        final_playlist_items.append((extinf, url))
-
-        logger.dreg(title, "РЕЙТИНГ_ФИКСАЦИЯ", f"Звезды: [{stars}] | Ценз: [{age_limit:<3}] | Пинг: {lat_str} | Режим: {res_label}")
-        rating_report_lines.append(f"{title:<25} | {stars} | Возраст: {age_limit:<4} | Q-Score: {q_score:<4} | Пинг: {lat_str:<7} | {res_label}")
-
-    return final_playlist_items, rating_report_lines
-
-# -----------------------------------------------------------------------------
-# СОХРАНЕНИЕ ВЫХОДНЫХ ФАЙЛОВ
-# -----------------------------------------------------------------------------
-def save_m3u_playlist(playlist_items, m3u_file="Peter_I_full.m3u"):
-    logger.skala_phase("СОХРАНЕНИЕ_M3U", f"Запись выходного плейлиста [{m3u_file}] в main и {OUTPUT_DIR}/")
-    epg_header_str = ' url-tvg="' + ', '.join(EPG_URLS) + '"'
-    m3u_lines = [f"#EXTM3U{epg_header_str}\n"]
-
-    for extinf, url in playlist_items:
-        m3u_lines.append(extinf)
-        m3u_lines.append(url)
-        m3u_lines.append("")
-
-    save_to_main_and_output(m3u_file, "\n".join(m3u_lines))
-
-def save_rating_report(rating_report_lines, report_file="Peter_I_rating_report.txt"):
-    logger.skala_phase("СОХРАНЕНИЕ_РЕЙТИНГА", f"Запись рейтингового отчета [{report_file}] в main и {OUTPUT_DIR}/")
-    now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-    lines = [
-        "=" * 95,
-        f" СИСТЕМА ПЕТР I :: СВОДНЫЙ РЕЙТИНГОВЫЙ ОТЧЕТ КАНАЛОВ ({now_str})",
-        "=" * 95,
-        f"{'КАНАЛ':<25} | {'РЕЙТИНГ':<5} | {'ВОЗРАСТ':<9} | {'Q-SCORE':<8} | {'ПИНГ':<9} | РЕЖИМ",
-        "-" * 95
-    ]
-    lines.extend(rating_report_lines)
-    lines.append("=" * 95)
-
-    save_to_main_and_output(report_file, "\n".join(lines) + "\n")
-
-# -----------------------------------------------------------------------------
-# ТОЧКА ВХОДА
-# -----------------------------------------------------------------------------
-if __name__ == "__main__":
-    logger.skala_start()
-
-    RAW_INPUT = """
-    #EXTINF:-1 ,.Red
-    a3285272783-s80718.cdn.ngenix.net/hls/CH_REDHD/video_..
-    #EXTINF:-1,КИНОКОМЕДИЯ
-    a3285272783-s80718.cdn.ngenix.net/hls//CH_KINOKOMEDIY..
-    #EXTINF:-1,КИНОСВИДАНИЕ
-    a3285272783-s80718.cdn.ngenix.net/hls//CH_KINOSVIDANI..
-    #EXTINF:-1,КИНОСЕРИЯ
-    a3285272783-s80718.cdn.ngenix.net/hls//CH_KINOSERIYA/..
-    #EXTINF:-1,КИНОУЖАС
-    a3285272783-s80718.cdn.ngenix.net/hls//CH_KINOUZHAS//..
-    #EXTINF:-1 ,Hollywood HD
-    a3285272783-s80718.cdn.ngenix.net/hls/CH_HOLLYWOODHD/..
-    #EXTINF:-1,FlixSnip
-    a3285272783-s80718.cdn.ngenix.net/hls/CH_FLIXSNIPHD/v..
-    #EXTINF:-1 ,FOX
-    a3285272783-s80718.cdn.ngenix.net//hls//CH_FOX//video..
-    #EXTINF:-1 ,Еврокино
-    a3285272783-s80718.cdn.ngenix.net//hls//CH_EVROKINO//..
-    #EXTINF:-1 ,Filmbox
-    a3285272783-s80718.cdn.ngenix.net//hls//CH_FILMBOX//v..
-    #EXTINF:-1 ,ВРЕМЯ
-    a3285272783-s80718.cdn.ngenix.net//hls//CH_VREMIA//vi..
-    #EXTINF:-1 ,ДИКИЙ
-    a3285272783-s80718.cdn.ngenix.net//hls//CH_DIKIY//vid..
-    #EXTINF:-1 ,ЗООПАРК
-    a3285272783-s80718.cdn.ngenix.net//hls//CH_ZOOPARK//v..
-    #EXTINF:-1 ,RTVI
-    a3285272783-s80718.cdn.ngenix.net//hls//CH_RTVI//vide..
-    #EXTINF:-1 ,МИР
-    a3285272783-s80718.cdn.ngenix.net//hls//CH_MIR//video..
-    #EXTINF:-1 ,КАРУСЕЛЬ
-    a3285272783-s80718.cdn.ngenix.net//hls//CH_KARUSEL//v..
-    #EXTINF:-1 , KHL HD
-    a3285272783-s80718.cdn.ngenix.net//hls//CH_KHL//video..
-    #EXTINF:-1 , Удар HD
-    a787201481-s80718.cdn.ngenix.net/hls/CH_UDARHD/video_..
-    #EXTINF:-1 , Бокс ТВ
-    a3285272783-s80718.cdn.ngenix.net/hls/CH_BOKS_TVHD/vi..
-    #EXTINF:-1, Fast Sports
-    a3285272783-s80718.cdn.ngenix.net//hls//CH_FAST_SPORT..
+def bruteforce_cdn_nodes(test_channel="CH_MATCHTV", node_start=80700, node_end=80725):
     """
+    Брутфорс диапазона узлов CDN sXXXXX.cdn.ngenix.net 
+    для поиска наиболее отзывчивого зеркала.
+    """
+    logger.skala_phase("БРУТФОРС_CDN", f"Перебор узлов s{node_start} .. s{node_end}")
+    
+    headers = {"User-Agent": "HlsWinkPlayer"}
+    active_nodes = []
 
-    CHANNELS_TO_SCAN = {
-        "Матч Премьер": "CH_MATCHPREMIER"
-    }
+    for node_num in range(node_start, node_end + 1):
+        node_host = f"s{node_num}.cdn.ngenix.net"
+        test_url = f"http://{node_host}/hls/{test_channel}/variant.m3u8"
+        
+        t0 = time.perf_counter()
+        try:
+            resp = requests.head(test_url, headers=headers, timeout=1.5)
+            ping_ms = (time.perf_counter() - t0) * 1000
+            
+            if resp.status_code in (200, 302):
+                logger.dreg(f"s{node_num}", "УЗЕЛ_ОТКЛИКНУЛСЯ", f"Ping: {ping_ms:.1f}ms | HTTP {resp.status_code}")
+                active_nodes.append((node_host, ping_ms))
+            else:
+                logger.dreg(f"s{node_num}", "ОТКЛОНЕНО", f"HTTP {resp.status_code}")
+        except Exception as e:
+            logger.dreg(f"s{node_num}", "ТАЙМАУТ/ОШИБКА", "Нет ответа от узла")
 
-    try:
-        recovered_map = step_0_repair_raw_list(RAW_INPUT)
-        full_map = step_1_dictionary_scan(recovered_map, CHANNELS_TO_SCAN)
-        final_items, report_lines = step_2_epg_and_ai_metrics(full_map)
-
-        save_m3u_playlist(final_items, "Peter_I_full.m3u")
-        save_rating_report(report_lines, "Peter_I_rating_report.txt")
-
-        logger.skala_stop(status="НОРМА (200 OK)")
-    except Exception as fatal_error:
-        logger.skala_phase("АВАРИЯ", f"Критический сбой: {fatal_error}")
-        logger.skala_stop(status="АВАРИЙНЫЙ ОСТАНОВ")
+    if active_nodes:
+        # Сортируем по минимальному пингу
+        active_nodes.sort(key=lambda x: x[1])
+        best_node, best_ping = active_nodes[0]
+        logger.skala_phase("БРУТФОРС_УСПЕХ", f"Выбран наилучший узел: {best_node} ({best_ping:.1f}ms)")
+        return best_node
+    else:
+        fallback = "s80718.cdn.ngenix.net"
+        logger.skala_phase("БРУТФОРС_ДЕФОЛТ", f"Активные узлы не найдены. Откат на базовый: {fallback}")
+        return fallback
