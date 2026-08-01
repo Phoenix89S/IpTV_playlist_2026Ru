@@ -254,7 +254,18 @@ http://145.239.5.177/566a/index.m3u8
 
 
 
-
+#EXTINF:-1,cnn
+http://176.122.125.10:8080/cnn/index.m3u8
+#EXTINF:-1,eurosport1HD
+http://176.122.125.10:8080/eurosport1HD/index.m3u8
+#EXTINF:-1,CinePlusHD
+http://176.122.125.10:8080/CinePlusHD/index.m3u8
+#EXTINF:-1,CinePlusKids
+http://176.122.125.10:8080/CinePlusKids/index.m3u8
+#EXTINF:-1,svarogichi
+http://176.122.125.10:8080/svarogichi/index.m3u8
+#EXTINF:-1,5ch
+http://176.122.125.10:8080/5ch/index.m3u8
 
 
 #EXTINF:-1,ulpravdatv
