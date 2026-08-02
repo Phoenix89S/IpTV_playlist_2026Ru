@@ -1,124 +1,181 @@
 import re
-import requests
-from github import Github
+import urllib.request
 
-# 1. Список ссылок для скачивания
-URLS = [
-    "https://gitverse.ru/RUVIPIEN/IPTVMIR/content/main/IPTV_MEGA_PLAYLIST.m3u",
-    "https://gitverse.ru/RUVIPIEN/IPTVMIR/content/main/IPTV_MEGA_PLAYLIST_part_01.m3u",
-    "https://gitverse.ru/RUVIPIEN/IPTVMIR/content/main/IPTV_MEGA_PLAYLIST_part_02.m3u",
+# Имя пользователя и репозитория на GitHub
+GITHUB_USER = "YOUR_USERNAME"
+REPO_NAME = "YOUR_REPO"
+BRANCH = "main"
+
+BASE_RAW_URL = f"https://raw.githubusercontent.com/{GITHUB_USER}/{REPO_NAME}/{BRANCH}/"
+
+# 1. Черный список по group-title (регистр не имеет значения)
+ADULT_GROUPS = [
+    r'18\+', r'adult', r'xxx', r'porn', r'эротика', 
+    r'для взрослых', r'hot', r'sex', r'erotic', r'ночные'
 ]
 
-# 2. Настройки GitHub для коммита
-GITHUB_TOKEN = "ВАШ_GITHUB_PERSONAL_ACCESS_TOKEN"
-REPO_NAME = "ваш_username/ваш_репозиторий"
-TARGET_FILE_PATH = "playlists/russian_and_hit_hd.m3u"  # Путь к файлу в репозитории
-COMMIT_MESSAGE = "Update Russian IPTV channels and Hit HD (filtered 18+)"
-
-# Ключевые слова для поиска русскоязычных групп/каналов
-RU_KEYWORDS = ["ru", "rus", "russia", "рус", "россия", "первый", "россия 1", "нтв", "стс", "тнт"]
-
-# Черный список для блокировки 18+ контента
-ADULT_KEYWORDS = [
-    "18+", "adult", "xxx", "erotic", "эротика", "для взрослых", 
-    "brazzers", "hustler", "playboy", "penthouse", "redlight", 
-    "candy", "exxxotica", "dorcel", "nuart", "vivid", "blue hustler"
+# 2. Черный список слов в названии канала (#EXTINF)
+ADULT_TITLE_KEYWORDS = [
+    r'\b18\+\b', r'\badult\b', r'\bxxx\b', r'porn', r'эротик', 
+    r'erotic', r'playboy', r'hustler', r'brazzers', r'penthouse', 
+    r'redlight', r'dorcel', r'candyman', r'sct', r'privat', r'vixen',
+    r'exxx', r'barely legal', r'sex'
 ]
 
+# 3. Точечный черный список (конкретные tvg-id или названия для ручного бана)
+MANUAL_BLACK_LIST = [
+    # "some-adult-tvg-id",
+    # "Конкретное Название Канала"
+]
 
-def is_adult_channel(text):
-    """Проверка, относится ли канал к категории 18+."""
-    text_lower = text.lower()
-    return any(keyword in text_lower for keyword in ADULT_KEYWORDS)
-
-
-def parse_and_filter(urls):
-    unique_channels = {}  # Ключ: URL потока, Значение: кортеж (extinf, extvlcopt, url)
-
-    for url in urls:
-        print(f"Скачивание: {url}...")
-        try:
-            resp = requests.get(url, timeout=30)
-            resp.encoding = 'utf-8'
-            lines = resp.text.splitlines()
-        except Exception as e:
-            print(f"Ошибка загрузки {url}: {e}")
-            continue
-
-        current_extinf = ""
-        current_opts = []
-
-        for line in lines:
-            line = line.strip()
-            if not line:
-                continue
-
-            if line.startswith("#EXTINF:"):
-                current_extinf = line
-                current_opts = []
-            elif line.startswith("#EXTVLCOPT:") or line.startswith("#EXTGRP:"):
-                current_opts.append(line)
-            elif not line.startswith("#"):
-                stream_url = line
-
-                # Проверка на 18+ (если взрослая категория/тег — сразу пропускаем)
-                full_metadata = f"{current_extinf} {' '.join(current_opts)}"
-                if is_adult_channel(full_metadata):
-                    current_extinf = ""
-                    current_opts = []
-                    continue
-
-                # Проверка условий: русскоязычный канал ИЛИ Hit HD
-                extinf_lower = current_extinf.lower()
-                is_hit_hd = "hit hd" in extinf_lower
-                is_russian = any(kw in extinf_lower for kw in RU_KEYWORDS) or "group-title=\"ru" in extinf_lower or "group-title=\"рус" in extinf_lower
-
-                if (is_russian or is_hit_hd) and current_extinf:
-                    # Сохраняем без дубликатов по ссылке
-                    unique_channels[stream_url] = (current_extinf, current_opts, stream_url)
-
-                current_extinf = ""
-                current_opts = []
-
-    # Сборка итогового плейлиста
-    output_lines = ["#EXTM3U\n"]
-    for stream_url, (extinf, opts, url_path) in unique_channels.items():
-        output_lines.append(extinf)
-        for opt in opts:
-            output_lines.append(opt)
-        output_lines.append(url_path)
-
-    return "\n".join(output_lines)
-
-
-def commit_to_github(content):
-    print("Подключение к GitHub...")
-    g = Github(GITHUB_TOKEN)
-    repo = g.get_repo(REPO_NAME)
-
+def fetch_content(url):
+    """Скачивание содержимого файла по URL."""
     try:
-        # Проверяем, существует ли уже файл в репозитории
-        contents = repo.get_contents(TARGET_FILE_PATH)
-        repo.update_file(
-            path=TARGET_FILE_PATH,
-            message=COMMIT_MESSAGE,
-            content=content,
-            sha=contents.sha
-        )
-        print(f"Файл {TARGET_FILE_PATH} успешно обновлен!")
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=15) as response:
+            return response.read().decode('utf-8', errors='ignore')
     except Exception:
-        # Если файла нет — создаем новый
-        repo.create_file(
-            path=TARGET_FILE_PATH,
-            message=COMMIT_MESSAGE,
-            content=content
-        )
-        print(f"Файл {TARGET_FILE_PATH} успешно создан!")
+        return None
 
+def get_all_playlist_urls():
+    """Формирует список URL: основной плейлист + динамический поиск всех part_XX.m3u."""
+    urls = [f"{BASE_RAW_URL}IPTV_MEGA_PLAYLIST.m3u"]
+    
+    part_idx = 1
+    while True:
+        part_name = f"IPTV_MEGA_PLAYLIST_part_{part_idx:02d}.m3u"
+        url = f"{BASE_RAW_URL}{part_name}"
+        
+        content = fetch_content(url)
+        if content is not None:
+            urls.append(url)
+            part_idx += 1
+        else:
+            break
+            
+    return urls
+
+def parse_m3u(content):
+    """Разбор M3U файла с сохранением метаданных, тегов EXTVLCOPT и URL."""
+    channels = []
+    lines = content.splitlines()
+    i = 0
+    while i < len(lines):
+        line = lines[i].strip()
+        if line.startswith("#EXTINF:"):
+            header = line
+            opt_lines = []
+            i += 1
+            while i < len(lines) and lines[i].strip().startswith("#EXT"):
+                opt_lines.append(lines[i].strip())
+                i += 1
+            if i < len(lines):
+                stream_url = lines[i].strip()
+                if stream_url and not stream_url.startswith("#"):
+                    channels.append({
+                        'header': header,
+                        'opts': opt_lines,
+                        'url': stream_url,
+                        'title': extract_channel_title(header),
+                        'group': extract_group_title(header)
+                    })
+        i += 1
+    return channels
+
+def extract_channel_title(header):
+    """Извлечение названия канала из строки #EXTINF."""
+    parts = header.split(',', 1)
+    if len(parts) > 1:
+        return parts[1].strip()
+    return header.strip()
+
+def extract_group_title(header):
+    """Извлечение group-title из строки #EXTINF."""
+    match = re.search(r'group-title="([^"]+)"', header, re.IGNORECASE)
+    return match.group(1) if match else ""
+
+def is_adult(channel):
+    """Проверка канала на принадлежность к категории 18+."""
+    header = channel['header']
+    title = channel['title']
+    group = channel['group']
+    
+    # Проверка group-title
+    for pattern in ADULT_GROUPS:
+        if re.search(pattern, group, re.IGNORECASE):
+            return True
+            
+    # Проверка названия канала
+    for pattern in ADULT_TITLE_KEYWORDS:
+        if re.search(pattern, title, re.IGNORECASE):
+            return True
+            
+    # Проверка ручного черного списка
+    for banned in MANUAL_BLACK_LIST:
+        if banned.lower() in header.lower() or banned.lower() in title.lower():
+            return True
+            
+    return False
+
+def sort_key(channel):
+    """
+    Ключ сортировки:
+    Сначала Кириллица (А-Я), затем Латиница (A-Z), затем все остальные символы.
+    """
+    title = channel['title']
+    first_char = title[0] if title else ''
+    
+    if re.match(r'[\u0400-\u04FF]', first_char):
+        group_priority = 0  # Кириллица
+    elif re.match(r'[a-zA-Z]', first_char):
+        group_priority = 1  # Латиница
+    else:
+        group_priority = 2  # Цифры и спецсимволы
+        
+    return (group_priority, title.lower())
+
+def main():
+    all_channels = []
+    playlist_urls = get_all_playlist_urls()
+    
+    print(f"Найдено источников для скачивания: {len(playlist_urls)}")
+    
+    # 1. Скачивание всех частей
+    for url in playlist_urls:
+        print(f"Загрузка: {url}")
+        content = fetch_content(url)
+        if content:
+            parsed = parse_m3u(content)
+            all_channels.extend(parsed)
+
+    print(f"Всего загружено каналов: {len(all_channels)}")
+
+    # 2. Исключение каналов 18+ (дубликаты обычных каналов НЕ удаляются)
+    clean_channels = []
+    adult_count = 0
+    
+    for ch in all_channels:
+        if is_adult(ch):
+            adult_count += 1
+        else:
+            clean_channels.append(ch)
+
+    print(f"Исключено каналов категории 18+: {adult_count}")
+    print(f"Осталось чистых каналов: {len(clean_channels)}")
+
+    # 3. Сортировка (А-Я -> A-Z)
+    sorted_channels = sorted(clean_channels, key=sort_key)
+
+    # 4. Сохранение итогового playlist.m3u
+    with open("playlist.m3u", "w", encoding="utf-8") as f:
+        f.write("#EXTM3U\n")
+        for ch in sorted_channels:
+            f.write(f"{ch['header']}\n")
+            for opt in ch['opts']:
+                f.write(f"{opt}\n")
+            f.write(f"{ch['url']}\n")
+
+    print("Итоговый playlist.m3u успешно сформирован!")
 
 if __name__ == "__main__":
-    playlist_data = parse_and_filter(URLS)
-    if playlist_data:
-        commit_to_github(playlist_data)
-    else:
-        print("Не найдено подходящих каналов.")
+    main()
