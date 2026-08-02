@@ -1,4 +1,4 @@
-name: Ekaterina Velikaya Scanner
+name: Екатерина Великая — Сканер
 
 on:
   workflow_dispatch:
@@ -13,34 +13,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Чекaут репозитория
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup Python
+      - name: Настройка Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Установка зависимостей
         run: |
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Run Ekaterina Velikaya Scanner
+      - name: Запуск сканера «Екатерина Великая»
         run: |
           python Ekaterina_velikaya2.py
 
-      - name: Prepare output folder
+      - name: Подготовка выходной папки
         run: mkdir -p output
 
-      - name: Versioning report and playlist
+      - name: Версионирование отчёта и плейлиста
         run: |
           BASE_M3U="ngenix_found"
           BASE_TXT="ngenix_report"
 
-          LAST=\( (ls -1 2>/dev/null | grep -E " \){BASE_M3U}_[0-9]+\.m3u" | \
+          LAST=$(ls -1 2>/dev/null | grep -E "^${BASE_M3U}_[0-9]+\.m3u$" | \
             sed -E 's/.*_([0-9]+)\.m3u/\1/' | \
             sort -n | tail -1)
 
@@ -50,24 +50,24 @@ jobs:
             NEXT=$((LAST + 1))
           fi
 
-          NEW_M3U="\( {BASE_M3U}_ \){NEXT}.m3u"
-          NEW_TXT="\( {BASE_TXT}_ \){NEXT}.txt"
+          NEW_M3U="${BASE_M3U}_${NEXT}.m3u"
+          NEW_TXT="${BASE_TXT}_${NEXT}.txt"
 
-          [ -f "\( {BASE_M3U}.m3u" ] && cp " \){BASE_M3U}.m3u" "$NEW_M3U"
-          [ -f "\( {BASE_TXT}.txt" ] && cp " \){BASE_TXT}.txt" "$NEW_TXT"
+          [ -f "${BASE_M3U}.m3u" ] && cp "${BASE_M3U}.m3u" "$NEW_M3U"
+          [ -f "${BASE_TXT}.txt" ] && cp "${BASE_TXT}.txt" "$NEW_TXT"
 
-          [ -f "\( {BASE_M3U}.m3u" ] && cp " \){BASE_M3U}.m3u" output/
-          [ -f "\( {BASE_TXT}.txt" ] && cp " \){BASE_TXT}.txt" output/
+          [ -f "${BASE_M3U}.m3u" ] && cp "${BASE_M3U}.m3u" output/
+          [ -f "${BASE_TXT}.txt" ] && cp "${BASE_TXT}.txt" output/
           [ -f "$NEW_M3U" ] && cp "$NEW_M3U" output/
           [ -f "$NEW_TXT" ] && cp "$NEW_TXT" output/
 
-      - name: Upload Scan Artifacts
+      - name: Загрузка артефактов сканирования
         uses: actions/upload-artifact@v4
         with:
           name: ngenix-scan-results
           path: output/
 
-      - name: Commit results to repo
+      - name: Фиксация результатов в репозитории (Commit)
         run: |
           git config user.name "SCALA Bot"
           git config user.email "scala-bot@example.com"
@@ -76,12 +76,12 @@ jobs:
           git add ngenix_report_*.txt ngenix_found_*.m3u || true
           git add output/ || true
 
-          git commit -m "Ekaterina Velikaya report + M3U updated (versioned)" || echo "No changes to commit"
+          git commit -m "Обновлены отчёт и M3U Екатерины Великой (версионировано)" || echo "Нет изменений для коммита"
 
           git pull --rebase origin main
 
           git push origin main || {
-            echo "Push rejected, pulling again and retrying..."
+            echo "Пуш отклонён, повторное получение изменений (pull) и попытка..."
             git pull --rebase origin main
             git push origin main
           }
