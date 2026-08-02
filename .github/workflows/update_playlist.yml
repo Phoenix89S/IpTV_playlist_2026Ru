@@ -1,4 +1,4 @@
-name: IPTV Auto Builder
+name: IPTV Auto Builder updater 
 
 on:
   schedule:
@@ -20,7 +20,7 @@ jobs:
           python-version: '3.x'
 
       - name: Сборка плейлиста из GitVerse
-        run: python main.py
+        run: python build_playlist.py
 
       - name: Автоматический коммит обновленного playlist.m3u
         run: |
