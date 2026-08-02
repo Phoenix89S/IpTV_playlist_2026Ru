@@ -2,34 +2,46 @@ name: Update IPTV Playlist
 
 on:
   schedule:
-    # Запуск каждые 12 часов (в 00:00 и 12:00 UTC)
     - cron: '0 0,12 * * *'
-  workflow_dispatch: # Возможность запустить вручную из вкладки Actions
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      GITHUB_TOKEN: ${{ secrets.PAT }}
+
     steps:
-      - name: Чеккаут репозитория
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Настройка Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: "3.14"
 
-      - name: Установка зависимостей
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests
+          pip install requests PyGithub
 
-      - name: Запуск скрипта парсинга и фильтрации
+      - name: Run build script
         run: python build_playlist.py
 
-      - name: Коммит и Пуш изменений обратно в репозиторий
+      - name: Commit changes (if any)
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add playlists/russian_and_hit_hd.m3u
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update IPTV playlist [skip ci]" && git push)
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "No local changes."
+          else
+            git commit -m "Auto-update IPTV playlist [skip ci]"
+            git push
+          fi
