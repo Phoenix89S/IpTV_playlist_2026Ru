@@ -1,5 +1,10 @@
 import re
 import urllib.request
+import socket
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+# Устанавливаем тайм-аут на сетевые соединения
+socket.setdefaulttimeout(15)
 
 # ----------------------------------------------------------------------
 # ИСТОЧНИК: Настройки GitVerse
@@ -34,49 +39,75 @@ def fetch_content(url):
     try:
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         with urllib.request.urlopen(req, timeout=15) as response:
-            return response.read().decode('utf-8', errors='ignore')
+            content_type = response.headers.get('Content-Type', '')
+            if 'html' in content_type.lower():
+                return None
+                
+            content = response.read().decode('utf-8', errors='ignore')
+            
+            if "<html" in content.lower() or "<!doctype" in content.lower():
+                return None
+            if "#EXTINF" not in content and "#EXTM3U" not in content:
+                return None
+                
+            return content
     except Exception as e:
-        # Если файл не найден (404) или произошла ошибка
         return None
+
+
+def fetch_single_task(item):
+    """Вспомогательная функция для многопоточной загрузки."""
+    part_idx, base_filename = item
+    
+    # Проверяем оба варианта расширения (.m3u и .M3U)
+    for ext in [".m3u", ".M3U"]:
+        url = f"{BASE_RAW_URL}{base_filename}{ext}"
+        content = fetch_content(url)
+        if content:
+            channels = parse_m3u(content)
+            return part_idx, channels
+            
+    return part_idx, None
 
 
 def fetch_all_channels_single_pass():
     """
-    Загружает плейлисты с GitVerse за ОДИН проход (без повторных запросов):
-    1. Основной плейлист (IPTV_MEGA_PLAYLIST.m3u)
+    Загружает плейлисты с GitVerse за ОДИН проход (в 16 параллельных потоков):
+    1. Основной плейлист (IPTV_MEGA_PLAYLIST.m3u / .M3U)
     2. Части по порядку (IPTV_MEGA_PLAYLIST_part_01.m3u, part_02.m3u...),
        пока файлы отдаются успешно.
     """
     all_channels = []
+
+    # Генерируем список имен файлов без расширения (проверка .m3u / .M3U внутри task)
+    tasks = [(0, "IPTV_MEGA_PLAYLIST")]
     
-    # 1. Загрузка основного плейлиста
-    main_url = f"{BASE_RAW_URL}IPTV_MEGA_PLAYLIST.m3u"
-    print(f"Загрузка: {main_url}")
-    main_content = fetch_content(main_url)
-    if main_content:
-        all_channels.extend(parse_m3u(main_content))
-    else:
+    # Запас по количеству частей (до 500)
+    MAX_PARTS = 500
+    for i in range(1, MAX_PARTS + 1):
+        tasks.append((i, f"IPTV_MEGA_PLAYLIST_part_{i:02d}"))
+
+    print(f"Запуск параллельной загрузки {len(tasks)} источников в 16 потоков...")
+
+    results = {}
+    with ThreadPoolExecutor(max_workers=16) as executor:
+        futures = [executor.submit(fetch_single_task, task) for task in tasks]
+        for future in as_completed(futures):
+            part_idx, channels = future.result()
+            if channels:
+                results[part_idx] = channels
+                if part_idx == 0:
+                    print(f"Успешно загружен основной плейлист (каналов: {len(channels)})")
+                else:
+                    print(f"Успешно загружена часть part_{part_idx:02d} (каналов: {len(channels)})")
+
+    if 0 not in results:
         print("Внимание: Основной плейлист не найден или недоступен!")
 
-    # 2. Последовательная загрузка частей part_01, part_02 ...
-    part_idx = 1
-    while True:
-        part_name = f"IPTV_MEGA_PLAYLIST_part_{part_idx:02d}.m3u"
-        url = f"{BASE_RAW_URL}{part_name}"
-        
-        print(f"Загрузка: {url}")
-        content = fetch_content(url)
-        
-        if content is not None:
-            # Файл получен — сразу парсим
-            channels = parse_m3u(content)
-            all_channels.extend(channels)
-            part_idx += 1
-        else:
-            # Файл не найден — части закончились, выходим из цикла
-            print(f"Части закончились на {part_name}. Загрузка завершена.")
-            break
-            
+    # Склеиваем каналы в строгом порядке частей (0, 1, 2, 3...)
+    for idx in sorted(results.keys()):
+        all_channels.extend(results[idx])
+
     return all_channels
 
 
@@ -127,19 +158,19 @@ def is_adult(channel):
     header = channel['header']
     title = channel['title']
     group = channel['group']
-    
+
     for pattern in ADULT_GROUPS:
         if re.search(pattern, group, re.IGNORECASE):
             return True
-            
+
     for pattern in ADULT_TITLE_KEYWORDS:
         if re.search(pattern, title, re.IGNORECASE):
             return True
-            
+
     for banned in MANUAL_BLACK_LIST:
         if banned.lower() in header.lower() or banned.lower() in title.lower():
             return True
-            
+
     return False
 
 
@@ -152,14 +183,14 @@ def sort_key(channel):
     """
     title = channel['title']
     first_char = title[0] if title else ''
-    
+
     if re.match(r'[\u0400-\u04FF]', first_char):
         group_priority = 0
     elif re.match(r'[a-zA-Z]', first_char):
         group_priority = 1
     else:
         group_priority = 2
-        
+
     return (group_priority, title.lower())
 
 
@@ -171,7 +202,7 @@ def main():
     # 2. Фильтрация 18+ (дубликаты обычных каналов НЕ удаляются)
     clean_channels = []
     adult_count = 0
-    
+
     for ch in all_channels:
         if is_adult(ch):
             adult_count += 1
