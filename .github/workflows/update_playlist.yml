@@ -22,10 +22,10 @@ jobs:
       - name: Сборка плейлиста из GitVerse
         run: python build_playlist.py
 
-      - name: Автоматический коммит обновленного playlist.m3u
+      - name: Автоматический коммит обновленного Gitver.m3u
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add playlist.m3u
-          git diff-index --quiet HEAD || git commit -m "Auto-update and sort playlist.m3u [skip ci]"
+          git add Gitver.m3u
+          git diff-index --quiet HEAD || git commit -m "Auto-update and sort Gitver.m3u [skip ci]"
           git push
