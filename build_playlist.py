@@ -27,7 +27,7 @@ ADULT_TITLE_KEYWORDS = [
     r'\b18\+\b', r'\badult\b', r'\bxxx\b', r'porn', r'эротик',
     r'erotic', r'playboy', r'hustler', r'brazzers', r'penthouse',
     r'redlight', r'dorcel', r'candyman', r'sct', r'privat', r'vixen',
-    r'exxx', r'barely legal', r me'sex'
+    r'exxx', r'barely legal', r'sex'
 ]
 
 MANUAL_BLACK_LIST = []
