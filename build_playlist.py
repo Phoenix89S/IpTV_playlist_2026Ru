@@ -7,13 +7,20 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 socket.setdefaulttimeout(15)
 
 # ----------------------------------------------------------------------
-# ИСТОЧНИК: Настройки GitVerse
+# ИСТОЧНИКИ: Все 3 RAW-файла (и их части) из одного репозитория IPTVMIR
 # ----------------------------------------------------------------------
 GITVERSE_USER = "RUVIPIEN"
 REPO_NAME = "IPTVMIR"
 BRANCH = "main"
 
-BASE_RAW_URL = f"https://gitverse.ru/{GITVERSE_USER}/{REPO_NAME}/content/{BRANCH}/"
+BASE_RAW_URL = f"https://gitverse.ru/api/repos/{GITVERSE_USER}/{REPO_NAME}/raw/branch/{BRANCH}/"
+
+# Список всех трех основных плейлистов из твоего репозитория
+RAW_SOURCES = [
+    {"main_file": "IPTV_MEGA_PLAYLIST", "has_parts": True, "max_parts": 500},
+    {"main_file": "Extra_channels2026", "has_parts": True, "max_parts": 100},
+    {"main_file": "Denis_iptv_2026", "has_parts": True, "max_parts": 100},
+]
 
 # ----------------------------------------------------------------------
 # Фильтры контента 18+
@@ -35,7 +42,6 @@ MANUAL_BLACK_LIST = []
 # ----------------------------------------------------------------------
 # Фильтр русскоязычных каналов
 # ----------------------------------------------------------------------
-
 RU_KEYWORDS = [
     "россия", "россия 1", "россия 24", "ртр", "ртр-планета",
     "первый", "1 канал", "мир", "мир 24",
@@ -79,7 +85,6 @@ def is_russian_channel(channel):
 # ----------------------------------------------------------------------
 # Загрузка GitVerse
 # ----------------------------------------------------------------------
-
 def fetch_content(url):
     try:
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -99,45 +104,46 @@ def fetch_content(url):
     except Exception:
         return None
 
-
 def fetch_single_task(item):
-    part_idx, base_filename = item
+    task_id, base_filename = item
 
-    for ext in [".m3u", ".M3U"]:
+    for ext in [".m3u", ".M3U", ".m3i", ".M3I"]:
         url = f"{BASE_RAW_URL}{base_filename}{ext}"
         content = fetch_content(url)
         if content:
             channels = parse_m3u(content)
-            return part_idx, channels
+            return task_id, channels
 
-    return part_idx, None
+    return task_id, None
 
-
-def fetch_all_channels_single_pass():
+def fetch_all_sources_parallel():
     all_channels = []
+    tasks = []
+    task_counter = 0
 
-    tasks = [(0, "IPTV_MEGA_PLAYLIST")]
+    for src in RAW_SOURCES:
+        main_file = src["main_file"]
+        
+        # 1. Основной файл
+        tasks.append((task_counter, main_file))
+        task_counter += 1
+        
+        # 2. Если у этого файла есть разбивка на части (part_01, part_02...)
+        if src.get("has_parts"):
+            max_parts = src.get("max_parts", 100)
+            for i in range(1, max_parts + 1):
+                tasks.append((task_counter, f"{main_file}_part_{i:02d}"))
+                task_counter += 1
 
-    MAX_PARTS = 500
-    for i in range(1, MAX_PARTS + 1):
-        tasks.append((i, f"IPTV_MEGA_PLAYLIST_part_{i:02d}"))
-
-    print(f"Запуск параллельной загрузки {len(tasks)} источников в 16 потоков...")
+    print(f"Запуск скачивания всех 3 файлов и их частей ({len(tasks)} задач) в 16 потоков...")
 
     results = {}
     with ThreadPoolExecutor(max_workers=16) as executor:
         futures = [executor.submit(fetch_single_task, task) for task in tasks]
         for future in as_completed(futures):
-            part_idx, channels = future.result()
+            task_id, channels = future.result()
             if channels:
-                results[part_idx] = channels
-                if part_idx == 0:
-                    print(f"Успешно загружен основной плейлист (каналов: {len(channels)})")
-                else:
-                    print(f"Успешно загружена часть part_{part_idx:02d} (каналов: {len(channels)})")
-
-    if 0 not in results:
-        print("Внимание: Основной плейлист не найден или недоступен!")
+                results[task_id] = channels
 
     for idx in sorted(results.keys()):
         all_channels.extend(results[idx])
@@ -147,7 +153,6 @@ def fetch_all_channels_single_pass():
 # ----------------------------------------------------------------------
 # Парсер M3U
 # ----------------------------------------------------------------------
-
 def parse_m3u(content):
     channels = []
     lines = content.splitlines()
@@ -174,13 +179,11 @@ def parse_m3u(content):
         i += 1
     return channels
 
-
 def extract_channel_title(header):
     parts = header.split(',', 1)
     if len(parts) > 1:
         return parts[1].strip()
     return header.strip()
-
 
 def extract_group_title(header):
     match = re.search(r'group-title="([^"]+)"', header, re.IGNORECASE)
@@ -189,7 +192,6 @@ def extract_group_title(header):
 # ----------------------------------------------------------------------
 # Фильтр 18+
 # ----------------------------------------------------------------------
-
 def is_adult(channel):
     header = channel['header']
     title = channel['title']
@@ -212,7 +214,6 @@ def is_adult(channel):
 # ----------------------------------------------------------------------
 # Сортировка
 # ----------------------------------------------------------------------
-
 def sort_key(channel):
     title = channel['title']
     first_char = title[0] if title else ''
@@ -229,10 +230,9 @@ def sort_key(channel):
 # ----------------------------------------------------------------------
 # MAIN
 # ----------------------------------------------------------------------
-
 def main():
-    all_channels = fetch_all_channels_single_pass()
-    print(f"Всего загружено каналов: {len(all_channels)}")
+    all_channels = fetch_all_sources_parallel()
+    print(f"Всего загружено каналов со всех 3 плейлистов: {len(all_channels)}")
 
     # 1. Удаляем 18+
     clean_channels = []
@@ -272,8 +272,7 @@ def main():
                 f.write(f"{opt}\n")
             f.write(f"{ch['url']}\n")
 
-    print("Файл Gitver.m3u успешно сформирован!")
-
+    print("Итоговый файл Gitver.m3u успешно сформирован!")
 
 if __name__ == "__main__":
     main()
