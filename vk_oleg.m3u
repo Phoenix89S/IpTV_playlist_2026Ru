@@ -476,7 +476,12 @@ http://cdn2.ntv.ru/th_serial/index.m3u8
 #EXTINF:-1 tvg-id="ntv-th-style" tvg-logo="https://iptvx.one/picons/ntv.png" group-title="Россия эфирные ТВ" ,4.11 НТВ Style
 http://cdn2.ntv.ru/th_style/index.m3u8
 
-
+#EXTINF:-1 tvg-id="Триколор Ужасы HD" group-title="Кино" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Триколор%20Ужасы%20HD.png",Триколор Ужасы HD
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/20178/index.m3u8
+#EXTINF:-1 tvg-id="Мосфильм. Золотая коллекция +4 HD" group-title="Кино" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Мосфильм.%20Золотая%20коллекция%20+4%20HD.png",Мосфильм. Золотая коллекция +4 HD
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/17022/index.m3u8
+#EXTINF:-1 tvg-id="Romance HD" group-title="Кино" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Romance%20HD.png",Romance HD
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/2037/index.m3u8
 
 
 
