@@ -484,5 +484,74 @@ http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/17022/index.m3u8
 http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/2037/index.m3u8
 
 
+offset=-${offset}&utcstart=${timestamp}", ТВ3 (Архив)
+#EXTVLCOPT:http-user-agent=WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TV3/variant.m3u8
+#EXTINF:-1 group-title="Развлечение" tvg-id="tv3-ru-pl7" catchup="append" catchup-days="7" catchup-source="?offset=-${offset}&utcstart=${timestamp}", ТВ3 +7 (Архив)
+#EXTVLCOPT:http-user-agent=WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer
+http://zabava-htlive.cdn.ngenix.net/hls/CH_TV3_7/variant.m3u8
+#EXTINF:-1 group-title="Развлечение" audio-track="rus", ТВ3 Беларусь
+http://radio.tvs.by:8080/TB-3/index.m3u8
+#EXTINF:-1 group-title="Развлечение" audio-track="rus", ТНТ
+http://185.46.16.239:8000/TNT
+#EXTINF:-1 group-title="Развлечение" audio-track="rus", ТНТ HD
+http://185.78.112.47:8077/tnt_hd/index.m3u8
+#EXTINF:-1 group-title="Развлечение" tvg-id="tnt" catchup="append" catchup-days="7" catchup-source="?offset=-${offset}&utcstart=${timestamp}", ТНТ (Архив)
+#EXTVLCOPT:http-user-agent=WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT/variant.m3u8
+#EXTINF:-1 group-title="Развлечение" tvg-id="tnt-pl7" catchup="append" catchup-days="7" catchup-source="?offset=-${offset}&utcstart=${timestamp}", ТНТ +7 (Архив)
+#EXTVLCOPT:http-user-agent=WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer
+http://zabava-htlive.cdn.ngenix.net/hls/CH_TNT_7/variant.m3u8
+#EXTINF:-1 group-title="Развлечение" audio-track="rus", ТНТ4
+http://85.117.37.41/tnt4/index.m3u8
+#EXTINF:-1 group-title="Развлечение" tvg-id="tnt4" catchup="append" catchup-days="7" catchup-source="?offset=-${offset}&utcstart=${timestamp}", ТНТ4 (Архив)
+#EXTVLCOPT:http-user-agent=WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT4/variant.m3u8
+#EXTINF:-1 group-title="Развлечение" tvg-id="tnt4-pl7" catchup="append" catchup-days="7" catchup-source="?offset=-${offset}&utcstart=${timestamp}", ТНТ4 +7 (Архив)
+#EXTVLCOPT:http-user-agent=WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer
+http://zabava-htlive.cdn.ngenix.net/hls/CH_TNT4_7/variant.m3u8
+#EXTINF:-1 group-title="Развлечение" audio-track="rus", Тайна
+http://185.78.112.47:8077/taina/index.m3u8
+#EXTINF:-1 group-title="Развлечение" audio-track="rus", Театр
+http://185.78.112.47:8077/strk_hd/index.m3u8
+#EXTINF:-1 group-title="Развлечение" audio-track="rus", Телепутешествия
+http://185.78.112.47:8077/teleputeshestviya/index.m3u8
+#EXTINF:-1 group-title="Развлечение" audio-track="rus", Точка ТВ
+http://185.78.112.47:8077/tochka/index.m3u8
+#EXTINF:-1 group-title="Развлечение" audio-track="rus", ЦТВ
+http://185.78.112.47:8077/ctv/index.m3u8
+#EXTINF:-1 group-title="Развлечение" audio-track="rus", Че
+http://31.210.208.171:8080/che/index.m3u8?token=+W2MSER
+#EXTINF:-1 group-title="Развлечение" tvg-id="che" catchup="append" catchup-days="7" catchup-source="?offset=-${offset}&utcstart=${timestamp}", Че! (Архив)
+#EXTVLCOPT:http-user-agent=WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer
+http://zabava-htlive.cdn.ngenix.net/hls/CH_PERETZ/variant.m3u8
+#EXTINF:-1 group-title="Развлечение" tvg-id="che-pl7" catchup="append" catchup-days="7" catchup-source="?offset=-${offset}&utcstart=${timestamp}", Че! +7 (Архив)
+#EXTVLCOPT:http-user-agent=WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer
+http://zabava-htlive.cdn.ngenix.net/hls/CH_PERETZ_7/variant.m3u8
+#EXTINF:-1 group-title="Развлечение" audio-track="rus", Ю ТВ
+http://31.210.208.171:8080/u/index.m3u8?token=+W2MSER
+#EXTINF:-1 group-title="Развлечение" tvg-id="yu" catchup="append" catchup-days="7" catchup-source="?offset=-${offset}&utcstart=${timestamp}", Ю ТВ (Архив)
+#EXTVLCOPT:http-user-agent=WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer
+http://zabava-htlive.cdn.ngenix.net/hls/CH_U/variant.m3u8
+#EXTINF:-1 group-title="Развлечение" tvg-id="yu-pl7" catchup="append" catchup-days="7" catchup-source="?offset=-${offset}&utcstart=${timestamp}", Ю ТВ +7 (Архив)
+#EXTVLCOPT:http-user-agent=WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer
+http://zabava-htlive.cdn.ngenix.net/hls/CH_U_7/variant.m3u8
+#EXTINF:-1 group-title="Знания" tvg-id="mir-uvlecheniy" audio-track="rus", #КтоКуда
+http://tv.woobl.ru/kto_kuda/video.m3u8?token=woobliptvz
+#EXTINF:-1 group-title="Знания" tvg-id="360-podmoskovie" audio-track="rus", 360°
+http://live-vgtrksmotrim.cdnvideo.ru/vgtrksmotrim/smotrim-live-04-srt.smil/tracks-v3a1/mono.m3u8
+#EXTINF:-1 group-title="Знания" tvg-id="360-podmoskovie" audio-track="rus", 360° HD
+http://tv.ttk.mx:9088
+#EXTINF:-1 group-title="Знания" tvg-id="365-dnej" audio-track="rus", 365 дней
+http://158.101.222.193:88/georgia_play.php?id=365day
+#EXTINF:-1 group-title="Знания" tvg-id="365-dnej" audio-track="rus", 365 дней HD
+http://188.134.7.215:4022/udp/235.10.10.223:1234
+#EXTINF:-1 group-title="Знания" audio-track="rus", Animal Planet
+http://185.78.112.47:8077/AnimalPlanetRussiaHD/index.m3u8
+#EXTINF:-1 group-title="Знания" audio-track="rus", Animal Planet HD
+http://tv.woobl.ru/animal_planet_hd/video.m3u8?token=woobliptvz
+#EXTINF:-1 group-title="Знания" audio-track="rus", Big Planet
+http://185.78.112.47:8077/big_planet_hd/index.m3u8
+
 
 
