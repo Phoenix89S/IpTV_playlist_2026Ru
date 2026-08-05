@@ -566,5 +566,9 @@ http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/20038/index.m3u8
 http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/20041/index.m3u8
 #EXTINF:-1 tvg-id="Silk Way HD KZ" group-title="Развлекательные" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Silk%20Way%20HD%20KZ.png",Silk Way HD KZ
 http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/20044/index.m3u8
-#EXTINF:-1 tvg-id="VF Концерты" group-title="Развлекательные" tvg-logo="https
-
+EXTINF:-1 tvg-id="Scream HD" group-title="Кино" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Scream%20HD.png",Scream HD
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/20021/index.m3u8
+#EXTINF:-1 tvg-id="Shot TV HD" group-title="Кино" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Shot%20TV%20HD.png",Shot TV HD
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/20022/index.m3u8
+#EXTINF:-1 tvg-id="О!Кино" group-title="Кино" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/О!Кино.png",О!Кино
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/20023/index.m3u8
