@@ -553,5 +553,18 @@ http://tv.woobl.ru/animal_planet_hd/video.m3u8?token=woobliptvz
 #EXTINF:-1 group-title="Знания" audio-track="rus", Big Planet
 http://185.78.112.47:8077/big_planet_hd/index.m3u8
 
+#EXTINF:-1 tvg-id="Центральное телевидение" group-title="Новостные" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Центральное%20телевидение.png",Центральное телевидение
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/2064/index.m3u8
+#EXTINF:-1 tvg-id="NHK World HD JP" group-title="Новостные" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/NHK%20World%20HD%20JP.png",NHK World HD JP
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/729/index.m3u8
+#EXTINF:-1 tvg-id="РБК orig" group-title="Новостные" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/РБК%20orig.png",РБК orig
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/9213/index.m3u8
 
+
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/20038/index.m3u8
+#EXTINF:-1 tvg-id="Ключ HD" group-title="Развлекательные" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Ключ%20HD.png",Ключ HD
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/20041/index.m3u8
+#EXTINF:-1 tvg-id="Silk Way HD KZ" group-title="Развлекательные" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Silk%20Way%20HD%20KZ.png",Silk Way HD KZ
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/20044/index.m3u8
+#EXTINF:-1 tvg-id="VF Концерты" group-title="Развлекательные" tvg-logo="https
 
