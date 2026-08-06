@@ -12056,6 +12056,9 @@ http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/734/index.m3u8
 #EXTINF:-1 tvg-id="НСТ" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/НСТ.png",10.3. НСТ
 http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/726/index.m3u8
 
+#EXTINF:-1 tvg-id="Страшное HD" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Страшное%20HD.png",11. Страшное HD
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/7247/index.m3u8
+
 #EXTINF:-1 tvg-id="Viju TV1000" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Viju%20TV1000.png",13.1. Viju TV1000
 http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/132/index.m3u8
 
