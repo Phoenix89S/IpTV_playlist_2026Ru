@@ -12020,6 +12020,59 @@ http://176.118.197.101/Cinema/index.m3u8
 http://176.118.197.101/Komediya/index.m3u8
 
 
+#EXTINF:-1 tvg-id="Sumiko HD" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Sumiko%20HD.png",1. Sumiko HD
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/2163/index.m3u8
+
+#EXTINF:-1 tvg-id="Scream HD" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Scream%20HD.png",2. Scream HD
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/20021/index.m3u8
+
+#EXTINF:-1 tvg-id="Хит HD" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Хит%20HD.png",3. Хит HD
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/2438/index.m3u8
+
+#EXTINF:-1 tvg-id="Киноужас HD" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Киноужас%20HD.png",4. Киноужас HD
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/2056/index.m3u8
+
+#EXTINF:-1 tvg-id="Дорама HD" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Дорама%20HD.png",5. Дорама HD
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/2131/index.m3u8
+
+#EXTINF:-1 tvg-id="Viju TV1000 Новелла HD" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Viju%20TV1000%20Новелла%20HD.png",5.1. Viju TV1000 Новелла HD
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/2002/index.m3u8
+
+#EXTINF:-1 tvg-id="Viasat Kino Megahit HD" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Viasat%20Kino%20Megahit%20HD.png",5.2. Viasat Kino Megahit HD
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/14141/index.m3u8
+
+#EXTINF:-1 tvg-id="Viasat Serial HD" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Viasat%20Serial%20HD.png",5.3. Viasat Serial HD
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/17056/index.m3u8
+
+#EXTINF:-1 tvg-id="Viju+ Serial HD" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Viju+%20Serial%20HD.png",5.4. Viju+ Serial HD
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/2443/index.m3u8
+
+#EXTINF:-1 tvg-id="Viju+ Premiere HD" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Viju+%20Premiere%20HD.png",5.5. Viju+ Premiere HD
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/202/index.m3u8
+
+#EXTINF:-1 tvg-id="Viju+ Premiere HD orig" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Viju+%20Premiere%20HD%20orig.png",5.6. Viju+ Premiere HD orig
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/5079/index.m3u8
+
+#EXTINF:-1 tvg-id="Viju+ Comedy HD" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Viju+%20Comedy%20HD.png",5.7. Viju+ Comedy HD
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/200/index.m3u8
+
+#EXTINF:-1 tvg-id="Viju+ Comedy HD orig" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Viju+%20Comedy%20HD%20orig.png",5.8. Viju+ Comedy HD orig
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/5080/index.m3u8
+
+#EXTINF:-1 tvg-id="Viju+ Megahit HD" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Viju+%20Megahit%20HD.png",5.9. Viju+ Megahit HD
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/201/index.m3u8
+
+#EXTINF:-1 tvg-id="Viju+ Megahit HD orig" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Viju+%20Megahit%20HD%20orig.png",5.10. Viju+ Megahit HD orig
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/5081/index.m3u8
+
+#EXTINF:-1 tvg-id="Epic Drama" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Epic%20Drama.png",5.11. Epic Drama
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/1048/index.m3u8
+
+#EXTINF:-1 tvg-id="Viju TV1000 Русское" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Viju%20TV1000%20Русское.png",5.12. Viju TV1000 Русское
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/101/index.m3u8
+
+#EXTINF:-1 tvg-id="Viju TV1000 Action" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Viju%20TV1000%20Action.png",5.13. Viju TV1000 Action
+http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/131/index.m3u8
 
 
 
