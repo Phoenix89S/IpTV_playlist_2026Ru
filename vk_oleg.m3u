@@ -612,3 +612,9 @@ http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/17051/index.m3u8
 http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/15102/index.m3u8
 #EXTINF:-1 tvg-id="FilmZone Plus HD EE" group-title="Кино" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/FilmZone%20Plus%20HD%20EE.png",FilmZone Plus HD EE
 http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/20025/index.m3u8
+
+
+#EXTINF:-1 group-title="Спортивные", Футбол
+http://cef23ac9.rossteleccom.net/iptv/HR5L3HVVC7ZQSVB2DUVSQUH7/19244/index.m3u8
+#EXTINF:-1 group-title="Спортивные", Хоккей
+http://cef23ac9.rossteleccom.net/iptv/HR5L3HVVC7ZQSVB2DUVSQUH7/10039/index.m3u8
