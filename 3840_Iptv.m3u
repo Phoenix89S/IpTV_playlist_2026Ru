@@ -1,4 +1,4 @@
-#EXTM3U tvg-country="DE" tvg-language="ru" x-tvg-url="https://is.gd/epg2xml"
+#EXTM3U tvg-country="NL" tvg-language="*" x-tvg-url="https://is.gd/epg2xml"
 
 #EXTGRP:Общие
 #EXTINF:-1 tvg-id="Первый канал FHD" group-title="Общие" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Первый%20канал%20FHD.png",Первый канал FHD
