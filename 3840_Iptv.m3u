@@ -1,5 +1,5 @@
-#EXTM3U
-#EXTM3U x-tvg-url="https://is.gd/epg2xml"
+#EXTM3U tvg-country="DE" tvg-language="ru" x-tvg-url="https://is.gd/epg2xml"
+
 #EXTGRP:Общие
 #EXTINF:-1 tvg-id="Первый канал FHD" group-title="Общие" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Первый%20канал%20FHD.png",Первый канал FHD
 http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/2402/index.m3u8
