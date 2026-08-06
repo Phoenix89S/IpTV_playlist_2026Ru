@@ -1,0 +1,124 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+Phoenix IPTV Scanner v2.1
+Автоматический генератор потоков + многопоточное извлечение названий из HLS-манифестов.
+"""
+
+import os
+import sys
+import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import requests
+
+BASE_URL = "http://2477fd5f.cbilant.com/iptv"
+TOKEN = "WCSZMUM84X4689VHGC7UDAQQ"
+DEFAULT_START = 1
+DEFAULT_END = 25000
+DEFAULT_OUTPUT = "scan_channels_named.m3u"
+DEFAULT_WORKERS = 20  # Количество параллельных потоков
+
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Phoenix-Scanner/2.1"
+}
+
+
+def check_channel(ch_id: int, session: requests.Session) -> tuple[int, str, str | None]:
+    """
+    Проверяет доступность канала и вытягивает его название из манифеста.
+    Возвращает: (ch_id, stream_url, title_or_none)
+    """
+    stream_url = f"{BASE_URL}/{TOKEN}/{ch_id}/index.m3u8"
+    try:
+        r = session.get(stream_url, timeout=3.5, headers=HEADERS)
+        if r.status_code != 200:
+            return ch_id, stream_url, None
+
+        lines = r.text.splitlines()
+
+        for line in lines:
+            line = line.strip()
+
+            # Формат: #EXTINF:-1 tvg-name="Name"
+            if 'tvg-name="' in line:
+                try:
+                    name = line.split('tvg-name="')[1].split('"')[0].strip()
+                    if name:
+                        return ch_id, stream_url, name
+                except IndexingError:
+                    pass
+
+            # Формат: #EXTINF:-1 ..., Channel Name
+            if line.startswith("#EXTINF") and "," in line:
+                name = line.split(",", 1)[1].strip()
+                if name:
+                    return ch_id, stream_url, name
+
+        # Если файл вернулся (200 OK), но тега #EXTINF нет
+        return ch_id, stream_url, f"Канал ID {ch_id}"
+
+    except Exception:
+        return ch_id, stream_url, None
+
+
+def generate_playlist(start_id: int, end_id: int, output_path: str, max_workers: int, keep_empty: bool) -> None:
+    print(f"[INFO] Сканирование ID {start_id} → {end_id} (Потоков: {max_workers})")
+    print(f"[INFO] Выходной файл: {output_path}\n")
+
+    found_count = 0
+    results = {}
+
+    session = requests.Session()
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        # Отправляем задачи в пул
+        future_to_id = {
+            executor.submit(check_channel, ch_id, session): ch_id 
+            for ch_id in range(start_id, end_id + 1)
+        }
+
+        for future in as_completed(future_to_id):
+            ch_id, stream_url, title = future.result()
+
+            if title:
+                found_count += 1
+                print(f"[FOUND] ID {ch_id:05d} → {title}")
+                results[ch_id] = (stream_url, title)
+            else:
+                print(f"[MISS]  ID {ch_id:05d} → Недоступен")
+                if keep_empty:
+                    results[ch_id] = (stream_url, f"Канал ID {ch_id}")
+
+    # Запись отсортированного плейлиста
+    print(f"\n[INFO] Сохранение результатов в файл...")
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write("#EXTM3U\n")
+        f.write("#EXTGRP:PhoenixScan\n\n")
+
+        for ch_id in sorted(results.keys()):
+            stream_url, title = results[ch_id]
+            f.write(f'#EXTINF:-1 group-title="PhoenixScan", {title}\n')
+            f.write(f"{stream_url}\n")
+
+    print(f"[OK] Сканирование завершено. Найдено активных каналов: {found_count}")
+    print(f"[PATH] {os.path.abspath(output_path)}")
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Phoenix IPTV Scanner v2.1 — параллельная генерация и авто-название."
+    )
+
+    parser.add_argument("-s", "--start", type=int, default=DEFAULT_START, help="Начальный ID")
+    parser.add_argument("-e", "--end", type=int, default=DEFAULT_END, help="Конечный ID")
+    parser.add_argument("-o", "--output", type=str, default=DEFAULT_OUTPUT, help="Выходной M3U файл")
+    parser.add_argument("-w", "--workers", type=int, default=DEFAULT_WORKERS, help="Количество параллельных потоков")
+    parser.add_argument("--keep-empty", action="store_true", help="Записывать даже нерабочие ID")
+
+    args = parser.parse_args()
+    generate_playlist(args.start, args.end, args.output, args.workers, args.keep_empty)
+
+
+if __name__ == "__main__":
+    main()
