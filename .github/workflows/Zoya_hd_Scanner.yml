@@ -1,37 +1,36 @@
-name: Zoya HD Scanner
+name: Phoenix IPTV Auto Scanner
 
 on:
   schedule:
-    # Запуск каждые 6 часов (в 00:00, 06:00, 12:00, 18:00 UTC)
+    # Запуск каждые 6 часов (минуты часы день месяц день_недели в UTC)
     - cron: '0 */6 * * *'
-  workflow_dispatch: # Кнопка для ручного запуска из интерфейса GitHub
+  workflow_dispatch: # Позволяет запускать скрипт вручную одной кнопкой в GitHub
 
 jobs:
-  build-and-scan:
+  scan:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Проверка и скачивание кода из репозитория
+      - name: Чтение репозитория
         uses: actions/checkout@v4
 
-      - name: Настройка окружения Python 3.11
+      - name: Установка Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Установка необходимых библиотек
+      - name: Установка зависимостей
         run: |
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Запуск скрипта сканера
+      - name: Запуск сканера
         run: |
-          # Запуск вашего файла из корня репозитория
           python IPTV_zoya_hd_py --start 1 --end 25000 --workers 30 --output scan_channels_named.m3u
 
-      - name: Сохранение и пуш обновленного плейлиста в GitHub
+      - name: Автокоммит и пуш результатов
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add scan_channels_named.m3u
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update playlist: $(date -u +'%Y-%m-%d %H:%M UTC')" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update IPTV playlist [$(date -u +'%Y-%m-%d %H:%M UTC')]" && git push)
