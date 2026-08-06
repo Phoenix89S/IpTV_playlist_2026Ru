@@ -1,36 +1,50 @@
-name: Phoenix IPTV Auto Scanner
+name: IPTV Zoya HD Generator
 
 on:
+  workflow_dispatch:
   schedule:
-    # Запуск каждые 6 часов (минуты часы день месяц день_недели в UTC)
-    - cron: '0 */6 * * *'
-  workflow_dispatch: # Позволяет запускать скрипт вручную одной кнопкой в GitHub
+    - cron: "0 */4 * * *"  # каждые 4 часа
 
 jobs:
-  scan:
+  generate-playlist:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Чтение репозитория
+      - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
-      - name: Установка Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
-      - name: Установка зависимостей
+      - name: Install dependencies (если нужны)
         run: |
-          python -m pip install --upgrade pip
-          pip install requests
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
 
-      - name: Запуск сканера
+      - name: Run IPTV_zoya_hd_py
         run: |
-          python IPTV_zoya_hd_py --start 1 --end 25000 --workers 30 --output scan_channels_named.m3u
+          chmod +x IPTV_zoya_hd_py
+          python IPTV_zoya_hd_py
 
-      - name: Автокоммит и пуш результатов
+      - name: Commit generated files
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add scan_channels_named.m3u
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update IPTV playlist [$(date -u +'%Y-%m-%d %H:%M UTC')]" && git push)
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Добавь сюда конкретные файлы, которые генерит скрипт
+          git add .
+
+          if git diff --cached --quiet; then
+            echo "Нет изменений — коммит не нужен."
+            exit 0
+          fi
+
+          git commit -m "Auto-update IPTV Zoya HD playlist"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
