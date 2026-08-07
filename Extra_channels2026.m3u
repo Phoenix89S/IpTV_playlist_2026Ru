@@ -623,6 +623,11 @@ https://stream8.cinerama.uz/1214/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="dom-kino" tvg-logo="https://iptvx.one/picons/dom-kino.png" group-title="Эфирные ТВ плюс",1.1.12 Дом кино
 https://stream8.cinerama.uz/1054/tracks-v1a1/mono.m3u8
 
+# 1.1.13 Первый канал Евразия
+#EXTINF:-1 tvg-id="perviy-kanal-evrasia" tvg-logo="https://iptvx.one/picons/perviy-kanal-evrasia.png" group-title="Эфирные ТВ плюс",1.1.13 Первый канал Евразия
+https://fs.uplink.kz/perviy_kanal_evrasia/tracks-v1a1/mono.ts.m3u8?token=onlinetv
+
+
 
 
 #---------------------------------------------------- конец расширенной орбиты-----
