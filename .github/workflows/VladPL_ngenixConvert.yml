@@ -1,0 +1,46 @@
+name: VladPL_ngenixConvert
+
+on:
+  schedule:
+    # Автоматический запуск каждые 6 часов
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Позволяет запускать вручную из вкладки Actions
+
+jobs:
+  build-and-update:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write # Права на запись и push изменений обратно в репозиторий
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Download converter script
+        run: |
+          curl -sSL "https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/vladPl_ngenix.py" -o vladPl_ngenix.py
+
+      - name: Run VladPL_ngenixConvert
+        run: python vladPl_ngenix.py
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Bot"
+          
+          # Индексируем сгенерированные файлы плейлистов
+          git add *.m3u* || git add .
+          
+          # Проверяем, есть ли изменения перед комитом
+          if git diff --staged --quiet; then
+            echo "Изменений в плейлисте нет. Пропускаем комит."
+          else
+            git commit -m "Auto-update playlist via VladPL_ngenixConvert [skip ci]"
+            git push
+          fi
