@@ -2,34 +2,35 @@ name: VladPL_ngenixConvert
 
 on:
   schedule:
-    # Автоматический запуск каждые 6 часов
+    # Автоматический запуск каждые 6 часов (по UTC)
     - cron: '0 */6 * * *'
-  workflow_dispatch: # Позволяет запускать вручную из вкладки Actions
+  workflow_dispatch: # Позволяет запускать процесс вручную из вкладки Actions
 
 jobs:
   build-and-update:
+    name: Обработка и обновление плейлиста
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write # Права на запись и push изменений обратно в репозиторий
+      contents: write # Права на запись и запуск push в репозиторий
 
     steps:
-      - name: Checkout repository
+      - name: Клонирование репозитория
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Настройка среды Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
-      - name: Download converter script
+      - name: Скачивание скрипта конвертации
         run: |
           curl -sSL "https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/vladPl_ngenix.py" -o vladPl_ngenix.py
 
-      - name: Run VladPL_ngenixConvert
+      - name: Запуск конвертации плейлиста
         run: python vladPl_ngenix.py
 
-      - name: Commit and push changes
+      - name: Сохранение и отправка изменений в репозиторий
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action Bot"
@@ -37,10 +38,10 @@ jobs:
           # Индексируем сгенерированные файлы плейлистов
           git add *.m3u* || git add .
           
-          # Проверяем, есть ли изменения перед комитом
+          # Проверяем, есть ли изменения перед фиксированием комита
           if git diff --staged --quiet; then
-            echo "Изменений в плейлисте нет. Пропускаем комит."
+            echo "Изменений в плейлисте нет. Пропускаем фиксацию."
           else
-            git commit -m "Auto-update playlist via VladPL_ngenixConvert [skip ci]"
+            git commit -m "Автоматическое обновление плейлиста через VladPL_ngenixConvert [skip ci]"
             git push
           fi
