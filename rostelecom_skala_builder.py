@@ -3,6 +3,8 @@ import re
 import json
 import shutil
 import urllib.request
+import xml.etree.ElementTree as ET
+from xml.dom import minidom
 from datetime import datetime
 
 # ==========================================
@@ -13,8 +15,11 @@ WINK_API_URL = "https://backend.v2.wink.ru/api/v2/channels"
 
 NODE_NAME = "Ростелеком"
 BASE_NAME = "rostel_SKALA_Dreg"
-EXTENSIONS = [".m3u", ".m3u8", ".txt"]
+EXTENSIONS = [".m3u", ".m3u8", ".yml", ".txt"]
 PLAYLIST_GROUP = "Rostelecom"
+
+# Комплексный User-Agent для сетевых запросов к API
+WINK_USER_AGENT = "Mozilla/5.0 (Linux; Android 12; WinkTV 1.88.1; ru-RU) Gecko/20100101 Firefox/117.0"
 
 TARGET_FOLDERS = [
     ".",         # Корень
@@ -22,7 +27,6 @@ TARGET_FOLDERS = [
     "./output"   # Папка output
 ]
 
-# Ключевые слова для НАГЛУХОГО отсечения 18+
 ADULT_KEYWORDS = [
     "18+", "adult", "erotika", "эротика", "ночные", "brazzers", 
     "hustler", "playboy", "русская ночь", "vivid", "penthouse", "xx", "эгоист"
@@ -33,14 +37,21 @@ ADULT_KEYWORDS = [
 # ==========================================
 
 def get_web_data(url: str) -> str:
-    """Загрузка данных по URL без вывода в консоль."""
-    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
+    """Загрузка данных по URL с эмуляцией мобильного клиента Wink."""
+    headers = {
+        'User-Agent': WINK_USER_AGENT,
+        'Referer': 'https://wink.ru/',
+        'X-Requested-With': 'Wink',
+        'X-Forwarded-For': '95.24.0.1',
+        'Accept': '*/*'
+    }
+    req = urllib.request.Request(url, headers=headers)
     with urllib.request.urlopen(req, timeout=15) as response:
         return response.read().decode('utf-8', errors='ignore')
 
 def load_wink_channels_map(sys_logs: list) -> dict:
-    """Опрашивает API Wink / Ростелеком. Логирует всё в массив sys_logs."""
-    sys_logs.append(f"[{datetime.now().strftime('%H:%M:%S')}] Инициализация запроса к API Wink (Ростелеком)...")
+    """Опрашивает API Wink с полными заголовками."""
+    sys_logs.append(f"[{datetime.now().strftime('%H:%M:%S')}] Запрос к API Wink (Android WinkTV)...")
     channels_map = {}
     try:
         data_raw = get_web_data(WINK_API_URL)
@@ -55,20 +66,35 @@ def load_wink_channels_map(sys_logs: list) -> dict:
                 "is_adult": item.get("is_adult", False) or item.get("age_rating", 0) >= 18,
                 "epg_id": item.get("epg_id", "")
             }
-        sys_logs.append(f"[{datetime.now().strftime('%H:%M:%S')}] API Wink успешно загружен. Найдено каналов в реестре: {len(channels_map)}")
+        sys_logs.append(f"[{datetime.now().strftime('%H:%M:%S')}] API Wink загружен. Записей: {len(channels_map)}")
     except Exception as e:
         sys_logs.append(f"[{datetime.now().strftime('%H:%M:%S')}] [ОШИБКА API] Не удалось загрузить API Wink: {e}")
     
     return channels_map
 
 # ==========================================
-# ОБРАБОТКА, НУМЕРАЦИЯ И ЛОГИРОВАНИЕ
+# ОБРАБОТКА И ФОРМИРОВАНИЕ YML / M3U
 # ==========================================
 
-def parse_and_identify_playlist(m3u_raw: str, wink_map: dict) -> tuple[str, list]:
+def parse_and_build(m3u_raw: str, wink_map: dict) -> tuple[str, str, list]:
     lines = m3u_raw.splitlines()
-    output_lines = ["#EXTM3U url-tvg=\"http://epg.itv.uz/teleguide.xml.gz\""]
+    m3u_lines = ["#EXTM3U url-tvg=\"http://epg.itv.uz/teleguide.xml.gz\""]
     detail_logs = []
+
+    # Создание структуры YML XML
+    yml_date = datetime.now().strftime("%Y-%m-%d %H:%M")
+    yml_catalog = ET.Element("yml_catalog", date=yml_date)
+    shop = ET.SubElement(yml_catalog, "shop")
+    
+    ET.SubElement(shop, "name").text = "Rostelecom IPTV Node"
+    ET.SubElement(shop, "company").text = "СКАЛА / ДРЭГ"
+    ET.SubElement(shop, "url").text = "http://rostelekom.xyz"
+
+    categories = ET.SubElement(shop, "categories")
+    cat = ET.SubElement(categories, "category", id="1")
+    cat.text = PLAYLIST_GROUP
+
+    offers = ET.SubElement(shop, "offers")
 
     channel_number = 1
     blocked_count = 0
@@ -82,7 +108,6 @@ def parse_and_identify_playlist(m3u_raw: str, wink_map: dict) -> tuple[str, list
         if line.startswith("http"):
             stream_url = line
             
-            # Вытягиваем ID из URL (.../2402/index.m3u8 -> 2402)
             id_match = re.search(r'/iptv/[^/]+/(\d+)/', stream_url)
             channel_id = id_match.group(1) if id_match else None
 
@@ -95,7 +120,7 @@ def parse_and_identify_playlist(m3u_raw: str, wink_map: dict) -> tuple[str, list
 
             is_adult = ch_info.get("is_adult", False)
             
-            # 1. ЖЁСТКИЙ ФИЛЬТР 18+ (НАГЛУХО)
+            # 1. ФИЛЬТР 18+
             full_check = f"{raw_name} {stream_url}".lower()
             if is_adult or any(kw in full_check for kw in ADULT_KEYWORDS):
                 detail_logs.append(f"[ОТСЕЧЕНО 18+] ID: {channel_id} | {raw_name}")
@@ -112,31 +137,53 @@ def parse_and_identify_playlist(m3u_raw: str, wink_map: dict) -> tuple[str, list
             tvg_logo = ch_info.get("logo", "")
             tvg_id = ch_info.get("epg_id", "")
 
-            # 3. ПОДГОТОВКА ИМЕНИ И НУМЕРАЦИЯ (Сквозной номер: 1, 2, 3... N)
             formatted_name = f"{channel_number}. {raw_name}"
 
-            # 4. ФОРМИРОВАНИЕ СТРОКИ В ГРУППУ Rostelecom
+            # 3. ФОРМИРОВАНИЕ СТРОК M3U С ПОЛНЫМ НАБОРОМ WINK-ЗАГОЛОВКОВ
             extinf = f'#EXTINF:-1 tvg-id="{tvg_id}"{shift_attr} tvg-logo="{tvg_logo}" group-title="{PLAYLIST_GROUP}",{formatted_name}'
-            
-            output_lines.append(extinf)
-            output_lines.append("#EXTVLCOPT:http-user-agent=HlsWinkPlayer")
-            output_lines.append(stream_url)
+            m3u_lines.append(extinf)
+            m3u_lines.append('#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 12; WinkTV 1.88.1; ru-RU) Gecko/20100101 Firefox/117.0')
+            m3u_lines.append('#EXTVLCOPT:http-referer=https://wink.ru/')
+            m3u_lines.append('#EXTVLCOPT:http-header=X-Requested-With=Wink')
+            m3u_lines.append('#EXTVLCOPT:http-header=X-Forwarded-For: 95.24.0.1')
+            m3u_lines.append(stream_url)
 
-            # Полная запись о добавлении канала со сквозным номером в .txt лог
-            detail_logs.append(f"[ОК] #{channel_number} | ID: {channel_id} -> {formatted_name}")
+            # 4. ФОРМИРОВАНИЕ ВЕТКИ YML (<offer>)
+            offer = ET.SubElement(offers, "offer", id=str(channel_number), available="true")
+            ET.SubElement(offer, "url").text = stream_url
+            ET.SubElement(offer, "name").text = formatted_name
+            ET.SubElement(offer, "categoryId").text = "1"
+            if tvg_logo:
+                ET.SubElement(offer, "picture").text = tvg_logo
+            if tvg_id:
+                ET.SubElement(offer, "param", name="epg_id").text = str(tvg_id)
+            if shift_val:
+                ET.SubElement(offer, "param", name="shift").text = str(shift_val)
             
+            # Параметры авторизации Wink в YML
+            ET.SubElement(offer, "param", name="user-agent").text = WINK_USER_AGENT
+            ET.SubElement(offer, "param", name="referer").text = "https://wink.ru/"
+            ET.SubElement(offer, "param", name="x-requested-with").text = "Wink"
+            ET.SubElement(offer, "param", name="x-forwarded-for").text = "95.24.0.1"
+
+            detail_logs.append(f"[ОК] #{channel_number} | ID: {channel_id} -> {formatted_name}")
             channel_number += 1
 
     total_added = channel_number - 1
     summary_logs = [
         "--------------------------------------------------",
-        f"[ИТОГ ОПРОСА СКАЛА] Добавлено в {PLAYLIST_GROUP}: {total_added} (№ 1..{total_added}) | Отсечено 18+: {blocked_count} | Без имени: {unknown_count}",
+        f"[ИТОГ ОПРОСА СКАЛА] Добавлено каналов (M3U + YML): {total_added} (№ 1..{total_added}) | Отсечено 18+: {blocked_count} | Без имени: {unknown_count}",
         "--------------------------------------------------"
     ]
-    return "\n".join(output_lines) + "\n", summary_logs + detail_logs
+
+    raw_xml = ET.tostring(yml_catalog, encoding="utf-8")
+    reparsed = minidom.parseString(raw_xml)
+    yml_content = reparsed.toprettyxml(indent="  ", encoding="utf-8").decode("utf-8")
+
+    return "\n".join(m3u_lines) + "\n", yml_content, summary_logs + detail_logs
 
 # ==========================================
-# ОСНОВНОЙ ПРОЦЕСС (СКАЛА / ДРЭГ)
+# ОСНОВНОЙ ПРОЦЕСС
 # ==========================================
 
 def process_pass(pass_number: int):
@@ -146,24 +193,22 @@ def process_pass(pass_number: int):
 
     try:
         raw_m3u = get_web_data(SOURCE_URL)
-        sys_logs.append(f"[{datetime.now().strftime('%H:%M:%S')}] Исходный M3U список с Gist успешно загружен.")
+        sys_logs.append(f"[{datetime.now().strftime('%H:%M:%S')}] Исходный список Gist загружен.")
     except Exception as e:
-        sys_logs.append(f"[{datetime.now().strftime('%H:%M:%S')}] [КРИТИЧЕСКАЯ ОШИБКА] Загрузка Gist сорвалась: {e}")
+        sys_logs.append(f"[{datetime.now().strftime('%H:%M:%S')}] [КРИТИЧЕСКАЯ ОШИБКА] Загрузка сорвалась: {e}")
         return
 
-    # Опрашиваем API Wink
     wink_map = load_wink_channels_map(sys_logs)
+    m3u_content, yml_content, process_logs = parse_and_build(raw_m3u, wink_map)
 
-    # Собираем, нумеруем и фильтруем
-    m3u_content, process_logs = parse_and_identify_playlist(raw_m3u, wink_map)
-
-    # Формируем полный текст лога для файла .txt
     log_lines = [
         "==================================================",
         f" УЗЕЛ: {NODE_NAME}",
         f" СИСТЕМА: СКАЛА / ДРЭГ (ver 10.10.6.1)",
         f" МЕТКА ВРЕМЕНИ: {time_stamp}",
+        f" ПРОФИЛЬ АВТОРИЗАЦИИ: WINK FULL HEADERS (Android 12)",
         f" ПРОХОД: {suffix}",
+        f" СГЕНЕРИРОВАНЫ ФОРМАТЫ: M3U, M3U8, YML, TXT",
         f" ФИЛЬТР 18+: ЖЁСТКАЯ БЛОКИРОВКА (АКТИВЕН)",
         f" ГРУППА ПЛЕЙЛИСТА: {PLAYLIST_GROUP}",
         "==================================================",
@@ -175,7 +220,6 @@ def process_pass(pass_number: int):
 
     full_log_content = "\n".join(log_lines) + "\n"
 
-    # Раскладываем файлы по всем директориям без вывода в консоль
     for folder in TARGET_FOLDERS:
         os.makedirs(folder, exist_ok=True)
 
@@ -183,7 +227,13 @@ def process_pass(pass_number: int):
             filename = f"{BASE_NAME}{suffix}{ext}"
             file_path = os.path.join(folder, filename)
             
-            content = full_log_content if ext == ".txt" else m3u_content
+            if ext == ".txt":
+                content = full_log_content
+            elif ext == ".yml":
+                content = yml_content
+            else:
+                content = m3u_content
+
             with open(file_path, "w", encoding="utf-8") as f:
                 f.write(content)
 
