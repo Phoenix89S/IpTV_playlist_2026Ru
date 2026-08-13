@@ -871,7 +871,7 @@ https://zabava-htlive.cdn.ngenix.net/hls/CH_5TV/variant.m3u8
 https://zabava-htlive.cdn.ngenix.net/hls/CH_ECHOTV/variant.m3u8
 
 #---------------- ГРУППА: Винк /забава ----------------
-#EXTINF:-1 catchup="append" catchup-days="3" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Винк /забава" tvg-id="pervy",1. Первый канал HD
+#EXTINF:-1 catchup="append" catchup-days="3" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Винк /забава" tvg-id="pervy",1. Первый канал
 #EXTVLCOPT:http-header=X-Forwarded-For: 95.24.0.1
 https://zabava-htlive.cdn.ngenix.net/hls/CH_1TV/variant.m3u8
 
@@ -923,7 +923,7 @@ https://zabava-htlive.cdn.ngenix.net/hls/CH_ZVEZDA/variant.m3u8
 #EXTVLCOPT:http-header=X-Forwarded-For: 95.24.0.1
 https://zabava-htlive.cdn.ngenix.net/hls/CH_OTR/variant.m3u8
 
-#EXTINF:-1 catchup="append" catchup-days="3" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Винк /забава" tvg-id="5kanal-ru",14. канал
+#EXTINF:-1 catchup="append" catchup-days="3" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Винк /забава" tvg-id="5kanal-ru",14. Пятый Канал
 #EXTVLCOPT:http-header=X-Forwarded-For: 95.24.0.1
 https://zabava-htlive.cdn.ngenix.net/hls/CH_5TV/variant.m3u8
 
@@ -1215,7 +1215,7 @@ https://zabava-htlive.cdn.ngenix.net/hls/CH_SUPER/variant.m3u8
 #EXTVLCOPT:http-header=X-Forwarded-For: 95.24.0.1
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT4/variant.m3u8
 
-#EXTINF:-1 catchup="append" catchup-days="3" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Винк /забава" tvg-id="tv3-ru",87. ТВ 3
+#EXTINF:-1 catchup="append" catchup-days="3" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Винк /забава" tvg-id="tv3-ru",87. ТВ-3
 #EXTVLCOPT:http-header=X-Forwarded-For: 95.24.0.1
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TV3/variant.m3u8
 
@@ -1819,11 +1819,11 @@ https://zabava-htlive.cdn.ngenix.net/hls/CH_EUROSPORT/variant.m3u8
 #EXTVLCOPT:http-header=X-Forwarded-For: 95.24.0.1
 https://zabava-htlive.cdn.ngenix.net/hls/CH_EUROSPORT_G/variant.m3u8
 
-#EXTINF:-1 catchup="append" catchup-days="3" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Винк /забава" tvg-id="match-tv",238. Матч! ТВ
+#EXTINF:-1 catchup="append" catchup-days="3" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Винк /забава" tvg-id="match-tv",238. Матч!
 #EXTVLCOPT:http-header=X-Forwarded-For: 95.24.0.1
 https://zabava-htlive.cdn.ngenix.net/hls/CH_MATCHTV/variant.m3u8
 
-#EXTINF:-1 catchup="append" catchup-days="3" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Винк /забава" tvg-id="match-tv",239. Матч! ТВ HD
+#EXTINF:-1 catchup="append" catchup-days="3" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Винк /забава" tvg-id="match-tv",239. Матч! HD
 #EXTVLCOPT:http-header=X-Forwarded-For: 95.24.0.1
 https://zabava-htlive.cdn.ngenix.net/hls/CH_MATCHTVHD/variant.m3u8
 
