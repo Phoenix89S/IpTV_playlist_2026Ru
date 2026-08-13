@@ -1,1 +1,69 @@
-рпмн р м
+name: Rostelecom_Skala_Builder автоматическое обновление Rostelecom IPTV
+
+on:
+  schedule:
+    # Запуск каждые 6 часов (00:00, 06:00, 12:00, 18:00 UTC)
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Ручной запуск кнопкой из интерфейса GitHub
+
+jobs:
+  run-rostelecom-skala-bot:
+    runs-on: ubuntu-latest
+    name: Принудительный запуск Ростелеком СКАЛА/ДРЭГ с опросом Wink [main, output & root]
+
+    steps:
+      - name: 1. Клонирование репозитория
+        uses: actions/checkout@v4
+
+      - name: 2. Настройка Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 3. Установка зависимостей
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: 4. Загрузка и запуск скрипта из Phoenix89S
+        run: |
+          curl -sSL https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/rostelecom_skala_builder.py -o rostelecom_skala_builder.py
+          python rostelecom_skala_builder.py
+
+      - name: 5. Размещение YML, M3U и TXT в папки main/, output/ и root
+        run: |
+          mkdir -p main output
+
+          # Дублирование плейлистов M3U/M3U8
+          if [ -f "rostel_SKALA_Dreg.m3u" ]; then
+            cp rostel_SKALA_Dreg.m3u main/rostel_SKALA_Dreg.m3u
+            cp rostel_SKALA_Dreg.m3u output/rostel_SKALA_Dreg.m3u
+          fi
+
+          if [ -f "rostel_SKALA_Dreg.m3u8" ]; then
+            cp rostel_SKALA_Dreg.m3u8 main/rostel_SKALA_Dreg.m3u8
+            cp rostel_SKALA_Dreg.m3u8 output/rostel_SKALA_Dreg.m3u8
+          fi
+
+          # Дублирование YML каталога
+          if [ -f "rostel_SKALA_Dreg.yml" ]; then
+            cp rostel_SKALA_Dreg.yml main/rostel_SKALA_Dreg.yml
+            cp rostel_SKALA_Dreg.yml output/rostel_SKALA_Dreg.yml
+          fi
+
+          # Дублирование телетайп-логов
+          if [ -f "rostel_SKALA_Dreg.txt" ]; then
+            cp rostel_SKALA_Dreg.txt main/rostel_SKALA_Dreg.txt
+            cp rostel_SKALA_Dreg.txt output/rostel_SKALA_Dreg.txt
+          fi
+
+      - name: 6. Финальный push всех файлов (Корень, main и output)
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Забираем абсолютно все изменённые M3U, M3U8, YML и TXT
+          git add main/ output/ *.m3u *.m3u8 *.yml *.txt || true
+          
+          git commit -m "СКАЛА/ДРЭГ Ростелеком: Принудительное обновление YML, плейлистов и логов [main, output, root]" || echo "Нет новых изменений для коммита"
+          git push || echo "Push выполнен"
