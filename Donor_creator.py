@@ -52,11 +52,15 @@ def safe_commit_and_push(logger, target_dir, commit_message):
         return False
 
     try:
+        # Для корневой директории передаем "." в git add
+        add_path = "." if target_dir == "root" else target_dir
         subprocess.run(
-            ["git", "add", target_dir], check=True, capture_output=True
+            ["git", "add", add_path], check=True, capture_output=True
         )
         res = subprocess.run(
-            ["git", "commit", "-m", commit_message], capture_output=True, text=True
+            ["git", "commit", "-m", commit_message],
+            capture_output=True,
+            text=True,
         )
         if res.returncode == 0:
             logger.log(
@@ -74,8 +78,95 @@ def safe_commit_and_push(logger, target_dir, commit_message):
         return False
 
 
+# База эталонных сопоставлений системных ID Ngenix -> Официальное название Wink
+WINK_SERVER_NAME_MAP = {
+    "CH_1TV": "Первый канал",
+    "CH_1TVHD": "Первый канал HD",
+    "CH_RUSSIA1": "Россия 1",
+    "CH_RUSSIA1HD": "Россия 1 HD",
+    "CH_MATCHTV": "Матч!",
+    "CH_MATCHTVHD": "Матч! HD",
+    "CH_NTV": "НТВ",
+    "CH_NTVHD": "НТВ HD",
+    "CH_5TV": "Пятый Канал",
+    "CH_RUSSIAK": "Россия К",
+    "CH_RUSSIA24": "Россия 24",
+    "CH_KARUSEL": "Карусель",
+    "CH_OTR": "ОТР",
+    "CH_TVC": "ТВ Центр",
+    "CH_RENTV": "РЕН ТВ",
+    "CH_SPAS": "Спас",
+    "CH_STS": "СТС",
+    "CH_DOMASHNIY": "Домашний",
+    "CH_DOMASHNY_2": "Домашний (+2)",
+    "CH_TV3": "ТВ-3",
+    "CH_FRIDAY": "Пятница!",
+    "CH_ZVEZDA": "Звезда",
+    "CH_MIR": "МИР",
+    "CH_TNT": "ТНТ",
+    "CH_MUZTV": "Муз ТВ",
+    "CH_VIASATHISTORY": "Viasat History",
+    "CH_DISCOVERY": "Discovery Channel",
+}
+
+
+def validate_and_resolve_stream_name(stream_url, current_name, session):
+    """Опрашивает сервер Ngenix/Wink, вытаскивает идентификатор потока и сверяет имя."""
+    server_status = "UNKNOWN"
+    server_stream_id = None
+
+    # Извлекаем системный ID канала из URL (например, CH_MATCHTV)
+    match = re.search(r"/hls/([^/]+)/", stream_url)
+    if match:
+        server_stream_id = match.group(1).upper()
+
+    # Опрос сервера Ngenix методом HEAD для проверки отклика
+    try:
+        headers = {"User-Agent": "HlsWinkPlayer"}
+        resp = session.head(stream_url, headers=headers, timeout=5)
+        server_status = f"HTTP {resp.status_code}"
+    except Exception:
+        server_status = "TIMEOUT/OFFLINE"
+
+    # Определение эталонного имени по ответу/ID сервера
+    expected_name = None
+    if server_stream_id and server_stream_id in WINK_SERVER_NAME_MAP:
+        expected_name = WINK_SERVER_NAME_MAP[server_stream_id]
+
+    # Сравнение имеющегося имени и сервера
+    if expected_name:
+        if current_name.strip().lower() == expected_name.strip().lower():
+            return {
+                "status": "VALID",
+                "server_status": server_status,
+                "server_id": server_stream_id,
+                "server_name": expected_name,
+                "final_name": current_name,
+                "modified": False,
+            }
+        else:
+            return {
+                "status": "CORRECTED",
+                "server_status": server_status,
+                "server_id": server_stream_id,
+                "server_name": expected_name,
+                "final_name": expected_name,
+                "modified": True,
+            }
+
+    return {
+        "status": "PASSED",
+        "server_status": server_status,
+        "server_id": server_stream_id or "N/A",
+        "server_name": current_name,
+        "final_name": current_name,
+        "modified": False,
+    }
+
+
 def run_pipeline_dreg_skala():
     logger = TeletypeLogger()
+    session = requests.Session()
 
     wink_url = "https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/wink_playlist.m3u8"
     donor_url = "https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/donor89s.m3u"
@@ -86,9 +177,11 @@ def run_pipeline_dreg_skala():
     os.makedirs(dir_main, exist_ok=True)
     os.makedirs(dir_output, exist_ok=True)
 
+    # Пути отчетов: main/, output/ и корневой каталог
     report_files = [
         os.path.join(dir_main, "report_dreg_skala.txt"),
         os.path.join(dir_output, "report_dreg_skala.txt"),
+        "report_dreg_skala.txt",
     ]
 
     try:
@@ -112,7 +205,9 @@ def run_pipeline_dreg_skala():
         logger.log(
             "ОБЪЕКТ ОБРАБОТКИ: Плейлист Wink / Zabava -> Модуль Интеграции Donor89s"
         )
-        logger.log("РЕЖИМ ИНИЦИАЛИЗАЦИИ: СКАЛА (КРУПНОБЛОЧНЫЙ СКАН)")
+        logger.log(
+            "РЕЖИМ ИНИЦИАЛИЗАЦИИ: СКАЛА (КРУПНОБЛОЧНЫЙ СКАН + ВАЛИДАЦИЯ ИМЕН NGENIX)"
+        )
         logger.log("СТАТУС: ИСПОЛНЕНИЕ / ТЕЛЕТАЙПНЫЙ ВЫВОД (ГАРАНТИРОВАННЫЙ)")
         logger.log(
             "================================================================================"
@@ -131,8 +226,8 @@ def run_pipeline_dreg_skala():
         donor_res = None
 
         try:
-            wink_res = requests.get(wink_url, timeout=15)
-            donor_res = requests.get(donor_url, timeout=15)
+            wink_res = session.get(wink_url, timeout=15)
+            donor_res = session.get(donor_url, timeout=15)
         except Exception as net_err:
             logger.log(
                 f"{get_msk_time_skala()} [СКАЛА] ОШИБКА СЕТЕВОГО СОЕДИНЕНИЯ: {net_err}"
@@ -165,7 +260,7 @@ def run_pipeline_dreg_skala():
             f"{get_msk_time_skala()} [СКАЛА] Фиксация глобальной шапки: {original_header[:60]}..."
         )
         logger.log(
-            f"{get_msk_time_skala()} [СКАЛА] Включение микропроцессинга ДРЭГ."
+            f"{get_msk_time_skala()} [СКАЛА] Включение микропроцессинга ДРЭГ с опросом серверов Ngenix."
         )
         logger.log()
         logger.log(
@@ -203,7 +298,7 @@ def run_pipeline_dreg_skala():
         i = 0
         raw_count = 0
 
-        # --- ДРЭГ: ЗАЩИЩЕННЫЙ ПАРСИНГ КАНАЛОВ ---
+        # --- ДРЭГ: ЗАЩИЩЕННЫЙ ПАРСИНГ КАНАЛОВ И ОПРОС СЕРВЕРОВ ---
         while i < len(wink_lines):
             line = wink_lines[i].strip()
 
@@ -228,7 +323,6 @@ def run_pipeline_dreg_skala():
                     f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] Инициализация захвата..."
                 )
 
-                # Защита 1: Отсутствие URL после тега EXTINF
                 if not stream_url:
                     logger.log(
                         f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] ОШИБКА ПАРСИНГА: Не найден URL потока!"
@@ -240,20 +334,24 @@ def run_pipeline_dreg_skala():
                     continue
 
                 parts = extinf.rsplit(",", 1)
-                ch_name = parts[1].strip() if len(parts) > 1 else "Канал"
-                clean_name = re.sub(r"^\d+[\.\s\-]+", "", ch_name)
+                raw_source_name = (
+                    parts[1].strip() if len(parts) > 1 else "Канал"
+                )
+                clean_source_name = re.sub(
+                    r"^\d+[\.\s\-]+", "", raw_source_name
+                )
 
-                # Защита 2: Фильтрация 18+
+                # Фильтрация 18+
                 is_adult = any(
                     kw in extinf.lower() for kw in adult_keywords
                 ) or any(kw in stream_url.lower() for kw in adult_keywords)
 
                 if is_adult:
                     logger.log(
-                        f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] Поток: {clean_name} | Выявление 18+..."
+                        f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] Поток: {clean_source_name} | Выявление 18+..."
                     )
                     logger.log(
-                        f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] СРАБОТКА ФИЛЬТРА 18+ (Adult Keyword Detected)."
+                        f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] СРАБОТКА ФИЛЬТРА 18+ (Adult Content Detected)."
                     )
                     logger.log(
                         f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] ПОТОК ИСКЛЮЧЕН ИЗ ФИНАЛЬНОЙ СБОРКИ.\n"
@@ -267,6 +365,28 @@ def run_pipeline_dreg_skala():
                             "zabava-htlive.cdn.ngenix.net",
                         )
 
+                    # Валидация именования через опрос Ngenix
+                    val_result = validate_and_resolve_stream_name(
+                        stream_url, clean_source_name, session
+                    )
+                    final_channel_name = val_result["final_name"]
+
+                    logger.log(
+                        f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] Опрос Ngenix... Статус: [{val_result['server_status']}] | Stream ID: [{val_result['server_id']}]"
+                    )
+                    logger.log(
+                        f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] Имя в источнике: '{clean_source_name}' | Ответ сервера: '{val_result['server_name']}'"
+                    )
+
+                    if val_result["modified"]:
+                        logger.log(
+                            f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] ДЕЙСТВИЕ: [ИСПРАВЛЕНО] -> Скорректировано на '{final_channel_name}'"
+                        )
+                    else:
+                        logger.log(
+                            f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] ДЕЙСТВИЕ: [НЕ ТРОГАЛИ] -> Имя верное"
+                        )
+
                     if not extvlc:
                         extvlc = "#EXTVLCOPT:http-user-agent=HlsWinkPlayer"
 
@@ -275,24 +395,21 @@ def run_pipeline_dreg_skala():
                             "extinf": extinf,
                             "extvlc": extvlc,
                             "url": stream_url,
+                            "clean_name": final_channel_name,
                         }
                     )
 
                     current_idx = len(channels)
                     logger.log(
-                        f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] Поток: {clean_name}{cdn_note}"
-                    )
-                    logger.log(
-                        f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] Фильтр 18+: Чисто | Группа: 'Винк /забава'"
+                        f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] Фильтр 18+: Чисто | Группа: 'Винк /забава'{cdn_note}"
                     )
                     logger.log(
                         f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] Архив: catchup-days=\"3\" (flussonic)"
                     )
                     logger.log(
-                        f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] Назначен номер: {current_idx}. {clean_name}\n"
+                        f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] Назначен номер: {current_idx}. {final_channel_name}\n"
                     )
 
-                # Защита 3: Защищенный шаг индексации
                 i = j if j < len(wink_lines) else i + 1
             else:
                 i += 1
@@ -302,7 +419,7 @@ def run_pipeline_dreg_skala():
             "--------------------------------------------------------------------------------"
         )
         logger.log(
-            f"{get_msk_time_skala()} [СКАЛА] Завершение режима ДРЭГ. Выход в СКАЛА."
+            f"{get_msk_time_skala()} [СКАЛА] Завершение микропроцессинга ДРЭГ и валидации."
         )
         logger.log(
             f"{get_msk_time_skala()} [СКАЛА] Успешно обработано каналов: {len(channels)}. Сквозная нумерация от 1 до {len(channels)}."
@@ -336,10 +453,7 @@ def run_pipeline_dreg_skala():
                 )
 
             parts = extinf.rsplit(",", 1)
-            channel_name = parts[1].strip() if len(parts) > 1 else "Канал"
-            clean_name = re.sub(r"^\d+[\.\s\-]+", "", channel_name)
-
-            new_extinf = f"{parts[0]},{index}. {clean_name}"
+            new_extinf = f"{parts[0]},{index}. {ch['clean_name']}"
 
             formatted_block.append(new_extinf)
             if ch["extvlc"]:
@@ -362,10 +476,11 @@ def run_pipeline_dreg_skala():
 
         final_playlist = f"{original_header}\n\n{updated_body.strip()}\n"
 
-        # Сохранение плейлистов в обе папки
+        # Сохранение плейлистов в main/, output/ и корень
         playlist_files = [
             os.path.join(dir_main, "donor89s_updated.m3u"),
             os.path.join(dir_output, "donor89s_updated.m3u"),
+            "donor89s_updated.m3u",
         ]
 
         for p_file in playlist_files:
@@ -382,10 +497,11 @@ def run_pipeline_dreg_skala():
             "================================================================================"
         )
 
-        # Вызов Git-коммита
+        # Вызовы Git-коммитов для main/, output/ и КОРНЕВОЙ директории (root)
         commit_msg = f"Авто-обновление ДРЭГ/СКАЛА - {start_date} {start_time_skala}"
         safe_commit_and_push(logger, dir_main, f"[MAIN] {commit_msg}")
         safe_commit_and_push(logger, dir_output, f"[OUTPUT] {commit_msg}")
+        safe_commit_and_push(logger, "root", f"[ROOT] {commit_msg}")
 
     except Exception as fatal_err:
         logger.log(
@@ -393,7 +509,7 @@ def run_pipeline_dreg_skala():
         )
 
     finally:
-        # --- БЛОК FINALLY: ГАРАНТИРУЕТ ЗАПИСЬ ОТЧЕТА В ТХТ В ЛЮБОМ СЛУЧАЕ ---
+        # БЛОК FINALLY: Запись отчета в TXT во все 3 локации в любом случае
         for r_file in report_files:
             logger.save_to_file(r_file)
         print(
