@@ -1673,21 +1673,3 @@ https://rt-sib-krsk-htlive.cdn.ngenix.net/hls/CH_R13_OTT_SIB_KRSK_RENTV/variant.
 #EXTINF:-1 catchup="append" catchup-days="3" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Региональные" tvg-id="kuban-24",Кубань 24
 #EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://rt-sth-krdar-htlive.cdn.ngenix.net/hls/CH_R04_OTT_STH_KRDAR_KUBAN24-T/variant.m3u8
-#EXTINF:-1 catchup="append" catchup-days="3" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Эротические" tvg-id="russkaya-noch",Русская ночь
-#EXTVLCOPT:http-user-agent=HlsWinkPlayer
-https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIANNIGHT/variant.m3u8
-#EXTINF:-1 catchup="append" catchup-days="3" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Эротические" tvg-id="shalun",Шалун HD
-#EXTVLCOPT:http-user-agent=HlsWinkPlayer
-https://zabava-htlive.cdn.ngenix.net/hls/CH_SHALUNTVHD/variant.m3u8
-#EXTINF:-1 catchup="append" catchup-days="3" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Эротические" tvg-id="brazzers-tv-europe-ru",Brazzers TV Europe
-#EXTVLCOPT:http-user-agent=HlsWinkPlayer
-https://zabava-htlive.cdn.ngenix.net/hls/CH_BRAZZERSTV/variant.m3u8
-#EXTINF:-1 catchup="append" catchup-days="3" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Эротические" tvg-id="babes-tv",Babes TV HD
-#EXTVLCOPT:http-user-agent=HlsWinkPlayer
-https://zabava-htlive.cdn.ngenix.net/hls/CH_BABESTVHD/variant.m3u8
-#EXTINF:-1 catchup="append" catchup-days="3" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Эротические" tvg-id="o-la-la",O-la-la
-#EXTVLCOPT:http-user-agent=HlsWinkPlayer
-https://zabava-htlive.cdn.ngenix.net/hls/CH_OLALA/variant.m3u8
-#EXTINF:-1 catchup="append" catchup-days="3" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Эротические" tvg-id="exxxotica",Exxxotica HD
-#EXTVLCOPT:http-user-agent=HlsWinkPlayer
-https://zabava-htlive.cdn.ngenix.net/hls/CH_EXXXOTICAHD/variant.m3u8
