@@ -7,27 +7,22 @@ import requests
 
 
 def get_msk_time_skala():
-    # Формат времени СКАЛА: ЧЧ:ММ.СС
     now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=3)))
     return now.strftime("%H:%M.%S")
 
 
 def get_msk_date_skala():
-    # Дата по МСК
     now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=3)))
     return now.strftime("%d.%m.%Y")
 
 
 def get_msk_time_dreg():
-    # Формат времени ДРЭГ: ЧЧ:ММ:СС:МСМСМС
     now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=3)))
     ms = now.microsecond // 1000
     return f"{now.strftime('%H:%M:%S')}:{ms:03d}"
 
 
 class TeletypeLogger:
-    """Класс для одновременного вывода в консоль и записи отчёта в TXT-файл."""
-
     def __init__(self):
         self.logs = []
 
@@ -42,24 +37,18 @@ class TeletypeLogger:
 
 
 def commit_and_push(target_dir, commit_message):
-    """Функция автоматического коммита и отправки изменений в Git (если используется git-репозиторий)."""
     try:
-        if os.path.exists(os.path.join(target_dir, ".git")) or os.path.exists(
-            ".git"
-        ):
-            subprocess.run(
-                ["git", "add", target_dir], check=True, capture_output=True
-            )
-            subprocess.run(
-                ["git", "commit", "-m", commit_message],
-                check=False,
-                capture_output=True,
-            )
-            # subprocess.run(["git", "push"], check=False, capture_output=True)
-            return True
-    except Exception as e:
+        subprocess.run(
+            ["git", "add", target_dir], check=True, capture_output=True
+        )
+        subprocess.run(
+            ["git", "commit", "-m", commit_message],
+            check=False,
+            capture_output=True,
+        )
+        return True
+    except Exception:
         return False
-    return False
 
 
 def run_pipeline_dreg_skala():
@@ -68,7 +57,6 @@ def run_pipeline_dreg_skala():
     wink_url = "https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/wink_playlist.m3u8"
     donor_url = "https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/donor89s.m3u"
 
-    # Директории назначения для дублирования результатов и коммитов
     dir_main = "main"
     dir_output = "output"
 
@@ -78,7 +66,6 @@ def run_pipeline_dreg_skala():
     start_date = get_msk_date_skala()
     start_time_skala = get_msk_time_skala()
 
-    # --- ТЕЛЕТАЙПНАЯ ШАПКА ---
     logger.log(
         "================================================================================"
     )
@@ -96,13 +83,12 @@ def run_pipeline_dreg_skala():
         "ОБЪЕКТ ОБРАБОТКИ: Плейлист Wink / Zabava -> Модуль Интеграции Donor89s"
     )
     logger.log("РЕЖИМ ИНИЦИАЛИЗАЦИИ: СКАЛА (КРУПНОБЛОЧНЫЙ СКАН)")
-    logger.log("СТАТУС: ИСПОЛНЕНИЕ / ТЕЛЕТАЙПНЫЙ ВЫВОД")
+    logger.log("СТАТУС: ИСПОЛНЕНИЕ / ТЕЛЕТАЙПНЫЙ ВЫВОД (ПРИНУДИТЕЛЬНЫЙ)")
     logger.log(
         "================================================================================"
     )
     logger.log()
 
-    # --- СКАЛА: СТАРТ ---
     logger.log(
         f"{get_msk_time_skala()} [СКАЛА] Инициализация ядра обработки плейлистов ver 10.10.6.1..."
     )
@@ -110,8 +96,14 @@ def run_pipeline_dreg_skala():
         f"{get_msk_time_skala()} [СКАЛА] Загрузка исходных массивов из GitHub репозиториев..."
     )
 
-    wink_res = requests.get(wink_url)
-    donor_res = requests.get(donor_url)
+    try:
+        wink_res = requests.get(wink_url, timeout=15)
+        donor_res = requests.get(donor_url, timeout=15)
+    except Exception as e:
+        logger.log(
+            f"{get_msk_time_skala()} [СКАЛА] ОШИБКА СЕТЕВОГО ДОСТУПА: {e}"
+        )
+        return
 
     if wink_res.status_code != 200 or donor_res.status_code != 200:
         logger.log(
@@ -129,20 +121,14 @@ def run_pipeline_dreg_skala():
     wink_lines = wink_res.text.splitlines()
     donor_lines = donor_res.text.splitlines()
 
-    # Фиксация строго исходной шапки
     original_header = "#EXTM3U"
     for line in wink_lines:
         if line.startswith("#EXTM3U"):
             original_header = line.strip()
             break
 
-    header_preview = (
-        original_header[:60] + "..."
-        if len(original_header) > 60
-        else original_header
-    )
     logger.log(
-        f"{get_msk_time_skala()} [СКАЛА] Фиксация исходной глобальной шапки: {header_preview}"
+        f"{get_msk_time_skala()} [СКАЛА] Фиксация исходной глобальной шапки."
     )
     logger.log(
         f"{get_msk_time_skala()} [СКАЛА] Переход в поканальный микропроцессинг. Включение режима ДРЭГ."
@@ -159,7 +145,6 @@ def run_pipeline_dreg_skala():
     )
     logger.log()
 
-    # Ключевые слова 18+
     adult_keywords = [
         "18+",
         "adult",
@@ -184,7 +169,6 @@ def run_pipeline_dreg_skala():
     i = 0
     raw_count = 0
 
-    # --- ДРЭГ: ПОКАНАЛЬНАЯ ОБРАБОТКА ---
     while i < len(wink_lines):
         line = wink_lines[i].strip()
 
@@ -233,7 +217,7 @@ def run_pipeline_dreg_skala():
                 else:
                     cdn_note = ""
                     if "ott.service.ip-tv.ru" in stream_url:
-                        cdn_note = " | CDN устарел: ott.service.ip-tv.ru -> Коррекция -> zabava-htlive.cdn.ngenix.net"
+                        cdn_note = " | CDN: ott.service.ip-tv.ru -> zabava-htlive.cdn.ngenix.net"
                         stream_url = stream_url.replace(
                             "ott.service.ip-tv.ru",
                             "zabava-htlive.cdn.ngenix.net",
@@ -255,20 +239,19 @@ def run_pipeline_dreg_skala():
                         f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] Поток: {clean_name}{cdn_note}"
                     )
                     logger.log(
-                        f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] Фильтр 18+: Чисто | Назначена группа: \"Винк /забава\""
+                        f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] Фильтр 18+: Чисто | Группа: 'Винк /забава'"
                     )
                     logger.log(
-                        f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] Установка индивидуального архива: catchup-days=\"3\" (flussonic)"
+                        f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] Архив: catchup-days=\"3\" (flussonic)"
                     )
                     logger.log(
-                        f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] Зафиксирован индекс: {current_idx}. {clean_name}"
+                        f"{get_msk_time_dreg()} [ДРЭГ] [{ch_code}] Индекс [1..N]: {current_idx}. {clean_name}"
                     )
                     logger.log()
 
             i = j
         i += 1
 
-    # --- СКАЛА: ФИНАЛИЗАЦИЯ И СБОРКА ---
     logger.log(
         "--------------------------------------------------------------------------------"
     )
@@ -276,7 +259,7 @@ def run_pipeline_dreg_skala():
         f"{get_msk_time_skala()} [СКАЛА] Завершение микропроцессинга ДРЭГ. Выход в режим СКАЛА."
     )
     logger.log(
-        f"{get_msk_time_skala()} [СКАЛА] Формирование итогового блока \"Винк /забава\" (Всего каналов: {len(channels)})."
+        f"{get_msk_time_skala()} [СКАЛА] Формирование итогового блока 'Винк /забава' (Всего каналов: {len(channels)}). Строгая нумерация 1..{len(channels)}."
     )
 
     formatted_block = [
@@ -331,41 +314,39 @@ def run_pipeline_dreg_skala():
 
     final_playlist = f"{original_header}\n\n{updated_body.strip()}\n"
 
-    # --- ЗАПИСЬ В ОБЕ ДИРЕКТОРИИ (main И output) ---
-    logger.log(
-        f"{get_msk_time_skala()} [СКАЛА] Интеграция блока в массив donor89s.m3u..."
-    )
-
+    # Запись плейлиста
     playlist_files = [
         os.path.join(dir_main, "donor89s_updated.m3u"),
         os.path.join(dir_output, "donor89s_updated.m3u"),
     ]
-
     for p_file in playlist_files:
         with open(p_file, "w", encoding="utf-8") as f:
             f.write(final_playlist)
         logger.log(
-            f"{get_msk_time_skala()} [СКАЛА] Сохранен плейлист: {p_file}"
+            f"{get_msk_time_skala()} [СКАЛА] Записан плейлист: {p_file}"
         )
 
-    # Запись текстового отчёта
+    # Запись отчетов в TXT
     report_files = [
         os.path.join(dir_main, "report_dreg_skala.txt"),
         os.path.join(dir_output, "report_dreg_skala.txt"),
     ]
+    for r_file in report_files:
+        logger.save_to_file(r_file)
+        logger.log(
+            f"{get_msk_time_skala()} [СКАЛА] Телетайпный TXT-отчет сохранен: {r_file}"
+        )
 
     logger.log(
-        f"{get_msk_time_skala()} [СКАЛА] СБОРКА УСПЕШНО ЗАВЕРШЕНА. ИНИЦИАЛИЗАЦИЯ КОММИТА..."
+        f"{get_msk_time_skala()} [СКАЛА] ПРИНУДИТЕЛЬНАЯ СБОРКА УСПЕШНО ЗАВЕРШЕНА."
     )
     logger.log(
         "================================================================================"
     )
 
-    for r_file in report_files:
-        logger.save_to_file(r_file)
-
-    # Инициализация процедур коммита
-    commit_msg = f"Auto-update Wink/Zabava group (v10.10.6.1_IPTV) - {start_date} {start_time_skala}"
+    commit_msg = (
+        f"Принудительное обновление ДРЭГ/СКАЛА [main & output] - {start_date}"
+    )
     commit_and_push(dir_main, f"[MAIN] {commit_msg}")
     commit_and_push(dir_output, f"[OUTPUT] {commit_msg}")
 
