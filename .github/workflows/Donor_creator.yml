@@ -1,60 +1,56 @@
-name: Donor_Creator автоматическое  обновление IPTV Donor 89S
+name: Donor_Creator автоматическое обновление IPTV Donor 89S
 
 on:
   schedule:
     # Запуск каждые 6 часов (00:00, 06:00, 12:00, 18:00 UTC)
     - cron: '0 */6 * * *'
-  workflow_dispatch: # Возможность ручного запуска кнопкой из интерфейса GitHub
+  workflow_dispatch: # Ручной запуск кнопкой из интерфейса GitHub
 
 jobs:
-  build-and-update:
+  run-dreg-skala-bot:
     runs-on: ubuntu-latest
-    name: Запуск робота сборки и публикация результатов
+    name: Принудительный запуск ДРЭГ/СКАЛА [main & output]
 
     steps:
-      - name: Проверка и получение кода репозитория
+      - name: 1. Клонирование репозитория
         uses: actions/checkout@v4
 
-      - name: Настройка среды Python
+      - name: 2. Настройка Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: Установка зависимостей и библиотек
+      - name: 3. Установка зависимостей
         run: |
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Запуск робота-сборщика (Donor_creator.py)
+      - name: 4. Запуск робота сборки (Donor_creator.py)
         run: |
           python Donor_creator.py
 
-      - name: Сохранение результатов и коммит в директории main и output
+      - name: 5. Размещение файлов в папки main/ и output/
+        run: |
+          mkdir -p main output
+
+          if [ -f "donor89s_updated.m3u" ]; then
+            cp donor89s_updated.m3u main/donor89s_updated.m3u
+            cp donor89s_updated.m3u output/donor89s_updated.m3u
+            cp donor89s_updated.m3u donor89s.m3u || true
+          fi
+
+          if [ -f "report_dreg_skala.txt" ]; then
+            cp report_dreg_skala.txt main/report_dreg_skala.txt
+            cp report_dreg_skala.txt output/report_dreg_skala.txt
+          fi
+
+      - name: 6. Принудительный коммит и отправка (Push) в обе папки
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          # Создаем целевые директории main и output
-          mkdir -p main output
-
-          # Дублируем сгенерированные файлы плейлистов и отчетов в обе директории
-          if [ -f "donor89s_updated.m3u" ]; then
-            cp donor89s_updated.m3u main/
-            cp donor89s_updated.m3u output/
-          fi
-
-          if [ -f "report_dreg_skala.txt" ]; then
-            cp report_dreg_skala.txt main/
-            cp report_dreg_skala.txt output/
-          fi
-
-          # Индексируем файлы в main, output и корне репозитория
           git add main/ output/ *.m3u *.txt || true
-
-          # Проверяем наличие изменений и делаем коммит
-          if git diff --staged --quiet; then
-            echo "Изменений в плейлисте и отчетах не обнаружено. Коммит не требуется."
-          else
-            git commit -m "Автоматический коммит: обновление плейлистов [main & output]"
-            git push
-          fi
+          
+          # Всегда делаем коммит и push принудительно, даже если diff пустой (штамп времени обновится)
+          git commit -m "ДРЭГ/СКАЛА: Принудительное обновление отчетов и плейлистов [main & output]" || echo "Нет новых изменений для коммита"
+          git push || echo "Push пропущен или выполнен"
