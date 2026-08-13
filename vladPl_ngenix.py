@@ -3,13 +3,26 @@ import urllib.request
 
 
 def convert_playlist(url: str, output_file: str = "wink_playlist.m3u8"):
-    # Настройки catchup и user-agent
+    # 1. Архив на 14 дней (336 часов)
     CATCHUP_ATTRS = (
-        'catchup="append" catchup-days="3" '
+        'catchup="append" catchup-days="14" '
         'catchup-source="?offset=-${offset}&utcstart=${timestamp}"'
     )
-    USER_AGENT_LINE = "#EXTVLCOPT:http-user-agent=HlsWinkPlayer"
-    DEFAULT_HEADER = '#EXTM3U url-tvg="https://iptvx.one/EPG"'
+
+    # 2. Заголовки Wink
+    VLCOPTS = [
+        "#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 12; WinkTV 1.88.1; ru-RU) Gecko/20100101 Firefox/117.0",
+        "#EXTVLCOPT:http-referer=https://wink.ru/",
+        "#EXTVLCOPT:http-header=X-Requested-With=Wink",
+        "#EXTVLCOPT:http-header=X-Forwarded-For: 95.24.0.1",
+    ]
+
+    # 3. Источники EPG + Глубина архива/анонса EPG (14 дней в обе стороны)
+    EPG_URLS = "https://iptvx.one/EPG,https://epg.itv.uz/teleguide.xml.gz"
+    DEFAULT_HEADER = (
+        f'#EXTM3U url-tvg="{EPG_URLS}" '
+        'tvg-days-past="14" tvg-days-future="14"'
+    )
 
     print(f"Загрузка плейлиста из {url}...")
     req = urllib.request.Request(
@@ -28,7 +41,6 @@ def convert_playlist(url: str, output_file: str = "wink_playlist.m3u8"):
     output_lines = [DEFAULT_HEADER]
     current_extinf = None
 
-    # Регулярное выражение для разбора строки #EXTINF
     extinf_pattern = re.compile(
         r"^#EXTINF:(?P<duration>-?\d+)\s*(?P<attrs>.*?),(?P<name>.*)$"
     )
@@ -44,23 +56,26 @@ def convert_playlist(url: str, output_file: str = "wink_playlist.m3u8"):
                 attrs_raw = match.group("attrs")
                 name = match.group("name").strip()
 
-                # Извлекаем существующие теги (group-title, tvg-id, tvg-logo и т.д.)
                 attr_dict = dict(re.findall(r'([\w-]+)="([^"]*)"', attrs_raw))
 
-                # Пересобираем атрибуты
-                formatted_attrs = []
+                formatted_attrs = [CATCHUP_ATTRS]
 
-                # Добавляем catchup атрибуты
-                formatted_attrs.append(CATCHUP_ATTRS)
-
-                # Сохраняем остальные ключевые атрибуты, если они есть
-                for key in ["group-title", "tvg-id", "tvg-logo"]:
+                # Приоритетные атрибуты
+                for key in ["group-title", "tvg-id", "tvg-logo", "tvg-name"]:
                     if key in attr_dict:
                         formatted_attrs.append(f'{key}="{attr_dict[key]}"')
 
-                # Если есть другие атрибуты из оригинала, сохраняем их
+                # Остальные атрибуты
                 for key, val in attr_dict.items():
-                    if key not in ["group-title", "tvg-id", "tvg-logo", "catchup", "catchup-days", "catchup-source"]:
+                    if key not in [
+                        "group-title",
+                        "tvg-id",
+                        "tvg-logo",
+                        "tvg-name",
+                        "catchup",
+                        "catchup-days",
+                        "catchup-source",
+                    ]:
                         formatted_attrs.append(f'{key}="{val}"')
 
                 attrs_str = " ".join(formatted_attrs)
@@ -69,14 +84,12 @@ def convert_playlist(url: str, output_file: str = "wink_playlist.m3u8"):
                 current_extinf = line
 
         elif not line.startswith("#"):
-            # Строка со ссылкой на поток
             if current_extinf:
                 output_lines.append(current_extinf)
-                output_lines.append(USER_AGENT_LINE)
+                output_lines.extend(VLCOPTS)
                 output_lines.append(line)
                 current_extinf = None
 
-    # Сохранение в файл
     with open(output_file, "w", encoding="utf-8") as f:
         f.write("\n".join(output_lines) + "\n")
 
