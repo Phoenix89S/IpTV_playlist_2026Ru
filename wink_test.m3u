@@ -294,4 +294,146 @@ https://zabava-htlive.cdn.ngenix.net/hls/CH_TVXXI/variant.m3u8
 #EXTVLCOPT:http-referer=https://wink.ru/
 #EXTVLCOPT:http-header=X-Requested-With=Wink
 #EXTVLCOPT:http-header=X-Forwarded-For: 95.24.0.1
-http:
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TVXXI/variant.m3u8
+
+
+
+
+
+
+# 9.5 Чистый HTTP (без заголовков и без SSL)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="tvxxi" tvg-logo="http://fe-mos.svc.iptv.rt.ru/images/broadcastChannel1351773616450.png",9.5 TV XXI Век (Чистый HTTP)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_TVXXI/variant.m3u8
+
+
+# --- КАНАЛ 10: Иллюзион + ---
+# 10.1 Основной вариант (HTTPS + Полные заголовки Wink)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="illuzion-plus",10.1 Иллюзион +
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 12; WinkTV 1.88.1; ru-RU) Gecko/20100101 Firefox/117.0
+#EXTVLCOPT:http-referer=https://wink.ru/
+#EXTVLCOPT:http-header=X-Requested-With=Wink
+#EXTVLCOPT:http-header=X-Forwarded-For: 95.24.0.1
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ULLUSIONPLUS/variant.m3u8
+
+# 10.2 Без X-Forwarded-For (HTTPS)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="illuzion-plus",10.2 Иллюзион + (Без IP)
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 12; WinkTV 1.88.1; ru-RU) Gecko/20100101 Firefox/117.0
+#EXTVLCOPT:http-referer=https://wink.ru/
+#EXTVLCOPT:http-header=X-Requested-With=Wink
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ULLUSIONPLUS/variant.m3u8
+
+# 10.3 Чистый HTTPS (без EXTVLCOPT)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="illuzion-plus",10.3 Иллюзион + (Чистый HTTPS)
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ULLUSIONPLUS/variant.m3u8
+
+# 10.4 HTTP с полными заголовками (обход проверки SSL)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="illuzion-plus",10.4 Иллюзион + (HTTP + Заголовки)
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 12; WinkTV 1.88.1; ru-RU) Gecko/20100101 Firefox/117.0
+#EXTVLCOPT:http-referer=https://wink.ru/
+#EXTVLCOPT:http-header=X-Requested-With=Wink
+#EXTVLCOPT:http-header=X-Forwarded-For: 95.24.0.1
+http://zabava-htlive.cdn.ngenix.net/hls/CH_ULLUSIONPLUS/variant.m3u8
+
+# 10.5 Чистый HTTP (без заголовков и без SSL)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="illuzion-plus",10.5 Иллюзион + (Чистый HTTP)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_ULLUSIONPLUS/variant.m3u8
+
+
+# --- КАНАЛ 11: Русский Иллюзион ---
+# 11.1 Основной вариант (HTTPS + Полные заголовки Wink)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="russky-illuzion",11.1 Русский Иллюзион
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 12; WinkTV 1.88.1; ru-RU) Gecko/20100101 Firefox/117.0
+#EXTVLCOPT:http-referer=https://wink.ru/
+#EXTVLCOPT:http-header=X-Requested-With=Wink
+#EXTVLCOPT:http-header=X-Forwarded-For: 95.24.0.1
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIANILLUSION/variant.m3u8
+
+# 11.2 Без X-Forwarded-For (HTTPS)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="russky-illuzion",11.2 Русский Иллюзион (Без IP)
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 12; WinkTV 1.88.1; ru-RU) Gecko/20100101 Firefox/117.0
+#EXTVLCOPT:http-referer=https://wink.ru/
+#EXTVLCOPT:http-header=X-Requested-With=Wink
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIANILLUSION/variant.m3u8
+
+# 11.3 Чистый HTTPS (без EXTVLCOPT)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="russky-illuzion",11.3 Русский Иллюзион (Чистый HTTPS)
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIANILLUSION/variant.m3u8
+
+# 11.4 HTTP с полными заголовками (обход проверки SSL)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="russky-illuzion",11.4 Русский Иллюзион (HTTP + Заголовки)
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 12; WinkTV 1.88.1; ru-RU) Gecko/20100101 Firefox/117.0
+#EXTVLCOPT:http-referer=https://wink.ru/
+#EXTVLCOPT:http-header=X-Requested-With=Wink
+#EXTVLCOPT:http-header=X-Forwarded-For: 95.24.0.1
+http://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIANILLUSION/variant.m3u8
+
+# 11.5 Чистый HTTP (без заголовков и без SSL)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="russky-illuzion",11.5 Русский Иллюзион (Чистый HTTP)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIANILLUSION/variant.m3u8
+
+
+# --- КАНАЛ 12: Феникс+ Кино ---
+# 12.1 Основной вариант (HTTPS + Полные заголовки Wink)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="feniks-plus-kino",12.1 Феникс+ Кино
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 12; WinkTV 1.88.1; ru-RU) Gecko/20100101 Firefox/117.0
+#EXTVLCOPT:http-referer=https://wink.ru/
+#EXTVLCOPT:http-header=X-Requested-With=Wink
+#EXTVLCOPT:http-header=X-Forwarded-For: 95.24.0.1
+https://zabava-htlive.cdn.ngenix.net/hls/CH_GENIKSPLUSKINO/variant.m3u8
+
+# 12.2 Без X-Forwarded-For (HTTPS)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="feniks-plus-kino",12.2 Феникс+ Кино (Без IP)
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 12; WinkTV 1.88.1; ru-RU) Gecko/20100101 Firefox/117.0
+#EXTVLCOPT:http-referer=https://wink.ru/
+#EXTVLCOPT:http-header=X-Requested-With=Wink
+https://zabava-htlive.cdn.ngenix.net/hls/CH_GENIKSPLUSKINO/variant.m3u8
+
+# 12.3 Чистый HTTPS (без EXTVLCOPT)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="feniks-plus-kino",12.3 Феникс+ Кино (Чистый HTTPS)
+https://zabava-htlive.cdn.ngenix.net/hls/CH_GENIKSPLUSKINO/variant.m3u8
+
+# 12.4 HTTP с полными заголовками (обход проверки SSL)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="feniks-plus-kino",12.4 Феникс+ Кино (HTTP + Заголовки)
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 12; WinkTV 1.88.1; ru-RU) Gecko/20100101 Firefox/117.0
+#EXTVLCOPT:http-referer=https://wink.ru/
+#EXTVLCOPT:http-header=X-Requested-With=Wink
+#EXTVLCOPT:http-header=X-Forwarded-For: 95.24.0.1
+http://zabava-htlive.cdn.ngenix.net/hls/CH_GENIKSPLUSKINO/variant.m3u8
+
+# 12.5 Чистый HTTP (без заголовков и без SSL)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="feniks-plus-kino",12.5 Феникс+ Кино (Чистый HTTP)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_GENIKSPLUSKINO/variant.m3u8
+
+
+# --- КАНАЛ 13: Star Cinema ---
+# 13.1 Основной вариант (HTTPS + Полные заголовки Wink)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="star-cinema",13.1 Star Cinema
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 12; WinkTV 1.88.1; ru-RU) Gecko/20100101 Firefox/117.0
+#EXTVLCOPT:http-referer=https://wink.ru/
+#EXTVLCOPT:http-header=X-Requested-With=Wink
+#EXTVLCOPT:http-header=X-Forwarded-For: 95.24.0.1
+https://zabava-htlive.cdn.ngenix.net/hls/CH_STARCINEMAHD/variant.m3u8
+
+# 13.2 Без X-Forwarded-For (HTTPS)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="star-cinema",13.2 Star Cinema (Без IP)
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 12; WinkTV 1.88.1; ru-RU) Gecko/20100101 Firefox/117.0
+#EXTVLCOPT:http-referer=https://wink.ru/
+#EXTVLCOPT:http-header=X-Requested-With=Wink
+https://zabava-htlive.cdn.ngenix.net/hls/CH_STARCINEMAHD/variant.m3u8
+
+# 13.3 Чистый HTTPS (без EXTVLCOPT)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="star-cinema",13.3 Star Cinema (Чистый HTTPS)
+https://zabava-htlive.cdn.ngenix.net/hls/CH_STARCINEMAHD/variant.m3u8
+
+# 13.4 HTTP с полными заголовками (обход проверки SSL)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="star-cinema",13.4 Star Cinema (HTTP + Заголовки)
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 12; WinkTV 1.88.1; ru-RU) Gecko/20100101 Firefox/117.0
+#EXTVLCOPT:http-referer=https://wink.ru/
+#EXTVLCOPT:http-header=X-Requested-With=Wink
+#EXTVLCOPT:http-header=X-Forwarded-For: 95.24.0.1
+http://zabava-htlive.cdn.ngenix.net/hls/CH_STARCINEMAHD/variant.m3u8
+
+# 13.5 Чистый HTTP (без заголовков и без SSL)
+#EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Фильмовые" tvg-id="star-cinema",13.5 Star Cinema (Чистый HTTP)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_STARCINEMAHD/variant.m3u8
+# --------------------------------------------------------------------
