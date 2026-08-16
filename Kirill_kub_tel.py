@@ -26,7 +26,7 @@ def get_next_filename(base_name, extension):
     filename = f"{base_name}.{extension}"
     if not os.path.exists(filename):
         return filename
-    
+
     counter = 1
     while True:
         filename = f"{base_name}_{counter}.{extension}"
@@ -75,20 +75,20 @@ def fetch_stream_metadata(url, timeout=2):
     return None
 
 def process_channel_metadata(i, logger):
-    url_http = f"http://cdn.kubteltv.workers.dev/?ID=357&channel={i}"
-    url_https = f"https://cdn.kubteltv.workers.dev/?ID=357&channel={i}"
-    
-    logger.log(3, f"Поток канала {i}: запуск запроса метаданных (HTTP/HTTPS)")
-    detected_name = fetch_stream_metadata(url_http)
+    # Запрос по чистому базовому URL с ID=357 (без принудительного &channel={i})
+    url_base = "http://cdn.kubteltv.workers.dev/?ID=357"
+    url_base_s = "https://cdn.kubteltv.workers.dev/?ID=357"
+
+    logger.log(3, f"Поток канала {i}: запуск запроса метаданных из потока")
+    detected_name = fetch_stream_metadata(url_base)
     if not detected_name:
-        detected_name = fetch_stream_metadata(url_https)
-    
+        detected_name = fetch_stream_metadata(url_base_s)
+
     channel_name = detected_name if detected_name else f"Канал {i}"
     logger.log(4, f"Поток канала {i}: метаданные получены -> {channel_name}")
     return i, channel_name
 
 def generate_m3u():
-    # Используем базовое имя Kub_kirill с автоинкрементом (_1, _2 и т.д. при повторных запусках)
     log_file_name = get_next_filename("Kub_kirill", "txt")
     m3u_file_name = get_next_filename("Kub_kirill", "m3u")
     m3u8_file_name = get_next_filename("Kub_kirill", "m3u8")
@@ -105,13 +105,13 @@ def generate_m3u():
     logger.log_system("ЭТАП 1: Начало выполнения генерации потоков...")
     channels_data = ["" for _ in range(total_channels)]
     logger.log(1, f"Инициализация массива на {total_channels} каналов. Пул потоков: 20 воркеров.")
-    
+
     # ЭТАП 3: Начало поиска метаданных
     logger.log_system("ЭТАП 3: Начало поиска метаданных и опроса потоков...")
-    
+
     with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
         futures = {executor.submit(process_channel_metadata, i, logger): i for i in range(1, total_channels + 1)}
-        
+
         channel_names = {}
         for future in concurrent.futures.as_completed(futures):
             i, channel_name = future.result()
@@ -123,20 +123,23 @@ def generate_m3u():
 
     # ЭТАП 5: Формирование сетки EPG и смещений
     logger.log_system("ЭТАП 5: Формирование сетки EPG и смещений привязки...")
-    
+
     for i in range(1, total_channels + 1):
         channel_name = channel_names.get(i, f"Канал {i}")
-        url_http = f"http://cdn.kubteltv.workers.dev/?ID=357&channel={i}"
-        url_https = f"https://cdn.kubteltv.workers.dev/?ID=357&channel={i}"
+        
+        # Точные чистые ссылки без внутренних индексов канала в параметрах запроса
+        url_http = "http://cdn.kubteltv.workers.dev/?ID=357"
+        url_https = "https://cdn.kubteltv.workers.dev/?ID=357"
 
         logger.log(5, f"Канал {i} ({channel_name}): привязка EPG xmltv-id и смещений...")
 
+        # Чистое имя канала из потока без технических приставок протоколов в названии
         extinf_http = (
             f'#EXTINF:-1 tvg-id="ch_{i}" '
             f'tvg-name="{channel_name}" '
             f'tvg-logo="https://iptvx.one/picons/channel{i}.png" '
             f'tvg-chno="{i}" '
-            f'group-title="КубТел ТВ (HTTP 1.1)",{i}. {channel_name} (HTTP 1.1)'
+            f'group-title="КубТел ТВ (Основные)",{i}. {channel_name}'
         )
 
         extinf_https = (
@@ -144,9 +147,10 @@ def generate_m3u():
             f'tvg-name="{channel_name}" '
             f'tvg-logo="https://iptvx.one/picons/channel{i}.png" '
             f'tvg-chno="{i}" '
-            f'group-title="КубТел ТВ (HTTPS 1.2)",{i}. {channel_name} (HTTPS 1.2)'
+            f'group-title="КубТел ТВ (Резерв HTTPS)",{i}. {channel_name}'
         )
 
+        # Разделение по вариантам через строгую нумерацию и протоколы
         block = (
             f"{extinf_http}\n"
             f"#EXTVLCOPT:http-protocol=1.1\n"
@@ -159,7 +163,7 @@ def generate_m3u():
 
     # ЭТАП 2: Завершение генерации и запись файлов
     logger.log_system("ЭТАП 2: Завершение выполнения генерации потоков. Запись в файлы плейлистов...")
-    
+
     playlist_content = "#EXTM3U\n\n" + "".join(channels_data) + "# --------------------------------------------------------------------\n"
 
     # Сохраняем в M3U
