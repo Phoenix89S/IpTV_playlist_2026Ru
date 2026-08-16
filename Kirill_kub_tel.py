@@ -4,6 +4,7 @@ import re
 import ssl
 import time
 import urllib.request
+import threading
 from datetime import datetime, timezone, timedelta
 
 # Создаем контекст для игнорирования SSL-ошибок
@@ -37,22 +38,26 @@ def get_next_filename(base_name, extension):
 class DregLogger:
     def __init__(self, log_filename):
         self.log_filename = log_filename
+        self.lock = threading.Lock()
+
         with open(self.log_filename, "w", encoding="utf-8") as f:
             f.write(f"=== ЛОГ-ОТЧЕТ СКАЛА / ДРЕГ [{get_current_date()}] ===\n\n")
 
+    def write(self, line):
+        with self.lock:
+            print(line)
+            with open(self.log_filename, "a", encoding="utf-8") as f:
+                f.write(line + "\n")
+
     def log(self, stage_num, sub_msg):
-        timestamp = get_msk_time()
-        log_line = f"[{timestamp}] [ДРЕГ-ЭТАП {stage_num}] {sub_msg}"
-        print(log_line)
-        with open(self.log_filename, "a", encoding="utf-8") as f:
-            f.write(log_line + "\n")
+        self.write(
+            f"[{get_msk_time()}] [ДРЕГ-ЭТАП {stage_num}] {sub_msg}"
+        )
 
     def log_system(self, message):
-        timestamp = get_msk_time()
-        log_line = f"[{timestamp}] [СИСТЕМА] {message}"
-        print(log_line)
-        with open(self.log_filename, "a", encoding="utf-8") as f:
-            f.write(log_line + "\n")
+        self.write(
+            f"[{get_msk_time()}] [СИСТЕМА] {message}"
+        )
 
 def fetch_stream_metadata_and_metrics(url, timeout=3):
     """
@@ -75,17 +80,25 @@ def fetch_stream_metadata_and_metrics(url, timeout=3):
     start_time = time.time()
     try:
         req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=timeout, context=ctx) as response:
+        with urllib.request.urlopen(
+                req,
+                timeout=(timeout),
+                context=ctx
+        ) as response:
             # Анализ ICY заголовков
             icy_name = response.headers.get("icy-name")
             if icy_name:
                 meta["name"] = icy_name.strip()
 
             # Чтение порции данных для метрик качества и поиска метаданных внутри потока
-            chunk = response.read(16384)
+            try:
+                chunk = response.read(16384)
+            except:
+                chunk = b""
+
             elapsed = time.time() - start_time
             
-            if elapsed > 0:
+            if elapsed > 0 and chunk:
                 # Расчет скорости (Ока-метрик): кБ/с
                 meta["speed_kbps"] = round((len(chunk) / 1024) / elapsed, 2)
                 if meta["speed_kbps"] > 50:
@@ -109,29 +122,50 @@ def fetch_stream_metadata_and_metrics(url, timeout=3):
             match_shift = re.search(r'(?:shift|utc|plus)[=_\s]*([+-]?\d+)', text_chunk, re.IGNORECASE)
             if match_shift:
                 meta["shift"] = match_shift.group(1)
-    except Exception:
-        pass
+    except Exception as e:
+        meta["quality_score"] = "Ошибка потока"
+        return meta
         
     return meta
 
 def process_channel_metadata(i, logger):
-    url_http = f"http://cdn.kubteltv.workers.dev/?ID={i}"
-    url_https = f"https://cdn.kubteltv.workers.dev/?ID={i}"
+    try:
+        url_http = f"http://cdn.kubteltv.workers.dev/?ID={i}"
+        url_https = f"https://cdn.kubteltv.workers.dev/?ID={i}"
 
-    logger.log(3, f"ID канала {i}: сканирование потока, замеры скорости (Ока) и качества...")
-    
-    data = fetch_stream_metadata_and_metrics(url_http)
-    if not data["name"]:
-        data = fetch_stream_metadata_and_metrics(url_https)
+        logger.log(
+            3,
+            f"ID {i}: проверка потока"
+        )
 
-    channel_name = data["name"] if data["name"] else f"Канал {i}"
-    tvg_id = data["tvg_id"] if data["tvg_id"] else f"ch_{i}"
-    shift = data["shift"]
-    speed = data["speed_kbps"]
-    quality = data["quality_score"]
+        data = fetch_stream_metadata_and_metrics(url_http)
 
-    logger.log(4, f"ID {i} выхвачено -> Имя: '{channel_name}', ID: '{tvg_id}', Сдвиг: '{shift}', Скорость: {speed} кБ/с, Качество: {quality}")
-    return i, channel_name, tvg_id, shift, speed, quality
+        if not data["name"]:
+            data = fetch_stream_metadata_and_metrics(url_https)
+
+        return (
+            i,
+            data.get("name") or f"Канал {i}",
+            data.get("tvg_id") or f"ch_{i}",
+            data.get("shift"),
+            data.get("speed_kbps", 0),
+            data.get("quality_score", "Неизвестно")
+        )
+
+    except Exception as e:
+        logger.log(
+            9,
+            f"ID {i}: ошибка {e}"
+        )
+
+        return (
+            i,
+            f"Канал {i}",
+            f"ch_{i}",
+            None,
+            0,
+            "Ошибка"
+        )
 
 def generate_m3u():
     log_file_name = get_next_filename("Kub_kirill", "txt")
@@ -146,24 +180,42 @@ def generate_m3u():
     logger.log_system("================================================================================")
     logger.log_system(f"Диапазон: 1 - {total_channels} | Лог: {log_file_name} | Плейлисты: {m3u_file_name}, {m3u8_file_name}")
 
-    logger.log_system("ЭТАП 1: Инициализация массива каналов. Поток воркеров: 20.")
+    logger.log_system("ЭТАП 1: Инициализация массива каналов. Поток воркеров: 12.")
     channels_data = ["" for _ in range(total_channels)]
 
     logger.log_system("ЭТАП 3: Запуск глубокого анализа потоков, выхватывания имен, EPG, Ока-скорости и качества...")
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
+    scanned_results = {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=12) as executor:
         futures = {executor.submit(process_channel_metadata, i, logger): i for i in range(1, total_channels + 1)}
 
-        scanned_results = {}
         for future in concurrent.futures.as_completed(futures):
-            i, name, tvg_id, shift, speed, quality = future.result()
-            scanned_results[i] = {
-                "name": name, 
-                "tvg_id": tvg_id, 
-                "shift": shift, 
-                "speed": speed, 
-                "quality": quality
-            }
+            try:
+                result = future.result()
+                i, name, tvg_id, shift, speed, quality = result
+
+                scanned_results[i] = {
+                    "name": name,
+                    "tvg_id": tvg_id,
+                    "shift": shift,
+                    "speed": speed,
+                    "quality": quality
+                }
+
+            except Exception as e:
+                channel_id = futures[future]
+                logger.log(
+                    9,
+                    f"ID {channel_id}: поток завершился ошибкой {e}"
+                )
+
+                scanned_results[channel_id] = {
+                    "name": f"Канал {channel_id}",
+                    "tvg_id": f"ch_{channel_id}",
+                    "shift": None,
+                    "speed": 0,
+                    "quality": "Ошибка"
+                }
 
     logger.log_system("ЭТАП 4: Анализ завершен. Все параметры и метрики качества зафиксированы.")
     logger.log_system("ЭТАП 5: Генерация расширенных тегов плейлиста с учетом Ока-скорости...")
@@ -176,7 +228,16 @@ def generate_m3u():
         speed = d.get("speed", 0.0)
         quality = d.get("quality", "Низкое")
 
-        shift_suffix = f" (+{shift})" if shift and int(shift) > 0 else (f" ({shift})" if shift else "")
+        try:
+            shift_num = int(shift)
+        except:
+            shift_num = None
+
+        if shift_num is not None:
+            shift_suffix = f" ({'+' if shift_num > 0 else ''}{shift_num})"
+        else:
+            shift_suffix = ""
+
         full_channel_name = f"{channel_name}{shift_suffix}"
 
         url_http = f"http://cdn.kubteltv.workers.dev/?ID={i}"
