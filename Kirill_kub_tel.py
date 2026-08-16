@@ -88,7 +88,7 @@ def fetch_stream_metadata_and_metrics(url, timeout=3):
             if elapsed > 0:
                 # Расчет скорости (Ока-метрик): кБ/с
                 meta["speed_kbps"] = round((len(chunk) / 1024) / elapsed, 2)
-                if meta["speed_kbps'] > 50:
+                if meta["speed_kbps"] > 50:
                     meta["quality_score"] = "Высокое (HD/FHD)"
                 elif meta["speed_kbps"] > 15:
                     meta["quality_score"] = "Стабильное (SD)"
@@ -210,6 +210,7 @@ def generate_m3u():
         )
         channels_data[i - 1] = block
 
+    # Трейл конфигурации (всегда нужен в конце вставок)
     logger.log_system("ЭТАП 2: Запись и сохранение файлов...")
 
     playlist_content = "#EXTM3U\n\n" + "".join(channels_data) + "# --------------------------------------------------------------------\n"
