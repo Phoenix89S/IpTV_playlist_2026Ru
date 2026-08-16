@@ -1,0 +1,3203 @@
+#EXTM3U
+
+#EXTINF:-1 tvg-id="ch_1" tvg-name="Канал 1" tvg-logo="https://iptvx.one/picons/channel1.png" tvg-chno="1" group-title="КубТел ТВ (Основные)",1. Канал 1
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_1" tvg-name="Канал 1" tvg-logo="https://iptvx.one/picons/channel1.png" tvg-chno="1" group-title="КубТел ТВ (Резерв HTTPS)",1. Канал 1
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_2" tvg-name="Канал 2" tvg-logo="https://iptvx.one/picons/channel2.png" tvg-chno="2" group-title="КубТел ТВ (Основные)",2. Канал 2
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_2" tvg-name="Канал 2" tvg-logo="https://iptvx.one/picons/channel2.png" tvg-chno="2" group-title="КубТел ТВ (Резерв HTTPS)",2. Канал 2
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_3" tvg-name="Канал 3" tvg-logo="https://iptvx.one/picons/channel3.png" tvg-chno="3" group-title="КубТел ТВ (Основные)",3. Канал 3
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_3" tvg-name="Канал 3" tvg-logo="https://iptvx.one/picons/channel3.png" tvg-chno="3" group-title="КубТел ТВ (Резерв HTTPS)",3. Канал 3
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_4" tvg-name="Канал 4" tvg-logo="https://iptvx.one/picons/channel4.png" tvg-chno="4" group-title="КубТел ТВ (Основные)",4. Канал 4
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_4" tvg-name="Канал 4" tvg-logo="https://iptvx.one/picons/channel4.png" tvg-chno="4" group-title="КубТел ТВ (Резерв HTTPS)",4. Канал 4
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_5" tvg-name="Канал 5" tvg-logo="https://iptvx.one/picons/channel5.png" tvg-chno="5" group-title="КубТел ТВ (Основные)",5. Канал 5
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_5" tvg-name="Канал 5" tvg-logo="https://iptvx.one/picons/channel5.png" tvg-chno="5" group-title="КубТел ТВ (Резерв HTTPS)",5. Канал 5
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_6" tvg-name="Канал 6" tvg-logo="https://iptvx.one/picons/channel6.png" tvg-chno="6" group-title="КубТел ТВ (Основные)",6. Канал 6
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_6" tvg-name="Канал 6" tvg-logo="https://iptvx.one/picons/channel6.png" tvg-chno="6" group-title="КубТел ТВ (Резерв HTTPS)",6. Канал 6
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_7" tvg-name="Канал 7" tvg-logo="https://iptvx.one/picons/channel7.png" tvg-chno="7" group-title="КубТел ТВ (Основные)",7. Канал 7
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_7" tvg-name="Канал 7" tvg-logo="https://iptvx.one/picons/channel7.png" tvg-chno="7" group-title="КубТел ТВ (Резерв HTTPS)",7. Канал 7
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_8" tvg-name="Канал 8" tvg-logo="https://iptvx.one/picons/channel8.png" tvg-chno="8" group-title="КубТел ТВ (Основные)",8. Канал 8
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_8" tvg-name="Канал 8" tvg-logo="https://iptvx.one/picons/channel8.png" tvg-chno="8" group-title="КубТел ТВ (Резерв HTTPS)",8. Канал 8
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_9" tvg-name="Канал 9" tvg-logo="https://iptvx.one/picons/channel9.png" tvg-chno="9" group-title="КубТел ТВ (Основные)",9. Канал 9
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_9" tvg-name="Канал 9" tvg-logo="https://iptvx.one/picons/channel9.png" tvg-chno="9" group-title="КубТел ТВ (Резерв HTTPS)",9. Канал 9
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_10" tvg-name="Канал 10" tvg-logo="https://iptvx.one/picons/channel10.png" tvg-chno="10" group-title="КубТел ТВ (Основные)",10. Канал 10
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_10" tvg-name="Канал 10" tvg-logo="https://iptvx.one/picons/channel10.png" tvg-chno="10" group-title="КубТел ТВ (Резерв HTTPS)",10. Канал 10
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_11" tvg-name="Канал 11" tvg-logo="https://iptvx.one/picons/channel11.png" tvg-chno="11" group-title="КубТел ТВ (Основные)",11. Канал 11
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_11" tvg-name="Канал 11" tvg-logo="https://iptvx.one/picons/channel11.png" tvg-chno="11" group-title="КубТел ТВ (Резерв HTTPS)",11. Канал 11
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_12" tvg-name="Канал 12" tvg-logo="https://iptvx.one/picons/channel12.png" tvg-chno="12" group-title="КубТел ТВ (Основные)",12. Канал 12
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_12" tvg-name="Канал 12" tvg-logo="https://iptvx.one/picons/channel12.png" tvg-chno="12" group-title="КубТел ТВ (Резерв HTTPS)",12. Канал 12
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_13" tvg-name="Канал 13" tvg-logo="https://iptvx.one/picons/channel13.png" tvg-chno="13" group-title="КубТел ТВ (Основные)",13. Канал 13
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_13" tvg-name="Канал 13" tvg-logo="https://iptvx.one/picons/channel13.png" tvg-chno="13" group-title="КубТел ТВ (Резерв HTTPS)",13. Канал 13
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_14" tvg-name="Канал 14" tvg-logo="https://iptvx.one/picons/channel14.png" tvg-chno="14" group-title="КубТел ТВ (Основные)",14. Канал 14
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_14" tvg-name="Канал 14" tvg-logo="https://iptvx.one/picons/channel14.png" tvg-chno="14" group-title="КубТел ТВ (Резерв HTTPS)",14. Канал 14
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_15" tvg-name="Канал 15" tvg-logo="https://iptvx.one/picons/channel15.png" tvg-chno="15" group-title="КубТел ТВ (Основные)",15. Канал 15
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_15" tvg-name="Канал 15" tvg-logo="https://iptvx.one/picons/channel15.png" tvg-chno="15" group-title="КубТел ТВ (Резерв HTTPS)",15. Канал 15
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_16" tvg-name="Канал 16" tvg-logo="https://iptvx.one/picons/channel16.png" tvg-chno="16" group-title="КубТел ТВ (Основные)",16. Канал 16
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_16" tvg-name="Канал 16" tvg-logo="https://iptvx.one/picons/channel16.png" tvg-chno="16" group-title="КубТел ТВ (Резерв HTTPS)",16. Канал 16
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_17" tvg-name="Канал 17" tvg-logo="https://iptvx.one/picons/channel17.png" tvg-chno="17" group-title="КубТел ТВ (Основные)",17. Канал 17
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_17" tvg-name="Канал 17" tvg-logo="https://iptvx.one/picons/channel17.png" tvg-chno="17" group-title="КубТел ТВ (Резерв HTTPS)",17. Канал 17
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_18" tvg-name="Канал 18" tvg-logo="https://iptvx.one/picons/channel18.png" tvg-chno="18" group-title="КубТел ТВ (Основные)",18. Канал 18
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_18" tvg-name="Канал 18" tvg-logo="https://iptvx.one/picons/channel18.png" tvg-chno="18" group-title="КубТел ТВ (Резерв HTTPS)",18. Канал 18
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_19" tvg-name="Канал 19" tvg-logo="https://iptvx.one/picons/channel19.png" tvg-chno="19" group-title="КубТел ТВ (Основные)",19. Канал 19
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_19" tvg-name="Канал 19" tvg-logo="https://iptvx.one/picons/channel19.png" tvg-chno="19" group-title="КубТел ТВ (Резерв HTTPS)",19. Канал 19
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_20" tvg-name="Канал 20" tvg-logo="https://iptvx.one/picons/channel20.png" tvg-chno="20" group-title="КубТел ТВ (Основные)",20. Канал 20
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_20" tvg-name="Канал 20" tvg-logo="https://iptvx.one/picons/channel20.png" tvg-chno="20" group-title="КубТел ТВ (Резерв HTTPS)",20. Канал 20
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_21" tvg-name="Канал 21" tvg-logo="https://iptvx.one/picons/channel21.png" tvg-chno="21" group-title="КубТел ТВ (Основные)",21. Канал 21
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_21" tvg-name="Канал 21" tvg-logo="https://iptvx.one/picons/channel21.png" tvg-chno="21" group-title="КубТел ТВ (Резерв HTTPS)",21. Канал 21
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_22" tvg-name="Канал 22" tvg-logo="https://iptvx.one/picons/channel22.png" tvg-chno="22" group-title="КубТел ТВ (Основные)",22. Канал 22
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_22" tvg-name="Канал 22" tvg-logo="https://iptvx.one/picons/channel22.png" tvg-chno="22" group-title="КубТел ТВ (Резерв HTTPS)",22. Канал 22
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_23" tvg-name="Канал 23" tvg-logo="https://iptvx.one/picons/channel23.png" tvg-chno="23" group-title="КубТел ТВ (Основные)",23. Канал 23
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_23" tvg-name="Канал 23" tvg-logo="https://iptvx.one/picons/channel23.png" tvg-chno="23" group-title="КубТел ТВ (Резерв HTTPS)",23. Канал 23
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_24" tvg-name="Канал 24" tvg-logo="https://iptvx.one/picons/channel24.png" tvg-chno="24" group-title="КубТел ТВ (Основные)",24. Канал 24
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_24" tvg-name="Канал 24" tvg-logo="https://iptvx.one/picons/channel24.png" tvg-chno="24" group-title="КубТел ТВ (Резерв HTTPS)",24. Канал 24
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_25" tvg-name="Канал 25" tvg-logo="https://iptvx.one/picons/channel25.png" tvg-chno="25" group-title="КубТел ТВ (Основные)",25. Канал 25
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_25" tvg-name="Канал 25" tvg-logo="https://iptvx.one/picons/channel25.png" tvg-chno="25" group-title="КубТел ТВ (Резерв HTTPS)",25. Канал 25
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_26" tvg-name="Канал 26" tvg-logo="https://iptvx.one/picons/channel26.png" tvg-chno="26" group-title="КубТел ТВ (Основные)",26. Канал 26
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_26" tvg-name="Канал 26" tvg-logo="https://iptvx.one/picons/channel26.png" tvg-chno="26" group-title="КубТел ТВ (Резерв HTTPS)",26. Канал 26
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_27" tvg-name="Канал 27" tvg-logo="https://iptvx.one/picons/channel27.png" tvg-chno="27" group-title="КубТел ТВ (Основные)",27. Канал 27
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_27" tvg-name="Канал 27" tvg-logo="https://iptvx.one/picons/channel27.png" tvg-chno="27" group-title="КубТел ТВ (Резерв HTTPS)",27. Канал 27
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_28" tvg-name="Канал 28" tvg-logo="https://iptvx.one/picons/channel28.png" tvg-chno="28" group-title="КубТел ТВ (Основные)",28. Канал 28
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_28" tvg-name="Канал 28" tvg-logo="https://iptvx.one/picons/channel28.png" tvg-chno="28" group-title="КубТел ТВ (Резерв HTTPS)",28. Канал 28
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_29" tvg-name="Канал 29" tvg-logo="https://iptvx.one/picons/channel29.png" tvg-chno="29" group-title="КубТел ТВ (Основные)",29. Канал 29
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_29" tvg-name="Канал 29" tvg-logo="https://iptvx.one/picons/channel29.png" tvg-chno="29" group-title="КубТел ТВ (Резерв HTTPS)",29. Канал 29
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_30" tvg-name="Канал 30" tvg-logo="https://iptvx.one/picons/channel30.png" tvg-chno="30" group-title="КубТел ТВ (Основные)",30. Канал 30
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_30" tvg-name="Канал 30" tvg-logo="https://iptvx.one/picons/channel30.png" tvg-chno="30" group-title="КубТел ТВ (Резерв HTTPS)",30. Канал 30
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_31" tvg-name="Канал 31" tvg-logo="https://iptvx.one/picons/channel31.png" tvg-chno="31" group-title="КубТел ТВ (Основные)",31. Канал 31
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_31" tvg-name="Канал 31" tvg-logo="https://iptvx.one/picons/channel31.png" tvg-chno="31" group-title="КубТел ТВ (Резерв HTTPS)",31. Канал 31
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_32" tvg-name="Канал 32" tvg-logo="https://iptvx.one/picons/channel32.png" tvg-chno="32" group-title="КубТел ТВ (Основные)",32. Канал 32
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_32" tvg-name="Канал 32" tvg-logo="https://iptvx.one/picons/channel32.png" tvg-chno="32" group-title="КубТел ТВ (Резерв HTTPS)",32. Канал 32
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_33" tvg-name="Канал 33" tvg-logo="https://iptvx.one/picons/channel33.png" tvg-chno="33" group-title="КубТел ТВ (Основные)",33. Канал 33
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_33" tvg-name="Канал 33" tvg-logo="https://iptvx.one/picons/channel33.png" tvg-chno="33" group-title="КубТел ТВ (Резерв HTTPS)",33. Канал 33
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_34" tvg-name="Канал 34" tvg-logo="https://iptvx.one/picons/channel34.png" tvg-chno="34" group-title="КубТел ТВ (Основные)",34. Канал 34
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_34" tvg-name="Канал 34" tvg-logo="https://iptvx.one/picons/channel34.png" tvg-chno="34" group-title="КубТел ТВ (Резерв HTTPS)",34. Канал 34
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_35" tvg-name="Канал 35" tvg-logo="https://iptvx.one/picons/channel35.png" tvg-chno="35" group-title="КубТел ТВ (Основные)",35. Канал 35
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_35" tvg-name="Канал 35" tvg-logo="https://iptvx.one/picons/channel35.png" tvg-chno="35" group-title="КубТел ТВ (Резерв HTTPS)",35. Канал 35
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_36" tvg-name="Канал 36" tvg-logo="https://iptvx.one/picons/channel36.png" tvg-chno="36" group-title="КубТел ТВ (Основные)",36. Канал 36
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_36" tvg-name="Канал 36" tvg-logo="https://iptvx.one/picons/channel36.png" tvg-chno="36" group-title="КубТел ТВ (Резерв HTTPS)",36. Канал 36
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_37" tvg-name="Канал 37" tvg-logo="https://iptvx.one/picons/channel37.png" tvg-chno="37" group-title="КубТел ТВ (Основные)",37. Канал 37
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_37" tvg-name="Канал 37" tvg-logo="https://iptvx.one/picons/channel37.png" tvg-chno="37" group-title="КубТел ТВ (Резерв HTTPS)",37. Канал 37
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_38" tvg-name="Канал 38" tvg-logo="https://iptvx.one/picons/channel38.png" tvg-chno="38" group-title="КубТел ТВ (Основные)",38. Канал 38
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_38" tvg-name="Канал 38" tvg-logo="https://iptvx.one/picons/channel38.png" tvg-chno="38" group-title="КубТел ТВ (Резерв HTTPS)",38. Канал 38
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_39" tvg-name="Канал 39" tvg-logo="https://iptvx.one/picons/channel39.png" tvg-chno="39" group-title="КубТел ТВ (Основные)",39. Канал 39
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_39" tvg-name="Канал 39" tvg-logo="https://iptvx.one/picons/channel39.png" tvg-chno="39" group-title="КубТел ТВ (Резерв HTTPS)",39. Канал 39
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_40" tvg-name="Канал 40" tvg-logo="https://iptvx.one/picons/channel40.png" tvg-chno="40" group-title="КубТел ТВ (Основные)",40. Канал 40
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_40" tvg-name="Канал 40" tvg-logo="https://iptvx.one/picons/channel40.png" tvg-chno="40" group-title="КубТел ТВ (Резерв HTTPS)",40. Канал 40
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_41" tvg-name="Канал 41" tvg-logo="https://iptvx.one/picons/channel41.png" tvg-chno="41" group-title="КубТел ТВ (Основные)",41. Канал 41
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_41" tvg-name="Канал 41" tvg-logo="https://iptvx.one/picons/channel41.png" tvg-chno="41" group-title="КубТел ТВ (Резерв HTTPS)",41. Канал 41
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_42" tvg-name="Канал 42" tvg-logo="https://iptvx.one/picons/channel42.png" tvg-chno="42" group-title="КубТел ТВ (Основные)",42. Канал 42
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_42" tvg-name="Канал 42" tvg-logo="https://iptvx.one/picons/channel42.png" tvg-chno="42" group-title="КубТел ТВ (Резерв HTTPS)",42. Канал 42
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_43" tvg-name="Канал 43" tvg-logo="https://iptvx.one/picons/channel43.png" tvg-chno="43" group-title="КубТел ТВ (Основные)",43. Канал 43
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_43" tvg-name="Канал 43" tvg-logo="https://iptvx.one/picons/channel43.png" tvg-chno="43" group-title="КубТел ТВ (Резерв HTTPS)",43. Канал 43
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_44" tvg-name="Канал 44" tvg-logo="https://iptvx.one/picons/channel44.png" tvg-chno="44" group-title="КубТел ТВ (Основные)",44. Канал 44
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_44" tvg-name="Канал 44" tvg-logo="https://iptvx.one/picons/channel44.png" tvg-chno="44" group-title="КубТел ТВ (Резерв HTTPS)",44. Канал 44
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_45" tvg-name="Канал 45" tvg-logo="https://iptvx.one/picons/channel45.png" tvg-chno="45" group-title="КубТел ТВ (Основные)",45. Канал 45
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_45" tvg-name="Канал 45" tvg-logo="https://iptvx.one/picons/channel45.png" tvg-chno="45" group-title="КубТел ТВ (Резерв HTTPS)",45. Канал 45
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_46" tvg-name="Канал 46" tvg-logo="https://iptvx.one/picons/channel46.png" tvg-chno="46" group-title="КубТел ТВ (Основные)",46. Канал 46
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_46" tvg-name="Канал 46" tvg-logo="https://iptvx.one/picons/channel46.png" tvg-chno="46" group-title="КубТел ТВ (Резерв HTTPS)",46. Канал 46
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_47" tvg-name="Канал 47" tvg-logo="https://iptvx.one/picons/channel47.png" tvg-chno="47" group-title="КубТел ТВ (Основные)",47. Канал 47
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_47" tvg-name="Канал 47" tvg-logo="https://iptvx.one/picons/channel47.png" tvg-chno="47" group-title="КубТел ТВ (Резерв HTTPS)",47. Канал 47
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_48" tvg-name="Канал 48" tvg-logo="https://iptvx.one/picons/channel48.png" tvg-chno="48" group-title="КубТел ТВ (Основные)",48. Канал 48
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_48" tvg-name="Канал 48" tvg-logo="https://iptvx.one/picons/channel48.png" tvg-chno="48" group-title="КубТел ТВ (Резерв HTTPS)",48. Канал 48
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_49" tvg-name="Канал 49" tvg-logo="https://iptvx.one/picons/channel49.png" tvg-chno="49" group-title="КубТел ТВ (Основные)",49. Канал 49
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_49" tvg-name="Канал 49" tvg-logo="https://iptvx.one/picons/channel49.png" tvg-chno="49" group-title="КубТел ТВ (Резерв HTTPS)",49. Канал 49
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_50" tvg-name="Канал 50" tvg-logo="https://iptvx.one/picons/channel50.png" tvg-chno="50" group-title="КубТел ТВ (Основные)",50. Канал 50
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_50" tvg-name="Канал 50" tvg-logo="https://iptvx.one/picons/channel50.png" tvg-chno="50" group-title="КубТел ТВ (Резерв HTTPS)",50. Канал 50
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_51" tvg-name="Канал 51" tvg-logo="https://iptvx.one/picons/channel51.png" tvg-chno="51" group-title="КубТел ТВ (Основные)",51. Канал 51
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_51" tvg-name="Канал 51" tvg-logo="https://iptvx.one/picons/channel51.png" tvg-chno="51" group-title="КубТел ТВ (Резерв HTTPS)",51. Канал 51
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_52" tvg-name="Канал 52" tvg-logo="https://iptvx.one/picons/channel52.png" tvg-chno="52" group-title="КубТел ТВ (Основные)",52. Канал 52
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_52" tvg-name="Канал 52" tvg-logo="https://iptvx.one/picons/channel52.png" tvg-chno="52" group-title="КубТел ТВ (Резерв HTTPS)",52. Канал 52
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_53" tvg-name="Канал 53" tvg-logo="https://iptvx.one/picons/channel53.png" tvg-chno="53" group-title="КубТел ТВ (Основные)",53. Канал 53
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_53" tvg-name="Канал 53" tvg-logo="https://iptvx.one/picons/channel53.png" tvg-chno="53" group-title="КубТел ТВ (Резерв HTTPS)",53. Канал 53
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_54" tvg-name="Канал 54" tvg-logo="https://iptvx.one/picons/channel54.png" tvg-chno="54" group-title="КубТел ТВ (Основные)",54. Канал 54
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_54" tvg-name="Канал 54" tvg-logo="https://iptvx.one/picons/channel54.png" tvg-chno="54" group-title="КубТел ТВ (Резерв HTTPS)",54. Канал 54
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_55" tvg-name="Канал 55" tvg-logo="https://iptvx.one/picons/channel55.png" tvg-chno="55" group-title="КубТел ТВ (Основные)",55. Канал 55
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_55" tvg-name="Канал 55" tvg-logo="https://iptvx.one/picons/channel55.png" tvg-chno="55" group-title="КубТел ТВ (Резерв HTTPS)",55. Канал 55
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_56" tvg-name="Канал 56" tvg-logo="https://iptvx.one/picons/channel56.png" tvg-chno="56" group-title="КубТел ТВ (Основные)",56. Канал 56
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_56" tvg-name="Канал 56" tvg-logo="https://iptvx.one/picons/channel56.png" tvg-chno="56" group-title="КубТел ТВ (Резерв HTTPS)",56. Канал 56
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_57" tvg-name="Канал 57" tvg-logo="https://iptvx.one/picons/channel57.png" tvg-chno="57" group-title="КубТел ТВ (Основные)",57. Канал 57
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_57" tvg-name="Канал 57" tvg-logo="https://iptvx.one/picons/channel57.png" tvg-chno="57" group-title="КубТел ТВ (Резерв HTTPS)",57. Канал 57
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_58" tvg-name="Канал 58" tvg-logo="https://iptvx.one/picons/channel58.png" tvg-chno="58" group-title="КубТел ТВ (Основные)",58. Канал 58
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_58" tvg-name="Канал 58" tvg-logo="https://iptvx.one/picons/channel58.png" tvg-chno="58" group-title="КубТел ТВ (Резерв HTTPS)",58. Канал 58
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_59" tvg-name="Канал 59" tvg-logo="https://iptvx.one/picons/channel59.png" tvg-chno="59" group-title="КубТел ТВ (Основные)",59. Канал 59
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_59" tvg-name="Канал 59" tvg-logo="https://iptvx.one/picons/channel59.png" tvg-chno="59" group-title="КубТел ТВ (Резерв HTTPS)",59. Канал 59
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_60" tvg-name="Канал 60" tvg-logo="https://iptvx.one/picons/channel60.png" tvg-chno="60" group-title="КубТел ТВ (Основные)",60. Канал 60
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_60" tvg-name="Канал 60" tvg-logo="https://iptvx.one/picons/channel60.png" tvg-chno="60" group-title="КубТел ТВ (Резерв HTTPS)",60. Канал 60
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_61" tvg-name="Канал 61" tvg-logo="https://iptvx.one/picons/channel61.png" tvg-chno="61" group-title="КубТел ТВ (Основные)",61. Канал 61
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_61" tvg-name="Канал 61" tvg-logo="https://iptvx.one/picons/channel61.png" tvg-chno="61" group-title="КубТел ТВ (Резерв HTTPS)",61. Канал 61
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_62" tvg-name="Канал 62" tvg-logo="https://iptvx.one/picons/channel62.png" tvg-chno="62" group-title="КубТел ТВ (Основные)",62. Канал 62
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_62" tvg-name="Канал 62" tvg-logo="https://iptvx.one/picons/channel62.png" tvg-chno="62" group-title="КубТел ТВ (Резерв HTTPS)",62. Канал 62
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_63" tvg-name="Канал 63" tvg-logo="https://iptvx.one/picons/channel63.png" tvg-chno="63" group-title="КубТел ТВ (Основные)",63. Канал 63
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_63" tvg-name="Канал 63" tvg-logo="https://iptvx.one/picons/channel63.png" tvg-chno="63" group-title="КубТел ТВ (Резерв HTTPS)",63. Канал 63
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_64" tvg-name="Канал 64" tvg-logo="https://iptvx.one/picons/channel64.png" tvg-chno="64" group-title="КубТел ТВ (Основные)",64. Канал 64
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_64" tvg-name="Канал 64" tvg-logo="https://iptvx.one/picons/channel64.png" tvg-chno="64" group-title="КубТел ТВ (Резерв HTTPS)",64. Канал 64
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_65" tvg-name="Канал 65" tvg-logo="https://iptvx.one/picons/channel65.png" tvg-chno="65" group-title="КубТел ТВ (Основные)",65. Канал 65
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_65" tvg-name="Канал 65" tvg-logo="https://iptvx.one/picons/channel65.png" tvg-chno="65" group-title="КубТел ТВ (Резерв HTTPS)",65. Канал 65
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_66" tvg-name="Канал 66" tvg-logo="https://iptvx.one/picons/channel66.png" tvg-chno="66" group-title="КубТел ТВ (Основные)",66. Канал 66
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_66" tvg-name="Канал 66" tvg-logo="https://iptvx.one/picons/channel66.png" tvg-chno="66" group-title="КубТел ТВ (Резерв HTTPS)",66. Канал 66
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_67" tvg-name="Канал 67" tvg-logo="https://iptvx.one/picons/channel67.png" tvg-chno="67" group-title="КубТел ТВ (Основные)",67. Канал 67
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_67" tvg-name="Канал 67" tvg-logo="https://iptvx.one/picons/channel67.png" tvg-chno="67" group-title="КубТел ТВ (Резерв HTTPS)",67. Канал 67
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_68" tvg-name="Канал 68" tvg-logo="https://iptvx.one/picons/channel68.png" tvg-chno="68" group-title="КубТел ТВ (Основные)",68. Канал 68
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_68" tvg-name="Канал 68" tvg-logo="https://iptvx.one/picons/channel68.png" tvg-chno="68" group-title="КубТел ТВ (Резерв HTTPS)",68. Канал 68
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_69" tvg-name="Канал 69" tvg-logo="https://iptvx.one/picons/channel69.png" tvg-chno="69" group-title="КубТел ТВ (Основные)",69. Канал 69
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_69" tvg-name="Канал 69" tvg-logo="https://iptvx.one/picons/channel69.png" tvg-chno="69" group-title="КубТел ТВ (Резерв HTTPS)",69. Канал 69
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_70" tvg-name="Канал 70" tvg-logo="https://iptvx.one/picons/channel70.png" tvg-chno="70" group-title="КубТел ТВ (Основные)",70. Канал 70
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_70" tvg-name="Канал 70" tvg-logo="https://iptvx.one/picons/channel70.png" tvg-chno="70" group-title="КубТел ТВ (Резерв HTTPS)",70. Канал 70
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_71" tvg-name="Канал 71" tvg-logo="https://iptvx.one/picons/channel71.png" tvg-chno="71" group-title="КубТел ТВ (Основные)",71. Канал 71
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_71" tvg-name="Канал 71" tvg-logo="https://iptvx.one/picons/channel71.png" tvg-chno="71" group-title="КубТел ТВ (Резерв HTTPS)",71. Канал 71
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_72" tvg-name="Канал 72" tvg-logo="https://iptvx.one/picons/channel72.png" tvg-chno="72" group-title="КубТел ТВ (Основные)",72. Канал 72
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_72" tvg-name="Канал 72" tvg-logo="https://iptvx.one/picons/channel72.png" tvg-chno="72" group-title="КубТел ТВ (Резерв HTTPS)",72. Канал 72
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_73" tvg-name="Канал 73" tvg-logo="https://iptvx.one/picons/channel73.png" tvg-chno="73" group-title="КубТел ТВ (Основные)",73. Канал 73
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_73" tvg-name="Канал 73" tvg-logo="https://iptvx.one/picons/channel73.png" tvg-chno="73" group-title="КубТел ТВ (Резерв HTTPS)",73. Канал 73
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_74" tvg-name="Канал 74" tvg-logo="https://iptvx.one/picons/channel74.png" tvg-chno="74" group-title="КубТел ТВ (Основные)",74. Канал 74
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_74" tvg-name="Канал 74" tvg-logo="https://iptvx.one/picons/channel74.png" tvg-chno="74" group-title="КубТел ТВ (Резерв HTTPS)",74. Канал 74
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_75" tvg-name="Канал 75" tvg-logo="https://iptvx.one/picons/channel75.png" tvg-chno="75" group-title="КубТел ТВ (Основные)",75. Канал 75
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_75" tvg-name="Канал 75" tvg-logo="https://iptvx.one/picons/channel75.png" tvg-chno="75" group-title="КубТел ТВ (Резерв HTTPS)",75. Канал 75
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_76" tvg-name="Канал 76" tvg-logo="https://iptvx.one/picons/channel76.png" tvg-chno="76" group-title="КубТел ТВ (Основные)",76. Канал 76
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_76" tvg-name="Канал 76" tvg-logo="https://iptvx.one/picons/channel76.png" tvg-chno="76" group-title="КубТел ТВ (Резерв HTTPS)",76. Канал 76
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_77" tvg-name="Канал 77" tvg-logo="https://iptvx.one/picons/channel77.png" tvg-chno="77" group-title="КубТел ТВ (Основные)",77. Канал 77
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_77" tvg-name="Канал 77" tvg-logo="https://iptvx.one/picons/channel77.png" tvg-chno="77" group-title="КубТел ТВ (Резерв HTTPS)",77. Канал 77
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_78" tvg-name="Канал 78" tvg-logo="https://iptvx.one/picons/channel78.png" tvg-chno="78" group-title="КубТел ТВ (Основные)",78. Канал 78
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_78" tvg-name="Канал 78" tvg-logo="https://iptvx.one/picons/channel78.png" tvg-chno="78" group-title="КубТел ТВ (Резерв HTTPS)",78. Канал 78
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_79" tvg-name="Канал 79" tvg-logo="https://iptvx.one/picons/channel79.png" tvg-chno="79" group-title="КубТел ТВ (Основные)",79. Канал 79
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_79" tvg-name="Канал 79" tvg-logo="https://iptvx.one/picons/channel79.png" tvg-chno="79" group-title="КубТел ТВ (Резерв HTTPS)",79. Канал 79
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_80" tvg-name="Канал 80" tvg-logo="https://iptvx.one/picons/channel80.png" tvg-chno="80" group-title="КубТел ТВ (Основные)",80. Канал 80
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_80" tvg-name="Канал 80" tvg-logo="https://iptvx.one/picons/channel80.png" tvg-chno="80" group-title="КубТел ТВ (Резерв HTTPS)",80. Канал 80
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_81" tvg-name="Канал 81" tvg-logo="https://iptvx.one/picons/channel81.png" tvg-chno="81" group-title="КубТел ТВ (Основные)",81. Канал 81
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_81" tvg-name="Канал 81" tvg-logo="https://iptvx.one/picons/channel81.png" tvg-chno="81" group-title="КубТел ТВ (Резерв HTTPS)",81. Канал 81
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_82" tvg-name="Канал 82" tvg-logo="https://iptvx.one/picons/channel82.png" tvg-chno="82" group-title="КубТел ТВ (Основные)",82. Канал 82
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_82" tvg-name="Канал 82" tvg-logo="https://iptvx.one/picons/channel82.png" tvg-chno="82" group-title="КубТел ТВ (Резерв HTTPS)",82. Канал 82
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_83" tvg-name="Канал 83" tvg-logo="https://iptvx.one/picons/channel83.png" tvg-chno="83" group-title="КубТел ТВ (Основные)",83. Канал 83
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_83" tvg-name="Канал 83" tvg-logo="https://iptvx.one/picons/channel83.png" tvg-chno="83" group-title="КубТел ТВ (Резерв HTTPS)",83. Канал 83
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_84" tvg-name="Канал 84" tvg-logo="https://iptvx.one/picons/channel84.png" tvg-chno="84" group-title="КубТел ТВ (Основные)",84. Канал 84
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_84" tvg-name="Канал 84" tvg-logo="https://iptvx.one/picons/channel84.png" tvg-chno="84" group-title="КубТел ТВ (Резерв HTTPS)",84. Канал 84
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_85" tvg-name="Канал 85" tvg-logo="https://iptvx.one/picons/channel85.png" tvg-chno="85" group-title="КубТел ТВ (Основные)",85. Канал 85
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_85" tvg-name="Канал 85" tvg-logo="https://iptvx.one/picons/channel85.png" tvg-chno="85" group-title="КубТел ТВ (Резерв HTTPS)",85. Канал 85
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_86" tvg-name="Канал 86" tvg-logo="https://iptvx.one/picons/channel86.png" tvg-chno="86" group-title="КубТел ТВ (Основные)",86. Канал 86
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_86" tvg-name="Канал 86" tvg-logo="https://iptvx.one/picons/channel86.png" tvg-chno="86" group-title="КубТел ТВ (Резерв HTTPS)",86. Канал 86
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_87" tvg-name="Канал 87" tvg-logo="https://iptvx.one/picons/channel87.png" tvg-chno="87" group-title="КубТел ТВ (Основные)",87. Канал 87
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_87" tvg-name="Канал 87" tvg-logo="https://iptvx.one/picons/channel87.png" tvg-chno="87" group-title="КубТел ТВ (Резерв HTTPS)",87. Канал 87
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_88" tvg-name="Канал 88" tvg-logo="https://iptvx.one/picons/channel88.png" tvg-chno="88" group-title="КубТел ТВ (Основные)",88. Канал 88
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_88" tvg-name="Канал 88" tvg-logo="https://iptvx.one/picons/channel88.png" tvg-chno="88" group-title="КубТел ТВ (Резерв HTTPS)",88. Канал 88
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_89" tvg-name="Канал 89" tvg-logo="https://iptvx.one/picons/channel89.png" tvg-chno="89" group-title="КубТел ТВ (Основные)",89. Канал 89
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_89" tvg-name="Канал 89" tvg-logo="https://iptvx.one/picons/channel89.png" tvg-chno="89" group-title="КубТел ТВ (Резерв HTTPS)",89. Канал 89
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_90" tvg-name="Канал 90" tvg-logo="https://iptvx.one/picons/channel90.png" tvg-chno="90" group-title="КубТел ТВ (Основные)",90. Канал 90
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_90" tvg-name="Канал 90" tvg-logo="https://iptvx.one/picons/channel90.png" tvg-chno="90" group-title="КубТел ТВ (Резерв HTTPS)",90. Канал 90
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_91" tvg-name="Канал 91" tvg-logo="https://iptvx.one/picons/channel91.png" tvg-chno="91" group-title="КубТел ТВ (Основные)",91. Канал 91
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_91" tvg-name="Канал 91" tvg-logo="https://iptvx.one/picons/channel91.png" tvg-chno="91" group-title="КубТел ТВ (Резерв HTTPS)",91. Канал 91
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_92" tvg-name="Канал 92" tvg-logo="https://iptvx.one/picons/channel92.png" tvg-chno="92" group-title="КубТел ТВ (Основные)",92. Канал 92
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_92" tvg-name="Канал 92" tvg-logo="https://iptvx.one/picons/channel92.png" tvg-chno="92" group-title="КубТел ТВ (Резерв HTTPS)",92. Канал 92
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_93" tvg-name="Канал 93" tvg-logo="https://iptvx.one/picons/channel93.png" tvg-chno="93" group-title="КубТел ТВ (Основные)",93. Канал 93
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_93" tvg-name="Канал 93" tvg-logo="https://iptvx.one/picons/channel93.png" tvg-chno="93" group-title="КубТел ТВ (Резерв HTTPS)",93. Канал 93
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_94" tvg-name="Канал 94" tvg-logo="https://iptvx.one/picons/channel94.png" tvg-chno="94" group-title="КубТел ТВ (Основные)",94. Канал 94
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_94" tvg-name="Канал 94" tvg-logo="https://iptvx.one/picons/channel94.png" tvg-chno="94" group-title="КубТел ТВ (Резерв HTTPS)",94. Канал 94
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_95" tvg-name="Канал 95" tvg-logo="https://iptvx.one/picons/channel95.png" tvg-chno="95" group-title="КубТел ТВ (Основные)",95. Канал 95
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_95" tvg-name="Канал 95" tvg-logo="https://iptvx.one/picons/channel95.png" tvg-chno="95" group-title="КубТел ТВ (Резерв HTTPS)",95. Канал 95
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_96" tvg-name="Канал 96" tvg-logo="https://iptvx.one/picons/channel96.png" tvg-chno="96" group-title="КубТел ТВ (Основные)",96. Канал 96
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_96" tvg-name="Канал 96" tvg-logo="https://iptvx.one/picons/channel96.png" tvg-chno="96" group-title="КубТел ТВ (Резерв HTTPS)",96. Канал 96
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_97" tvg-name="Канал 97" tvg-logo="https://iptvx.one/picons/channel97.png" tvg-chno="97" group-title="КубТел ТВ (Основные)",97. Канал 97
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_97" tvg-name="Канал 97" tvg-logo="https://iptvx.one/picons/channel97.png" tvg-chno="97" group-title="КубТел ТВ (Резерв HTTPS)",97. Канал 97
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_98" tvg-name="Канал 98" tvg-logo="https://iptvx.one/picons/channel98.png" tvg-chno="98" group-title="КубТел ТВ (Основные)",98. Канал 98
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_98" tvg-name="Канал 98" tvg-logo="https://iptvx.one/picons/channel98.png" tvg-chno="98" group-title="КубТел ТВ (Резерв HTTPS)",98. Канал 98
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_99" tvg-name="Канал 99" tvg-logo="https://iptvx.one/picons/channel99.png" tvg-chno="99" group-title="КубТел ТВ (Основные)",99. Канал 99
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_99" tvg-name="Канал 99" tvg-logo="https://iptvx.one/picons/channel99.png" tvg-chno="99" group-title="КубТел ТВ (Резерв HTTPS)",99. Канал 99
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_100" tvg-name="Канал 100" tvg-logo="https://iptvx.one/picons/channel100.png" tvg-chno="100" group-title="КубТел ТВ (Основные)",100. Канал 100
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_100" tvg-name="Канал 100" tvg-logo="https://iptvx.one/picons/channel100.png" tvg-chno="100" group-title="КубТел ТВ (Резерв HTTPS)",100. Канал 100
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_101" tvg-name="Канал 101" tvg-logo="https://iptvx.one/picons/channel101.png" tvg-chno="101" group-title="КубТел ТВ (Основные)",101. Канал 101
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_101" tvg-name="Канал 101" tvg-logo="https://iptvx.one/picons/channel101.png" tvg-chno="101" group-title="КубТел ТВ (Резерв HTTPS)",101. Канал 101
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_102" tvg-name="Канал 102" tvg-logo="https://iptvx.one/picons/channel102.png" tvg-chno="102" group-title="КубТел ТВ (Основные)",102. Канал 102
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_102" tvg-name="Канал 102" tvg-logo="https://iptvx.one/picons/channel102.png" tvg-chno="102" group-title="КубТел ТВ (Резерв HTTPS)",102. Канал 102
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_103" tvg-name="Канал 103" tvg-logo="https://iptvx.one/picons/channel103.png" tvg-chno="103" group-title="КубТел ТВ (Основные)",103. Канал 103
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_103" tvg-name="Канал 103" tvg-logo="https://iptvx.one/picons/channel103.png" tvg-chno="103" group-title="КубТел ТВ (Резерв HTTPS)",103. Канал 103
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_104" tvg-name="Канал 104" tvg-logo="https://iptvx.one/picons/channel104.png" tvg-chno="104" group-title="КубТел ТВ (Основные)",104. Канал 104
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_104" tvg-name="Канал 104" tvg-logo="https://iptvx.one/picons/channel104.png" tvg-chno="104" group-title="КубТел ТВ (Резерв HTTPS)",104. Канал 104
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_105" tvg-name="Канал 105" tvg-logo="https://iptvx.one/picons/channel105.png" tvg-chno="105" group-title="КубТел ТВ (Основные)",105. Канал 105
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_105" tvg-name="Канал 105" tvg-logo="https://iptvx.one/picons/channel105.png" tvg-chno="105" group-title="КубТел ТВ (Резерв HTTPS)",105. Канал 105
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_106" tvg-name="Канал 106" tvg-logo="https://iptvx.one/picons/channel106.png" tvg-chno="106" group-title="КубТел ТВ (Основные)",106. Канал 106
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_106" tvg-name="Канал 106" tvg-logo="https://iptvx.one/picons/channel106.png" tvg-chno="106" group-title="КубТел ТВ (Резерв HTTPS)",106. Канал 106
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_107" tvg-name="Канал 107" tvg-logo="https://iptvx.one/picons/channel107.png" tvg-chno="107" group-title="КубТел ТВ (Основные)",107. Канал 107
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_107" tvg-name="Канал 107" tvg-logo="https://iptvx.one/picons/channel107.png" tvg-chno="107" group-title="КубТел ТВ (Резерв HTTPS)",107. Канал 107
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_108" tvg-name="Канал 108" tvg-logo="https://iptvx.one/picons/channel108.png" tvg-chno="108" group-title="КубТел ТВ (Основные)",108. Канал 108
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_108" tvg-name="Канал 108" tvg-logo="https://iptvx.one/picons/channel108.png" tvg-chno="108" group-title="КубТел ТВ (Резерв HTTPS)",108. Канал 108
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_109" tvg-name="Канал 109" tvg-logo="https://iptvx.one/picons/channel109.png" tvg-chno="109" group-title="КубТел ТВ (Основные)",109. Канал 109
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_109" tvg-name="Канал 109" tvg-logo="https://iptvx.one/picons/channel109.png" tvg-chno="109" group-title="КубТел ТВ (Резерв HTTPS)",109. Канал 109
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_110" tvg-name="Канал 110" tvg-logo="https://iptvx.one/picons/channel110.png" tvg-chno="110" group-title="КубТел ТВ (Основные)",110. Канал 110
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_110" tvg-name="Канал 110" tvg-logo="https://iptvx.one/picons/channel110.png" tvg-chno="110" group-title="КубТел ТВ (Резерв HTTPS)",110. Канал 110
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_111" tvg-name="Канал 111" tvg-logo="https://iptvx.one/picons/channel111.png" tvg-chno="111" group-title="КубТел ТВ (Основные)",111. Канал 111
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_111" tvg-name="Канал 111" tvg-logo="https://iptvx.one/picons/channel111.png" tvg-chno="111" group-title="КубТел ТВ (Резерв HTTPS)",111. Канал 111
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_112" tvg-name="Канал 112" tvg-logo="https://iptvx.one/picons/channel112.png" tvg-chno="112" group-title="КубТел ТВ (Основные)",112. Канал 112
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_112" tvg-name="Канал 112" tvg-logo="https://iptvx.one/picons/channel112.png" tvg-chno="112" group-title="КубТел ТВ (Резерв HTTPS)",112. Канал 112
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_113" tvg-name="Канал 113" tvg-logo="https://iptvx.one/picons/channel113.png" tvg-chno="113" group-title="КубТел ТВ (Основные)",113. Канал 113
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_113" tvg-name="Канал 113" tvg-logo="https://iptvx.one/picons/channel113.png" tvg-chno="113" group-title="КубТел ТВ (Резерв HTTPS)",113. Канал 113
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_114" tvg-name="Канал 114" tvg-logo="https://iptvx.one/picons/channel114.png" tvg-chno="114" group-title="КубТел ТВ (Основные)",114. Канал 114
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_114" tvg-name="Канал 114" tvg-logo="https://iptvx.one/picons/channel114.png" tvg-chno="114" group-title="КубТел ТВ (Резерв HTTPS)",114. Канал 114
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_115" tvg-name="Канал 115" tvg-logo="https://iptvx.one/picons/channel115.png" tvg-chno="115" group-title="КубТел ТВ (Основные)",115. Канал 115
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_115" tvg-name="Канал 115" tvg-logo="https://iptvx.one/picons/channel115.png" tvg-chno="115" group-title="КубТел ТВ (Резерв HTTPS)",115. Канал 115
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_116" tvg-name="Канал 116" tvg-logo="https://iptvx.one/picons/channel116.png" tvg-chno="116" group-title="КубТел ТВ (Основные)",116. Канал 116
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_116" tvg-name="Канал 116" tvg-logo="https://iptvx.one/picons/channel116.png" tvg-chno="116" group-title="КубТел ТВ (Резерв HTTPS)",116. Канал 116
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_117" tvg-name="Канал 117" tvg-logo="https://iptvx.one/picons/channel117.png" tvg-chno="117" group-title="КубТел ТВ (Основные)",117. Канал 117
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_117" tvg-name="Канал 117" tvg-logo="https://iptvx.one/picons/channel117.png" tvg-chno="117" group-title="КубТел ТВ (Резерв HTTPS)",117. Канал 117
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_118" tvg-name="Канал 118" tvg-logo="https://iptvx.one/picons/channel118.png" tvg-chno="118" group-title="КубТел ТВ (Основные)",118. Канал 118
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_118" tvg-name="Канал 118" tvg-logo="https://iptvx.one/picons/channel118.png" tvg-chno="118" group-title="КубТел ТВ (Резерв HTTPS)",118. Канал 118
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_119" tvg-name="Канал 119" tvg-logo="https://iptvx.one/picons/channel119.png" tvg-chno="119" group-title="КубТел ТВ (Основные)",119. Канал 119
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_119" tvg-name="Канал 119" tvg-logo="https://iptvx.one/picons/channel119.png" tvg-chno="119" group-title="КубТел ТВ (Резерв HTTPS)",119. Канал 119
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_120" tvg-name="Канал 120" tvg-logo="https://iptvx.one/picons/channel120.png" tvg-chno="120" group-title="КубТел ТВ (Основные)",120. Канал 120
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_120" tvg-name="Канал 120" tvg-logo="https://iptvx.one/picons/channel120.png" tvg-chno="120" group-title="КубТел ТВ (Резерв HTTPS)",120. Канал 120
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_121" tvg-name="Канал 121" tvg-logo="https://iptvx.one/picons/channel121.png" tvg-chno="121" group-title="КубТел ТВ (Основные)",121. Канал 121
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_121" tvg-name="Канал 121" tvg-logo="https://iptvx.one/picons/channel121.png" tvg-chno="121" group-title="КубТел ТВ (Резерв HTTPS)",121. Канал 121
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_122" tvg-name="Канал 122" tvg-logo="https://iptvx.one/picons/channel122.png" tvg-chno="122" group-title="КубТел ТВ (Основные)",122. Канал 122
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_122" tvg-name="Канал 122" tvg-logo="https://iptvx.one/picons/channel122.png" tvg-chno="122" group-title="КубТел ТВ (Резерв HTTPS)",122. Канал 122
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_123" tvg-name="Канал 123" tvg-logo="https://iptvx.one/picons/channel123.png" tvg-chno="123" group-title="КубТел ТВ (Основные)",123. Канал 123
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_123" tvg-name="Канал 123" tvg-logo="https://iptvx.one/picons/channel123.png" tvg-chno="123" group-title="КубТел ТВ (Резерв HTTPS)",123. Канал 123
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_124" tvg-name="Канал 124" tvg-logo="https://iptvx.one/picons/channel124.png" tvg-chno="124" group-title="КубТел ТВ (Основные)",124. Канал 124
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_124" tvg-name="Канал 124" tvg-logo="https://iptvx.one/picons/channel124.png" tvg-chno="124" group-title="КубТел ТВ (Резерв HTTPS)",124. Канал 124
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_125" tvg-name="Канал 125" tvg-logo="https://iptvx.one/picons/channel125.png" tvg-chno="125" group-title="КубТел ТВ (Основные)",125. Канал 125
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_125" tvg-name="Канал 125" tvg-logo="https://iptvx.one/picons/channel125.png" tvg-chno="125" group-title="КубТел ТВ (Резерв HTTPS)",125. Канал 125
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_126" tvg-name="Канал 126" tvg-logo="https://iptvx.one/picons/channel126.png" tvg-chno="126" group-title="КубТел ТВ (Основные)",126. Канал 126
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_126" tvg-name="Канал 126" tvg-logo="https://iptvx.one/picons/channel126.png" tvg-chno="126" group-title="КубТел ТВ (Резерв HTTPS)",126. Канал 126
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_127" tvg-name="Канал 127" tvg-logo="https://iptvx.one/picons/channel127.png" tvg-chno="127" group-title="КубТел ТВ (Основные)",127. Канал 127
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_127" tvg-name="Канал 127" tvg-logo="https://iptvx.one/picons/channel127.png" tvg-chno="127" group-title="КубТел ТВ (Резерв HTTPS)",127. Канал 127
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_128" tvg-name="Канал 128" tvg-logo="https://iptvx.one/picons/channel128.png" tvg-chno="128" group-title="КубТел ТВ (Основные)",128. Канал 128
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_128" tvg-name="Канал 128" tvg-logo="https://iptvx.one/picons/channel128.png" tvg-chno="128" group-title="КубТел ТВ (Резерв HTTPS)",128. Канал 128
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_129" tvg-name="Канал 129" tvg-logo="https://iptvx.one/picons/channel129.png" tvg-chno="129" group-title="КубТел ТВ (Основные)",129. Канал 129
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_129" tvg-name="Канал 129" tvg-logo="https://iptvx.one/picons/channel129.png" tvg-chno="129" group-title="КубТел ТВ (Резерв HTTPS)",129. Канал 129
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_130" tvg-name="Канал 130" tvg-logo="https://iptvx.one/picons/channel130.png" tvg-chno="130" group-title="КубТел ТВ (Основные)",130. Канал 130
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_130" tvg-name="Канал 130" tvg-logo="https://iptvx.one/picons/channel130.png" tvg-chno="130" group-title="КубТел ТВ (Резерв HTTPS)",130. Канал 130
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_131" tvg-name="Канал 131" tvg-logo="https://iptvx.one/picons/channel131.png" tvg-chno="131" group-title="КубТел ТВ (Основные)",131. Канал 131
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_131" tvg-name="Канал 131" tvg-logo="https://iptvx.one/picons/channel131.png" tvg-chno="131" group-title="КубТел ТВ (Резерв HTTPS)",131. Канал 131
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_132" tvg-name="Канал 132" tvg-logo="https://iptvx.one/picons/channel132.png" tvg-chno="132" group-title="КубТел ТВ (Основные)",132. Канал 132
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_132" tvg-name="Канал 132" tvg-logo="https://iptvx.one/picons/channel132.png" tvg-chno="132" group-title="КубТел ТВ (Резерв HTTPS)",132. Канал 132
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_133" tvg-name="Канал 133" tvg-logo="https://iptvx.one/picons/channel133.png" tvg-chno="133" group-title="КубТел ТВ (Основные)",133. Канал 133
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_133" tvg-name="Канал 133" tvg-logo="https://iptvx.one/picons/channel133.png" tvg-chno="133" group-title="КубТел ТВ (Резерв HTTPS)",133. Канал 133
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_134" tvg-name="Канал 134" tvg-logo="https://iptvx.one/picons/channel134.png" tvg-chno="134" group-title="КубТел ТВ (Основные)",134. Канал 134
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_134" tvg-name="Канал 134" tvg-logo="https://iptvx.one/picons/channel134.png" tvg-chno="134" group-title="КубТел ТВ (Резерв HTTPS)",134. Канал 134
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_135" tvg-name="Канал 135" tvg-logo="https://iptvx.one/picons/channel135.png" tvg-chno="135" group-title="КубТел ТВ (Основные)",135. Канал 135
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_135" tvg-name="Канал 135" tvg-logo="https://iptvx.one/picons/channel135.png" tvg-chno="135" group-title="КубТел ТВ (Резерв HTTPS)",135. Канал 135
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_136" tvg-name="Канал 136" tvg-logo="https://iptvx.one/picons/channel136.png" tvg-chno="136" group-title="КубТел ТВ (Основные)",136. Канал 136
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_136" tvg-name="Канал 136" tvg-logo="https://iptvx.one/picons/channel136.png" tvg-chno="136" group-title="КубТел ТВ (Резерв HTTPS)",136. Канал 136
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_137" tvg-name="Канал 137" tvg-logo="https://iptvx.one/picons/channel137.png" tvg-chno="137" group-title="КубТел ТВ (Основные)",137. Канал 137
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_137" tvg-name="Канал 137" tvg-logo="https://iptvx.one/picons/channel137.png" tvg-chno="137" group-title="КубТел ТВ (Резерв HTTPS)",137. Канал 137
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_138" tvg-name="Канал 138" tvg-logo="https://iptvx.one/picons/channel138.png" tvg-chno="138" group-title="КубТел ТВ (Основные)",138. Канал 138
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_138" tvg-name="Канал 138" tvg-logo="https://iptvx.one/picons/channel138.png" tvg-chno="138" group-title="КубТел ТВ (Резерв HTTPS)",138. Канал 138
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_139" tvg-name="Канал 139" tvg-logo="https://iptvx.one/picons/channel139.png" tvg-chno="139" group-title="КубТел ТВ (Основные)",139. Канал 139
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_139" tvg-name="Канал 139" tvg-logo="https://iptvx.one/picons/channel139.png" tvg-chno="139" group-title="КубТел ТВ (Резерв HTTPS)",139. Канал 139
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_140" tvg-name="Канал 140" tvg-logo="https://iptvx.one/picons/channel140.png" tvg-chno="140" group-title="КубТел ТВ (Основные)",140. Канал 140
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_140" tvg-name="Канал 140" tvg-logo="https://iptvx.one/picons/channel140.png" tvg-chno="140" group-title="КубТел ТВ (Резерв HTTPS)",140. Канал 140
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_141" tvg-name="Канал 141" tvg-logo="https://iptvx.one/picons/channel141.png" tvg-chno="141" group-title="КубТел ТВ (Основные)",141. Канал 141
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_141" tvg-name="Канал 141" tvg-logo="https://iptvx.one/picons/channel141.png" tvg-chno="141" group-title="КубТел ТВ (Резерв HTTPS)",141. Канал 141
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_142" tvg-name="Канал 142" tvg-logo="https://iptvx.one/picons/channel142.png" tvg-chno="142" group-title="КубТел ТВ (Основные)",142. Канал 142
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_142" tvg-name="Канал 142" tvg-logo="https://iptvx.one/picons/channel142.png" tvg-chno="142" group-title="КубТел ТВ (Резерв HTTPS)",142. Канал 142
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_143" tvg-name="Канал 143" tvg-logo="https://iptvx.one/picons/channel143.png" tvg-chno="143" group-title="КубТел ТВ (Основные)",143. Канал 143
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_143" tvg-name="Канал 143" tvg-logo="https://iptvx.one/picons/channel143.png" tvg-chno="143" group-title="КубТел ТВ (Резерв HTTPS)",143. Канал 143
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_144" tvg-name="Канал 144" tvg-logo="https://iptvx.one/picons/channel144.png" tvg-chno="144" group-title="КубТел ТВ (Основные)",144. Канал 144
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_144" tvg-name="Канал 144" tvg-logo="https://iptvx.one/picons/channel144.png" tvg-chno="144" group-title="КубТел ТВ (Резерв HTTPS)",144. Канал 144
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_145" tvg-name="Канал 145" tvg-logo="https://iptvx.one/picons/channel145.png" tvg-chno="145" group-title="КубТел ТВ (Основные)",145. Канал 145
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_145" tvg-name="Канал 145" tvg-logo="https://iptvx.one/picons/channel145.png" tvg-chno="145" group-title="КубТел ТВ (Резерв HTTPS)",145. Канал 145
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_146" tvg-name="Канал 146" tvg-logo="https://iptvx.one/picons/channel146.png" tvg-chno="146" group-title="КубТел ТВ (Основные)",146. Канал 146
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_146" tvg-name="Канал 146" tvg-logo="https://iptvx.one/picons/channel146.png" tvg-chno="146" group-title="КубТел ТВ (Резерв HTTPS)",146. Канал 146
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_147" tvg-name="Канал 147" tvg-logo="https://iptvx.one/picons/channel147.png" tvg-chno="147" group-title="КубТел ТВ (Основные)",147. Канал 147
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_147" tvg-name="Канал 147" tvg-logo="https://iptvx.one/picons/channel147.png" tvg-chno="147" group-title="КубТел ТВ (Резерв HTTPS)",147. Канал 147
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_148" tvg-name="Канал 148" tvg-logo="https://iptvx.one/picons/channel148.png" tvg-chno="148" group-title="КубТел ТВ (Основные)",148. Канал 148
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_148" tvg-name="Канал 148" tvg-logo="https://iptvx.one/picons/channel148.png" tvg-chno="148" group-title="КубТел ТВ (Резерв HTTPS)",148. Канал 148
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_149" tvg-name="Канал 149" tvg-logo="https://iptvx.one/picons/channel149.png" tvg-chno="149" group-title="КубТел ТВ (Основные)",149. Канал 149
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_149" tvg-name="Канал 149" tvg-logo="https://iptvx.one/picons/channel149.png" tvg-chno="149" group-title="КубТел ТВ (Резерв HTTPS)",149. Канал 149
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_150" tvg-name="Канал 150" tvg-logo="https://iptvx.one/picons/channel150.png" tvg-chno="150" group-title="КубТел ТВ (Основные)",150. Канал 150
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_150" tvg-name="Канал 150" tvg-logo="https://iptvx.one/picons/channel150.png" tvg-chno="150" group-title="КубТел ТВ (Резерв HTTPS)",150. Канал 150
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_151" tvg-name="Канал 151" tvg-logo="https://iptvx.one/picons/channel151.png" tvg-chno="151" group-title="КубТел ТВ (Основные)",151. Канал 151
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_151" tvg-name="Канал 151" tvg-logo="https://iptvx.one/picons/channel151.png" tvg-chno="151" group-title="КубТел ТВ (Резерв HTTPS)",151. Канал 151
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_152" tvg-name="Канал 152" tvg-logo="https://iptvx.one/picons/channel152.png" tvg-chno="152" group-title="КубТел ТВ (Основные)",152. Канал 152
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_152" tvg-name="Канал 152" tvg-logo="https://iptvx.one/picons/channel152.png" tvg-chno="152" group-title="КубТел ТВ (Резерв HTTPS)",152. Канал 152
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_153" tvg-name="Канал 153" tvg-logo="https://iptvx.one/picons/channel153.png" tvg-chno="153" group-title="КубТел ТВ (Основные)",153. Канал 153
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_153" tvg-name="Канал 153" tvg-logo="https://iptvx.one/picons/channel153.png" tvg-chno="153" group-title="КубТел ТВ (Резерв HTTPS)",153. Канал 153
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_154" tvg-name="Канал 154" tvg-logo="https://iptvx.one/picons/channel154.png" tvg-chno="154" group-title="КубТел ТВ (Основные)",154. Канал 154
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_154" tvg-name="Канал 154" tvg-logo="https://iptvx.one/picons/channel154.png" tvg-chno="154" group-title="КубТел ТВ (Резерв HTTPS)",154. Канал 154
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_155" tvg-name="Канал 155" tvg-logo="https://iptvx.one/picons/channel155.png" tvg-chno="155" group-title="КубТел ТВ (Основные)",155. Канал 155
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_155" tvg-name="Канал 155" tvg-logo="https://iptvx.one/picons/channel155.png" tvg-chno="155" group-title="КубТел ТВ (Резерв HTTPS)",155. Канал 155
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_156" tvg-name="Канал 156" tvg-logo="https://iptvx.one/picons/channel156.png" tvg-chno="156" group-title="КубТел ТВ (Основные)",156. Канал 156
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_156" tvg-name="Канал 156" tvg-logo="https://iptvx.one/picons/channel156.png" tvg-chno="156" group-title="КубТел ТВ (Резерв HTTPS)",156. Канал 156
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_157" tvg-name="Канал 157" tvg-logo="https://iptvx.one/picons/channel157.png" tvg-chno="157" group-title="КубТел ТВ (Основные)",157. Канал 157
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_157" tvg-name="Канал 157" tvg-logo="https://iptvx.one/picons/channel157.png" tvg-chno="157" group-title="КубТел ТВ (Резерв HTTPS)",157. Канал 157
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_158" tvg-name="Канал 158" tvg-logo="https://iptvx.one/picons/channel158.png" tvg-chno="158" group-title="КубТел ТВ (Основные)",158. Канал 158
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_158" tvg-name="Канал 158" tvg-logo="https://iptvx.one/picons/channel158.png" tvg-chno="158" group-title="КубТел ТВ (Резерв HTTPS)",158. Канал 158
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_159" tvg-name="Канал 159" tvg-logo="https://iptvx.one/picons/channel159.png" tvg-chno="159" group-title="КубТел ТВ (Основные)",159. Канал 159
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_159" tvg-name="Канал 159" tvg-logo="https://iptvx.one/picons/channel159.png" tvg-chno="159" group-title="КубТел ТВ (Резерв HTTPS)",159. Канал 159
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_160" tvg-name="Канал 160" tvg-logo="https://iptvx.one/picons/channel160.png" tvg-chno="160" group-title="КубТел ТВ (Основные)",160. Канал 160
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_160" tvg-name="Канал 160" tvg-logo="https://iptvx.one/picons/channel160.png" tvg-chno="160" group-title="КубТел ТВ (Резерв HTTPS)",160. Канал 160
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_161" tvg-name="Канал 161" tvg-logo="https://iptvx.one/picons/channel161.png" tvg-chno="161" group-title="КубТел ТВ (Основные)",161. Канал 161
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_161" tvg-name="Канал 161" tvg-logo="https://iptvx.one/picons/channel161.png" tvg-chno="161" group-title="КубТел ТВ (Резерв HTTPS)",161. Канал 161
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_162" tvg-name="Канал 162" tvg-logo="https://iptvx.one/picons/channel162.png" tvg-chno="162" group-title="КубТел ТВ (Основные)",162. Канал 162
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_162" tvg-name="Канал 162" tvg-logo="https://iptvx.one/picons/channel162.png" tvg-chno="162" group-title="КубТел ТВ (Резерв HTTPS)",162. Канал 162
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_163" tvg-name="Канал 163" tvg-logo="https://iptvx.one/picons/channel163.png" tvg-chno="163" group-title="КубТел ТВ (Основные)",163. Канал 163
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_163" tvg-name="Канал 163" tvg-logo="https://iptvx.one/picons/channel163.png" tvg-chno="163" group-title="КубТел ТВ (Резерв HTTPS)",163. Канал 163
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_164" tvg-name="Канал 164" tvg-logo="https://iptvx.one/picons/channel164.png" tvg-chno="164" group-title="КубТел ТВ (Основные)",164. Канал 164
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_164" tvg-name="Канал 164" tvg-logo="https://iptvx.one/picons/channel164.png" tvg-chno="164" group-title="КубТел ТВ (Резерв HTTPS)",164. Канал 164
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_165" tvg-name="Канал 165" tvg-logo="https://iptvx.one/picons/channel165.png" tvg-chno="165" group-title="КубТел ТВ (Основные)",165. Канал 165
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_165" tvg-name="Канал 165" tvg-logo="https://iptvx.one/picons/channel165.png" tvg-chno="165" group-title="КубТел ТВ (Резерв HTTPS)",165. Канал 165
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_166" tvg-name="Канал 166" tvg-logo="https://iptvx.one/picons/channel166.png" tvg-chno="166" group-title="КубТел ТВ (Основные)",166. Канал 166
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_166" tvg-name="Канал 166" tvg-logo="https://iptvx.one/picons/channel166.png" tvg-chno="166" group-title="КубТел ТВ (Резерв HTTPS)",166. Канал 166
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_167" tvg-name="Канал 167" tvg-logo="https://iptvx.one/picons/channel167.png" tvg-chno="167" group-title="КубТел ТВ (Основные)",167. Канал 167
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_167" tvg-name="Канал 167" tvg-logo="https://iptvx.one/picons/channel167.png" tvg-chno="167" group-title="КубТел ТВ (Резерв HTTPS)",167. Канал 167
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_168" tvg-name="Канал 168" tvg-logo="https://iptvx.one/picons/channel168.png" tvg-chno="168" group-title="КубТел ТВ (Основные)",168. Канал 168
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_168" tvg-name="Канал 168" tvg-logo="https://iptvx.one/picons/channel168.png" tvg-chno="168" group-title="КубТел ТВ (Резерв HTTPS)",168. Канал 168
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_169" tvg-name="Канал 169" tvg-logo="https://iptvx.one/picons/channel169.png" tvg-chno="169" group-title="КубТел ТВ (Основные)",169. Канал 169
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_169" tvg-name="Канал 169" tvg-logo="https://iptvx.one/picons/channel169.png" tvg-chno="169" group-title="КубТел ТВ (Резерв HTTPS)",169. Канал 169
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_170" tvg-name="Канал 170" tvg-logo="https://iptvx.one/picons/channel170.png" tvg-chno="170" group-title="КубТел ТВ (Основные)",170. Канал 170
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_170" tvg-name="Канал 170" tvg-logo="https://iptvx.one/picons/channel170.png" tvg-chno="170" group-title="КубТел ТВ (Резерв HTTPS)",170. Канал 170
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_171" tvg-name="Канал 171" tvg-logo="https://iptvx.one/picons/channel171.png" tvg-chno="171" group-title="КубТел ТВ (Основные)",171. Канал 171
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_171" tvg-name="Канал 171" tvg-logo="https://iptvx.one/picons/channel171.png" tvg-chno="171" group-title="КубТел ТВ (Резерв HTTPS)",171. Канал 171
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_172" tvg-name="Канал 172" tvg-logo="https://iptvx.one/picons/channel172.png" tvg-chno="172" group-title="КубТел ТВ (Основные)",172. Канал 172
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_172" tvg-name="Канал 172" tvg-logo="https://iptvx.one/picons/channel172.png" tvg-chno="172" group-title="КубТел ТВ (Резерв HTTPS)",172. Канал 172
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_173" tvg-name="Канал 173" tvg-logo="https://iptvx.one/picons/channel173.png" tvg-chno="173" group-title="КубТел ТВ (Основные)",173. Канал 173
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_173" tvg-name="Канал 173" tvg-logo="https://iptvx.one/picons/channel173.png" tvg-chno="173" group-title="КубТел ТВ (Резерв HTTPS)",173. Канал 173
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_174" tvg-name="Канал 174" tvg-logo="https://iptvx.one/picons/channel174.png" tvg-chno="174" group-title="КубТел ТВ (Основные)",174. Канал 174
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_174" tvg-name="Канал 174" tvg-logo="https://iptvx.one/picons/channel174.png" tvg-chno="174" group-title="КубТел ТВ (Резерв HTTPS)",174. Канал 174
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_175" tvg-name="Канал 175" tvg-logo="https://iptvx.one/picons/channel175.png" tvg-chno="175" group-title="КубТел ТВ (Основные)",175. Канал 175
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_175" tvg-name="Канал 175" tvg-logo="https://iptvx.one/picons/channel175.png" tvg-chno="175" group-title="КубТел ТВ (Резерв HTTPS)",175. Канал 175
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_176" tvg-name="Канал 176" tvg-logo="https://iptvx.one/picons/channel176.png" tvg-chno="176" group-title="КубТел ТВ (Основные)",176. Канал 176
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_176" tvg-name="Канал 176" tvg-logo="https://iptvx.one/picons/channel176.png" tvg-chno="176" group-title="КубТел ТВ (Резерв HTTPS)",176. Канал 176
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_177" tvg-name="Канал 177" tvg-logo="https://iptvx.one/picons/channel177.png" tvg-chno="177" group-title="КубТел ТВ (Основные)",177. Канал 177
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_177" tvg-name="Канал 177" tvg-logo="https://iptvx.one/picons/channel177.png" tvg-chno="177" group-title="КубТел ТВ (Резерв HTTPS)",177. Канал 177
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_178" tvg-name="Канал 178" tvg-logo="https://iptvx.one/picons/channel178.png" tvg-chno="178" group-title="КубТел ТВ (Основные)",178. Канал 178
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_178" tvg-name="Канал 178" tvg-logo="https://iptvx.one/picons/channel178.png" tvg-chno="178" group-title="КубТел ТВ (Резерв HTTPS)",178. Канал 178
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_179" tvg-name="Канал 179" tvg-logo="https://iptvx.one/picons/channel179.png" tvg-chno="179" group-title="КубТел ТВ (Основные)",179. Канал 179
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_179" tvg-name="Канал 179" tvg-logo="https://iptvx.one/picons/channel179.png" tvg-chno="179" group-title="КубТел ТВ (Резерв HTTPS)",179. Канал 179
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_180" tvg-name="Канал 180" tvg-logo="https://iptvx.one/picons/channel180.png" tvg-chno="180" group-title="КубТел ТВ (Основные)",180. Канал 180
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_180" tvg-name="Канал 180" tvg-logo="https://iptvx.one/picons/channel180.png" tvg-chno="180" group-title="КубТел ТВ (Резерв HTTPS)",180. Канал 180
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_181" tvg-name="Канал 181" tvg-logo="https://iptvx.one/picons/channel181.png" tvg-chno="181" group-title="КубТел ТВ (Основные)",181. Канал 181
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_181" tvg-name="Канал 181" tvg-logo="https://iptvx.one/picons/channel181.png" tvg-chno="181" group-title="КубТел ТВ (Резерв HTTPS)",181. Канал 181
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_182" tvg-name="Канал 182" tvg-logo="https://iptvx.one/picons/channel182.png" tvg-chno="182" group-title="КубТел ТВ (Основные)",182. Канал 182
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_182" tvg-name="Канал 182" tvg-logo="https://iptvx.one/picons/channel182.png" tvg-chno="182" group-title="КубТел ТВ (Резерв HTTPS)",182. Канал 182
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_183" tvg-name="Канал 183" tvg-logo="https://iptvx.one/picons/channel183.png" tvg-chno="183" group-title="КубТел ТВ (Основные)",183. Канал 183
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_183" tvg-name="Канал 183" tvg-logo="https://iptvx.one/picons/channel183.png" tvg-chno="183" group-title="КубТел ТВ (Резерв HTTPS)",183. Канал 183
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_184" tvg-name="Канал 184" tvg-logo="https://iptvx.one/picons/channel184.png" tvg-chno="184" group-title="КубТел ТВ (Основные)",184. Канал 184
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_184" tvg-name="Канал 184" tvg-logo="https://iptvx.one/picons/channel184.png" tvg-chno="184" group-title="КубТел ТВ (Резерв HTTPS)",184. Канал 184
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_185" tvg-name="Канал 185" tvg-logo="https://iptvx.one/picons/channel185.png" tvg-chno="185" group-title="КубТел ТВ (Основные)",185. Канал 185
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_185" tvg-name="Канал 185" tvg-logo="https://iptvx.one/picons/channel185.png" tvg-chno="185" group-title="КубТел ТВ (Резерв HTTPS)",185. Канал 185
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_186" tvg-name="Канал 186" tvg-logo="https://iptvx.one/picons/channel186.png" tvg-chno="186" group-title="КубТел ТВ (Основные)",186. Канал 186
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_186" tvg-name="Канал 186" tvg-logo="https://iptvx.one/picons/channel186.png" tvg-chno="186" group-title="КубТел ТВ (Резерв HTTPS)",186. Канал 186
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_187" tvg-name="Канал 187" tvg-logo="https://iptvx.one/picons/channel187.png" tvg-chno="187" group-title="КубТел ТВ (Основные)",187. Канал 187
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_187" tvg-name="Канал 187" tvg-logo="https://iptvx.one/picons/channel187.png" tvg-chno="187" group-title="КубТел ТВ (Резерв HTTPS)",187. Канал 187
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_188" tvg-name="Канал 188" tvg-logo="https://iptvx.one/picons/channel188.png" tvg-chno="188" group-title="КубТел ТВ (Основные)",188. Канал 188
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_188" tvg-name="Канал 188" tvg-logo="https://iptvx.one/picons/channel188.png" tvg-chno="188" group-title="КубТел ТВ (Резерв HTTPS)",188. Канал 188
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_189" tvg-name="Канал 189" tvg-logo="https://iptvx.one/picons/channel189.png" tvg-chno="189" group-title="КубТел ТВ (Основные)",189. Канал 189
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_189" tvg-name="Канал 189" tvg-logo="https://iptvx.one/picons/channel189.png" tvg-chno="189" group-title="КубТел ТВ (Резерв HTTPS)",189. Канал 189
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_190" tvg-name="Канал 190" tvg-logo="https://iptvx.one/picons/channel190.png" tvg-chno="190" group-title="КубТел ТВ (Основные)",190. Канал 190
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_190" tvg-name="Канал 190" tvg-logo="https://iptvx.one/picons/channel190.png" tvg-chno="190" group-title="КубТел ТВ (Резерв HTTPS)",190. Канал 190
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_191" tvg-name="Канал 191" tvg-logo="https://iptvx.one/picons/channel191.png" tvg-chno="191" group-title="КубТел ТВ (Основные)",191. Канал 191
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_191" tvg-name="Канал 191" tvg-logo="https://iptvx.one/picons/channel191.png" tvg-chno="191" group-title="КубТел ТВ (Резерв HTTPS)",191. Канал 191
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_192" tvg-name="Канал 192" tvg-logo="https://iptvx.one/picons/channel192.png" tvg-chno="192" group-title="КубТел ТВ (Основные)",192. Канал 192
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_192" tvg-name="Канал 192" tvg-logo="https://iptvx.one/picons/channel192.png" tvg-chno="192" group-title="КубТел ТВ (Резерв HTTPS)",192. Канал 192
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_193" tvg-name="Канал 193" tvg-logo="https://iptvx.one/picons/channel193.png" tvg-chno="193" group-title="КубТел ТВ (Основные)",193. Канал 193
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_193" tvg-name="Канал 193" tvg-logo="https://iptvx.one/picons/channel193.png" tvg-chno="193" group-title="КубТел ТВ (Резерв HTTPS)",193. Канал 193
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_194" tvg-name="Канал 194" tvg-logo="https://iptvx.one/picons/channel194.png" tvg-chno="194" group-title="КубТел ТВ (Основные)",194. Канал 194
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_194" tvg-name="Канал 194" tvg-logo="https://iptvx.one/picons/channel194.png" tvg-chno="194" group-title="КубТел ТВ (Резерв HTTPS)",194. Канал 194
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_195" tvg-name="Канал 195" tvg-logo="https://iptvx.one/picons/channel195.png" tvg-chno="195" group-title="КубТел ТВ (Основные)",195. Канал 195
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_195" tvg-name="Канал 195" tvg-logo="https://iptvx.one/picons/channel195.png" tvg-chno="195" group-title="КубТел ТВ (Резерв HTTPS)",195. Канал 195
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_196" tvg-name="Канал 196" tvg-logo="https://iptvx.one/picons/channel196.png" tvg-chno="196" group-title="КубТел ТВ (Основные)",196. Канал 196
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_196" tvg-name="Канал 196" tvg-logo="https://iptvx.one/picons/channel196.png" tvg-chno="196" group-title="КубТел ТВ (Резерв HTTPS)",196. Канал 196
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_197" tvg-name="Канал 197" tvg-logo="https://iptvx.one/picons/channel197.png" tvg-chno="197" group-title="КубТел ТВ (Основные)",197. Канал 197
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_197" tvg-name="Канал 197" tvg-logo="https://iptvx.one/picons/channel197.png" tvg-chno="197" group-title="КубТел ТВ (Резерв HTTPS)",197. Канал 197
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_198" tvg-name="Канал 198" tvg-logo="https://iptvx.one/picons/channel198.png" tvg-chno="198" group-title="КубТел ТВ (Основные)",198. Канал 198
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_198" tvg-name="Канал 198" tvg-logo="https://iptvx.one/picons/channel198.png" tvg-chno="198" group-title="КубТел ТВ (Резерв HTTPS)",198. Канал 198
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_199" tvg-name="Канал 199" tvg-logo="https://iptvx.one/picons/channel199.png" tvg-chno="199" group-title="КубТел ТВ (Основные)",199. Канал 199
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_199" tvg-name="Канал 199" tvg-logo="https://iptvx.one/picons/channel199.png" tvg-chno="199" group-title="КубТел ТВ (Резерв HTTPS)",199. Канал 199
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_200" tvg-name="Канал 200" tvg-logo="https://iptvx.one/picons/channel200.png" tvg-chno="200" group-title="КубТел ТВ (Основные)",200. Канал 200
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_200" tvg-name="Канал 200" tvg-logo="https://iptvx.one/picons/channel200.png" tvg-chno="200" group-title="КубТел ТВ (Резерв HTTPS)",200. Канал 200
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_201" tvg-name="Канал 201" tvg-logo="https://iptvx.one/picons/channel201.png" tvg-chno="201" group-title="КубТел ТВ (Основные)",201. Канал 201
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_201" tvg-name="Канал 201" tvg-logo="https://iptvx.one/picons/channel201.png" tvg-chno="201" group-title="КубТел ТВ (Резерв HTTPS)",201. Канал 201
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_202" tvg-name="Канал 202" tvg-logo="https://iptvx.one/picons/channel202.png" tvg-chno="202" group-title="КубТел ТВ (Основные)",202. Канал 202
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_202" tvg-name="Канал 202" tvg-logo="https://iptvx.one/picons/channel202.png" tvg-chno="202" group-title="КубТел ТВ (Резерв HTTPS)",202. Канал 202
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_203" tvg-name="Канал 203" tvg-logo="https://iptvx.one/picons/channel203.png" tvg-chno="203" group-title="КубТел ТВ (Основные)",203. Канал 203
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_203" tvg-name="Канал 203" tvg-logo="https://iptvx.one/picons/channel203.png" tvg-chno="203" group-title="КубТел ТВ (Резерв HTTPS)",203. Канал 203
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_204" tvg-name="Канал 204" tvg-logo="https://iptvx.one/picons/channel204.png" tvg-chno="204" group-title="КубТел ТВ (Основные)",204. Канал 204
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_204" tvg-name="Канал 204" tvg-logo="https://iptvx.one/picons/channel204.png" tvg-chno="204" group-title="КубТел ТВ (Резерв HTTPS)",204. Канал 204
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_205" tvg-name="Канал 205" tvg-logo="https://iptvx.one/picons/channel205.png" tvg-chno="205" group-title="КубТел ТВ (Основные)",205. Канал 205
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_205" tvg-name="Канал 205" tvg-logo="https://iptvx.one/picons/channel205.png" tvg-chno="205" group-title="КубТел ТВ (Резерв HTTPS)",205. Канал 205
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_206" tvg-name="Канал 206" tvg-logo="https://iptvx.one/picons/channel206.png" tvg-chno="206" group-title="КубТел ТВ (Основные)",206. Канал 206
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_206" tvg-name="Канал 206" tvg-logo="https://iptvx.one/picons/channel206.png" tvg-chno="206" group-title="КубТел ТВ (Резерв HTTPS)",206. Канал 206
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_207" tvg-name="Канал 207" tvg-logo="https://iptvx.one/picons/channel207.png" tvg-chno="207" group-title="КубТел ТВ (Основные)",207. Канал 207
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_207" tvg-name="Канал 207" tvg-logo="https://iptvx.one/picons/channel207.png" tvg-chno="207" group-title="КубТел ТВ (Резерв HTTPS)",207. Канал 207
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_208" tvg-name="Канал 208" tvg-logo="https://iptvx.one/picons/channel208.png" tvg-chno="208" group-title="КубТел ТВ (Основные)",208. Канал 208
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_208" tvg-name="Канал 208" tvg-logo="https://iptvx.one/picons/channel208.png" tvg-chno="208" group-title="КубТел ТВ (Резерв HTTPS)",208. Канал 208
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_209" tvg-name="Канал 209" tvg-logo="https://iptvx.one/picons/channel209.png" tvg-chno="209" group-title="КубТел ТВ (Основные)",209. Канал 209
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_209" tvg-name="Канал 209" tvg-logo="https://iptvx.one/picons/channel209.png" tvg-chno="209" group-title="КубТел ТВ (Резерв HTTPS)",209. Канал 209
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_210" tvg-name="Канал 210" tvg-logo="https://iptvx.one/picons/channel210.png" tvg-chno="210" group-title="КубТел ТВ (Основные)",210. Канал 210
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_210" tvg-name="Канал 210" tvg-logo="https://iptvx.one/picons/channel210.png" tvg-chno="210" group-title="КубТел ТВ (Резерв HTTPS)",210. Канал 210
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_211" tvg-name="Канал 211" tvg-logo="https://iptvx.one/picons/channel211.png" tvg-chno="211" group-title="КубТел ТВ (Основные)",211. Канал 211
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_211" tvg-name="Канал 211" tvg-logo="https://iptvx.one/picons/channel211.png" tvg-chno="211" group-title="КубТел ТВ (Резерв HTTPS)",211. Канал 211
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_212" tvg-name="Канал 212" tvg-logo="https://iptvx.one/picons/channel212.png" tvg-chno="212" group-title="КубТел ТВ (Основные)",212. Канал 212
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_212" tvg-name="Канал 212" tvg-logo="https://iptvx.one/picons/channel212.png" tvg-chno="212" group-title="КубТел ТВ (Резерв HTTPS)",212. Канал 212
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_213" tvg-name="Канал 213" tvg-logo="https://iptvx.one/picons/channel213.png" tvg-chno="213" group-title="КубТел ТВ (Основные)",213. Канал 213
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_213" tvg-name="Канал 213" tvg-logo="https://iptvx.one/picons/channel213.png" tvg-chno="213" group-title="КубТел ТВ (Резерв HTTPS)",213. Канал 213
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_214" tvg-name="Канал 214" tvg-logo="https://iptvx.one/picons/channel214.png" tvg-chno="214" group-title="КубТел ТВ (Основные)",214. Канал 214
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_214" tvg-name="Канал 214" tvg-logo="https://iptvx.one/picons/channel214.png" tvg-chno="214" group-title="КубТел ТВ (Резерв HTTPS)",214. Канал 214
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_215" tvg-name="Канал 215" tvg-logo="https://iptvx.one/picons/channel215.png" tvg-chno="215" group-title="КубТел ТВ (Основные)",215. Канал 215
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_215" tvg-name="Канал 215" tvg-logo="https://iptvx.one/picons/channel215.png" tvg-chno="215" group-title="КубТел ТВ (Резерв HTTPS)",215. Канал 215
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_216" tvg-name="Канал 216" tvg-logo="https://iptvx.one/picons/channel216.png" tvg-chno="216" group-title="КубТел ТВ (Основные)",216. Канал 216
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_216" tvg-name="Канал 216" tvg-logo="https://iptvx.one/picons/channel216.png" tvg-chno="216" group-title="КубТел ТВ (Резерв HTTPS)",216. Канал 216
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_217" tvg-name="Канал 217" tvg-logo="https://iptvx.one/picons/channel217.png" tvg-chno="217" group-title="КубТел ТВ (Основные)",217. Канал 217
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_217" tvg-name="Канал 217" tvg-logo="https://iptvx.one/picons/channel217.png" tvg-chno="217" group-title="КубТел ТВ (Резерв HTTPS)",217. Канал 217
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_218" tvg-name="Канал 218" tvg-logo="https://iptvx.one/picons/channel218.png" tvg-chno="218" group-title="КубТел ТВ (Основные)",218. Канал 218
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_218" tvg-name="Канал 218" tvg-logo="https://iptvx.one/picons/channel218.png" tvg-chno="218" group-title="КубТел ТВ (Резерв HTTPS)",218. Канал 218
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_219" tvg-name="Канал 219" tvg-logo="https://iptvx.one/picons/channel219.png" tvg-chno="219" group-title="КубТел ТВ (Основные)",219. Канал 219
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_219" tvg-name="Канал 219" tvg-logo="https://iptvx.one/picons/channel219.png" tvg-chno="219" group-title="КубТел ТВ (Резерв HTTPS)",219. Канал 219
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_220" tvg-name="Канал 220" tvg-logo="https://iptvx.one/picons/channel220.png" tvg-chno="220" group-title="КубТел ТВ (Основные)",220. Канал 220
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_220" tvg-name="Канал 220" tvg-logo="https://iptvx.one/picons/channel220.png" tvg-chno="220" group-title="КубТел ТВ (Резерв HTTPS)",220. Канал 220
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_221" tvg-name="Канал 221" tvg-logo="https://iptvx.one/picons/channel221.png" tvg-chno="221" group-title="КубТел ТВ (Основные)",221. Канал 221
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_221" tvg-name="Канал 221" tvg-logo="https://iptvx.one/picons/channel221.png" tvg-chno="221" group-title="КубТел ТВ (Резерв HTTPS)",221. Канал 221
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_222" tvg-name="Канал 222" tvg-logo="https://iptvx.one/picons/channel222.png" tvg-chno="222" group-title="КубТел ТВ (Основные)",222. Канал 222
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_222" tvg-name="Канал 222" tvg-logo="https://iptvx.one/picons/channel222.png" tvg-chno="222" group-title="КубТел ТВ (Резерв HTTPS)",222. Канал 222
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_223" tvg-name="Канал 223" tvg-logo="https://iptvx.one/picons/channel223.png" tvg-chno="223" group-title="КубТел ТВ (Основные)",223. Канал 223
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_223" tvg-name="Канал 223" tvg-logo="https://iptvx.one/picons/channel223.png" tvg-chno="223" group-title="КубТел ТВ (Резерв HTTPS)",223. Канал 223
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_224" tvg-name="Канал 224" tvg-logo="https://iptvx.one/picons/channel224.png" tvg-chno="224" group-title="КубТел ТВ (Основные)",224. Канал 224
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_224" tvg-name="Канал 224" tvg-logo="https://iptvx.one/picons/channel224.png" tvg-chno="224" group-title="КубТел ТВ (Резерв HTTPS)",224. Канал 224
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_225" tvg-name="Канал 225" tvg-logo="https://iptvx.one/picons/channel225.png" tvg-chno="225" group-title="КубТел ТВ (Основные)",225. Канал 225
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_225" tvg-name="Канал 225" tvg-logo="https://iptvx.one/picons/channel225.png" tvg-chno="225" group-title="КубТел ТВ (Резерв HTTPS)",225. Канал 225
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_226" tvg-name="Канал 226" tvg-logo="https://iptvx.one/picons/channel226.png" tvg-chno="226" group-title="КубТел ТВ (Основные)",226. Канал 226
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_226" tvg-name="Канал 226" tvg-logo="https://iptvx.one/picons/channel226.png" tvg-chno="226" group-title="КубТел ТВ (Резерв HTTPS)",226. Канал 226
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_227" tvg-name="Канал 227" tvg-logo="https://iptvx.one/picons/channel227.png" tvg-chno="227" group-title="КубТел ТВ (Основные)",227. Канал 227
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_227" tvg-name="Канал 227" tvg-logo="https://iptvx.one/picons/channel227.png" tvg-chno="227" group-title="КубТел ТВ (Резерв HTTPS)",227. Канал 227
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_228" tvg-name="Канал 228" tvg-logo="https://iptvx.one/picons/channel228.png" tvg-chno="228" group-title="КубТел ТВ (Основные)",228. Канал 228
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_228" tvg-name="Канал 228" tvg-logo="https://iptvx.one/picons/channel228.png" tvg-chno="228" group-title="КубТел ТВ (Резерв HTTPS)",228. Канал 228
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_229" tvg-name="Канал 229" tvg-logo="https://iptvx.one/picons/channel229.png" tvg-chno="229" group-title="КубТел ТВ (Основные)",229. Канал 229
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_229" tvg-name="Канал 229" tvg-logo="https://iptvx.one/picons/channel229.png" tvg-chno="229" group-title="КубТел ТВ (Резерв HTTPS)",229. Канал 229
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_230" tvg-name="Канал 230" tvg-logo="https://iptvx.one/picons/channel230.png" tvg-chno="230" group-title="КубТел ТВ (Основные)",230. Канал 230
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_230" tvg-name="Канал 230" tvg-logo="https://iptvx.one/picons/channel230.png" tvg-chno="230" group-title="КубТел ТВ (Резерв HTTPS)",230. Канал 230
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_231" tvg-name="Канал 231" tvg-logo="https://iptvx.one/picons/channel231.png" tvg-chno="231" group-title="КубТел ТВ (Основные)",231. Канал 231
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_231" tvg-name="Канал 231" tvg-logo="https://iptvx.one/picons/channel231.png" tvg-chno="231" group-title="КубТел ТВ (Резерв HTTPS)",231. Канал 231
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_232" tvg-name="Канал 232" tvg-logo="https://iptvx.one/picons/channel232.png" tvg-chno="232" group-title="КубТел ТВ (Основные)",232. Канал 232
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_232" tvg-name="Канал 232" tvg-logo="https://iptvx.one/picons/channel232.png" tvg-chno="232" group-title="КубТел ТВ (Резерв HTTPS)",232. Канал 232
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_233" tvg-name="Канал 233" tvg-logo="https://iptvx.one/picons/channel233.png" tvg-chno="233" group-title="КубТел ТВ (Основные)",233. Канал 233
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_233" tvg-name="Канал 233" tvg-logo="https://iptvx.one/picons/channel233.png" tvg-chno="233" group-title="КубТел ТВ (Резерв HTTPS)",233. Канал 233
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_234" tvg-name="Канал 234" tvg-logo="https://iptvx.one/picons/channel234.png" tvg-chno="234" group-title="КубТел ТВ (Основные)",234. Канал 234
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_234" tvg-name="Канал 234" tvg-logo="https://iptvx.one/picons/channel234.png" tvg-chno="234" group-title="КубТел ТВ (Резерв HTTPS)",234. Канал 234
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_235" tvg-name="Канал 235" tvg-logo="https://iptvx.one/picons/channel235.png" tvg-chno="235" group-title="КубТел ТВ (Основные)",235. Канал 235
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_235" tvg-name="Канал 235" tvg-logo="https://iptvx.one/picons/channel235.png" tvg-chno="235" group-title="КубТел ТВ (Резерв HTTPS)",235. Канал 235
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_236" tvg-name="Канал 236" tvg-logo="https://iptvx.one/picons/channel236.png" tvg-chno="236" group-title="КубТел ТВ (Основные)",236. Канал 236
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_236" tvg-name="Канал 236" tvg-logo="https://iptvx.one/picons/channel236.png" tvg-chno="236" group-title="КубТел ТВ (Резерв HTTPS)",236. Канал 236
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_237" tvg-name="Канал 237" tvg-logo="https://iptvx.one/picons/channel237.png" tvg-chno="237" group-title="КубТел ТВ (Основные)",237. Канал 237
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_237" tvg-name="Канал 237" tvg-logo="https://iptvx.one/picons/channel237.png" tvg-chno="237" group-title="КубТел ТВ (Резерв HTTPS)",237. Канал 237
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_238" tvg-name="Канал 238" tvg-logo="https://iptvx.one/picons/channel238.png" tvg-chno="238" group-title="КубТел ТВ (Основные)",238. Канал 238
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_238" tvg-name="Канал 238" tvg-logo="https://iptvx.one/picons/channel238.png" tvg-chno="238" group-title="КубТел ТВ (Резерв HTTPS)",238. Канал 238
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_239" tvg-name="Канал 239" tvg-logo="https://iptvx.one/picons/channel239.png" tvg-chno="239" group-title="КубТел ТВ (Основные)",239. Канал 239
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_239" tvg-name="Канал 239" tvg-logo="https://iptvx.one/picons/channel239.png" tvg-chno="239" group-title="КубТел ТВ (Резерв HTTPS)",239. Канал 239
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_240" tvg-name="Канал 240" tvg-logo="https://iptvx.one/picons/channel240.png" tvg-chno="240" group-title="КубТел ТВ (Основные)",240. Канал 240
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_240" tvg-name="Канал 240" tvg-logo="https://iptvx.one/picons/channel240.png" tvg-chno="240" group-title="КубТел ТВ (Резерв HTTPS)",240. Канал 240
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_241" tvg-name="Канал 241" tvg-logo="https://iptvx.one/picons/channel241.png" tvg-chno="241" group-title="КубТел ТВ (Основные)",241. Канал 241
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_241" tvg-name="Канал 241" tvg-logo="https://iptvx.one/picons/channel241.png" tvg-chno="241" group-title="КубТел ТВ (Резерв HTTPS)",241. Канал 241
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_242" tvg-name="Канал 242" tvg-logo="https://iptvx.one/picons/channel242.png" tvg-chno="242" group-title="КубТел ТВ (Основные)",242. Канал 242
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_242" tvg-name="Канал 242" tvg-logo="https://iptvx.one/picons/channel242.png" tvg-chno="242" group-title="КубТел ТВ (Резерв HTTPS)",242. Канал 242
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_243" tvg-name="Канал 243" tvg-logo="https://iptvx.one/picons/channel243.png" tvg-chno="243" group-title="КубТел ТВ (Основные)",243. Канал 243
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_243" tvg-name="Канал 243" tvg-logo="https://iptvx.one/picons/channel243.png" tvg-chno="243" group-title="КубТел ТВ (Резерв HTTPS)",243. Канал 243
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_244" tvg-name="Канал 244" tvg-logo="https://iptvx.one/picons/channel244.png" tvg-chno="244" group-title="КубТел ТВ (Основные)",244. Канал 244
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_244" tvg-name="Канал 244" tvg-logo="https://iptvx.one/picons/channel244.png" tvg-chno="244" group-title="КубТел ТВ (Резерв HTTPS)",244. Канал 244
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_245" tvg-name="Канал 245" tvg-logo="https://iptvx.one/picons/channel245.png" tvg-chno="245" group-title="КубТел ТВ (Основные)",245. Канал 245
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_245" tvg-name="Канал 245" tvg-logo="https://iptvx.one/picons/channel245.png" tvg-chno="245" group-title="КубТел ТВ (Резерв HTTPS)",245. Канал 245
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_246" tvg-name="Канал 246" tvg-logo="https://iptvx.one/picons/channel246.png" tvg-chno="246" group-title="КубТел ТВ (Основные)",246. Канал 246
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_246" tvg-name="Канал 246" tvg-logo="https://iptvx.one/picons/channel246.png" tvg-chno="246" group-title="КубТел ТВ (Резерв HTTPS)",246. Канал 246
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_247" tvg-name="Канал 247" tvg-logo="https://iptvx.one/picons/channel247.png" tvg-chno="247" group-title="КубТел ТВ (Основные)",247. Канал 247
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_247" tvg-name="Канал 247" tvg-logo="https://iptvx.one/picons/channel247.png" tvg-chno="247" group-title="КубТел ТВ (Резерв HTTPS)",247. Канал 247
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_248" tvg-name="Канал 248" tvg-logo="https://iptvx.one/picons/channel248.png" tvg-chno="248" group-title="КубТел ТВ (Основные)",248. Канал 248
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_248" tvg-name="Канал 248" tvg-logo="https://iptvx.one/picons/channel248.png" tvg-chno="248" group-title="КубТел ТВ (Резерв HTTPS)",248. Канал 248
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_249" tvg-name="Канал 249" tvg-logo="https://iptvx.one/picons/channel249.png" tvg-chno="249" group-title="КубТел ТВ (Основные)",249. Канал 249
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_249" tvg-name="Канал 249" tvg-logo="https://iptvx.one/picons/channel249.png" tvg-chno="249" group-title="КубТел ТВ (Резерв HTTPS)",249. Канал 249
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_250" tvg-name="Канал 250" tvg-logo="https://iptvx.one/picons/channel250.png" tvg-chno="250" group-title="КубТел ТВ (Основные)",250. Канал 250
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_250" tvg-name="Канал 250" tvg-logo="https://iptvx.one/picons/channel250.png" tvg-chno="250" group-title="КубТел ТВ (Резерв HTTPS)",250. Канал 250
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_251" tvg-name="Канал 251" tvg-logo="https://iptvx.one/picons/channel251.png" tvg-chno="251" group-title="КубТел ТВ (Основные)",251. Канал 251
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_251" tvg-name="Канал 251" tvg-logo="https://iptvx.one/picons/channel251.png" tvg-chno="251" group-title="КубТел ТВ (Резерв HTTPS)",251. Канал 251
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_252" tvg-name="Канал 252" tvg-logo="https://iptvx.one/picons/channel252.png" tvg-chno="252" group-title="КубТел ТВ (Основные)",252. Канал 252
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_252" tvg-name="Канал 252" tvg-logo="https://iptvx.one/picons/channel252.png" tvg-chno="252" group-title="КубТел ТВ (Резерв HTTPS)",252. Канал 252
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_253" tvg-name="Канал 253" tvg-logo="https://iptvx.one/picons/channel253.png" tvg-chno="253" group-title="КубТел ТВ (Основные)",253. Канал 253
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_253" tvg-name="Канал 253" tvg-logo="https://iptvx.one/picons/channel253.png" tvg-chno="253" group-title="КубТел ТВ (Резерв HTTPS)",253. Канал 253
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_254" tvg-name="Канал 254" tvg-logo="https://iptvx.one/picons/channel254.png" tvg-chno="254" group-title="КубТел ТВ (Основные)",254. Канал 254
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_254" tvg-name="Канал 254" tvg-logo="https://iptvx.one/picons/channel254.png" tvg-chno="254" group-title="КубТел ТВ (Резерв HTTPS)",254. Канал 254
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_255" tvg-name="Канал 255" tvg-logo="https://iptvx.one/picons/channel255.png" tvg-chno="255" group-title="КубТел ТВ (Основные)",255. Канал 255
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_255" tvg-name="Канал 255" tvg-logo="https://iptvx.one/picons/channel255.png" tvg-chno="255" group-title="КубТел ТВ (Резерв HTTPS)",255. Канал 255
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_256" tvg-name="Канал 256" tvg-logo="https://iptvx.one/picons/channel256.png" tvg-chno="256" group-title="КубТел ТВ (Основные)",256. Канал 256
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_256" tvg-name="Канал 256" tvg-logo="https://iptvx.one/picons/channel256.png" tvg-chno="256" group-title="КубТел ТВ (Резерв HTTPS)",256. Канал 256
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_257" tvg-name="Канал 257" tvg-logo="https://iptvx.one/picons/channel257.png" tvg-chno="257" group-title="КубТел ТВ (Основные)",257. Канал 257
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_257" tvg-name="Канал 257" tvg-logo="https://iptvx.one/picons/channel257.png" tvg-chno="257" group-title="КубТел ТВ (Резерв HTTPS)",257. Канал 257
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_258" tvg-name="Канал 258" tvg-logo="https://iptvx.one/picons/channel258.png" tvg-chno="258" group-title="КубТел ТВ (Основные)",258. Канал 258
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_258" tvg-name="Канал 258" tvg-logo="https://iptvx.one/picons/channel258.png" tvg-chno="258" group-title="КубТел ТВ (Резерв HTTPS)",258. Канал 258
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_259" tvg-name="Канал 259" tvg-logo="https://iptvx.one/picons/channel259.png" tvg-chno="259" group-title="КубТел ТВ (Основные)",259. Канал 259
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_259" tvg-name="Канал 259" tvg-logo="https://iptvx.one/picons/channel259.png" tvg-chno="259" group-title="КубТел ТВ (Резерв HTTPS)",259. Канал 259
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_260" tvg-name="Канал 260" tvg-logo="https://iptvx.one/picons/channel260.png" tvg-chno="260" group-title="КубТел ТВ (Основные)",260. Канал 260
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_260" tvg-name="Канал 260" tvg-logo="https://iptvx.one/picons/channel260.png" tvg-chno="260" group-title="КубТел ТВ (Резерв HTTPS)",260. Канал 260
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_261" tvg-name="Канал 261" tvg-logo="https://iptvx.one/picons/channel261.png" tvg-chno="261" group-title="КубТел ТВ (Основные)",261. Канал 261
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_261" tvg-name="Канал 261" tvg-logo="https://iptvx.one/picons/channel261.png" tvg-chno="261" group-title="КубТел ТВ (Резерв HTTPS)",261. Канал 261
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_262" tvg-name="Канал 262" tvg-logo="https://iptvx.one/picons/channel262.png" tvg-chno="262" group-title="КубТел ТВ (Основные)",262. Канал 262
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_262" tvg-name="Канал 262" tvg-logo="https://iptvx.one/picons/channel262.png" tvg-chno="262" group-title="КубТел ТВ (Резерв HTTPS)",262. Канал 262
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_263" tvg-name="Канал 263" tvg-logo="https://iptvx.one/picons/channel263.png" tvg-chno="263" group-title="КубТел ТВ (Основные)",263. Канал 263
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_263" tvg-name="Канал 263" tvg-logo="https://iptvx.one/picons/channel263.png" tvg-chno="263" group-title="КубТел ТВ (Резерв HTTPS)",263. Канал 263
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_264" tvg-name="Канал 264" tvg-logo="https://iptvx.one/picons/channel264.png" tvg-chno="264" group-title="КубТел ТВ (Основные)",264. Канал 264
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_264" tvg-name="Канал 264" tvg-logo="https://iptvx.one/picons/channel264.png" tvg-chno="264" group-title="КубТел ТВ (Резерв HTTPS)",264. Канал 264
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_265" tvg-name="Канал 265" tvg-logo="https://iptvx.one/picons/channel265.png" tvg-chno="265" group-title="КубТел ТВ (Основные)",265. Канал 265
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_265" tvg-name="Канал 265" tvg-logo="https://iptvx.one/picons/channel265.png" tvg-chno="265" group-title="КубТел ТВ (Резерв HTTPS)",265. Канал 265
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_266" tvg-name="Канал 266" tvg-logo="https://iptvx.one/picons/channel266.png" tvg-chno="266" group-title="КубТел ТВ (Основные)",266. Канал 266
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_266" tvg-name="Канал 266" tvg-logo="https://iptvx.one/picons/channel266.png" tvg-chno="266" group-title="КубТел ТВ (Резерв HTTPS)",266. Канал 266
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_267" tvg-name="Канал 267" tvg-logo="https://iptvx.one/picons/channel267.png" tvg-chno="267" group-title="КубТел ТВ (Основные)",267. Канал 267
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_267" tvg-name="Канал 267" tvg-logo="https://iptvx.one/picons/channel267.png" tvg-chno="267" group-title="КубТел ТВ (Резерв HTTPS)",267. Канал 267
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_268" tvg-name="Канал 268" tvg-logo="https://iptvx.one/picons/channel268.png" tvg-chno="268" group-title="КубТел ТВ (Основные)",268. Канал 268
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_268" tvg-name="Канал 268" tvg-logo="https://iptvx.one/picons/channel268.png" tvg-chno="268" group-title="КубТел ТВ (Резерв HTTPS)",268. Канал 268
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_269" tvg-name="Канал 269" tvg-logo="https://iptvx.one/picons/channel269.png" tvg-chno="269" group-title="КубТел ТВ (Основные)",269. Канал 269
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_269" tvg-name="Канал 269" tvg-logo="https://iptvx.one/picons/channel269.png" tvg-chno="269" group-title="КубТел ТВ (Резерв HTTPS)",269. Канал 269
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_270" tvg-name="Канал 270" tvg-logo="https://iptvx.one/picons/channel270.png" tvg-chno="270" group-title="КубТел ТВ (Основные)",270. Канал 270
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_270" tvg-name="Канал 270" tvg-logo="https://iptvx.one/picons/channel270.png" tvg-chno="270" group-title="КубТел ТВ (Резерв HTTPS)",270. Канал 270
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_271" tvg-name="Канал 271" tvg-logo="https://iptvx.one/picons/channel271.png" tvg-chno="271" group-title="КубТел ТВ (Основные)",271. Канал 271
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_271" tvg-name="Канал 271" tvg-logo="https://iptvx.one/picons/channel271.png" tvg-chno="271" group-title="КубТел ТВ (Резерв HTTPS)",271. Канал 271
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_272" tvg-name="Канал 272" tvg-logo="https://iptvx.one/picons/channel272.png" tvg-chno="272" group-title="КубТел ТВ (Основные)",272. Канал 272
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_272" tvg-name="Канал 272" tvg-logo="https://iptvx.one/picons/channel272.png" tvg-chno="272" group-title="КубТел ТВ (Резерв HTTPS)",272. Канал 272
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_273" tvg-name="Канал 273" tvg-logo="https://iptvx.one/picons/channel273.png" tvg-chno="273" group-title="КубТел ТВ (Основные)",273. Канал 273
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_273" tvg-name="Канал 273" tvg-logo="https://iptvx.one/picons/channel273.png" tvg-chno="273" group-title="КубТел ТВ (Резерв HTTPS)",273. Канал 273
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_274" tvg-name="Канал 274" tvg-logo="https://iptvx.one/picons/channel274.png" tvg-chno="274" group-title="КубТел ТВ (Основные)",274. Канал 274
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_274" tvg-name="Канал 274" tvg-logo="https://iptvx.one/picons/channel274.png" tvg-chno="274" group-title="КубТел ТВ (Резерв HTTPS)",274. Канал 274
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_275" tvg-name="Канал 275" tvg-logo="https://iptvx.one/picons/channel275.png" tvg-chno="275" group-title="КубТел ТВ (Основные)",275. Канал 275
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_275" tvg-name="Канал 275" tvg-logo="https://iptvx.one/picons/channel275.png" tvg-chno="275" group-title="КубТел ТВ (Резерв HTTPS)",275. Канал 275
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_276" tvg-name="Канал 276" tvg-logo="https://iptvx.one/picons/channel276.png" tvg-chno="276" group-title="КубТел ТВ (Основные)",276. Канал 276
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_276" tvg-name="Канал 276" tvg-logo="https://iptvx.one/picons/channel276.png" tvg-chno="276" group-title="КубТел ТВ (Резерв HTTPS)",276. Канал 276
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_277" tvg-name="Канал 277" tvg-logo="https://iptvx.one/picons/channel277.png" tvg-chno="277" group-title="КубТел ТВ (Основные)",277. Канал 277
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_277" tvg-name="Канал 277" tvg-logo="https://iptvx.one/picons/channel277.png" tvg-chno="277" group-title="КубТел ТВ (Резерв HTTPS)",277. Канал 277
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_278" tvg-name="Канал 278" tvg-logo="https://iptvx.one/picons/channel278.png" tvg-chno="278" group-title="КубТел ТВ (Основные)",278. Канал 278
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_278" tvg-name="Канал 278" tvg-logo="https://iptvx.one/picons/channel278.png" tvg-chno="278" group-title="КубТел ТВ (Резерв HTTPS)",278. Канал 278
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_279" tvg-name="Канал 279" tvg-logo="https://iptvx.one/picons/channel279.png" tvg-chno="279" group-title="КубТел ТВ (Основные)",279. Канал 279
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_279" tvg-name="Канал 279" tvg-logo="https://iptvx.one/picons/channel279.png" tvg-chno="279" group-title="КубТел ТВ (Резерв HTTPS)",279. Канал 279
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_280" tvg-name="Канал 280" tvg-logo="https://iptvx.one/picons/channel280.png" tvg-chno="280" group-title="КубТел ТВ (Основные)",280. Канал 280
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_280" tvg-name="Канал 280" tvg-logo="https://iptvx.one/picons/channel280.png" tvg-chno="280" group-title="КубТел ТВ (Резерв HTTPS)",280. Канал 280
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_281" tvg-name="Канал 281" tvg-logo="https://iptvx.one/picons/channel281.png" tvg-chno="281" group-title="КубТел ТВ (Основные)",281. Канал 281
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_281" tvg-name="Канал 281" tvg-logo="https://iptvx.one/picons/channel281.png" tvg-chno="281" group-title="КубТел ТВ (Резерв HTTPS)",281. Канал 281
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_282" tvg-name="Канал 282" tvg-logo="https://iptvx.one/picons/channel282.png" tvg-chno="282" group-title="КубТел ТВ (Основные)",282. Канал 282
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_282" tvg-name="Канал 282" tvg-logo="https://iptvx.one/picons/channel282.png" tvg-chno="282" group-title="КубТел ТВ (Резерв HTTPS)",282. Канал 282
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_283" tvg-name="Канал 283" tvg-logo="https://iptvx.one/picons/channel283.png" tvg-chno="283" group-title="КубТел ТВ (Основные)",283. Канал 283
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_283" tvg-name="Канал 283" tvg-logo="https://iptvx.one/picons/channel283.png" tvg-chno="283" group-title="КубТел ТВ (Резерв HTTPS)",283. Канал 283
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_284" tvg-name="Канал 284" tvg-logo="https://iptvx.one/picons/channel284.png" tvg-chno="284" group-title="КубТел ТВ (Основные)",284. Канал 284
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_284" tvg-name="Канал 284" tvg-logo="https://iptvx.one/picons/channel284.png" tvg-chno="284" group-title="КубТел ТВ (Резерв HTTPS)",284. Канал 284
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_285" tvg-name="Канал 285" tvg-logo="https://iptvx.one/picons/channel285.png" tvg-chno="285" group-title="КубТел ТВ (Основные)",285. Канал 285
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_285" tvg-name="Канал 285" tvg-logo="https://iptvx.one/picons/channel285.png" tvg-chno="285" group-title="КубТел ТВ (Резерв HTTPS)",285. Канал 285
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_286" tvg-name="Канал 286" tvg-logo="https://iptvx.one/picons/channel286.png" tvg-chno="286" group-title="КубТел ТВ (Основные)",286. Канал 286
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_286" tvg-name="Канал 286" tvg-logo="https://iptvx.one/picons/channel286.png" tvg-chno="286" group-title="КубТел ТВ (Резерв HTTPS)",286. Канал 286
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_287" tvg-name="Канал 287" tvg-logo="https://iptvx.one/picons/channel287.png" tvg-chno="287" group-title="КубТел ТВ (Основные)",287. Канал 287
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_287" tvg-name="Канал 287" tvg-logo="https://iptvx.one/picons/channel287.png" tvg-chno="287" group-title="КубТел ТВ (Резерв HTTPS)",287. Канал 287
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_288" tvg-name="Канал 288" tvg-logo="https://iptvx.one/picons/channel288.png" tvg-chno="288" group-title="КубТел ТВ (Основные)",288. Канал 288
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_288" tvg-name="Канал 288" tvg-logo="https://iptvx.one/picons/channel288.png" tvg-chno="288" group-title="КубТел ТВ (Резерв HTTPS)",288. Канал 288
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_289" tvg-name="Канал 289" tvg-logo="https://iptvx.one/picons/channel289.png" tvg-chno="289" group-title="КубТел ТВ (Основные)",289. Канал 289
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_289" tvg-name="Канал 289" tvg-logo="https://iptvx.one/picons/channel289.png" tvg-chno="289" group-title="КубТел ТВ (Резерв HTTPS)",289. Канал 289
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_290" tvg-name="Канал 290" tvg-logo="https://iptvx.one/picons/channel290.png" tvg-chno="290" group-title="КубТел ТВ (Основные)",290. Канал 290
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_290" tvg-name="Канал 290" tvg-logo="https://iptvx.one/picons/channel290.png" tvg-chno="290" group-title="КубТел ТВ (Резерв HTTPS)",290. Канал 290
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_291" tvg-name="Канал 291" tvg-logo="https://iptvx.one/picons/channel291.png" tvg-chno="291" group-title="КубТел ТВ (Основные)",291. Канал 291
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_291" tvg-name="Канал 291" tvg-logo="https://iptvx.one/picons/channel291.png" tvg-chno="291" group-title="КубТел ТВ (Резерв HTTPS)",291. Канал 291
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_292" tvg-name="Канал 292" tvg-logo="https://iptvx.one/picons/channel292.png" tvg-chno="292" group-title="КубТел ТВ (Основные)",292. Канал 292
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_292" tvg-name="Канал 292" tvg-logo="https://iptvx.one/picons/channel292.png" tvg-chno="292" group-title="КубТел ТВ (Резерв HTTPS)",292. Канал 292
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_293" tvg-name="Канал 293" tvg-logo="https://iptvx.one/picons/channel293.png" tvg-chno="293" group-title="КубТел ТВ (Основные)",293. Канал 293
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_293" tvg-name="Канал 293" tvg-logo="https://iptvx.one/picons/channel293.png" tvg-chno="293" group-title="КубТел ТВ (Резерв HTTPS)",293. Канал 293
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_294" tvg-name="Канал 294" tvg-logo="https://iptvx.one/picons/channel294.png" tvg-chno="294" group-title="КубТел ТВ (Основные)",294. Канал 294
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_294" tvg-name="Канал 294" tvg-logo="https://iptvx.one/picons/channel294.png" tvg-chno="294" group-title="КубТел ТВ (Резерв HTTPS)",294. Канал 294
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_295" tvg-name="Канал 295" tvg-logo="https://iptvx.one/picons/channel295.png" tvg-chno="295" group-title="КубТел ТВ (Основные)",295. Канал 295
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_295" tvg-name="Канал 295" tvg-logo="https://iptvx.one/picons/channel295.png" tvg-chno="295" group-title="КубТел ТВ (Резерв HTTPS)",295. Канал 295
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_296" tvg-name="Канал 296" tvg-logo="https://iptvx.one/picons/channel296.png" tvg-chno="296" group-title="КубТел ТВ (Основные)",296. Канал 296
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_296" tvg-name="Канал 296" tvg-logo="https://iptvx.one/picons/channel296.png" tvg-chno="296" group-title="КубТел ТВ (Резерв HTTPS)",296. Канал 296
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_297" tvg-name="Канал 297" tvg-logo="https://iptvx.one/picons/channel297.png" tvg-chno="297" group-title="КубТел ТВ (Основные)",297. Канал 297
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_297" tvg-name="Канал 297" tvg-logo="https://iptvx.one/picons/channel297.png" tvg-chno="297" group-title="КубТел ТВ (Резерв HTTPS)",297. Канал 297
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_298" tvg-name="Канал 298" tvg-logo="https://iptvx.one/picons/channel298.png" tvg-chno="298" group-title="КубТел ТВ (Основные)",298. Канал 298
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_298" tvg-name="Канал 298" tvg-logo="https://iptvx.one/picons/channel298.png" tvg-chno="298" group-title="КубТел ТВ (Резерв HTTPS)",298. Канал 298
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_299" tvg-name="Канал 299" tvg-logo="https://iptvx.one/picons/channel299.png" tvg-chno="299" group-title="КубТел ТВ (Основные)",299. Канал 299
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_299" tvg-name="Канал 299" tvg-logo="https://iptvx.one/picons/channel299.png" tvg-chno="299" group-title="КубТел ТВ (Резерв HTTPS)",299. Канал 299
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_300" tvg-name="Канал 300" tvg-logo="https://iptvx.one/picons/channel300.png" tvg-chno="300" group-title="КубТел ТВ (Основные)",300. Канал 300
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_300" tvg-name="Канал 300" tvg-logo="https://iptvx.one/picons/channel300.png" tvg-chno="300" group-title="КубТел ТВ (Резерв HTTPS)",300. Канал 300
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_301" tvg-name="Канал 301" tvg-logo="https://iptvx.one/picons/channel301.png" tvg-chno="301" group-title="КубТел ТВ (Основные)",301. Канал 301
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_301" tvg-name="Канал 301" tvg-logo="https://iptvx.one/picons/channel301.png" tvg-chno="301" group-title="КубТел ТВ (Резерв HTTPS)",301. Канал 301
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_302" tvg-name="Канал 302" tvg-logo="https://iptvx.one/picons/channel302.png" tvg-chno="302" group-title="КубТел ТВ (Основные)",302. Канал 302
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_302" tvg-name="Канал 302" tvg-logo="https://iptvx.one/picons/channel302.png" tvg-chno="302" group-title="КубТел ТВ (Резерв HTTPS)",302. Канал 302
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_303" tvg-name="Канал 303" tvg-logo="https://iptvx.one/picons/channel303.png" tvg-chno="303" group-title="КубТел ТВ (Основные)",303. Канал 303
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_303" tvg-name="Канал 303" tvg-logo="https://iptvx.one/picons/channel303.png" tvg-chno="303" group-title="КубТел ТВ (Резерв HTTPS)",303. Канал 303
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_304" tvg-name="Канал 304" tvg-logo="https://iptvx.one/picons/channel304.png" tvg-chno="304" group-title="КубТел ТВ (Основные)",304. Канал 304
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_304" tvg-name="Канал 304" tvg-logo="https://iptvx.one/picons/channel304.png" tvg-chno="304" group-title="КубТел ТВ (Резерв HTTPS)",304. Канал 304
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_305" tvg-name="Канал 305" tvg-logo="https://iptvx.one/picons/channel305.png" tvg-chno="305" group-title="КубТел ТВ (Основные)",305. Канал 305
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_305" tvg-name="Канал 305" tvg-logo="https://iptvx.one/picons/channel305.png" tvg-chno="305" group-title="КубТел ТВ (Резерв HTTPS)",305. Канал 305
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_306" tvg-name="Канал 306" tvg-logo="https://iptvx.one/picons/channel306.png" tvg-chno="306" group-title="КубТел ТВ (Основные)",306. Канал 306
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_306" tvg-name="Канал 306" tvg-logo="https://iptvx.one/picons/channel306.png" tvg-chno="306" group-title="КубТел ТВ (Резерв HTTPS)",306. Канал 306
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_307" tvg-name="Канал 307" tvg-logo="https://iptvx.one/picons/channel307.png" tvg-chno="307" group-title="КубТел ТВ (Основные)",307. Канал 307
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_307" tvg-name="Канал 307" tvg-logo="https://iptvx.one/picons/channel307.png" tvg-chno="307" group-title="КубТел ТВ (Резерв HTTPS)",307. Канал 307
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_308" tvg-name="Канал 308" tvg-logo="https://iptvx.one/picons/channel308.png" tvg-chno="308" group-title="КубТел ТВ (Основные)",308. Канал 308
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_308" tvg-name="Канал 308" tvg-logo="https://iptvx.one/picons/channel308.png" tvg-chno="308" group-title="КубТел ТВ (Резерв HTTPS)",308. Канал 308
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_309" tvg-name="Канал 309" tvg-logo="https://iptvx.one/picons/channel309.png" tvg-chno="309" group-title="КубТел ТВ (Основные)",309. Канал 309
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_309" tvg-name="Канал 309" tvg-logo="https://iptvx.one/picons/channel309.png" tvg-chno="309" group-title="КубТел ТВ (Резерв HTTPS)",309. Канал 309
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_310" tvg-name="Канал 310" tvg-logo="https://iptvx.one/picons/channel310.png" tvg-chno="310" group-title="КубТел ТВ (Основные)",310. Канал 310
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_310" tvg-name="Канал 310" tvg-logo="https://iptvx.one/picons/channel310.png" tvg-chno="310" group-title="КубТел ТВ (Резерв HTTPS)",310. Канал 310
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_311" tvg-name="Канал 311" tvg-logo="https://iptvx.one/picons/channel311.png" tvg-chno="311" group-title="КубТел ТВ (Основные)",311. Канал 311
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_311" tvg-name="Канал 311" tvg-logo="https://iptvx.one/picons/channel311.png" tvg-chno="311" group-title="КубТел ТВ (Резерв HTTPS)",311. Канал 311
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_312" tvg-name="Канал 312" tvg-logo="https://iptvx.one/picons/channel312.png" tvg-chno="312" group-title="КубТел ТВ (Основные)",312. Канал 312
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_312" tvg-name="Канал 312" tvg-logo="https://iptvx.one/picons/channel312.png" tvg-chno="312" group-title="КубТел ТВ (Резерв HTTPS)",312. Канал 312
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_313" tvg-name="Канал 313" tvg-logo="https://iptvx.one/picons/channel313.png" tvg-chno="313" group-title="КубТел ТВ (Основные)",313. Канал 313
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_313" tvg-name="Канал 313" tvg-logo="https://iptvx.one/picons/channel313.png" tvg-chno="313" group-title="КубТел ТВ (Резерв HTTPS)",313. Канал 313
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_314" tvg-name="Канал 314" tvg-logo="https://iptvx.one/picons/channel314.png" tvg-chno="314" group-title="КубТел ТВ (Основные)",314. Канал 314
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_314" tvg-name="Канал 314" tvg-logo="https://iptvx.one/picons/channel314.png" tvg-chno="314" group-title="КубТел ТВ (Резерв HTTPS)",314. Канал 314
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_315" tvg-name="Канал 315" tvg-logo="https://iptvx.one/picons/channel315.png" tvg-chno="315" group-title="КубТел ТВ (Основные)",315. Канал 315
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_315" tvg-name="Канал 315" tvg-logo="https://iptvx.one/picons/channel315.png" tvg-chno="315" group-title="КубТел ТВ (Резерв HTTPS)",315. Канал 315
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_316" tvg-name="Канал 316" tvg-logo="https://iptvx.one/picons/channel316.png" tvg-chno="316" group-title="КубТел ТВ (Основные)",316. Канал 316
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_316" tvg-name="Канал 316" tvg-logo="https://iptvx.one/picons/channel316.png" tvg-chno="316" group-title="КубТел ТВ (Резерв HTTPS)",316. Канал 316
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_317" tvg-name="Канал 317" tvg-logo="https://iptvx.one/picons/channel317.png" tvg-chno="317" group-title="КубТел ТВ (Основные)",317. Канал 317
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_317" tvg-name="Канал 317" tvg-logo="https://iptvx.one/picons/channel317.png" tvg-chno="317" group-title="КубТел ТВ (Резерв HTTPS)",317. Канал 317
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_318" tvg-name="Канал 318" tvg-logo="https://iptvx.one/picons/channel318.png" tvg-chno="318" group-title="КубТел ТВ (Основные)",318. Канал 318
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_318" tvg-name="Канал 318" tvg-logo="https://iptvx.one/picons/channel318.png" tvg-chno="318" group-title="КубТел ТВ (Резерв HTTPS)",318. Канал 318
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_319" tvg-name="Канал 319" tvg-logo="https://iptvx.one/picons/channel319.png" tvg-chno="319" group-title="КубТел ТВ (Основные)",319. Канал 319
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_319" tvg-name="Канал 319" tvg-logo="https://iptvx.one/picons/channel319.png" tvg-chno="319" group-title="КубТел ТВ (Резерв HTTPS)",319. Канал 319
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_320" tvg-name="Канал 320" tvg-logo="https://iptvx.one/picons/channel320.png" tvg-chno="320" group-title="КубТел ТВ (Основные)",320. Канал 320
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_320" tvg-name="Канал 320" tvg-logo="https://iptvx.one/picons/channel320.png" tvg-chno="320" group-title="КубТел ТВ (Резерв HTTPS)",320. Канал 320
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_321" tvg-name="Канал 321" tvg-logo="https://iptvx.one/picons/channel321.png" tvg-chno="321" group-title="КубТел ТВ (Основные)",321. Канал 321
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_321" tvg-name="Канал 321" tvg-logo="https://iptvx.one/picons/channel321.png" tvg-chno="321" group-title="КубТел ТВ (Резерв HTTPS)",321. Канал 321
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_322" tvg-name="Канал 322" tvg-logo="https://iptvx.one/picons/channel322.png" tvg-chno="322" group-title="КубТел ТВ (Основные)",322. Канал 322
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_322" tvg-name="Канал 322" tvg-logo="https://iptvx.one/picons/channel322.png" tvg-chno="322" group-title="КубТел ТВ (Резерв HTTPS)",322. Канал 322
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_323" tvg-name="Канал 323" tvg-logo="https://iptvx.one/picons/channel323.png" tvg-chno="323" group-title="КубТел ТВ (Основные)",323. Канал 323
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_323" tvg-name="Канал 323" tvg-logo="https://iptvx.one/picons/channel323.png" tvg-chno="323" group-title="КубТел ТВ (Резерв HTTPS)",323. Канал 323
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_324" tvg-name="Канал 324" tvg-logo="https://iptvx.one/picons/channel324.png" tvg-chno="324" group-title="КубТел ТВ (Основные)",324. Канал 324
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_324" tvg-name="Канал 324" tvg-logo="https://iptvx.one/picons/channel324.png" tvg-chno="324" group-title="КубТел ТВ (Резерв HTTPS)",324. Канал 324
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_325" tvg-name="Канал 325" tvg-logo="https://iptvx.one/picons/channel325.png" tvg-chno="325" group-title="КубТел ТВ (Основные)",325. Канал 325
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_325" tvg-name="Канал 325" tvg-logo="https://iptvx.one/picons/channel325.png" tvg-chno="325" group-title="КубТел ТВ (Резерв HTTPS)",325. Канал 325
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_326" tvg-name="Канал 326" tvg-logo="https://iptvx.one/picons/channel326.png" tvg-chno="326" group-title="КубТел ТВ (Основные)",326. Канал 326
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_326" tvg-name="Канал 326" tvg-logo="https://iptvx.one/picons/channel326.png" tvg-chno="326" group-title="КубТел ТВ (Резерв HTTPS)",326. Канал 326
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_327" tvg-name="Канал 327" tvg-logo="https://iptvx.one/picons/channel327.png" tvg-chno="327" group-title="КубТел ТВ (Основные)",327. Канал 327
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_327" tvg-name="Канал 327" tvg-logo="https://iptvx.one/picons/channel327.png" tvg-chno="327" group-title="КубТел ТВ (Резерв HTTPS)",327. Канал 327
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_328" tvg-name="Канал 328" tvg-logo="https://iptvx.one/picons/channel328.png" tvg-chno="328" group-title="КубТел ТВ (Основные)",328. Канал 328
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_328" tvg-name="Канал 328" tvg-logo="https://iptvx.one/picons/channel328.png" tvg-chno="328" group-title="КубТел ТВ (Резерв HTTPS)",328. Канал 328
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_329" tvg-name="Канал 329" tvg-logo="https://iptvx.one/picons/channel329.png" tvg-chno="329" group-title="КубТел ТВ (Основные)",329. Канал 329
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_329" tvg-name="Канал 329" tvg-logo="https://iptvx.one/picons/channel329.png" tvg-chno="329" group-title="КубТел ТВ (Резерв HTTPS)",329. Канал 329
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_330" tvg-name="Канал 330" tvg-logo="https://iptvx.one/picons/channel330.png" tvg-chno="330" group-title="КубТел ТВ (Основные)",330. Канал 330
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_330" tvg-name="Канал 330" tvg-logo="https://iptvx.one/picons/channel330.png" tvg-chno="330" group-title="КубТел ТВ (Резерв HTTPS)",330. Канал 330
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_331" tvg-name="Канал 331" tvg-logo="https://iptvx.one/picons/channel331.png" tvg-chno="331" group-title="КубТел ТВ (Основные)",331. Канал 331
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_331" tvg-name="Канал 331" tvg-logo="https://iptvx.one/picons/channel331.png" tvg-chno="331" group-title="КубТел ТВ (Резерв HTTPS)",331. Канал 331
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_332" tvg-name="Канал 332" tvg-logo="https://iptvx.one/picons/channel332.png" tvg-chno="332" group-title="КубТел ТВ (Основные)",332. Канал 332
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_332" tvg-name="Канал 332" tvg-logo="https://iptvx.one/picons/channel332.png" tvg-chno="332" group-title="КубТел ТВ (Резерв HTTPS)",332. Канал 332
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_333" tvg-name="Канал 333" tvg-logo="https://iptvx.one/picons/channel333.png" tvg-chno="333" group-title="КубТел ТВ (Основные)",333. Канал 333
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_333" tvg-name="Канал 333" tvg-logo="https://iptvx.one/picons/channel333.png" tvg-chno="333" group-title="КубТел ТВ (Резерв HTTPS)",333. Канал 333
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_334" tvg-name="Канал 334" tvg-logo="https://iptvx.one/picons/channel334.png" tvg-chno="334" group-title="КубТел ТВ (Основные)",334. Канал 334
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_334" tvg-name="Канал 334" tvg-logo="https://iptvx.one/picons/channel334.png" tvg-chno="334" group-title="КубТел ТВ (Резерв HTTPS)",334. Канал 334
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_335" tvg-name="Канал 335" tvg-logo="https://iptvx.one/picons/channel335.png" tvg-chno="335" group-title="КубТел ТВ (Основные)",335. Канал 335
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_335" tvg-name="Канал 335" tvg-logo="https://iptvx.one/picons/channel335.png" tvg-chno="335" group-title="КубТел ТВ (Резерв HTTPS)",335. Канал 335
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_336" tvg-name="Канал 336" tvg-logo="https://iptvx.one/picons/channel336.png" tvg-chno="336" group-title="КубТел ТВ (Основные)",336. Канал 336
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_336" tvg-name="Канал 336" tvg-logo="https://iptvx.one/picons/channel336.png" tvg-chno="336" group-title="КубТел ТВ (Резерв HTTPS)",336. Канал 336
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_337" tvg-name="Канал 337" tvg-logo="https://iptvx.one/picons/channel337.png" tvg-chno="337" group-title="КубТел ТВ (Основные)",337. Канал 337
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_337" tvg-name="Канал 337" tvg-logo="https://iptvx.one/picons/channel337.png" tvg-chno="337" group-title="КубТел ТВ (Резерв HTTPS)",337. Канал 337
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_338" tvg-name="Канал 338" tvg-logo="https://iptvx.one/picons/channel338.png" tvg-chno="338" group-title="КубТел ТВ (Основные)",338. Канал 338
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_338" tvg-name="Канал 338" tvg-logo="https://iptvx.one/picons/channel338.png" tvg-chno="338" group-title="КубТел ТВ (Резерв HTTPS)",338. Канал 338
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_339" tvg-name="Канал 339" tvg-logo="https://iptvx.one/picons/channel339.png" tvg-chno="339" group-title="КубТел ТВ (Основные)",339. Канал 339
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_339" tvg-name="Канал 339" tvg-logo="https://iptvx.one/picons/channel339.png" tvg-chno="339" group-title="КубТел ТВ (Резерв HTTPS)",339. Канал 339
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_340" tvg-name="Канал 340" tvg-logo="https://iptvx.one/picons/channel340.png" tvg-chno="340" group-title="КубТел ТВ (Основные)",340. Канал 340
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_340" tvg-name="Канал 340" tvg-logo="https://iptvx.one/picons/channel340.png" tvg-chno="340" group-title="КубТел ТВ (Резерв HTTPS)",340. Канал 340
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_341" tvg-name="Канал 341" tvg-logo="https://iptvx.one/picons/channel341.png" tvg-chno="341" group-title="КубТел ТВ (Основные)",341. Канал 341
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_341" tvg-name="Канал 341" tvg-logo="https://iptvx.one/picons/channel341.png" tvg-chno="341" group-title="КубТел ТВ (Резерв HTTPS)",341. Канал 341
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_342" tvg-name="Канал 342" tvg-logo="https://iptvx.one/picons/channel342.png" tvg-chno="342" group-title="КубТел ТВ (Основные)",342. Канал 342
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_342" tvg-name="Канал 342" tvg-logo="https://iptvx.one/picons/channel342.png" tvg-chno="342" group-title="КубТел ТВ (Резерв HTTPS)",342. Канал 342
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_343" tvg-name="Канал 343" tvg-logo="https://iptvx.one/picons/channel343.png" tvg-chno="343" group-title="КубТел ТВ (Основные)",343. Канал 343
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_343" tvg-name="Канал 343" tvg-logo="https://iptvx.one/picons/channel343.png" tvg-chno="343" group-title="КубТел ТВ (Резерв HTTPS)",343. Канал 343
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_344" tvg-name="Канал 344" tvg-logo="https://iptvx.one/picons/channel344.png" tvg-chno="344" group-title="КубТел ТВ (Основные)",344. Канал 344
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_344" tvg-name="Канал 344" tvg-logo="https://iptvx.one/picons/channel344.png" tvg-chno="344" group-title="КубТел ТВ (Резерв HTTPS)",344. Канал 344
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_345" tvg-name="Канал 345" tvg-logo="https://iptvx.one/picons/channel345.png" tvg-chno="345" group-title="КубТел ТВ (Основные)",345. Канал 345
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_345" tvg-name="Канал 345" tvg-logo="https://iptvx.one/picons/channel345.png" tvg-chno="345" group-title="КубТел ТВ (Резерв HTTPS)",345. Канал 345
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_346" tvg-name="Канал 346" tvg-logo="https://iptvx.one/picons/channel346.png" tvg-chno="346" group-title="КубТел ТВ (Основные)",346. Канал 346
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_346" tvg-name="Канал 346" tvg-logo="https://iptvx.one/picons/channel346.png" tvg-chno="346" group-title="КубТел ТВ (Резерв HTTPS)",346. Канал 346
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_347" tvg-name="Канал 347" tvg-logo="https://iptvx.one/picons/channel347.png" tvg-chno="347" group-title="КубТел ТВ (Основные)",347. Канал 347
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_347" tvg-name="Канал 347" tvg-logo="https://iptvx.one/picons/channel347.png" tvg-chno="347" group-title="КубТел ТВ (Резерв HTTPS)",347. Канал 347
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_348" tvg-name="Канал 348" tvg-logo="https://iptvx.one/picons/channel348.png" tvg-chno="348" group-title="КубТел ТВ (Основные)",348. Канал 348
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_348" tvg-name="Канал 348" tvg-logo="https://iptvx.one/picons/channel348.png" tvg-chno="348" group-title="КубТел ТВ (Резерв HTTPS)",348. Канал 348
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_349" tvg-name="Канал 349" tvg-logo="https://iptvx.one/picons/channel349.png" tvg-chno="349" group-title="КубТел ТВ (Основные)",349. Канал 349
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_349" tvg-name="Канал 349" tvg-logo="https://iptvx.one/picons/channel349.png" tvg-chno="349" group-title="КубТел ТВ (Резерв HTTPS)",349. Канал 349
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_350" tvg-name="Канал 350" tvg-logo="https://iptvx.one/picons/channel350.png" tvg-chno="350" group-title="КубТел ТВ (Основные)",350. Канал 350
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_350" tvg-name="Канал 350" tvg-logo="https://iptvx.one/picons/channel350.png" tvg-chno="350" group-title="КубТел ТВ (Резерв HTTPS)",350. Канал 350
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_351" tvg-name="Канал 351" tvg-logo="https://iptvx.one/picons/channel351.png" tvg-chno="351" group-title="КубТел ТВ (Основные)",351. Канал 351
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_351" tvg-name="Канал 351" tvg-logo="https://iptvx.one/picons/channel351.png" tvg-chno="351" group-title="КубТел ТВ (Резерв HTTPS)",351. Канал 351
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_352" tvg-name="Канал 352" tvg-logo="https://iptvx.one/picons/channel352.png" tvg-chno="352" group-title="КубТел ТВ (Основные)",352. Канал 352
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_352" tvg-name="Канал 352" tvg-logo="https://iptvx.one/picons/channel352.png" tvg-chno="352" group-title="КубТел ТВ (Резерв HTTPS)",352. Канал 352
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_353" tvg-name="Канал 353" tvg-logo="https://iptvx.one/picons/channel353.png" tvg-chno="353" group-title="КубТел ТВ (Основные)",353. Канал 353
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_353" tvg-name="Канал 353" tvg-logo="https://iptvx.one/picons/channel353.png" tvg-chno="353" group-title="КубТел ТВ (Резерв HTTPS)",353. Канал 353
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_354" tvg-name="Канал 354" tvg-logo="https://iptvx.one/picons/channel354.png" tvg-chno="354" group-title="КубТел ТВ (Основные)",354. Канал 354
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_354" tvg-name="Канал 354" tvg-logo="https://iptvx.one/picons/channel354.png" tvg-chno="354" group-title="КубТел ТВ (Резерв HTTPS)",354. Канал 354
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_355" tvg-name="Канал 355" tvg-logo="https://iptvx.one/picons/channel355.png" tvg-chno="355" group-title="КубТел ТВ (Основные)",355. Канал 355
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_355" tvg-name="Канал 355" tvg-logo="https://iptvx.one/picons/channel355.png" tvg-chno="355" group-title="КубТел ТВ (Резерв HTTPS)",355. Канал 355
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_356" tvg-name="Канал 356" tvg-logo="https://iptvx.one/picons/channel356.png" tvg-chno="356" group-title="КубТел ТВ (Основные)",356. Канал 356
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_356" tvg-name="Канал 356" tvg-logo="https://iptvx.one/picons/channel356.png" tvg-chno="356" group-title="КубТел ТВ (Резерв HTTPS)",356. Канал 356
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_357" tvg-name="Канал 357" tvg-logo="https://iptvx.one/picons/channel357.png" tvg-chno="357" group-title="КубТел ТВ (Основные)",357. Канал 357
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_357" tvg-name="Канал 357" tvg-logo="https://iptvx.one/picons/channel357.png" tvg-chno="357" group-title="КубТел ТВ (Резерв HTTPS)",357. Канал 357
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_358" tvg-name="Канал 358" tvg-logo="https://iptvx.one/picons/channel358.png" tvg-chno="358" group-title="КубТел ТВ (Основные)",358. Канал 358
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_358" tvg-name="Канал 358" tvg-logo="https://iptvx.one/picons/channel358.png" tvg-chno="358" group-title="КубТел ТВ (Резерв HTTPS)",358. Канал 358
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_359" tvg-name="Канал 359" tvg-logo="https://iptvx.one/picons/channel359.png" tvg-chno="359" group-title="КубТел ТВ (Основные)",359. Канал 359
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_359" tvg-name="Канал 359" tvg-logo="https://iptvx.one/picons/channel359.png" tvg-chno="359" group-title="КубТел ТВ (Резерв HTTPS)",359. Канал 359
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_360" tvg-name="Канал 360" tvg-logo="https://iptvx.one/picons/channel360.png" tvg-chno="360" group-title="КубТел ТВ (Основные)",360. Канал 360
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_360" tvg-name="Канал 360" tvg-logo="https://iptvx.one/picons/channel360.png" tvg-chno="360" group-title="КубТел ТВ (Резерв HTTPS)",360. Канал 360
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_361" tvg-name="Канал 361" tvg-logo="https://iptvx.one/picons/channel361.png" tvg-chno="361" group-title="КубТел ТВ (Основные)",361. Канал 361
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_361" tvg-name="Канал 361" tvg-logo="https://iptvx.one/picons/channel361.png" tvg-chno="361" group-title="КубТел ТВ (Резерв HTTPS)",361. Канал 361
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_362" tvg-name="Канал 362" tvg-logo="https://iptvx.one/picons/channel362.png" tvg-chno="362" group-title="КубТел ТВ (Основные)",362. Канал 362
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_362" tvg-name="Канал 362" tvg-logo="https://iptvx.one/picons/channel362.png" tvg-chno="362" group-title="КубТел ТВ (Резерв HTTPS)",362. Канал 362
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_363" tvg-name="Канал 363" tvg-logo="https://iptvx.one/picons/channel363.png" tvg-chno="363" group-title="КубТел ТВ (Основные)",363. Канал 363
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_363" tvg-name="Канал 363" tvg-logo="https://iptvx.one/picons/channel363.png" tvg-chno="363" group-title="КубТел ТВ (Резерв HTTPS)",363. Канал 363
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_364" tvg-name="Канал 364" tvg-logo="https://iptvx.one/picons/channel364.png" tvg-chno="364" group-title="КубТел ТВ (Основные)",364. Канал 364
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_364" tvg-name="Канал 364" tvg-logo="https://iptvx.one/picons/channel364.png" tvg-chno="364" group-title="КубТел ТВ (Резерв HTTPS)",364. Канал 364
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_365" tvg-name="Канал 365" tvg-logo="https://iptvx.one/picons/channel365.png" tvg-chno="365" group-title="КубТел ТВ (Основные)",365. Канал 365
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_365" tvg-name="Канал 365" tvg-logo="https://iptvx.one/picons/channel365.png" tvg-chno="365" group-title="КубТел ТВ (Резерв HTTPS)",365. Канал 365
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_366" tvg-name="Канал 366" tvg-logo="https://iptvx.one/picons/channel366.png" tvg-chno="366" group-title="КубТел ТВ (Основные)",366. Канал 366
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_366" tvg-name="Канал 366" tvg-logo="https://iptvx.one/picons/channel366.png" tvg-chno="366" group-title="КубТел ТВ (Резерв HTTPS)",366. Канал 366
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_367" tvg-name="Канал 367" tvg-logo="https://iptvx.one/picons/channel367.png" tvg-chno="367" group-title="КубТел ТВ (Основные)",367. Канал 367
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_367" tvg-name="Канал 367" tvg-logo="https://iptvx.one/picons/channel367.png" tvg-chno="367" group-title="КубТел ТВ (Резерв HTTPS)",367. Канал 367
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_368" tvg-name="Канал 368" tvg-logo="https://iptvx.one/picons/channel368.png" tvg-chno="368" group-title="КубТел ТВ (Основные)",368. Канал 368
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_368" tvg-name="Канал 368" tvg-logo="https://iptvx.one/picons/channel368.png" tvg-chno="368" group-title="КубТел ТВ (Резерв HTTPS)",368. Канал 368
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_369" tvg-name="Канал 369" tvg-logo="https://iptvx.one/picons/channel369.png" tvg-chno="369" group-title="КубТел ТВ (Основные)",369. Канал 369
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_369" tvg-name="Канал 369" tvg-logo="https://iptvx.one/picons/channel369.png" tvg-chno="369" group-title="КубТел ТВ (Резерв HTTPS)",369. Канал 369
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_370" tvg-name="Канал 370" tvg-logo="https://iptvx.one/picons/channel370.png" tvg-chno="370" group-title="КубТел ТВ (Основные)",370. Канал 370
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_370" tvg-name="Канал 370" tvg-logo="https://iptvx.one/picons/channel370.png" tvg-chno="370" group-title="КубТел ТВ (Резерв HTTPS)",370. Канал 370
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_371" tvg-name="Канал 371" tvg-logo="https://iptvx.one/picons/channel371.png" tvg-chno="371" group-title="КубТел ТВ (Основные)",371. Канал 371
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_371" tvg-name="Канал 371" tvg-logo="https://iptvx.one/picons/channel371.png" tvg-chno="371" group-title="КубТел ТВ (Резерв HTTPS)",371. Канал 371
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_372" tvg-name="Канал 372" tvg-logo="https://iptvx.one/picons/channel372.png" tvg-chno="372" group-title="КубТел ТВ (Основные)",372. Канал 372
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_372" tvg-name="Канал 372" tvg-logo="https://iptvx.one/picons/channel372.png" tvg-chno="372" group-title="КубТел ТВ (Резерв HTTPS)",372. Канал 372
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_373" tvg-name="Канал 373" tvg-logo="https://iptvx.one/picons/channel373.png" tvg-chno="373" group-title="КубТел ТВ (Основные)",373. Канал 373
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_373" tvg-name="Канал 373" tvg-logo="https://iptvx.one/picons/channel373.png" tvg-chno="373" group-title="КубТел ТВ (Резерв HTTPS)",373. Канал 373
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_374" tvg-name="Канал 374" tvg-logo="https://iptvx.one/picons/channel374.png" tvg-chno="374" group-title="КубТел ТВ (Основные)",374. Канал 374
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_374" tvg-name="Канал 374" tvg-logo="https://iptvx.one/picons/channel374.png" tvg-chno="374" group-title="КубТел ТВ (Резерв HTTPS)",374. Канал 374
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_375" tvg-name="Канал 375" tvg-logo="https://iptvx.one/picons/channel375.png" tvg-chno="375" group-title="КубТел ТВ (Основные)",375. Канал 375
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_375" tvg-name="Канал 375" tvg-logo="https://iptvx.one/picons/channel375.png" tvg-chno="375" group-title="КубТел ТВ (Резерв HTTPS)",375. Канал 375
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_376" tvg-name="Канал 376" tvg-logo="https://iptvx.one/picons/channel376.png" tvg-chno="376" group-title="КубТел ТВ (Основные)",376. Канал 376
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_376" tvg-name="Канал 376" tvg-logo="https://iptvx.one/picons/channel376.png" tvg-chno="376" group-title="КубТел ТВ (Резерв HTTPS)",376. Канал 376
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_377" tvg-name="Канал 377" tvg-logo="https://iptvx.one/picons/channel377.png" tvg-chno="377" group-title="КубТел ТВ (Основные)",377. Канал 377
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_377" tvg-name="Канал 377" tvg-logo="https://iptvx.one/picons/channel377.png" tvg-chno="377" group-title="КубТел ТВ (Резерв HTTPS)",377. Канал 377
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_378" tvg-name="Канал 378" tvg-logo="https://iptvx.one/picons/channel378.png" tvg-chno="378" group-title="КубТел ТВ (Основные)",378. Канал 378
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_378" tvg-name="Канал 378" tvg-logo="https://iptvx.one/picons/channel378.png" tvg-chno="378" group-title="КубТел ТВ (Резерв HTTPS)",378. Канал 378
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_379" tvg-name="Канал 379" tvg-logo="https://iptvx.one/picons/channel379.png" tvg-chno="379" group-title="КубТел ТВ (Основные)",379. Канал 379
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_379" tvg-name="Канал 379" tvg-logo="https://iptvx.one/picons/channel379.png" tvg-chno="379" group-title="КубТел ТВ (Резерв HTTPS)",379. Канал 379
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_380" tvg-name="Канал 380" tvg-logo="https://iptvx.one/picons/channel380.png" tvg-chno="380" group-title="КубТел ТВ (Основные)",380. Канал 380
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_380" tvg-name="Канал 380" tvg-logo="https://iptvx.one/picons/channel380.png" tvg-chno="380" group-title="КубТел ТВ (Резерв HTTPS)",380. Канал 380
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_381" tvg-name="Канал 381" tvg-logo="https://iptvx.one/picons/channel381.png" tvg-chno="381" group-title="КубТел ТВ (Основные)",381. Канал 381
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_381" tvg-name="Канал 381" tvg-logo="https://iptvx.one/picons/channel381.png" tvg-chno="381" group-title="КубТел ТВ (Резерв HTTPS)",381. Канал 381
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_382" tvg-name="Канал 382" tvg-logo="https://iptvx.one/picons/channel382.png" tvg-chno="382" group-title="КубТел ТВ (Основные)",382. Канал 382
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_382" tvg-name="Канал 382" tvg-logo="https://iptvx.one/picons/channel382.png" tvg-chno="382" group-title="КубТел ТВ (Резерв HTTPS)",382. Канал 382
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_383" tvg-name="Канал 383" tvg-logo="https://iptvx.one/picons/channel383.png" tvg-chno="383" group-title="КубТел ТВ (Основные)",383. Канал 383
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_383" tvg-name="Канал 383" tvg-logo="https://iptvx.one/picons/channel383.png" tvg-chno="383" group-title="КубТел ТВ (Резерв HTTPS)",383. Канал 383
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_384" tvg-name="Канал 384" tvg-logo="https://iptvx.one/picons/channel384.png" tvg-chno="384" group-title="КубТел ТВ (Основные)",384. Канал 384
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_384" tvg-name="Канал 384" tvg-logo="https://iptvx.one/picons/channel384.png" tvg-chno="384" group-title="КубТел ТВ (Резерв HTTPS)",384. Канал 384
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_385" tvg-name="Канал 385" tvg-logo="https://iptvx.one/picons/channel385.png" tvg-chno="385" group-title="КубТел ТВ (Основные)",385. Канал 385
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_385" tvg-name="Канал 385" tvg-logo="https://iptvx.one/picons/channel385.png" tvg-chno="385" group-title="КубТел ТВ (Резерв HTTPS)",385. Канал 385
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_386" tvg-name="Канал 386" tvg-logo="https://iptvx.one/picons/channel386.png" tvg-chno="386" group-title="КубТел ТВ (Основные)",386. Канал 386
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_386" tvg-name="Канал 386" tvg-logo="https://iptvx.one/picons/channel386.png" tvg-chno="386" group-title="КубТел ТВ (Резерв HTTPS)",386. Канал 386
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_387" tvg-name="Канал 387" tvg-logo="https://iptvx.one/picons/channel387.png" tvg-chno="387" group-title="КубТел ТВ (Основные)",387. Канал 387
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_387" tvg-name="Канал 387" tvg-logo="https://iptvx.one/picons/channel387.png" tvg-chno="387" group-title="КубТел ТВ (Резерв HTTPS)",387. Канал 387
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_388" tvg-name="Канал 388" tvg-logo="https://iptvx.one/picons/channel388.png" tvg-chno="388" group-title="КубТел ТВ (Основные)",388. Канал 388
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_388" tvg-name="Канал 388" tvg-logo="https://iptvx.one/picons/channel388.png" tvg-chno="388" group-title="КубТел ТВ (Резерв HTTPS)",388. Канал 388
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_389" tvg-name="Канал 389" tvg-logo="https://iptvx.one/picons/channel389.png" tvg-chno="389" group-title="КубТел ТВ (Основные)",389. Канал 389
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_389" tvg-name="Канал 389" tvg-logo="https://iptvx.one/picons/channel389.png" tvg-chno="389" group-title="КубТел ТВ (Резерв HTTPS)",389. Канал 389
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_390" tvg-name="Канал 390" tvg-logo="https://iptvx.one/picons/channel390.png" tvg-chno="390" group-title="КубТел ТВ (Основные)",390. Канал 390
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_390" tvg-name="Канал 390" tvg-logo="https://iptvx.one/picons/channel390.png" tvg-chno="390" group-title="КубТел ТВ (Резерв HTTPS)",390. Канал 390
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_391" tvg-name="Канал 391" tvg-logo="https://iptvx.one/picons/channel391.png" tvg-chno="391" group-title="КубТел ТВ (Основные)",391. Канал 391
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_391" tvg-name="Канал 391" tvg-logo="https://iptvx.one/picons/channel391.png" tvg-chno="391" group-title="КубТел ТВ (Резерв HTTPS)",391. Канал 391
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_392" tvg-name="Канал 392" tvg-logo="https://iptvx.one/picons/channel392.png" tvg-chno="392" group-title="КубТел ТВ (Основные)",392. Канал 392
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_392" tvg-name="Канал 392" tvg-logo="https://iptvx.one/picons/channel392.png" tvg-chno="392" group-title="КубТел ТВ (Резерв HTTPS)",392. Канал 392
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_393" tvg-name="Канал 393" tvg-logo="https://iptvx.one/picons/channel393.png" tvg-chno="393" group-title="КубТел ТВ (Основные)",393. Канал 393
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_393" tvg-name="Канал 393" tvg-logo="https://iptvx.one/picons/channel393.png" tvg-chno="393" group-title="КубТел ТВ (Резерв HTTPS)",393. Канал 393
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_394" tvg-name="Канал 394" tvg-logo="https://iptvx.one/picons/channel394.png" tvg-chno="394" group-title="КубТел ТВ (Основные)",394. Канал 394
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_394" tvg-name="Канал 394" tvg-logo="https://iptvx.one/picons/channel394.png" tvg-chno="394" group-title="КубТел ТВ (Резерв HTTPS)",394. Канал 394
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_395" tvg-name="Канал 395" tvg-logo="https://iptvx.one/picons/channel395.png" tvg-chno="395" group-title="КубТел ТВ (Основные)",395. Канал 395
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_395" tvg-name="Канал 395" tvg-logo="https://iptvx.one/picons/channel395.png" tvg-chno="395" group-title="КубТел ТВ (Резерв HTTPS)",395. Канал 395
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_396" tvg-name="Канал 396" tvg-logo="https://iptvx.one/picons/channel396.png" tvg-chno="396" group-title="КубТел ТВ (Основные)",396. Канал 396
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_396" tvg-name="Канал 396" tvg-logo="https://iptvx.one/picons/channel396.png" tvg-chno="396" group-title="КубТел ТВ (Резерв HTTPS)",396. Канал 396
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_397" tvg-name="Канал 397" tvg-logo="https://iptvx.one/picons/channel397.png" tvg-chno="397" group-title="КубТел ТВ (Основные)",397. Канал 397
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_397" tvg-name="Канал 397" tvg-logo="https://iptvx.one/picons/channel397.png" tvg-chno="397" group-title="КубТел ТВ (Резерв HTTPS)",397. Канал 397
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_398" tvg-name="Канал 398" tvg-logo="https://iptvx.one/picons/channel398.png" tvg-chno="398" group-title="КубТел ТВ (Основные)",398. Канал 398
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_398" tvg-name="Канал 398" tvg-logo="https://iptvx.one/picons/channel398.png" tvg-chno="398" group-title="КубТел ТВ (Резерв HTTPS)",398. Канал 398
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_399" tvg-name="Канал 399" tvg-logo="https://iptvx.one/picons/channel399.png" tvg-chno="399" group-title="КубТел ТВ (Основные)",399. Канал 399
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_399" tvg-name="Канал 399" tvg-logo="https://iptvx.one/picons/channel399.png" tvg-chno="399" group-title="КубТел ТВ (Резерв HTTPS)",399. Канал 399
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_400" tvg-name="Канал 400" tvg-logo="https://iptvx.one/picons/channel400.png" tvg-chno="400" group-title="КубТел ТВ (Основные)",400. Канал 400
+#EXTVLCOPT:http-protocol=1.1
+http://cdn.kubteltv.workers.dev/?ID=357
+
+#EXTINF:-1 tvg-id="ch_400" tvg-name="Канал 400" tvg-logo="https://iptvx.one/picons/channel400.png" tvg-chno="400" group-title="КубТел ТВ (Резерв HTTPS)",400. Канал 400
+#EXTVLCOPT:http-protocol=1.2
+https://cdn.kubteltv.workers.dev/?ID=357
+
+# --------------------------------------------------------------------
