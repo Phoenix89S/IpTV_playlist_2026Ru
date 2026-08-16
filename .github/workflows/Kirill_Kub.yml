@@ -13,29 +13,42 @@ jobs:
       - name: Шаг 1. Клонирование репозитория
         uses: actions/checkout@v4
 
-      - name: Шаг 2. Настройка окружения Python
+      - name: Шаг 2. Создание директории output
+        run: |
+          mkdir -p output
+
+      - name: Шаг 3. Скачивание актуального скрипта из ветки main
+        run: |
+          curl -sSL "https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/Kirill_kub_tel.py" -o Kirill_kub_tel.py
+
+      - name: Шаг 4. Настройка окружения Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: Шаг 3. Запуск генератора и сканера (Скала / Дрег)
+      - name: Шаг 5. Запуск генератора и сканера (Скала / Дрег) с сохранением в корень и output
         run: |
           echo "=== Запуск скрипта Kirill_kub_tel.py ==="
           python Kirill_kub_tel.py
+          
+          echo "=== Копирование результатов в папку output ==="
+          cp Kub_kirill*.txt output/ 2>/dev/null || true
+          cp Kub_kirill*.m3u output/ 2>/dev/null || true
+          cp Kub_kirill*.m3u8 output/ 2>/dev/null || true
 
-      - name: Шаг 4. Автоматическая фиксация и отправка изменений (Git Commit & Push)
+      - name: Шаг 6. Автоматическая фиксация и отправка изменений (Git Commit & Push)
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Добавляем сгенерированные файлы логов и плейлистов в индекс
-          git add Kub_kirill*.txt Kub_kirill*.m3u Kub_kirill*.m3u8
+          # Добавляем файлы из корня и из папки output в индекс
+          git add Kub_kirill*.txt Kub_kirill*.m3u Kub_kirill*.m3u8 output/
           
           # Проверяем, есть ли изменения для коммита
           if git diff --staged --quiet; then
             echo "Изменений в плейлистах и логах не обнаружено."
           else
-            git commit -m "Авто-обновление плейлистов и логов Скала/Дрег (каждые 3 недели) [skip ci]"
+            git commit -m "Авто-обновление плейлистов и логов Скала/Дрег (корень и output) [skip ci]"
             git push
             echo "Изменения успешно отправлены в репозиторий!"
           fi
