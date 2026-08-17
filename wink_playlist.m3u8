@@ -1,4 +1,4 @@
-#EXTM3U url-tvg="https://iptvx.one/EPG,https://epg.itv.uz/teleguide.xml.gz" tvg-days-past="14" tvg-days-future="14" catchup="append" catchup-days="3" catchup-source="?offset=-${offset}&utcstart=${timestamp}"
+#EXTM3U url-tvg="https://iptvx.one/epg/epg.xml.gz,https://epg.itv.uz/teleguide.xml.gz" tvg-days="14" catchup="append" catchup-days="3" catchup-source="?utc=${start}&lutc=${timestamp}"
 #EXTINF:-1 catchup="append" catchup-days="14" catchup-source="?offset=-${offset}&utcstart=${timestamp}" group-title="Эфирные" tvg-id="pervy",Первый канал HD
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 12; WinkTV 1.88.1; ru-RU) Gecko/20100101 Firefox/117.0
 #EXTVLCOPT:http-referer=https://wink.ru/
