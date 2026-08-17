@@ -322,7 +322,7 @@ cdn.iptvcinema.ru/lb1/nevskiy.m3u8?/index.m3u8
 #EXTINF:-1,НТВ Пёс
 cdn.iptvcinema.ru/lb1/pyos.m3u8?/index.m3u8
 #EXTINF:-1,НТВ Скорая помощь
-cdn.iptvcinema.ru/lb1/skorayapomosh.m3u8?/index.m3u8
+http://hls127.freeott.top:8080/Kluch/video.m3u8
 
 
 
