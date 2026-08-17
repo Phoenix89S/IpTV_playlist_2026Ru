@@ -1,6 +1,6 @@
 #EXTM3U
 #EXTINF:-1 tvg-id="None" tvg-logo="http://tugapt.com/picons/germany.png" group-title="Germany",##########   Germany   ##########
-http://maxtv.123tv.to:8080/live/GregWoi/6zb7jrUQNK/2520.m3u8
+http://hls127.freeott.top:8080/Kluch/video.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="Germany",Big Brother 24/7 FHD DE
 http://maxtv.123tv.to:8080/live/GregWoi/6zb7jrUQNK/118727.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="Germany",DF1 FHD DE
