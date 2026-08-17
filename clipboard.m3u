@@ -465,5 +465,144 @@ http://hls127.freeott.top:8080/SHOT_TV/video.m3u8
 https://hlspackager.akamaized.net/live/DB/SILKWAY/SILKWAY/SILKWAY.m3u8
 #EXTINF:-1, Silk Way Cinema (1080p) [Geo-blocked]
 https://stream.qazcdn.net/ex6r514/silkwaycinema/index.m3u8
-#EXTINF:-1, Skoraya pomoshch (1080p)
-https://c
+
+
+# --- ФИЛЬМЫ И СЕРИАЛЫ ---
+#EXTINF:-1 group-title="Кино и Сериалы",filmzone HD
+https://a3569457567-s70378.cdn.ngenix.net/filmzone/in..
+#EXTINF:-1 group-title="Кино и Сериалы",bazmoc HD
+https://a3569457567-s70378.cdn.ngenix.net/bazmoc/inde..
+#EXTINF:-1 group-title="Кино и Сериалы",sony_sci_fi
+https://a3569457567-s70378.cdn.ngenix.net/sony_sci_fi..
+#EXTINF:-1 group-title="Кино и Сериалы",ntv_serial
+https://a3569457567-s70378.cdn.ngenix.net/ntv_serial/..
+#EXTINF:-1 group-title="Кино и Сериалы",mir_seriala
+https://a3569457567-s70378.cdn.ngenix.net/mir_seriala..
+#EXTINF:-1 group-title="Кино и Сериалы",sony_turbo
+https://a3569457567-s70378.cdn.ngenix.net/sony_turbo/..
+#EXTINF:-1 group-title="Кино и Сериалы",vip_serial
+https://a3569457567-s70378.cdn.ngenix.net/vip_serial/..
+#EXTINF:-1 group-title="Кино и Сериалы",amc
+https://a3569457567-s70378.cdn.ngenix.net/amc/index.m..
+#EXTINF:-1 group-title="Кино и Сериалы",filmbox
+https://a3569457567-s70378.cdn.ngenix.net/filmbox/ind..
+#EXTINF:-1 group-title="Кино и Сериалы",kinouzhas
+https://a3569457567-s70378.cdn.ngenix.net/kinouzhas/i..
+#EXTINF:-1 group-title="Кино и Сериалы",evrokino
+https://a3569457567-s70378.cdn.ngenix.net/evrokino/in..
+#EXTINF:-1 group-title="Кино и Сериалы",amedia_2
+https://a3569457567-s70378.cdn.ngenix.net/amedia_2/in..
+#EXTINF:-1 group-title="Кино и Сериалы",dom_kino
+https://a3569457567-s70378.cdn.ngenix.net/dom_kino/in..
+#EXTINF:-1 group-title="Кино и Сериалы",dom_kino_premium_hd HD
+https://a3569457567-s70378.cdn.ngenix.net/dom_kino_pr..
+#EXTINF:-1 group-title="Кино и Сериалы",nashe_novoe_kino
+https://a3569457567-s70378.cdn.ngenix.net/nashe_novoe..
+#EXTINF:-1 group-title="Кино и Сериалы",mnogo_tv
+https://a3569457567-s70378.cdn.ngenix.net/mnogo_tv/in..
+#EXTINF:-1 group-title="Кино и Сериалы",kinoklub
+https://a3569457567-s70378.cdn.ngenix.net/kinoklub/in..
+#EXTINF:-1 group-title="Кино и Сериалы",illusion_plus
+https://a3569457567-s70378.cdn.ngenix.net/illusion_pl..
+#EXTINF:-1 group-title="Кино и Сериалы",flixsnip
+https://a3569457567-s70378.cdn.ngenix.net/flixsnip/in..
+
+# --- ПОЗНАВАТЕЛЬНЫЕ ---
+#EXTINF:-1 group-title="Познавательные",hd_life
+https://a3569457567-s70378.cdn.ngenix.net/hd_life/ind..
+#EXTINF:-1 group-title="Познавательные",docubox
+https://a3569457567-s70378.cdn.ngenix.net/docubox/ind..
+#EXTINF:-1 group-title="Познавательные",curiosity_stream
+https://a3569457567-s70378.cdn.ngenix.net/curiosity_s..
+#EXTINF:-1 group-title="Познавательные",ocean_tv
+https://a3569457567-s70378.cdn.ngenix.net/ocean_tv/in..
+#EXTINF:-1 group-title="Познавательные",history
+https://a3569457567-s70378.cdn.ngenix.net/history/ind..
+#EXTINF:-1 group-title="Познавательные",zoopark
+https://a3569457567-s70378.cdn.ngenix.net/zoopark/ind..
+#EXTINF:-1 group-title="Познавательные",galaxy
+https://a3569457567-s70378.cdn.ngenix.net/galaxy/inde..
+#EXTINF:-1 group-title="Познавательные",terra
+https://a3569457567-s70378.cdn.ngenix.net/terra/index..
+
+# --- ДЕТСКИЕ ---
+#EXTINF:-1 group-title="Детские",nicktoons
+https://a3569457567-s70378.cdn.ngenix.net/nicktoons/i..
+#EXTINF:-1 group-title="Детские",ducktv
+https://a3569457567-s70378.cdn.ngenix.net/ducktv/inde..
+#EXTINF:-1 group-title="Детские",karusel
+https://a3569457567-s70378.cdn.ngenix.net/karusel/ind..
+#EXTINF:-1 group-title="Детские",tiji
+https://a3569457567-s70378.cdn.ngenix.net/tiji/index...
+#EXTINF:-1 group-title="Детские",nickelodeon
+https://a3569457567-s70378.cdn.ngenix.net/nickelodeon..
+#EXTINF:-1 group-title="Детские",gulli
+https://a3569457567-s70378.cdn.ngenix.net/gulli/index..
+
+# --- СПОРТ ---
+#EXTINF:-1 group-title="Спорт",trace_sport_stars
+https://a3569457567-s70378.cdn.ngenix.net/trace_sport..
+#EXTINF:-1 group-title="Спорт",match_planeta
+https://a3569457567-s70378.cdn.ngenix.net/match_plane..
+#EXTINF:-1 group-title="Спорт",kxl
+https://a3569457567-s70378.cdn.ngenix.net/kxl/index.m..
+
+# --- МУЗЫКА ---
+#EXTINF:-1 group-title="Музыка",tnt_music
+https://a3569457567-s70378.cdn.ngenix.net/tnt_music/i..
+#EXTINF:-1 group-title="Музыка",mezzo
+https://a3569457567-s70378.cdn.ngenix.net/mezzo/index..
+
+# --- НОВОСТИ И ОБЩИЕ ---
+#EXTINF:-1 group-title="Новости и Общие",rtr_planeta
+https://a3569457567-s70378.cdn.ngenix.net/rtr_planeta..
+#EXTINF:-1 group-title="Новости и Общие",ntv_pravo
+https://a3569457567-s70378.cdn.ngenix.net/ntv_pravo/i..
+#EXTINF:-1 group-title="Новости и Общие",mir
+https://a3569457567-s70378.cdn.ngenix.net/mir/index.m..
+#EXTINF:-1 group-title="Новости и Общие",rtvi
+https://a3569457567-s70378.cdn.ngenix.net/rtvi/index...
+#EXTINF:-1 group-title="Новости и Общие",ren_tv
+https://a3569457567-s70378.cdn.ngenix.net/ren_tv/inde..
+#EXTINF:-1 group-title="Новости и Общие",rbc
+https://a3569457567-s70378.cdn.ngenix.net/rbc/index.m..
+#EXTINF:-1 group-title="Новости и Общие",euronews
+https://a3569457567-s70378.cdn.ngenix.net/euronews/in..
+
+# --- РАЗВЛЕКАТЕЛЬНЫЕ И ЛАЙФСТАЙЛ ---
+#EXTINF:-1 group-title="Развлекательные",tnt_4
+https://a3569457567-s70378.cdn.ngenix.net/tnt_4/index..
+#EXTINF:-1 group-title="Развлекательные",kvn_tv
+https://a3569457567-s70378.cdn.ngenix.net/kvn_tv/inde..
+#EXTINF:-1 group-title="Развлекательные",nostalgia
+https://a3569457567-s70378.cdn.ngenix.net/nostalgia/i..
+#EXTINF:-1 group-title="Развлекательные",tv_3
+https://a3569457567-s70378.cdn.ngenix.net/tv_3/index...
+#EXTINF:-1 group-title="Развлекательные",telecafe
+https://a3569457567-s70378.cdn.ngenix.net/telecafe/in..
+
+# --- АРМЯНСКИЕ / РЕГИОНАЛЬНЫЕ ---
+#EXTINF:-1 group-title="Региональные",h1 HD
+https://a3569457567-s70378.cdn.ngenix.net/h1/index.m3u8
+#EXTINF:-1 group-title="Региональные",h2
+https://a3569457567-s70378.cdn.ngenix.net/h2/index.m3u8
+#EXTINF:-1 group-title="Региональные",zee_tv
+https://a3569457567-s70378.cdn.ngenix.net/zee_tv/inde..
+#EXTINF:-1 group-title="Региональные",shant HD
+https://a3569457567-s70378.cdn.ngenix.net/shant/index..
+#EXTINF:-1 group-title="Региональные",kentron
+https://a3569457567-s70378.cdn.ngenix.net/kentron/ind..
+#EXTINF:-1 group-title="Региональные",dar21
+https://a3569457567-s70378.cdn.ngenix.net/dar21/index..
+#EXTINF:-1 group-title="Региональные",atv HD
+https://a3569457567-s70378.cdn.ngenix.net/atv/index.m..
+
+# --- ДЛЯ ВЗРОСЛЫХ (18+) ---
+#EXTINF:-1 group-title="Взрослые",erox
+https://a3569457567-s70378.cdn.ngenix.net/erox/index...
+#EXTINF:-1 group-title="Взрослые",playboy
+https://a3569457567-s70378.cdn.ngenix.net/playboy/ind..
+
+
+
+
