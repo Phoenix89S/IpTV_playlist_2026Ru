@@ -1,10 +1,10 @@
-name: Генерация плейлистов XM3
+name: XM3 Playlist Generator Workflow
 
 on:
   schedule:
-    # Автоматический запуск каждый день в 00:00 UTC
+    # Запуск каждый день в 00:00 UTC
     - cron: '0 0 * * *'
-  workflow_dispatch: # Возможность ручного запуска из интерфейса GitHub
+  workflow_dispatch: # Возможность ручного запуска
 
 jobs:
   generate-playlists:
@@ -24,7 +24,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Создание папки output при ее отсутствии
+      - name: Создание папки output при отсутствии
         run: |
           mkdir -p output
 
