@@ -1,8 +1,8 @@
-name: XM3 Playlist Generator Workflow
+name: Генерация плейлистов XM3
 
 on:
   schedule:
-    # Запуск каждый день в 00:00 UTC
+    # Автоматический запуск каждый день в 00:00 UTC
     - cron: '0 0 * * *'
   workflow_dispatch: # Возможность ручного запуска
 
@@ -24,13 +24,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Создание папки output при отсутствии
+      - name: Создание папки output при ее отсутствии
         run: |
           mkdir -p output
-
-      - name: Скачивание актуальной версии XM3.py
-        run: |
-          curl -sSL https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/XM3.py -o XM3.py
 
       - name: Запуск скрипта генерации плейлистов
         run: |
@@ -45,5 +41,5 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add xplash.m3u xplash.m3u8 output/
+          git add -A
           git diff --quiet && git diff --staged --quiet || (git commit -m "Автоматическое обновление плейлистов [xplash.m3u, xplash.m3u8]" && git push)
