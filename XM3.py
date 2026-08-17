@@ -19,6 +19,12 @@ SOURCES = [
         "port": "8080",
         "username": "s5pPNV",
         "password": "514479"
+    },
+    {
+        "server": "y.smpy24.live",
+        "port": "2082",
+        "username": "Houriauk2024",
+        "password": "jt2ffd7ay"
     }
 ]
 
