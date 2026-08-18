@@ -1,0 +1,37 @@
+name: Ngnorm Weekly Scan
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * 1"   # раз в неделю
+
+env:
+  NGNORM_THREADS: 80      # ускорение через переменную окружения
+
+jobs:
+  run-ngnorm:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up PyPy (ускоренный Python)
+        uses: actions/setup-python@v5
+        with:
+          python-version: "pypy3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run ngnorm.py with optimization
+        run: |
+          python -O ngnorm.py
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ngenix-report
+          path: ngenix_report.txt
