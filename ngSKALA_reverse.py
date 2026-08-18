@@ -197,19 +197,41 @@ def scan_variant_on_node(node: str, variant: str):
 def scan_channel_reverse(epg_name: str, epg_id: str):
     """
     Проверяет канал на всех узлах NGENIX.
+    Проверка node × variant выполняется параллельно.
     """
     variants = generate_cdn_variants(epg_name, epg_id)
     results = []
 
-    for node in NGENIX_NODES:
-        for variant in variants:
-            streams = scan_variant_on_node(node, variant)
-            if streams:
-                results.append({
-                    "node": node,
-                    "variant": variant,
-                    "streams": streams
-                })
+    def scan_single(node, variant):
+        streams = scan_variant_on_node(node, variant)
+
+        if streams:
+            return {
+                "node": node,
+                "variant": variant,
+                "streams": streams
+            }
+
+        return None
+
+    tasks = []
+
+    with ThreadPoolExecutor(max_workers=50) as ex:
+        for node in NGENIX_NODES:
+            for variant in variants:
+                tasks.append(
+                    ex.submit(
+                        scan_single,
+                        node,
+                        variant
+                    )
+                )
+
+        for t in tasks:
+            r = t.result()
+
+            if r:
+                results.append(r)
 
     return results
 
@@ -240,8 +262,10 @@ def write_report(epg_channels, results_map):
                 f.write(f"  [УЗЕЛ] {item['node']}.cdn.ngenix.net\n")
                 f.write(f"  [ВАРИАНТ] {item['variant']}\n")
                 f.write("  [ПОТОКИ]\n")
+
                 for s in item["streams"]:
                     f.write(f"    -> {s}\n")
+
                 f.write("\n")
 
             f.write("------------------------------------------------------------\n\n")
@@ -256,16 +280,34 @@ def main():
     epg_tree = fetch_epg_xml(EPG_URL)
     epg_channels = build_epg_list(epg_tree)
 
+    print(f"Загружено каналов: {len(epg_channels)}")
+
     results_map = {}
 
     print("Запуск обратного рефакторинга...")
-    for ch in epg_channels:
+
+    def scan_epg_channel(ch):
         cid = ch["id"]
         name = ch["name"]
 
         print(f"Проверка: {name} ({cid})")
+
         results = scan_channel_reverse(name, cid)
-        results_map[cid] = results
+
+        return cid, results
+
+    with ThreadPoolExecutor(max_workers=30) as ex:
+        futures = [
+            ex.submit(
+                scan_epg_channel,
+                ch
+            )
+            for ch in epg_channels
+        ]
+
+        for f in futures:
+            cid, results = f.result()
+            results_map[cid] = results
 
     print("Формирование отчёта...")
     write_report(epg_channels, results_map)
