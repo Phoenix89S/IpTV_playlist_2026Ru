@@ -28,9 +28,9 @@ jobs:
         run: |
           python ngSKAlA.py
 
-      - name: Публикация отчёта ngSlala.txt
+      - name: Публикация отчёта ngScala.txt
         uses: actions/upload-artifact@v4
         with:
-          name: ngSlala-report
-          path: ngSlala.txt
+          name: ngScala-report
+          path: ngScala.txt
           retention-days: 30
