@@ -1,6 +1,5 @@
 import requests
 import time
-import re
 from concurrent.futures import ThreadPoolExecutor
 
 TIMEOUT = 4
@@ -97,12 +96,12 @@ def probe_node(node):
         return False, None
 
 
-def node_scan_streams(node, channel):
+def node_scan_streams(node, channel_key):
     base = f"https://{node}.cdn.ngenix.net/"
     found = []
 
     for pattern in NGENIX_PATTERNS:
-        url = base + pattern.format(channel=channel)
+        url = base + pattern.format(channel=channel_key)
         ok, _ = check_m3u8(url)
         if ok:
             found.append(url)
@@ -114,7 +113,7 @@ def node_scan_streams(node, channel):
 #   СКАНИРОВАНИЕ КАНАЛА
 # ============================
 
-def scan_channel(name, url):
+def scan_channel(display_name, channel_key, url):
     node = url.split("//")[1].split(".")[0].split("-")[-1]
 
     orig_status, orig_speed = deep_probe(url)
@@ -125,10 +124,11 @@ def scan_channel(name, url):
 
     node_ok, node_speed = probe_node(node)
 
-    node_streams = node_scan_streams(node, name)
+    node_streams = node_scan_streams(node, channel_key)
 
     return {
-        "channel": name,
+        "display_name": display_name,
+        "channel_key": channel_key,
         "original_url": url,
         "original": (orig_status, orig_speed),
         "alt_url": alt_url,
@@ -142,7 +142,7 @@ def scan_channel(name, url):
 def scan_playlist(channels):
     out = []
     with ThreadPoolExecutor(max_workers=20) as ex:
-        futs = [ex.submit(scan_channel, name, url) for name, url in channels]
+        futs = [ex.submit(scan_channel, disp, key, url) for disp, key, url in channels]
         for f in futs:
             out.append(f.result())
     return out
@@ -153,8 +153,10 @@ def scan_playlist(channels):
 # ============================
 
 def status_m3u8_to_text(status, speed):
-    if status == "OK":
+    if status == "OK" and speed is not None:
         return f"поток доступен, время={speed:.3f}с"
+    if status == "OK" and speed is None:
+        return "поток доступен, время не определено"
     if status == "PARTIAL":
         return "частично работает (часть сегментов недоступна)"
     if status == "FAIL_M3U8":
@@ -173,17 +175,17 @@ def status_node_to_text(ok, speed):
 
 
 # ============================
-#   ГЕНЕРАЦИЯ ОТЧЁТА ngSlala.txt
+#   ГЕНЕРАЦИЯ ОТЧЁТА ngScala.txt
 # ============================
 
-def write_ngslala(report, filename="ngSlala.txt"):
+def write_ngslala(report, filename="ngScala.txt"):
     with open(filename, "w", encoding="utf-8") as f:
         f.write("=== NGENIX CDN СКАЛА/ДРЭГ ТЕЛЕМЕТРИЯ ===\n")
         f.write("РЕЖИМ: АЭС / КАНАЛЬНЫЙ МОНИТОРИНГ\n")
         f.write("------------------------------------------------------------\n\n")
 
         for item in report:
-            ch = item["channel"]
+            ch_disp = item["display_name"]
             node = item["node"]
 
             node_ok, node_speed = item["node_probe"]
@@ -195,7 +197,7 @@ def write_ngslala(report, filename="ngSlala.txt"):
             alt_status, alt_speed = item["alt"]
             alt_status_text = status_m3u8_to_text(alt_status, alt_speed)
 
-            f.write(f"[КАНАЛ] {ch}\n")
+            f.write(f"[КАНАЛ] {ch_disp}\n")
             f.write(f"  [УЗЕЛ] s{node}.cdn.ngenix.net\n")
             f.write(f"  [NODE] СТАТУС: {node_status_text}\n\n")
 
@@ -216,17 +218,93 @@ def write_ngslala(report, filename="ngSlala.txt"):
 
 
 # ============================
-#   ПРИМЕР ИСПОЛЬЗОВАНИЯ
+#   ПОЛНЫЙ СПИСОК КАНАЛОВ
+# ============================
+
+channels = [
+    # ФИЛЬМЫ И СЕРИАЛЫ
+    ("filmzone HD", "filmzone", "https://a3569457567-s70378.cdn.ngenix.net/filmzone/index.m3u8"),
+    ("bazmoc HD", "bazmoc", "https://a3569457567-s70378.cdn.ngenix.net/bazmoc/index.m3u8"),
+    ("sony_sci_fi", "sony_sci_fi", "https://a3569457567-s70378.cdn.ngenix.net/sony_sci_fi/index.m3u8"),
+    ("ntv_serial", "ntv_serial", "https://a3569457567-s70378.cdn.ngenix.net/ntv_serial/index.m3u8"),
+    ("mir_seriala", "mir_seriala", "https://a3569457567-s70378.cdn.ngenix.net/mir_seriala/index.m3u8"),
+    ("sony_turbo", "sony_turbo", "https://a3569457567-s70378.cdn.ngenix.net/sony_turbo/index.m3u8"),
+    ("vip_serial", "vip_serial", "https://a3569457567-s70378.cdn.ngenix.net/vip_serial/index.m3u8"),
+    ("amc", "amc", "https://a3569457567-s70378.cdn.ngenix.net/amc/index.m3u8"),
+    ("filmbox", "filmbox", "https://a3569457567-s70378.cdn.ngenix.net/filmbox/index.m3u8"),
+    ("kinouzhas", "kinouzhas", "https://a3569457567-s70378.cdn.ngenix.net/kinouzhas/index.m3u8"),
+    ("evrokino", "evrokino", "https://a3569457567-s70378.cdn.ngenix.net/evrokino/index.m3u8"),
+    ("amedia_2", "amedia_2", "https://a3569457567-s70378.cdn.ngenix.net/amedia_2/index.m3u8"),
+    ("dom_kino", "dom_kino", "https://a3569457567-s70378.cdn.ngenix.net/dom_kino/index.m3u8"),
+    ("dom_kino_premium_hd HD", "dom_kino_pr", "https://a3569457567-s70378.cdn.ngenix.net/dom_kino_pr/index.m3u8"),
+    ("nashe_novoe_kino", "nashe_novoe", "https://a3569457567-s70378.cdn.ngenix.net/nashe_novoe/index.m3u8"),
+    ("mnogo_tv", "mnogo_tv", "https://a3569457567-s70378.cdn.ngenix.net/mnogo_tv/index.m3u8"),
+    ("kinoklub", "kinoklub", "https://a3569457567-s70378.cdn.ngenix.net/kinoklub/index.m3u8"),
+    ("illusion_plus", "illusion_pl", "https://a3569457567-s70378.cdn.ngenix.net/illusion_pl/index.m3u8"),
+    ("flixsnip", "flixsnip", "https://a3569457567-s70378.cdn.ngenix.net/flixsnip/index.m3u8"),
+
+    # ПОЗНАВАТЕЛЬНЫЕ
+    ("hd_life", "hd_life", "https://a3569457567-s70378.cdn.ngenix.net/hd_life/index.m3u8"),
+    ("docubox", "docubox", "https://a3569457567-s70378.cdn.ngenix.net/docubox/index.m3u8"),
+    ("curiosity_stream", "curiosity_s", "https://a3569457567-s70378.cdn.ngenix.net/curiosity_s/index.m3u8"),
+    ("ocean_tv", "ocean_tv", "https://a3569457567-s70378.cdn.ngenix.net/ocean_tv/index.m3u8"),
+    ("history", "history", "https://a3569457567-s70378.cdn.ngenix.net/history/index.m3u8"),
+    ("zoopark", "zoopark", "https://a3569457567-s70378.cdn.ngenix.net/zoopark/index.m3u8"),
+    ("galaxy", "galaxy", "https://a3569457567-s70378.cdn.ngenix.net/galaxy/index.m3u8"),
+    ("terra", "terra", "https://a3569457567-s70378.cdn.ngenix.net/terra/index.m3u8"),
+
+    # ДЕТСКИЕ
+    ("nicktoons", "nicktoons", "https://a3569457567-s70378.cdn.ngenix.net/nicktoons/index.m3u8"),
+    ("ducktv", "ducktv", "https://a3569457567-s70378.cdn.ngenix.net/ducktv/index.m3u8"),
+    ("karusel", "karusel", "https://a3569457567-s70378.cdn.ngenix.net/karusel/index.m3u8"),
+    ("tiji", "tiji", "https://a3569457567-s70378.cdn.ngenix.net/tiji/index.m3u8"),
+    ("nickelodeon", "nickelodeon", "https://a3569457567-s70378.cdn.ngenix.net/nickelodeon/index.m3u8"),
+    ("gulli", "gulli", "https://a3569457567-s70378.cdn.ngenix.net/gulli/index.m3u8"),
+
+    # СПОРТ
+    ("trace_sport_stars", "trace_sport", "https://a3569457567-s70378.cdn.ngenix.net/trace_sport/index.m3u8"),
+    ("match_planeta", "match_plane", "https://a3569457567-s70378.cdn.ngenix.net/match_plane/index.m3u8"),
+    ("kxl", "kxl", "https://a3569457567-s70378.cdn.ngenix.net/kxl/index.m3u8"),
+
+    # МУЗЫКА
+    ("tnt_music", "tnt_music", "https://a3569457567-s70378.cdn.ngenix.net/tnt_music/index.m3u8"),
+    ("mezzo", "mezzo", "https://a3569457567-s70378.cdn.ngenix.net/mezzo/index.m3u8"),
+
+    # НОВОСТИ И ОБЩИЕ
+    ("rtr_planeta", "rtr_planeta", "https://a3569457567-s70378.cdn.ngenix.net/rtr_planeta/index.m3u8"),
+    ("ntv_pravo", "ntv_pravo", "https://a3569457567-s70378.cdn.ngenix.net/ntv_pravo/index.m3u8"),
+    ("mir", "mir", "https://a3569457567-s70378.cdn.ngenix.net/mir/index.m3u8"),
+    ("rtvi", "rtvi", "https://a3569457567-s70378.cdn.ngenix.net/rtvi/index.m3u8"),
+    ("ren_tv", "ren_tv", "https://a3569457567-s70378.cdn.ngenix.net/ren_tv/index.m3u8"),
+    ("rbc", "rbc", "https://a3569457567-s70378.cdn.ngenix.net/rbc/index.m3u8"),
+    ("euronews", "euronews", "https://a3569457567-s70378.cdn.ngenix.net/euronews/index.m3u8"),
+
+    # РАЗВЛЕКАТЕЛЬНЫЕ И ЛАЙФСТАЙЛ
+    ("tnt_4", "tnt_4", "https://a3569457567-s70378.cdn.ngenix.net/tnt_4/index.m3u8"),
+    ("kvn_tv", "kvn_tv", "https://a3569457567-s70378.cdn.ngenix.net/kvn_tv/index.m3u8"),
+    ("nostalgia", "nostalgia", "https://a3569457567-s70378.cdn.ngenix.net/nostalgia/index.m3u8"),
+    ("tv_3", "tv_3", "https://a3569457567-s70378.cdn.ngenix.net/tv_3/index.m3u8"),
+    ("telecafe", "telecafe", "https://a3569457567-s70378.cdn.ngenix.net/telecafe/index.m3u8"),
+
+    # РЕГИОНАЛЬНЫЕ
+    ("h1 HD", "h1", "https://a3569457567-s70378.cdn.ngenix.net/h1/index.m3u8"),
+    ("h2", "h2", "https://a3569457567-s70378.cdn.ngenix.net/h2/index.m3u8"),
+    ("zee_tv", "zee_tv", "https://a3569457567-s70378.cdn.ngenix.net/zee_tv/index.m3u8"),
+    ("shant HD", "shant", "https://a3569457567-s70378.cdn.ngenix.net/shant/index.m3u8"),
+    ("kentron", "kentron", "https://a3569457567-s70378.cdn.ngenix.net/kentron/index.m3u8"),
+    ("dar21", "dar21", "https://a3569457567-s70378.cdn.ngenix.net/dar21/index.m3u8"),
+    ("atv HD", "atv", "https://a3569457567-s70378.cdn.ngenix.net/atv/index.m3u8"),
+
+    # ДЛЯ ВЗРОСЛЫХ (18+)
+    ("erox", "erox", "https://a3569457567-s70378.cdn.ngenix.net/erox/index.m3u8"),
+    ("playboy", "playboy", "https://a3569457567-s70378.cdn.ngenix.net/playboy/index.m3u8"),
+]
+
+
+# ============================
+#   ЗАПУСК
 # ============================
 
 if __name__ == "__main__":
-    channels = [
-        ("filmzone", "https://a3569457567-s70378.cdn.ngenix.net/filmzone/index.m3u8"),
-        ("karusel", "https://a3569457567-s70378.cdn.ngenix.net/karusel/index.m3u8"),
-        ("ntv_serial", "https://a3569457567-s70378.cdn.ngenix.net/ntv_serial/index.m3u8"),
-        ("amc", "https://a3569457567-s70378.cdn.ngenix.net/amc/index.m3u8"),
-        # сюда вставляешь весь свой список
-    ]
-
     report = scan_playlist(channels)
-    write_ngslala(report, "ngSlala.txt")
+    write_ngslala(report, "ngScala.txt")
