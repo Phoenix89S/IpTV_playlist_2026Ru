@@ -1,0 +1,931 @@
+=== NGENIX CDN СКАЛА/ДРЭГ ТЕЛЕМЕТРИЯ ===
+РЕЖИМ: АЭС / КАНАЛЬНЫЙ МОНИТОРИНГ
+------------------------------------------------------------
+
+[КАНАЛ] filmzone HD
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/filmzone/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/filmzone/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/filmzone/index.m3u8
+    -> https://s70378.cdn.ngenix.net/filmzone/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/filmzone/2/index.m3u8
+    -> https://s70378.cdn.ngenix.net/filmzone/3/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] bazmoc HD
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/bazmoc/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/bazmoc/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/bazmoc/index.m3u8
+    -> https://s70378.cdn.ngenix.net/bazmoc/1/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] sony_sci_fi
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/sony_sci_fi/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/sony_sci_fi/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/sony_sci_fi/index.m3u8
+    -> https://s70378.cdn.ngenix.net/sony_sci_fi/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/sony_sci_fi/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] ntv_serial
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/ntv_serial/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/ntv_serial/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/ntv_serial/index.m3u8
+    -> https://s70378.cdn.ngenix.net/ntv_serial/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/ntv_serial/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] mir_seriala
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/mir_seriala/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/mir_seriala/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/mir_seriala/index.m3u8
+    -> https://s70378.cdn.ngenix.net/mir_seriala/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/mir_seriala/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] sony_turbo
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/sony_turbo/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/sony_turbo/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/sony_turbo/index.m3u8
+    -> https://s70378.cdn.ngenix.net/sony_turbo/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/sony_turbo/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] vip_serial
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/vip_serial/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/vip_serial/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/vip_serial/index.m3u8
+    -> https://s70378.cdn.ngenix.net/vip_serial/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/vip_serial/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] amc
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/amc/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/amc/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/amc/index.m3u8
+    -> https://s70378.cdn.ngenix.net/amc/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/amc/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] filmbox
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/filmbox/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/filmbox/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/filmbox/index.m3u8
+    -> https://s70378.cdn.ngenix.net/filmbox/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/filmbox/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] kinouzhas
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/kinouzhas/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/kinouzhas/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/kinouzhas/index.m3u8
+    -> https://s70378.cdn.ngenix.net/kinouzhas/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/kinouzhas/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] evrokino
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/evrokino/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/evrokino/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/evrokino/index.m3u8
+    -> https://s70378.cdn.ngenix.net/evrokino/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/evrokino/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] amedia_2
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/amedia_2/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/amedia_2/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/amedia_2/index.m3u8
+    -> https://s70378.cdn.ngenix.net/amedia_2/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/amedia_2/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] dom_kino
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/dom_kino/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/dom_kino/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/dom_kino/index.m3u8
+    -> https://s70378.cdn.ngenix.net/dom_kino/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/dom_kino/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] dom_kino_premium_hd HD
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/dom_kino_pr/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/dom_kino_pr/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> активные потоки не обнаружены
+------------------------------------------------------------
+
+[КАНАЛ] nashe_novoe_kino
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/nashe_novoe/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/nashe_novoe/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> активные потоки не обнаружены
+------------------------------------------------------------
+
+[КАНАЛ] mnogo_tv
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/mnogo_tv/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/mnogo_tv/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/mnogo_tv/index.m3u8
+    -> https://s70378.cdn.ngenix.net/mnogo_tv/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/mnogo_tv/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] kinoklub
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/kinoklub/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/kinoklub/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/kinoklub/index.m3u8
+    -> https://s70378.cdn.ngenix.net/kinoklub/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/kinoklub/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] illusion_plus
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/illusion_pl/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/illusion_pl/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> активные потоки не обнаружены
+------------------------------------------------------------
+
+[КАНАЛ] flixsnip
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/flixsnip/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/flixsnip/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> активные потоки не обнаружены
+------------------------------------------------------------
+
+[КАНАЛ] hd_life
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/hd_life/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/hd_life/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/hd_life/index.m3u8
+    -> https://s70378.cdn.ngenix.net/hd_life/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/hd_life/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] docubox
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/docubox/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/docubox/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/docubox/index.m3u8
+    -> https://s70378.cdn.ngenix.net/docubox/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/docubox/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] curiosity_stream
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/curiosity_s/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/curiosity_s/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> активные потоки не обнаружены
+------------------------------------------------------------
+
+[КАНАЛ] ocean_tv
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/ocean_tv/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/ocean_tv/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/ocean_tv/index.m3u8
+    -> https://s70378.cdn.ngenix.net/ocean_tv/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/ocean_tv/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] history
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/history/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/history/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/history/index.m3u8
+    -> https://s70378.cdn.ngenix.net/history/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/history/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] zoopark
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/zoopark/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/zoopark/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/zoopark/index.m3u8
+    -> https://s70378.cdn.ngenix.net/zoopark/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/zoopark/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] galaxy
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/galaxy/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/galaxy/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/galaxy/index.m3u8
+    -> https://s70378.cdn.ngenix.net/galaxy/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/galaxy/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] terra
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/terra/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/terra/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/terra/index.m3u8
+    -> https://s70378.cdn.ngenix.net/terra/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/terra/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] nicktoons
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/nicktoons/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/nicktoons/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/nicktoons/index.m3u8
+    -> https://s70378.cdn.ngenix.net/nicktoons/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/nicktoons/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] ducktv
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/ducktv/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/ducktv/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/ducktv/index.m3u8
+    -> https://s70378.cdn.ngenix.net/ducktv/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/ducktv/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] karusel
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/karusel/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/karusel/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/karusel/index.m3u8
+    -> https://s70378.cdn.ngenix.net/karusel/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/karusel/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] tiji
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/tiji/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/tiji/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/tiji/index.m3u8
+    -> https://s70378.cdn.ngenix.net/tiji/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/tiji/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] nickelodeon
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/nickelodeon/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/nickelodeon/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/nickelodeon/index.m3u8
+    -> https://s70378.cdn.ngenix.net/nickelodeon/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/nickelodeon/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] gulli
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/gulli/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/gulli/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/gulli/index.m3u8
+    -> https://s70378.cdn.ngenix.net/gulli/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/gulli/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] trace_sport_stars
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/trace_sport/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/trace_sport/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> активные потоки не обнаружены
+------------------------------------------------------------
+
+[КАНАЛ] match_planeta
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/match_plane/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/match_plane/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> активные потоки не обнаружены
+------------------------------------------------------------
+
+[КАНАЛ] kxl
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/kxl/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/kxl/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/kxl/index.m3u8
+    -> https://s70378.cdn.ngenix.net/kxl/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/kxl/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] tnt_music
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/tnt_music/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/tnt_music/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/tnt_music/index.m3u8
+    -> https://s70378.cdn.ngenix.net/tnt_music/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/tnt_music/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] mezzo
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/mezzo/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/mezzo/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/mezzo/index.m3u8
+    -> https://s70378.cdn.ngenix.net/mezzo/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/mezzo/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] rtr_planeta
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/rtr_planeta/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/rtr_planeta/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/rtr_planeta/index.m3u8
+    -> https://s70378.cdn.ngenix.net/rtr_planeta/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/rtr_planeta/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] ntv_pravo
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/ntv_pravo/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/ntv_pravo/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/ntv_pravo/index.m3u8
+    -> https://s70378.cdn.ngenix.net/ntv_pravo/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/ntv_pravo/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] mir
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/mir/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/mir/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/mir/index.m3u8
+    -> https://s70378.cdn.ngenix.net/mir/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/mir/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] rtvi
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/rtvi/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/rtvi/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/rtvi/index.m3u8
+    -> https://s70378.cdn.ngenix.net/rtvi/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/rtvi/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] ren_tv
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/ren_tv/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/ren_tv/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/ren_tv/index.m3u8
+    -> https://s70378.cdn.ngenix.net/ren_tv/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/ren_tv/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] rbc
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/rbc/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/rbc/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/rbc/index.m3u8
+    -> https://s70378.cdn.ngenix.net/rbc/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/rbc/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] euronews
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/euronews/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/euronews/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/euronews/index.m3u8
+    -> https://s70378.cdn.ngenix.net/euronews/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/euronews/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] tnt_4
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/tnt_4/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/tnt_4/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/tnt_4/index.m3u8
+    -> https://s70378.cdn.ngenix.net/tnt_4/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/tnt_4/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] kvn_tv
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/kvn_tv/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/kvn_tv/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/kvn_tv/index.m3u8
+    -> https://s70378.cdn.ngenix.net/kvn_tv/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/kvn_tv/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] nostalgia
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/nostalgia/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/nostalgia/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/nostalgia/index.m3u8
+    -> https://s70378.cdn.ngenix.net/nostalgia/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/nostalgia/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] tv_3
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/tv_3/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/tv_3/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/tv_3/index.m3u8
+    -> https://s70378.cdn.ngenix.net/tv_3/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/tv_3/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] telecafe
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/telecafe/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/telecafe/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/telecafe/index.m3u8
+    -> https://s70378.cdn.ngenix.net/telecafe/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/telecafe/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] h1 HD
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/h1/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/h1/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/h1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/h1/1/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] h2
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/h2/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/h2/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/h2/index.m3u8
+    -> https://s70378.cdn.ngenix.net/h2/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/h2/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] zee_tv
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/zee_tv/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/zee_tv/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/zee_tv/index.m3u8
+    -> https://s70378.cdn.ngenix.net/zee_tv/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/zee_tv/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] shant HD
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/shant/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/shant/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/shant/index.m3u8
+    -> https://s70378.cdn.ngenix.net/shant/1/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] kentron
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/kentron/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/kentron/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/kentron/index.m3u8
+    -> https://s70378.cdn.ngenix.net/kentron/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/kentron/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] dar21
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/dar21/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/dar21/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/dar21/index.m3u8
+    -> https://s70378.cdn.ngenix.net/dar21/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/dar21/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] atv HD
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/atv/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/atv/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/atv/index.m3u8
+    -> https://s70378.cdn.ngenix.net/atv/1/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] erox
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/erox/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/erox/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/erox/index.m3u8
+    -> https://s70378.cdn.ngenix.net/erox/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/erox/2/index.m3u8
+------------------------------------------------------------
+
+[КАНАЛ] playboy
+  [УЗЕЛ] ss70378.cdn.ngenix.net
+  [NODE] СТАТУС: узел не отвечает, данных нет
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/playboy/index.m3u8
+             СТАТУС: плейлист отсутствует, данных нет
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/playboy/index.m3u8
+                 СТАТУС: плейлист отсутствует, данных нет
+
+  [ПОТОКИ УЗЛА]
+    -> https://s70378.cdn.ngenix.net/playboy/index.m3u8
+    -> https://s70378.cdn.ngenix.net/playboy/1/index.m3u8
+    -> https://s70378.cdn.ngenix.net/playboy/2/index.m3u8
+------------------------------------------------------------
+
