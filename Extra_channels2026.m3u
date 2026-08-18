@@ -12106,6 +12106,207 @@ http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/101/index.m3u8
 #EXTINF:-1 tvg-id="Viju TV1000 Action" group-title="Эфирные кино и ужасы" tvg-logo="https://raw.githubusercontent.com/25aibiz25-maker/edit/refs/heads/main/Viju%20TV1000%20Action.png",13.14. Viju TV1000 Action
 http://2477fd5f.cbilant.com/iptv/WCSZMUM84X4689VHGC7UDAQQ/131/index.m3u8
 
+#EXTM3U
+
+#1. Filmzone HD.,
+#EXTINF:-1 tvg-id="" tvg-name="filmzone HD" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",1. Filmzone HD.,
+https://s70378.cdn.ngenix.net/filmzone/index.m3u8
+
+#2. Sony Sci-Fi.,
+#EXTINF:-1 tvg-id="" tvg-name="sony_sci_fi" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",2. Sony Sci-Fi.,
+https://s70378.cdn.ngenix.net/sony_sci_fi/2/index.m3u8
+
+#3. NTV Serial.,
+#EXTINF:-1 tvg-id="" tvg-name="ntv_serial" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",3. NTV Serial.,
+https://s70378.cdn.ngenix.net/ntv_serial/index.m3u8
+
+#4. Mir Seriala.,
+#EXTINF:-1 tvg-id="" tvg-name="mir_seriala" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",4. Mir Seriala.,
+https://s70378.cdn.ngenix.net/mir_seriala/index.m3u8
+
+#5. Sony Turbo.,
+#EXTINF:-1 tvg-id="" tvg-name="sony_turbo" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",5. Sony Turbo.,
+https://s70378.cdn.ngenix.net/sony_turbo/index.m3u8
+
+#6. VIP Serial.,
+#EXTINF:-1 tvg-id="" tvg-name="vip_serial" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",6. VIP Serial.,
+https://s70378.cdn.ngenix.net/vip_serial/index.m3u8
+
+#7. AMC.,
+#EXTINF:-1 tvg-id="" tvg-name="amc" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",7. AMC.,
+https://s70378.cdn.ngenix.net/amc/2/index.m3u8
+
+#8. FilmBox.,
+#EXTINF:-1 tvg-id="" tvg-name="filmbox" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",8. FilmBox.,
+https://s70378.cdn.ngenix.net/filmbox/2/index.m3u8
+
+#9. KinoUzhas.,
+#EXTINF:-1 tvg-id="" tvg-name="kinouzhas" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",9. KinoUzhas.,
+https://s70378.cdn.ngenix.net/kinouzhas/index.m3u8
+
+#10. Evrokino.,
+#EXTINF:-1 tvg-id="" tvg-name="evrokino" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",10. Evrokino.,
+https://s70378.cdn.ngenix.net/evrokino/index.m3u8
+
+#11. Amedia 2.,
+#EXTINF:-1 tvg-id="" tvg-name="amedia_2" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",11. Amedia 2.,
+https://s70378.cdn.ngenix.net/amedia_2/index.m3u8
+
+#12. Dom Kino.,
+#EXTINF:-1 tvg-id="" tvg-name="dom_kino" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",12. Dom Kino.,
+https://s70378.cdn.ngenix.net/dom_kino/2/index.m3u8
+
+#13. Mnogo TV.,
+#EXTINF:-1 tvg-id="" tvg-name="mnogo_tv" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",13. Mnogo TV.,
+https://s70378.cdn.ngenix.net/mnogo_tv/2/index.m3u8
+
+#14. KinoKlub.,
+#EXTINF:-1 tvg-id="" tvg-name="kinoklub" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",14. KinoKlub.,
+https://s70378.cdn.ngenix.net/kinoklub/2/index.m3u8
+
+#15. HD Life.,
+#EXTINF:-1 tvg-id="" tvg-name="hd_life" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",15. HD Life.,
+https://s70378.cdn.ngenix.net/hd_life/2/index.m3u8
+
+#16. DocuBox.,
+#EXTINF:-1 tvg-id="" tvg-name="docubox" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",16. DocuBox.,
+https://s70378.cdn.ngenix.net/docubox/index.m3u8
+
+#17. Ocean TV.,
+#EXTINF:-1 tvg-id="" tvg-name="ocean_tv" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",17. Ocean TV.,
+https://s70378.cdn.ngenix.net/ocean_tv/2/index.m3u8
+
+#18. History.,
+#EXTINF:-1 tvg-id="" tvg-name="history" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",18. History.,
+https://s70378.cdn.ngenix.net/history/index.m3u8
+
+#19. Zoopark.,
+#EXTINF:-1 tvg-id="" tvg-name="zoopark" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",19. Zoopark.,
+https://s70378.cdn.ngenix.net/zoopark/index.m3u8
+
+#20. Zoopark.,
+#EXTINF:-1 tvg-id="" tvg-name="zoopark" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",20. Zoopark.,
+https://s70378.cdn.ngenix.net/zoopark/2/index.m3u8
+
+#21. Galaxy.,
+#EXTINF:-1 tvg-id="" tvg-name="galaxy" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",21. Galaxy.,
+https://s70378.cdn.ngenix.net/galaxy/2/index.m3u8
+
+#22. Terra.,
+#EXTINF:-1 tvg-id="" tvg-name="terra" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",22. Terra.,
+https://s70378.cdn.ngenix.net/terra/index.m3u8
+
+#23. Nicktoons.,
+#EXTINF:-1 tvg-id="" tvg-name="nicktoons" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",23. Nicktoons.,
+https://s70378.cdn.ngenix.net/nicktoons/2/index.m3u8
+
+#24. DuckTV.,
+#EXTINF:-1 tvg-id="" tvg-name="ducktv" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",24. DuckTV.,
+https://s70378.cdn.ngenix.net/ducktv/index.m3u8
+
+#25. Karusel.,
+#EXTINF:-1 tvg-id="" tvg-name="karusel" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",25. Karusel.,
+https://s70378.cdn.ngenix.net/karusel/2/index.m3u8
+
+#26. TiJi.,
+#EXTINF:-1 tvg-id="" tvg-name="tiji" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",26. TiJi.,
+https://s70378.cdn.ngenix.net/tiji/index.m3u8
+
+#27. Nickelodeon.,
+#EXTINF:-1 tvg-id="" tvg-name="nickelodeon" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",27. Nickelodeon.,
+https://s70378.cdn.ngenix.net/nickelodeon/2/index.m3u8
+
+#28. Gulli.,
+#EXTINF:-1 tvg-id="" tvg-name="gulli" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",28. Gulli.,
+https://s70378.cdn.ngenix.net/gulli/index.m3u8
+
+#29. KXL.,
+#EXTINF:-1 tvg-id="" tvg-name="kxl" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",29. KXL.,
+https://s70378.cdn.ngenix.net/kxl/2/index.m3u8
+
+#30. TNT Music.,
+#EXTINF:-1 tvg-id="" tvg-name="tnt_music" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",30. TNT Music.,
+https://s70378.cdn.ngenix.net/tnt_music/index.m3u8
+
+#31. Mezzo.,
+#EXTINF:-1 tvg-id="" tvg-name="mezzo" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",31. Mezzo.,
+https://s70378.cdn.ngenix.net/mezzo/2/index.m3u8
+
+#32. RTR Planeta.,
+#EXTINF:-1 tvg-id="" tvg-name="rtr_planeta" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",32. RTR Planeta.,
+https://s70378.cdn.ngenix.net/rtr_planeta/index.m3u8
+
+#33. NTV Pravo.,
+#EXTINF:-1 tvg-id="" tvg-name="ntv_pravo" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",33. NTV Pravo.,
+https://s70378.cdn.ngenix.net/ntv_pravo/2/index.m3u8
+
+#34. Mir.,
+#EXTINF:-1 tvg-id="" tvg-name="mir" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",34. Mir.,
+https://s70378.cdn.ngenix.net/mir/index.m3u8
+
+#35. RTVI.,
+#EXTINF:-1 tvg-id="" tvg-name="rtvi" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",35. RTVI.,
+https://s70378.cdn.ngenix.net/rtvi/2/index.m3u8
+
+#36. REN TV.,
+#EXTINF:-1 tvg-id="" tvg-name="ren_tv" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",36. REN TV.,
+https://s70378.cdn.ngenix.net/ren_tv/index.m3u8
+
+#37. RBC.,
+#EXTINF:-1 tvg-id="" tvg-name="rbc" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",37. RBC.,
+https://s70378.cdn.ngenix.net/rbc/2/index.m3u8
+
+#38. Euronews.,
+#EXTINF:-1 tvg-id="" tvg-name="euronews" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",38. Euronews.,
+https://s70378.cdn.ngenix.net/euronews/index.m3u8
+
+#39. TNT 4.,
+#EXTINF:-1 tvg-id="" tvg-name="tnt_4" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",39. TNT 4.,
+https://s70378.cdn.ngenix.net/tnt_4/2/index.m3u8
+
+#40. KVN TV.,
+#EXTINF:-1 tvg-id="" tvg-name="kvn_tv" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",40. KVN TV.,
+https://s70378.cdn.ngenix.net/kvn_tv/index.m3u8
+
+#41. Nostalgia.,
+#EXTINF:-1 tvg-id="" tvg-name="nostalgia" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",41. Nostalgia.,
+https://s70378.cdn.ngenix.net/nostalgia/2/index.m3u8
+
+#42. TV 3.,
+#EXTINF:-1 tvg-id="" tvg-name="tv_3" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",42. TV 3.,
+https://s70378.cdn.ngenix.net/tv_3/index.m3u8
+
+#43. Telecafe.,
+#EXTINF:-1 tvg-id="" tvg-name="telecafe" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",43. Telecafe.,
+https://s70378.cdn.ngenix.net/telecafe/2/index.m3u8
+
+#44. H1 HD.,
+#EXTINF:-1 tvg-id="" tvg-name="h1 HD" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",44. H1 HD.,
+https://s70378.cdn.ngenix.net/h1/index.m3u8
+
+#45. H2.,
+#EXTINF:-1 tvg-id="" tvg-name="h2" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",45. H2.,
+https://s70378.cdn.ngenix.net/h2/2/index.m3u8
+
+#46. Zee TV.,
+#EXTINF:-1 tvg-id="" tvg-name="zee_tv" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",46. Zee TV.,
+https://s70378.cdn.ngenix.net/zee_tv/index.m3u8
+
+#47. Shant HD.,
+#EXTINF:-1 tvg-id="" tvg-name="shant HD" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",47. Shant HD.,
+https://s70378.cdn.ngenix.net/shant/1/index.m3u8
+
+#48. Kentron.,
+#EXTINF:-1 tvg-id="" tvg-name="kentron" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",48. Kentron.,
+https://s70378.cdn.ngenix.net/kentron/index.m3u8
+
+#49. Dar21.,
+#EXTINF:-1 tvg-id="" tvg-name="dar21" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",49. Dar21.,
+https://s70378.cdn.ngenix.net/dar21/2/index.m3u8
+
+#50. ATV HD.,
+#EXTINF:-1 tvg-id="" tvg-name="atv HD" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix 1",50. ATV HD.,
+https://s70378.cdn.ngenix.net/atv/index.m3u8
 
 
 
