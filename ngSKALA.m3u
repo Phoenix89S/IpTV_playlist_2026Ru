@@ -356,4 +356,15 @@ https://s70378.cdn.ngenix.net/viasat_romantica/index.m3u8
 #EXTINF:-1 tvg-id="viasat_megahit" group-title="Эфирные ТВ Vijuплюс",21. viju_tv1000_novella_test
 https://s70378.cdn.ngenix.net/viasat_megahit/index.m3u8
 
+#EXTINF:-1 tvg-id="tv_1000" group-title="Эфирные ТВ Vijuплюс",9. viju TV1000
+https://s70378.cdn.ngenix.net/tv_1000/index.m3u8
+
+#EXTINF:-1 tvg-id="tv1000_action" group-title="Эфирные ТВ Vijuплюс",9.1. viju TV1000 action
+https://s70378.cdn.ngenix.net/tv_1000_action/index.m3u8
+
+#EXTINF:-1 tvg-id="viju_novella" group-title="Эфирные ТВ Vijuплюс",9.2. viju TV1000 novella
+https://s70378.cdn.ngenix.net/viju_novella/index.m3u8
+
+#EXTINF:-1 tvg-id="vip_megahit" group-title="Эфирные ТВ Vijuплюс",9.3. viju+ романтика
+https://s70378.cdn.ngenix.net/vip_megahit/index.m3u8
 
