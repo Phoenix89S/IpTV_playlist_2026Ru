@@ -203,7 +203,7 @@ https://s70378.cdn.ngenix.net/atv/1/index.m3u8
 
 
 
-#EXTM3U
+
 #EXTINF:-1 tvg-id="vip_premiere" group-title="Эфирные ТВ Плюс",101. viju_plus_premiere
 https://s70378.cdn.ngenix.net/vip_premiere/index.m3u8
 #EXTINF:-1 tvg-id="vip_megahit" group-title="Эфирные ТВ Плюс",102. viju_plus_megahit
@@ -216,6 +216,10 @@ https://s70378.cdn.ngenix.net/vip_serial/index.m3u8
 https://s70378.cdn.ngenix.net/vip_planet/index.m3u8
 #EXTINF:-1 tvg-id="vip_sport" group-title="Эфирные ТВ Плюс",106. viju_plus_sport
 https://s70378.cdn.ngenix.net/vip_sport/index.m3u8
+#EXTINF:-1 tvg-id="vip_novella" group-title="Эфирные ТВ Плюс",107. viju_plus_novella
+https://s70378.cdn.ngenix.net/vip_novella/index.m3u8
+#EXTINF:-1 tvg-id="vip_romance" group-title="Эфирные ТВ Плюс",108. viju_plus_romance
+https://s70378.cdn.ngenix.net/vip_romance/index.m3u8
 
 
 
