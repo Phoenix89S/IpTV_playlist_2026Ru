@@ -1,0 +1,416 @@
+============================================================
+МОДУЛЬ ПРОВЕРКИ АЛИАСОВ
+ИТОГОВЫЙ ТЕКСТОВЫЙ ОТЧЁТ
+============================================================
+
+Модуль: Модуль проверки алиасов
+Всего каналов: 10
+Найдено подтвержденных соответствий: 10
+Не найдено / вероятные: 0
+
+ВАЖНО:
+Сгенерированный alias не считается подтвержденным только из-за генерации.
+Подтверждение происходит только при наличии реального CDN alias / подтвержденного probe.
+FUZZY_CANDIDATE не считается доказанным соответствием и не добавляется в рабочий M3U.
+
+============================================================
+ПОДРОБНЫЕ РЕЗУЛЬТАТЫ
+============================================================
+
+[1] КАНАЛ: Карусель
+Нормализованный: карусель
+CDN alias: karousel
+Тип: DICTIONARY_CONFIRMED
+Уверенность: 1.000
+Причина: Alias найден в явном словаре и реально присутствует в CDN inventory.
+
+КАНДИДАТЫ:
+  karousel                            score=0.990 CONFIRMED    reason=known_dictionary
+  karusel                             score=0.900 candidate    reason=tvg_id
+  karousel_channel                    score=0.250 candidate    reason=technical_suffix:channel
+  karousel_live                       score=0.250 candidate    reason=technical_suffix:live
+  karousel_online                     score=0.250 candidate    reason=technical_suffix:online
+  karousel_television                 score=0.250 candidate    reason=technical_suffix:television
+  karousel_tv                         score=0.250 candidate    reason=technical_suffix:tv
+  karusel_channel                     score=0.250 candidate    reason=technical_suffix:channel
+  karusel_live                        score=0.250 candidate    reason=technical_suffix:live
+  karusel_online                      score=0.250 candidate    reason=technical_suffix:online
+  karusel_television                  score=0.250 candidate    reason=technical_suffix:television
+  karusel_tv                          score=0.250 candidate    reason=technical_suffix:tv
+
+ПОТОКИ:
+  [REACHABLE] [primary] [HTTP=200] https://s70378.cdn.ngenix.net/karousel/index.m3u8
+  [REACHABLE] [variant=1] [HTTP=200] https://s70378.cdn.ngenix.net/karousel/1/index.m3u8
+  [REACHABLE] [variant=2] [HTTP=200] https://s70378.cdn.ngenix.net/karousel/2/index.m3u8
+
+В M3U PLAYLIST EDITION: ДА
+
+----------------------------------------------------------------------------------------------------
+
+[2] КАНАЛ: РЕН ТВ
+Нормализованный: рен тв
+CDN alias: ren_tv
+Тип: DICTIONARY_CONFIRMED
+Уверенность: 1.000
+Причина: Alias найден в явном словаре и реально присутствует в CDN inventory.
+
+КАНДИДАТЫ:
+  ren_tv                              score=0.990 CONFIRMED    reason=known_dictionary
+  rentv                               score=0.900 candidate    reason=tvg_id
+  ren_tv_channel                      score=0.250 candidate    reason=technical_suffix:channel
+  ren_tv_live                         score=0.250 candidate    reason=technical_suffix:live
+  ren_tv_online                       score=0.250 candidate    reason=technical_suffix:online
+  ren_tv_television                   score=0.250 candidate    reason=technical_suffix:television
+  ren_tv_tv                           score=0.250 candidate    reason=technical_suffix:tv
+  rentv_channel                       score=0.250 candidate    reason=technical_suffix:channel
+  rentv_live                          score=0.250 candidate    reason=technical_suffix:live
+  rentv_online                        score=0.250 candidate    reason=technical_suffix:online
+  rentv_television                    score=0.250 candidate    reason=technical_suffix:television
+  rentv_tv                            score=0.250 candidate    reason=technical_suffix:tv
+
+ПОТОКИ:
+  [REACHABLE] [primary] [HTTP=200] https://s70378.cdn.ngenix.net/ren_tv/index.m3u8
+  [REACHABLE] [variant=1] [HTTP=200] https://s70378.cdn.ngenix.net/ren_tv/1/index.m3u8
+  [REACHABLE] [variant=2] [HTTP=200] https://s70378.cdn.ngenix.net/ren_tv/2/index.m3u8
+
+В M3U PLAYLIST EDITION: ДА
+
+----------------------------------------------------------------------------------------------------
+
+[3] КАНАЛ: ТВ-3
+Нормализованный: тв 3
+CDN alias: tv_3
+Тип: DICTIONARY_CONFIRMED
+Уверенность: 1.000
+Причина: Alias найден в явном словаре и реально присутствует в CDN inventory.
+
+КАНДИДАТЫ:
+  tv_3                                score=0.990 CONFIRMED    reason=known_dictionary
+  tv3                                 score=0.900 candidate    reason=tvg_id
+  3                                   score=0.600 candidate    reason=normalized_name
+  3_channel                           score=0.250 candidate    reason=technical_suffix:channel
+  3_live                              score=0.250 candidate    reason=technical_suffix:live
+  3_online                            score=0.250 candidate    reason=technical_suffix:online
+  3_television                        score=0.250 candidate    reason=technical_suffix:television
+  3_tv                                score=0.250 candidate    reason=technical_suffix:tv
+  tv3_channel                         score=0.250 candidate    reason=technical_suffix:channel
+  tv3_live                            score=0.250 candidate    reason=technical_suffix:live
+  tv3_online                          score=0.250 candidate    reason=technical_suffix:online
+  tv3_television                      score=0.250 candidate    reason=technical_suffix:television
+  tv3_tv                              score=0.250 candidate    reason=technical_suffix:tv
+  tv_3_channel                        score=0.250 candidate    reason=technical_suffix:channel
+  tv_3_live                           score=0.250 candidate    reason=technical_suffix:live
+  tv_3_online                         score=0.250 candidate    reason=technical_suffix:online
+  tv_3_television                     score=0.250 candidate    reason=technical_suffix:television
+  tv_3_tv                             score=0.250 candidate    reason=technical_suffix:tv
+
+ПОТОКИ:
+  [REACHABLE] [primary] [HTTP=200] https://s70378.cdn.ngenix.net/tv_3/index.m3u8
+  [REACHABLE] [variant=1] [HTTP=200] https://s70378.cdn.ngenix.net/tv_3/1/index.m3u8
+  [REACHABLE] [variant=2] [HTTP=200] https://s70378.cdn.ngenix.net/tv_3/2/index.m3u8
+
+В M3U PLAYLIST EDITION: ДА
+
+----------------------------------------------------------------------------------------------------
+
+[4] КАНАЛ: Мир
+Нормализованный: мир
+CDN alias: mir
+Тип: DICTIONARY_CONFIRMED
+Уверенность: 1.000
+Причина: Alias найден в явном словаре и реально присутствует в CDN inventory.
+
+КАНДИДАТЫ:
+  mir                                 score=0.990 CONFIRMED    reason=known_dictionary
+  mir_channel                         score=0.250 candidate    reason=technical_suffix:channel
+  mir_live                            score=0.250 candidate    reason=technical_suffix:live
+  mir_online                          score=0.250 candidate    reason=technical_suffix:online
+  mir_television                      score=0.250 candidate    reason=technical_suffix:television
+  mir_tv                              score=0.250 candidate    reason=technical_suffix:tv
+
+ПОТОКИ:
+  [REACHABLE] [primary] [HTTP=200] https://s70378.cdn.ngenix.net/mir/index.m3u8
+  [REACHABLE] [variant=1] [HTTP=200] https://s70378.cdn.ngenix.net/mir/1/index.m3u8
+  [REACHABLE] [variant=2] [HTTP=200] https://s70378.cdn.ngenix.net/mir/2/index.m3u8
+
+В M3U PLAYLIST EDITION: ДА
+
+----------------------------------------------------------------------------------------------------
+
+[5] КАНАЛ: Голливуд HD
+Нормализованный: голливуд hd
+CDN alias: amc
+Тип: DICTIONARY_CONFIRMED
+Уверенность: 1.000
+Причина: Alias найден в явном словаре и реально присутствует в CDN inventory.
+
+КАНДИДАТЫ:
+  amc                                 score=0.990 CONFIRMED    reason=known_dictionary
+  hd                                  score=0.600 candidate    reason=normalized_name
+  gollivud_hd                         score=0.500 candidate    reason=transliteration
+  gollivud                            score=0.480 candidate    reason=transliteration_without_quality
+  amc_channel                         score=0.250 candidate    reason=technical_suffix:channel
+  amc_live                            score=0.250 candidate    reason=technical_suffix:live
+  amc_online                          score=0.250 candidate    reason=technical_suffix:online
+  amc_television                      score=0.250 candidate    reason=technical_suffix:television
+  amc_tv                              score=0.250 candidate    reason=technical_suffix:tv
+  gollivud_channel                    score=0.250 candidate    reason=technical_suffix:channel
+  gollivud_hd_channel                 score=0.250 candidate    reason=technical_suffix:channel
+  gollivud_hd_live                    score=0.250 candidate    reason=technical_suffix:live
+  gollivud_hd_online                  score=0.250 candidate    reason=technical_suffix:online
+  gollivud_hd_television              score=0.250 candidate    reason=technical_suffix:television
+  gollivud_hd_tv                      score=0.250 candidate    reason=technical_suffix:tv
+  gollivud_live                       score=0.250 candidate    reason=technical_suffix:live
+  gollivud_online                     score=0.250 candidate    reason=technical_suffix:online
+  gollivud_television                 score=0.250 candidate    reason=technical_suffix:television
+  gollivud_tv                         score=0.250 candidate    reason=technical_suffix:tv
+  hd_channel                          score=0.250 candidate    reason=technical_suffix:channel
+  hd_live                             score=0.250 candidate    reason=technical_suffix:live
+  hd_online                           score=0.250 candidate    reason=technical_suffix:online
+  hd_television                       score=0.250 candidate    reason=technical_suffix:television
+  hd_tv                               score=0.250 candidate    reason=technical_suffix:tv
+
+ПОТОКИ:
+  [REACHABLE] [primary] [HTTP=200] https://s70378.cdn.ngenix.net/amc/index.m3u8
+  [REACHABLE] [variant=1] [HTTP=200] https://s70378.cdn.ngenix.net/amc/1/index.m3u8
+  [REACHABLE] [variant=2] [HTTP=200] https://s70378.cdn.ngenix.net/amc/2/index.m3u8
+
+В M3U PLAYLIST EDITION: ДА
+
+----------------------------------------------------------------------------------------------------
+
+[6] КАНАЛ: Дом Кино
+Нормализованный: дом кино
+CDN alias: dom_kino
+Тип: DICTIONARY_CONFIRMED
+Уверенность: 1.000
+Причина: Alias найден в явном словаре и реально присутствует в CDN inventory.
+
+КАНДИДАТЫ:
+  dom_kino                            score=0.990 CONFIRMED    reason=known_dictionary
+  dom_kino_channel                    score=0.250 candidate    reason=technical_suffix:channel
+  dom_kino_live                       score=0.250 candidate    reason=technical_suffix:live
+  dom_kino_online                     score=0.250 candidate    reason=technical_suffix:online
+  dom_kino_television                 score=0.250 candidate    reason=technical_suffix:television
+  dom_kino_tv                         score=0.250 candidate    reason=technical_suffix:tv
+
+ПОТОКИ:
+  [REACHABLE] [primary] [HTTP=200] https://s70378.cdn.ngenix.net/dom_kino/index.m3u8
+  [REACHABLE] [variant=1] [HTTP=200] https://s70378.cdn.ngenix.net/dom_kino/1/index.m3u8
+  [REACHABLE] [variant=2] [HTTP=200] https://s70378.cdn.ngenix.net/dom_kino/2/index.m3u8
+
+В M3U PLAYLIST EDITION: ДА
+
+----------------------------------------------------------------------------------------------------
+
+[7] КАНАЛ: FilmBox
+Нормализованный: filmbox
+CDN alias: filmbox
+Тип: DICTIONARY_CONFIRMED
+Уверенность: 1.000
+Причина: Alias найден в явном словаре и реально присутствует в CDN inventory.
+
+КАНДИДАТЫ:
+  filmbox                             score=0.990 CONFIRMED    reason=known_dictionary
+  filmbox_channel                     score=0.250 candidate    reason=technical_suffix:channel
+  filmbox_live                        score=0.250 candidate    reason=technical_suffix:live
+  filmbox_online                      score=0.250 candidate    reason=technical_suffix:online
+  filmbox_television                  score=0.250 candidate    reason=technical_suffix:television
+  filmbox_tv                          score=0.250 candidate    reason=technical_suffix:tv
+
+ПОТОКИ:
+  [REACHABLE] [primary] [HTTP=200] https://s70378.cdn.ngenix.net/filmbox/index.m3u8
+  [REACHABLE] [variant=1] [HTTP=200] https://s70378.cdn.ngenix.net/filmbox/1/index.m3u8
+  [REACHABLE] [variant=2] [HTTP=200] https://s70378.cdn.ngenix.net/filmbox/2/index.m3u8
+
+В M3U PLAYLIST EDITION: ДА
+
+----------------------------------------------------------------------------------------------------
+
+[8] КАНАЛ: NickToons
+Нормализованный: nicktoons
+CDN alias: nicktoons
+Тип: DICTIONARY_CONFIRMED
+Уверенность: 1.000
+Причина: Alias найден в явном словаре и реально присутствует в CDN inventory.
+
+КАНДИДАТЫ:
+  nicktoons                           score=0.990 CONFIRMED    reason=known_dictionary
+  nicktoons_channel                   score=0.250 candidate    reason=technical_suffix:channel
+  nicktoons_live                      score=0.250 candidate    reason=technical_suffix:live
+  nicktoons_online                    score=0.250 candidate    reason=technical_suffix:online
+  nicktoons_television                score=0.250 candidate    reason=technical_suffix:television
+  nicktoons_tv                        score=0.250 candidate    reason=technical_suffix:tv
+
+ПОТОКИ:
+  [REACHABLE] [primary] [HTTP=200] https://s70378.cdn.ngenix.net/nicktoons/index.m3u8
+  [REACHABLE] [variant=1] [HTTP=200] https://s70378.cdn.ngenix.net/nicktoons/1/index.m3u8
+  [REACHABLE] [variant=2] [HTTP=200] https://s70378.cdn.ngenix.net/nicktoons/2/index.m3u8
+
+В M3U PLAYLIST EDITION: ДА
+
+----------------------------------------------------------------------------------------------------
+
+[9] КАНАЛ: Ocean TV
+Нормализованный: ocean tv
+CDN alias: ocean_tv
+Тип: DICTIONARY_CONFIRMED
+Уверенность: 1.000
+Причина: Alias найден в явном словаре и реально присутствует в CDN inventory.
+
+КАНДИДАТЫ:
+  ocean_tv                            score=0.990 CONFIRMED    reason=known_dictionary
+  oceantv                             score=0.400 candidate    reason=word_concatenation
+  ocean_tv_channel                    score=0.250 candidate    reason=technical_suffix:channel
+  ocean_tv_live                       score=0.250 candidate    reason=technical_suffix:live
+  ocean_tv_online                     score=0.250 candidate    reason=technical_suffix:online
+  ocean_tv_television                 score=0.250 candidate    reason=technical_suffix:television
+  ocean_tv_tv                         score=0.250 candidate    reason=technical_suffix:tv
+  oceantv_channel                     score=0.250 candidate    reason=technical_suffix:channel
+  oceantv_live                        score=0.250 candidate    reason=technical_suffix:live
+  oceantv_online                      score=0.250 candidate    reason=technical_suffix:online
+  oceantv_television                  score=0.250 candidate    reason=technical_suffix:television
+  oceantv_tv                          score=0.250 candidate    reason=technical_suffix:tv
+
+ПОТОКИ:
+  [REACHABLE] [primary] [HTTP=200] https://s70378.cdn.ngenix.net/ocean_tv/index.m3u8
+  [REACHABLE] [variant=1] [HTTP=200] https://s70378.cdn.ngenix.net/ocean_tv/1/index.m3u8
+  [REACHABLE] [variant=2] [HTTP=200] https://s70378.cdn.ngenix.net/ocean_tv/2/index.m3u8
+
+В M3U PLAYLIST EDITION: ДА
+
+----------------------------------------------------------------------------------------------------
+
+[10] КАНАЛ: Ностальгия
+Нормализованный: ностальгия
+CDN alias: nostalgia
+Тип: DICTIONARY_CONFIRMED
+Уверенность: 1.000
+Причина: Alias найден в явном словаре и реально присутствует в CDN inventory.
+
+КАНДИДАТЫ:
+  nostalgia                           score=0.990 CONFIRMED    reason=known_dictionary
+  nostalgiya                          score=0.500 candidate    reason=transliteration
+  nostalgia_channel                   score=0.250 candidate    reason=technical_suffix:channel
+  nostalgia_live                      score=0.250 candidate    reason=technical_suffix:live
+  nostalgia_online                    score=0.250 candidate    reason=technical_suffix:online
+  nostalgia_television                score=0.250 candidate    reason=technical_suffix:television
+  nostalgia_tv                        score=0.250 candidate    reason=technical_suffix:tv
+  nostalgiya_channel                  score=0.250 candidate    reason=technical_suffix:channel
+  nostalgiya_live                     score=0.250 candidate    reason=technical_suffix:live
+  nostalgiya_online                   score=0.250 candidate    reason=technical_suffix:online
+  nostalgiya_television               score=0.250 candidate    reason=technical_suffix:television
+  nostalgiya_tv                       score=0.250 candidate    reason=technical_suffix:tv
+
+ПОТОКИ:
+  [REACHABLE] [primary] [HTTP=200] https://s70378.cdn.ngenix.net/nostalgia/index.m3u8
+  [REACHABLE] [variant=1] [HTTP=200] https://s70378.cdn.ngenix.net/nostalgia/1/index.m3u8
+  [REACHABLE] [variant=2] [HTTP=200] https://s70378.cdn.ngenix.net/nostalgia/2/index.m3u8
+
+В M3U PLAYLIST EDITION: ДА
+
+----------------------------------------------------------------------------------------------------
+
+============================================================
+M3U PLAYLIST EDITION
+============================================================
+
+Скопируйте содержимое следующего блока и вставьте его как M3U playlist.
+В этот блок попадают только подтвержденные CDN alias и реально обнаруженные потоки.
+
+#EXTM3U
+
+#EXTINF:-1 tvg-id="karusel" tvg-name="Карусель",Карусель
+https://s70378.cdn.ngenix.net/karousel/index.m3u8
+
+#EXTINF:-1 tvg-id="karusel" tvg-name="Карусель",Карусель
+https://s70378.cdn.ngenix.net/karousel/1/index.m3u8
+
+#EXTINF:-1 tvg-id="karusel" tvg-name="Карусель",Карусель
+https://s70378.cdn.ngenix.net/karousel/2/index.m3u8
+
+#EXTINF:-1 tvg-id="rentv" tvg-name="РЕН ТВ",РЕН ТВ
+https://s70378.cdn.ngenix.net/ren_tv/index.m3u8
+
+#EXTINF:-1 tvg-id="rentv" tvg-name="РЕН ТВ",РЕН ТВ
+https://s70378.cdn.ngenix.net/ren_tv/1/index.m3u8
+
+#EXTINF:-1 tvg-id="rentv" tvg-name="РЕН ТВ",РЕН ТВ
+https://s70378.cdn.ngenix.net/ren_tv/2/index.m3u8
+
+#EXTINF:-1 tvg-id="tv3" tvg-name="ТВ-3",ТВ-3
+https://s70378.cdn.ngenix.net/tv_3/index.m3u8
+
+#EXTINF:-1 tvg-id="tv3" tvg-name="ТВ-3",ТВ-3
+https://s70378.cdn.ngenix.net/tv_3/1/index.m3u8
+
+#EXTINF:-1 tvg-id="tv3" tvg-name="ТВ-3",ТВ-3
+https://s70378.cdn.ngenix.net/tv_3/2/index.m3u8
+
+#EXTINF:-1 tvg-id="mir" tvg-name="Мир",Мир
+https://s70378.cdn.ngenix.net/mir/index.m3u8
+
+#EXTINF:-1 tvg-id="mir" tvg-name="Мир",Мир
+https://s70378.cdn.ngenix.net/mir/1/index.m3u8
+
+#EXTINF:-1 tvg-id="mir" tvg-name="Мир",Мир
+https://s70378.cdn.ngenix.net/mir/2/index.m3u8
+
+#EXTINF:-1 tvg-name="Голливуд HD",Голливуд HD
+https://s70378.cdn.ngenix.net/amc/index.m3u8
+
+#EXTINF:-1 tvg-name="Голливуд HD",Голливуд HD
+https://s70378.cdn.ngenix.net/amc/1/index.m3u8
+
+#EXTINF:-1 tvg-name="Голливуд HD",Голливуд HD
+https://s70378.cdn.ngenix.net/amc/2/index.m3u8
+
+#EXTINF:-1 tvg-id="dom_kino" tvg-name="Дом Кино",Дом Кино
+https://s70378.cdn.ngenix.net/dom_kino/index.m3u8
+
+#EXTINF:-1 tvg-id="dom_kino" tvg-name="Дом Кино",Дом Кино
+https://s70378.cdn.ngenix.net/dom_kino/1/index.m3u8
+
+#EXTINF:-1 tvg-id="dom_kino" tvg-name="Дом Кино",Дом Кино
+https://s70378.cdn.ngenix.net/dom_kino/2/index.m3u8
+
+#EXTINF:-1 tvg-id="filmbox" tvg-name="FilmBox",FilmBox
+https://s70378.cdn.ngenix.net/filmbox/index.m3u8
+
+#EXTINF:-1 tvg-id="filmbox" tvg-name="FilmBox",FilmBox
+https://s70378.cdn.ngenix.net/filmbox/1/index.m3u8
+
+#EXTINF:-1 tvg-id="filmbox" tvg-name="FilmBox",FilmBox
+https://s70378.cdn.ngenix.net/filmbox/2/index.m3u8
+
+#EXTINF:-1 tvg-id="nicktoons" tvg-name="NickToons",NickToons
+https://s70378.cdn.ngenix.net/nicktoons/index.m3u8
+
+#EXTINF:-1 tvg-id="nicktoons" tvg-name="NickToons",NickToons
+https://s70378.cdn.ngenix.net/nicktoons/1/index.m3u8
+
+#EXTINF:-1 tvg-id="nicktoons" tvg-name="NickToons",NickToons
+https://s70378.cdn.ngenix.net/nicktoons/2/index.m3u8
+
+#EXTINF:-1 tvg-id="ocean_tv" tvg-name="Ocean TV",Ocean TV
+https://s70378.cdn.ngenix.net/ocean_tv/index.m3u8
+
+#EXTINF:-1 tvg-id="ocean_tv" tvg-name="Ocean TV",Ocean TV
+https://s70378.cdn.ngenix.net/ocean_tv/1/index.m3u8
+
+#EXTINF:-1 tvg-id="ocean_tv" tvg-name="Ocean TV",Ocean TV
+https://s70378.cdn.ngenix.net/ocean_tv/2/index.m3u8
+
+#EXTINF:-1 tvg-id="nostalgia" tvg-name="Ностальгия",Ностальгия
+https://s70378.cdn.ngenix.net/nostalgia/index.m3u8
+
+#EXTINF:-1 tvg-id="nostalgia" tvg-name="Ностальгия",Ностальгия
+https://s70378.cdn.ngenix.net/nostalgia/1/index.m3u8
+
+#EXTINF:-1 tvg-id="nostalgia" tvg-name="Ностальгия",Ностальгия
+https://s70378.cdn.ngenix.net/nostalgia/2/index.m3u8
+
+============================================================
+КОНЕЦ M3U PLAYLIST EDITION
+============================================================
+
