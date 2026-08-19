@@ -200,7 +200,7 @@ https://s70378.cdn.ngenix.net/atv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="atv HD" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",atv HD
 https://s70378.cdn.ngenix.net/atv/1/index.m3u8
 
-#EXTM3U
+
 #EXTINF:-1 tvg-id="vip_premiere" group-title="Эфирные ТВ Плюс",101. viju_plus_premiere
 https://s70378.cdn.ngenix.net/vip_premiere/index.m3u8
 #EXTINF:-1 tvg-id="vip_megahit" group-title="Эфирные ТВ Плюс",102. viju_plus_megahit
