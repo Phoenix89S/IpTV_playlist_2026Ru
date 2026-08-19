@@ -1,8 +1,25 @@
-import requests
-from concurrent.futures import ThreadPoolExecutor
+import os
+import asyncio
+import aiohttp
+from aiohttp import ClientTimeout
 
 # ============================================================
-# 1. Универсальная нормализация домена и пути
+# 1. Turbo‑параметры
+# ============================================================
+
+CPU = os.cpu_count()
+TURBO = os.getenv("NGNORM_TURBO") == "1"
+
+MAX_THREADS = CPU * (40 if TURBO else 10)
+TIMEOUT = 1 if TURBO else 2
+
+CACHE = {}          # turbo cache
+NODE_CACHE = {}     # cache узлов
+SESSION = None      # aiohttp session
+
+
+# ============================================================
+# 2. Универсальная нормализация домена и пути
 # ============================================================
 
 def normalize_ngenix(url):
@@ -28,10 +45,30 @@ def normalize_ngenix(url):
 
 
 # ============================================================
-# 2. Проверка конкретного потока
+# 3. Асинхронная проверка URL
 # ============================================================
 
-def check_stream(base):
+async def fetch(url):
+    if url in CACHE:
+        return CACHE[url]
+
+    try:
+        async with SESSION.get(url) as r:
+            if r.status == 200:
+                CACHE[url] = url
+                return url
+    except:
+        pass
+
+    CACHE[url] = None
+    return None
+
+
+# ============================================================
+# 4. Turbo‑проверка потока
+# ============================================================
+
+async def check_stream(base):
     tests = [
         f"{base}/index.m3u8",
         f"{base}/playlist.m3u8",
@@ -41,46 +78,48 @@ def check_stream(base):
         f"{base}/2/index.m3u8",
     ]
 
-    for url in tests:
-        try:
-            r = requests.get(url, timeout=2)
-            if r.status_code == 200:
-                return url
-        except:
-            pass
+    tasks = [fetch(u) for u in tests]
+    results = await asyncio.gather(*tasks)
+
+    for r in results:
+        if r:
+            return r
+
     return None
 
 
 # ============================================================
-# 3. Сканирование всех узлов NGENIX
+# 5. Turbo‑сканирование всех узлов NGENIX
 # ============================================================
 
-def scan_all_nodes(channel):
-    nodes = [f"s{x}" for x in range(10000, 80000)]
-    results = []
+async def scan_all_nodes(channel):
+    if channel in NODE_CACHE:
+        return NODE_CACHE[channel]
 
-    def worker(node):
+    ranges = [(50000,60000),(60000,70000),(70000,80000)]
+    nodes = [f"s{x}" for start, end in ranges for x in range(start, end)]
+
+    async def check_node(node):
         base = f"https://{node}.cdn.ngenix.net/{channel}"
-        found = check_stream(base)
-        if found:
-            return node, found
-        return None
+        return await check_stream(base)
 
-    with ThreadPoolExecutor(max_workers=50) as ex:
-        for res in ex.map(worker, nodes):
-            if res:
-                results.append(res)
+    tasks = [check_node(n) for n in nodes]
+    results = await asyncio.gather(*tasks)
 
-    return results
+    for node, result in zip(nodes, results):
+        if result:
+            NODE_CACHE[channel] = (node, result)
+            return (node, result)
+
+    NODE_CACHE[channel] = None
+    return None
 
 
 # ============================================================
-# 4. Основной worker
+# 6. Основной worker
 # ============================================================
 
-def worker(item):
-    name, raw = item
-
+async def worker(name, raw):
     url = normalize_ngenix(raw)
 
     try:
@@ -89,24 +128,50 @@ def worker(item):
         return name, url, False
 
     base = url.rsplit("/", 1)[0]
-    live = check_stream(base)
+    live = await check_stream(base)
 
     if live:
         return name, live, True
 
-    nodes = scan_all_nodes(channel)
-    if nodes:
-        node, found_url = nodes[0]
+    node_result = await scan_all_nodes(channel)
+    if node_result:
+        node, found_url = node_result
         return name, found_url, True
 
     return name, url, False
 
 
 # ============================================================
-# 5. Полный список каналов
+# 7. Полный список каналов (все объединено)
 # ============================================================
 
 CHANNELS = {
+
+    # ===== viju+ =====
+    "viju+ Premiere": "s70378.cdn.ngenix.net/vip_premiere/index.m3u8",
+    "viju+ Megahit": "s70378.cdn.ngenix.net/vip_megahit/index.m3u8",
+    "viju+ Comedy": "s70378.cdn.ngenix.net/vip_comedy/index.m3u8",
+    "viju+ Serial": "s70378.cdn.ngenix.net/vip_serial/index.m3u8",
+    "viju+ Planet": "s70378.cdn.ngenix.net/vip_planet/index.m3u8",
+    "viju+ Sport": "s70378.cdn.ngenix.net/vip_sport/index.m3u8",
+    "viju+ Novella": "s70378.cdn.ngenix.net/vip_novella/index.m3u8",
+    "viju+ Romance": "s70378.cdn.ngenix.net/vip_romance/index.m3u8",
+
+    # ===== Horror pack =====
+    "Страшное HD": "s70378.cdn.ngenix.net/horror/strashnoe_hd/index.m3u8",
+    "Страх HD": "s70378.cdn.ngenix.net/horror/strakh_hd/index.m3u8",
+    "TRASH HD": "s70378.cdn.ngenix.net/trash/trash_hd/index.m3u8",
+    "Scream": "s70378.cdn.ngenix.net/horror/scream/index.m3u8",
+
+    # ===== Еда =====
+    "Еда": "s70378.cdn.ngenix.net/eda/index.m3u8",
+
+    # ===== Ключ =====
+    "Ключ": "s70378.cdn.ngenix.net/misc/kluch/index.m3u8",
+    "Ключ HD": "s70378.cdn.ngenix.net/misc/kluch_hd/index.m3u8",
+    "Ключ ТВ": "s70378.cdn.ngenix.net/misc/kluch_tv/index.m3u8",
+
+    # ===== ВСЕ каналы, которые были ранее =====
     ".sci-fi": "a3569457567-s70378.cdn.ngenix.net/sony_sci_f...",
     "РЕН ТВ International": "a3569457567-s70378.cdn.ngenix.net/ren_tv/1/i...",
     "НТВ Право": "a3569457567-s70378.cdn.ngenix.net/ntv_pravo/...",
@@ -153,7 +218,7 @@ CHANNELS = {
     "Время": "a3569457567-s70378.cdn.ngenix.net/vremia/2/i...",
     "Дом Кино": "a3569457567-s70378.cdn.ngenix.net/dom_kino/1...",
     "Euronews": "a3569457567-s70378.cdn.ngenix.net/euronews/1...",
-    "Еврокино": "a3569457567-s70378.cdn.ngenix.net/evrokino/1...",
+    "Еврокино": "a3569457567-s70378.cdn.ngenix.net/evrokино/1...",
     "Мир сериала": "a3569457567-s70378.cdn.ngenix.net/mir_serial...",
     "FashionBox": "a3569457567-s70378.cdn.ngenix.net/fashion_bo...",
     "Filmbox": "a3569457567-s70378.cdn.ngenix.net/filmbox/1/...",
@@ -199,20 +264,27 @@ CHANNELS = {
 
 
 # ============================================================
-# 6. Запуск
+# 8. Запуск
 # ============================================================
 
-results = []
+async def main():
+    global SESSION
+    SESSION = aiohttp.ClientSession(timeout=ClientTimeout(total=TIMEOUT))
 
-with ThreadPoolExecutor(max_workers=30) as ex:
-    for res in ex.map(worker, CHANNELS.items()):
-        results.append(res)
+    tasks = [worker(name, raw) for name, raw in CHANNELS.items()]
+    results = await asyncio.gather(*tasks)
 
-with open("ngenix_report.txt", "w", encoding="utf-8") as f:
-    for name, url, live in results:
-        if live:
-            f.write(f"#EXTINF:-1,{name}\n{url}\n")
-        else:
-            f.write(f"#EXTINF:-1,{name} (DEAD)\n{url}\n")
+    await SESSION.close()
 
-print("Готово: ngenix_report.txt")
+    with open("ngenix_report.txt", "w", encoding="utf-8") as f:
+        for name, url, live in results:
+            if live:
+                f.write(f"#EXTINF:-1,{name}\n{url}\n")
+            else:
+                f.write(f"#EXTINF:-1,{name} (DEAD)\n{url}\n")
+
+    print("Готово: ngenix_report.txt")
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
