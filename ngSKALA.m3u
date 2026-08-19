@@ -332,5 +332,28 @@ https://s70378.cdn.ngenix.net/viju_novella/index.m3u8
 #EXTINF:-1 tvg-id="viju_tv1000_novella" group-title="Эфирные ТВ Плюс",136. viju_tv1000_novella_alt3
 https://s70378.cdn.ngenix.net/viju_tv1000_novella/index.m3u8
 
+# --- Проверка альтернативных путей для оставшихся каналов ---
+
+# viju TV1000 русское
+#EXTINF:-1 tvg-id="tv1000_russian" group-title="Эфирные ТВ Vijuплюс",16. viju_tv1000_russian_test1
+https://s70378.cdn.ngenix.net/viasat_1000_ru/index.m3u8
+
+#EXTINF:-1 tvg-id="tv1000_russian" group-title="Эфирные ТВ Vijuплюс",17. viju_tv1000_russian_test2
+https://s70378.cdn.ngenix.net/viasat_russian/index.m3u8
+
+# viju TV1000 action
+#EXTINF:-1 tvg-id="tv1000_action" group-title="Эфирные ТВ Vijuплюс",18. viju_tv1000_action_test1
+https://s70378.cdn.ngenix.net/viasat_action/index.m3u8
+
+#EXTINF:-1 tvg-id="tv1000_action" group-title="Эфирные ТВ Vijuплюс",19. viju_tv1000_action_test2
+https://s70378.cdn.ngenix.net/viasat_tv1000_action/index.m3u8
+
+# viju TV1000 romantica
+#EXTINF:-1 tvg-id="viasat_romantica" group-title="Эфирные ТВ Vijuплюс",20. viju_tv1000_romantica_test
+https://s70378.cdn.ngenix.net/viasat_romantica/index.m3u8
+
+# viju TV1000 новелла
+#EXTINF:-1 tvg-id="viasat_megahit" group-title="Эфирные ТВ Vijuплюс",21. viju_tv1000_novella_test
+https://s70378.cdn.ngenix.net/viasat_megahit/index.m3u8
 
 
