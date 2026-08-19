@@ -31,12 +31,23 @@
 #
 #  10. Хранить предположения отдельно от подтвержденных данных.
 #
+#  11. Создать человекочитаемый:
+#
+#          n_Alias.txt
+#
+#  12. Создать машинный файл:
+#
+#          n_Alias_ngnorm.txt
+#
+#      для последующей обработки ngnorm.py.
+#
 # ВАЖНО:
 #
 #   "Карусель" -> "karousel"
 #
 # является подтвержденным CDN alias только тогда,
-# когда "karousel" реально обнаружен в источнике CDN.
+# когда "karousel" реально обнаружен в источнике CDN
+# или реально отвечает при разрешенном CDN probe.
 #
 # "karusel" является только кандидатом.
 #
@@ -45,12 +56,15 @@
 #   "Голливуд HD" -> "amc"
 #
 # не может быть выведено обычной транслитерацией.
+#
 # Это может быть только внешнее/словарное/обнаруженное
 # соответствие.
 #
 # ============================================================
 
+
 from __future__ import annotations
+
 
 import json
 import logging
@@ -59,7 +73,9 @@ import ssl
 import time
 import unicodedata
 
+
 from dataclasses import dataclass, field, asdict
+from datetime import datetime
 from difflib import SequenceMatcher
 from typing import Dict, Iterable, List, Optional, Set, Tuple
 from urllib.error import HTTPError, URLError
@@ -70,6 +86,7 @@ from urllib.request import Request, urlopen
 # ============================================================
 # НАСТРОЙКИ
 # ============================================================
+
 
 CDN_BASE_URL = "https://s70378.cdn.ngenix.net"
 
@@ -90,14 +107,47 @@ DEFAULT_USER_AGENT = (
 
 LOG_LEVEL = logging.INFO
 
+
 # ============================================================
-# НАСТРОЙКИ ТЕКСТОВОГО ОТЧЁТА
+# НАСТРОЙКИ ФАЙЛОВ
 # ============================================================
 
-TEXT_REPORT_FILENAME = "ngnorn.txt"
+
+# ------------------------------------------------------------
+# Человекочитаемый полный отчет.
+#
+# Предназначен для просмотра пользователем.
+# ------------------------------------------------------------
+
+HUMAN_REPORT_FILENAME = "n_Alias.txt"
+
+
+# ------------------------------------------------------------
+# Машинный отчет для ngnorm.py.
+#
+# Этот файл не предназначен для красивого просмотра.
+# Он содержит строгие поля NAME / ALIAS / URL / STATUS /
+# SOURCE / FOUND.
+# ------------------------------------------------------------
+
+MACHINE_REPORT_FILENAME = "n_Alias_ngnorm.txt"
+
+
+# ------------------------------------------------------------
+# Источник машинного результата.
+# ------------------------------------------------------------
+
+MACHINE_SOURCE = "ALIAS_MODULE"
+
+
+# ------------------------------------------------------------
+# Заголовок секции M3U в человекочитаемом отчете.
+# ------------------------------------------------------------
 
 M3U_SECTION_TITLE = "M3U PLAYLIST EDITION"
 
+
+# ------------------------------------------------------------
 # 0.0 означает, что файл записывается построчно
 # без искусственной задержки.
 #
@@ -108,20 +158,35 @@ M3U_SECTION_TITLE = "M3U PLAYLIST EDITION"
 # чтобы запись происходила с эффектом телетайпа.
 #
 # По умолчанию задержки НЕТ, чтобы не замедлять работу.
+# ------------------------------------------------------------
+
 TEXT_REPORT_TELETYPE_DELAY = 0.0
 
+
+# ------------------------------------------------------------
 # Если True, после каждой записанной строки выполняется flush().
 #
 # Это делает запись действительно последовательной:
-# строка -> запись -> flush -> следующая строка.
+#
+#     строка -> запись -> flush -> следующая строка
 #
 # Для обычного запуска оставляем True.
+# ------------------------------------------------------------
+
 TEXT_REPORT_FLUSH_EACH_LINE = True
+
+
+# ------------------------------------------------------------
+# Машинный файл также записывается построчно.
+# ------------------------------------------------------------
+
+MACHINE_REPORT_FLUSH_EACH_LINE = True
 
 
 # ============================================================
 # SSL
 # ============================================================
+
 
 SSL_CONTEXT = ssl.create_default_context()
 
@@ -129,6 +194,7 @@ SSL_CONTEXT = ssl.create_default_context()
 # ============================================================
 # LOGGING
 # ============================================================
+
 
 logging.basicConfig(
     level=LOG_LEVEL,
@@ -140,12 +206,16 @@ logging.basicConfig(
     ),
 )
 
-LOGGER = logging.getLogger("alias_verification_module")
+
+LOGGER = logging.getLogger(
+    "alias_verification_module"
+)
 
 
 # ============================================================
 # СЛУЖЕБНЫЕ ТАБЛИЦЫ
 # ============================================================
+
 
 RUSSIAN_TRANSLITERATION_TABLE = str.maketrans(
     {
@@ -202,6 +272,7 @@ RUSSIAN_TRANSLITERATION_TABLE = str.maketrans(
 # пользователем или надежным источником.
 #
 # ============================================================
+
 
 KNOWN_ALIAS_DICTIONARY: Dict[str, Set[str]] = {
     "Карусель": {
@@ -298,6 +369,7 @@ KNOWN_ALIAS_DICTIONARY: Dict[str, Set[str]] = {
 # СТОП-СЛОВА / ТЕХНИЧЕСКИЕ СУФФИКСЫ
 # ============================================================
 
+
 QUALITY_TOKENS = {
     "hd",
     "sd",
@@ -306,6 +378,7 @@ QUALITY_TOKENS = {
     "4k",
     "8k",
 }
+
 
 TECHNICAL_SUFFIXES = {
     "channel",
@@ -319,6 +392,7 @@ TECHNICAL_SUFFIXES = {
 # ============================================================
 # DATA CLASS
 # ============================================================
+
 
 @dataclass
 class ChannelInput:
@@ -364,6 +438,7 @@ class AliasCandidate:
     Предполагаемый alias.
 
     ВАЖНО:
+
     candidate != confirmed alias.
     """
 
@@ -429,6 +504,7 @@ class CDNInventory:
 # НОРМАЛИЗАЦИЯ
 # ============================================================
 
+
 def normalize_unicode(value: str) -> str:
     """
     Нормализует Unicode.
@@ -475,9 +551,13 @@ def normalize_separators(value: str) -> str:
     """
 
     value = value.replace("-", " ")
+
     value = value.replace("_", " ")
+
     value = value.replace(".", " ")
+
     value = value.replace("/", " ")
+
     value = value.replace("\\", " ")
 
     value = re.sub(
@@ -537,6 +617,7 @@ def normalize_alias(value: str) -> str:
 # ТРАНСЛИТЕРАЦИЯ
 # ============================================================
 
+
 def transliterate_russian(
     value: str,
 ) -> str:
@@ -564,6 +645,7 @@ def transliterate_russian(
 # ============================================================
 # ПРЕОБРАЗОВАНИЕ В CDN-STYLE ALIAS
 # ============================================================
+
 
 def cleanup_alias_candidate(
     value: str,
@@ -598,6 +680,7 @@ def cleanup_alias_candidate(
 # ГЕНЕРАТОР ALIAS
 # ============================================================
 
+
 def generate_alias_candidates(
     channel: ChannelInput,
 ) -> List[AliasCandidate]:
@@ -626,10 +709,12 @@ def generate_alias_candidates(
                 reason=reason,
                 score=score,
             )
+
             return
 
         if score > result[value].score:
             result[value].score = score
+
             result[value].reason = reason
 
     display_name = channel.display_name
@@ -683,6 +768,7 @@ def generate_alias_candidates(
     words = normalized_without_quality.split()
 
     if words:
+
         add_candidate(
             cleanup_alias_candidate(
                 "_".join(words)
@@ -699,9 +785,12 @@ def generate_alias_candidates(
             0.40,
         )
 
+    # --------------------------------------------------------
     # tvg-id
+    # --------------------------------------------------------
 
     if channel.tvg_id:
+
         add_candidate(
             cleanup_alias_candidate(
                 channel.tvg_id
@@ -710,9 +799,12 @@ def generate_alias_candidates(
             0.90,
         )
 
+    # --------------------------------------------------------
     # tvg-name
+    # --------------------------------------------------------
 
     if channel.tvg_name:
+
         add_candidate(
             cleanup_alias_candidate(
                 channel.tvg_name
@@ -721,7 +813,9 @@ def generate_alias_candidates(
             0.70,
         )
 
+    # --------------------------------------------------------
     # Явный словарь
+    # --------------------------------------------------------
 
     dictionary_aliases = KNOWN_ALIAS_DICTIONARY.get(
         display_name,
@@ -729,13 +823,16 @@ def generate_alias_candidates(
     )
 
     for alias in dictionary_aliases:
+
         add_candidate(
             alias,
             "known_dictionary",
             0.99,
         )
 
+    # --------------------------------------------------------
     # Добавляем варианты с техническими суффиксами.
+    # --------------------------------------------------------
 
     base_values = list(result.keys())
 
@@ -762,6 +859,7 @@ def generate_alias_candidates(
 # СОЗДАНИЕ URL ПО ALIAS
 # ============================================================
 
+
 def build_stream_url(
     base_url: str,
     alias: str,
@@ -776,6 +874,7 @@ def build_stream_url(
     alias = alias.strip("/")
 
     if variant is None:
+
         return (
             f"{base_url}/"
             f"{alias}/"
@@ -793,6 +892,7 @@ def build_stream_url(
 # ============================================================
 # ПРОВЕРКА URL
 # ============================================================
+
 
 def check_url(
     url: str,
@@ -870,6 +970,7 @@ def check_url(
 # ПРОВЕРКА ALIAS И ЕГО ВАРИАНТОВ
 # ============================================================
 
+
 def discover_stream_variants(
     alias: str,
     base_url: str = CDN_BASE_URL,
@@ -885,13 +986,16 @@ def discover_stream_variants(
 
         alias/1/index.m3u8
         alias/2/index.m3u8
+        alias/3/index.m3u8
         ...
         alias/N/index.m3u8
     """
 
     streams: List[CDNStream] = []
 
+    # --------------------------------------------------------
     # Основной поток.
+    # --------------------------------------------------------
 
     primary_url = build_stream_url(
         base_url=base_url,
@@ -915,7 +1019,9 @@ def discover_stream_variants(
         )
     )
 
+    # --------------------------------------------------------
     # Варианты.
+    # --------------------------------------------------------
 
     for variant in range(
         1,
@@ -951,6 +1057,7 @@ def discover_stream_variants(
 # РАЗБОР M3U
 # ============================================================
 
+
 M3U_EXTINF_PATTERN = re.compile(
     r"#EXTINF:[^,]*(?:,)(.*)$",
     re.IGNORECASE,
@@ -972,6 +1079,7 @@ def parse_m3u(
     Важный принцип:
 
     URL является источником факта.
+
     Название EXTINF является дополнительной
     информацией.
     """
@@ -1074,6 +1182,7 @@ def parse_m3u(
 # ЗАГРУЗКА M3U
 # ============================================================
 
+
 def fetch_text(
     url: str,
     timeout: int = DEFAULT_REQUEST_TIMEOUT,
@@ -1141,6 +1250,7 @@ def load_m3u_inventory(
 # СРАВНЕНИЕ СТРОК
 # ============================================================
 
+
 def similarity(
     left: str,
     right: str,
@@ -1150,6 +1260,7 @@ def similarity(
     """
 
     left = normalize_alias(left)
+
     right = normalize_alias(right)
 
     if not left or not right:
@@ -1168,6 +1279,7 @@ def similarity(
 # ============================================================
 # ПОЛУЧЕНИЕ СТРОКОВЫХ ФОРМ
 # ============================================================
+
 
 def build_comparison_forms(
     value: str,
@@ -1230,6 +1342,7 @@ def build_comparison_forms(
 # ============================================================
 # СОПОСТАВЛЕНИЕ ОДНОГО КАНАЛА
 # ============================================================
+
 
 def match_channel_against_inventory(
     channel: ChannelInput,
@@ -1418,6 +1531,7 @@ def match_channel_against_inventory(
             if score > best_score:
 
                 best_score = score
+
                 best_alias = alias
 
     if (
@@ -1475,6 +1589,7 @@ def match_channel_against_inventory(
 # ПРОВЕРКА НЕПОСРЕДСТВЕННО ПО BASE URL
 # ============================================================
 
+
 def probe_channel_candidates(
     channel: ChannelInput,
     base_url: str = CDN_BASE_URL,
@@ -1494,7 +1609,6 @@ def probe_channel_candidates(
     Она только говорит:
 
         "этот alias технически существует".
-
     """
 
     candidates = generate_alias_candidates(
@@ -1601,6 +1715,7 @@ def probe_channel_candidates(
 # ПРОВЕРКА ВСЕГО СПИСКА
 # ============================================================
 
+
 def verify_channels(
     channels: Iterable[ChannelInput],
     inventory: Optional[CDNInventory] = None,
@@ -1672,6 +1787,7 @@ def verify_channels(
 # ПОСТРОЕНИЕ ОТЧЕТА
 # ============================================================
 
+
 def build_report(
     results: List[AliasMatch],
 ) -> Dict:
@@ -1680,12 +1796,16 @@ def build_report(
         result
         for result in results
         if result.cdn_alias is not None
+        and result.match_type != "FUZZY_CANDIDATE"
     ]
 
     unknown = [
         result
         for result in results
-        if result.cdn_alias is None
+        if (
+            result.cdn_alias is None
+            or result.match_type == "FUZZY_CANDIDATE"
+        )
     ]
 
     return {
@@ -1714,6 +1834,7 @@ def build_report(
 # СОХРАНЕНИЕ JSON
 # ============================================================
 
+
 def save_json_report(
     report: Dict,
     filename: str,
@@ -1737,14 +1858,25 @@ def save_json_report(
 # ПЕЧАТЬ РЕЗУЛЬТАТОВ
 # ============================================================
 
+
 def print_results(
     results: List[AliasMatch],
 ) -> None:
 
     print()
-    print("=" * 100)
-    print("МОДУЛЬ ПРОВЕРКИ АЛИАСОВ")
-    print("=" * 100)
+
+    print(
+        "=" * 100
+    )
+
+    print(
+        "МОДУЛЬ ПРОВЕРКИ АЛИАСОВ"
+    )
+
+    print(
+        "=" * 100
+    )
+
     print()
 
     for result in results:
@@ -1812,13 +1944,18 @@ def print_results(
                 )
 
         print()
-        print("-" * 100)
+
+        print(
+            "-" * 100
+        )
+
         print()
 
 
 # ============================================================
 # ПРИМЕР ВХОДНЫХ КАНАЛОВ
 # ============================================================
+
 
 TEST_CHANNELS = [
     ChannelInput(
@@ -1891,6 +2028,7 @@ TEST_CHANNELS = [
 #
 # ============================================================
 
+
 def create_test_inventory() -> CDNInventory:
 
     inventory = CDNInventory()
@@ -1923,6 +2061,7 @@ def create_test_inventory() -> CDNInventory:
                 ),
                 variant=None,
                 source="test_inventory",
+                http_status=200,
                 reachable=True,
             )
         )
@@ -1937,6 +2076,7 @@ def create_test_inventory() -> CDNInventory:
                 ),
                 variant=1,
                 source="test_inventory",
+                http_status=200,
                 reachable=True,
             )
         )
@@ -1951,6 +2091,7 @@ def create_test_inventory() -> CDNInventory:
                 ),
                 variant=2,
                 source="test_inventory",
+                http_status=200,
                 reachable=True,
             )
         )
@@ -1968,17 +2109,15 @@ def create_test_inventory() -> CDNInventory:
 # Основной принцип:
 #
 #   подтвержденный alias -> может попасть в M3U
-#
 #   FUZZY_CANDIDATE -> НЕ попадает в M3U
-#
 #   UNKNOWN -> НЕ попадает в M3U
-#
 #   NO_CDN_INVENTORY -> НЕ попадает в M3U
 #
 # Таким образом, случайная fuzzy-догадка не превращается
 # в рабочую ссылку плейлиста.
 #
 # ============================================================
+
 
 def is_confirmed_playlist_match(
     result: AliasMatch,
@@ -2021,6 +2160,7 @@ def is_confirmed_playlist_match(
 # ЭКРАНИРОВАНИЕ M3U EXTINF
 # ============================================================
 
+
 def sanitize_m3u_attribute(
     value: str,
 ) -> str:
@@ -2057,6 +2197,7 @@ def sanitize_m3u_attribute(
 # ============================================================
 # СОЗДАНИЕ EXTINF
 # ============================================================
+
 
 def build_m3u_extinf(
     channel: ChannelInput,
@@ -2097,16 +2238,19 @@ def build_m3u_extinf(
     attributes: List[str] = []
 
     if tvg_id:
+
         attributes.append(
             f'tvg-id="{tvg_id}"'
         )
 
     if tvg_name:
+
         attributes.append(
             f'tvg-name="{tvg_name}"'
         )
 
     if group_title:
+
         attributes.append(
             f'group-title="{group_title}"'
         )
@@ -2129,6 +2273,7 @@ def build_m3u_extinf(
 # ============================================================
 # СОЗДАНИЕ M3U PLAYLIST
 # ============================================================
+
 
 def build_m3u_playlist(
     channels: Iterable[ChannelInput],
@@ -2160,11 +2305,13 @@ def build_m3u_playlist(
 
     lines.append("")
 
+    # --------------------------------------------------------
     # Сопоставляем результат с исходным ChannelInput.
     #
     # Порядок результатов соответствует порядку входных
     # каналов, но здесь дополнительно используем имя,
     # чтобы сохранить корректные данные EXTINF.
+    # --------------------------------------------------------
 
     for index, result in enumerate(results):
 
@@ -2190,8 +2337,10 @@ def build_m3u_playlist(
             if stream.reachable is True
         ]
 
+        # ----------------------------------------------------
         # Убираем дубликаты URL,
         # сохраняя порядок обнаружения.
+        # ----------------------------------------------------
 
         unique_urls: List[str] = []
 
@@ -2233,16 +2382,18 @@ def build_m3u_playlist(
 
 
 # ============================================================
-# ПОДРОБНЫЙ ТЕКСТОВЫЙ ОТЧЁТ
+# ПОДРОБНЫЙ ЧЕЛОВЕКОЧИТАЕМЫЙ ТЕКСТОВЫЙ ОТЧЁТ
 # ============================================================
 #
-# В отличие от JSON:
+# Файл:
 #
-#   ngnorn.txt
+#     n_Alias.txt
 #
-# предназначен для человека.
+# В отличие от машинного:
 #
-# В него последовательно записываются:
+#     n_Alias_ngnorm.txt
+#
+# здесь сохраняется вся диагностическая информация:
 #
 #   - сводка;
 #   - каждый канал;
@@ -2257,20 +2408,14 @@ def build_m3u_playlist(
 #
 # ============================================================
 
+
 def build_text_report_lines(
     report: Dict,
     channels: Iterable[ChannelInput],
     results: List[AliasMatch],
 ) -> List[str]:
     """
-    Формирует весь текстовый отчет построчно.
-
-    Важно:
-
-    Эти строки соответствуют информации,
-    которая ранее уходила в JSON report,
-    но теперь дополнительно представляются
-    в удобном текстовом виде.
+    Формирует весь человекочитаемый отчет построчно.
 
     В конце добавляется готовый M3U.
     """
@@ -2305,12 +2450,12 @@ def build_text_report_lines(
     )
 
     lines.append(
-        f"Найдено соответствий: "
+        f"Найдено подтвержденных соответствий: "
         f"{report.get('matched_channels', 0)}"
     )
 
     lines.append(
-        f"Не найдено: "
+        f"Не найдено / вероятные: "
         f"{report.get('unknown_channels', 0)}"
     )
 
@@ -2565,19 +2710,20 @@ def build_text_report_lines(
 
 
 # ============================================================
-# ПОСТРОЧНАЯ ЗАПИСЬ ТЕКСТОВОГО ОТЧЁТА
+# ПОСТРОЧНАЯ ЗАПИСЬ ЧЕЛОВЕКОЧИТАЕМОГО ОТЧЁТА
 # ============================================================
+
 
 def save_text_report(
     report: Dict,
     channels: Iterable[ChannelInput],
     results: List[AliasMatch],
-    filename: str = TEXT_REPORT_FILENAME,
+    filename: str = HUMAN_REPORT_FILENAME,
     teletype_delay: float = TEXT_REPORT_TELETYPE_DELAY,
     flush_each_line: bool = TEXT_REPORT_FLUSH_EACH_LINE,
 ) -> None:
     """
-    Сохраняет итоговый отчет в текстовый файл.
+    Сохраняет человекочитаемый отчет в текстовый файл.
 
     Файл создается построчно.
 
@@ -2632,8 +2778,333 @@ def save_text_report(
 
 
 # ============================================================
+# НОВАЯ ЛОГИКА:
+# МАШИННЫЙ ФОРМАТ ДЛЯ ngnorm.py
+# ============================================================
+#
+# Формат одной записи:
+#
+# NAME=НТВ Право
+# ALIAS=ntv_pravo
+# URL=https://...
+# STATUS=200
+# SOURCE=ALIAS_MODULE
+# FOUND=2026-08-19 18:42:11
+#
+# Между записями:
+#
+# пустая строка.
+#
+# ============================================================
+#
+# ПРИНЦИП:
+#
+# n_Alias.txt
+#     содержит ВСЮ информацию, включая кандидатов.
+#
+# n_Alias_ngnorm.txt
+#     содержит только результат, пригодный для машинной
+#     обработки.
+#
+# Особенно важно:
+#
+# FUZZY_CANDIDATE НЕ превращается в ALIAS.
+#
+# ============================================================
+
+
+def machine_safe(
+    value: str,
+) -> str:
+    """
+    Подготавливает значение для машинного файла.
+
+    Запрещаем переносы строк, чтобы одна запись
+    всегда оставалась однозначно разбираемой.
+    """
+
+    if value is None:
+        return ""
+
+    value = str(value)
+
+    value = value.replace(
+        "\r",
+        " ",
+    )
+
+    value = value.replace(
+        "\n",
+        " ",
+    )
+
+    return value.strip()
+
+
+def get_result_status(
+    result: AliasMatch,
+) -> str:
+    """
+    Возвращает машинный логический статус результата.
+
+    Этот статус используется только тогда,
+    когда невозможно вернуть HTTP-код конкретного
+    найденного потока.
+    """
+
+    if result.match_type == "UNKNOWN":
+
+        return "UNKNOWN"
+
+    if result.match_type == "NO_CDN_INVENTORY":
+
+        return "NO_CDN_INVENTORY"
+
+    if result.match_type == "FUZZY_CANDIDATE":
+
+        return "FUZZY"
+
+    if result.cdn_alias:
+
+        reachable = any(
+            stream.reachable is True
+            for stream in result.streams
+        )
+
+        if reachable:
+
+            return "CONFIRMED"
+
+        return "FOUND"
+
+    return "UNKNOWN"
+
+
+def get_primary_stream(
+    result: AliasMatch,
+) -> Optional[CDNStream]:
+    """
+    Возвращает основной найденный поток.
+
+    Приоритет:
+
+        1. variant=None и reachable=True
+        2. первый reachable поток
+    """
+
+    for stream in result.streams:
+
+        if (
+            stream.variant is None
+            and stream.reachable is True
+        ):
+
+            return stream
+
+    for stream in result.streams:
+
+        if stream.reachable is True:
+
+            return stream
+
+    return None
+
+
+def get_machine_status(
+    result: AliasMatch,
+    stream: Optional[CDNStream],
+) -> str:
+    """
+    Формирует STATUS для n_Alias_ngnorm.txt.
+
+    Если есть HTTP-код найденного потока,
+    используем именно его.
+
+    Иначе используем логический статус.
+    """
+
+    if stream is not None:
+
+        if stream.http_status is not None:
+
+            return str(
+                stream.http_status
+            )
+
+        if stream.reachable is True:
+
+            return "200"
+
+    return get_result_status(
+        result
+    )
+
+
+def build_machine_record(
+    channel: ChannelInput,
+    result: AliasMatch,
+    found_time: Optional[str] = None,
+) -> List[str]:
+    """
+    Формирует одну машинную запись.
+
+    Формат:
+
+        NAME=...
+        ALIAS=...
+        URL=...
+        STATUS=...
+        SOURCE=...
+        FOUND=...
+
+    ngnorm.py сможет читать его без JSON,
+    regex-хака или зависимости от структуры Python-классов.
+    """
+
+    if found_time is None:
+
+        found_time = datetime.now().strftime(
+            "%Y-%m-%d %H:%M:%S"
+        )
+
+    stream = get_primary_stream(
+        result
+    )
+
+    alias = ""
+
+    # --------------------------------------------------------
+    # Только подтвержденный / реально найденный alias.
+    #
+    # FUZZY здесь намеренно НЕ превращается в ALIAS.
+    # --------------------------------------------------------
+
+    if result.cdn_alias:
+
+        if result.match_type != "FUZZY_CANDIDATE":
+
+            alias = result.cdn_alias
+
+    url = ""
+
+    if stream is not None:
+
+        url = stream.url
+
+    status = get_machine_status(
+        result=result,
+        stream=stream,
+    )
+
+    return [
+        f"NAME={machine_safe(channel.display_name)}",
+        f"ALIAS={machine_safe(alias)}",
+        f"URL={machine_safe(url)}",
+        f"STATUS={machine_safe(status)}",
+        f"SOURCE={MACHINE_SOURCE}",
+        f"FOUND={machine_safe(found_time)}",
+    ]
+
+
+def build_machine_report_lines(
+    channels: Iterable[ChannelInput],
+    results: List[AliasMatch],
+) -> List[str]:
+    """
+    Формирует весь n_Alias_ngnorm.txt.
+
+    Одна запись отделяется пустой строкой.
+
+    Порядок каналов сохраняется.
+    """
+
+    channel_list = list(
+        channels
+    )
+
+    lines: List[str] = []
+
+    found_time = datetime.now().strftime(
+        "%Y-%m-%d %H:%M:%S"
+    )
+
+    for index, result in enumerate(
+        results
+    ):
+
+        if index < len(channel_list):
+
+            channel = channel_list[index]
+
+        else:
+
+            channel = ChannelInput(
+                display_name=result.channel_name,
+                tvg_name=result.channel_name,
+            )
+
+        record = build_machine_record(
+            channel=channel,
+            result=result,
+            found_time=found_time,
+        )
+
+        lines.extend(
+            record
+        )
+
+        lines.append("")
+
+    return lines
+
+
+def save_machine_report(
+    channels: Iterable[ChannelInput],
+    results: List[AliasMatch],
+    filename: str = MACHINE_REPORT_FILENAME,
+    flush_each_line: bool = MACHINE_REPORT_FLUSH_EACH_LINE,
+) -> None:
+    """
+    Сохраняет машинный файл для ngnorm.py.
+
+    Запись выполняется последовательно.
+    """
+
+    channels = list(
+        channels
+    )
+
+    lines = build_machine_report_lines(
+        channels=channels,
+        results=results,
+    )
+
+    with open(
+        filename,
+        "w",
+        encoding="utf-8",
+        newline="\n",
+    ) as file:
+
+        for line in lines:
+
+            file.write(
+                line
+            )
+
+            file.write(
+                "\n"
+            )
+
+            if flush_each_line:
+
+                file.flush()
+
+
+# ============================================================
 # MAIN
 # ============================================================
+
 
 def main() -> None:
 
@@ -2661,11 +3132,7 @@ def main() -> None:
     )
 
     # --------------------------------------------------------
-    # Формируем тот же отчет, который раньше уходил
-    # в alias_verification_report.json.
-    #
-    # Но теперь он используется как основа
-    # для итогового текстового файла.
+    # Формируем итоговый внутренний отчет.
     # --------------------------------------------------------
 
     report = build_report(
@@ -2682,21 +3149,55 @@ def main() -> None:
     # Подробный результат не засоряет консоль.
     # --------------------------------------------------------
 
+    # ========================================================
+    # 1. ЧЕЛОВЕКОЧИТАЕМЫЙ ФАЙЛ
+    # ========================================================
+
     save_text_report(
         report=report,
         channels=TEST_CHANNELS,
         results=results,
-        filename=TEXT_REPORT_FILENAME,
+        filename=HUMAN_REPORT_FILENAME,
         teletype_delay=TEXT_REPORT_TELETYPE_DELAY,
         flush_each_line=TEXT_REPORT_FLUSH_EACH_LINE,
     )
 
     LOGGER.info(
-        "Итоговый отчет сохранен: "
-        "%s",
-        TEXT_REPORT_FILENAME,
+        "Человекочитаемый отчет сохранен: %s",
+        HUMAN_REPORT_FILENAME,
+    )
+
+    # ========================================================
+    # 2. МАШИННЫЙ ФАЙЛ ДЛЯ ngnorm.py
+    # ========================================================
+
+    save_machine_report(
+        channels=TEST_CHANNELS,
+        results=results,
+        filename=MACHINE_REPORT_FILENAME,
+        flush_each_line=MACHINE_REPORT_FLUSH_EACH_LINE,
+    )
+
+    LOGGER.info(
+        "Машинный отчет сохранен: %s",
+        MACHINE_REPORT_FILENAME,
+    )
+
+    # ========================================================
+    # 3. ФИНАЛЬНЫЙ СТАТУС
+    # ========================================================
+
+    LOGGER.info(
+        "Модуль проверки алиасов завершил работу."
+    )
+
+    LOGGER.info(
+        "Созданы файлы: %s и %s",
+        HUMAN_REPORT_FILENAME,
+        MACHINE_REPORT_FILENAME,
     )
 
 
 if __name__ == "__main__":
+
     main()
