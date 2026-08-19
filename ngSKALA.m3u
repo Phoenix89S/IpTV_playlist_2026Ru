@@ -256,6 +256,81 @@ https://s70378.cdn.ngenix.net/viasat_history/index.m3u8
 #EXTINF:-1 tvg-id="da_vinci_learning" group-title="Эфирные ТВ Плюс",115. da_vinci
 https://s70378.cdn.ngenix.net/da_vinci/index.m3u8
 
+#---------------- ГРУППА: VIJU / VIJU+ (РЕЗЕРВНЫЕ ПОТОКИ И АЛИАСЫ) ----------------
+
+# --- viju+ planet ---
+#EXTINF:-1 tvg-id="viasat_nature_history" group-title="Эфирные ТВ Плюс",116. viju_plus_planet_alt1
+https://s70378.cdn.ngenix.net/viasat_nature_history/index.m3u8
+
+#EXTINF:-1 tvg-id="viasat_nh_hd" group-title="Эфирные ТВ Плюс",117. viju_plus_planet_alt2
+https://s70378.cdn.ngenix.net/viasat_nh_hd/index.m3u8
+
+#EXTINF:-1 tvg-id="viju_plus_planet" group-title="Эфирные ТВ Плюс",118. viju_plus_planet_alt3
+https://s70378.cdn.ngenix.net/viju_plus_planet/index.m3u8
+
+#EXTINF:-1 tvg-id="viju_planet" group-title="Эфирные ТВ Плюс",119. viju_plus_planet_alt4
+https://s70378.cdn.ngenix.net/viju_planet/index.m3u8
+
+
+# --- viju TV1000 ---
+#EXTINF:-1 tvg-id="tv1000_east" group-title="Эфирные ТВ Плюс",120. viju_tv1000_east
+https://s70378.cdn.ngenix.net/tv1000_east/index.m3u8
+
+#EXTINF:-1 tvg-id="tv_1000" group-title="Эфирные ТВ Плюс",121. viju_tv1000_alt1
+https://s70378.cdn.ngenix.net/tv_1000/index.m3u8
+
+#EXTINF:-1 tvg-id="viju_tv1000" group-title="Эфирные ТВ Плюс",122. viju_tv1000_alt2
+https://s70378.cdn.ngenix.net/viju_tv1000/index.m3u8
+
+
+# --- viju TV1000 action ---
+#EXTINF:-1 tvg-id="tv1000_action_east" group-title="Эфирные ТВ Плюс",123. viju_tv1000_action_east
+https://s70378.cdn.ngenix.net/tv1000_action_east/index.m3u8
+
+#EXTINF:-1 tvg-id="tv1000action" group-title="Эфирные ТВ Плюс",124. viju_tv1000_action_alt1
+https://s70378.cdn.ngenix.net/tv1000action/index.m3u8
+
+#EXTINF:-1 tvg-id="viju_tv1000_action" group-title="Эфирные ТВ Плюс",125. viju_tv1000_action_alt2
+https://s70378.cdn.ngenix.net/viju_tv1000_action/index.m3u8
+
+
+# --- viju TV1000 русское ---
+#EXTINF:-1 tvg-id="tv1000_rus" group-title="Эфирные ТВ Плюс",126. viju_tv1000_rus
+https://s70378.cdn.ngenix.net/tv1000_rus/index.m3u8
+
+#EXTINF:-1 tvg-id="tv1000_russkoe_kino" group-title="Эфирные ТВ Плюс",127. viju_tv1000_russkoe_kino
+https://s70378.cdn.ngenix.net/tv1000_russkoe_kino/index.m3u8
+
+#EXTINF:-1 tvg-id="tv1000_rk" group-title="Эфирные ТВ Плюс",128. viju_tv1000_rk
+https://s70378.cdn.ngenix.net/tv1000_rk/index.m3u8
+
+#EXTINF:-1 tvg-id="viju_tv1000_russian" group-title="Эфирные ТВ Плюс",129. viju_tv1000_russian_alt
+https://s70378.cdn.ngenix.net/viju_tv1000_russian/index.m3u8
+
+#EXTINF:-1 tvg-id="viju_tv1000_rus" group-title="Эфирные ТВ Плюс",130. viju_tv1000_rus_alt
+https://s70378.cdn.ngenix.net/viju_tv1000_rus/index.m3u8
+
+
+# --- viju TV1000 romantica ---
+#EXTINF:-1 tvg-id="tv1000_romantica" group-title="Эфирные ТВ Плюс",131. viju_tv1000_romantica_alt1
+https://s70378.cdn.ngenix.net/tv1000_romantica/index.m3u8
+
+#EXTINF:-1 tvg-id="viju_romantica" group-title="Эфирные ТВ Плюс",132. viju_tv1000_romantica_alt2
+https://s70378.cdn.ngenix.net/viju_romantica/index.m3u8
+
+#EXTINF:-1 tvg-id="viju_tv1000_romantica" group-title="Эфирные ТВ Плюс",133. viju_tv1000_romantica_alt3
+https://s70378.cdn.ngenix.net/viju_tv1000_romantica/index.m3u8
+
+
+# --- viju TV1000 новелла ---
+#EXTINF:-1 tvg-id="tv1000_novella" group-title="Эфирные ТВ Плюс",134. viju_tv1000_novella_alt1
+https://s70378.cdn.ngenix.net/tv1000_novella/index.m3u8
+
+#EXTINF:-1 tvg-id="viju_novella" group-title="Эфирные ТВ Плюс",135. viju_tv1000_novella_alt2
+https://s70378.cdn.ngenix.net/viju_novella/index.m3u8
+
+#EXTINF:-1 tvg-id="viju_tv1000_novella" group-title="Эфирные ТВ Плюс",136. viju_tv1000_novella_alt3
+https://s70378.cdn.ngenix.net/viju_tv1000_novella/index.m3u8
 
 
 
