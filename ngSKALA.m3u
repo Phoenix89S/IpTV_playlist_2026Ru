@@ -207,3 +207,55 @@ https://s70378.cdn.ngenix.net/erox/2/index.m3u8
 https://s70378.cdn.ngenix.net/playboy/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="playboy" tvg-logo="" group-title="ЭФИРНЫЕ ТВ Ngenix N",playboy
 https://s70378.cdn.ngenix.net/playboy/2/index.m3u8
+
+
+#---------------- ГРУППА: VIJU / VIJU+ ----------------
+
+#EXTINF:-1 tvg-id="vip_premiere" group-title="Эфирные ТВ Плюс",101. viju_plus_premiere
+https://s70378.cdn.ngenix.net/vip_premiere/index.m3u8
+
+#EXTINF:-1 tvg-id="vip_megahit" group-title="Эфирные ТВ Плюс",102. viju_plus_megahit
+https://s70378.cdn.ngenix.net/vip_megahit/index.m3u8
+
+#EXTINF:-1 tvg-id="vip_comedy" group-title="Эфирные ТВ Плюс",103. viju_plus_comedy
+https://s70378.cdn.ngenix.net/vip_comedy/index.m3u8
+
+#EXTINF:-1 tvg-id="vip_serial" group-title="Эфирные ТВ Плюс",104. viju_plus_serial
+https://s70378.cdn.ngenix.net/vip_serial/index.m3u8
+
+#EXTINF:-1 tvg-id="viasat_nature_history_hd" group-title="Эфирные ТВ Плюс",105. viju_plus_planet
+https://s70378.cdn.ngenix.net/vip_planet/index.m3u8
+
+#EXTINF:-1 tvg-id="viasat_sport" group-title="Эфирные ТВ Плюс",106. viju_plus_sport
+https://s70378.cdn.ngenix.net/vip_sport/index.m3u8
+
+#EXTINF:-1 tvg-id="tv1000" group-title="Эфирные ТВ Плюс",107. viju_tv1000
+https://s70378.cdn.ngenix.net/tv1000/index.m3u8
+
+#EXTINF:-1 tvg-id="tv1000_action" group-title="Эфирные ТВ Плюс",108. viju_tv1000_action
+https://s70378.cdn.ngenix.net/tv1000_action/index.m3u8
+
+#EXTINF:-1 tvg-id="tv1000_russian" group-title="Эфирные ТВ Плюс",109. viju_tv1000_russian
+https://s70378.cdn.ngenix.net/tv1000_russian/index.m3u8
+
+#EXTINF:-1 tvg-id="viasat_megahit" group-title="Эфирные ТВ Плюс",110. viju_tv1000_novella
+https://s70378.cdn.ngenix.net/viasat_megahit/index.m3u8
+
+#EXTINF:-1 tvg-id="viasat_romantica" group-title="Эфирные ТВ Плюс",111. viju_tv1000_romantica
+https://s70378.cdn.ngenix.net/viasat_romantica/index.m3u8
+
+#EXTINF:-1 tvg-id="viasat_nature" group-title="Эфирные ТВ Плюс",112. viju_nature
+https://s70378.cdn.ngenix.net/viasat_nature/index.m3u8
+
+#EXTINF:-1 tvg-id="viasat_explore" group-title="Эфирные ТВ Плюс",113. viju_explore
+https://s70378.cdn.ngenix.net/viasat_explore/index.m3u8
+
+#EXTINF:-1 tvg-id="viasat_history" group-title="Эфирные ТВ Плюс",114. viju_history
+https://s70378.cdn.ngenix.net/viasat_history/index.m3u8
+
+#EXTINF:-1 tvg-id="da_vinci_learning" group-title="Эфирные ТВ Плюс",115. da_vinci
+https://s70378.cdn.ngenix.net/da_vinci/index.m3u8
+
+
+
+
