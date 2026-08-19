@@ -96,7 +96,7 @@ async def scan_all_nodes(channel):
     if channel in NODE_CACHE:
         return NODE_CACHE[channel]
 
-    ranges = [(50000,60000),(60000,70000),(70000,80000)]
+    ranges = [(50000, 60000), (60000, 70000), (70000, 80000)]
     nodes = [f"s{x}" for start, end in ranges for x in range(start, end)]
 
     async def check_node(node):
@@ -276,14 +276,14 @@ async def main():
 
     await SESSION.close()
 
-    with open("ngenix_report.txt", "w", encoding="utf-8") as f:
+    with open("ngnorm_report.txt", "w", encoding="utf-8") as f:
         for name, url, live in results:
             if live:
                 f.write(f"#EXTINF:-1,{name}\n{url}\n")
             else:
                 f.write(f"#EXTINF:-1,{name} (DEAD)\n{url}\n")
 
-    print("Готово: ngenix_report.txt")
+    print("Готово: ngnorm_report.txt")
 
 
 if __name__ == "__main__":
