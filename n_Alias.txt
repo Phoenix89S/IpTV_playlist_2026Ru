@@ -5,8 +5,8 @@
 
 Модуль: Модуль проверки алиасов
 Всего каналов: 10
-Найдено подтвержденных соответствий: 10
-Не найдено / вероятные: 0
+Найдено подтвержденных соответствий: 9
+Не найдено / вероятные: 1
 
 ВАЖНО:
 Сгенерированный alias не считается подтвержденным только из-за генерации.
@@ -139,21 +139,15 @@ CDN alias: mir
 
 [5] КАНАЛ: Голливуд HD
 Нормализованный: голливуд hd
-CDN alias: amc
-Тип: DICTIONARY_CONFIRMED
-Уверенность: 1.000
-Причина: Alias найден в явном словаре и реально присутствует в CDN inventory.
+CDN alias: None
+Тип: UNKNOWN
+Уверенность: 0.000
+Причина: Реальный CDN alias для этого канала в доступном inventory не найден.
 
 КАНДИДАТЫ:
-  amc                                 score=0.990 CONFIRMED    reason=known_dictionary
   hd                                  score=0.600 candidate    reason=normalized_name
   gollivud_hd                         score=0.500 candidate    reason=transliteration
   gollivud                            score=0.480 candidate    reason=transliteration_without_quality
-  amc_channel                         score=0.250 candidate    reason=technical_suffix:channel
-  amc_live                            score=0.250 candidate    reason=technical_suffix:live
-  amc_online                          score=0.250 candidate    reason=technical_suffix:online
-  amc_television                      score=0.250 candidate    reason=technical_suffix:television
-  amc_tv                              score=0.250 candidate    reason=technical_suffix:tv
   gollivud_channel                    score=0.250 candidate    reason=technical_suffix:channel
   gollivud_hd_channel                 score=0.250 candidate    reason=technical_suffix:channel
   gollivud_hd_live                    score=0.250 candidate    reason=technical_suffix:live
@@ -171,11 +165,10 @@ CDN alias: amc
   hd_tv                               score=0.250 candidate    reason=technical_suffix:tv
 
 ПОТОКИ:
-  [REACHABLE] [primary] [HTTP=200] https://s70378.cdn.ngenix.net/amc/index.m3u8
-  [REACHABLE] [variant=1] [HTTP=200] https://s70378.cdn.ngenix.net/amc/1/index.m3u8
-  [REACHABLE] [variant=2] [HTTP=200] https://s70378.cdn.ngenix.net/amc/2/index.m3u8
+  Реальных потоков не обнаружено.
 
-В M3U PLAYLIST EDITION: ДА
+В M3U PLAYLIST EDITION: НЕТ
+Причина исключения из M3U: подтвержденный CDN alias отсутствует.
 
 ----------------------------------------------------------------------------------------------------
 
@@ -355,15 +348,6 @@ https://s70378.cdn.ngenix.net/mir/1/index.m3u8
 
 #EXTINF:-1 tvg-id="mir" tvg-name="Мир",Мир
 https://s70378.cdn.ngenix.net/mir/2/index.m3u8
-
-#EXTINF:-1 tvg-name="Голливуд HD",Голливуд HD
-https://s70378.cdn.ngenix.net/amc/index.m3u8
-
-#EXTINF:-1 tvg-name="Голливуд HD",Голливуд HD
-https://s70378.cdn.ngenix.net/amc/1/index.m3u8
-
-#EXTINF:-1 tvg-name="Голливуд HD",Голливуд HD
-https://s70378.cdn.ngenix.net/amc/2/index.m3u8
 
 #EXTINF:-1 tvg-id="dom_kino" tvg-name="Дом Кино",Дом Кино
 https://s70378.cdn.ngenix.net/dom_kino/index.m3u8
