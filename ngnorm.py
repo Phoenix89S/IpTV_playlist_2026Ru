@@ -1,48 +1,61 @@
 import os
+import re
 import asyncio
 import aiohttp
-from aiohttp import ClientTimeout, TCPConnector
+
+from aiohttp import (
+    ClientTimeout,
+    TCPConnector,
+)
+
 from datetime import datetime
-from urllib.parse import urljoin, urlparse
-import re
+from urllib.parse import (
+    urljoin,
+    urlparse,
+    unquote,
+)
+
 
 # ============================================================
-# 1. Turbo-параметры
+# 1. TURBO-ПАРАМЕТРЫ
 # ============================================================
 
 CPU = os.cpu_count() or 1
+
 TURBO = os.getenv("NGNORM_TURBO") == "1"
 
 MAX_THREADS = CPU * (40 if TURBO else 10)
+
 TIMEOUT = 1 if TURBO else 2
 
 CACHE = {}
+
+MANIFEST_CACHE = {}
+
+ALIAS_CACHE = {}
+
 NODE_CACHE = {}
+
+CDN_DISCOVERY_CACHE = {}
+
 SESSION = None
+
 SEMAPHORE = None
 
-# ============================================================
-# 2. Дополнительные структуры отчёта
-# ============================================================
-
-REPORT_LOG = []
-
-FOUND_TIME = {}
-FOUND_NODE = {}
-FOUND_URL = {}
-
-CDN_CHANNELS = {}
-CDN_MANIFESTS = {}
-
-LIVE_RESULTS = []
-DEAD_RESULTS = []
-
-REPORT_LOCK = asyncio.Lock()
+REPORT_FILE = "ngnorm_report.txt"
 
 
 # ============================================================
-# 3. Телетайп СКАЛА ДРЕГ
+# 2. ТЕЛЕТАЙП СКАЛА ДРЕГ
+#
+# ВАЖНО:
+# Полный телетайп НЕ печатается в консоль.
+# Все сообщения пишутся в REPORT_FILE.
+# В консоль выводится только краткая статистика.
 # ============================================================
+
+REPORT_HANDLE = None
+
 
 def current_time():
     return datetime.now().strftime("%H:%M:%S")
@@ -52,47 +65,62 @@ def current_datetime():
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 
-def log_report(text):
-    REPORT_LOG.append(
-        f"[{current_time()}] СКАЛА ДРЕГ :: {text}"
-    )
-
-
 def teletype(text):
+    global REPORT_HANDLE
+
     line = (
         f"[{current_time()}] "
-        f"СКАЛА ДРЕГ :: {text}"
+        f"СКАЛА ДРЕГ :: "
+        f"{text}"
     )
 
-    print(line, flush=True)
-    log_report(text)
+    if REPORT_HANDLE:
+        REPORT_HANDLE.write(line + "\n")
+        REPORT_HANDLE.flush()
 
 
 def teletype_ok(name, url):
-    line = (
-        f"[{current_time()}] "
-        f"СКАЛА ДРЕГ :: [ OK ] "
+    teletype(
+        f"[ OK ] "
         f"{name} -> {url}"
-    )
-
-    print(line, flush=True)
-    log_report(
-        f"[ OK ] {name} -> {url}"
     )
 
 
 def teletype_dead(name, url):
-    log_report(
-        f"[DEAD] {name} -> {url}"
+    teletype(
+        f"[DEAD] "
+        f"{name} -> {url}"
+    )
+
+
+def teletype_error(text):
+    teletype(
+        f"[ERROR] {text}"
     )
 
 
 # ============================================================
-# 4. Универсальная нормализация домена и пути
+# 3. КОНСОЛЬНЫЙ ТЕЛЕТАЙП
+#
+# Только краткие сообщения.
+# ============================================================
+
+def console(text):
+    now = current_time()
+
+    print(
+        f"[{now}] "
+        f"СКАЛА ДРЕГ :: "
+        f"{text}",
+        flush=True
+    )
+
+
+# ============================================================
+# 4. НОРМАЛИЗАЦИЯ URL NGENIX
 # ============================================================
 
 def normalize_ngenix(url):
-
     if not isinstance(url, str):
         return "INVALID:"
 
@@ -101,226 +129,476 @@ def normalize_ngenix(url):
     if not url:
         return "INVALID:"
 
-    url = url.replace(
-        "https://",
-        "",
-        1
-    )
-
-    url = url.replace(
-        "http://",
-        "",
-        1
-    )
-
-    while "//" in url:
-        url = url.replace(
-            "//",
-            "/"
-        )
-
     if "..." in url:
         return "INVALID:" + url
 
-    if ".cdn.ngenix.net" in url:
+    if url.startswith("https://"):
+        url = url[8:]
 
-        parts = url.split(
-            "/",
-            1
-        )
+    elif url.startswith("http://"):
+        url = url[7:]
 
-        host = parts[0]
+    while "//" in url:
+        url = url.replace("//", "/")
 
-        path = (
-            parts[1]
-            if len(parts) > 1
-            else ""
-        )
+    if ".cdn.ngenix.net" not in url:
+        return "INVALID:" + url
 
-        if not path:
-            return (
-                "https://"
-                + host
-            )
+    parts = url.split("/", 1)
 
+    host = parts[0]
+
+    path = ""
+
+    if len(parts) > 1:
+        path = parts[1]
+
+    if not host.endswith(".cdn.ngenix.net"):
+        return "INVALID:" + url
+
+    if not path:
         return (
-            f"https://{host}/{path}"
+            "https://"
+            + host
         )
 
-    return "INVALID:" + url
+    return (
+        "https://"
+        + host
+        + "/"
+        + path
+    )
 
 
 # ============================================================
-# 5. Извлечение канала
+# 5. ПРОВЕРКА URL
 # ============================================================
 
-def extract_channel(url):
+def is_valid_url(url):
+    if not isinstance(url, str):
+        return False
 
-    marker = ".cdn.ngenix.net/"
+    if not url:
+        return False
 
-    if marker not in url:
-        return None
+    if url.startswith("INVALID:"):
+        return False
 
-    try:
+    if "..." in url:
+        return False
 
-        value = url.split(
-            marker,
-            1
-        )[1]
+    parsed = urlparse(url)
 
-        value = value.strip("/")
+    if parsed.scheme not in (
+        "http",
+        "https",
+    ):
+        return False
 
-        if not value:
-            return None
+    if not parsed.netloc:
+        return False
 
-        return value.split(
-            "/",
-            1
-        )[0]
-
-    except Exception:
-        return None
+    return True
 
 
 # ============================================================
-# 6. Извлечение CDN узла
+# 6. ИЗВЛЕЧЕНИЕ CDN NODE
 # ============================================================
 
 def extract_node(url):
+    if not is_valid_url(url):
+        return None
 
     try:
-
         parsed = urlparse(url)
 
-        if parsed.hostname:
-            return parsed.hostname
+        host = parsed.netloc
+
+        if host.endswith(
+            ".cdn.ngenix.net"
+        ):
+            return host
 
     except Exception:
-        pass
+        return None
 
     return None
 
 
 # ============================================================
-# 7. Получение базового URL
+# 7. ИЗВЛЕЧЕНИЕ ПУТИ
+# ============================================================
+
+def extract_path(url):
+    if not is_valid_url(url):
+        return None
+
+    try:
+        parsed = urlparse(url)
+
+        return parsed.path.lstrip("/")
+
+    except Exception:
+        return None
+
+
+# ============================================================
+# 8. ИЗВЛЕЧЕНИЕ ИДЕНТИФИКАТОРА КАНАЛА
+# ============================================================
+
+def extract_channel(url):
+    path = extract_path(url)
+
+    if not path:
+        return None
+
+    parts = [
+        item
+        for item in path.split("/")
+        if item
+    ]
+
+    if not parts:
+        return None
+
+    first = parts[0]
+
+    first = unquote(first)
+
+    return first
+
+
+# ============================================================
+# 9. ПОЛУЧЕНИЕ BASE URL
 # ============================================================
 
 def get_base_url(url):
-
-    if not url:
+    if not is_valid_url(url):
         return None
 
-    if url.startswith(
-        "INVALID:"
-    ):
-        return None
+    parsed = urlparse(url)
 
-    clean = url.rstrip("/")
+    path = parsed.path
 
-    without_scheme = (
-        clean.replace(
-            "https://",
-            "",
-            1
+    if not path:
+        return (
+            parsed.scheme
+            + "://"
+            + parsed.netloc
         )
-        .replace(
-            "http://",
-            "",
-            1
-        )
-    )
 
-    if "/" not in without_scheme:
-        return clean
-
-    return clean.rsplit(
+    directory = path.rsplit(
         "/",
         1
     )[0]
 
-
-# ============================================================
-# 8. Создание tvg-id
-# ============================================================
-
-def make_tvg_id(name):
-
-    result = name.lower()
-
-    replacements = {
-        "+": "_plus",
-        " ": "_",
-        "-": "_",
-        ".": "",
-        "!": "",
-        ":": "",
-        "/": "_",
-        "\\": "_",
-    }
-
-    for old, new in replacements.items():
-        result = result.replace(
-            old,
-            new
-        )
-
-    while "__" in result:
-        result = result.replace(
-            "__",
-            "_"
-        )
-
-    return result.strip("_")
+    return (
+        parsed.scheme
+        + "://"
+        + parsed.netloc
+        + directory
+    )
 
 
 # ============================================================
-# 9. Название для M3U
+# 10. ПОЛУЧЕНИЕ NODE BASE URL
+# ============================================================
+
+def get_node_base(url):
+    node = extract_node(url)
+
+    if not node:
+        return None
+
+    return (
+        "https://"
+        + node
+    )
+
+
+# ============================================================
+# 11. TVG-ID
+# ============================================================
+
+def make_tvg_id(name, url):
+    channel = extract_channel(url)
+
+    if channel:
+        value = channel
+
+    else:
+        value = name
+
+    value = unquote(value)
+
+    value = value.lower()
+
+    value = value.replace(
+        "+",
+        "_plus_"
+    )
+
+    value = value.replace(
+        "&",
+        "_and_"
+    )
+
+    value = re.sub(
+        r"[^a-z0-9а-яё_]+",
+        "_",
+        value,
+        flags=re.IGNORECASE,
+    )
+
+    value = re.sub(
+        r"_+",
+        "_",
+        value,
+    )
+
+    value = value.strip("_")
+
+    if not value:
+        value = "unknown"
+
+    return value
+
+
+# ============================================================
+# 12. M3U NAME
 # ============================================================
 
 def make_m3u_name(name):
+    value = str(name).strip()
 
-    result = name.lower()
-
-    result = result.replace(
-        "+",
-        "_plus"
+    value = value.replace(
+        "\n",
+        " "
     )
 
-    result = result.replace(
+    value = re.sub(
+        r"\s+",
         " ",
-        "_"
+        value,
     )
 
-    result = result.replace(
-        "-",
-        "_"
-    )
+    return value
 
-    while "__" in result:
-        result = result.replace(
-            "__",
-            "_"
+
+# ============================================================
+# 13. ГЕНЕРАЦИЯ ALIAS
+# ============================================================
+
+def generate_aliases(name, url):
+    aliases = []
+
+    def add(value):
+        if not value:
+            return
+
+        value = str(value).strip()
+
+        if not value:
+            return
+
+        value = value.lower()
+
+        value = value.strip(
+            "/"
         )
 
-    return result.strip("_")
+        if value not in aliases:
+            aliases.append(value)
+
+    clean_name = str(
+        name
+    ).strip()
+
+    clean_name = clean_name.lower()
+
+    add(clean_name)
+
+    add(
+        clean_name.replace(
+            "+",
+            " plus "
+        )
+    )
+
+    add(
+        clean_name.replace(
+            "+",
+            "_plus_"
+        )
+    )
+
+    add(
+        clean_name.replace(
+            "+",
+            "_plus"
+        )
+    )
+
+    add(
+        clean_name.replace(
+            " ",
+            "_"
+        )
+    )
+
+    add(
+        clean_name.replace(
+            " ",
+            "-"
+        )
+    )
+
+    add(
+        clean_name.replace(
+            " ",
+            ""
+        )
+    )
+
+    normalized = re.sub(
+        r"[^a-z0-9а-яё]+",
+        "_",
+        clean_name,
+        flags=re.IGNORECASE,
+    )
+
+    normalized = re.sub(
+        r"_+",
+        "_",
+        normalized,
+    )
+
+    normalized = normalized.strip(
+        "_"
+    )
+
+    add(normalized)
+
+    if normalized:
+        add(
+            normalized
+            .replace(
+                "_plus_",
+                "_plus"
+            )
+        )
+
+        add(
+            normalized
+            .replace(
+                "_plus_",
+                "plus_"
+            )
+        )
+
+        add(
+            normalized.replace(
+                "_",
+                ""
+            )
+        )
+
+    channel = extract_channel(
+        url
+    )
+
+    if channel:
+        add(channel)
+
+        add(
+            channel.replace(
+                "_",
+                "-"
+            )
+        )
+
+        add(
+            channel.replace(
+                "_",
+                ""
+            )
+        )
+
+        add(
+            channel + "_1"
+        )
+
+        add(
+            channel + "_hd"
+        )
+
+    path = extract_path(
+        url
+    )
+
+    if path:
+        directory = path.rsplit(
+            "/",
+            1
+        )[0]
+
+        if directory:
+            add(directory)
+
+    return aliases
 
 
 # ============================================================
-# 10. Асинхронная загрузка текста
+# 14. СРАВНЕНИЕ ALIAS
 # ============================================================
 
-async def fetch_text(url):
+def alias_matches(
+    alias,
+    channel_name,
+    original_url,
+):
+    if not alias:
+        return False
 
+    alias = alias.lower()
+
+    aliases = generate_aliases(
+        channel_name,
+        original_url,
+    )
+
+    if alias in aliases:
+        return True
+
+    return False
+
+
+# ============================================================
+# 15. HTTP FETCH
+# ============================================================
+
+async def fetch(
+    url,
+    read_body=False,
+    max_bytes=65536,
+):
     global SESSION
     global SEMAPHORE
 
-    if not url:
+    if not is_valid_url(url):
         return None
 
-    if url.startswith(
-        "INVALID:"
-    ):
-        return None
+    cache_key = (
+        url,
+        read_body,
+    )
+
+    if cache_key in CACHE:
+        return CACHE[
+            cache_key
+        ]
+
+    start = datetime.now()
 
     async with SEMAPHORE:
 
@@ -331,7 +609,7 @@ async def fetch_text(url):
                 allow_redirects=True,
                 headers={
                     "User-Agent":
-                        "SKALA-DREG/1.0",
+                        "SKALA-DREG/2.0",
                     "Accept":
                         "*/*",
                     "Connection":
@@ -339,878 +617,1625 @@ async def fetch_text(url):
                 },
             ) as response:
 
-                if response.status != 200:
-                    return None
+                body = b""
 
-                try:
+                if read_body:
 
-                    text = await response.text(
-                        errors="ignore"
+                    body = await response.content.read(
+                        max_bytes
                     )
 
-                except Exception:
+                elapsed = (
+                    datetime.now()
+                    - start
+                ).total_seconds()
 
-                    raw = await response.read()
+                result = {
+                    "url": str(
+                        response.url
+                    ),
+                    "status":
+                        response.status,
+                    "content_type":
+                        response.headers.get(
+                            "Content-Type",
+                            "",
+                        ),
+                    "body":
+                        body,
+                    "elapsed":
+                        elapsed,
+                    "headers":
+                        dict(
+                            response.headers
+                        ),
+                }
 
-                    text = raw.decode(
-                        "utf-8",
-                        errors="ignore"
-                    )
+                CACHE[
+                    cache_key
+                ] = result
 
-                return text
+                return result
 
         except (
             asyncio.TimeoutError,
             aiohttp.ClientError,
             ConnectionError,
             OSError,
-        ):
+        ) as error:
 
-            return None
+            elapsed = (
+                datetime.now()
+                - start
+            ).total_seconds()
 
-        except Exception:
+            result = {
+                "url": url,
+                "status": None,
+                "content_type": "",
+                "body": b"",
+                "elapsed": elapsed,
+                "headers": {},
+                "error": str(error),
+            }
 
-            return None
+            CACHE[
+                cache_key
+            ] = result
+
+            return result
+
+        except Exception as error:
+
+            elapsed = (
+                datetime.now()
+                - start
+            ).total_seconds()
+
+            result = {
+                "url": url,
+                "status": None,
+                "content_type": "",
+                "body": b"",
+                "elapsed": elapsed,
+                "headers": {},
+                "error": str(error),
+            }
+
+            CACHE[
+                cache_key
+            ] = result
+
+            return result
 
 
 # ============================================================
-# 11. Асинхронная проверка URL
+# 16. ПРОВЕРКА HLS
 # ============================================================
 
-async def fetch(url):
+def is_hls_manifest(
+    body,
+    content_type="",
+):
+    if not body:
+        return False
 
-    if not url:
-        return None
+    try:
+        text = body.decode(
+            "utf-8",
+            errors="ignore",
+        )
+    except Exception:
+        return False
 
-    if url.startswith(
-        "INVALID:"
-    ):
-        return None
+    if "#EXTM3U" in text:
+        return True
 
-    if url in CACHE:
-        return CACHE[url]
+    if "#EXT-X-" in text:
+        return True
 
-    text = await fetch_text(url)
-
-    if text is None:
-
-        CACHE[url] = None
-
-        return None
+    content_type = (
+        content_type
+        or ""
+    ).lower()
 
     if (
-        "#EXTM3U" in text
-        or "#EXT-X-" in text
+        "mpegurl"
+        in content_type
     ):
+        return True
 
-        CACHE[url] = url
+    if (
+        "vnd.apple.mpegurl"
+        in content_type
+    ):
+        return True
 
-        return url
-
-    CACHE[url] = None
-
-    return None
+    return False
 
 
 # ============================================================
-# 12. Проверка HLS-потока
+# 17. ПРОВЕРКА ПОТОКА
 # ============================================================
 
-async def check_stream(base):
-
+async def check_stream(
+    base,
+):
     if not base:
         return None
 
     tests = [
-
         f"{base}/index.m3u8",
-
         f"{base}/playlist.m3u8",
-
         f"{base}/master.m3u8",
-
         f"{base}/1/index.m3u8",
-
         f"{base}/2/index.m3u8",
-
     ]
 
-    tasks = [
-        asyncio.create_task(
-            fetch(url)
-        )
-        for url in tests
-    ]
+    for url in tests:
 
-    try:
-
-        results = await asyncio.gather(
-            *tasks
+        result = await fetch(
+            url,
+            read_body=True,
+            max_bytes=65536,
         )
 
-        for result in results:
+        if not result:
+            continue
 
-            if result:
-                return result
+        if result.get(
+            "status"
+        ) != 200:
+            continue
 
-    finally:
+        body = result.get(
+            "body",
+            b"",
+        )
 
-        for task in tasks:
+        content_type = result.get(
+            "content_type",
+            "",
+        )
 
-            if not task.done():
-                task.cancel()
+        if is_hls_manifest(
+            body,
+            content_type,
+        ):
+            return {
+                "url":
+                    result.get(
+                        "url",
+                        url,
+                    ),
+                "status":
+                    result.get(
+                        "status"
+                    ),
+                "elapsed":
+                    result.get(
+                        "elapsed",
+                        0,
+                    ),
+                "body":
+                    body,
+                "content_type":
+                    content_type,
+            }
+
+        if (
+            url.lower().endswith(
+                ".m3u8"
+            )
+            and result.get(
+                "status"
+            ) == 200
+        ):
+            return {
+                "url":
+                    result.get(
+                        "url",
+                        url,
+                    ),
+                "status":
+                    result.get(
+                        "status"
+                    ),
+                "elapsed":
+                    result.get(
+                        "elapsed",
+                        0,
+                    ),
+                "body":
+                    body,
+                "content_type":
+                    content_type,
+            }
 
     return None
 
 
 # ============================================================
-# 13. Разбор URL внутри M3U8
+# 18. ПАРСИНГ M3U8
 # ============================================================
 
-def parse_m3u8_urls(
+def parse_m3u8(
+    text,
     manifest_url,
-    text
 ):
-
-    urls = []
+    discovered = []
 
     if not text:
-        return urls
-
-    for raw_line in text.splitlines():
-
-        line = raw_line.strip()
-
-        if not line:
-            continue
-
-        if line.startswith("#"):
-            continue
-
-        if (
-            ".m3u8" not in line.lower()
-        ):
-            continue
-
-        full_url = urljoin(
-            manifest_url,
-            line
-        )
-
-        if full_url not in urls:
-
-            urls.append(
-                full_url
-            )
-
-    return urls
-
-
-# ============================================================
-# 14. Извлечение названий из EXTINF
-# ============================================================
-
-def parse_extinf_entries(
-    manifest_url,
-    text
-):
-
-    entries = []
-
-    if not text:
-        return entries
+        return discovered
 
     lines = text.splitlines()
 
-    current_inf = None
+    current_stream_info = None
 
     for line in lines:
 
         line = line.strip()
 
+        if not line:
+            continue
+
+        if line.startswith(
+            "#EXT-X-STREAM-INF:"
+        ):
+            current_stream_info = (
+                line
+                .split(
+                    ":",
+                    1
+                )[1]
+            )
+
+            continue
+
         if line.startswith(
             "#EXTINF:"
         ):
-
-            current_inf = line
+            current_stream_info = (
+                line
+                .split(
+                    ":",
+                    1
+                )[1]
+            )
 
             continue
 
-        if (
-            current_inf
-            and line
-            and not line.startswith("#")
+        if line.startswith(
+            "#"
         ):
+            continue
 
-            if (
-                ".m3u8" in line.lower()
-            ):
+        absolute_url = urljoin(
+            manifest_url,
+            line,
+        )
 
-                name = (
-                    current_inf
-                    .split(",", 1)[-1]
-                    .strip()
-                )
+        discovered.append(
+            {
+                "url":
+                    absolute_url,
+                "info":
+                    current_stream_info,
+                "source_manifest":
+                    manifest_url,
+            }
+        )
 
-                tvg_match = re.search(
-                    r'tvg-id="([^"]*)"',
-                    current_inf
-                )
+        current_stream_info = None
 
-                group_match = re.search(
-                    r'group-title="([^"]*)"',
-                    current_inf
-                )
-
-                tvg_id = (
-                    tvg_match.group(1)
-                    if tvg_match
-                    else make_tvg_id(name)
-                )
-
-                group = (
-                    group_match.group(1)
-                    if group_match
-                    else "Эфирные ТВ Плюс"
-                )
-
-                entries.append(
-                    {
-                        "name": name,
-                        "tvg_id": tvg_id,
-                        "group": group,
-                        "url": urljoin(
-                            manifest_url,
-                            line
-                        ),
-                    }
-                )
-
-            current_inf = None
-
-    return entries
+    return discovered
 
 
 # ============================================================
-# 15. Полный разбор доступного CDN manifest
+# 19. ПОЛНЫЙ АНАЛИЗ MANIFEST
 # ============================================================
 
-async def inspect_cdn_manifest(
-    node,
-    seed_url
+async def discover_manifest(
+    manifest_url,
+    depth=0,
+    max_depth=2,
 ):
-
-    if not node:
+    if depth > max_depth:
         return []
 
-    if node in CDN_CHANNELS:
+    cache_key = (
+        manifest_url,
+        depth,
+    )
 
-        return CDN_CHANNELS[node]
+    if cache_key in MANIFEST_CACHE:
+        return MANIFEST_CACHE[
+            cache_key
+        ]
+
+    result = await fetch(
+        manifest_url,
+        read_body=True,
+        max_bytes=262144,
+    )
+
+    if not result:
+        MANIFEST_CACHE[
+            cache_key
+        ] = []
+
+        return []
+
+    if result.get(
+        "status"
+    ) != 200:
+        MANIFEST_CACHE[
+            cache_key
+        ] = []
+
+        return []
+
+    body = result.get(
+        "body",
+        b"",
+    )
+
+    try:
+        text = body.decode(
+            "utf-8",
+            errors="ignore",
+        )
+    except Exception:
+        text = ""
+
+    if not is_hls_manifest(
+        body,
+        result.get(
+            "content_type",
+            "",
+        ),
+    ):
+        MANIFEST_CACHE[
+            cache_key
+        ] = []
+
+        return []
+
+    entries = parse_m3u8(
+        text,
+        result.get(
+            "url",
+            manifest_url,
+        ),
+    )
 
     discovered = []
 
-    discovered_info = []
+    for entry in entries:
 
-    queue = [
-        seed_url
-    ]
+        item_url = entry.get(
+            "url"
+        )
 
-    visited = set()
-
-    maximum_manifests = 100
-
-    while (
-        queue
-        and len(visited)
-        < maximum_manifests
-    ):
-
-        current = queue.pop(0)
-
-        if current in visited:
+        if not item_url:
             continue
 
-        visited.add(current)
-
-        text = await fetch_text(
-            current
+        discovered.append(
+            {
+                "url":
+                    item_url,
+                "info":
+                    entry.get(
+                        "info"
+                    ),
+                "source_manifest":
+                    entry.get(
+                        "source_manifest"
+                    ),
+                "depth":
+                    depth,
+            }
         )
 
-        if not text:
+    nested_tasks = []
+
+    for entry in entries:
+
+        item_url = entry.get(
+            "url"
+        )
+
+        if not item_url:
             continue
 
-        CDN_MANIFESTS[
-            current
-        ] = text
+        if (
+            item_url.lower()
+            .endswith(".m3u8")
+        ):
+            nested_tasks.append(
+                discover_manifest(
+                    item_url,
+                    depth=depth + 1,
+                    max_depth=max_depth,
+                )
+            )
 
-        entries = parse_extinf_entries(
-            current,
-            text
+    if nested_tasks:
+
+        nested_results = (
+            await asyncio.gather(
+                *nested_tasks,
+                return_exceptions=True,
+            )
         )
 
-        for entry in entries:
+        for nested in nested_results:
 
-            url = entry["url"]
+            if isinstance(
+                nested,
+                Exception,
+            ):
+                continue
 
-            if url not in discovered:
+            discovered.extend(
+                nested
+            )
 
-                discovered.append(
-                    url
-                )
+    unique = {}
 
-                discovered_info.append(
-                    {
-                        "name":
-                            entry["name"],
-                        "tvg_id":
-                            entry["tvg_id"],
-                        "group":
-                            entry["group"],
-                        "url":
-                            url,
-                        "node":
-                            node,
-                        "found_at":
-                            current_datetime(),
-                    }
-                )
+    for item in discovered:
 
-        urls = parse_m3u8_urls(
-            current,
-            text
+        item_url = item.get(
+            "url"
         )
 
-        for url in urls:
+        if item_url:
+            unique[
+                item_url
+            ] = item
 
-            if url not in visited:
-
-                queue.append(
-                    url
-                )
-
-    CDN_CHANNELS[
-        node
-    ] = discovered_info
-
-    log_report(
-        f"CDN MANIFEST :: "
-        f"{node} :: "
-        f"обнаружено={len(discovered_info)}"
+    final_result = list(
+        unique.values()
     )
 
-    return discovered_info
+    MANIFEST_CACHE[
+        cache_key
+    ] = final_result
+
+    return final_result
 
 
 # ============================================================
-# 16. Опрос доступного CDN по найденному URL
+# 20. ПОЛУЧЕНИЕ CDN NODE ИЗ URL
 # ============================================================
 
-async def inspect_found_cdn(
-    node,
-    url
+def same_cdn_node(
+    first_url,
+    second_url,
 ):
+    first_node = extract_node(
+        first_url
+    )
+
+    second_node = extract_node(
+        second_url
+    )
+
+    if not first_node:
+        return False
+
+    if not second_node:
+        return False
+
+    return (
+        first_node.lower()
+        ==
+        second_node.lower()
+    )
+
+
+# ============================================================
+# 21. ALIAS TARGETS
+#
+# ВАЖНО:
+# Здесь используются только варианты,
+# полученные из реально существующего URL
+# конкретного канала.
+# ============================================================
+
+def build_alias_targets(
+    name,
+    original_url,
+):
+    node = extract_node(
+        original_url
+    )
 
     if not node:
         return []
 
-    log_report(
-        f"ОПРОС CDN :: "
-        f"{node}"
+    aliases = generate_aliases(
+        name,
+        original_url,
     )
 
-    return await inspect_cdn_manifest(
-        node,
-        url
-    )
+    targets = []
 
+    for alias in aliases:
 
-# ============================================================
-# 17. Проверка одного указанного узла
-# ============================================================
-
-async def check_node(
-    node,
-    channel
-):
-
-    base = (
-        f"https://"
-        f"{node}.cdn.ngenix.net/"
-        f"{channel}"
-    )
-
-    result = await check_stream(
-        base
-    )
-
-    if result:
-
-        return (
-            node,
-            result
+        alias = alias.strip(
+            "/"
         )
 
-    return None
+        if not alias:
+            continue
+
+        targets.append(
+            f"https://{node}/{alias}/index.m3u8"
+        )
+
+        targets.append(
+            f"https://{node}/{alias}/playlist.m3u8"
+        )
+
+        targets.append(
+            f"https://{node}/{alias}/master.m3u8"
+        )
+
+    unique = []
+
+    seen = set()
+
+    for target in targets:
+
+        if target in seen:
+            continue
+
+        seen.add(target)
+
+        unique.append(
+            target
+        )
+
+    return unique
 
 
 # ============================================================
-# 18. Поиск узла среди явно указанных
+# 22. ALIAS DISCOVERY
 # ============================================================
 
-async def scan_all_nodes(channel):
+async def alias_discovery(
+    name,
+    original_url,
+):
+    cache_key = (
+        name,
+        original_url,
+    )
 
-    if not channel:
-        return None
-
-    if channel in NODE_CACHE:
-
-        return NODE_CACHE[
-            channel
+    if cache_key in ALIAS_CACHE:
+        return ALIAS_CACHE[
+            cache_key
         ]
 
-    # --------------------------------------------------------
-    # ВАЖНО:
-    #
-    # Здесь намеренно используются только CDN-хосты,
-    # которые уже присутствуют в исходном CHANNELS.
-    #
-    # Массовый перебор десятков тысяч произвольных узлов
-    # не выполняется.
-    # --------------------------------------------------------
+    start = datetime.now()
 
-    known_nodes = set()
+    aliases = generate_aliases(
+        name,
+        original_url,
+    )
 
-    for raw in CHANNELS.values():
+    targets = build_alias_targets(
+        name,
+        original_url,
+    )
 
-        normalized = normalize_ngenix(
-            raw
+    teletype(
+        "ALIAS DISCOVERY :: "
+        f"{name} :: "
+        f"ALIASES={len(aliases)} :: "
+        f"TARGETS={len(targets)}"
+    )
+
+    found = []
+
+    for target in targets:
+
+        result = await fetch(
+            target,
+            read_body=True,
+            max_bytes=65536,
         )
 
-        if normalized.startswith(
-            "INVALID:"
+        if not result:
+            continue
+
+        if result.get(
+            "status"
+        ) != 200:
+            continue
+
+        body = result.get(
+            "body",
+            b"",
+        )
+
+        if not is_hls_manifest(
+            body,
+            result.get(
+                "content_type",
+                "",
+            ),
         ):
             continue
 
-        node = extract_node(
-            normalized
+        path = extract_path(
+            target
         )
 
-        if node:
-            known_nodes.add(
-                node
-            )
+        alias = None
 
-    if not known_nodes:
+        if path:
+            alias = path.split(
+                "/",
+                1
+            )[0]
 
-        NODE_CACHE[channel] = None
-
-        return None
-
-    log_report(
-        f"ПОИСК УЗЛА :: "
-        f"канал={channel} :: "
-        f"известных CDN={len(known_nodes)}"
-    )
-
-    tasks = []
-
-    for node in known_nodes:
-
-        tasks.append(
-            asyncio.create_task(
-                check_node(
-                    node,
-                    channel
-                )
-            )
+        found.append(
+            {
+                "name":
+                    name,
+                "alias":
+                    alias,
+                "url":
+                    result.get(
+                        "url",
+                        target,
+                    ),
+                "status":
+                    result.get(
+                        "status"
+                    ),
+                "elapsed":
+                    result.get(
+                        "elapsed",
+                        0,
+                    ),
+                "found_at":
+                    current_datetime(),
+                "aliases":
+                    aliases,
+            }
         )
 
-    try:
-
-        results = await asyncio.gather(
-            *tasks
+        teletype(
+            "ALIAS MATCH :: "
+            f"{name} :: "
+            f"{alias} :: "
+            f"{target}"
         )
 
-    finally:
+    elapsed = (
+        datetime.now()
+        - start
+    ).total_seconds()
 
-        for task in tasks:
+    result = {
+        "name":
+            name,
+        "original_url":
+            original_url,
+        "aliases":
+            aliases,
+        "found":
+            found,
+        "elapsed":
+            elapsed,
+    }
 
-            if not task.done():
-                task.cancel()
+    ALIAS_CACHE[
+        cache_key
+    ] = result
 
-    for result in results:
-
-        if result:
-
-            node, found_url = result
-
-            NODE_CACHE[
-                channel
-            ] = (
-                node,
-                found_url
-            )
-
-            log_report(
-                f"УЗЕЛ НАЙДЕН :: "
-                f"{node} :: "
-                f"{found_url}"
-            )
-
-            return (
-                node,
-                found_url
-            )
-
-    NODE_CACHE[channel] = None
-
-    log_report(
-        f"УЗЕЛ НЕ НАЙДЕН :: "
-        f"{channel}"
-    )
-
-    return None
+    return result
 
 
 # ============================================================
-# 19. Основной worker
+# 23. CDN DISCOVERY ПО НАЙДЕННОМУ MANIFEST
+# ============================================================
+
+async def cdn_manifest_discovery(
+    name,
+    live_url,
+):
+    cache_key = live_url
+
+    if cache_key in CDN_DISCOVERY_CACHE:
+        return CDN_DISCOVERY_CACHE[
+            cache_key
+        ]
+
+    start = datetime.now()
+
+    teletype(
+        "CDN MANIFEST DISCOVERY :: "
+        f"{name} :: "
+        f"{live_url}"
+    )
+
+    discovered = await discover_manifest(
+        live_url,
+        depth=0,
+        max_depth=2,
+    )
+
+    final = []
+
+    seen = set()
+
+    for item in discovered:
+
+        item_url = item.get(
+            "url"
+        )
+
+        if not item_url:
+            continue
+
+        if not same_cdn_node(
+            live_url,
+            item_url,
+        ):
+            continue
+
+        if item_url in seen:
+            continue
+
+        seen.add(
+            item_url
+        )
+
+        final.append(
+            {
+                "name":
+                    name,
+                "url":
+                    item_url,
+                "source":
+                    "MANIFEST_DISCOVERY",
+                "source_manifest":
+                    item.get(
+                        "source_manifest"
+                    ),
+                "info":
+                    item.get(
+                        "info"
+                    ),
+                "found_at":
+                    current_datetime(),
+            }
+        )
+
+    elapsed = (
+        datetime.now()
+        - start
+    ).total_seconds()
+
+    result = {
+        "name":
+            name,
+        "live_url":
+            live_url,
+        "found":
+            final,
+        "elapsed":
+            elapsed,
+    }
+
+    CDN_DISCOVERY_CACHE[
+        cache_key
+    ] = result
+
+    teletype(
+        "CDN MANIFEST DISCOVERY END :: "
+        f"{name} :: "
+        f"FOUND={len(final)} :: "
+        f"TIME={elapsed:.3f}s"
+    )
+
+    return result
+
+
+# ============================================================
+# 24. WORKER
 # ============================================================
 
 async def worker(
     name,
-    raw
+    raw,
 ):
+    started = datetime.now()
 
     url = normalize_ngenix(
         raw
     )
 
-    found_at = current_datetime()
-
-    if url.startswith(
-        "INVALID:"
+    if not is_valid_url(
+        url
     ):
 
         teletype_dead(
             name,
-            raw
+            raw,
         )
 
         return {
-            "name": name,
-            "url": raw,
-            "live": False,
-            "time": found_at,
-            "node": None,
-            "cdn": [],
+            "name":
+                name,
+            "original":
+                raw,
+            "url":
+                raw,
+            "live":
+                False,
+            "source":
+                "INVALID",
+            "found_at":
+                None,
+            "elapsed":
+                (
+                    datetime.now()
+                    - started
+                ).total_seconds(),
+            "node":
+                None,
+            "channel":
+                None,
+            "alias_result":
+                None,
+            "cdn_result":
+                None,
         }
+
+    node = extract_node(
+        url
+    )
 
     channel = extract_channel(
         url
     )
 
-    if not channel:
-
-        teletype_dead(
-            name,
-            url
-        )
-
-        return {
-            "name": name,
-            "url": url,
-            "live": False,
-            "time": found_at,
-            "node": None,
-            "cdn": [],
-        }
-
     base = get_base_url(
         url
     )
 
-    if not base:
-
-        teletype_dead(
-            name,
-            url
-        )
-
-        return {
-            "name": name,
-            "url": url,
-            "live": False,
-            "time": found_at,
-            "node": None,
-            "cdn": [],
-        }
-
-    log_report(
-        f"ПРОВЕРКА :: "
+    teletype(
+        "ПРОВЕРКА :: "
         f"{name} :: "
-        f"{base}"
+        f"NODE={node} :: "
+        f"CHANNEL={channel}"
     )
 
-    live = await check_stream(
+    live_result = await check_stream(
         base
     )
 
-    if live:
+    if live_result:
 
-        node = extract_node(
-            live
+        live_url = live_result.get(
+            "url",
+            url,
         )
 
-        FOUND_TIME[
-            name
-        ] = found_at
-
-        FOUND_NODE[
-            name
-        ] = node
-
-        FOUND_URL[
-            name
-        ] = live
+        elapsed = (
+            datetime.now()
+            - started
+        ).total_seconds()
 
         teletype_ok(
             name,
-            live
+            live_url,
         )
 
-        cdn = await inspect_found_cdn(
-            node,
-            live
+        alias_result = (
+            await alias_discovery(
+                name,
+                url,
+            )
+        )
+
+        cdn_result = (
+            await cdn_manifest_discovery(
+                name,
+                live_url,
+            )
         )
 
         return {
-            "name": name,
-            "url": live,
-            "live": True,
-            "time": found_at,
-            "node": node,
-            "cdn": cdn,
+            "name":
+                name,
+            "original":
+                raw,
+            "url":
+                live_url,
+            "live":
+                True,
+            "source":
+                "DIRECT",
+            "found_at":
+                current_datetime(),
+            "elapsed":
+                elapsed,
+            "node":
+                node,
+            "channel":
+                channel,
+            "alias_result":
+                alias_result,
+            "cdn_result":
+                cdn_result,
         }
 
-    log_report(
-        f"ПРЯМОЙ URL НЕ ОТВЕТИЛ :: "
+    teletype(
+        "ПРЯМОЙ URL НЕ ОТВЕТИЛ :: "
         f"{name}"
     )
 
-    node_result = await scan_all_nodes(
-        channel
+    alias_result = (
+        await alias_discovery(
+            name,
+            url,
+        )
     )
 
-    if node_result:
+    alias_found = (
+        alias_result.get(
+            "found",
+            [],
+        )
+    )
 
-        node, found_url = node_result
+    if alias_found:
 
-        FOUND_TIME[
-            name
-        ] = found_at
+        selected = (
+            alias_found[0]
+        )
 
-        FOUND_NODE[
-            name
-        ] = node
+        live_url = selected.get(
+            "url",
+            url,
+        )
 
-        FOUND_URL[
-            name
-        ] = found_url
+        elapsed = (
+            datetime.now()
+            - started
+        ).total_seconds()
 
         teletype_ok(
             name,
-            found_url
+            live_url,
         )
 
-        cdn = await inspect_found_cdn(
-            node,
-            found_url
+        cdn_result = (
+            await cdn_manifest_discovery(
+                name,
+                live_url,
+            )
         )
 
         return {
-            "name": name,
-            "url": found_url,
-            "live": True,
-            "time": found_at,
-            "node": node,
-            "cdn": cdn,
+            "name":
+                name,
+            "original":
+                raw,
+            "url":
+                live_url,
+            "live":
+                True,
+            "source":
+                "ALIAS_MATCH",
+            "found_at":
+                current_datetime(),
+            "elapsed":
+                elapsed,
+            "node":
+                extract_node(
+                    live_url
+                ),
+            "channel":
+                extract_channel(
+                    live_url
+                ),
+            "alias_result":
+                alias_result,
+            "cdn_result":
+                cdn_result,
         }
+
+    elapsed = (
+        datetime.now()
+        - started
+    ).total_seconds()
 
     teletype_dead(
         name,
-        url
+        url,
     )
 
     return {
-        "name": name,
-        "url": url,
-        "live": False,
-        "time": found_at,
-        "node": None,
-        "cdn": [],
+        "name":
+            name,
+        "original":
+            raw,
+        "url":
+            url,
+        "live":
+            False,
+        "source":
+            "DEAD",
+        "found_at":
+            None,
+        "elapsed":
+            elapsed,
+        "node":
+            node,
+        "channel":
+            channel,
+        "alias_result":
+            alias_result,
+        "cdn_result":
+            None,
     }
 
 
 # ============================================================
-# 20. Полный список каналов
+# 25. ПОЛНЫЙ СПИСОК КАНАЛОВ
+#
+# Здесь оставлены все предоставленные тобой записи.
+# Записи с "..." намеренно не считаются рабочими URL.
 # ============================================================
 
 CHANNELS = {
 
-    # ===== viju+ =====
-    "viju+ Premiere": "s70378.cdn.ngenix.net/vip_premiere/index.m3u8",
-    "viju+ Megahit": "s70378.cdn.ngenix.net/vip_megahit/index.m3u8",
-    "viju+ Comedy": "s70378.cdn.ngenix.net/vip_comedy/index.m3u8",
-    "viju+ Serial": "s70378.cdn.ngenix.net/vip_serial/index.m3u8",
-    "viju+ Planet": "s70378.cdn.ngenix.net/vip_planet/index.m3u8",
-    "viju+ Sport": "s70378.cdn.ngenix.net/vip_sport/index.m3u8",
-    "viju+ Novella": "s70378.cdn.ngenix.net/vip_novella/index.m3u8",
-    "viju+ Romance": "s70378.cdn.ngenix.net/vip_romance/index.m3u8",
+    # ========================================================
+    # VIJU+
+    # ========================================================
 
-    # ===== Horror pack =====
-    "Страшное HD": "s70378.cdn.ngenix.net/horror/strashnoe_hd/index.m3u8",
-    "Страх HD": "s70378.cdn.ngenix.net/horror/strakh_hd/index.m3u8",
-    "TRASH HD": "s70378.cdn.ngenix.net/trash/trash_hd/index.m3u8",
-    "Scream": "s70378.cdn.ngenix.net/horror/scream/index.m3u8",
+    "viju+ Premiere":
+        "s70378.cdn.ngenix.net/vip_premiere/index.m3u8",
 
-    # ===== Еда =====
-    "Еда": "s70378.cdn.ngenix.net/eda/index.m3u8",
+    "viju+ Megahit":
+        "s70378.cdn.ngenix.net/vip_megahit/index.m3u8",
 
-    # ===== Ключ =====
-    "Ключ": "s70378.cdn.ngenix.net/misc/kluch/index.m3u8",
-    "Ключ HD": "s70378.cdn.ngenix.net/misc/kluch_hd/index.m3u8",
-    "Ключ ТВ": "s70378.cdn.ngenix.net/misc/kluch_tv/index.m3u8",
+    "viju+ Comedy":
+        "s70378.cdn.ngenix.net/vip_comedy/index.m3u8",
 
-    # ===== ВСЕ каналы, которые были ранее =====
-    ".sci-fi": "a3569457567-s70378.cdn.ngenix.net/sony_sci-f...",
-    "РЕН ТВ International": "a3569457567-s70378.cdn.ngenix.net/ren_tv/1/i...",
-    "НТВ Право": "a3569457567-s70378.cdn.ngenix.net/ntv_pravo/...",
-    "НТВ Сериал": "a3569457567-s70378.cdn.ngenix.net/ntv_serial...",
-    "National geographic": "a3569457567-s70378.cdn.ngenix.net/national_g...",
-    "Terra": "a3569457567-s70378.cdn.ngenix.net/terra/2/in...",
-    "Ocean TV": "a3569457567-s70378.cdn.ngenix.net/ocean_tv/1...",
-    "Точка РФ": "a3569457567-s70378.cdn.ngenix.net/hd_life/1/...",
-    "History": "a3569457567-s70378.cdn.ngenix.net/history/1/...",
-    "H2": "a3569457567-s70378.cdn.ngenix.net/history_2/...",
-    "Дикий": "a3569457567-s70378.cdn.ngenix.net/dikiy/1/in...",
-    "RTG HD": "a3569457567-s70378.cdn.ngenix.net/rtg_hd/1/i...",
-    "DocuBox": "a3569457567-s70378.cdn.ngenix.net/docubox/1/...",
-    "Galaxy TV": "a3569457567-s70378.cdn.ngenix.net/galaxy/1/i...",
-    "Глазами туриста": "a3569457567-s70378.cdn.ngenix.net/glazami_tu...",
-    "Travel+Adventure": "a3569457567-s70378.cdn.ngenix.net/travel_and...",
-    "The explorers": "a3569457567-s70378.cdn.ngenix.net/the_explor...",
-    "Viasat Explore": "a3569457567-s70378.cdn.ngenix.net/viasat_exp...",
-    "Viasat History": "a3569457567-s70378.cdn.ngenix.net/viasat_his...",
-    "Viasat Nature": "a3569457567-s70378.cdn.ngenix.net/viasat_nat...",
-    "365 дней": "a3569457567-s70378.cdn.ngenix.net/365_dney_t...",
-    "Hollywood HD": "a3569457567-s70378.cdn.ngenix.net/amc/2/inde...",
-    "Amedia 1": "a3569457567-s70378.cdn.ngenix.net/amedia_1/2...",
-    "Amedia 2": "a3569457567-s70378.cdn.ngenix.net/amedia_2/2...",
-    "Amedia Hit": "a3569457567-s70378.cdn.ngenix.net/amedia_hit...",
-    "Amedia Premium HD": "a3569457567-s70378.cdn.ngenix.net/amedia_pre...",
-    "Bloomberg": "a3569457567-s70378.cdn.ngenix.net/bloomberg/...",
-    "Shoghakat": "a3569457567-s70378.cdn.ngenix.net/shoghakat/...",
-    ".Black": "a3569457567-s70378.cdn.ngenix.net/sony_turbo...",
-    "Телекафе": "a3569457567-s70378.cdn.ngenix.net/telecafe/2...",
-    "Индийское кино": "a3569457567-s70378.cdn.ngenix.net/india_tv/1...",
-    "Индия": "a3569457567-s70378.cdn.ngenix.net/zee_tv/2/i...",
-    "Наше новое кино": "a3569457567-s70378.cdn.ngenix.net/nashe_novo...",
-    "Киноужас": "a3569457567-s70378.cdn.ngenix.net/kinouzhas/...",
-    "Киносерия": "a3569457567-s70378.cdn.ngenix.net/mnogo_tv/1...",
-    "Киносвидание": "a3569457567-s70378.cdn.ngenix.net/kinoklub/1...",
-    "Дом Кино Премиум": "a3569457567-s70378.cdn.ngenix.net/dom_kino_p...",
-    "ТВ3": "a3569457567-s70378.cdn.ngenix.net/tv_3/2/ind...",
-    "TV XXI": "a3569457567-s70378.cdn.ngenix.net/tv_xxi/2/i...",
-    "VIP Comedy": "a3569457567-s70378.cdn.ngenix.net/vip_comedy...",
-    "VIP Megahit": "a3569457567-s70378.cdn.ngenix.net/vip_megahi...",
-    "VIP Premiere": "a3569457567-s70378.cdn.ngenix.net/vip_premie...",
-    "VIP Serial": "a3569457567-s70378.cdn.ngenix.net/vip_serial...",
-    "Время": "a3569457567-s70378.cdn.ngenix.net/vremia/2/i...",
-    "Дом Кино": "a3569457567-s70378.cdn.ngenix.net/dom_kino/1...",
-    "Euronews": "a3569457567-s70378.cdn.ngenix.net/euronews/1...",
-    "Еврокино": "a3569457567-s70378.cdn.ngenix.net/evrokино/1...",
-    "Мир сериала": "a3569457567-s70378.cdn.ngenix.net/mir_serial...",
-    "FashionBox": "a3569457567-s70378.cdn.ngenix.net/fashion_bo...",
-    "Filmbox": "a3569457567-s70378.cdn.ngenix.net/filmbox/1/...",
-    "Filmbox Arthouse": "a3569457567-s70378.cdn.ngenix.net/filmbox_ar...",
-    "Flixsnip": "a3569457567-s70378.cdn.ngenix.net/flixsnip/1...",
-    "Fox life": "a3569457567-s70378.cdn.ngenix.net/fox_life/1...",
-    "Иллюзион+": "a3569457567-s70378.cdn.ngenix.net/illusion_p...",
-    "Зоопарк": "a3569457567-s70378.cdn.ngenix.net/zoopark/2/...",
-    "Armenia 1": "a3569457567-s70378.cdn.ngenix.net/h1/1/index...",
-    "Armenia 2": "a3569457567-s70378.cdn.ngenix.net/h2/1/index...",
-    "Известия": "a3569457567-s70378.cdn.ngenix.net/izvestiya/...",
-    "Живи": "a3569457567-s70378.cdn.ngenix.net/jivi/1/ind...",
-    "ATV Kinoman HD AM": "a3569457567-s70378.cdn.ngenix.net/kinoman/1/...",
-    "КВН ТВ": "a3569457567-s70378.cdn.ngenix.net/kvn_tv/1/i...",
-    "Мир 24": "a3569457567-s70378.cdn.ngenix.net/mir_24/1/i...",
-    "Мир": "a3569457567-s70378.cdn.ngenix.net/mir/1/inde...",
-    "Ностальгия": "a3569457567-s70378.cdn.ngenix.net/nostalgia/...",
-    "РБК": "a3569457567-s70378.cdn.ngenix.net/rbc/1/inde...",
-    "RTVI": "a3569457567-s70378.cdn.ngenix.net/rtvi/1/ind...",
-    "shant serial": "a3569457567-s70378.cdn.ngenix.net/shant_seri...",
-    "shant premium": "a3569457567-s70378.cdn.ngenix.net/shant_prem...",
-    "21TV AM": "a3569457567-s70378.cdn.ngenix.net/dar21/1/in...",
-    "Mezzo": "a3569457567-s70378.cdn.ngenix.net/mezzo/1/in...",
-    "Muzzone": "a3569457567-s70378.cdn.ngenix.net/muzzone/1/...",
-    "Shant music": "a3569457567-s70378.cdn.ngenix.net/shant_musi...",
-    "Baby TV": "a3569457567-s70378.cdn.ngenix.net/baby_tv/2/...",
-    "Tiji": "a3569457567-s70378.cdn.ngenix.net/tiji/2/ind...",
-    "СТС Kids": "a3569457567-s70378.cdn.ngenix.net/ctc_kids/1...",
-    "Nickelodeon": "a3569457567-s70378.cdn.ngenix.net/nickelodeo...",
-    "Nicktoons": "a3569457567-s70378.cdn.ngenix.net/nicktoons/...",
-    "Малыш": "a3569457567-s70378.cdn.ngenix.net/malish/1/i...",
-    "Gulli Girl": "a3569457567-s70378.cdn.ngenix.net/gulli/1/in...",
-    "Карусель": "a3569457567-s70378.cdn.ngenix.net/karusel/1/...",
-    "Da Vinci": "a3569457567-s70378.cdn.ngenix.net/da_vinci/1...",
-    "Детский мир": "a3569457567-s70378.cdn.ngenix.net/detskij_mi...",
-    "UFC": "a3569457567-s70378.cdn.ngenix.net/ufc/2/inde...",
-    "Viasat sport": "a3569457567-s70378.cdn.ngenix.net/viasat_spo...",
-    "Бокс ТВ": "a3569457567-s70378.cdn.ngenix.net/boks_tv/1/...",
-    "Матч! Планета": "a3569457567-s70378.cdn.ngenix.net/match_plan...",
-    "KHL": "a3569457567-s70378.cdn.ngenix.net/kxl/1/inde...",
-    "MMA-TV.com": "a3569457567-s70378.cdn.ngenix.net/m1_global/...",
+    "viju+ Serial":
+        "s70378.cdn.ngenix.net/vip_serial/index.m3u8",
+
+    "viju+ Planet":
+        "s70378.cdn.ngenix.net/vip_planet/index.m3u8",
+
+    "viju+ Sport":
+        "s70378.cdn.ngenix.net/vip_sport/index.m3u8",
+
+    "viju+ Novella":
+        "s70378.cdn.ngenix.net/vip_novella/index.m3u8",
+
+    "viju+ Romance":
+        "s70378.cdn.ngenix.net/vip_romance/index.m3u8",
+
+
+    # ========================================================
+    # HORROR
+    # ========================================================
+
+    "Страшное HD":
+        "s70378.cdn.ngenix.net/horror/strashnoe_hd/index.m3u8",
+
+    "Страх HD":
+        "s70378.cdn.ngenix.net/horror/strakh_hd/index.m3u8",
+
+    "TRASH HD":
+        "s70378.cdn.ngenix.net/trash/trash_hd/index.m3u8",
+
+    "Scream":
+        "s70378.cdn.ngenix.net/horror/scream/index.m3u8",
+
+
+    # ========================================================
+    # ЕДА
+    # ========================================================
+
+    "Еда":
+        "s70378.cdn.ngenix.net/eda/index.m3u8",
+
+
+    # ========================================================
+    # КЛЮЧ
+    # ========================================================
+
+    "Ключ":
+        "s70378.cdn.ngenix.net/misc/kluch/index.m3u8",
+
+    "Ключ HD":
+        "s70378.cdn.ngenix.net/misc/kluch_hd/index.m3u8",
+
+    "Ключ ТВ":
+        "s70378.cdn.ngenix.net/misc/kluch_tv/index.m3u8",
+
+
+    # ========================================================
+    # ОСТАЛЬНЫЕ КАНАЛЫ
+    #
+    # Исходные строки с "..." сохранены как данные,
+    # но программа автоматически пометит их INVALID.
+    # ========================================================
+
+    ".sci-fi":
+        "a3569457567-s70378.cdn.ngenix.net/sony_sci-f...",
+
+    "РЕН ТВ International":
+        "a3569457567-s70378.cdn.ngenix.net/ren_tv/1/i...",
+
+    "НТВ Право":
+        "a3569457567-s70378.cdn.ngenix.net/ntv_pravo/...",
+
+    "НТВ Сериал":
+        "a3569457567-s70378.cdn.ngenix.net/ntv_serial...",
+
+    "National geographic":
+        "a3569457567-s70378.cdn.ngenix.net/national_g...",
+
+    "Terra":
+        "a3569457567-s70378.cdn.ngenix.net/terra/2/in...",
+
+    "Ocean TV":
+        "a3569457567-s70378.cdn.ngenix.net/ocean_tv/1...",
+
+    "Точка РФ":
+        "a3569457567-s70378.cdn.ngenix.net/hd_life/1/...",
+
+    "History":
+        "a3569457567-s70378.cdn.ngenix.net/history/1/...",
+
+    "H2":
+        "a3569457567-s70378.cdn.ngenix.net/history_2/...",
+
+    "Дикий":
+        "a3569457567-s70378.cdn.ngenix.net/dikiy/1/in...",
+
+    "RTG HD":
+        "a3569457567-s70378.cdn.ngenix.net/rtg_hd/1/i...",
+
+    "DocuBox":
+        "a3569457567-s70378.cdn.ngenix.net/docubox/1/...",
+
+    "Galaxy TV":
+        "a3569457567-s70378.cdn.ngenix.net/galaxy/1/i...",
+
+    "Глазами туриста":
+        "a3569457567-s70378.cdn.ngenix.net/glazami_tu...",
+
+    "Travel+Adventure":
+        "a3569457567-s70378.cdn.ngenix.net/travel_and...",
+
+    "The explorers":
+        "a3569457567-s70378.cdn.ngenix.net/the_explor...",
+
+    "Viasat Explore":
+        "a3569457567-s70378.cdn.ngenix.net/viasat_exp...",
+
+    "Viasat History":
+        "a3569457567-s70378.cdn.ngenix.net/viasat_his...",
+
+    "Viasat Nature":
+        "a3569457567-s70378.cdn.ngenix.net/viasat_nat...",
+
+    "365 дней":
+        "a3569457567-s70378.cdn.ngenix.net/365_dney_t...",
+
+    "Hollywood HD":
+        "a3569457567-s70378.cdn.ngenix.net/amc/2/inde...",
+
+    "Amedia 1":
+        "a3569457567-s70378.cdn.ngenix.net/amedia_1/2...",
+
+    "Amedia 2":
+        "a3569457567-s70378.cdn.ngenix.net/amedia_2/2...",
+
+    "Amedia Hit":
+        "a3569457567-s70378.cdn.ngenix.net/amedia_hit...",
+
+    "Amedia Premium HD":
+        "a3569457567-s70378.cdn.ngenix.net/amedia_pre...",
+
+    "Bloomberg":
+        "a3569457567-s70378.cdn.ngenix.net/bloomberg/...",
+
+    "Shoghakat":
+        "a3569457567-s70378.cdn.ngenix.net/shoghakat/...",
+
+    ".Black":
+        "a3569457567-s70378.cdn.ngenix.net/sony_turbo...",
+
+    "Телекафе":
+        "a3569457567-s70378.cdn.ngenix.net/telecafe/2...",
+
+    "Индийское кино":
+        "a3569457567-s70378.cdn.ngenix.net/india_tv/1...",
+
+    "Индия":
+        "a3569457567-s70378.cdn.ngenix.net/zee_tv/2/i...",
+
+    "Наше новое кино":
+        "a3569457567-s70378.cdn.ngenix.net/nashe_novo...",
+
+    "Киноужас":
+        "a3569457567-s70378.cdn.ngenix.net/kinouzhas/...",
+
+    "Киносерия":
+        "a3569457567-s70378.cdn.ngenix.net/mnogo_tv/1...",
+
+    "Киносвидание":
+        "a3569457567-s70378.cdn.ngenix.net/kinoklub/1...",
+
+    "Дом Кино Премиум":
+        "a3569457567-s70378.cdn.ngenix.net/dom_kino_p...",
+
+    "ТВ3":
+        "a3569457567-s70378.cdn.ngenix.net/tv_3/2/ind...",
+
+    "TV XXI":
+        "a3569457567-s70378.cdn.ngenix.net/tv_xxi/2/i...",
+
+    "VIP Comedy":
+        "a3569457567-s70378.cdn.ngenix.net/vip_comedy...",
+
+    "VIP Megahit":
+        "a3569457567-s70378.cdn.ngenix.net/vip_megahi...",
+
+    "VIP Premiere":
+        "a3569457567-s70378.cdn.ngenix.net/vip_premie...",
+
+    "VIP Serial":
+        "a3569457567-s70378.cdn.ngenix.net/vip_serial...",
+
+    "Время":
+        "a3569457567-s70378.cdn.ngenix.net/vremia/2/i...",
+
+    "Дом Кино":
+        "a3569457567-s70378.cdn.ngenix.net/dom_kino/1...",
+
+    "Euronews":
+        "a3569457567-s70378.cdn.ngenix.net/euronews/1...",
+
+    "Еврокино":
+        "a3569457567-s70378.cdn.ngenix.net/evrokино/1...",
+
+    "Мир сериала":
+        "a3569457567-s70378.cdn.ngenix.net/mir_serial...",
+
+    "FashionBox":
+        "a3569457567-s70378.cdn.ngenix.net/fashion_bo...",
+
+    "Filmbox":
+        "a3569457567-s70378.cdn.ngenix.net/filmbox/1/...",
+
+    "Filmbox Arthouse":
+        "a3569457567-s70378.cdn.ngenix.net/filmbox_ar...",
+
+    "Flixsnip":
+        "a3569457567-s70378.cdn.ngenix.net/flixsnip/1...",
+
+    "Fox life":
+        "a3569457567-s70378.cdn.ngenix.net/fox_life/1...",
+
+    "Иллюзион+":
+        "a3569457567-s70378.cdn.ngenix.net/illusion_p...",
+
+    "Зоопарк":
+        "a3569457567-s70378.cdn.ngenix.net/zoopark/2/...",
+
+    "Armenia 1":
+        "a3569457567-s70378.cdn.ngenix.net/h1/1/index...",
+
+    "Armenia 2":
+        "a3569457567-s70378.cdn.ngenix.net/h2/1/index...",
+
+    "Известия":
+        "a3569457567-s70378.cdn.ngenix.net/izvestiya/...",
+
+    "Живи":
+        "a3569457567-s70378.cdn.ngenix.net/jivi/1/ind...",
+
+    "ATV Kinoman HD AM":
+        "a3569457567-s70378.cdn.ngenix.net/kinoman/1/...",
+
+    "КВН ТВ":
+        "a3569457567-s70378.cdn.ngenix.net/kvn_tv/1/i...",
+
+    "Мир 24":
+        "a3569457567-s70378.cdn.ngenix.net/mir_24/1/i...",
+
+    "Мир":
+        "a3569457567-s70378.cdn.ngenix.net/mir/1/inde...",
+
+    "Ностальгия":
+        "a3569457567-s70378.cdn.ngenix.net/nostalgia/...",
+
+    "РБК":
+        "a3569457567-s70378.cdn.ngenix.net/rbc/1/inde...",
+
+    "RTVI":
+        "a3569457567-s70378.cdn.ngenix.net/rtvi/1/ind...",
+
+    "shant serial":
+        "a3569457567-s70378.cdn.ngenix.net/shant_seri...",
+
+    "shant premium":
+        "a3569457567-s70378.cdn.ngenix.net/shant_prem...",
+
+    "21TV AM":
+        "a3569457567-s70378.cdn.ngenix.net/dar21/1/in...",
+
+    "Mezzo":
+        "a3569457567-s70378.cdn.ngenix.net/mezzo/1/in...",
+
+    "Muzzone":
+        "a3569457567-s70378.cdn.ngenix.net/muzzone/1/...",
+
+    "Shant music":
+        "a3569457567-s70378.cdn.ngenix.net/shant_musi...",
+
+    "Baby TV":
+        "a3569457567-s70378.cdn.ngenix.net/baby_tv/2/...",
+
+    "Tiji":
+        "a3569457567-s70378.cdn.ngenix.net/tiji/2/ind...",
+
+    "СТС Kids":
+        "a3569457567-s70378.cdn.ngenix.net/ctc_kids/1...",
+
+    "Nickelodeon":
+        "a3569457567-s70378.cdn.ngenix.net/nickelodeo...",
+
+    "Nicktoons":
+        "a3569457567-s70378.cdn.ngenix.net/nicktoons/...",
+
+    "Малыш":
+        "a3569457567-s70378.cdn.ngenix.net/malish/1/i...",
+
+    "Gulli Girl":
+        "a3569457567-s70378.cdn.ngenix.net/gulli/1/in...",
+
+    "Карусель":
+        "a3569457567-s70378.cdn.ngenix.net/karusel/1/...",
+
+    "Da Vinci":
+        "a3569457567-s70378.cdn.ngenix.net/da_vinci/1...",
+
+    "Детский мир":
+        "a3569457567-s70378.cdn.ngenix.net/detskij_mi...",
+
+    "UFC":
+        "a3569457567-s70378.cdn.ngenix.net/ufc/2/inde...",
+
+    "Viasat sport":
+        "a3569457567-s70378.cdn.ngenix.net/viasat_spo...",
+
+    "Бокс ТВ":
+        "a3569457567-s70378.cdn.ngenix.net/boks_tv/1/...",
+
+    "Матч! Планета":
+        "a3569457567-s70378.cdn.ngenix.net/match_plan...",
+
+    "KHL":
+        "a3569457567-s70378.cdn.ngenix.net/kxl/1/inde...",
+
+    "MMA-TV.com":
+        "a3569457567-s70378.cdn.ngenix.net/m1_global/...",
 }
 
 
 # ============================================================
-# 21. Формирование M3U блока
+# 26. СБОР УНИКАЛЬНЫХ РЕЗУЛЬТАТОВ CDN
 # ============================================================
 
-def build_m3u_block(results):
+def collect_cdn_results(
+    results
+):
+    discovered = {}
 
+    for result in results:
+
+        cdn_result = result.get(
+            "cdn_result"
+        )
+
+        if not cdn_result:
+            continue
+
+        entries = cdn_result.get(
+            "found",
+            [],
+        )
+
+        for entry in entries:
+
+            url = entry.get(
+                "url"
+            )
+
+            if not url:
+                continue
+
+            if url not in discovered:
+
+                discovered[
+                    url
+                ] = {
+                    "name":
+                        entry.get(
+                            "name",
+                            "UNKNOWN",
+                        ),
+                    "url":
+                        url,
+                    "source":
+                        entry.get(
+                            "source",
+                            "CDN_DISCOVERY",
+                        ),
+                    "source_manifest":
+                        entry.get(
+                            "source_manifest"
+                        ),
+                    "info":
+                        entry.get(
+                            "info"
+                        ),
+                    "found_at":
+                        entry.get(
+                            "found_at"
+                        ),
+                }
+
+    return list(
+        discovered.values()
+    )
+
+
+# ============================================================
+# 27. СОБИРАЕМ ALIAS MATCHES
+# ============================================================
+
+def collect_alias_matches(
+    results
+):
+    matches = []
+
+    for result in results:
+
+        alias_result = result.get(
+            "alias_result"
+        )
+
+        if not alias_result:
+            continue
+
+        found = alias_result.get(
+            "found",
+            [],
+        )
+
+        for item in found:
+
+            matches.append(
+                {
+                    "name":
+                        result.get(
+                            "name"
+                        ),
+                    "alias":
+                        item.get(
+                            "alias"
+                        ),
+                    "url":
+                        item.get(
+                            "url"
+                        ),
+                    "status":
+                        item.get(
+                            "status"
+                        ),
+                    "elapsed":
+                        item.get(
+                            "elapsed",
+                            0,
+                        ),
+                    "found_at":
+                        item.get(
+                            "found_at"
+                        ),
+                }
+            )
+
+    return matches
+
+
+# ============================================================
+# 28. M3U ENTRY
+# ============================================================
+
+def make_m3u_entry(
+    number,
+    name,
+    url,
+    group_title,
+):
+    tvg_id = make_tvg_id(
+        name,
+        url,
+    )
+
+    display_name = make_m3u_name(
+        name
+    )
+
+    return (
+        f'#EXTINF:-1 '
+        f'tvg-id="{tvg_id}" '
+        f'group-title="{group_title}",'
+        f'{number}. '
+        f'{display_name}\n'
+        f'{url}\n'
+    )
+
+
+# ============================================================
+# 29. РАБОЧИЙ M3U БЛОК
+# ============================================================
+
+def make_working_m3u(
+    results
+):
     lines = []
+
+    lines.append(
+        "#EXTM3U"
+    )
 
     number = 1
 
-    for item in results:
+    for result in results:
 
-        if not item["live"]:
+        if not result.get(
+            "live",
+            False,
+        ):
             continue
 
-        name = item["name"]
-        url = item["url"]
-
-        tvg_id = make_tvg_id(
-            name
+        name = result.get(
+            "name",
+            "UNKNOWN",
         )
 
-        m3u_name = make_m3u_name(
-            name
+        url = result.get(
+            "url"
         )
+
+        if not url:
+            continue
 
         lines.append(
-            f'#EXTINF:-1 '
-            f'tvg-id="{tvg_id}" '
-            f'group-title="Эфирные ТВ Плюс",'
-            f'{number}. {m3u_name}'
+            make_m3u_entry(
+                number,
+                name,
+                url,
+                "Эфирные ТВ Плюс",
+            ).rstrip()
         )
-
-        lines.append(
-            url
-        )
-
-        lines.append("")
 
         number += 1
 
@@ -1220,64 +2245,44 @@ def build_m3u_block(results):
 
 
 # ============================================================
-# 22. Формирование блока CDN
+# 30. CDN DISCOVERY M3U
 # ============================================================
 
-def build_cdn_block():
-
+def make_cdn_m3u(
+    discovered
+):
     lines = []
 
-    for node, channels in CDN_CHANNELS.items():
+    lines.append(
+        "#EXTM3U"
+    )
 
-        lines.append(
-            f"CDN: {node}"
+    number = 1
+
+    for item in discovered:
+
+        url = item.get(
+            "url"
         )
 
-        lines.append(
-            "-" * 60
-        )
-
-        if not channels:
-
-            lines.append(
-                "Дополнительных каналов не обнаружено."
-            )
-
-            lines.append("")
-
+        if not url:
             continue
 
-        for number, item in enumerate(
-            channels,
-            1
-        ):
+        name = item.get(
+            "name",
+            "CDN UNKNOWN",
+        )
 
-            lines.append(
-                f"{number:03}. "
-                f"{item['name']}"
-            )
+        lines.append(
+            make_m3u_entry(
+                number,
+                name,
+                url,
+                "CDN DISCOVERY",
+            ).rstrip()
+        )
 
-            lines.append(
-                f"    tvg-id: "
-                f"{item['tvg_id']}"
-            )
-
-            lines.append(
-                f"    group: "
-                f"{item['group']}"
-            )
-
-            lines.append(
-                f"    URL: "
-                f"{item['url']}"
-            )
-
-            lines.append(
-                f"    FOUND: "
-                f"{item['found_at']}"
-            )
-
-            lines.append("")
+        number += 1
 
     return "\n".join(
         lines
@@ -1285,416 +2290,808 @@ def build_cdn_block():
 
 
 # ============================================================
-# 23. Запись полного отчёта
+# 31. ALIAS M3U
 # ============================================================
 
-def write_report(results):
+def make_alias_m3u(
+    matches
+):
+    lines = []
+
+    lines.append(
+        "#EXTM3U"
+    )
+
+    number = 1
+
+    seen = set()
+
+    for item in matches:
+
+        url = item.get(
+            "url"
+        )
+
+        if not url:
+            continue
+
+        if url in seen:
+            continue
+
+        seen.add(
+            url
+        )
+
+        name = item.get(
+            "name",
+            "UNKNOWN",
+        )
+
+        lines.append(
+            make_m3u_entry(
+                number,
+                name,
+                url,
+                "CDN ALIAS MATCH",
+            ).rstrip()
+        )
+
+        number += 1
+
+    return "\n".join(
+        lines
+    )
+
+
+# ============================================================
+# 32. ЗАПИСЬ ПОЛНОГО ОТЧЁТА
+# ============================================================
+
+def write_report(
+    results,
+    discovered,
+    alias_matches,
+    started_at,
+    finished_at,
+):
+    global REPORT_HANDLE
 
     alive = [
-        x
-        for x in results
-        if x["live"]
+        item
+        for item in results
+        if item.get(
+            "live",
+            False,
+        )
     ]
 
     dead = [
-        x
-        for x in results
-        if not x["live"]
+        item
+        for item in results
+        if not item.get(
+            "live",
+            False,
+        )
     ]
 
-    with open(
-        "ngnorm_report.txt",
-        "w",
-        encoding="utf-8"
-    ) as f:
+    working_m3u = make_working_m3u(
+        results
+    )
 
-        f.write(
-            "============================================================\n"
+    alias_m3u = make_alias_m3u(
+        alias_matches
+    )
+
+    cdn_m3u = make_cdn_m3u(
+        discovered
+    )
+
+    total_time = (
+        finished_at
+        - started_at
+    ).total_seconds()
+
+    REPORT_HANDLE.write(
+        "\n\n"
+    )
+
+    REPORT_HANDLE.write(
+        "=" * 72
+        + "\n"
+    )
+
+    REPORT_HANDLE.write(
+        "СКАЛА ДРЕГ :: ПОЛНЫЙ ОТЧЁТ\n"
+    )
+
+    REPORT_HANDLE.write(
+        "=" * 72
+        + "\n"
+    )
+
+    REPORT_HANDLE.write(
+        f"START: "
+        f"{started_at.strftime('%Y-%m-%d %H:%M:%S')}\n"
+    )
+
+    REPORT_HANDLE.write(
+        f"FINISH: "
+        f"{finished_at.strftime('%Y-%m-%d %H:%M:%S')}\n"
+    )
+
+    REPORT_HANDLE.write(
+        f"TOTAL TIME: "
+        f"{total_time:.3f} sec\n"
+    )
+
+    REPORT_HANDLE.write(
+        f"CHANNELS: "
+        f"{len(results)}\n"
+    )
+
+    REPORT_HANDLE.write(
+        f"LIVE: "
+        f"{len(alive)}\n"
+    )
+
+    REPORT_HANDLE.write(
+        f"DEAD: "
+        f"{len(dead)}\n"
+    )
+
+    REPORT_HANDLE.write(
+        f"ALIAS MATCHES: "
+        f"{len(alias_matches)}\n"
+    )
+
+    REPORT_HANDLE.write(
+        f"CDN DISCOVERED: "
+        f"{len(discovered)}\n"
+    )
+
+    REPORT_HANDLE.write(
+        "\n"
+    )
+
+
+    # ========================================================
+    # РАБОЧИЕ КАНАЛЫ
+    # ========================================================
+
+    REPORT_HANDLE.write(
+        "=" * 72
+        + "\n"
+    )
+
+    REPORT_HANDLE.write(
+        "РАБОЧИЕ КАНАЛЫ\n"
+    )
+
+    REPORT_HANDLE.write(
+        "=" * 72
+        + "\n"
+    )
+
+    if not alive:
+
+        REPORT_HANDLE.write(
+            "Нет рабочих каналов.\n"
         )
 
-        f.write(
-            "СКАЛА ДРЕГ :: NGENIX NORMALIZER\n"
+    else:
+
+        for number, item in enumerate(
+            alive,
+            1,
+        ):
+
+            REPORT_HANDLE.write(
+                f"\n"
+                f"[{number}]\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"CHANNEL: "
+                f"{item.get('name')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"URL: "
+                f"{item.get('url')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"NODE: "
+                f"{item.get('node')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"CHANNEL ID: "
+                f"{item.get('channel')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"SOURCE: "
+                f"{item.get('source')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"FOUND: "
+                f"{item.get('found_at')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"SEARCH TIME: "
+                f"{item.get('elapsed', 0):.3f}s\n"
+            )
+
+
+    # ========================================================
+    # ГОТОВЫЙ M3U
+    # ========================================================
+
+    REPORT_HANDLE.write(
+        "\n"
+        + "=" * 72
+        + "\n"
+    )
+
+    REPORT_HANDLE.write(
+        "M3U BLOCK :: РАБОЧИЕ КАНАЛЫ\n"
+    )
+
+    REPORT_HANDLE.write(
+        "=" * 72
+        + "\n\n"
+    )
+
+    REPORT_HANDLE.write(
+        working_m3u
+    )
+
+    REPORT_HANDLE.write(
+        "\n"
+    )
+
+
+    # ========================================================
+    # ALIAS MATCHES
+    # ========================================================
+
+    REPORT_HANDLE.write(
+        "\n"
+        + "=" * 72
+        + "\n"
+    )
+
+    REPORT_HANDLE.write(
+        "СОПОСТАВЛЕНИЕ КАНАЛОВ С CDN ПО ALIAS\n"
+    )
+
+    REPORT_HANDLE.write(
+        "=" * 72
+        + "\n"
+    )
+
+    if not alias_matches:
+
+        REPORT_HANDLE.write(
+            "Совпадений по alias не обнаружено.\n"
         )
 
-        f.write(
-            "ПОЛНЫЙ ОТЧЁТ\n"
+    else:
+
+        for number, item in enumerate(
+            alias_matches,
+            1,
+        ):
+
+            REPORT_HANDLE.write(
+                f"\n"
+                f"[{number}]\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"CHANNEL: "
+                f"{item.get('name')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"ALIAS: "
+                f"{item.get('alias')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"URL: "
+                f"{item.get('url')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"HTTP: "
+                f"{item.get('status')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"FOUND: "
+                f"{item.get('found_at')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"REQUEST TIME: "
+                f"{item.get('elapsed', 0):.3f}s\n"
+            )
+
+
+    # ========================================================
+    # ALIAS M3U
+    # ========================================================
+
+    REPORT_HANDLE.write(
+        "\n"
+        + "=" * 72
+        + "\n"
+    )
+
+    REPORT_HANDLE.write(
+        "M3U BLOCK :: CDN ALIAS MATCH\n"
+    )
+
+    REPORT_HANDLE.write(
+        "=" * 72
+        + "\n\n"
+    )
+
+    REPORT_HANDLE.write(
+        alias_m3u
+    )
+
+    REPORT_HANDLE.write(
+        "\n"
+    )
+
+
+    # ========================================================
+    # CDN DISCOVERY
+    # ========================================================
+
+    REPORT_HANDLE.write(
+        "\n"
+        + "=" * 72
+        + "\n"
+    )
+
+    REPORT_HANDLE.write(
+        "КАНАЛЫ / ПОТОКИ, КОТОРЫЕ РЕАЛЬНО ОТДАЛ CDN\n"
+    )
+
+    REPORT_HANDLE.write(
+        "=" * 72
+        + "\n"
+    )
+
+    if not discovered:
+
+        REPORT_HANDLE.write(
+            "Дополнительных потоков не обнаружено.\n"
         )
 
-        f.write(
-            "============================================================\n\n"
+    else:
+
+        for number, item in enumerate(
+            discovered,
+            1,
+        ):
+
+            REPORT_HANDLE.write(
+                f"\n"
+                f"[{number}]\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"NAME: "
+                f"{item.get('name')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"URL: "
+                f"{item.get('url')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"SOURCE: "
+                f"{item.get('source')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"SOURCE MANIFEST: "
+                f"{item.get('source_manifest')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"STREAM INFO: "
+                f"{item.get('info')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"FOUND: "
+                f"{item.get('found_at')}\n"
+            )
+
+
+    # ========================================================
+    # CDN M3U
+    # ========================================================
+
+    REPORT_HANDLE.write(
+        "\n"
+        + "=" * 72
+        + "\n"
+    )
+
+    REPORT_HANDLE.write(
+        "M3U BLOCK :: CDN DISCOVERY\n"
+    )
+
+    REPORT_HANDLE.write(
+        "=" * 72
+        + "\n\n"
+    )
+
+    REPORT_HANDLE.write(
+        cdn_m3u
+    )
+
+    REPORT_HANDLE.write(
+        "\n"
+    )
+
+
+    # ========================================================
+    # НЕРАБОЧИЕ
+    # ========================================================
+
+    REPORT_HANDLE.write(
+        "\n"
+        + "=" * 72
+        + "\n"
+    )
+
+    REPORT_HANDLE.write(
+        "НЕРАБОЧИЕ КАНАЛЫ\n"
+    )
+
+    REPORT_HANDLE.write(
+        "=" * 72
+        + "\n"
+    )
+
+    if not dead:
+
+        REPORT_HANDLE.write(
+            "Нерабочих каналов нет.\n"
         )
 
-        f.write(
-            f"Время запуска: "
-            f"{current_datetime()}\n"
+    else:
+
+        for number, item in enumerate(
+            dead,
+            1,
+        ):
+
+            REPORT_HANDLE.write(
+                f"\n"
+                f"[{number}]\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"CHANNEL: "
+                f"{item.get('name')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"URL: "
+                f"{item.get('url')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"NODE: "
+                f"{item.get('node')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"CHANNEL ID: "
+                f"{item.get('channel')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"SOURCE: "
+                f"{item.get('source')}\n"
+            )
+
+            REPORT_HANDLE.write(
+                f"SEARCH TIME: "
+                f"{item.get('elapsed', 0):.3f}s\n"
+            )
+
+
+    # ========================================================
+    # ПОДРОБНАЯ ИНФОРМАЦИЯ ПО ALIAS
+    # ========================================================
+
+    REPORT_HANDLE.write(
+        "\n"
+        + "=" * 72
+        + "\n"
+    )
+
+    REPORT_HANDLE.write(
+        "ПОЛНЫЙ СПИСОК СОЗДАННЫХ ALIAS\n"
+    )
+
+    REPORT_HANDLE.write(
+        "=" * 72
+        + "\n"
+    )
+
+    for number, result in enumerate(
+        results,
+        1,
+    ):
+
+        alias_result = result.get(
+            "alias_result"
         )
 
-        f.write(
-            f"CPU: {CPU}\n"
+        if not alias_result:
+            continue
+
+        REPORT_HANDLE.write(
+            f"\n[{number}] "
+            f"{result.get('name')}\n"
         )
 
-        f.write(
-            f"TURBO: {TURBO}\n"
+        REPORT_HANDLE.write(
+            "ALIASES:\n"
         )
 
-        f.write(
-            f"MAX_THREADS: {MAX_THREADS}\n"
+        for alias in alias_result.get(
+            "aliases",
+            [],
+        ):
+
+            REPORT_HANDLE.write(
+                f"  - {alias}\n"
+            )
+
+
+    # ========================================================
+    # CDN NODES
+    # ========================================================
+
+    REPORT_HANDLE.write(
+        "\n"
+        + "=" * 72
+        + "\n"
+    )
+
+    REPORT_HANDLE.write(
+        "CDN NODE SUMMARY\n"
+    )
+
+    REPORT_HANDLE.write(
+        "=" * 72
+        + "\n"
+    )
+
+    nodes = {}
+
+    for result in results:
+
+        node = result.get(
+            "node"
         )
 
-        f.write(
-            f"TIMEOUT: {TIMEOUT}\n"
-        )
+        if not node:
+            continue
 
-        f.write(
-            f"Всего записей: "
-            f"{len(results)}\n"
-        )
+        if node not in nodes:
 
-        f.write(
-            f"Рабочих: "
-            f"{len(alive)}\n"
-        )
+            nodes[node] = {
+                "total":
+                    0,
+                "live":
+                    0,
+                "dead":
+                    0,
+            }
 
-        f.write(
-            f"Нерабочих: "
-            f"{len(dead)}\n\n"
-        )
+        nodes[node][
+            "total"
+        ] += 1
 
-        # ----------------------------------------------------
-        # РАБОЧИЕ
-        # ----------------------------------------------------
+        if result.get(
+            "live",
+            False,
+        ):
 
-        f.write(
-            "============================================================\n"
-        )
-
-        f.write(
-            "РАБОЧИЕ КАНАЛЫ\n"
-        )
-
-        f.write(
-            "============================================================\n\n"
-        )
-
-        if alive:
-
-            for number, item in enumerate(
-                alive,
-                1
-            ):
-
-                f.write(
-                    f"{number:03}. "
-                    f"{item['name']}\n"
-                )
-
-                f.write(
-                    f"    ВРЕМЯ НАХОЖДЕНИЯ: "
-                    f"{item['time']}\n"
-                )
-
-                f.write(
-                    f"    CDN: "
-                    f"{item['node']}\n"
-                )
-
-                f.write(
-                    f"    URL: "
-                    f"{item['url']}\n"
-                )
-
-                f.write("\n")
+            nodes[node][
+                "live"
+            ] += 1
 
         else:
 
-            f.write(
-                "Рабочих каналов не найдено.\n\n"
-            )
+            nodes[node][
+                "dead"
+            ] += 1
 
-        # ----------------------------------------------------
-        # M3U
-        # ----------------------------------------------------
+    for node, data in sorted(
+        nodes.items()
+    ):
 
-        f.write(
-            "============================================================\n"
+        REPORT_HANDLE.write(
+            f"\n"
+            f"NODE: {node}\n"
         )
 
-        f.write(
-            "БЛОК ДЛЯ ВСТАВКИ В M3U PLAYLIST\n"
+        REPORT_HANDLE.write(
+            f"TOTAL: "
+            f"{data['total']}\n"
         )
 
-        f.write(
-            "============================================================\n\n"
+        REPORT_HANDLE.write(
+            f"LIVE: "
+            f"{data['live']}\n"
         )
 
-        m3u_block = build_m3u_block(
-            results
+        REPORT_HANDLE.write(
+            f"DEAD: "
+            f"{data['dead']}\n"
         )
 
-        if m3u_block:
 
-            f.write(
-                m3u_block
-            )
+    # ========================================================
+    # ЗАВЕРШЕНИЕ
+    # ========================================================
 
-            f.write("\n")
+    REPORT_HANDLE.write(
+        "\n"
+        + "=" * 72
+        + "\n"
+    )
 
-        else:
+    REPORT_HANDLE.write(
+        "СКАЛА ДРЕГ :: ОТЧЁТ ЗАВЕРШЁН\n"
+    )
 
-            f.write(
-                "Рабочих каналов нет.\n"
-            )
+    REPORT_HANDLE.write(
+        "=" * 72
+        + "\n"
+    )
 
-        f.write("\n")
-
-        # ----------------------------------------------------
-        # DEAD
-        # ----------------------------------------------------
-
-        f.write(
-            "============================================================\n"
-        )
-
-        f.write(
-            "НЕРАБОЧИЕ КАНАЛЫ\n"
-        )
-
-        f.write(
-            "============================================================\n\n"
-        )
-
-        if dead:
-
-            for number, item in enumerate(
-                dead,
-                1
-            ):
-
-                f.write(
-                    f"{number:03}. "
-                    f"{item['name']}\n"
-                )
-
-                f.write(
-                    f"    URL: "
-                    f"{item['url']}\n"
-                )
-
-                f.write("\n")
-
-        else:
-
-            f.write(
-                "Нерабочих каналов нет.\n"
-            )
-
-        f.write("\n")
-
-        # ----------------------------------------------------
-        # CDN
-        # ----------------------------------------------------
-
-        f.write(
-            "============================================================\n"
-        )
-
-        f.write(
-            "КАНАЛЫ, КОТОРЫЕ ОТДАЁТ CDN\n"
-        )
-
-        f.write(
-            "============================================================\n\n"
-        )
-
-        if CDN_CHANNELS:
-
-            f.write(
-                build_cdn_block()
-            )
-
-            f.write("\n")
-
-        else:
-
-            f.write(
-                "CDN manifest не вернул "
-                "дополнительных каналов.\n\n"
-            )
-
-        # ----------------------------------------------------
-        # CDN M3U
-        # ----------------------------------------------------
-
-        f.write(
-            "============================================================\n"
-        )
-
-        f.write(
-            "M3U БЛОК КАНАЛОВ, ОБНАРУЖЕННЫХ В CDN\n"
-        )
-
-        f.write(
-            "============================================================\n\n"
-        )
-
-        cdn_number = 1
-
-        for node, channels in CDN_CHANNELS.items():
-
-            for item in channels:
-
-                f.write(
-                    f'#EXTINF:-1 '
-                    f'tvg-id="{item["tvg_id"]}" '
-                    f'group-title="{item["group"]}",'
-                    f'{cdn_number}. '
-                    f'{make_m3u_name(item["name"])}\n'
-                )
-
-                f.write(
-                    f"{item['url']}\n\n"
-                )
-
-                cdn_number += 1
-
-        if cdn_number == 1:
-
-            f.write(
-                "Ничего дополнительно не обнаружено.\n\n"
-            )
-
-        # ----------------------------------------------------
-        # ТЕЛЕТАЙП
-        # ----------------------------------------------------
-
-        f.write(
-            "============================================================\n"
-        )
-
-        f.write(
-            "ПОЛНЫЙ ТЕЛЕТАЙП СКАЛА ДРЕГ\n"
-        )
-
-        f.write(
-            "============================================================\n\n"
-        )
-
-        for line in REPORT_LOG:
-
-            f.write(
-                line
-                + "\n"
-            )
-
-        # ----------------------------------------------------
-        # ЗАВЕРШЕНИЕ
-        # ----------------------------------------------------
-
-        f.write("\n")
-
-        f.write(
-            "============================================================\n"
-        )
-
-        f.write(
-            "КОНЕЦ ОТЧЁТА\n"
-        )
-
-        f.write(
-            "============================================================\n"
-        )
+    REPORT_HANDLE.flush()
 
 
 # ============================================================
-# 24. Главный запуск
+# 33. ГЛАВНЫЙ ЗАПУСК
 # ============================================================
 
 async def main():
-
     global SESSION
     global SEMAPHORE
+    global REPORT_HANDLE
+
+    started_at = datetime.now()
+
+    REPORT_HANDLE = open(
+        REPORT_FILE,
+        "w",
+        encoding="utf-8",
+        buffering=1,
+    )
+
+    teletype(
+        "=" * 72
+    )
+
+    teletype(
+        "СКАЛА ДРЕГ :: "
+        "NGENIX NORMALIZER"
+    )
+
+    teletype(
+        "РАСШИРЕННЫЙ РЕЖИМ :: "
+        "DIRECT + ALIAS + MANIFEST DISCOVERY"
+    )
+
+    teletype(
+        "=" * 72
+    )
+
+    teletype(
+        f"START :: "
+        f"{started_at.strftime('%Y-%m-%d %H:%M:%S')}"
+    )
+
+    teletype(
+        f"CPU :: "
+        f"{CPU}"
+    )
+
+    teletype(
+        f"TURBO :: "
+        f"{TURBO}"
+    )
+
+    teletype(
+        f"MAX THREADS :: "
+        f"{MAX_THREADS}"
+    )
+
+    teletype(
+        f"TIMEOUT :: "
+        f"{TIMEOUT}s"
+    )
+
+    teletype(
+        f"CHANNELS :: "
+        f"{len(CHANNELS)}"
+    )
+
+    teletype(
+        "=" * 72
+    )
 
     SEMAPHORE = asyncio.Semaphore(
         max(
             1,
-            MAX_THREADS
+            MAX_THREADS,
         )
     )
 
     connector = TCPConnector(
-
         limit=max(
             1,
-            MAX_THREADS
+            MAX_THREADS,
         ),
-
         limit_per_host=max(
             1,
-            MAX_THREADS // 4
+            MAX_THREADS // 4,
         ),
-
         ttl_dns_cache=300,
-
         enable_cleanup_closed=True,
     )
 
     SESSION = aiohttp.ClientSession(
-
         connector=connector,
-
         timeout=ClientTimeout(
             total=TIMEOUT,
             connect=TIMEOUT,
             sock_connect=TIMEOUT,
             sock_read=TIMEOUT,
-        )
+        ),
     )
 
-    teletype(
-        "=========================================="
-    )
-
-    teletype(
-        "СКАЛА ДРЕГ :: NGENIX NORMALIZER"
-    )
-
-    teletype(
-        "=========================================="
-    )
-
-    teletype(
-        f"CPU={CPU} "
-        f"TURBO={TURBO} "
-        f"THREADS={MAX_THREADS}"
-    )
-
-    teletype(
-        f"КАНАЛОВ К ПРОВЕРКЕ={len(CHANNELS)}"
-    )
-
-    teletype(
-        "ПОДРОБНЫЙ ОТЧЁТ -> ngnorm_report.txt"
-    )
+    results = []
 
     try:
 
         tasks = [
-
             asyncio.create_task(
                 worker(
                     name,
-                    raw
+                    raw,
                 )
             )
-
             for name, raw
             in CHANNELS.items()
-
         ]
 
-        results = []
-
         total = len(tasks)
+
+        console(
+            f"СТАРТ :: "
+            f"каналов={total}"
+        )
 
         completed = 0
 
@@ -1710,109 +3107,139 @@ async def main():
                     result
                 )
 
+                completed += 1
+
+                if result.get(
+                    "live",
+                    False,
+                ):
+
+                    console(
+                        f"PROGRESS "
+                        f"{completed}/{total} "
+                        f":: LIVE "
+                        f":: "
+                        f"{result.get('name')}"
+                    )
+
+                else:
+
+                    console(
+                        f"PROGRESS "
+                        f"{completed}/{total} "
+                        f":: DEAD "
+                        f":: "
+                        f"{result.get('name')}"
+                    )
+
             except Exception as error:
 
-                log_report(
-                    f"WORKER ERROR :: "
-                    f"{repr(error)}"
+                completed += 1
+
+                teletype_error(
+                    f"WORKER :: "
+                    f"{error}"
                 )
-
-            completed += 1
-
-            # ------------------------------------------------
-            # В КОНСОЛЬ ТОЛЬКО ВЫБОРОЧНЫЙ ПРОГРЕСС
-            # ------------------------------------------------
-
-            if (
-                completed == 1
-                or completed % 10 == 0
-                or completed == total
-            ):
-
-                teletype(
-                    f"ПРОГРЕСС :: "
-                    f"{completed}/{total}"
-                )
-
-        # ----------------------------------------------------
-        # Сохраняем исходный порядок
-        # ----------------------------------------------------
 
         order = {
-
-            name: position
-
+            name:
+                position
             for position, name
             in enumerate(
                 CHANNELS.keys()
             )
-
         }
 
         results.sort(
             key=lambda item:
                 order.get(
-                    item["name"],
-                    999999
+                    item.get(
+                        "name"
+                    ),
+                    999999,
                 )
         )
 
-        LIVE_RESULTS.clear()
-        DEAD_RESULTS.clear()
-
-        LIVE_RESULTS.extend(
-            x
-            for x in results
-            if x["live"]
+        alias_matches = (
+            collect_alias_matches(
+                results
+            )
         )
 
-        DEAD_RESULTS.extend(
-            x
-            for x in results
-            if not x["live"]
+        discovered = (
+            collect_cdn_results(
+                results
+            )
         )
 
-        # ----------------------------------------------------
-        # Полный отчёт
-        # ----------------------------------------------------
+        finished_at = datetime.now()
 
         write_report(
-            results
+            results,
+            discovered,
+            alias_matches,
+            started_at,
+            finished_at,
         )
 
-        teletype(
-            "------------------------------------------"
+        alive = sum(
+            1
+            for item in results
+            if item.get(
+                "live",
+                False,
+            )
         )
 
-        teletype(
+        dead = (
+            len(results)
+            - alive
+        )
+
+        console(
+            "=========================================="
+        )
+
+        console(
+            "СКАНИРОВАНИЕ ЗАВЕРШЕНО"
+        )
+
+        console(
+            f"ВСЕГО :: "
+            f"{len(results)}"
+        )
+
+        console(
             f"LIVE :: "
-            f"{len(LIVE_RESULTS)}"
+            f"{alive}"
         )
 
-        teletype(
+        console(
             f"DEAD :: "
-            f"{len(DEAD_RESULTS)}"
+            f"{dead}"
         )
 
-        teletype(
-            f"CDN MANIFEST CHANNELS :: "
-            f"{sum(len(x) for x in CDN_CHANNELS.values())}"
+        console(
+            f"ALIAS MATCH :: "
+            f"{len(alias_matches)}"
         )
 
-        teletype(
-            "ПОЛНЫЙ ОТЧЁТ СОХРАНЁН:"
+        console(
+            f"CDN DISCOVERY :: "
+            f"{len(discovered)}"
         )
 
-        teletype(
-            "ngnorm_report.txt"
+        console(
+            f"ОТЧЁТ :: "
+            f"{REPORT_FILE}"
         )
 
-        teletype(
+        console(
             "СКАЛА ДРЕГ :: ГОТОВО"
         )
 
-        teletype(
-            "------------------------------------------"
+        console(
+            "=========================================="
         )
 
     finally:
@@ -1823,9 +3250,19 @@ async def main():
 
             SESSION = None
 
+        if REPORT_HANDLE:
+
+            teletype(
+                "SESSION CLOSED"
+            )
+
+            REPORT_HANDLE.close()
+
+            REPORT_HANDLE = None
+
 
 # ============================================================
-# 25. Точка входа
+# 34. ТОЧКА ВХОДА
 # ============================================================
 
 if __name__ == "__main__":
@@ -1840,6 +3277,7 @@ if __name__ == "__main__":
 
         print()
 
-        teletype(
-            "ОСТАНОВКА ПОЛЬЗОВАТЕЛЕМ"
+        console(
+            "ОСТАНОВКА "
+            "ПОЛЬЗОВАТЕЛЕМ"
         )
