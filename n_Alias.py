@@ -279,7 +279,7 @@ KNOWN_ALIAS_DICTIONARY: Dict[str, Set[str]] = {
         "karousel",
     },
 
-    "Голливуд HD": {
+    "Hollywood HD": {
         "amc",
     },
 
