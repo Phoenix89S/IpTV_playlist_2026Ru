@@ -3,10 +3,10 @@ name: Ngnorm Weekly Scan
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 3 * * 1"   # раз в неделю
+    - cron: "0 3 * * 1"   # запуск раз в неделю
 
 env:
-  NGNORM_THREADS: 80      # ускорение через переменную окружения
+  NGNORM_TURBO: "1"       # turbo-режим для MAXI-TURBO
 
 jobs:
   run-ngnorm:
@@ -24,6 +24,10 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          pip install aiohttp
+          pip install yarl
+          pip install multidict
+          pip install async-timeout
           pip install requests
 
       - name: Run ngnorm.py with optimization
@@ -33,5 +37,5 @@ jobs:
       - name: Upload report
         uses: actions/upload-artifact@v4
         with:
-          name: ngenix-report
-          path: ngenix_report.txt
+          name: ngnorm-report
+          path: ngnorm_report.txt
