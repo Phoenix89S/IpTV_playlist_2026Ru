@@ -1,0 +1,79 @@
+name: n_Alias — ручной запуск
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  n-alias:
+    name: Запуск n_Alias.py
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Получение репозитория
+        uses: actions/checkout@v4
+
+      - name: Установка Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Запуск n_Alias.py
+        run: |
+          python n_Alias.py
+
+      - name: Проверка созданных файлов
+        run: |
+          echo "Проверка результатов n_Alias.py..."
+
+          if [ ! -f "n_Alias.txt" ]; then
+            echo "ОШИБКА: n_Alias.txt не создан."
+            exit 1
+          fi
+
+          if [ ! -f "n_Alias_ngnorm.txt" ]; then
+            echo "ОШИБКА: n_Alias_ngnorm.txt не создан."
+            exit 1
+          fi
+
+          echo "n_Alias.txt найден."
+          echo "n_Alias_ngnorm.txt найден."
+
+      - name: Показать размер результатов
+        run: |
+          echo "Размер n_Alias.txt:"
+          wc -c n_Alias.txt
+
+          echo "Размер n_Alias_ngnorm.txt:"
+          wc -c n_Alias_ngnorm.txt
+
+          echo "Количество строк n_Alias.txt:"
+          wc -l n_Alias.txt
+
+          echo "Количество строк n_Alias_ngnorm.txt:"
+          wc -l n_Alias_ngnorm.txt
+
+      - name: Сохранить результаты как Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: n_Alias-results
+          path: |
+            n_Alias.txt
+            n_Alias_ngnorm.txt
+          if-no-files-found: error
+
+      - name: Commit результатов в репозиторий
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add n_Alias.txt n_Alias_ngnorm.txt
+
+          if git diff --cached --quiet; then
+            echo "Изменений в результатах нет."
+          else
+            git commit -m "Update n_Alias results"
+            git push
+          fi
