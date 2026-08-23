@@ -1,45 +1,44 @@
 name: NG_superscan_SKALA
 
 on:
-  workflow_dispatch:        # ручной запуск
+  workflow_dispatch:
   push:
     paths:
-      - "NG_superscan_SKALA.py"   # автозапуск при изменении движка
+      - "NG_superscan_SKALA.py"
   schedule:
     - cron: "0 0 1 */2 *"   # запуск раз в 2 месяца
 
 jobs:
   superscan:
-    name: Запуск NADE SuperScan SKALA
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Шаг 1 — Получение репозитория
+      - name: 📥 Получение репозитория
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 🐍 Шаг 2 — Установка Python
+      - name: 🐍 Установка Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: 📦 Шаг 3 — Установка зависимостей
+      - name: 📦 Установка зависимостей
         run: |
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: 📄 Шаг 4 — Загрузка NG_superscan_SKALA.py из GitHub RAW
+      - name: 📄 Загрузка движка NG_superscan_SKALA.py
         run: |
           curl -L \
           https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/NG_superscan_SKALA.py \
           -o NG_superscan_SKALA.py
 
-      - name: 🚀 Шаг 5 — Запуск NADE SuperScan SKALA
+      - name: 🚀 Запуск движка
         run: |
           python NG_superscan_SKALA.py
 
-      - name: 📤 Шаг 6 — Проверка результатов
+      - name: 📤 Проверка результатов
         run: |
           echo "=== Проверка файлов ==="
           ls -la
@@ -59,7 +58,7 @@ jobs:
             fi
           done
 
-      - name: 💾 Шаг 7 — Автокоммит результатов (только если есть изменения)
+      - name: 💾 Автокоммит результатов (только если есть изменения)
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
