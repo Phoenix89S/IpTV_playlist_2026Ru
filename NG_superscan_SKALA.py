@@ -1,12 +1,13 @@
 # ============================================================
 #   NADE SuperScan SKALA Engine
 #   NGENIX Alias Discovery + SKALA/ДРЕГ Telemetry
-#   Финальная версия
+#   Финальная модернизированная версия
 # ============================================================
 
 import requests
 import time
 import json
+from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from urllib.parse import urljoin
 
@@ -47,7 +48,7 @@ FAMILIES = {
     "nastroy_kino": [
         "rodnoe_kino", "nashe_novoe_kino", "kinouzhas", "kinoseriya",
         "indiyskoe_kino", "kinosvidanie", "muzhskoe_kino", "kinosemya",
-        "kinopremyera", "kinomix", "kinokomediya", "kinohit",
+        "kinopремyera", "kinomix", "kinokomediya", "kinohit",
     ],
 }
 
@@ -271,9 +272,37 @@ def write_skala_human(inv, filename="ngSuperscan_SKALA.txt"):
 
                 f.write("------------------------------------------------------------\n\n")
 
+        # ВСТРАИВАЕМ M3U В КОНЕЦ ЛОГА
+        f.write("\n\n=== АВТОМАТИЧЕСКИЙ M3U-ПЛЕЙЛИСТ ===\n")
+        f.write("#EXTM3U\n")
+
+        for alias, items in inv.items():
+            best = sorted(items, key=lambda x: (x["status"] != "OK", x["status"] != "PARTIAL"))[0]
+            f.write(f'#EXTINF:-1 tvg-id="{alias}" group-title="NGENIX SuperScan",{alias}\n')
+            f.write(best["url"] + "\n\n")
+
+# ============================================================
+#   МАШИННЫЙ TXT-ЛОГ (НЕ JSON)
+# ============================================================
+
 def write_skala_machine_txt(inv, filename="ngSuperscan_SKALA_machine.txt"):
     with open(filename, "w", encoding="utf-8") as f:
-        json.dump(inv, f, ensure_ascii=False, indent=2)
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        for alias, items in inv.items():
+            best = sorted(items, key=lambda x: (x["status"] != "OK", x["status"] != "PARTIAL"))[0]
+
+            f.write(f"NAME={alias}\n")
+            f.write(f"ALIAS={alias}\n")
+            f.write(f"URL={best['url']}\n")
+            f.write(f"STATUS={best['http_code']}\n")
+            f.write(f"SOURCE=ALIAS_MODULE\n")
+            f.write(f"FOUND={now}\n")
+            f.write("\n")
+
+# ============================================================
+#   ОТДЕЛЬНЫЙ M3U-ФАЙЛ
+# ============================================================
 
 def write_skala_m3u(inv, filename="ngSuperscan_SKALA.m3u"):
     with open(filename, "w", encoding="utf-8") as f:
