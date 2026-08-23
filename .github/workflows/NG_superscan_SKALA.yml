@@ -1,7 +1,10 @@
 name: NG_superscan_SKALA
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:        # ручной запуск
+  push:
+    paths:
+      - "NG_superscan_SKALA.py"   # автозапуск при изменении движка
   schedule:
     - cron: "0 0 1 */2 *"   # запуск раз в 2 месяца
 
@@ -11,13 +14,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Шаг 1 — Клонирование репозитория
+      - name: 📥 Шаг 1 — Получение репозитория
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 🐍 Шаг 2 — Установка Python 3.10
+      - name: 🐍 Шаг 2 — Установка Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: "3.11"
 
       - name: 📦 Шаг 3 — Установка зависимостей
         run: |
@@ -34,20 +39,51 @@ jobs:
         run: |
           python NG_superscan_SKALA.py
 
-      - name: 📤 Шаг 6 — Сохранение результатов (логов и плейлистов)
-        uses: actions/upload-artifact@v4
-        with:
-          name: NG_superscan_SKALA_results
-          path: |
-            cdn_alias_inventory.json
-            ngSuperscan_SKALA.txt
-            ngSuperscan_SKALA_machine.txt
-            ngSuperscan_SKALA.m3u
-
-      - name: 💾 Шаг 7 — Автокоммит результатов в репозиторий
+      - name: 📤 Шаг 6 — Проверка результатов
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git add cdn_alias_inventory.json ngSuperscan_SKALA.txt ngSuperscan_SKALA_machine.txt ngSuperscan_SKALA.m3u
-          git commit -m "Обновление результатов NG_superscan_SKALA"
-          git push
+          echo "=== Проверка файлов ==="
+          ls -la
+
+          REQUIRED="
+          cdn_alias_inventory.json
+          ngSuperscan_SKALA.txt
+          ngSuperscan_SKALA_machine.txt
+          ngSuperscan_SKALA.m3u
+          "
+
+          for f in $REQUIRED; do
+            if [ ! -f "$f" ]; then
+              echo "ОШИБКА: файл $f не создан!"
+            else
+              echo "OK: найден файл $f"
+            fi
+          done
+
+      - name: 💾 Шаг 7 — Автокоммит результатов (только если есть изменения)
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          FILES="
+          cdn_alias_inventory.json
+          ngSuperscan_SKALA.txt
+          ngSuperscan_SKALA_machine.txt
+          ngSuperscan_SKALA.m3u
+          "
+
+          echo "=== Добавление существующих файлов ==="
+          for f in $FILES; do
+            if [ -f "$f" ]; then
+              echo "Добавляю: $f"
+              git add "$f"
+            else
+              echo "Пропускаю отсутствующий: $f"
+            fi
+          done
+
+          echo "=== Проверка изменений ==="
+          git diff --quiet && git diff --staged --quiet && echo "Нет изменений — коммит не требуется" || (
+            echo "Изменения обнаружены — выполняю коммит"
+            git commit -m "auto: обновление отчётов NG_superscan_SKALA [skip ci]"
+            git push
+          )
