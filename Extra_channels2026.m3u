@@ -12359,6 +12359,14 @@ https://s70378.cdn.ngenix.net/sony_channel/index.m3u8
 #EXTINF:-1 tvg-id="sony_sci_fi" group-title="Эфирные ТВ Viju плюс",18. •Sci-Fi
 https://s70378.cdn.ngenix.net/sony_sci_fi/index.m3u8
 
+#EXTINF:-1 tvg-id="" tvg-name="ntv_serial" tvg-logo="" group-title="Эфирные ТВ Viju плюс",19. НТВ Сериал
+https://s70378.cdn.ngenix.net/ntv_serial/index.m3u8
+​#EXTINF:-1 tvg-id="" tvg-name="ntv_pravo" tvg-logo="" group-title="Эфирные ТВ Viju плюс",20. НТВ Право
+https://s70378.cdn.ngenix.net/ntv_pravo/index.m3u8
+​#EXTINF:-1 tvg-id="" tvg-name="ntv_style" tvg-logo="" group-title="Эфирные ТВ Viju плюс",21. НТВ Стиль
+https://s70378.cdn.ngenix.net/ntv_style/index.m3u8
+​#EXTINF:-1 tvg-id="" tvg-name="ntv_hit" tvg-logo="" group-title="Эфирные ТВ Viju плюс",22. НТВ Хит
+https://s70378.cdn.ngenix.net/ntv_hit/index.m3u8
 
 
 
