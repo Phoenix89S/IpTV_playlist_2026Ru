@@ -3,7 +3,7 @@ name: NG_superscan_SKALA
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */6 * * *"   # запуск каждые 6 часов
+    - cron: "0 0 1 */2 *"   # запуск раз в 2 месяца
 
 jobs:
   superscan:
@@ -12,10 +12,10 @@ jobs:
 
     steps:
       - name: 📥 Шаг 1 — Клонирование репозитория
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🐍 Шаг 2 — Установка Python 3.10
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
@@ -35,7 +35,7 @@ jobs:
           python NG_superscan_SKALA.py
 
       - name: 📤 Шаг 6 — Сохранение результатов (логов и плейлистов)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: NG_superscan_SKALA_results
           path: |
