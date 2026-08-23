@@ -1,0 +1,68 @@
+name: NG_Superscan_SKALA_2
+
+on:
+  workflow_dispatch:        # ручной пинок
+  schedule:
+    - cron: "0 3 1 * *"     # запуск 1 числа каждого месяца в 03:00
+
+jobs:
+  superscan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Клонирование репозитория
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🐍 Установка Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 📦 Установка зависимостей
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: 📄 Загрузка NG_Superscan_SKALA_2.py из RAW
+        run: |
+          curl -L \
+          https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/NG_Superscan_SKALA_2.py \
+          -o NG_Superscan_SKALA_2.py
+
+      - name: 🚀 Запуск движка
+        run: |
+          python NG_Superscan_SKALA_2.py
+
+      - name: 📤 Проверка созданных файлов
+        run: |
+          echo "=== Проверка индексированных файлов ==="
+          ls -la ngSuperscan_SKALA_*.txt || true
+          ls -la ngSuperscan_SKALA_machine_*.txt || true
+          ls -la ngSuperscan_SKALA_*.m3u || true
+
+      - name: 💾 Автокоммит результатов (только индексированные файлы)
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          echo "=== Добавление индексированных файлов ==="
+          git add ngSuperscan_SKALA_*.txt || true
+          git add ngSuperscan_SKALA_machine_*.txt || true
+          git add ngSuperscan_SKALA_*.m3u || true
+
+          echo "=== Проверка изменений ==="
+          if git diff --staged --quiet; then
+            echo "Нет изменений — коммит не требуется"
+            exit 0
+          fi
+
+          echo "=== Обнаружены изменения — выполняю коммит ==="
+          git commit -m "auto: обновление отчётов NG_Superscan_SKALA_2 [skip ci]"
+
+          echo "=== Обновляю локальную копию перед push ==="
+          git pull --rebase
+
+          echo "=== Выполняю push ==="
+          git push
