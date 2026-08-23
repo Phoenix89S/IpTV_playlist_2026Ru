@@ -1,0 +1,413 @@
+NAME=vip_serial
+ALIAS=vip_serial
+URL=https://a3569457567-s70378.cdn.ngenix.net/vip_serial/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=evrokino
+ALIAS=evrokino
+URL=https://a3569457567-s70378.cdn.ngenix.net/evrokino/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=sony_turbo
+ALIAS=sony_turbo
+URL=https://a3569457567-s70378.cdn.ngenix.net/sony_turbo/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=dom_kino_pr
+ALIAS=dom_kino_pr
+URL=https://a3569457567-s70378.cdn.ngenix.net/dom_kино_pr/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=mnogo_tv
+ALIAS=mnogo_tv
+URL=https://a3569457567-s70378.cdn.ngenix.net/mnogo_tv/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=nashe_novoe
+ALIAS=nashe_novoe
+URL=https://a3569457567-s70378.cdn.ngenix.net/nashe_novoe/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=kinouzhas
+ALIAS=kinouzhas
+URL=https://a3569457567-s70378.cdn.ngenix.net/kinouzhas/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=mir_seriala
+ALIAS=mir_seriala
+URL=https://a3569457567-s70378.cdn.ngenix.net/mir_seriala/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=kinoklub
+ALIAS=kinoklub
+URL=https://a3569457567-s70378.cdn.ngenix.net/kinoklub/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=hd_life
+ALIAS=hd_life
+URL=https://a3569457567-s70378.cdn.ngenix.net/hd_life/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=filmbox
+ALIAS=filmbox
+URL=https://a3569457567-s70378.cdn.ngenix.net/filmbox/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=filmzone
+ALIAS=filmzone
+URL=https://a3569457567-s70378.cdn.ngenix.net/filmzone/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=bazmoc
+ALIAS=bazmoc
+URL=https://a3569457567-s70378.cdn.ngenix.net/bazmoc/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=flixsnip
+ALIAS=flixsnip
+URL=https://a3569457567-s70378.cdn.ngenix.net/flixsnip/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=illusion_pl
+ALIAS=illusion_pl
+URL=https://a3569457567-s70378.cdn.ngenix.net/illusion_pl/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=amc
+ALIAS=amc
+URL=https://a3569457567-s70378.cdn.ngenix.net/amc/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=ntv_serial
+ALIAS=ntv_serial
+URL=https://a3569457567-s70378.cdn.ngenix.net/ntv_serial/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=dom_kino
+ALIAS=dom_kino
+URL=https://a3569457567-s70378.cdn.ngenix.net/dom_kino/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=sony_sci_fi
+ALIAS=sony_sci_fi
+URL=https://a3569457567-s70378.cdn.ngenix.net/sony_sci_fi/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=amedia_2
+ALIAS=amedia_2
+URL=https://a3569457567-s70378.cdn.ngenix.net/amedia_2/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=docubox
+ALIAS=docubox
+URL=https://a3569457567-s70378.cdn.ngenix.net/docubox/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=curiosity_s
+ALIAS=curiosity_s
+URL=https://a3569457567-s70378.cdn.ngenix.net/curiosity_s/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=history
+ALIAS=history
+URL=https://a3569457567-s70378.cdn.ngenix.net/history/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=galaxy
+ALIAS=galaxy
+URL=https://a3569457567-s70378.cdn.ngenix.net/galaxy/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=zoopark
+ALIAS=zoopark
+URL=https://a3569457567-s70378.cdn.ngenix.net/zoopark/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=ocean_tv
+ALIAS=ocean_tv
+URL=https://a3569457567-s70378.cdn.ngenix.net/ocean_tv/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=karusel
+ALIAS=karusel
+URL=https://a3569457567-s70378.cdn.ngenix.net/karusel/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=terra
+ALIAS=terra
+URL=https://a3569457567-s70378.cdn.ngenix.net/terra/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=kxl
+ALIAS=kxl
+URL=https://a3569457567-s70378.cdn.ngenix.net/kxl/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=nicktoons
+ALIAS=nicktoons
+URL=https://a3569457567-s70378.cdn.ngenix.net/nicktoons/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=trace_sport
+ALIAS=trace_sport
+URL=https://a3569457567-s70378.cdn.ngenix.net/trace_sport/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=nickelodeon
+ALIAS=nickelodeon
+URL=https://a3569457567-s70378.cdn.ngenix.net/nickelodeon/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=mezzo
+ALIAS=mezzo
+URL=https://a3569457567-s70378.cdn.ngenix.net/mezzo/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=rtr_planeta
+ALIAS=rtr_planeta
+URL=https://a3569457567-s70378.cdn.ngenix.net/rtr_planeta/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=tnt_music
+ALIAS=tnt_music
+URL=https://a3569457567-s70378.cdn.ngenix.net/tnt_music/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=ducktv
+ALIAS=ducktv
+URL=https://a3569457567-s70378.cdn.ngenix.net/ducktv/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=gulli
+ALIAS=gulli
+URL=https://a3569457567-s70378.cdn.ngenix.net/gulli/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=match_plane
+ALIAS=match_plane
+URL=https://a3569457567-s70378.cdn.ngenix.net/match_plane/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=ntv_pravo
+ALIAS=ntv_pravo
+URL=https://a3569457567-s70378.cdn.ngenix.net/ntv_pravo/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=tiji
+ALIAS=tiji
+URL=https://a3569457567-s70378.cdn.ngenix.net/tiji/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=rtvi
+ALIAS=rtvi
+URL=https://a3569457567-s70378.cdn.ngenix.net/rtvi/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=mir
+ALIAS=mir
+URL=https://a3569457567-s70378.cdn.ngenix.net/mir/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=ren_tv
+ALIAS=ren_tv
+URL=https://a3569457567-s70378.cdn.ngenix.net/ren_tv/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=rbc
+ALIAS=rbc
+URL=https://a3569457567-s70378.cdn.ngenix.net/rbc/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=kvn_tv
+ALIAS=kvn_tv
+URL=https://a3569457567-s70378.cdn.ngenix.net/kvn_tv/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=shant
+ALIAS=shant
+URL=https://a3569457567-s70378.cdn.ngenix.net/shant/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=tnt_4
+ALIAS=tnt_4
+URL=https://a3569457567-s70378.cdn.ngenix.net/tnt_4/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=h2
+ALIAS=h2
+URL=https://a3569457567-s70378.cdn.ngenix.net/h2/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=tv_3
+ALIAS=tv_3
+URL=https://a3569457567-s70378.cdn.ngenix.net/tv_3/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=telecafe
+ALIAS=telecafe
+URL=https://a3569457567-s70378.cdn.ngenix.net/telecafe/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=zee_tv
+ALIAS=zee_tv
+URL=https://a3569457567-s70378.cdn.ngenix.net/zee_tv/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=h1
+ALIAS=h1
+URL=https://a3569457567-s70378.cdn.ngenix.net/h1/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=euronews
+ALIAS=euronews
+URL=https://a3569457567-s70378.cdn.ngenix.net/euronews/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=nostalgia
+ALIAS=nostalgia
+URL=https://a3569457567-s70378.cdn.ngenix.net/nostalgia/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=kentron
+ALIAS=kentron
+URL=https://a3569457567-s70378.cdn.ngenix.net/kentron/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=playboy
+ALIAS=playboy
+URL=https://a3569457567-s70378.cdn.ngenix.net/playboy/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=atv
+ALIAS=atv
+URL=https://a3569457567-s70378.cdn.ngenix.net/atv/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=dar21
+ALIAS=dar21
+URL=https://a3569457567-s70378.cdn.ngenix.net/dar21/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+
+NAME=erox
+ALIAS=erox
+URL=https://a3569457567-s70378.cdn.ngenix.net/erox/index.m3u8
+STATUS=None
+SOURCE=ALIAS_MODULE
+FOUND=2026-08-23 21:28:02
+

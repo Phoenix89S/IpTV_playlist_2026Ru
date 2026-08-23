@@ -1,0 +1,1328 @@
+{
+  "vip_serial": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/vip_serial/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/vip_serial/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/vip_serial/index.m3u8",
+        "https://s70378.cdn.ngenix.net/vip_serial/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/vip_serial/2/index.m3u8"
+      ],
+      "display_name": "vip_serial",
+      "alias": "vip_serial"
+    }
+  ],
+  "evrokino": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/evrokino/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/evrokino/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/evrokino/index.m3u8",
+        "https://s70378.cdn.ngenix.net/evrokino/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/evrokino/2/index.m3u8"
+      ],
+      "display_name": "evrokino",
+      "alias": "evrokino"
+    }
+  ],
+  "sony_turbo": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/sony_turbo/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/sony_turbo/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/sony_turbo/index.m3u8",
+        "https://s70378.cdn.ngenix.net/sony_turbo/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/sony_turbo/2/index.m3u8"
+      ],
+      "display_name": "sony_turbo",
+      "alias": "sony_turbo"
+    }
+  ],
+  "dom_kino_pr": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/dom_kино_pr/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/dom_kино_pr/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [],
+      "display_name": "dom_kino_premium_hd HD",
+      "alias": "dom_kino_pr"
+    }
+  ],
+  "mnogo_tv": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/mnogo_tv/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/mnogo_tv/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/mnogo_tv/index.m3u8",
+        "https://s70378.cdn.ngenix.net/mnogo_tv/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/mnogo_tv/2/index.m3u8"
+      ],
+      "display_name": "mnogo_tv",
+      "alias": "mnogo_tv"
+    }
+  ],
+  "nashe_novoe": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/nashe_novoe/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/nashe_novoe/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [],
+      "display_name": "nashe_novoe_kino",
+      "alias": "nashe_novoe"
+    }
+  ],
+  "kinouzhas": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/kinouzhas/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/kinouzhas/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/kinouzhas/index.m3u8",
+        "https://s70378.cdn.ngenix.net/kinouzhas/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/kinouzhas/2/index.m3u8"
+      ],
+      "display_name": "kinouzhas",
+      "alias": "kinouzhas"
+    }
+  ],
+  "mir_seriala": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/mir_seriala/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/mir_seriala/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/mir_seriala/index.m3u8",
+        "https://s70378.cdn.ngenix.net/mir_seriala/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/mir_seriala/2/index.m3u8"
+      ],
+      "display_name": "mir_seriala",
+      "alias": "mir_seriala"
+    }
+  ],
+  "kinoklub": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/kinoklub/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/kinoklub/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/kinoklub/index.m3u8",
+        "https://s70378.cdn.ngenix.net/kinoklub/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/kinoklub/2/index.m3u8"
+      ],
+      "display_name": "kinoklub",
+      "alias": "kinoklub"
+    }
+  ],
+  "hd_life": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/hd_life/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/hd_life/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/hd_life/index.m3u8",
+        "https://s70378.cdn.ngenix.net/hd_life/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/hd_life/2/index.m3u8"
+      ],
+      "display_name": "hd_life",
+      "alias": "hd_life"
+    }
+  ],
+  "filmbox": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/filmbox/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/filmbox/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/filmbox/index.m3u8",
+        "https://s70378.cdn.ngenix.net/filmbox/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/filmbox/2/index.m3u8"
+      ],
+      "display_name": "filmbox",
+      "alias": "filmbox"
+    }
+  ],
+  "filmzone": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/filmzone/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/filmzone/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/filmzone/index.m3u8",
+        "https://s70378.cdn.ngenix.net/filmzone/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/filmzone/2/index.m3u8",
+        "https://s70378.cdn.ngenix.net/filmzone/3/index.m3u8"
+      ],
+      "display_name": "filmzone HD",
+      "alias": "filmzone"
+    }
+  ],
+  "bazmoc": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/bazmoc/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/bazmoc/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/bazmoc/index.m3u8",
+        "https://s70378.cdn.ngenix.net/bazmoc/1/index.m3u8"
+      ],
+      "display_name": "bazmoc HD",
+      "alias": "bazmoc"
+    }
+  ],
+  "flixsnip": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/flixsnip/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/flixsnip/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [],
+      "display_name": "flixsnip",
+      "alias": "flixsnip"
+    }
+  ],
+  "illusion_pl": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/illusion_pl/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/illusion_pl/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [],
+      "display_name": "illusion_plus",
+      "alias": "illusion_pl"
+    }
+  ],
+  "amc": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/amc/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/amc/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/amc/index.m3u8",
+        "https://s70378.cdn.ngenix.net/amc/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/amc/2/index.m3u8"
+      ],
+      "display_name": "amc",
+      "alias": "amc"
+    }
+  ],
+  "ntv_serial": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/ntv_serial/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/ntv_serial/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/ntv_serial/index.m3u8",
+        "https://s70378.cdn.ngenix.net/ntv_serial/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/ntv_serial/2/index.m3u8"
+      ],
+      "display_name": "ntv_serial",
+      "alias": "ntv_serial"
+    }
+  ],
+  "dom_kino": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/dom_kino/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/dom_kino/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/dom_kino/index.m3u8",
+        "https://s70378.cdn.ngenix.net/dom_kino/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/dom_kino/2/index.m3u8"
+      ],
+      "display_name": "dom_kino",
+      "alias": "dom_kino"
+    }
+  ],
+  "sony_sci_fi": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/sony_sci_fi/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/sony_sci_fi/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/sony_sci_fi/index.m3u8",
+        "https://s70378.cdn.ngenix.net/sony_sci_fi/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/sony_sci_fi/2/index.m3u8"
+      ],
+      "display_name": "sony_sci_fi",
+      "alias": "sony_sci_fi"
+    }
+  ],
+  "amedia_2": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/amedia_2/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/amedia_2/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/amedia_2/index.m3u8",
+        "https://s70378.cdn.ngenix.net/amedia_2/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/amedia_2/2/index.m3u8"
+      ],
+      "display_name": "amedia_2",
+      "alias": "amedia_2"
+    }
+  ],
+  "docubox": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/docubox/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/docubox/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/docubox/index.m3u8",
+        "https://s70378.cdn.ngenix.net/docubox/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/docubox/2/index.m3u8"
+      ],
+      "display_name": "docubox",
+      "alias": "docubox"
+    }
+  ],
+  "curiosity_s": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/curiosity_s/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/curiosity_s/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [],
+      "display_name": "curiosity_stream",
+      "alias": "curiosity_s"
+    }
+  ],
+  "history": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/history/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/history/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/history/index.m3u8",
+        "https://s70378.cdn.ngenix.net/history/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/history/2/index.m3u8"
+      ],
+      "display_name": "history",
+      "alias": "history"
+    }
+  ],
+  "galaxy": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/galaxy/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/galaxy/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/galaxy/index.m3u8",
+        "https://s70378.cdn.ngenix.net/galaxy/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/galaxy/2/index.m3u8"
+      ],
+      "display_name": "galaxy",
+      "alias": "galaxy"
+    }
+  ],
+  "zoopark": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/zoopark/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/zoopark/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/zoopark/index.m3u8",
+        "https://s70378.cdn.ngenix.net/zoopark/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/zoopark/2/index.m3u8"
+      ],
+      "display_name": "zoopark",
+      "alias": "zoopark"
+    }
+  ],
+  "ocean_tv": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/ocean_tv/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/ocean_tv/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/ocean_tv/index.m3u8",
+        "https://s70378.cdn.ngenix.net/ocean_tv/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/ocean_tv/2/index.m3u8"
+      ],
+      "display_name": "ocean_tv",
+      "alias": "ocean_tv"
+    }
+  ],
+  "karusel": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/karusel/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/karusel/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/karusel/index.m3u8",
+        "https://s70378.cdn.ngenix.net/karusel/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/karusel/2/index.m3u8"
+      ],
+      "display_name": "karusel",
+      "alias": "karusel"
+    }
+  ],
+  "terra": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/terra/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/terra/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/terra/index.m3u8",
+        "https://s70378.cdn.ngenix.net/terra/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/terra/2/index.m3u8"
+      ],
+      "display_name": "terra",
+      "alias": "terra"
+    }
+  ],
+  "kxl": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/kxl/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/kxl/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/kxl/index.m3u8",
+        "https://s70378.cdn.ngenix.net/kxl/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/kxl/2/index.m3u8"
+      ],
+      "display_name": "kxl",
+      "alias": "kxl"
+    }
+  ],
+  "nicktoons": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/nicktoons/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/nicktoons/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/nicktoons/index.m3u8",
+        "https://s70378.cdn.ngenix.net/nicktoons/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/nicktoons/2/index.m3u8"
+      ],
+      "display_name": "nicktoons",
+      "alias": "nicktoons"
+    }
+  ],
+  "trace_sport": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/trace_sport/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/trace_sport/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [],
+      "display_name": "trace_sport_stars",
+      "alias": "trace_sport"
+    }
+  ],
+  "nickelodeon": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/nickelodeon/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/nickelodeon/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/nickelodeon/index.m3u8",
+        "https://s70378.cdn.ngenix.net/nickelodeon/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/nickelodeon/2/index.m3u8"
+      ],
+      "display_name": "nickelodeon",
+      "alias": "nickelodeon"
+    }
+  ],
+  "mezzo": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/mezzo/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/mezzo/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/mezzo/index.m3u8",
+        "https://s70378.cdn.ngenix.net/mezzo/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/mezzo/2/index.m3u8"
+      ],
+      "display_name": "mezzo",
+      "alias": "mezzo"
+    }
+  ],
+  "rtr_planeta": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/rtr_planeta/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/rtr_planeta/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/rtr_planeta/index.m3u8",
+        "https://s70378.cdn.ngenix.net/rtr_planeta/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/rtr_planeta/2/index.m3u8"
+      ],
+      "display_name": "rtr_planeta",
+      "alias": "rtr_planeta"
+    }
+  ],
+  "tnt_music": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/tnt_music/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/tnt_music/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/tnt_music/index.m3u8",
+        "https://s70378.cdn.ngenix.net/tnt_music/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/tnt_music/2/index.m3u8"
+      ],
+      "display_name": "tnt_music",
+      "alias": "tnt_music"
+    }
+  ],
+  "ducktv": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/ducktv/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/ducktv/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/ducktv/index.m3u8",
+        "https://s70378.cdn.ngenix.net/ducktv/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/ducktv/2/index.m3u8"
+      ],
+      "display_name": "ducktv",
+      "alias": "ducktv"
+    }
+  ],
+  "gulli": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/gulli/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/gulli/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/gulli/index.m3u8",
+        "https://s70378.cdn.ngenix.net/gulli/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/gulli/2/index.m3u8"
+      ],
+      "display_name": "gulli",
+      "alias": "gulli"
+    }
+  ],
+  "match_plane": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/match_plane/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/match_plane/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [],
+      "display_name": "match_planeta",
+      "alias": "match_plane"
+    }
+  ],
+  "ntv_pravo": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/ntv_pravo/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/ntv_pravo/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/ntv_pravo/index.m3u8",
+        "https://s70378.cdn.ngenix.net/ntv_pravo/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/ntv_pravo/2/index.m3u8"
+      ],
+      "display_name": "ntv_pravo",
+      "alias": "ntv_pravo"
+    }
+  ],
+  "tiji": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/tiji/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/tiji/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/tiji/index.m3u8",
+        "https://s70378.cdn.ngenix.net/tiji/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/tiji/2/index.m3u8"
+      ],
+      "display_name": "tiji",
+      "alias": "tiji"
+    }
+  ],
+  "rtvi": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/rtvi/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/rtvi/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/rtvi/index.m3u8",
+        "https://s70378.cdn.ngenix.net/rtvi/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/rtvi/2/index.m3u8"
+      ],
+      "display_name": "rtvi",
+      "alias": "rtvi"
+    }
+  ],
+  "mir": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/mir/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/mir/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/mir/index.m3u8",
+        "https://s70378.cdn.ngenix.net/mir/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/mir/2/index.m3u8"
+      ],
+      "display_name": "mir",
+      "alias": "mir"
+    }
+  ],
+  "ren_tv": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/ren_tv/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/ren_tv/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/ren_tv/index.m3u8",
+        "https://s70378.cdn.ngenix.net/ren_tv/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/ren_tv/2/index.m3u8"
+      ],
+      "display_name": "ren_tv",
+      "alias": "ren_tv"
+    }
+  ],
+  "rbc": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/rbc/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/rbc/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/rbc/index.m3u8",
+        "https://s70378.cdn.ngenix.net/rbc/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/rbc/2/index.m3u8"
+      ],
+      "display_name": "rbc",
+      "alias": "rbc"
+    }
+  ],
+  "kvn_tv": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/kvn_tv/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/kvn_tv/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/kvn_tv/index.m3u8",
+        "https://s70378.cdn.ngenix.net/kvn_tv/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/kvn_tv/2/index.m3u8"
+      ],
+      "display_name": "kvn_tv",
+      "alias": "kvn_tv"
+    }
+  ],
+  "shant": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/shant/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/shant/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/shant/index.m3u8",
+        "https://s70378.cdn.ngenix.net/shant/1/index.m3u8"
+      ],
+      "display_name": "shant HD",
+      "alias": "shant"
+    }
+  ],
+  "tnt_4": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/tnt_4/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/tnt_4/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/tnt_4/index.m3u8",
+        "https://s70378.cdn.ngenix.net/tnt_4/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/tnt_4/2/index.m3u8"
+      ],
+      "display_name": "tnt_4",
+      "alias": "tnt_4"
+    }
+  ],
+  "h2": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/h2/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/h2/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/h2/index.m3u8",
+        "https://s70378.cdn.ngenix.net/h2/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/h2/2/index.m3u8"
+      ],
+      "display_name": "h2",
+      "alias": "h2"
+    }
+  ],
+  "tv_3": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/tv_3/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/tv_3/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/tv_3/index.m3u8",
+        "https://s70378.cdn.ngenix.net/tv_3/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/tv_3/2/index.m3u8"
+      ],
+      "display_name": "tv_3",
+      "alias": "tv_3"
+    }
+  ],
+  "telecafe": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/telecafe/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/telecafe/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/telecafe/index.m3u8",
+        "https://s70378.cdn.ngenix.net/telecafe/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/telecafe/2/index.m3u8"
+      ],
+      "display_name": "telecafe",
+      "alias": "telecafe"
+    }
+  ],
+  "zee_tv": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/zee_tv/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/zee_tv/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/zee_tv/index.m3u8",
+        "https://s70378.cdn.ngenix.net/zee_tv/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/zee_tv/2/index.m3u8"
+      ],
+      "display_name": "zee_tv",
+      "alias": "zee_tv"
+    }
+  ],
+  "h1": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/h1/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/h1/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/h1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/h1/1/index.m3u8"
+      ],
+      "display_name": "h1 HD",
+      "alias": "h1"
+    }
+  ],
+  "euronews": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/euronews/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/euronews/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/euronews/index.m3u8",
+        "https://s70378.cdn.ngenix.net/euronews/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/euronews/2/index.m3u8"
+      ],
+      "display_name": "euronews",
+      "alias": "euronews"
+    }
+  ],
+  "nostalgia": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/nostalgia/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/nostalgia/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/nostalgia/index.m3u8",
+        "https://s70378.cdn.ngenix.net/nostalgia/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/nostalgia/2/index.m3u8"
+      ],
+      "display_name": "nostalgia",
+      "alias": "nostalgia"
+    }
+  ],
+  "kentron": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/kentron/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/kentron/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/kentron/index.m3u8",
+        "https://s70378.cdn.ngenix.net/kentron/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/kentron/2/index.m3u8"
+      ],
+      "display_name": "kentron",
+      "alias": "kentron"
+    }
+  ],
+  "playboy": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/playboy/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/playboy/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/playboy/index.m3u8",
+        "https://s70378.cdn.ngenix.net/playboy/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/playboy/2/index.m3u8"
+      ],
+      "display_name": "playboy",
+      "alias": "playboy"
+    }
+  ],
+  "atv": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/atv/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/atv/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/atv/index.m3u8",
+        "https://s70378.cdn.ngenix.net/atv/1/index.m3u8"
+      ],
+      "display_name": "atv HD",
+      "alias": "atv"
+    }
+  ],
+  "dar21": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/dar21/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/dar21/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/dar21/index.m3u8",
+        "https://s70378.cdn.ngenix.net/dar21/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/dar21/2/index.m3u8"
+      ],
+      "display_name": "dar21",
+      "alias": "dar21"
+    }
+  ],
+  "erox": [
+    {
+      "node": "s70378",
+      "url": "https://a3569457567-s70378.cdn.ngenix.net/erox/index.m3u8",
+      "status": "FAIL_M3U8",
+      "speed": null,
+      "http_code": null,
+      "alt_url": "https://cdn.ngenix.net/erox/index.m3u8",
+      "alt_status": "FAIL_M3U8",
+      "alt_speed": null,
+      "alt_code": null,
+      "node_status": false,
+      "node_speed": null,
+      "node_code": 503,
+      "node_streams": [
+        "https://s70378.cdn.ngenix.net/erox/index.m3u8",
+        "https://s70378.cdn.ngenix.net/erox/1/index.m3u8",
+        "https://s70378.cdn.ngenix.net/erox/2/index.m3u8"
+      ],
+      "display_name": "erox",
+      "alias": "erox"
+    }
+  ]
+}
