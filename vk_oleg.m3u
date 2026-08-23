@@ -621,13 +621,36 @@ http://cef23ac9.rossteleccom.net/iptv/HR5L3HVVC7ZQSVB2DUVSQUH7/10039/index.m3u8
 
 
 #EXTINF:-1 tvg-id="" tvg-name="ntv_serial" tvg-logo="" group-title="Эфирные ТВ Viju плюс",19. НТВ Сериал
+
 https://s70378.cdn.ngenix.net/ntv_serial/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="ntv_pravo" tvg-logo="" group-title="Эфирные ТВ Viju плюс",20. НТВ Право
+
+​#EXTINF:-1 tvg-id="" tvg-name="ntv_pravo" tvg-logo="" group-title="Эфирные ТВ Viju плюс",20. НТВ Право
+
 https://s70378.cdn.ngenix.net/ntv_pravo/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="ntv_hit" tvg-logo="" group-title="Эфирные ТВ Viju плюс",21. НТВ Хит
+
+​#EXTINF:-1 tvg-id="" tvg-name="ntv_hit" tvg-logo="" group-title="Эфирные ТВ Viju плюс",21. НТВ Хит
+
 https://s70378.cdn.ngenix.net/ntv_hit/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="ntv_style" tvg-logo="" group-title="Эфирные ТВ Viju плюс",22. НТВ Стиль
+
+​#EXTINF:-1 tvg-id="" tvg-name="ntv_style" tvg-logo="" group-title="Эфирные ТВ Viju плюс",22. НТВ Стиль
+
 https://s70378.cdn.ngenix.net/ntv_style/index.m3u8
+
+​#EXTINF:-1 tvg-id="" tvg-name="ntv_mir" tvg-logo="" group-title="Эфирные ТВ Viju плюс",23. НТВ Мир
+
+https://s70378.cdn.ngenix.net/ntv_mir/index.m3u8
+
+​#EXTINF:-1 tvg-id="" tvg-name="ntv_hd" tvg-logo="" group-title="Эфирные ТВ Viju плюс",24. НТВ HD
+
+https://s70378.cdn.ngenix.net/ntv_hd/index.m3u8
+
+
+
+
+
+
+
+
 
 
 
