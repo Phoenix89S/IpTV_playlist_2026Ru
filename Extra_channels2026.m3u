@@ -12340,6 +12340,27 @@ https://s70378.cdn.ngenix.net/tv_1000/index.m3u8
 #EXTINF:-1 tvg-id="viasat_sport" group-title="Эфирные ТВ Vijuплюс",10. viju+ sport
 https://s70378.cdn.ngenix.net/viasat_sport/index.m3u8
 
+#EXTINF:-1 tvg-id="viasat_romantic" group-title="Эфирные ТВ Vijuплюс",11. viju+  заглушка
+https://
+#EXTINF:-1 tvg-id="viasat_1000" group-title="Эфирные ТВ Vijuплюс",12. viju+ Заглушка 2
+https://
+#EXTINF:-1 tvg-id="viasat_action" group-title="Эфирные ТВ Vijuплюс",13. viju+ Заглушка 3
+https://
+#EXTINF:-1 tvg-id="viasat_planet" group-title="Эфирные ТВ Vijuплюс",14. viju+ Заглушка 4
+https://
+#EXTINF:-1 tvg-id="viasat_novella" group-title="Эфирные ТВ Vijuплюс",15. viju+ Заглушка 5
+https://
+
+
+#EXTINF:-1 tvg-id="sony_turbo" group-title="Эфирные ТВ vijuплюс",16. •Black
+https://s70378.cdn.ngenix.net/sony_turbo/index.m3u8
+#EXTINF:-1 tvg-id="sony_channel" group-title="Эфирные ТВ vijuплюс",17. •Red
+https://s70378.cdn.ngenix.net/sony_channel/index.m3u8
+#EXTINF:-1 tvg-id="sony_sci_fi" group-title="Эфирные ТВ vijuплюс",18. •Sci-Fi
+https://s70378.cdn.ngenix.net/sony_sci_fi/index.m3u8
+
+
+
 
 
 
