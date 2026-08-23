@@ -81,8 +81,16 @@ jobs:
           done
 
           echo "=== Проверка изменений ==="
-          git diff --quiet && git diff --staged --quiet && echo "Нет изменений — коммит не требуется" || (
-            echo "Изменения обнаружены — выполняю коммит"
-            git commit -m "auto: обновление отчётов NG_superscan_SKALA [skip ci]"
-            git push
-          )
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "Нет изменений — коммит не требуется"
+            exit 0
+          fi
+
+          echo "=== Обнаружены изменения — выполняю коммит ==="
+          git commit -m "auto: обновление отчётов NG_superscan_SKALA [skip ci]"
+
+          echo "=== Обновляю локальную копию перед push ==="
+          git pull --rebase
+
+          echo "=== Выполняю push ==="
+          git push
