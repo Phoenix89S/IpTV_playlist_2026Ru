@@ -1,0 +1,788 @@
+[
+  {
+    "channel_name": "Голливуд HD",
+    "normalized_name": "голливуд hd",
+    "cdn_alias": "amc",
+    "match_type": "DICTIONARY_CONFIRMED",
+    "confidence": 0.8333333333333334,
+    "reason": "Alias подтвержден ответом CDN (HTTP 200).",
+    "candidates": [
+      {
+        "value": "hollywood",
+        "reason": "mapped_name_transliteration",
+        "score": 0.85,
+        "confirmed": false
+      },
+      {
+        "value": "amc",
+        "reason": "known_dictionary",
+        "score": 0.8333333333333334,
+        "confirmed": true
+      },
+      {
+        "value": "hd",
+        "reason": "normalized_name",
+        "score": 0.6,
+        "confirmed": false
+      },
+      {
+        "value": "gollivud_hd",
+        "reason": "transliteration",
+        "score": 0.5,
+        "confirmed": false
+      },
+      {
+        "value": "gollivud",
+        "reason": "transliteration_without_quality",
+        "score": 0.48,
+        "confirmed": false
+      },
+      {
+        "value": "amc_channel",
+        "reason": "technical_suffix:channel",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "amc_hd",
+        "reason": "technical_suffix:hd",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "amc_live",
+        "reason": "technical_suffix:live",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "amc_online",
+        "reason": "technical_suffix:online",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "amc_stream",
+        "reason": "technical_suffix:stream",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "amc_television",
+        "reason": "technical_suffix:television",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "amc_tv",
+        "reason": "technical_suffix:tv",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "gollivud_channel",
+        "reason": "technical_suffix:channel",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "gollivud_hd_channel",
+        "reason": "technical_suffix:channel",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "gollivud_hd_hd",
+        "reason": "technical_suffix:hd",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "gollivud_hd_live",
+        "reason": "technical_suffix:live",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "gollivud_hd_online",
+        "reason": "technical_suffix:online",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "gollivud_hd_stream",
+        "reason": "technical_suffix:stream",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "gollivud_hd_television",
+        "reason": "technical_suffix:television",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "gollivud_hd_tv",
+        "reason": "technical_suffix:tv",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "gollivud_live",
+        "reason": "technical_suffix:live",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "gollivud_online",
+        "reason": "technical_suffix:online",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "gollivud_stream",
+        "reason": "technical_suffix:stream",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "gollivud_television",
+        "reason": "technical_suffix:television",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "gollivud_tv",
+        "reason": "technical_suffix:tv",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "hd_channel",
+        "reason": "technical_suffix:channel",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "hd_hd",
+        "reason": "technical_suffix:hd",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "hd_live",
+        "reason": "technical_suffix:live",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "hd_online",
+        "reason": "technical_suffix:online",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "hd_stream",
+        "reason": "technical_suffix:stream",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "hd_television",
+        "reason": "technical_suffix:television",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "hd_tv",
+        "reason": "technical_suffix:tv",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "hollywood_channel",
+        "reason": "technical_suffix:channel",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "hollywood_hd",
+        "reason": "technical_suffix:hd",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "hollywood_live",
+        "reason": "technical_suffix:live",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "hollywood_online",
+        "reason": "technical_suffix:online",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "hollywood_stream",
+        "reason": "technical_suffix:stream",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "hollywood_television",
+        "reason": "technical_suffix:television",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "hollywood_tv",
+        "reason": "technical_suffix:tv",
+        "score": 0.25,
+        "confirmed": false
+      }
+    ],
+    "streams": [
+      {
+        "alias": "amc",
+        "url": "https://s70378.cdn.ngenix.net/amc/index.m3u8",
+        "variant": null,
+        "source": "parallel_probe",
+        "http_status": 200,
+        "reachable": true,
+        "response_time_ms": 1375.4637241363525
+      },
+      {
+        "alias": "amc",
+        "url": "https://s70378.cdn.ngenix.net/amc/1/index.m3u8",
+        "variant": 1,
+        "source": "parallel_probe",
+        "http_status": 200,
+        "reachable": true,
+        "response_time_ms": 755.3682327270508
+      },
+      {
+        "alias": "amc",
+        "url": "https://s70378.cdn.ngenix.net/amc/2/index.m3u8",
+        "variant": 2,
+        "source": "parallel_probe",
+        "http_status": 200,
+        "reachable": true,
+        "response_time_ms": 690.727710723877
+      }
+    ]
+  },
+  {
+    "channel_name": "Карусель",
+    "normalized_name": "карусель",
+    "cdn_alias": "karusel",
+    "match_type": "DICTIONARY_CONFIRMED",
+    "confidence": 0.8571428571428571,
+    "reason": "Alias подтвержден ответом CDN (HTTP 200).",
+    "candidates": [
+      {
+        "value": "karousel",
+        "reason": "known_dictionary",
+        "score": 0.8571428571428571,
+        "confirmed": false
+      },
+      {
+        "value": "karusel",
+        "reason": "known_dictionary",
+        "score": 0.8571428571428571,
+        "confirmed": true
+      },
+      {
+        "value": "karousel_channel",
+        "reason": "technical_suffix:channel",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "karousel_hd",
+        "reason": "technical_suffix:hd",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "karousel_live",
+        "reason": "technical_suffix:live",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "karousel_online",
+        "reason": "technical_suffix:online",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "karousel_stream",
+        "reason": "technical_suffix:stream",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "karousel_television",
+        "reason": "technical_suffix:television",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "karousel_tv",
+        "reason": "technical_suffix:tv",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "karusel_channel",
+        "reason": "technical_suffix:channel",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "karusel_hd",
+        "reason": "technical_suffix:hd",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "karusel_live",
+        "reason": "technical_suffix:live",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "karusel_online",
+        "reason": "technical_suffix:online",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "karusel_stream",
+        "reason": "technical_suffix:stream",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "karusel_television",
+        "reason": "technical_suffix:television",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "karusel_tv",
+        "reason": "technical_suffix:tv",
+        "score": 0.25,
+        "confirmed": false
+      }
+    ],
+    "streams": [
+      {
+        "alias": "karusel",
+        "url": "https://s70378.cdn.ngenix.net/karusel/index.m3u8",
+        "variant": null,
+        "source": "parallel_probe",
+        "http_status": 200,
+        "reachable": true,
+        "response_time_ms": 1062.312126159668
+      },
+      {
+        "alias": "karusel",
+        "url": "https://s70378.cdn.ngenix.net/karusel/1/index.m3u8",
+        "variant": 1,
+        "source": "parallel_probe",
+        "http_status": 200,
+        "reachable": true,
+        "response_time_ms": 776.0753631591797
+      },
+      {
+        "alias": "karusel",
+        "url": "https://s70378.cdn.ngenix.net/karusel/2/index.m3u8",
+        "variant": 2,
+        "source": "parallel_probe",
+        "http_status": 200,
+        "reachable": true,
+        "response_time_ms": 774.8169898986816
+      }
+    ]
+  },
+  {
+    "channel_name": "РЕН ТВ",
+    "normalized_name": "рен тв",
+    "cdn_alias": "ren_tv",
+    "match_type": "DICTIONARY_CONFIRMED",
+    "confidence": 0.7777777777777778,
+    "reason": "Alias подтвержден ответом CDN (HTTP 200).",
+    "candidates": [
+      {
+        "value": "ren_tv",
+        "reason": "known_dictionary",
+        "score": 0.7777777777777778,
+        "confirmed": true
+      },
+      {
+        "value": "rentv",
+        "reason": "tvg_id",
+        "score": 0.6,
+        "confirmed": false
+      },
+      {
+        "value": "ren_tv_channel",
+        "reason": "technical_suffix:channel",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "ren_tv_hd",
+        "reason": "technical_suffix:hd",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "ren_tv_live",
+        "reason": "technical_suffix:live",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "ren_tv_online",
+        "reason": "technical_suffix:online",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "ren_tv_stream",
+        "reason": "technical_suffix:stream",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "ren_tv_television",
+        "reason": "technical_suffix:television",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "ren_tv_tv",
+        "reason": "technical_suffix:tv",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "rentv_channel",
+        "reason": "technical_suffix:channel",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "rentv_hd",
+        "reason": "technical_suffix:hd",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "rentv_live",
+        "reason": "technical_suffix:live",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "rentv_online",
+        "reason": "technical_suffix:online",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "rentv_stream",
+        "reason": "technical_suffix:stream",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "rentv_television",
+        "reason": "technical_suffix:television",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "rentv_tv",
+        "reason": "technical_suffix:tv",
+        "score": 0.25,
+        "confirmed": false
+      }
+    ],
+    "streams": [
+      {
+        "alias": "ren_tv",
+        "url": "https://s70378.cdn.ngenix.net/ren_tv/index.m3u8",
+        "variant": null,
+        "source": "parallel_probe",
+        "http_status": 200,
+        "reachable": true,
+        "response_time_ms": 885.0283622741699
+      },
+      {
+        "alias": "ren_tv",
+        "url": "https://s70378.cdn.ngenix.net/ren_tv/1/index.m3u8",
+        "variant": 1,
+        "source": "parallel_probe",
+        "http_status": 200,
+        "reachable": true,
+        "response_time_ms": 760.0140571594238
+      },
+      {
+        "alias": "ren_tv",
+        "url": "https://s70378.cdn.ngenix.net/ren_tv/2/index.m3u8",
+        "variant": 2,
+        "source": "parallel_probe",
+        "http_status": 200,
+        "reachable": true,
+        "response_time_ms": 726.3915538787842
+      }
+    ]
+  },
+  {
+    "channel_name": "ТВ-3",
+    "normalized_name": "тв 3",
+    "cdn_alias": "tv_3",
+    "match_type": "DICTIONARY_CONFIRMED",
+    "confidence": 0.8,
+    "reason": "Alias подтвержден ответом CDN (HTTP 200).",
+    "candidates": [
+      {
+        "value": "tv_3",
+        "reason": "known_dictionary",
+        "score": 0.8,
+        "confirmed": true
+      },
+      {
+        "value": "3",
+        "reason": "normalized_name",
+        "score": 0.6,
+        "confirmed": false
+      },
+      {
+        "value": "tv3",
+        "reason": "tvg_id",
+        "score": 0.6,
+        "confirmed": false
+      },
+      {
+        "value": "3_channel",
+        "reason": "technical_suffix:channel",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "3_hd",
+        "reason": "technical_suffix:hd",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "3_live",
+        "reason": "technical_suffix:live",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "3_online",
+        "reason": "technical_suffix:online",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "3_stream",
+        "reason": "technical_suffix:stream",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "3_television",
+        "reason": "technical_suffix:television",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "3_tv",
+        "reason": "technical_suffix:tv",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "tv3_channel",
+        "reason": "technical_suffix:channel",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "tv3_hd",
+        "reason": "technical_suffix:hd",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "tv3_live",
+        "reason": "technical_suffix:live",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "tv3_online",
+        "reason": "technical_suffix:online",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "tv3_stream",
+        "reason": "technical_suffix:stream",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "tv3_television",
+        "reason": "technical_suffix:television",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "tv3_tv",
+        "reason": "technical_suffix:tv",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "tv_3_channel",
+        "reason": "technical_suffix:channel",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "tv_3_hd",
+        "reason": "technical_suffix:hd",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "tv_3_live",
+        "reason": "technical_suffix:live",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "tv_3_online",
+        "reason": "technical_suffix:online",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "tv_3_stream",
+        "reason": "technical_suffix:stream",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "tv_3_television",
+        "reason": "technical_suffix:television",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "tv_3_tv",
+        "reason": "technical_suffix:tv",
+        "score": 0.25,
+        "confirmed": false
+      }
+    ],
+    "streams": [
+      {
+        "alias": "tv_3",
+        "url": "https://s70378.cdn.ngenix.net/tv_3/index.m3u8",
+        "variant": null,
+        "source": "parallel_probe",
+        "http_status": 200,
+        "reachable": true,
+        "response_time_ms": 587.8615379333496
+      },
+      {
+        "alias": "tv_3",
+        "url": "https://s70378.cdn.ngenix.net/tv_3/2/index.m3u8",
+        "variant": 2,
+        "source": "parallel_probe",
+        "http_status": 200,
+        "reachable": true,
+        "response_time_ms": 584.9752426147461
+      }
+    ]
+  },
+  {
+    "channel_name": "Мир",
+    "normalized_name": "мир",
+    "cdn_alias": "mir",
+    "match_type": "DICTIONARY_CONFIRMED",
+    "confidence": 0.8181818181818182,
+    "reason": "Alias подтвержден ответом CDN (HTTP 200).",
+    "candidates": [
+      {
+        "value": "mir",
+        "reason": "known_dictionary",
+        "score": 0.8181818181818182,
+        "confirmed": true
+      },
+      {
+        "value": "mir_channel",
+        "reason": "technical_suffix:channel",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "mir_hd",
+        "reason": "technical_suffix:hd",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "mir_live",
+        "reason": "technical_suffix:live",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "mir_online",
+        "reason": "technical_suffix:online",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "mir_stream",
+        "reason": "technical_suffix:stream",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "mir_television",
+        "reason": "technical_suffix:television",
+        "score": 0.25,
+        "confirmed": false
+      },
+      {
+        "value": "mir_tv",
+        "reason": "technical_suffix:tv",
+        "score": 0.25,
+        "confirmed": false
+      }
+    ],
+    "streams": [
+      {
+        "alias": "mir",
+        "url": "https://s70378.cdn.ngenix.net/mir/index.m3u8",
+        "variant": null,
+        "source": "parallel_probe",
+        "http_status": 200,
+        "reachable": true,
+        "response_time_ms": 609.1427803039551
+      }
+    ]
+  }
+]
