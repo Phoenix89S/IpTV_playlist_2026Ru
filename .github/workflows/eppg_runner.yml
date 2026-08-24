@@ -1,0 +1,52 @@
+name: Run EPPG Extractor
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * 1'
+
+# 1. Даем боту полные права на запись в код
+permissions:
+  contents: write
+
+jobs:
+  run-eppg:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Чекaут репозитория
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Грузим всю историю, чтобы pull/push работали без сбоев
+
+      - name: Настройка Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Запуск eppg.py
+        run: python eppg.py
+
+      - name: Сохранение и гарантированный Push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Индексируем файлы
+          git add jtv_aliases.txt jtv_knowledge.json
+          
+          # Проверяем, есть ли изменённые файлы перед коммитом
+          if git diff --staged --quiet; then
+            echo "Изменений нет, коммит не требуется."
+            exit 0
+          fi
+          
+          git commit -m "Auto-update EPPG metadata [skip ci]"
+          
+          # Подтягиваем свежие изменения из ветки для исключения конфликтов
+          git pull --rebase origin main
+          
+          # Гарантированный пуш с явным токеном
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
