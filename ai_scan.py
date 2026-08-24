@@ -136,22 +136,33 @@ class Database:
 # ============================================================
 
 class RuleEngine:
-    TRANSLIT_MAP = str.maketrans(
-        "абвгдеёжзийклмнопрстуфхцчшщъыьэюя",
-        "abvgdeezzijklmnoprstufhcchshschyyeu"
-    )
+    TRANSLIT_MAP = {
+        ord("а"): "a", ord("б"): "b", ord("в"): "v", ord("г"): "g",
+        ord("д"): "d", ord("е"): "e", ord("ё"): "yo", ord("ж"): "zh",
+        ord("з"): "z", ord("и"): "i", ord("й"): "y", ord("к"): "k",
+        ord("л"): "l", ord("м"): "m", ord("н"): "n", ord("о"): "o",
+        ord("п"): "p", ord("р"): "r", ord("с"): "s", ord("т"): "t",
+        ord("у"): "u", ord("ф"): "f", ord("х"): "h", ord("ц"): "c",
+        ord("ч"): "ch", ord("ш"): "sh", ord("щ"): "sch", ord("ъ"): "",
+        ord("ы"): "y", ord("ь"): "", ord("э"): "e", ord("ю"): "yu",
+        ord("я"): "ya"
+    }
 
     @classmethod
     def generate_variants(cls, name: str, epg_id: str) -> list:
         name_lower = name.lower().strip()
         clean_id = epg_id.lower().replace(" ", "").replace("-", "").replace("_", "")
         
+        # Заменяем кириллицу с помощью словаря Копилота
+        translit_name = name_lower.translate(cls.TRANSLIT_MAP)
+
         variants = [
             (epg_id, "exact_id"),
             (clean_id, "clean_id"),
             (name_lower.replace(" ", "_"), "underscore"),
             (name_lower.replace(" ", ""), "no_spaces"),
-            (name_lower.translate(cls.TRANSLIT_MAP).replace(" ", "_"), "translit_underscore")
+            (translit_name.replace(" ", "_"), "translit_underscore"),
+            (translit_name.replace(" ", ""), "translit_nospaces")
         ]
 
         if "hd" in name_lower:
