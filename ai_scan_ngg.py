@@ -425,7 +425,7 @@ class MultiNodeScanner:
         self.learner = learner
         self.active_nodes: List[str] = []
 
-    def ping_nodes((self)) -> List[str]:
+    def ping_nodes(self) -> List[str]:
         LOGGER.info("Опрос и проверка доступности узлов Ngenix CDN...")
         valid_nodes = []
 
