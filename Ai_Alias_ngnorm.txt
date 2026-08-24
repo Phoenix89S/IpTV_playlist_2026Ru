@@ -1,0 +1,35 @@
+NAME=Голливуд HD
+ALIAS=amc
+URL=https://s70378.cdn.ngenix.net/amc/index.m3u8
+STATUS=200
+SOURCE=ALIAS_MODULE_V3
+FOUND=2026-08-24 18:55:46
+
+NAME=Карусель
+ALIAS=karusel
+URL=https://s70378.cdn.ngenix.net/karusel/index.m3u8
+STATUS=200
+SOURCE=ALIAS_MODULE_V3
+FOUND=2026-08-24 18:55:46
+
+NAME=РЕН ТВ
+ALIAS=ren_tv
+URL=https://s70378.cdn.ngenix.net/ren_tv/index.m3u8
+STATUS=200
+SOURCE=ALIAS_MODULE_V3
+FOUND=2026-08-24 18:55:46
+
+NAME=ТВ-3
+ALIAS=tv_3
+URL=https://s70378.cdn.ngenix.net/tv_3/index.m3u8
+STATUS=200
+SOURCE=ALIAS_MODULE_V3
+FOUND=2026-08-24 18:55:46
+
+NAME=Мир
+ALIAS=mir
+URL=https://s70378.cdn.ngenix.net/mir/index.m3u8
+STATUS=200
+SOURCE=ALIAS_MODULE_V3
+FOUND=2026-08-24 18:55:46
+

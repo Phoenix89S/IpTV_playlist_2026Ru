@@ -1,0 +1,215 @@
+======================================================================
+МОДУЛЬ ПРОВЕРКИ АЛИАСОВ (АВТОМАТИЧЕСКАЯ СБОРКА)
+ИТОГОВЫЙ ТЕКСТОВЫЙ ОТЧЁТ
+======================================================================
+
+Модуль: AliasVerificationModule (Ai Output Edition)
+Всего обработано: 5
+Успешно найдено: 5
+Не найдено: 0
+
+======================================================================
+ПОДРОБНАЯ ДЕТАЛИЗАЦИЯ ПО КАНАЛАМ
+======================================================================
+
+[1] КАНАЛ: Голливуд HD
+    Нормализованное имя: голливуд hd
+    Найденный CDN alias: amc
+    Статус: DICTIONARY_CONFIRMED
+    Уровень доверия: 0.990
+    Кандидаты:
+      - amc                       (score=0.990) [CONFIRMED]  reason=known_dictionary
+      - hollywood                 (score=0.850) [candidate]  reason=mapped_name_transliteration
+      - hd                        (score=0.600) [candidate]  reason=normalized_name
+      - gollivud_hd               (score=0.500) [candidate]  reason=transliteration
+      - gollivud                  (score=0.480) [candidate]  reason=transliteration_without_quality
+      - amc_channel               (score=0.250) [candidate]  reason=technical_suffix:channel
+      - amc_hd                    (score=0.250) [candidate]  reason=technical_suffix:hd
+      - amc_live                  (score=0.250) [candidate]  reason=technical_suffix:live
+      - amc_online                (score=0.250) [candidate]  reason=technical_suffix:online
+      - amc_stream                (score=0.250) [candidate]  reason=technical_suffix:stream
+      - amc_television            (score=0.250) [candidate]  reason=technical_suffix:television
+      - amc_tv                    (score=0.250) [candidate]  reason=technical_suffix:tv
+      - gollivud_channel          (score=0.250) [candidate]  reason=technical_suffix:channel
+      - gollivud_hd_channel       (score=0.250) [candidate]  reason=technical_suffix:channel
+      - gollivud_hd_hd            (score=0.250) [candidate]  reason=technical_suffix:hd
+      - gollivud_hd_live          (score=0.250) [candidate]  reason=technical_suffix:live
+      - gollivud_hd_online        (score=0.250) [candidate]  reason=technical_suffix:online
+      - gollivud_hd_stream        (score=0.250) [candidate]  reason=technical_suffix:stream
+      - gollivud_hd_television    (score=0.250) [candidate]  reason=technical_suffix:television
+      - gollivud_hd_tv            (score=0.250) [candidate]  reason=technical_suffix:tv
+      - gollivud_live             (score=0.250) [candidate]  reason=technical_suffix:live
+      - gollivud_online           (score=0.250) [candidate]  reason=technical_suffix:online
+      - gollivud_stream           (score=0.250) [candidate]  reason=technical_suffix:stream
+      - gollivud_television       (score=0.250) [candidate]  reason=technical_suffix:television
+      - gollivud_tv               (score=0.250) [candidate]  reason=technical_suffix:tv
+      - hd_channel                (score=0.250) [candidate]  reason=technical_suffix:channel
+      - hd_hd                     (score=0.250) [candidate]  reason=technical_suffix:hd
+      - hd_live                   (score=0.250) [candidate]  reason=technical_suffix:live
+      - hd_online                 (score=0.250) [candidate]  reason=technical_suffix:online
+      - hd_stream                 (score=0.250) [candidate]  reason=technical_suffix:stream
+      - hd_television             (score=0.250) [candidate]  reason=technical_suffix:television
+      - hd_tv                     (score=0.250) [candidate]  reason=technical_suffix:tv
+      - hollywood_channel         (score=0.250) [candidate]  reason=technical_suffix:channel
+      - hollywood_hd              (score=0.250) [candidate]  reason=technical_suffix:hd
+      - hollywood_live            (score=0.250) [candidate]  reason=technical_suffix:live
+      - hollywood_online          (score=0.250) [candidate]  reason=technical_suffix:online
+      - hollywood_stream          (score=0.250) [candidate]  reason=technical_suffix:stream
+      - hollywood_television      (score=0.250) [candidate]  reason=technical_suffix:television
+      - hollywood_tv              (score=0.250) [candidate]  reason=technical_suffix:tv
+    Потоки:
+      - [OK] [HTTP 200] (ping: 709.0ms) -> https://s70378.cdn.ngenix.net/amc/index.m3u8
+----------------------------------------------------------------------
+
+[2] КАНАЛ: Карусель
+    Нормализованное имя: карусель
+    Найденный CDN alias: karusel
+    Статус: CANDIDATE_CONFIRMED
+    Уровень доверия: 0.900
+    Кандидаты:
+      - karusel                   (score=0.900) [CONFIRMED]  reason=tvg_id
+      - karousel                  (score=0.600) [candidate]  reason=known_dictionary
+      - karousel_channel          (score=0.250) [candidate]  reason=technical_suffix:channel
+      - karousel_hd               (score=0.250) [candidate]  reason=technical_suffix:hd
+      - karousel_live             (score=0.250) [candidate]  reason=technical_suffix:live
+      - karousel_online           (score=0.250) [candidate]  reason=technical_suffix:online
+      - karousel_stream           (score=0.250) [candidate]  reason=technical_suffix:stream
+      - karousel_television       (score=0.250) [candidate]  reason=technical_suffix:television
+      - karousel_tv               (score=0.250) [candidate]  reason=technical_suffix:tv
+      - karusel_channel           (score=0.250) [candidate]  reason=technical_suffix:channel
+      - karusel_hd                (score=0.250) [candidate]  reason=technical_suffix:hd
+      - karusel_live              (score=0.250) [candidate]  reason=technical_suffix:live
+      - karusel_online            (score=0.250) [candidate]  reason=technical_suffix:online
+      - karusel_stream            (score=0.250) [candidate]  reason=technical_suffix:stream
+      - karusel_television        (score=0.250) [candidate]  reason=technical_suffix:television
+      - karusel_tv                (score=0.250) [candidate]  reason=technical_suffix:tv
+    Потоки:
+      - [OK] [HTTP 200] (ping: 740.3ms) -> https://s70378.cdn.ngenix.net/karusel/index.m3u8
+      - [OK] [HTTP 200] (ping: 625.9ms) -> https://s70378.cdn.ngenix.net/karusel/2/index.m3u8
+----------------------------------------------------------------------
+
+[3] КАНАЛ: РЕН ТВ
+    Нормализованное имя: рен тв
+    Найденный CDN alias: ren_tv
+    Статус: DICTIONARY_CONFIRMED
+    Уровень доверия: 0.600
+    Кандидаты:
+      - ren_tv                    (score=0.600) [CONFIRMED]  reason=known_dictionary
+      - rentv                     (score=0.600) [candidate]  reason=tvg_id
+      - ren_tv_channel            (score=0.250) [candidate]  reason=technical_suffix:channel
+      - ren_tv_hd                 (score=0.250) [candidate]  reason=technical_suffix:hd
+      - ren_tv_live               (score=0.250) [candidate]  reason=technical_suffix:live
+      - ren_tv_online             (score=0.250) [candidate]  reason=technical_suffix:online
+      - ren_tv_stream             (score=0.250) [candidate]  reason=technical_suffix:stream
+      - ren_tv_television         (score=0.250) [candidate]  reason=technical_suffix:television
+      - ren_tv_tv                 (score=0.250) [candidate]  reason=technical_suffix:tv
+      - rentv_channel             (score=0.250) [candidate]  reason=technical_suffix:channel
+      - rentv_hd                  (score=0.250) [candidate]  reason=technical_suffix:hd
+      - rentv_live                (score=0.250) [candidate]  reason=technical_suffix:live
+      - rentv_online              (score=0.250) [candidate]  reason=technical_suffix:online
+      - rentv_stream              (score=0.250) [candidate]  reason=technical_suffix:stream
+      - rentv_television          (score=0.250) [candidate]  reason=technical_suffix:television
+      - rentv_tv                  (score=0.250) [candidate]  reason=technical_suffix:tv
+    Потоки:
+      - [OK] [HTTP 200] (ping: 833.0ms) -> https://s70378.cdn.ngenix.net/ren_tv/index.m3u8
+      - [OK] [HTTP 200] (ping: 645.9ms) -> https://s70378.cdn.ngenix.net/ren_tv/1/index.m3u8
+      - [OK] [HTTP 200] (ping: 650.5ms) -> https://s70378.cdn.ngenix.net/ren_tv/2/index.m3u8
+----------------------------------------------------------------------
+
+[4] КАНАЛ: ТВ-3
+    Нормализованное имя: тв 3
+    Найденный CDN alias: tv_3
+    Статус: DICTIONARY_CONFIRMED
+    Уровень доверия: 0.750
+    Кандидаты:
+      - tv_3                      (score=0.750) [CONFIRMED]  reason=known_dictionary
+      - 3                         (score=0.600) [candidate]  reason=normalized_name
+      - tv3                       (score=0.600) [candidate]  reason=tvg_id
+      - 3_channel                 (score=0.250) [candidate]  reason=technical_suffix:channel
+      - 3_hd                      (score=0.250) [candidate]  reason=technical_suffix:hd
+      - 3_live                    (score=0.250) [candidate]  reason=technical_suffix:live
+      - 3_online                  (score=0.250) [candidate]  reason=technical_suffix:online
+      - 3_stream                  (score=0.250) [candidate]  reason=technical_suffix:stream
+      - 3_television              (score=0.250) [candidate]  reason=technical_suffix:television
+      - 3_tv                      (score=0.250) [candidate]  reason=technical_suffix:tv
+      - tv3_channel               (score=0.250) [candidate]  reason=technical_suffix:channel
+      - tv3_hd                    (score=0.250) [candidate]  reason=technical_suffix:hd
+      - tv3_live                  (score=0.250) [candidate]  reason=technical_suffix:live
+      - tv3_online                (score=0.250) [candidate]  reason=technical_suffix:online
+      - tv3_stream                (score=0.250) [candidate]  reason=technical_suffix:stream
+      - tv3_television            (score=0.250) [candidate]  reason=technical_suffix:television
+      - tv3_tv                    (score=0.250) [candidate]  reason=technical_suffix:tv
+      - tv_3_channel              (score=0.250) [candidate]  reason=technical_suffix:channel
+      - tv_3_hd                   (score=0.250) [candidate]  reason=technical_suffix:hd
+      - tv_3_live                 (score=0.250) [candidate]  reason=technical_suffix:live
+      - tv_3_online               (score=0.250) [candidate]  reason=technical_suffix:online
+      - tv_3_stream               (score=0.250) [candidate]  reason=technical_suffix:stream
+      - tv_3_television           (score=0.250) [candidate]  reason=technical_suffix:television
+      - tv_3_tv                   (score=0.250) [candidate]  reason=technical_suffix:tv
+    Потоки:
+      - [OK] [HTTP 200] (ping: 1442.5ms) -> https://s70378.cdn.ngenix.net/tv_3/index.m3u8
+      - [OK] [HTTP 200] (ping: 1109.6ms) -> https://s70378.cdn.ngenix.net/tv_3/1/index.m3u8
+      - [OK] [HTTP 200] (ping: 699.4ms) -> https://s70378.cdn.ngenix.net/tv_3/2/index.m3u8
+----------------------------------------------------------------------
+
+[5] КАНАЛ: Мир
+    Нормализованное имя: мир
+    Найденный CDN alias: mir
+    Статус: DICTIONARY_CONFIRMED
+    Уровень доверия: 0.800
+    Кандидаты:
+      - mir                       (score=0.800) [CONFIRMED]  reason=known_dictionary
+      - mir_channel               (score=0.250) [candidate]  reason=technical_suffix:channel
+      - mir_hd                    (score=0.250) [candidate]  reason=technical_suffix:hd
+      - mir_live                  (score=0.250) [candidate]  reason=technical_suffix:live
+      - mir_online                (score=0.250) [candidate]  reason=technical_suffix:online
+      - mir_stream                (score=0.250) [candidate]  reason=technical_suffix:stream
+      - mir_television            (score=0.250) [candidate]  reason=technical_suffix:television
+      - mir_tv                    (score=0.250) [candidate]  reason=technical_suffix:tv
+    Потоки:
+      - [OK] [HTTP 200] (ping: 681.0ms) -> https://s70378.cdn.ngenix.net/mir/index.m3u8
+      - [OK] [HTTP 200] (ping: 679.9ms) -> https://s70378.cdn.ngenix.net/mir/1/index.m3u8
+----------------------------------------------------------------------
+
+======================================================================
+M3U PLAYLIST EDITION
+======================================================================
+
+#EXTM3U
+
+#EXTINF:-1 tvg-id="" group-title="Кино",Голливуд HD
+https://s70378.cdn.ngenix.net/amc/index.m3u8
+
+#EXTINF:-1 tvg-id="karusel" group-title="Детские",Карусель
+https://s70378.cdn.ngenix.net/karusel/index.m3u8
+
+#EXTINF:-1 tvg-id="karusel" group-title="Детские",Карусель
+https://s70378.cdn.ngenix.net/karusel/2/index.m3u8
+
+#EXTINF:-1 tvg-id="rentv" group-title="Общие",РЕН ТВ
+https://s70378.cdn.ngenix.net/ren_tv/index.m3u8
+
+#EXTINF:-1 tvg-id="rentv" group-title="Общие",РЕН ТВ
+https://s70378.cdn.ngenix.net/ren_tv/1/index.m3u8
+
+#EXTINF:-1 tvg-id="rentv" group-title="Общие",РЕН ТВ
+https://s70378.cdn.ngenix.net/ren_tv/2/index.m3u8
+
+#EXTINF:-1 tvg-id="tv3" group-title="Развлекательные",ТВ-3
+https://s70378.cdn.ngenix.net/tv_3/index.m3u8
+
+#EXTINF:-1 tvg-id="tv3" group-title="Развлекательные",ТВ-3
+https://s70378.cdn.ngenix.net/tv_3/1/index.m3u8
+
+#EXTINF:-1 tvg-id="tv3" group-title="Развлекательные",ТВ-3
+https://s70378.cdn.ngenix.net/tv_3/2/index.m3u8
+
+#EXTINF:-1 tvg-id="mir" group-title="General",Мир
+https://s70378.cdn.ngenix.net/mir/index.m3u8
+
+#EXTINF:-1 tvg-id="mir" group-title="General",Мир
+https://s70378.cdn.ngenix.net/mir/1/index.m3u8
+
+======================================================================
+КОНЕЦ МАРШРУТА
+======================================================================
