@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Alias Verification Engine v4.0 (ngSKALA Hybrid Edition)
-Самообучающийся сканер CDN Ngenix с поддержкой EPG, мульти-нод и валидацией HLS.
+Alias Verification Engine v4.0 (ngSKALA Hybrid Edition + EPG 2016 Knowledge Layer)
+Самообучающийся сканер CDN Ngenix с поддержкой EPG, мульти-нод, валидацией HLS
+и интеграцией исторической базы знания xml_2016_knowledge.json.
 """
 
 from __future__ import annotations
@@ -20,6 +21,7 @@ import re
 import sqlite3
 import ssl
 import time
+from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Set, Tuple
 import unicodedata
 from urllib.error import HTTPError, URLError
@@ -31,6 +33,9 @@ import xml.etree.ElementTree as ET
 # ============================================================
 
 EPG_URL = "http://epg.one/epg2.xml.gz"
+EPG_2016_KNOWLEDGE_URL = "https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/xml_2016_knowledge.json"
+LOCAL_EPG_2016_CACHE = "xml_2016_knowledge.json"
+
 DB_FILE_PATH = "knowledge.db"
 
 BASE_HUMAN_REPORT_NAME = "Ai_Alias.txt"
@@ -166,6 +171,80 @@ EXTRA_CHANNELS = [
     {"id": "unknown_russia", "name": "Неизвестная Россия", "logo": ""},
     {"id": "boec", "name": "Боец", "logo": ""},
 ]
+
+# ============================================================
+# МОДУЛЬ ЗАГРУЗКИ BAZY ZNANIY EPG 2016
+# ============================================================
+
+class EPGKnowledgeBase:
+    """Загрузчик и индексатор исторической базы xml_2016_knowledge.json."""
+    def __init__(self, url: str = EPG_2016_KNOWLEDGE_URL, cache_path: str = LOCAL_EPG_2016_CACHE):
+        self.url = url
+        self.cache_path = Path(cache_path)
+        self.name_to_candidates: Dict[str, Set[str]] = {}
+
+    def load(self) -> None:
+        data = None
+        # 1. Загрузка по сети
+        req = Request(self.url, headers={"User-Agent": DEFAULT_USER_AGENT})
+        try:
+            with urlopen(req, timeout=10, context=SSL_CONTEXT) as resp:
+                raw_bytes = resp.read()
+                data = json.loads(raw_bytes.decode("utf-8"))
+                self.cache_path.write_bytes(raw_bytes)
+                LOGGER.info("База xml_2016_knowledge.json обновлена из GitHub Raw.")
+        except Exception as e:
+            LOGGER.warning("Не удалось скачать xml_2016_knowledge.json из сети (%s). Пробуем локальный кэш...", e)
+
+        # 2. Локальный кэш
+        if not data and self.cache_path.exists():
+            try:
+                data = json.loads(self.cache_path.read_text(encoding="utf-8"))
+                LOGGER.info("База xml_2016_knowledge.json успешно загружена из локального файла.")
+            except Exception as e:
+                LOGGER.error("Ошибка чтения локального файла кэша EPG 2016: %s", e)
+
+        if data and "items" in data:
+            self._index(data["items"])
+
+    def _index(self, items: List[dict]) -> None:
+        for item in items:
+            ru_names = item.get("ru_names", [])
+            en_names = item.get("en_names", [])
+            channel_id = item.get("channel_id", "")
+            candidates = set(item.get("cdn_candidates", []))
+
+            if not candidates:
+                continue
+
+            all_names = set(ru_names + en_names)
+            if channel_id:
+                all_names.add(channel_id)
+
+            for name in all_names:
+                norm_key = self._normalize(name)
+                if norm_key:
+                    if norm_key not in self.name_to_candidates:
+                        self.name_to_candidates[norm_key] = set()
+                    self.name_to_candidates[norm_key].update(candidates)
+
+        LOGGER.info("Индексация EPG 2016 завершена. Покрыто уникальных названий/ID: %d", len(self.name_to_candidates))
+
+    @staticmethod
+    def _normalize(s: str) -> str:
+        s = s.lower().strip()
+        s = re.sub(r'\(.*?\)', '', s)
+        s = re.sub(r'[^a-zа-я0-9]', '', s)
+        return s
+
+    def get_candidates(self, channel_name: str, tvg_id: str = "") -> List[str]:
+        results = set()
+        for key in (channel_name, tvg_id):
+            if key:
+                norm = self._normalize(key)
+                if norm in self.name_to_candidates:
+                    results.update(self.name_to_candidates[norm])
+        return list(results)
 
 # ============================================================
 # DATA CLASSES
@@ -333,7 +412,7 @@ class HybridLearner:
 
     def _bootstrap(self) -> None:
         default_rules = [
-            "exact_id", "clean_id", "underscore", "no_spaces",
+            "epg_xml_2016", "exact_id", "clean_id", "underscore", "no_spaces",
             "translit_underscore", "translit_nospaces", "known_dictionary",
             "strip_hd", "viju_prefix", "mapped_name"
         ]
@@ -363,7 +442,7 @@ def normalize_unicode(value: str) -> str:
 def transliterate_russian(value: str) -> str:
     return normalize_unicode(value).casefold().translate(RUSSIAN_TRANSLITERATION_TABLE)
 
-def generate_alias_candidates(channel: ChannelInput, learner: HybridLearner) -> List[AliasCandidate]:
+def generate_alias_candidates(channel: ChannelInput, learner: HybridLearner, epg_kb: Optional[EPGKnowledgeBase] = None) -> List[AliasCandidate]:
     name = channel.display_name
     epg_id = channel.tvg_id or name
     rule_weights = learner.get_rule_weights()
@@ -375,14 +454,20 @@ def generate_alias_candidates(channel: ChannelInput, learner: HybridLearner) -> 
         if val_clean and val_clean not in candidates:
             candidates[val_clean] = (val_clean, rule)
 
+    # 0. Исторический слой из EPG 2016 (Интеграция!)
+    if epg_kb:
+        historical_candidates = epg_kb.get_candidates(name, channel.tvg_id)
+        for cand in historical_candidates:
+            add_cand(cand, "epg_xml_2016")
+
     # 1. Прямой словарь
     display_norm = name.strip().casefold()
     mapped_name = CHANNEL_NAME_ALIASES.get(display_norm)
-    
+
     dict_matches = set(KNOWN_ALIAS_DICTIONARY.get(name, set()))
     if mapped_name:
         dict_matches.update(KNOWN_ALIAS_DICTIONARY.get(mapped_name, set()))
-    
+
     for alias in dict_matches:
         add_cand(alias, "known_dictionary")
 
@@ -420,9 +505,10 @@ def generate_alias_candidates(channel: ChannelInput, learner: HybridLearner) -> 
 # ============================================================
 
 class MultiNodeScanner:
-    def __init__(self, db: Database, learner: HybridLearner):
+    def __init__(self, db: Database, learner: HybridLearner, epg_kb: Optional[EPGKnowledgeBase] = None):
         self.db = db
         self.learner = learner
+        self.epg_kb = epg_kb
         self.active_nodes: List[str] = []
 
     def ping_nodes(self) -> List[str]:
@@ -472,7 +558,7 @@ class MultiNodeScanner:
             return False, 0, (time.time() - start_time) * 1000.0
 
     def probe_channel(self, channel: ChannelInput) -> AliasMatch:
-        candidates = generate_alias_candidates(channel, self.learner)
+        candidates = generate_alias_candidates(channel, self.learner, self.epg_kb)
         patterns = self.learner.get_prioritized_patterns()
         nodes = self.active_nodes if self.active_nodes else ["s70378"]
 
@@ -506,7 +592,7 @@ class MultiNodeScanner:
                             cdn_alias=cand.value,
                             match_type="CONFIRMED_HYBRID",
                             confidence=cand.score,
-                            reason=f"Успешная HLS-валидация на ноде {node}",
+                            reason=f"Успешная HLS-валидация на ноде {node} (Правило: {cand.reason})",
                             candidates=candidates,
                             streams=[stream]
                         )
@@ -627,7 +713,12 @@ def save_all_reports(channels: List[ChannelInput], results: List[AliasMatch]) ->
 def run_pipeline() -> None:
     db = Database()
     learner = HybridLearner(db)
-    scanner = MultiNodeScanner(db, learner)
+
+    # Подключаем EPG 2016 Knowledge Layer
+    epg_kb = EPGKnowledgeBase()
+    epg_kb.load()
+
+    scanner = MultiNodeScanner(db, learner, epg_kb)
 
     scanner.ping_nodes()
     channels = fetch_epg_channels()
@@ -641,7 +732,7 @@ def run_pipeline() -> None:
             res = future.result()
             results.append(res)
             if res.cdn_alias:
-                LOGGER.info("[+] Найден: %s -> %s", res.channel_name, res.streams[0].url)
+                LOGGER.info("[+] Найден: %s -> %s (Правило: %s)", res.channel_name, res.streams[0].url, res.streams[0].rule_name)
 
     LOGGER.info("Перерасчет рейтингов и самообучение модели...")
     learner.train()
