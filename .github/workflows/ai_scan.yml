@@ -1,0 +1,38 @@
+name: AI Scan — запуск ai_scan.py
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  run-ai-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Шаг 1 — Клонирование репозитория
+        uses: actions/checkout@v4
+
+      - name: Шаг 2 — Установка Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Шаг 3 — Установка зависимостей
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Шаг 4 — Запуск скрипта ai_scan.py
+        run: |
+          python ai_scan.py
+
+      - name: Шаг 5 — Сохранение результатов (отчёт, плейлист, база знаний)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-scan-output
+          path: |
+            ngSKALA_learned_report.txt
+            playlist.m3u
+            knowledge.db
