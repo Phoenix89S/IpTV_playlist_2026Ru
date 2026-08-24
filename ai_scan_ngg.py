@@ -1,6 +1,18 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Alias Verification Engine v4.0 (ngSKALA Hybrid Edition)
+Самообучающийся сканер CDN Ngenix с поддержкой EPG, мульти-нод и валидацией HLS.
+"""
+
 from __future__ import annotations
 
+import argparse
 import concurrent.futures
+from dataclasses import asdict, dataclass, field
+from datetime import datetime
+import gzip
+import io
 import json
 import logging
 import os
@@ -8,32 +20,42 @@ import re
 import sqlite3
 import ssl
 import time
-import unicodedata
-from dataclasses import asdict, dataclass, field
-from datetime import datetime
 from typing import Dict, Iterable, List, Optional, Set, Tuple
+import unicodedata
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
+import xml.etree.ElementTree as ET
 
 # ============================================================
 # ГЛОБАЛЬНЫЕ НАСТРОЙКИ И КОНФИГУРАЦИЯ
 # ============================================================
 
-CDN_BASE_URL = "https://s70378.cdn.ngenix.net"
-DEFAULT_STREAM_FILE = "index.m3u8"
-DEFAULT_MAX_VARIANT_NUMBER = 10
-DEFAULT_REQUEST_TIMEOUT = 5
-MAX_WORKER_THREADS = 10
-DEFAULT_USER_AGENT = "AliasVerificationModule/3.0 (Production Self-Learning Engine)"
+EPG_URL = "http://epg.one/epg2.xml.gz"
 DB_FILE_PATH = "knowledge.db"
 
-# Базовые имена выходных файлов
 BASE_HUMAN_REPORT_NAME = "Ai_Alias.txt"
 BASE_MACHINE_REPORT_NAME = "Ai_Alias_ngnorm.txt"
 BASE_JSON_EXPORT_NAME = "Ai_Alias_export.json"
+OUTPUT_PLAYLIST = "playlist.m3u"
 
-MACHINE_SOURCE = "ALIAS_MODULE_V3"
-M3U_SECTION_TITLE = "M3U PLAYLIST EDITION"
+MACHINE_SOURCE = "ALIAS_MODULE_V4_HYBRID"
+DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36"
+
+DEFAULT_REQUEST_TIMEOUT = 3
+MAX_WORKER_THREADS = 20
+
+# Узлы CDN Ngenix для динамического опроса
+NGENIX_NODES = [f"s703{i}" for i in range(78, 91)]
+
+DEFAULT_PATTERNS = [
+    "{v}/index.m3u8",
+    "{v}/mono.m3u8",
+    "{v}/live.m3u8",
+    "hls/{v}/variant.m3u8",
+    "{v}/tracks-v1a1/mono.m3u8",
+    "{v}/1/index.m3u8",
+    "hls/CH_{v}/variant.m3u8"
+]
 
 SSL_CONTEXT = ssl.create_default_context()
 SSL_CONTEXT.check_hostname = False
@@ -43,7 +65,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
 )
-LOGGER = logging.getLogger("AliasEngine")
+LOGGER = logging.getLogger("AliasEngineV4")
 
 # ============================================================
 # СЛУЖЕБНЫЕ ТАБЛИЦЫ, ПСЕВДОНИМЫ И СТОП-СЛОВА
@@ -54,7 +76,7 @@ RUSSIAN_TRANSLITERATION_TABLE = str.maketrans(
         "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "yo",
         "ж": "zh", "з": "z", "и": "i", "й": "y", "к": "k", "л": "l", "м": "m",
         "н": "n", "о": "o", "п": "p", "р": "r", "с": "s", "т": "t", "у": "u",
-        "ф": "f", "х": "kh", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "shch",
+        "ф": "f", "х": "h", "ц": "c", "ч": "ch", "ш": "sh", "щ": "sch",
         "ъ": "", "ы": "y", "ь": "", "э": "e", "ю": "yu", "я": "ya",
     }
 )
@@ -63,7 +85,6 @@ QUALITY_TOKENS = {"hd", "sd", "fhd", "uhd", "4k", "8k", "hevc", "50fps"}
 TECHNICAL_SUFFIXES = {"channel", "tv", "television", "online", "live", "stream", "hd"}
 STUB_TOKENS = {"заглушка", "stub", "test", "temp", "placeholder", "тест", "проверка", "резерв"}
 
-# Карта промежуточного маппинга названий каналов
 CHANNEL_NAME_ALIASES: Dict[str, str] = {
     "голливуд hd": "Hollywood HD",
     "голливуд": "Hollywood HD",
@@ -73,7 +94,6 @@ CHANNEL_NAME_ALIASES: Dict[str, str] = {
     "матч тв hd": "Матч ТВ",
 }
 
-# Базовый словарь явной привязки каналов к CDN алиасам
 KNOWN_ALIAS_DICTIONARY: Dict[str, Set[str]] = {
     "Hollywood HD": {"amc"},
     "AMC": {"amc"},
@@ -98,6 +118,55 @@ KNOWN_ALIAS_DICTIONARY: Dict[str, Set[str]] = {
     "Galaxy": {"galaxy"},
 }
 
+EXTRA_CHANNELS = [
+    {"id": "scream", "name": "Scream", "logo": ""},
+    {"id": "shokiruyuschee", "name": "Шокирующее", "logo": ""},
+    {"id": "viju_planet", "name": "viju+ planet", "logo": ""},
+    {"id": "viju_tv1000_romantica", "name": "viju TV1000 romantica", "logo": ""},
+    {"id": "viju_tv1000_novella", "name": "viju TV1000 новелла", "logo": ""},
+    {"id": "viju_tv1000_action", "name": "viju TV1000 action", "logo": ""},
+    {"id": "viju_tv1000_russkoe", "name": "viju TV1000 русское", "logo": ""},
+    {"id": "hit", "name": "ХИТ", "logo": ""},
+    {"id": "kinokomediya", "name": "Кинокомедия", "logo": ""},
+    {"id": "cinema", "name": "CINEMA", "logo": ""},
+    {"id": "mosfilm_gold", "name": "Мосфильм. Золотая коллекция", "logo": ""},
+    {"id": "fantastic_channel", "name": "Fantastic Channel", "logo": ""},
+    {"id": "boevik", "name": "Боевик", "logo": ""},
+    {"id": "kinomix", "name": "Киномикс", "logo": ""},
+    {"id": "detektiv", "name": "Детектив", "logo": ""},
+    {"id": "rodnoe_kino", "name": "Родное кино", "logo": ""},
+    {"id": "patriot", "name": "Патриот", "logo": ""},
+    {"id": "rtg_hd", "name": "RTG HD", "logo": ""},
+    {"id": "rtg_int", "name": "RTG Int", "logo": ""},
+    {"id": "nat_geo_ru", "name": "National Geographic RU", "logo": ""},
+    {"id": "nat_geo_wild", "name": "NAT GEO WILD", "logo": ""},
+    {"id": "kinoujas", "name": "КИНОУЖАС", "logo": ""},
+    {"id": "kinosemya", "name": "КИНОСЕМЬЯ", "logo": ""},
+    {"id": "russkiy_roman", "name": "Русский роман", "logo": ""},
+    {"id": "russkiy_detektiv", "name": "Русский детектив", "logo": ""},
+    {"id": "komediya", "name": "Комедия", "logo": ""},
+    {"id": "klyuch", "name": "Ключ", "logo": ""},
+    {"id": "ntv_plus", "name": "НТВ-ПЛЮС", "logo": ""},
+    {"id": "rutube", "name": "RUTUBE", "logo": ""},
+    {"id": "premier", "name": "PREMIER", "logo": ""},
+    {"id": "ntv", "name": "НТВ", "logo": ""},
+    {"id": "tnt", "name": "ТНТ", "logo": ""},
+    {"id": "pyatnica", "name": "Пятница!", "logo": ""},
+    {"id": "tv3", "name": "ТВ-3", "logo": ""},
+    {"id": "tnt4", "name": "ТНТ4", "logo": ""},
+    {"id": "match_tv", "name": "Матч ТВ", "logo": ""},
+    {"id": "trash", "name": "Trash", "logo": ""},
+    {"id": "match_strana", "name": "Матч! Страна", "logo": ""},
+    {"id": "2x2", "name": "2x2", "logo": ""},
+    {"id": "subbota", "name": "Суббота!", "logo": ""},
+    {"id": "ntv_style", "name": "НТВ Стиль", "logo": ""},
+    {"id": "ntv_pravo", "name": "НТВ Право", "logo": ""},
+    {"id": "ntv_serial", "name": "НТВ Сериал", "logo": ""},
+    {"id": "ntv_hit", "name": "НТВ Хит", "logo": ""},
+    {"id": "unknown_russia", "name": "Неизвестная Россия", "logo": ""},
+    {"id": "boec", "name": "Боец", "logo": ""},
+]
+
 # ============================================================
 # DATA CLASSES
 # ============================================================
@@ -108,15 +177,15 @@ class ChannelInput:
     tvg_id: str = ""
     tvg_name: str = ""
     group_title: str = ""
-    original_url: str = ""
-    source_line: int = 0
+    logo: str = ""
 
 @dataclass
 class CDNStream:
     alias: str
     url: str
-    variant: Optional[int]
-    source: str = ""
+    node: str
+    pattern: str
+    rule_name: str
     http_status: Optional[int] = None
     reachable: Optional[bool] = None
     response_time_ms: float = 0.0
@@ -140,14 +209,13 @@ class AliasMatch:
     streams: List[CDNStream] = field(default_factory=list)
 
 # ============================================================
-# ДИНАМИЧЕСКИЙ ДВИЖОК САМООБУЧЕНИЯ (ALIAS LEARNER ENGINE)
+# ДИНАМИЧЕСКАЯ БАЗА ДАННЫХ И ДВИЖОК ОБУЧЕНИЯ
 # ============================================================
 
-class AliasLearnerEngine:
+class Database:
     def __init__(self, db_path: str = DB_FILE_PATH):
         self.db_path = db_path
         self._init_db()
-        self._load_learned_dictionary()
 
     def _get_connection(self) -> sqlite3.Connection:
         conn = sqlite3.connect(self.db_path)
@@ -157,6 +225,35 @@ class AliasLearnerEngine:
     def _init_db(self) -> None:
         with self._get_connection() as conn:
             conn.execute("""
+                CREATE TABLE IF NOT EXISTS rules (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT UNIQUE,
+                    attempts INTEGER DEFAULT 0,
+                    success INTEGER DEFAULT 0,
+                    weight REAL DEFAULT 0.5
+                )
+            """)
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS patterns (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    pattern TEXT UNIQUE,
+                    attempts INTEGER DEFAULT 0,
+                    success INTEGER DEFAULT 0,
+                    weight REAL DEFAULT 0.5
+                )
+            """)
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS history (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    channel_id TEXT,
+                    rule_name TEXT,
+                    pattern TEXT,
+                    node TEXT,
+                    success INTEGER,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+                )
+            """)
+            conn.execute("""
                 CREATE TABLE IF NOT EXISTS learned_aliases (
                     channel_name TEXT PRIMARY KEY,
                     cdn_alias TEXT NOT NULL,
@@ -165,34 +262,59 @@ class AliasLearnerEngine:
                     last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
                 )
             """)
+            conn.commit()
+
+    def register_rule(self, rule_name: str) -> None:
+        with self._get_connection() as conn:
+            conn.execute("INSERT OR IGNORE INTO rules (name) VALUES (?)", (rule_name,))
+            conn.commit()
+
+    def register_pattern(self, pattern: str) -> None:
+        with self._get_connection() as conn:
+            conn.execute("INSERT OR IGNORE INTO patterns (pattern) VALUES (?)", (pattern,))
+            conn.commit()
+
+    def log_attempt(self, channel_id: str, rule_name: str, pattern: str, node: str, success: bool) -> None:
+        with self._get_connection() as conn:
             conn.execute("""
-                CREATE TABLE IF NOT EXISTS candidate_stats (
-                    reason TEXT PRIMARY KEY,
-                    attempts INTEGER DEFAULT 0,
-                    success INTEGER DEFAULT 0,
-                    weight REAL DEFAULT 0.5
-                )
+                INSERT INTO history (channel_id, rule_name, pattern, node, success)
+                VALUES (?, ?, ?, ?, ?)
+            """, (channel_id, rule_name, pattern, node, 1 if success else 0))
+            conn.commit()
+
+    def update_weights(self) -> None:
+        with self._get_connection() as conn:
+            conn.execute("""
+                UPDATE rules
+                SET attempts = (SELECT COUNT(*) FROM history WHERE history.rule_name = rules.name),
+                    success  = (SELECT COUNT(*) FROM history WHERE history.rule_name = rules.name AND success = 1)
+            """)
+            conn.execute("""
+                UPDATE rules
+                SET weight = (CAST(success AS REAL) + 1.0) / (CAST(attempts AS REAL) + 2.0)
+            """)
+            conn.execute("""
+                UPDATE patterns
+                SET attempts = (SELECT COUNT(*) FROM history WHERE history.pattern = patterns.pattern),
+                    success  = (SELECT COUNT(*) FROM history WHERE history.pattern = patterns.pattern AND success = 1)
+            """)
+            conn.execute("""
+                UPDATE patterns
+                SET weight = (CAST(success AS REAL) + 1.0) / (CAST(attempts AS REAL) + 2.0)
             """)
             conn.commit()
 
-    def _load_learned_dictionary(self) -> None:
+    def get_ranked_rules(self) -> List[Dict]:
         with self._get_connection() as conn:
-            rows = conn.execute("SELECT channel_name, cdn_alias FROM learned_aliases").fetchall()
-            for r in rows:
-                ch_name = r["channel_name"]
-                alias = r["cdn_alias"]
-                if ch_name not in KNOWN_ALIAS_DICTIONARY:
-                    KNOWN_ALIAS_DICTIONARY[ch_name] = set()
-                KNOWN_ALIAS_DICTIONARY[ch_name].add(alias)
+            rows = conn.execute("SELECT name, weight FROM rules ORDER BY weight DESC").fetchall()
+            return [dict(r) for r in rows]
 
-    def get_reason_weight(self, reason: str, default_score: float) -> float:
+    def get_ranked_patterns(self) -> List[Dict]:
         with self._get_connection() as conn:
-            row = conn.execute("SELECT weight FROM candidate_stats WHERE reason = ?", (reason,)).fetchone()
-            if row and row["weight"] is not None:
-                return float(row["weight"])
-        return default_score
+            rows = conn.execute("SELECT pattern, weight FROM patterns ORDER BY weight DESC").fetchall()
+            return [dict(r) for r in rows]
 
-    def record_success(self, channel_name: str, confirmed_alias: str, reason: str) -> None:
+    def record_learned_alias(self, channel_name: str, cdn_alias: str) -> None:
         with self._get_connection() as conn:
             conn.execute("""
                 INSERT INTO learned_aliases (channel_name, cdn_alias, confidence, hit_count)
@@ -201,454 +323,361 @@ class AliasLearnerEngine:
                     cdn_alias = excluded.cdn_alias,
                     hit_count = hit_count + 1,
                     last_updated = CURRENT_TIMESTAMP
-            """, (channel_name, confirmed_alias))
-
-            conn.execute("""
-                INSERT INTO candidate_stats (reason, attempts, success, weight)
-                VALUES (?, 1, 1, 0.6)
-                ON CONFLICT(reason) DO UPDATE SET
-                    attempts = attempts + 1,
-                    success = success + 1,
-                    weight = (CAST(success + 1 AS REAL) + 1.0) / (CAST(attempts + 1 AS REAL) + 2.0)
-            """, (reason,))
+            """, (channel_name, cdn_alias))
             conn.commit()
 
-        if channel_name not in KNOWN_ALIAS_DICTIONARY:
-            KNOWN_ALIAS_DICTIONARY[channel_name] = set()
-        KNOWN_ALIAS_DICTIONARY[channel_name].add(confirmed_alias)
+class HybridLearner:
+    def __init__(self, db: Database):
+        self.db = db
+        self._bootstrap()
 
-    def record_failure(self, reason: str) -> None:
-        with self._get_connection() as conn:
-            conn.execute("""
-                INSERT INTO candidate_stats (reason, attempts, success, weight)
-                VALUES (?, 1, 0, 0.3)
-                ON CONFLICT(reason) DO UPDATE SET
-                    attempts = attempts + 1,
-                    weight = (CAST(success AS REAL) + 1.0) / (CAST(attempts + 1 AS REAL) + 2.0)
-            """, (reason,))
-            conn.commit()
+    def _bootstrap(self) -> None:
+        default_rules = [
+            "exact_id", "clean_id", "underscore", "no_spaces",
+            "translit_underscore", "translit_nospaces", "known_dictionary",
+            "strip_hd", "viju_prefix", "mapped_name"
+        ]
+        for r in default_rules:
+            self.db.register_rule(r)
+        for p in DEFAULT_PATTERNS:
+            self.db.register_pattern(p)
+
+    def train(self) -> None:
+        self.db.update_weights()
+
+    def get_prioritized_patterns(self) -> List[str]:
+        ranked = self.db.get_ranked_patterns()
+        return [p["pattern"] for p in ranked] if ranked else DEFAULT_PATTERNS
+
+    def get_rule_weights(self) -> Dict[str, float]:
+        ranked = self.db.get_ranked_rules()
+        return {r["name"]: r["weight"] for r in ranked}
 
 # ============================================================
-# НОРМАЛИЗАЦИЯ И ТРАНСФОРМАЦИЯ СТРОК
+# НОРМАЛИЗАЦИЯ И ГЕНЕРАЦИЯ ВАРИАНТОВ
 # ============================================================
 
 def normalize_unicode(value: str) -> str:
     return unicodedata.normalize("NFKC", value).strip() if value else ""
 
-def normalize_case(value: str) -> str:
-    return value.casefold()
-
-def remove_quality_tokens(value: str) -> str:
-    parts = value.split()
-    return " ".join([p for p in parts if p.casefold() not in QUALITY_TOKENS])
-
-def normalize_separators(value: str) -> str:
-    for sep in ["-", "_", ".", "/", "\\", "|", ":"]:
-        value = value.replace(sep, " ")
-    return re.sub(r"\s+", " ", value).strip()
-
-def normalize_channel_name(value: str, remove_quality: bool = False) -> str:
-    value = normalize_unicode(value)
-    value = normalize_case(value)
-    if remove_quality:
-        value = remove_quality_tokens(value)
-    return normalize_separators(value)
-
-def normalize_alias(value: str) -> str:
-    return normalize_unicode(value).casefold().strip("/")
-
 def transliterate_russian(value: str) -> str:
     return normalize_unicode(value).casefold().translate(RUSSIAN_TRANSLITERATION_TABLE)
 
-def cleanup_alias_candidate(value: str) -> str:
-    value = normalize_unicode(value).casefold()
-    value = re.sub(r"[^a-z0-9]+", "_", value)
-    return re.sub(r"_+", "_", value).strip("_")
+def generate_alias_candidates(channel: ChannelInput, learner: HybridLearner) -> List[AliasCandidate]:
+    name = channel.display_name
+    epg_id = channel.tvg_id or name
+    rule_weights = learner.get_rule_weights()
 
-def is_stub(value: str) -> bool:
-    val_lower = value.lower()
-    return any(stub in val_lower for stub in STUB_TOKENS)
+    candidates: Dict[str, Tuple[str, str]] = {} # alias -> (alias, rule_name)
 
-# ============================================================
-# ГЕНЕРАТОР КАНДИДАТОВ С ПОДДЕРЖКОЙ МАППИНГА ИМЕН
-# ============================================================
+    def add_cand(val: str, rule: str) -> None:
+        val_clean = re.sub(r"[^a-z0-9]+", "_", val.casefold()).strip("_")
+        if val_clean and val_clean not in candidates:
+            candidates[val_clean] = (val_clean, rule)
 
-def generate_alias_candidates(
-    channel: ChannelInput, 
-    learner: Optional[AliasLearnerEngine] = None
-) -> List[AliasCandidate]:
-    if is_stub(channel.display_name):
-        return []
-
-    result: Dict[str, AliasCandidate] = {}
-
-    def add_candidate(val: str, reason: str, default_score: float) -> None:
-        val = normalize_alias(val)
-        if not val or is_stub(val):
-            return
-        
-        score = learner.get_reason_weight(reason, default_score) if learner else default_score
-
-        if val not in result:
-            result[val] = AliasCandidate(value=val, reason=reason, score=score)
-        elif score > result[val].score:
-            result[val].score = score
-            result[val].reason = reason
-
-    display_name = channel.display_name
-    raw_norm = display_name.strip().casefold()
+    # 1. Прямой словарь
+    display_norm = name.strip().casefold()
+    mapped_name = CHANNEL_NAME_ALIASES.get(display_norm)
     
-    # 1. Проверка маппинга псевдонимов имён ("Голливуд HD" -> "Hollywood HD")
-    mapped_name = CHANNEL_NAME_ALIASES.get(raw_norm)
-
-    # 2. Поиск по словарю прямого соответствия
-    dictionary_aliases = set(KNOWN_ALIAS_DICTIONARY.get(display_name, set()))
+    dict_matches = set(KNOWN_ALIAS_DICTIONARY.get(name, set()))
     if mapped_name:
-        dictionary_aliases.update(KNOWN_ALIAS_DICTIONARY.get(mapped_name, set()))
+        dict_matches.update(KNOWN_ALIAS_DICTIONARY.get(mapped_name, set()))
+    
+    for alias in dict_matches:
+        add_cand(alias, "known_dictionary")
 
-    for alias in dictionary_aliases:
-        add_candidate(alias, "known_dictionary", 0.99)
+    # 2. Правила трансформирования
+    name_lower = name.lower().strip()
+    clean_id = epg_id.lower().replace(" ", "").replace("-", "").replace("_", "")
+    translit_name = transliterate_russian(name_lower)
 
-    # 3. Генерация кандидатов из оригинального имени
-    normalized = normalize_channel_name(display_name, remove_quality=False)
-    normalized_no_quality = normalize_channel_name(display_name, remove_quality=True)
-    transliterated = transliterate_russian(display_name)
-    transliterated_no_quality = transliterate_russian(normalized_no_quality)
+    add_cand(epg_id, "exact_id")
+    add_cand(clean_id, "clean_id")
+    add_cand(name_lower.replace(" ", "_"), "underscore")
+    add_cand(name_lower.replace(" ", ""), "no_spaces")
+    add_cand(translit_name.replace(" ", "_"), "translit_underscore")
+    add_cand(translit_name.replace(" ", ""), "translit_nospaces")
 
-    add_candidate(cleanup_alias_candidate(normalized), "normalized_name", 0.60)
-    add_candidate(cleanup_alias_candidate(normalized_no_quality), "normalized_without_quality", 0.55)
-    add_candidate(cleanup_alias_candidate(transliterated), "transliteration", 0.50)
-    add_candidate(cleanup_alias_candidate(transliterated_no_quality), "transliteration_without_quality", 0.48)
+    if "hd" in name_lower:
+        add_cand(name_lower.replace("hd", "").replace(" ", ""), "strip_hd")
 
-    # 4. Если сработал маппинг, генерируем варианты для переведенного имени
+    if "viju" in name_lower:
+        core = transliterate_russian(name_lower.replace("viju", "").replace("+", "").strip())
+        add_cand(f"vip_{core}", "viju_prefix")
+
     if mapped_name:
-        mapped_norm = normalize_channel_name(mapped_name, remove_quality=True)
-        add_candidate(cleanup_alias_candidate(mapped_norm), "mapped_name_transliteration", 0.85)
+        add_cand(transliterate_russian(mapped_name), "mapped_name")
 
-    # 5. tvg_id и tvg_name
-    if channel.tvg_id:
-        add_candidate(cleanup_alias_candidate(channel.tvg_id), "tvg_id", 0.90)
-    if channel.tvg_name:
-        add_candidate(cleanup_alias_candidate(channel.tvg_name), "tvg_name", 0.70)
+    result = []
+    for alias, rule in candidates.values():
+        score = rule_weights.get(rule, 0.5)
+        result.append(AliasCandidate(value=alias, reason=rule, score=score))
 
-    # 6. Варианты с техническими суффиксами
-    base_values = list(result.keys())
-    for base in base_values:
-        for suffix in TECHNICAL_SUFFIXES:
-            add_candidate(f"{base}_{suffix}", f"technical_suffix:{suffix}", 0.25)
-
-    return sorted(result.values(), key=lambda item: (-item.score, item.value))
+    return sorted(result, key=lambda x: -x.score)
 
 # ============================================================
-# ПАРАЛЛЕЛЬНЫЙ СЕТЕВОЙ СКАНЕР ПОТОКОВ
+# МУЛЬТИ-НОДОВЫЙ СКАНИРОВЩИК И ИСПЫТАТЕЛЬ ПОТОКОВ
 # ============================================================
 
-def build_stream_url(base_url: str, alias: str, variant: Optional[int] = None) -> str:
-    base_url = base_url.rstrip("/")
-    alias = alias.strip("/")
-    if variant is None:
-        return f"{base_url}/{alias}/{DEFAULT_STREAM_FILE}"
-    return f"{base_url}/{alias}/{variant}/{DEFAULT_STREAM_FILE}"
+class MultiNodeScanner:
+    def __init__(self, db: Database, learner: HybridLearner):
+        self.db = db
+        self.learner = learner
+        self.active_nodes: List[str] = []
 
-def check_single_url(url: str, alias: str, variant: Optional[int], source: str, timeout: int) -> CDNStream:
-    start_time = time.time()
-    request = Request(url, method="HEAD", headers={"User-Agent": DEFAULT_USER_AGENT})
-    try:
-        with urlopen(request, timeout=timeout, context=SSL_CONTEXT) as response:
-            elapsed_ms = (time.time() - start_time) * 1000.0
-            status = getattr(response, "status", 200)
-            return CDNStream(
-                alias=alias,
-                url=url,
-                variant=variant,
-                source=source,
-                http_status=status,
-                reachable=(status == 200),
-                response_time_ms=elapsed_ms,
-            )
-    except HTTPError as error:
-        elapsed_ms = (time.time() - start_time) * 1000.0
-        return CDNStream(
-            alias=alias, url=url, variant=variant, source=source,
-            http_status=error.code, reachable=False, response_time_ms=elapsed_ms
-        )
-    except Exception:
-        elapsed_ms = (time.time() - start_time) * 1000.0
-        return CDNStream(
-            alias=alias, url=url, variant=variant, source=source,
-            http_status=None, reachable=False, response_time_ms=elapsed_ms
-        )
+    def ping_nodes((self)) -> List[str]:
+        LOGGER.info("Опрос и проверка доступности узлов Ngenix CDN...")
+        valid_nodes = []
 
-def discover_stream_variants_parallel(
-    alias: str,
-    base_url: str = CDN_BASE_URL,
-    max_variant_number: int = DEFAULT_MAX_VARIANT_NUMBER,
-    timeout: int = DEFAULT_REQUEST_TIMEOUT,
-) -> List[CDNStream]:
-    urls_to_check: List[Tuple[str, Optional[int]]] = [(build_stream_url(base_url, alias, None), None)]
-    for v in range(1, max_variant_number + 1):
-        urls_to_check.append((build_stream_url(base_url, alias, v), v))
+        def check_node(node: str) -> Optional[str]:
+            url = f"https://{node}.cdn.ngenix.net/"
+            req = Request(url, method="HEAD", headers={"User-Agent": DEFAULT_USER_AGENT})
+            try:
+                with urlopen(req, timeout=DEFAULT_REQUEST_TIMEOUT, context=SSL_CONTEXT) as response:
+                    if getattr(response, "status", 200) < 500:
+                        return node
+            except HTTPError as e:
+                if e.code < 500:
+                    return node
+            except Exception:
+                pass
+            return None
 
-    results: List[CDNStream] = []
+        with concurrent.futures.ThreadPoolExecutor(max_workers=15) as executor:
+            futures = [executor.submit(check_node, node) for node in NGENIX_NODES]
+            for future in concurrent.futures.as_completed(futures):
+                res = future.result()
+                if res:
+                    valid_nodes.append(res)
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKER_THREADS) as executor:
-        futures = [
-            executor.submit(check_single_url, url, alias, variant, "parallel_probe", timeout)
-            for url, variant in urls_to_check
-        ]
-        for future in concurrent.futures.as_completed(futures):
-            res = future.result()
-            results.append(res)
-            if res.reachable and res.http_status == 200 and res.variant is None:
-                break
+        self.active_nodes = sorted(valid_nodes) if valid_nodes else ["s70378"]
+        LOGGER.info("Откликнулись узлы Ngenix (%d/%d): %s", len(self.active_nodes), len(NGENIX_NODES), ", ".join(self.active_nodes))
+        return self.active_nodes
 
-    return sorted(results, key=lambda x: (x.variant is not None, x.variant or 0))
+    def verify_hls_stream(self, url: str) -> Tuple[bool, int, float]:
+        start_time = time.time()
+        req = Request(url, headers={"User-Agent": DEFAULT_USER_AGENT})
+        try:
+            with urlopen(req, timeout=DEFAULT_REQUEST_TIMEOUT, context=SSL_CONTEXT) as response:
+                status = getattr(response, "status", 200)
+                elapsed_ms = (time.time() - start_time) * 1000.0
+                if status == 200:
+                    chunk = response.read(256).decode("utf-8", errors="ignore")
+                    if "#EXTM3U" in chunk:
+                        return True, 200, elapsed_ms
+                return False, status, elapsed_ms
+        except HTTPError as e:
+            return False, e.code, (time.time() - start_time) * 1000.0
+        except Exception:
+            return False, 0, (time.time() - start_time) * 1000.0
 
-# ============================================================
-# ОСНОВНОЙ МОДУЛЬ ПРОВЕРКИ
-# ============================================================
+    def probe_channel(self, channel: ChannelInput) -> AliasMatch:
+        candidates = generate_alias_candidates(channel, self.learner)
+        patterns = self.learner.get_prioritized_patterns()
+        nodes = self.active_nodes if self.active_nodes else ["s70378"]
 
-def probe_channel_candidates(
-    channel: ChannelInput,
-    learner: AliasLearnerEngine,
-    base_url: str = CDN_BASE_URL,
-    max_variant_number: int = DEFAULT_MAX_VARIANT_NUMBER,
-    timeout: int = DEFAULT_REQUEST_TIMEOUT,
-) -> AliasMatch:
-    candidates = generate_alias_candidates(channel, learner=learner)
-    all_streams: List[CDNStream] = []
-    confirmed_candidate: Optional[AliasCandidate] = None
+        for cand in candidates:
+            for node in nodes:
+                for pattern in patterns:
+                    relative_path = pattern.format(v=cand.value)
+                    stream_url = f"https://{node}.cdn.ngenix.net/{relative_path}"
 
-    for candidate in candidates:
-        streams = discover_stream_variants_parallel(
-            alias=candidate.value,
-            base_url=base_url,
-            max_variant_number=max_variant_number,
-            timeout=timeout,
-        )
+                    is_valid, http_status, ping_ms = self.verify_hls_stream(stream_url)
+                    self.db.log_attempt(channel.tvg_id or channel.display_name, cand.reason, pattern, node, is_valid)
 
-        reachable_streams = [s for s in streams if s.reachable and s.http_status == 200]
+                    if is_valid:
+                        cand.confirmed = True
+                        self.db.record_learned_alias(channel.display_name, cand.value)
 
-        if reachable_streams:
-            candidate.confirmed = True
-            all_streams.extend(reachable_streams)
-            confirmed_candidate = candidate
-            
-            # АВТООБУЧЕНИЕ: Запоминаем успешное имя канала напрямую
-            learner.record_success(
-                channel_name=channel.display_name,
-                confirmed_alias=candidate.value,
-                reason=candidate.reason
-            )
-            break
-        else:
-            learner.record_failure(reason=candidate.reason)
+                        stream = CDNStream(
+                            alias=cand.value,
+                            url=stream_url,
+                            node=f"{node}.cdn.ngenix.net",
+                            pattern=pattern,
+                            rule_name=cand.reason,
+                            http_status=http_status,
+                            reachable=True,
+                            response_time_ms=ping_ms
+                        )
 
-    if confirmed_candidate is not None:
-        match_type = "DICTIONARY_CONFIRMED" if "dictionary" in confirmed_candidate.reason else "CANDIDATE_CONFIRMED"
+                        return AliasMatch(
+                            channel_name=channel.display_name,
+                            normalized_name=cand.value,
+                            cdn_alias=cand.value,
+                            match_type="CONFIRMED_HYBRID",
+                            confidence=cand.score,
+                            reason=f"Успешная HLS-валидация на ноде {node}",
+                            candidates=candidates,
+                            streams=[stream]
+                        )
+
         return AliasMatch(
             channel_name=channel.display_name,
-            normalized_name=normalize_channel_name(channel.display_name),
-            cdn_alias=confirmed_candidate.value,
-            match_type=match_type,
-            confidence=confirmed_candidate.score,
-            reason="Alias подтвержден ответом CDN (HTTP 200).",
+            normalized_name=channel.display_name.lower(),
+            cdn_alias=None,
+            match_type="UNKNOWN",
+            confidence=0.0,
+            reason="Ни один кандидат/узел не прошел проверку HLS",
             candidates=candidates,
-            streams=all_streams,
+            streams=[]
         )
-
-    return AliasMatch(
-        channel_name=channel.display_name,
-        normalized_name=normalize_channel_name(channel.display_name),
-        cdn_alias=None,
-        match_type="UNKNOWN",
-        confidence=0.0,
-        reason="Ни один кандидат не прошел сетевую проверку.",
-        candidates=candidates,
-        streams=[],
-    )
-
-def verify_channels(
-    channels: Iterable[ChannelInput],
-    learner: AliasLearnerEngine,
-    base_url: str = CDN_BASE_URL,
-    max_variant_number: int = DEFAULT_MAX_VARIANT_NUMBER,
-    timeout: int = DEFAULT_REQUEST_TIMEOUT,
-) -> List[AliasMatch]:
-    results: List[AliasMatch] = []
-    for channel in channels:
-        LOGGER.info("Обработка канала: %s", channel.display_name)
-        if is_stub(channel.display_name):
-            LOGGER.warning("Пропущен (заглушка): %s", channel.display_name)
-            continue
-
-        result = probe_channel_candidates(
-            channel=channel,
-            learner=learner,
-            base_url=base_url,
-            max_variant_number=max_variant_number,
-            timeout=timeout,
-        )
-        results.append(result)
-    return results
 
 # ============================================================
-# МЕХАНИЗМ АВТОИHomeНУМЕРАЦИИ ВЫХОДНЫХ ФАЙЛОВ
+# МОДУЛЬ EPG ВЫГРУЗКИ
+# ============================================================
+
+def fetch_epg_channels() -> List[ChannelInput]:
+    LOGGER.info("Загрузка и парсинг EPG с %s ...", EPG_URL)
+    req = Request(EPG_URL, headers={"User-Agent": DEFAULT_USER_AGENT})
+    channels = []
+    try:
+        with urlopen(req, timeout=15, context=SSL_CONTEXT) as resp:
+            gz = gzip.GzipFile(fileobj=io.BytesIO(resp.read()))
+            root = ET.fromstring(gz.read())
+
+            for ch in root.findall("channel"):
+                cid = ch.get("id", "").strip()
+                disp = ch.find("display-name")
+                icon = ch.find("icon")
+
+                logo = icon.get("src", "").strip() if icon is not None else ""
+                name = disp.text.strip() if disp is not None and disp.text else ""
+
+                if cid and name:
+                    channels.append(ChannelInput(display_name=name, tvg_id=cid, logo=logo))
+    except Exception as e:
+        LOGGER.error("Ошибка загрузки EPG: %s", e)
+
+    # Добавляем встроенные дополнительные каналы
+    for extra in EXTRA_CHANNELS:
+        channels.append(ChannelInput(display_name=extra["name"], tvg_id=extra["id"], logo=extra["logo"]))
+
+    LOGGER.info("Всего сформировано каналов для сканирования: %d", len(channels))
+    return channels
+
+# ============================================================
+# ГЕНЕРАЦИЯ ОТЧЕТОВ И ФАЙЛОВ
 # ============================================================
 
 def generate_numbered_filename(base_filename: str) -> str:
-    """
-    Автоматически генерирует имя с инкрементом.
-    Пример: Ai_Alias.txt -> Ai_Alias_1.txt -> Ai_Alias_2.txt ...
-    """
     if not os.path.exists(base_filename):
         return base_filename
-
     name, ext = os.path.splitext(base_filename)
     counter = 1
-    
     while True:
         new_filename = f"{name}_{counter}{ext}"
         if not os.path.exists(new_filename):
             return new_filename
         counter += 1
 
-# ============================================================
-# ГЕНЕРАЦИЯ И СОХРАНЕНИЕ ОТЧЕТОВ
-# ============================================================
+def save_all_reports(channels: List[ChannelInput], results: List[AliasMatch]) -> None:
+    txt_file = generate_numbered_filename(BASE_HUMAN_REPORT_NAME)
+    ngnorm_file = generate_numbered_filename(BASE_MACHINE_REPORT_NAME)
+    json_file = generate_numbered_filename(BASE_JSON_EXPORT_NAME)
+    m3u_file = generate_numbered_filename(OUTPUT_PLAYLIST)
 
-def is_confirmed_playlist_match(result: AliasMatch) -> bool:
-    return bool(result.cdn_alias and any(s.reachable for s in result.streams))
+    # 1. Текстовый отчёт
+    with open(txt_file, "w", encoding="utf-8") as f:
+        f.write("=== ALIAS ENGINE V4 (HYBRID) REPORT ===\n\n")
+        for res in results:
+            if res.cdn_alias and res.streams:
+                s = res.streams[0]
+                f.write(f"[КАНАЛ] {res.channel_name}\n")
+                f.write(f"  [ALIAS] {res.cdn_alias}\n")
+                f.write(f"  [NODE] {s.node}\n")
+                f.write(f"  [RULE] {s.rule_name}\n")
+                f.write(f"  [URL] {s.url}\n")
+                f.write("-" * 50 + "\n")
 
-def build_m3u_playlist(channels: Iterable[ChannelInput], results: List[AliasMatch]) -> str:
-    channel_list = list(channels)
-    lines = ["#EXTM3U", ""]
-
-    for index, result in enumerate(results):
-        if not is_confirmed_playlist_match(result):
-            continue
-
-        channel = channel_list[index] if index < len(channel_list) else ChannelInput(display_name=result.channel_name)
-        for stream in result.streams:
-            if stream.reachable and stream.url:
-                tvg_id = channel.tvg_id or ""
-                group = channel.group_title or "General"
-                lines.append(f'#EXTINF:-1 tvg-id="{tvg_id}" group-title="{group}",{channel.display_name}')
-                lines.append(stream.url)
-                lines.append("")
-
-    return "\n".join(lines).rstrip() + "\n"
-
-def save_text_report(report: Dict, channels: Iterable[ChannelInput], results: List[AliasMatch]) -> str:
-    filename = generate_numbered_filename(BASE_HUMAN_REPORT_NAME)
-    
-    lines = [
-        "=" * 70, "МОДУЛЬ ПРОВЕРКИ АЛИАСОВ (АВТОМАТИЧЕСКАЯ СБОРКА)", "ИТОГОВЫЙ ТЕКСТОВЫЙ ОТЧЁТ", "=" * 70, "",
-        f"Модуль: {report.get('module', '')}",
-        f"Всего обработано: {report.get('total_channels', 0)}",
-        f"Успешно найдено: {report.get('matched_channels', 0)}",
-        f"Не найдено: {report.get('unknown_channels', 0)}", "",
-        "=" * 70, "ПОДРОБНАЯ ДЕТАЛИЗАЦИЯ ПО КАНАЛАМ", "=" * 70, ""
-    ]
-
-    for number, result in enumerate(results, start=1):
-        lines.append(f"[{number}] КАНАЛ: {result.channel_name}")
-        lines.append(f"    Нормализованное имя: {result.normalized_name}")
-        lines.append(f"    Найденный CDN alias: {result.cdn_alias}")
-        lines.append(f"    Статус: {result.match_type}")
-        lines.append(f"    Уровень доверия: {result.confidence:.3f}")
-
-        lines.append("    Кандидаты:")
-        for cand in result.candidates:
-            marker = "[CONFIRMED]" if cand.confirmed else "[candidate]"
-            lines.append(f"      - {cand.value:<25} (score={cand.score:.3f}) {marker:<12} reason={cand.reason}")
-
-        lines.append("    Потоки:")
-        for stream in result.streams:
-            status = "OK" if stream.reachable else "FAIL"
-            lines.append(f"      - [{status}] [HTTP {stream.http_status}] (ping: {stream.response_time_ms:.1f}ms) -> {stream.url}")
-        lines.append("-" * 70 + "\n")
-
-    lines.extend(["=" * 70, M3U_SECTION_TITLE, "=" * 70, ""])
-    lines.append(build_m3u_playlist(channels, results))
-    lines.extend(["=" * 70, "КОНЕЦ МАРШРУТА", "=" * 70, ""])
-
-    with open(filename, "w", encoding="utf-8", newline="\n") as f:
-        f.write("\n".join(lines))
-
-    LOGGER.info("Текстовый отчет сохранен в: %s", filename)
-    return filename
-
-def save_machine_report(channels: Iterable[ChannelInput], results: List[AliasMatch]) -> str:
-    filename = generate_numbered_filename(BASE_MACHINE_REPORT_NAME)
-    channel_list = list(channels)
+    # 2. Машинный отчёт
     found_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-    with open(filename, "w", encoding="utf-8", newline="\n") as f:
-        for index, result in enumerate(results):
-            channel = channel_list[index] if index < len(channel_list) else ChannelInput(display_name=result.channel_name)
-            stream = result.streams[0] if result.streams else None
-            
-            f.write(f"NAME={channel.display_name}\n")
-            f.write(f"ALIAS={result.cdn_alias or ''}\n")
-            f.write(f"URL={stream.url if stream else ''}\n")
-            f.write(f"STATUS={stream.http_status if stream else 'UNKNOWN'}\n")
+    with open(ngnorm_file, "w", encoding="utf-8") as f:
+        for res in results:
+            s = res.streams[0] if res.streams else None
+            f.write(f"NAME={res.channel_name}\n")
+            f.write(f"ALIAS={res.cdn_alias or ''}\n")
+            f.write(f"URL={s.url if s else ''}\n")
+            f.write(f"STATUS={s.http_status if s else 'UNKNOWN'}\n")
             f.write(f"SOURCE={MACHINE_SOURCE}\n")
             f.write(f"FOUND={found_time}\n\n")
 
-    LOGGER.info("Машинный отчет сохранен в: %s", filename)
-    return filename
+    # 3. JSON Export
+    with open(json_file, "w", encoding="utf-8") as f:
+        json.dump([asdict(r) for r in results], f, ensure_ascii=False, indent=2)
 
-def export_to_json(results: List[AliasMatch]) -> str:
-    filename = generate_numbered_filename(BASE_JSON_EXPORT_NAME)
-    data = [asdict(r) for r in results]
-    with open(filename, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+    # 4. IPTV M3U Playlist
+    with open(m3u_file, "w", encoding="utf-8") as f:
+        f.write('#EXTM3U url-tvg="http://epg.one/epg2.xml.gz"\n')
+        for idx, res in enumerate(results):
+            if res.cdn_alias and res.streams:
+                ch = channels[idx] if idx < len(channels) else ChannelInput(display_name=res.channel_name)
+                logo_attr = f' tvg-logo="{ch.logo}"' if ch.logo else ""
+                f.write(f'#EXTINF:-1 tvg-id="{ch.tvg_id}" tvg-name="{res.channel_name}"{logo_attr},{res.channel_name}\n')
+                f.write(f"{res.streams[0].url}\n")
 
-    LOGGER.info("JSON отчет сохранен в: %s", filename)
-    return filename
+    LOGGER.info("Сохранен текстовый отчет: %s", txt_file)
+    LOGGER.info("Сохранен машинный отчет: %s", ngnorm_file)
+    LOGGER.info("Сохранен JSON экспорт: %s", json_file)
+    LOGGER.info("Сохранен M3U плейлист: %s", m3u_file)
 
 # ============================================================
-# ТОЧКА ВХОДА И ТЕСТОВЫЙ ПРОГОН
+# ТОЧКА ВХОДА С CLI
 # ============================================================
+
+def run_pipeline() -> None:
+    db = Database()
+    learner = HybridLearner(db)
+    scanner = MultiNodeScanner(db, learner)
+
+    scanner.ping_nodes()
+    channels = fetch_epg_channels()
+
+    results: List[AliasMatch] = []
+    LOGGER.info("Старт параллельного сканирования...")
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKER_THREADS) as executor:
+        future_to_ch = {executor.submit(scanner.probe_channel, ch): ch for ch in channels}
+        for future in concurrent.futures.as_completed(future_to_ch):
+            res = future.result()
+            results.append(res)
+            if res.cdn_alias:
+                LOGGER.info("[+] Найден: %s -> %s", res.channel_name, res.streams[0].url)
+
+    LOGGER.info("Перерасчет рейтингов и самообучение модели...")
+    learner.train()
+
+    LOGGER.info("Экспорт отчетов...")
+    save_all_reports(channels, results)
+
+def show_stats() -> None:
+    db = Database()
+    print("\n=== РЕЙТИНГ ПРАВИЛ ===")
+    for r in db.get_ranked_rules():
+        print(f"Правило: {r['name']:<25} Вес: {r['weight']:.4f}")
+
+    print("\n=== РЕЙТИНГ ШАБЛОНОВ ===")
+    for p in db.get_ranked_patterns():
+        print(f"Шаблон: {p['pattern']:<35} Вес: {p['weight']:.4f}")
 
 def main() -> None:
-    LOGGER.info("=== Запуск финального Alias Engine ===")
+    parser = argparse.ArgumentParser(description="Alias Verification Engine v4.0 (ngSKALA Hybrid)")
+    parser.add_argument("--scan", action="store_true", help="Запустить полное сканирование и сформировать отчёты")
+    parser.add_argument("--train", action="store_true", help="Переобучить модель по истории")
+    parser.add_argument("--stats", action="store_true", help="Показать веса правил и шаблонов")
 
-    learner = AliasLearnerEngine(db_path=DB_FILE_PATH)
+    args = parser.parse_args()
 
-    INPUT_CHANNELS = [
-        ChannelInput(display_name="Голливуд HD", group_title="Кино"), # Маппинг -> Hollywood HD -> amc
-        ChannelInput(display_name="Карусель", tvg_id="karusel", group_title="Детские"),
-        ChannelInput(display_name="РЕН ТВ", tvg_id="rentv", group_title="Общие"),
-        ChannelInput(display_name="ТВ-3", tvg_id="tv3", group_title="Развлекательные"),
-        ChannelInput(display_name="Мир", tvg_id="mir"),
-        ChannelInput(display_name="Заглушка_1080p"),                 # Авто-пропуск
-    ]
-
-    results = verify_channels(
-        channels=INPUT_CHANNELS,
-        learner=learner,
-        max_variant_number=5,
-        timeout=4,
-    )
-
-    confirmed_count = sum(1 for r in results if is_confirmed_playlist_match(r))
-    report_meta = {
-        "module": "AliasVerificationModule (Ai Output Edition)",
-        "total_channels": len(results),
-        "matched_channels": confirmed_count,
-        "unknown_channels": len(results) - confirmed_count,
-    }
-
-    txt_file = save_text_report(report=report_meta, channels=INPUT_CHANNELS, results=results)
-    ngnorm_file = save_machine_report(channels=INPUT_CHANNELS, results=results)
-    json_file = export_to_json(results=results)
-
-    LOGGER.info("Сканирование завершено. Файлы созданы:")
-    LOGGER.info(" - %s", txt_file)
-    LOGGER.info(" - %s", ngnorm_file)
-    LOGGER.info(" - %s", json_file)
+    if args.scan:
+        run_pipeline()
+    elif args.train:
+        db = Database()
+        HybridLearner(db).train()
+        print("[+] Модель успешно переобучена.")
+    elif args.stats:
+        show_stats()
+    else:
+        # Режим по умолчанию без параметров
+        run_pipeline()
 
 if __name__ == "__main__":
     main()
