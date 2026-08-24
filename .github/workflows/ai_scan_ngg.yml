@@ -1,0 +1,43 @@
+name: Run AI Scan NGG and Commit
+
+on:
+  schedule:
+    # Запуск каждые 6 часов (настрой под себя)
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Позволяет запускать вручную из вкладки Actions
+
+permissions:
+  contents: write # Дает заведомые права на запись в репозиторий
+
+jobs:
+  run-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          # Если скрипту нужны определенные библиотеки, раскомментируй/добавь их ниже:
+          # pip install requests
+
+      - name: Run script
+        run: python ai_scan_ngg.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff-index --quiet HEAD || git commit -m "Auto-update playlist via ai_scan_ngg.py [skip ci]"
+          git push
