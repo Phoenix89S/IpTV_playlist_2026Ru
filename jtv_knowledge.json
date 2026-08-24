@@ -1,0 +1,3432 @@
+{
+  "source": "eppg_provider",
+  "total": 571,
+  "items": [
+    {
+      "raw_name": "Первый_Крымский",
+      "alias": "первый_крымский",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Загородный",
+      "alias": "загородный",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Три_Ангела",
+      "alias": "три_ангела",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Кинопремьера_HD",
+      "alias": "кинопремьера_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "СТВ",
+      "alias": "ств",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Неизвестная_Россия",
+      "alias": "неизвестная_россия",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Евроновости",
+      "alias": "евроновости",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "HITV",
+      "alias": "hitv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Сказки_Зайки",
+      "alias": "сказки_зайки",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Союз",
+      "alias": "союз",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Канал_12_Череповец",
+      "alias": "канал_12_череповец",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Первый_канал_(Орбита_2__6)",
+      "alias": "первый_канал_(орбита_2__6)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Любимое_SD",
+      "alias": "любимое_sd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Диалоги_о_рыбалке",
+      "alias": "диалоги_о_рыбалке",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Bridge_Этно",
+      "alias": "bridge_этно",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Планета_HD",
+      "alias": "планета_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Матч!_Футбол_3",
+      "alias": "матч!_футбол_3",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Смайлик_ТВ",
+      "alias": "смайлик_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Global_Star",
+      "alias": "global_star",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Кинопоказ_HD",
+      "alias": "кинопоказ_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "8_Канал",
+      "alias": "8_канал",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "KBS_World",
+      "alias": "kbs_world",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Deutsche_Welle_(Rus)",
+      "alias": "deutsche_welle_(rus)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Детское_кино",
+      "alias": "детское_кино",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "АРТ",
+      "alias": "арт",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Erox",
+      "alias": "erox",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Наше_мужское_HD",
+      "alias": "наше_мужское_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "РЕН_ТВ_HD",
+      "alias": "рен_тв_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Amedia_Hit",
+      "alias": "amedia_hit",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Беларусь_24",
+      "alias": "беларусь_24",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Классика_Кино",
+      "alias": "классика_кино",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "French_Lover",
+      "alias": "french_lover",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Архыз_24",
+      "alias": "архыз_24",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Cartoon_Classics",
+      "alias": "cartoon_classics",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "M-1_GLOBAL",
+      "alias": "m-1_global",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "RU_TV",
+      "alias": "ru_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Gagsnetwork",
+      "alias": "gagsnetwork",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Bridge_TV_Classic",
+      "alias": "bridge_tv_classic",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Первый_канал__(СНГ)",
+      "alias": "первый_канал__(снг)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "E_TV",
+      "alias": "e_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Первый_канал_(Орбита_4__2)",
+      "alias": "первый_канал_(орбита_4__2)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Блокбастер",
+      "alias": "блокбастер",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Настоящее_Страшное_Телевидение",
+      "alias": "настоящее_страшное_телевидение",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Первый_канал_(Орбита_1__8)",
+      "alias": "первый_канал_(орбита_1__8)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "NHK_World_Japan",
+      "alias": "nhk_world_japan",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "viju__Serial",
+      "alias": "viju__serial",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Восток_ТВ",
+      "alias": "восток_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Надежда",
+      "alias": "надежда",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "viju_TV1000_русское",
+      "alias": "viju_tv1000_русское",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Страшное_HD",
+      "alias": "страшное_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Психология_21",
+      "alias": "психология_21",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Наша_Сибирь",
+      "alias": "наша_сибирь",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Тюменское_время",
+      "alias": "тюменское_время",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Extreme_Sports",
+      "alias": "extreme_sports",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Кинопоказ_SD",
+      "alias": "кинопоказ_sd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Здоровое_Телевидение",
+      "alias": "здоровое_телевидение",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "МИР_24",
+      "alias": "мир_24",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Патриот",
+      "alias": "патриот",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Россия_24",
+      "alias": "россия_24",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ТНТ",
+      "alias": "тнт",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Big_Planet",
+      "alias": "big_planet",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Романтичное_HD",
+      "alias": "романтичное_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Тип_Топ",
+      "alias": "тип_топ",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Bollywood_HD",
+      "alias": "bollywood_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Матч!_Премьер",
+      "alias": "матч!_премьер",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Моя_Планета",
+      "alias": "моя_планета",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Amedia_2",
+      "alias": "amedia_2",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Mezzo",
+      "alias": "mezzo",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Спортивный",
+      "alias": "спортивный",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Russian_Travel_Guide_(RTG_TV)",
+      "alias": "russian_travel_guide_(rtg_tv)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Russian_MusicBox_HD",
+      "alias": "russian_musicbox_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "DetectiveJam",
+      "alias": "detectivejam",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "FAN",
+      "alias": "fan",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Суббота!",
+      "alias": "суббота!",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Киномульт",
+      "alias": "киномульт",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Телепутешествия",
+      "alias": "телепутешествия",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Кинохит",
+      "alias": "кинохит",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ТНТ_HD",
+      "alias": "тнт_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Ностальгия",
+      "alias": "ностальгия",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Матч!_Футбол_2",
+      "alias": "матч!_футбол_2",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Insight_Ultra_HD",
+      "alias": "insight_ultra_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Рыбинск-40",
+      "alias": "рыбинск-40",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "MMA‑TV_com",
+      "alias": "mma‑tv_com",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Старт",
+      "alias": "старт",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Ратник",
+      "alias": "ратник",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Охотник_и_рыболов",
+      "alias": "охотник_и_рыболов",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Первый_ярославский",
+      "alias": "первый_ярославский",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "КВН_ТВ",
+      "alias": "квн_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Матч!_Игра_HD",
+      "alias": "матч!_игра_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Репортер_73",
+      "alias": "репортер_73",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Россия_1_(дубль_4)",
+      "alias": "россия_1_(дубль_4)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Ultra_HD_Cinema",
+      "alias": "ultra_hd_cinema",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Башкортостан_24",
+      "alias": "башкортостан_24",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "НТВ_Стиль",
+      "alias": "нтв_стиль",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Eurosport_1",
+      "alias": "eurosport_1",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Губерния_33",
+      "alias": "губерния_33",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "49_канал",
+      "alias": "49_канал",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Беларусь_1",
+      "alias": "беларусь_1",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Дорама",
+      "alias": "дорама",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "78_канал",
+      "alias": "78_канал",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ТВТУР",
+      "alias": "твтур",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "HOME_4K",
+      "alias": "home_4k",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Россия_1_(дубль__7)",
+      "alias": "россия_1_(дубль__7)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Премиальное_HD",
+      "alias": "премиальное_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Авто_Плюс",
+      "alias": "авто_плюс",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "МузСоюз",
+      "alias": "музсоюз",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Капитан_Фантастика",
+      "alias": "капитан_фантастика",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Живи_активно_HD",
+      "alias": "живи_активно_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Ю",
+      "alias": "ю",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Animaux",
+      "alias": "animaux",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "World_Fashion_Channel_(рус_)",
+      "alias": "world_fashion_channel_(рус_)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Волейбол",
+      "alias": "волейбол",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Bridge_Rock",
+      "alias": "bridge_rock",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "BRiDGE_TV_Шлягер",
+      "alias": "bridge_tv_шлягер",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Теледом",
+      "alias": "теледом",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Scream",
+      "alias": "scream",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Майдан",
+      "alias": "майдан",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Футбол_2",
+      "alias": "футбол_2",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Epic",
+      "alias": "epic",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "НТВ_(_4)",
+      "alias": "нтв_(_4)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "CCTV-Русский",
+      "alias": "cctv-русский",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Fast_&_FunBox_HD",
+      "alias": "fast_&_funbox_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "BRIDGE_TV_Русский_Хит",
+      "alias": "bridge_tv_русский_хит",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Моя_стихия",
+      "alias": "моя_стихия",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "История",
+      "alias": "история",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Ретро_ТВ",
+      "alias": "ретро_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Комедия",
+      "alias": "комедия",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Авто24_HD",
+      "alias": "авто24_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Армения_ТВ",
+      "alias": "армения_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Luxe_TV",
+      "alias": "luxe_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Большая_Азия",
+      "alias": "большая_азия",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "viju_TV1000",
+      "alias": "viju_tv1000",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Новгородское_Областное_телевидение",
+      "alias": "новгородское_областное_телевидение",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Терра_Инкогнита",
+      "alias": "терра_инкогнита",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "DTV_TV1000_HD",
+      "alias": "dtv_tv1000_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Матч!_Игра",
+      "alias": "матч!_игра",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Телекафе",
+      "alias": "телекафе",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Карусель_International",
+      "alias": "карусель_international",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Блокбастер_HD",
+      "alias": "блокбастер_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Первый_Космический",
+      "alias": "первый_космический",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "БСТ",
+      "alias": "бст",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Солнце",
+      "alias": "солнце",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Наше_HD",
+      "alias": "наше_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "КТК",
+      "alias": "ктк",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Балашиха_ТВ",
+      "alias": "балашиха_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Наш_Кинороман_SD",
+      "alias": "наш_кинороман_sd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Живая_планета",
+      "alias": "живая_планета",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Поехали!",
+      "alias": "поехали!",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "7_TV",
+      "alias": "7_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "TV_XXI",
+      "alias": "tv_xxi",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "СТРК",
+      "alias": "стрк",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "НТВ",
+      "alias": "нтв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Доктор",
+      "alias": "доктор",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Baby_Time",
+      "alias": "baby_time",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "DuckTV",
+      "alias": "ducktv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Просвещение",
+      "alias": "просвещение",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Советская_киноклассика",
+      "alias": "советская_киноклассика",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Fashion_One",
+      "alias": "fashion_one",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "НТК_(Казахстан)",
+      "alias": "нтк_(казахстан)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Матч!_Футбол_2_HD",
+      "alias": "матч!_футбол_2_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "MCM_Top",
+      "alias": "mcm_top",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Футбол",
+      "alias": "футбол",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Музыка_Первого",
+      "alias": "музыка_первого",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Хит",
+      "alias": "хит",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Аист",
+      "alias": "аист",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Юрган",
+      "alias": "юрган",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Кино_ТВ",
+      "alias": "кино_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ТБН",
+      "alias": "тбн",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Киносерия",
+      "alias": "киносерия",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Tiji",
+      "alias": "tiji",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Hustler_Blue_(Ночной_канал)",
+      "alias": "hustler_blue_(ночной_канал)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Fashion_TV_HD",
+      "alias": "fashion_tv_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Конный_мир",
+      "alias": "конный_мир",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Неизвестная_Планета",
+      "alias": "неизвестная_планета",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "China_TV",
+      "alias": "china_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Наш_Кинопоказ",
+      "alias": "наш_кинопоказ",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Русский_детектив",
+      "alias": "русский_детектив",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "KINOLIVING",
+      "alias": "kinoliving",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Анекдот_ТВ",
+      "alias": "анекдот_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Shop24",
+      "alias": "shop24",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "НВК_САХА",
+      "alias": "нвк_саха",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Афонтово",
+      "alias": "афонтово",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Кино_Ultra_HD",
+      "alias": "кино_ultra_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Saga_TV",
+      "alias": "saga_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Мир_Увлечений",
+      "alias": "мир_увлечений",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Шансон_ТВ",
+      "alias": "шансон_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Мультиландия",
+      "alias": "мультиландия",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Travel_Adventure",
+      "alias": "travel_adventure",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "KidsTV",
+      "alias": "kidstv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "НТВ_Сериал",
+      "alias": "нтв_сериал",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Fashion_TV",
+      "alias": "fashion_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "СТС_Kids_HD",
+      "alias": "стс_kids_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Вкус",
+      "alias": "вкус",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "24_Техно",
+      "alias": "24_техно",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Hustler_HD",
+      "alias": "hustler_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Советские_мультфильмы",
+      "alias": "советские_мультфильмы",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Playboy_TV",
+      "alias": "playboy_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Кинокомедия",
+      "alias": "кинокомедия",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "FoodTime",
+      "alias": "foodtime",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "360_ru_Новости",
+      "alias": "360_ru_новости",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Q_Footboll",
+      "alias": "q_footboll",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Первый_канал",
+      "alias": "первый_канал",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Ocean_TV",
+      "alias": "ocean_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Bloomberg",
+      "alias": "bloomberg",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Fashion_One_HD",
+      "alias": "fashion_one_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Animal_Planet",
+      "alias": "animal_planet",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Luxe_HD",
+      "alias": "luxe_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Ля-минор_ТВ",
+      "alias": "ля-минор_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "The_World_Live",
+      "alias": "the_world_live",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Драйв_ТВ",
+      "alias": "драйв_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ЕГЭ_ТВ",
+      "alias": "егэ_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Домашний_магазин",
+      "alias": "домашний_магазин",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "365_дней_ТВ",
+      "alias": "365_дней_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Хоккейный",
+      "alias": "хоккейный",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ТНВ",
+      "alias": "тнв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Остросюжетное_HD",
+      "alias": "остросюжетное_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Русский_Север",
+      "alias": "русский_север",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Русский_бестселлер",
+      "alias": "русский_бестселлер",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Матч!_Футбол_1",
+      "alias": "матч!_футбол_1",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Еврокино",
+      "alias": "еврокино",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "БелМузТВ_(Беларусь)",
+      "alias": "белмузтв_(беларусь)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "TCM",
+      "alias": "tcm",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Приключения_HD",
+      "alias": "приключения_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "iConcerts",
+      "alias": "iconcerts",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Светлое_ТВ",
+      "alias": "светлое_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Про_любовь",
+      "alias": "про_любовь",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Ключ",
+      "alias": "ключ",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Совершенно_Секретно",
+      "alias": "совершенно_секретно",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Брянская_Губерния",
+      "alias": "брянская_губерния",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Радость_Моя",
+      "alias": "радость_моя",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Наука_2_0",
+      "alias": "наука_2_0",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Пес_и_Ко",
+      "alias": "пес_и_ко",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Лапки_Live",
+      "alias": "лапки_live",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "47_канал",
+      "alias": "47_канал",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Киномикс",
+      "alias": "киномикс",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Suspense",
+      "alias": "suspense",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ТВ_Центр",
+      "alias": "тв_центр",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Охотник_и_Рыболов_Int",
+      "alias": "охотник_и_рыболов_int",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Пятый_International_",
+      "alias": "пятый_international_",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Мужской",
+      "alias": "мужской",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Timeless_Dizi_Channel",
+      "alias": "timeless_dizi_channel",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ОТВ_(Челябинск)",
+      "alias": "отв_(челябинск)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Седьмой_канал_(Казахстан)",
+      "alias": "седьмой_канал_(казахстан)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Кто_есть_кто",
+      "alias": "кто_есть_кто",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Travel_Adventure_HD",
+      "alias": "travel_adventure_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Первый_вегетарианский",
+      "alias": "первый_вегетарианский",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "France_24",
+      "alias": "france_24",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "8_канал_(Беларусь)",
+      "alias": "8_канал_(беларусь)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Вместе-РФ",
+      "alias": "вместе-рф",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Продвижение",
+      "alias": "продвижение",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "НТВ_HD",
+      "alias": "нтв_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Точка_отрыва",
+      "alias": "точка_отрыва",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Мультимузыка",
+      "alias": "мультимузыка",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Комедийное_HD",
+      "alias": "комедийное_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Top_Shop_TV",
+      "alias": "top_shop_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Clubbing_TV",
+      "alias": "clubbing_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Russia_Today",
+      "alias": "russia_today",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Россия_1_(дубль_2)",
+      "alias": "россия_1_(дубль_2)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Шалун",
+      "alias": "шалун",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "KinoJam_1",
+      "alias": "kinojam_1",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Матч!_Боец",
+      "alias": "матч!_боец",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Матч!_Планета",
+      "alias": "матч!_планета",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "О2ТВ",
+      "alias": "о2тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Дом_Кино_Премиум",
+      "alias": "дом_кино_премиум",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Русский_роман",
+      "alias": "русский_роман",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Arirang_TV",
+      "alias": "arirang_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "viju_Explore",
+      "alias": "viju_explore",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Start_Air",
+      "alias": "start_air",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Спас_ТВ",
+      "alias": "спас_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ТВК6",
+      "alias": "твк6",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Матч!_HD",
+      "alias": "матч!_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "А2",
+      "alias": "а2",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Югра",
+      "alias": "югра",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Ямал-Регион",
+      "alias": "ямал-регион",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Наше_Новое_Кино",
+      "alias": "наше_новое_кино",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Мы",
+      "alias": "мы",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Мама",
+      "alias": "мама",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Киносвидание",
+      "alias": "киносвидание",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Мужское_кино",
+      "alias": "мужское_кино",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "TVM_Channel",
+      "alias": "tvm_channel",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "CNBC",
+      "alias": "cnbc",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Москва-24",
+      "alias": "москва-24",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Наша_Тема",
+      "alias": "наша_тема",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Енисей_регион",
+      "alias": "енисей_регион",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Exxxotica",
+      "alias": "exxxotica",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Сетанта_спорт",
+      "alias": "сетанта_спорт",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "_Red_HD",
+      "alias": "_red_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Китай_ТВ",
+      "alias": "китай_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Душевное",
+      "alias": "душевное",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "РЖД",
+      "alias": "ржд",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Universmotri_ru",
+      "alias": "universmotri_ru",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "А1",
+      "alias": "а1",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "2x2",
+      "alias": "2x2",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Пингвин_Лоло",
+      "alias": "пингвин_лоло",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "12_канал_(Омск)",
+      "alias": "12_канал_(омск)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "360_ru",
+      "alias": "360_ru",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Наше_мужское",
+      "alias": "наше_мужское",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Беларусь_2",
+      "alias": "беларусь_2",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Санкт-Петербург",
+      "alias": "санкт-петербург",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "РЕН_ТВ",
+      "alias": "рен_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "TV_BRICS",
+      "alias": "tv_brics",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Mezzo_Live_HD",
+      "alias": "mezzo_live_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Наша_Сибирь_4К",
+      "alias": "наша_сибирь_4к",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Арсенал",
+      "alias": "арсенал",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ТНТ_Music",
+      "alias": "тнт_music",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Крик_ТВ",
+      "alias": "крик_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Дикий",
+      "alias": "дикий",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ТНТ_(_2)",
+      "alias": "тнт_(_2)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Матч!",
+      "alias": "матч!",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Женский_Журнал",
+      "alias": "женский_журнал",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Shopping_Live",
+      "alias": "shopping_live",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Luxury",
+      "alias": "luxury",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Культура",
+      "alias": "культура",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "FamilyJam",
+      "alias": "familyjam",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "viju_History",
+      "alias": "viju_history",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Brazzers_TV_Europe",
+      "alias": "brazzers_tv_europe",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Первый_канал_(Орбита_3__4)",
+      "alias": "первый_канал_(орбита_3__4)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "English_Club_TV",
+      "alias": "english_club_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "МУЗ-ТВ",
+      "alias": "муз-тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "viju_Nature",
+      "alias": "viju_nature",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "MUSIC_Box_TV",
+      "alias": "music_box_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Лавстори",
+      "alias": "лавстори",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Матч!_Футбол_1_HD",
+      "alias": "матч!_футбол_1_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Q_Arena",
+      "alias": "q_arena",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Наш_Кинопоказ_HD",
+      "alias": "наш_кинопоказ_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Оружие",
+      "alias": "оружие",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Мосфильм__Золотая_коллекция",
+      "alias": "мосфильм__золотая_коллекция",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Дикая_Охота_HD",
+      "alias": "дикая_охота_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "KinoJam_2",
+      "alias": "kinojam_2",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Мульт",
+      "alias": "мульт",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "MTV_European",
+      "alias": "mtv_european",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Жара",
+      "alias": "жара",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "FlixSnip",
+      "alias": "flixsnip",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "НТВ_Право",
+      "alias": "нтв_право",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Загородная_жизнь",
+      "alias": "загородная_жизнь",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Зал_суда",
+      "alias": "зал_суда",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Russian_Extreme_Ultra_HD",
+      "alias": "russian_extreme_ultra_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ТиВиСи_HD",
+      "alias": "тивиси_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Пятый_Канал",
+      "alias": "пятый_канал",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Рен_ТВ_(_2)",
+      "alias": "рен_тв_(_2)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Бокс_ТВ",
+      "alias": "бокс_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Ani",
+      "alias": "ani",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Fox_HD",
+      "alias": "fox_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Советская_киноклассика_HD",
+      "alias": "советская_киноклассика_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Кухня_ТВ",
+      "alias": "кухня_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "HD_Life",
+      "alias": "hd_life",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "viju__Sport_HD",
+      "alias": "viju__sport_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Победа",
+      "alias": "победа",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Bridge_TV",
+      "alias": "bridge_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Russian_MusicBox",
+      "alias": "russian_musicbox",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "RTД_HD",
+      "alias": "rtд_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Россия-Планета_(Европа)",
+      "alias": "россия-планета_(европа)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "_sci-fi",
+      "alias": "_sci-fi",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Пятница",
+      "alias": "пятница",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Ника_ТВ",
+      "alias": "ника_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "viju__Sport",
+      "alias": "viju__sport",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Filmbox_ArtHouse",
+      "alias": "filmbox_arthouse",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "VHS",
+      "alias": "vhs",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Тлум_HD",
+      "alias": "тлум_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Da_Vinci",
+      "alias": "da_vinci",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Русская_ночь",
+      "alias": "русская_ночь",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Лева_ТВ",
+      "alias": "лева_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Матч!_Премьер_HD",
+      "alias": "матч!_премьер_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Матч!_Арена",
+      "alias": "матч!_арена",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Trash",
+      "alias": "trash",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Москва__Доверие",
+      "alias": "москва__доверие",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "8_канал_Красноярский_край",
+      "alias": "8_канал_красноярский_край",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Советское_кино",
+      "alias": "советское_кино",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Amedia_Premium",
+      "alias": "amedia_premium",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Noise",
+      "alias": "noise",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "KINO24",
+      "alias": "kino24",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Дайвинг_TV",
+      "alias": "дайвинг_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Новое_телевидение",
+      "alias": "новое_телевидение",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Кино_без_границ",
+      "alias": "кино_без_границ",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Беларусь_5",
+      "alias": "беларусь_5",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Angel_TV",
+      "alias": "angel_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Чижик",
+      "alias": "чижик",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Криминальное",
+      "alias": "криминальное",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "viju__Planet",
+      "alias": "viju__planet",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Детский_мир",
+      "alias": "детский_мир",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Q_League",
+      "alias": "q_league",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Четвертый_канал_(Екатеринбург)",
+      "alias": "четвертый_канал_(екатеринбург)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Индийское_кино",
+      "alias": "индийское_кино",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "viju__Megahit",
+      "alias": "viju__megahit",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Домашний",
+      "alias": "домашний",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "КХЛ_HD",
+      "alias": "кхл_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Babes_TV",
+      "alias": "babes_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Дом_кино",
+      "alias": "дом_кино",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Zee_TV",
+      "alias": "zee_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "НТВ_Хит",
+      "alias": "нтв_хит",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Museum_HD",
+      "alias": "museum_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Gulli_Girl",
+      "alias": "gulli_girl",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Тайна",
+      "alias": "тайна",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Киноужас",
+      "alias": "киноужас",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ННТВ",
+      "alias": "ннтв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Остросюжетное_SD",
+      "alias": "остросюжетное_sd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "КиноСезон",
+      "alias": "киносезон",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Дон_24",
+      "alias": "дон_24",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Карапуз_ТВ",
+      "alias": "карапуз_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Звезда",
+      "alias": "звезда",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Кинопремьера",
+      "alias": "кинопремьера",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ОНТ_(Беларусь)",
+      "alias": "онт_(беларусь)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Русский_Иллюзион",
+      "alias": "русский_иллюзион",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Алматы",
+      "alias": "алматы",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Премиальное_SD",
+      "alias": "премиальное_sd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Беларусь_3",
+      "alias": "беларусь_3",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Foodman_club",
+      "alias": "foodman_club",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Start_World",
+      "alias": "start_world",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Любимое_ТВ",
+      "alias": "любимое_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "_red",
+      "alias": "_red",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Amedia_1",
+      "alias": "amedia_1",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Мой_мир",
+      "alias": "мой_мир",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "КХЛ",
+      "alias": "кхл",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Союзный",
+      "alias": "союзный",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Europa_Plus_TV",
+      "alias": "europa_plus_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Хит_HD",
+      "alias": "хит_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "World_Business_Channel",
+      "alias": "world_business_channel",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Зоо_ТВ",
+      "alias": "зоо_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Русский_Экстрим",
+      "alias": "русский_экстрим",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ТВ-3_International_",
+      "alias": "тв-3_international_",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Мир_сериалов",
+      "alias": "мир_сериалов",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Sumiko",
+      "alias": "sumiko",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ТВ-3",
+      "alias": "тв-3",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Russian_Travel_Guide_HD",
+      "alias": "russian_travel_guide_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Аппетитный",
+      "alias": "аппетитный",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Hollywood",
+      "alias": "hollywood",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Дума_ТВ",
+      "alias": "дума_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Точка_ТВ",
+      "alias": "точка_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Россия_1",
+      "alias": "россия_1",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "viju_TV1000_action",
+      "alias": "viju_tv1000_action",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Русская_История",
+      "alias": "русская_история",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "FightBox",
+      "alias": "fightbox",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Бьюти_TV",
+      "alias": "бьюти_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Курай",
+      "alias": "курай",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "РБК",
+      "alias": "рбк",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "RT_Doc_International",
+      "alias": "rt_doc_international",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "НТВ_Беларусь",
+      "alias": "нтв_беларусь",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Моя_стихия_HD",
+      "alias": "моя_стихия_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Россия_HD",
+      "alias": "россия_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "СТС",
+      "alias": "стс",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Удмуртия",
+      "alias": "удмуртия",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Родное_кино",
+      "alias": "родное_кино",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "31_канал",
+      "alias": "31_канал",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Матч!_Футбол_3_HD",
+      "alias": "матч!_футбол_3_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Наше",
+      "alias": "наше",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Любимое",
+      "alias": "любимое",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Bridge_TV_Фрэш",
+      "alias": "bridge_tv_фрэш",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Outdoor_HD",
+      "alias": "outdoor_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Star_Family",
+      "alias": "star_family",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "В_гостях_у_сказки",
+      "alias": "в_гостях_у_сказки",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Мир_вокруг_HD",
+      "alias": "мир_вокруг_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "СТС_International",
+      "alias": "стс_international",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ТНТ_(Челябинск)",
+      "alias": "тнт_(челябинск)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Губерния",
+      "alias": "губерния",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Fuel_TV_HD",
+      "alias": "fuel_tv_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "НТВ_(_7)",
+      "alias": "нтв_(_7)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Городской_(Рязань)",
+      "alias": "городской_(рязань)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ОТР",
+      "alias": "отр",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Сапфир",
+      "alias": "сапфир",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "C_Music_TV",
+      "alias": "c_music_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Хабар",
+      "alias": "хабар",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Театр",
+      "alias": "театр",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ЛДПР_ТВ",
+      "alias": "лдпр_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Охота_и_рыбалка",
+      "alias": "охота_и_рыбалка",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Россия_1_(дубль_1)",
+      "alias": "россия_1_(дубль_1)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "НТВ_(_2)",
+      "alias": "нтв_(_2)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Усадьба",
+      "alias": "усадьба",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Здоровье",
+      "alias": "здоровье",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Шокирующее",
+      "alias": "шокирующее",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Живая_природа",
+      "alias": "живая_природа",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "SONGTV_Russia",
+      "alias": "songtv_russia",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Успех",
+      "alias": "успех",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ВРЕМЯ",
+      "alias": "время",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Футбольный",
+      "alias": "футбольный",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Classic_Music",
+      "alias": "classic_music",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Нано",
+      "alias": "нано",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Aiva",
+      "alias": "aiva",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Мир_Белогорья",
+      "alias": "мир_белогорья",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Че",
+      "alias": "че",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Живая_природа_HD",
+      "alias": "живая_природа_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Bolt",
+      "alias": "bolt",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Живи!",
+      "alias": "живи!",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Удар",
+      "alias": "удар",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ROMANCE",
+      "alias": "romance",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Домашние_животные",
+      "alias": "домашние_животные",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Уникум",
+      "alias": "уникум",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Ювелирочка",
+      "alias": "ювелирочка",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "В_мире_животных",
+      "alias": "в_мире_животных",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Trace_Sport_Stars_HD",
+      "alias": "trace_sport_stars_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Первый_HD",
+      "alias": "первый_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Звезда_Плюс",
+      "alias": "звезда_плюс",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Эхо_TV",
+      "alias": "эхо_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Спорт_1_(Украина)",
+      "alias": "спорт_1_(украина)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Любимое_кино",
+      "alias": "любимое_кино",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Мир_Баскетбола",
+      "alias": "мир_баскетбола",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Terra",
+      "alias": "terra",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "6_ТВ",
+      "alias": "6_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Грозный",
+      "alias": "грозный",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Телеканал_360_HD",
+      "alias": "телеканал_360_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Чaваш_Ен",
+      "alias": "чaваш_ен",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "1HD",
+      "alias": "1hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Plan_B",
+      "alias": "plan_b",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "KION_ХИТ",
+      "alias": "kion_хит",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "viju__Premiere",
+      "alias": "viju__premiere",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Спорт_2_(Украина)",
+      "alias": "спорт_2_(украина)",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "_black",
+      "alias": "_black",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Shot_TV",
+      "alias": "shot_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Quadro",
+      "alias": "quadro",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "О!",
+      "alias": "о!",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Волга",
+      "alias": "волга",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Star_Cinema",
+      "alias": "star_cinema",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "PRO_Business",
+      "alias": "pro_business",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "FreshTV",
+      "alias": "freshtv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Красная_линия",
+      "alias": "красная_линия",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Дикая_Рыбалка_HD",
+      "alias": "дикая_рыбалка_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Cinema",
+      "alias": "cinema",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Zooпарк",
+      "alias": "zooпарк",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Penthouse",
+      "alias": "penthouse",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Первый_канал_Евразия",
+      "alias": "первый_канал_евразия",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Открытый_Мир",
+      "alias": "открытый_мир",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Карусель",
+      "alias": "карусель",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Bridge_TV_Deluxe",
+      "alias": "bridge_tv_deluxe",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Redlight",
+      "alias": "redlight",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Первый_Тульский",
+      "alias": "первый_тульский",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "7_канал_Красноярск",
+      "alias": "7_канал_красноярск",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Центральное_телевидение",
+      "alias": "центральное_телевидение",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Иллюзион__",
+      "alias": "иллюзион__",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Киносемья",
+      "alias": "киносемья",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Матч!_Арена_HD",
+      "alias": "матч!_арена_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Бобер",
+      "alias": "бобер",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Big_Planet_HD",
+      "alias": "big_planet_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "СуперГерои",
+      "alias": "супергерои",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "The_Explorers",
+      "alias": "the_explorers",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "HD_Media",
+      "alias": "hd_media",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "День_Победы",
+      "alias": "день_победы",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Рыжий",
+      "alias": "рыжий",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Камеди",
+      "alias": "камеди",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Bridge_TV_Hits",
+      "alias": "bridge_tv_hits",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Старт_Триумф",
+      "alias": "старт_триумф",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Жар_Птица",
+      "alias": "жар_птица",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ЕДА",
+      "alias": "еда",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Конгресс_ТВ",
+      "alias": "конгресс_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Сарафан_ТВ",
+      "alias": "сарафан_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Вопросы_и_ответы",
+      "alias": "вопросы_и_ответы",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "viju__Comedy",
+      "alias": "viju__comedy",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Глазами_туриста_4К",
+      "alias": "глазами_туриста_4к",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Калейдоскоп_ТВ",
+      "alias": "калейдоскоп_тв",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ТНТ4",
+      "alias": "тнт4",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "РТР_Беларусь",
+      "alias": "ртр_беларусь",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ТНВ-планета",
+      "alias": "тнв-планета",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Тайны_Галактики",
+      "alias": "тайны_галактики",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Киносат",
+      "alias": "киносат",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Hollywood_HD",
+      "alias": "hollywood_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "МИР",
+      "alias": "мир",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "ОТВ_-_Областное_телевидение",
+      "alias": "отв_-_областное_телевидение",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Известия",
+      "alias": "известия",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "BBC",
+      "alias": "bbc",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Кино_ТВ_HD",
+      "alias": "кино_тв_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "CCTV4",
+      "alias": "cctv4",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Кинеко",
+      "alias": "кинеко",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Московский_образовательный",
+      "alias": "московский_образовательный",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Матч!_Страна",
+      "alias": "матч!_страна",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Феникс_Кино",
+      "alias": "феникс_кино",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "myZen_tv",
+      "alias": "myzen_tv",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Curiosity_Stream",
+      "alias": "curiosity_stream",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Наше_наследие",
+      "alias": "наше_наследие",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Глазами_туриста",
+      "alias": "глазами_туриста",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "НТВ-Мир",
+      "alias": "нтв-мир",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "СТС_Love",
+      "alias": "стс_love",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Мультсезон",
+      "alias": "мультсезон",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Охотник_и_Рыболов_HD",
+      "alias": "охотник_и_рыболов_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    }
+  ]
+}
