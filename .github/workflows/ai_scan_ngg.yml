@@ -1,43 +1,60 @@
-name: AI Scan NGG и Автокоммит
+name: IPTV Alias Verification & Auto-Scan v4.7 beta
 
 on:
   schedule:
-    # Автозапуск каждые 6 часов
+    # Запуск каждые 6 часов
     - cron: '0 */6 * * *'
-  workflow_dispatch: # Ручной запуск из вкладки Actions
+  workflow_dispatch: # Возможность ручного запуска из интерфейса GitHub
 
 permissions:
-  contents: write # Разрешение на запись в репозиторий
+  contents: write
 
 jobs:
-  run-and-commit:
+  scan-and-update:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Шаг 1 — Получение репозитория
+      - name: Чтение репозитория
         uses: actions/checkout@v4
-        with:
-          ref: main # Явно указываем ветку
 
-      - name: Шаг 2 — Установка Python
-        uses: actions/setup-python@v5
+      - name: Настройка Python 3.10
+        uses: actions/python-10@v5
         with:
           python-version: '3.10'
 
-      - name: Шаг 3 — Установка зависимостей
+      - name: Кэширование зависимостей и базы знаний
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            xml_2016_knowledge.json
+            knowledge.db
+            data/
+          key: ${{ runner.os }}-iptv-cache-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-iptv-cache-
+
+      - name: Установка зависимостей
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install scikit-learn numpy joblib
 
-      - name: Шаг 4 — Запуск скрипта сканирования
-        run: python ai_scan_ngg.py
+      - name: Запуск сканера Alias Engine v4.7 beta
+        run: |
+          python alias_engine_v4_7_beta.py --scan
 
-      - name: Шаг 5 — Абсолютно гарантированный коммит и push
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Автообновление плейлиста через ai_scan_ngg.py [skip ci]"
-          branch: main
-          commit_user_name: "github-actions[bot]"
-          commit_user_email: "github-actions[bot]@users.noreply.github.com"
-          commit_author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
-          skip_dirty_check: false
+      - name: Сохранение результатов в репозиторий
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Добавляем сгенерированные и обновленные файлы
+          git add playlist.m3u Ai_Alias*.txt Ai_Alias*.json knowledge.db data/model.joblib xml_2016_knowledge.json || true
+          
+          # Фиксируем изменения, если они есть
+          if git status --porcelain | grep -E 'playlist|Ai_Alias|knowledge|model'; then
+            git commit -m "auto: update playlist, ML-model and reports [v4.7 beta]"
+            git push
+          else
+            echo "Изменений не обнаружено. Пропуск push."
+          fi
