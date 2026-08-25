@@ -41,7 +41,7 @@ jobs:
 
       - name: Запуск сканера Alias Engine v4.7 beta
         run: |
-          python alias_engine_v4_7_beta.py --scan
+          python ai_scan_ngg.py --scan
 
       - name: Сохранение результатов в репозиторий
         run: |
