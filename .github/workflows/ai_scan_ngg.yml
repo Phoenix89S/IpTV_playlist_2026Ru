@@ -48,10 +48,23 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Фиксация сгенерированных отчетов, плейлиста и весов ML
-          git add playlist.m3u Ai_Alias*.txt Ai_Alias*.json knowledge.db data/model.joblib xml_2016_knowledge.json || true
+          # Безопасное добавление базы данных и кэша знаний
+          if [ -f knowledge.db ]; then
+            git add knowledge.db
+          fi
+          if [ -f xml_2016_knowledge.json ]; then
+            git add xml_2016_knowledge.json
+          fi
+
+          # Безопасное добавление модели ML, если она существует
+          if [ -f data/model.joblib ]; then
+            git add data/model.joblib
+          fi
+
+          # Гибкий захват любых плейлистов (.m3u) и отчетов (Ai_Alias*) с любыми суффиксами
+          git add *.m3u Ai_Alias*.txt Ai_Alias*.json || true
           
-          if git status --porcelain | grep -E 'playlist|Ai_Alias|knowledge|model'; then
+          if git status --porcelain | grep -E 'playlist|\.m3u|Ai_Alias|knowledge|model'; then
             git commit -m "auto: update playlist, ML-model and reports [ngg_scan_ai v4.7 beta]"
             git push
           else
