@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Alias Verification Engine v4.7 beta (ngSKALA ML-Hybrid Edition + EPG 2016 Knowledge Layer)
+Alias Verification Engine v5.5 (ngSKALA ML-Hybrid Edition + EPG 2016 Knowledge Layer)
 Самообучающийся сканер CDN Ngenix с ML-ранжированием кандидатов (Scikit-Learn Ensemble),
-поддержкой EPG 2016, мульти-нод, глубокой валидацией HLS и генерацией отчетов.
+поддержкой EPG 2016, мульти-нод, глубокой валидацией HLS, универсальным загрузчиком JSON и генерацией отчетов.
 """
 
 from __future__ import annotations
@@ -22,7 +22,7 @@ import sqlite3
 import ssl
 import time
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Set, Tuple
+from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 import unicodedata
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
@@ -55,13 +55,204 @@ BASE_MACHINE_REPORT_NAME = "Ai_Alias_ngnorm.txt"
 BASE_JSON_EXPORT_NAME = "Ai_Alias_export.json"
 OUTPUT_PLAYLIST = "playlist.m3u"
 
-MACHINE_SOURCE = "ALIAS_MODULE_V4_7_BETA_ML_HYBRID"
+MACHINE_SOURCE = "ALIAS_MODULE_V5_5_ML_HYBRID"
 DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36"
 
 DEFAULT_REQUEST_TIMEOUT = 3
 MAX_WORKER_THREADS = 20
 MIN_TRAINING_SAMPLES = 30
 TOP_RESULTS = 25
+
+# ============================================================
+# UNIVERSAL JSON SOURCES
+# ============================================================
+
+REMOTE_JSON_SOURCES = [
+    "https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/Ai_Alias_export.json",
+    "https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/Ai_Alias_export_1.json",
+    "https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/Ai_Alias_export_2.json",
+]
+
+
+def load_json_source(source):
+    """
+    Универсальная загрузка JSON:
+    - URL
+    - локальный файл
+    """
+    try:
+        # ----------------------------------------------------
+        # URL
+        # ----------------------------------------------------
+        if str(source).startswith(("http://", "https://")):
+            req = Request(source, headers={"User-Agent": DEFAULT_USER_AGENT})
+            with urlopen(req, timeout=DEFAULT_REQUEST_TIMEOUT, context=SSL_CONTEXT) as response:
+                status_code = getattr(response, "status", 200)
+                if status_code != 200:
+                    print(
+                        f"[JSON] HTTP "
+                        f"{status_code}: "
+                        f"{source}"
+                    )
+                    return None
+                return json.loads(response.read().decode("utf-8"))
+
+        # ----------------------------------------------------
+        # Локальный файл
+        # ----------------------------------------------------
+        path = Path(source)
+
+        if not path.exists():
+            print(
+                f"[JSON] Файл не найден: "
+                f"{path}"
+            )
+            return None
+
+        with open(
+            path,
+            "r",
+            encoding="utf-8"
+        ) as f:
+            return json.load(f)
+
+    except Exception as e:
+        print(
+            f"[JSON] Ошибка загрузки "
+            f"{source}: {e}"
+        )
+        return None
+
+
+def iter_json_records(data):
+    """
+    Универсально извлекает записи из JSON.
+    """
+    if isinstance(data, list):
+        for item in data:
+            if isinstance(item, dict):
+                yield item
+        return
+
+    if isinstance(data, dict):
+        # Возможные контейнеры
+        for key in (
+            "records",
+            "data",
+            "items",
+            "results",
+            "aliases",
+            "channels",
+        ):
+            value = data.get(key)
+
+            if isinstance(value, list):
+                for item in value:
+                    if isinstance(item, dict):
+                        yield item
+                return
+
+        # JSON может сам быть одной записью
+        yield data
+
+
+def find_all_json_sources():
+    """
+    Сохраняет универсальный поиск локальных JSON
+    и добавляет фиксированные удалённые источники.
+    """
+    sources = []
+
+    # ========================================================
+    # 1. ТВОЙ СУЩЕСТВУЮЩИЙ УНИВЕРСАЛЬНЫЙ ПОИСК
+    # ========================================================
+    patterns = [
+        "*.json",
+        "Ai_Alias*.json",
+        "*Alias*.json",
+    ]
+
+    found = set()
+
+    for pattern in patterns:
+        for path in Path(".").rglob(pattern):
+            if path.is_file():
+                found.add(
+                    path.resolve()
+                )
+
+    for path in sorted(found):
+        sources.append(
+            str(path)
+        )
+
+    # ========================================================
+    # 2. ФИКСИРОВАННЫЕ ИСТОРИЧЕСКИЕ JSON
+    # ========================================================
+    for url in REMOTE_JSON_SOURCES:
+        if url not in sources:
+            sources.append(url)
+
+    return sources
+
+
+def load_all_json_records():
+    """
+    Загружает ВСЕ источники:
+    локальные + удалённые.
+
+    Возвращает единый список записей.
+    """
+    sources = find_all_json_sources()
+
+    all_records = []
+
+    print(
+        f"[JSON] Источников найдено: "
+        f"{len(sources)}"
+    )
+
+    for source in sources:
+        print(
+            f"[JSON] Загрузка: {source}"
+        )
+
+        data = load_json_source(
+            source
+        )
+
+        if data is None:
+            continue
+
+        count = 0
+
+        for record in iter_json_records(
+            data
+        ):
+            record = dict(record)
+
+            # сохраняем происхождение записи
+            record[
+                "_json_source"
+            ] = source
+
+            all_records.append(
+                record
+            )
+
+            count += 1
+
+        print(
+            f"[JSON] Получено записей: "
+            f"{count}"
+        )
+
+    print(
+        f"[JSON] Всего записей: "
+        f"{len(all_records)}"
+    )
+
+    return all_records
 
 # Узлы CDN Ngenix для динамического опроса
 NGENIX_NODES = [f"s703{i}" for i in range(78, 91)]
@@ -84,7 +275,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
 )
-LOGGER = logging.getLogger("AliasEngineV4.7beta")
+LOGGER = logging.getLogger("AliasEngineV5.5")
 
 # ============================================================
 # СЛУЖЕБНЫЕ ТАБЛИЦЫ И СЛОВАРНЫЕ ДАННЫЕ
@@ -424,7 +615,7 @@ class EPGKnowledgeBase:
                 self.cache_path.write_bytes(raw_bytes)
                 LOGGER.info("База xml_2016_knowledge.json обновлена из GitHub Raw.")
         except Exception as e:
-            LOGGER.warning("Не удалось скачать xml_2016_knowledge.json из сети (%s). Пробуем локальный кэш...", e)
+            LOGGER.warning("Не удалось скачать xml_2016_knowledge.json (%s). Пробуем кэш...", e)
 
         if not data and self.cache_path.exists():
             try:
@@ -495,12 +686,10 @@ def generate_alias_candidates(channel: ChannelInput, epg_kb: Optional[EPGKnowled
         if val_clean and val_clean not in candidates:
             candidates[val_clean] = (val_clean, rule)
 
-    # 0. Исторический слой из EPG 2016
     if epg_kb:
         for cand in epg_kb.get_candidates(name, channel.tvg_id):
             add_cand(cand, "epg_xml_2016")
 
-    # 1. Прямой словарь
     display_norm = name.strip().casefold()
     mapped_name = CHANNEL_NAME_ALIASES.get(display_norm)
     dict_matches = set(KNOWN_ALIAS_DICTIONARY.get(name, set()))
@@ -510,7 +699,6 @@ def generate_alias_candidates(channel: ChannelInput, epg_kb: Optional[EPGKnowled
     for alias in dict_matches:
         add_cand(alias, "known_dictionary")
 
-    # 2. Правила трансформации
     name_lower = name.lower().strip()
     clean_id = epg_id.lower().replace(" ", "").replace("-", "").replace("_", "")
     translit_name = transliterate_russian(name_lower)
@@ -532,7 +720,6 @@ def generate_alias_candidates(channel: ChannelInput, epg_kb: Optional[EPGKnowled
     if mapped_name:
         add_cand(transliterate_russian(mapped_name), "mapped_name")
 
-    # Оценка ML-моделью
     ml_model = EnsembleModel.load()
     cand_dicts = [{"candidate": c[0], "rule": c[1]} for c in candidates.values()]
 
@@ -704,7 +891,7 @@ def save_all_reports(channels: List[ChannelInput], results: List[AliasMatch]) ->
     m3u_file = generate_numbered_filename(OUTPUT_PLAYLIST)
 
     with open(txt_file, "w", encoding="utf-8") as f:
-        f.write("=== ALIAS ENGINE V4.7 BETA (ML-HYBRID) REPORT ===\n\n")
+        f.write("=== ALIAS ENGINE V5.5 (ML-HYBRID) REPORT ===\n\n")
         for res in results:
             if res.cdn_alias and res.streams:
                 s = res.streams[0]
@@ -763,8 +950,8 @@ def retrain_ml_model() -> None:
     model = EnsembleModel()
     try:
         metrics = model.fit(rows)
-        model.save()
-        LOGGER.info("=== МЕТРИКИ ML-АНСАМБЛЯ ===")
+        model.save(MODEL_FILE)
+        LOGGER.info("=== МЕТРИКИ ML-АНСАМБЛЯ (v5.5) ===")
         for k, v in metrics.items():
             LOGGER.info(f"{k:10}: {v:.4f}")
     except ValueError as e:
@@ -775,12 +962,17 @@ def run_pipeline() -> None:
     epg_kb = EPGKnowledgeBase()
     epg_kb.load()
 
+    # Загружаем все исторические и локальные JSON-записи через универсальный загрузчик
+    all_json_records = load_all_json_records()
+    if all_json_records:
+        LOGGER.info("[JSON] Успешно обработано записей из единого пула: %d", len(all_json_records))
+
     scanner = MultiNodeScanner(db, epg_kb)
     scanner.ping_nodes()
 
     channels = fetch_epg_channels()
     results: List[AliasMatch] = []
-    LOGGER.info("Старт параллельного ML-сканирования...")
+    LOGGER.info("Старт параллельного ML-сканирования (v5.5)...")
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKER_THREADS) as executor:
         future_to_ch = {executor.submit(scanner.probe_channel, ch): ch for ch in channels}
@@ -799,13 +991,13 @@ def run_pipeline() -> None:
 def show_stats() -> None:
     db = Database()
     stats = db.get_statistics()
-    print("\n=== СТАТИСТИКА БАЗЫ ДАННЫХ ===")
+    print("\n=== СТАТИСТИКА БАЗЫ ДАННЫХ (v5.5) ===")
     print(f"Всего проверок: {stats['total']}")
     print(f"Успешных:       {stats['successful']}")
     print(f"Неуспешных:     {stats['failed']}")
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Alias Verification Engine v4.7 beta (ngSKALA ML-Hybrid)")
+    parser = argparse.ArgumentParser(description="Alias Verification Engine v5.5 (ngSKALA ML-Hybrid)")
     parser.add_argument("--scan", action="store_true", help="Запустить полное сканирование и сформировать отчёты")
     parser.add_argument("--train", action="store_true", help="Переобучить ML-модель по накопленным данным")
     parser.add_argument("--stats", action="store_true", help="Показать статистику базы данных")
