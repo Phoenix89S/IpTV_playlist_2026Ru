@@ -6,30 +6,35 @@ Alias Verification Engine
 6.1.7602.2901626_AI_build_6.1.760229.0162631
 ngSKALA ML-Hybrid Evolution Edition
 
+Исправленная и усиленная версия.
+
 Основные возможности:
 
 1. Мульти-нодовый CDN Ngenix scanner.
 2. EPG 2016 Knowledge Layer.
 3. Универсальная загрузка исторических JSON.
-4. Накопительная SQLite Knowledge Base.
-5. Самообучение на ВСЕЙ накопленной истории.
-6. Усиленный ML-ансамбль:
+4. Импорт исторических JSON в SQLite Knowledge Base.
+5. Накопительная SQLite Knowledge Base.
+6. Самообучение по ВСЕЙ накопленной истории.
+7. ML-ансамбль:
    - RandomForest
    - ExtraTrees
    - HistGradientBoosting
-   - второй RandomForest с независимыми параметрами
-7. Расширенный набор детерминированных признаков.
-8. Стабильные признаки без Python hash().
-9. Версионирование каждого запуска:
-   playlist_N.m3u
-   Ai_Alias_N.txt
-   Ai_Alias_ngnorm_N.txt
-   Ai_Alias_export_N.json
-   ngSKALA_learned_report_N.txt
-   data/model_N.joblib
-10. model_latest.joblib всегда указывает на последнюю обученную модель.
-11. Предыдущие версии НЕ удаляются.
-12. NGG_RUN_NUMBER передаётся из GitHub Actions.
+   - Deep RandomForest
+8. Стабильные детерминированные ML-признаки.
+9. Версионирование каждого запуска.
+10. model_latest.joblib = последняя совместимая обученная модель.
+11. Предыдущие модели и отчёты не удаляются.
+12. NGG_RUN_NUMBER поддерживается через GitHub Actions.
+13. Исторические JSON приводятся к единой схеме.
+14. Защита от повторного импорта исторических данных.
+15. Детерминированный порядок результатов.
+16. Исправлено соответствие ChannelInput <-> AliasMatch.
+17. Расширенная статистика.
+18. Контроль версии feature schema.
+19. Безопасное поведение при недостатке данных для ML.
+20. ML используется для РАНЖИРОВАНИЯ кандидатов,
+    а физическое подтверждение выполняется CDN/HLS scanner.
 """
 
 from __future__ import annotations
@@ -39,6 +44,7 @@ import concurrent.futures
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 import gzip
+import hashlib
 import io
 import json
 import logging
@@ -47,11 +53,10 @@ import re
 import sqlite3
 import ssl
 import time
-from pathlib import Path
-from typing import Dict, List, Optional, Set, Tuple
 import unicodedata
-
-from urllib.error import HTTPError
+from pathlib import Path
+from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
+from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 import xml.etree.ElementTree as ET
 
@@ -98,12 +103,18 @@ DATA_DIR = Path("data")
 
 MODEL_FILE = DATA_DIR / "model_latest.joblib"
 
-MACHINE_SOURCE = (
-    "ALIAS_MODULE_"
+ENGINE_NAME = "Alias Verification Engine"
+
+ENGINE_VERSION = (
     "6.1.7602.2901626_AI_build_6.1.760229.0162631"
 )
 
-ENGINE_VERSION = (
+FEATURE_SCHEMA_VERSION = "FS-2"
+
+MODEL_SCHEMA_VERSION = "MODEL-2"
+
+MACHINE_SOURCE = (
+    "ALIAS_MODULE_"
     "6.1.7602.2901626_AI_build_6.1.760229.0162631"
 )
 
@@ -112,98 +123,146 @@ DEFAULT_USER_AGENT = (
     "AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"
 )
 
-DEFAULT_REQUEST_TIMEOUT = 3
+DEFAULT_REQUEST_TIMEOUT = 4
+
+EPG_REQUEST_TIMEOUT = 20
 
 MAX_WORKER_THREADS = 20
+
+MAX_NODE_WORKERS = 15
 
 TOP_RESULTS = 25
 
 MIN_TRAINING_SAMPLES = 30
 
+MIN_CLASS_SAMPLES = 2
+
 RANDOM_STATE = 42
+
+# Для проверки HLS достаточно первых нескольких KB.
+HLS_PROBE_BYTES = 4096
+
+# Если True, HTTPS-сертификаты проверяются.
+# При необходимости можно отключить через переменную:
+# NGG_SSL_VERIFY=0
+SSL_VERIFY = (
+    os.environ.get(
+        "NGG_SSL_VERIFY",
+        "1",
+    ).strip().lower()
+    not in {
+        "0",
+        "false",
+        "no",
+        "off",
+    }
+)
 
 
 # ============================================================
-# RUN VERSION
+# RUN NUMBER
 # ============================================================
 
 def get_run_number() -> int:
     """
-    Получает номер запуска из GitHub Actions.
+    Получает номер запуска.
 
-    YAML должен установить:
+    Приоритет:
 
-        NGG_RUN_NUMBER=<N>
-
-    Если запуск производится вручную локально,
-    используется следующий номер на основе существующих файлов.
+    1. NGG_RUN_NUMBER
+    2. Максимальный существующий номер + 1
     """
 
-    env_value = os.environ.get("NGG_RUN_NUMBER", "").strip()
+    env_value = os.environ.get(
+        "NGG_RUN_NUMBER",
+        "",
+    ).strip()
 
-    if env_value.isdigit() and int(env_value) > 0:
+    if (
+        env_value.isdigit()
+        and int(env_value) > 0
+    ):
         return int(env_value)
 
-    numbers = []
+    numbers: List[int] = []
 
     patterns = [
         "playlist_*.m3u",
         "Ai_Alias_*.txt",
         "Ai_Alias_export_*.json",
         "Ai_Alias_ngnorm_*.txt",
+        "ngSKALA_learned_report_*.txt",
     ]
 
     for pattern in patterns:
+
         for path in Path(".").glob(pattern):
-            match = re.search(r"_(\d+)\.[^.]+$", path.name)
+
+            match = re.search(
+                r"_(\d+)\.[^.]+$",
+                path.name,
+            )
 
             if match:
-                numbers.append(int(match.group(1)))
 
-    return max(numbers, default=0) + 1
+                try:
+                    numbers.append(
+                        int(match.group(1))
+                    )
+                except ValueError:
+                    pass
+
+    return max(
+        numbers,
+        default=0,
+    ) + 1
 
 
 RUN_NUMBER = get_run_number()
 
 
 # ============================================================
-# VERSIONED FILE NAMES
+# VERSIONED FILES
 # ============================================================
 
-def versioned_name(base: str, run_number: int = RUN_NUMBER) -> str:
-    """
-    Формирует:
-
-        Ai_Alias_1.txt
-        Ai_Alias_2.txt
-        ...
-
-    Первый запуск также получает номер.
-    """
+def versioned_name(
+    base: str,
+    run_number: int = RUN_NUMBER,
+) -> str:
 
     path = Path(base)
 
     return str(
         path.with_name(
-            f"{path.stem}_{run_number}{path.suffix}"
+            f"{path.stem}_{run_number}"
+            f"{path.suffix}"
         )
     )
 
 
-HUMAN_REPORT_FILE = versioned_name("Ai_Alias.txt")
+HUMAN_REPORT_FILE = versioned_name(
+    "Ai_Alias.txt"
+)
 
-MACHINE_REPORT_FILE = versioned_name("Ai_Alias_ngnorm.txt")
+MACHINE_REPORT_FILE = versioned_name(
+    "Ai_Alias_ngnorm.txt"
+)
 
-JSON_EXPORT_FILE = versioned_name("Ai_Alias_export.json")
+JSON_EXPORT_FILE = versioned_name(
+    "Ai_Alias_export.json"
+)
 
-PLAYLIST_FILE = versioned_name("playlist.m3u")
+PLAYLIST_FILE = versioned_name(
+    "playlist.m3u"
+)
 
 LEARNED_REPORT_FILE = versioned_name(
     "ngSKALA_learned_report.txt"
 )
 
 VERSIONED_MODEL_FILE = (
-    DATA_DIR / f"model_{RUN_NUMBER}.joblib"
+    DATA_DIR
+    / f"model_{RUN_NUMBER}.joblib"
 )
 
 
@@ -211,11 +270,23 @@ VERSIONED_MODEL_FILE = (
 # SSL
 # ============================================================
 
-SSL_CONTEXT = ssl.create_default_context()
+if SSL_VERIFY:
 
-SSL_CONTEXT.check_hostname = False
+    SSL_CONTEXT = (
+        ssl.create_default_context()
+    )
 
-SSL_CONTEXT.verify_mode = ssl.CERT_NONE
+else:
+
+    SSL_CONTEXT = (
+        ssl.create_default_context()
+    )
+
+    SSL_CONTEXT.check_hostname = False
+
+    SSL_CONTEXT.verify_mode = (
+        ssl.CERT_NONE
+    )
 
 
 # ============================================================
@@ -224,12 +295,15 @@ SSL_CONTEXT.verify_mode = ssl.CERT_NONE
 
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] "
-           "%(name)s: %(message)s",
+    format=(
+        "%(asctime)s "
+        "[%(levelname)s] "
+        "%(name)s: %(message)s"
+    ),
 )
 
 LOGGER = logging.getLogger(
-    "AliasEngine_6.1.7602.2901626"
+    "AliasEngine"
 )
 
 
@@ -297,18 +371,23 @@ RUSSIAN_TRANSLITERATION_TABLE = str.maketrans(
 )
 
 
-def normalize_unicode(value: str) -> str:
-    return (
-        unicodedata.normalize(
-            "NFKC",
-            value
-        ).strip()
-        if value
-        else ""
-    )
+def normalize_unicode(
+    value: str,
+) -> str:
+
+    if not value:
+        return ""
+
+    return unicodedata.normalize(
+        "NFKC",
+        str(value),
+    ).strip()
 
 
-def transliterate_russian(value: str) -> str:
+def transliterate_russian(
+    value: str,
+) -> str:
+
     return (
         normalize_unicode(value)
         .casefold()
@@ -316,6 +395,25 @@ def transliterate_russian(value: str) -> str:
             RUSSIAN_TRANSLITERATION_TABLE
         )
     )
+
+
+def canonical_text(
+    value: str,
+) -> str:
+
+    value = normalize_unicode(
+        value
+    )
+
+    value = value.casefold()
+
+    value = re.sub(
+        r"\s+",
+        " ",
+        value,
+    )
+
+    return value.strip()
 
 
 # ============================================================
@@ -332,7 +430,10 @@ CHANNEL_NAME_ALIASES: Dict[str, str] = {
 }
 
 
-KNOWN_ALIAS_DICTIONARY: Dict[str, Set[str]] = {
+KNOWN_ALIAS_DICTIONARY: Dict[
+    str,
+    Set[str],
+] = {
     "Hollywood HD": {"amc"},
     "AMC": {"amc"},
     "Карусель": {"karousel"},
@@ -358,9 +459,21 @@ KNOWN_ALIAS_DICTIONARY: Dict[str, Set[str]] = {
 
 
 EXTRA_CHANNELS = [
-    {"id": "scream", "name": "Scream", "logo": ""},
-    {"id": "shokiruyuschee", "name": "Шокирующее", "logo": ""},
-    {"id": "viju_planet", "name": "viju+ planet", "logo": ""},
+    {
+        "id": "scream",
+        "name": "Scream",
+        "logo": "",
+    },
+    {
+        "id": "shokiruyuschee",
+        "name": "Шокирующее",
+        "logo": "",
+    },
+    {
+        "id": "viju_planet",
+        "name": "viju+ planet",
+        "logo": "",
+    },
     {
         "id": "viju_tv1000_romantica",
         "name": "viju TV1000 romantica",
@@ -381,9 +494,21 @@ EXTRA_CHANNELS = [
         "name": "viju TV1000 русское",
         "logo": "",
     },
-    {"id": "hit", "name": "ХИТ", "logo": ""},
-    {"id": "kinokomediya", "name": "Кинокомедия", "logo": ""},
-    {"id": "cinema", "name": "CINEMA", "logo": ""},
+    {
+        "id": "hit",
+        "name": "ХИТ",
+        "logo": "",
+    },
+    {
+        "id": "kinokomediya",
+        "name": "Кинокомедия",
+        "logo": "",
+    },
+    {
+        "id": "cinema",
+        "name": "CINEMA",
+        "logo": "",
+    },
     {
         "id": "mosfilm_gold",
         "name": "Мосфильм. Золотая коллекция",
@@ -394,13 +519,41 @@ EXTRA_CHANNELS = [
         "name": "Fantastic Channel",
         "logo": "",
     },
-    {"id": "boevik", "name": "Боевик", "logo": ""},
-    {"id": "kinomix", "name": "Киномикс", "logo": ""},
-    {"id": "detektiv", "name": "Детектив", "logo": ""},
-    {"id": "rodnoe_kino", "name": "Родное кино", "logo": ""},
-    {"id": "patriot", "name": "Патриот", "logo": ""},
-    {"id": "rtg_hd", "name": "RTG HD", "logo": ""},
-    {"id": "rtg_int", "name": "RTG Int", "logo": ""},
+    {
+        "id": "boevik",
+        "name": "Боевик",
+        "logo": "",
+    },
+    {
+        "id": "kinomix",
+        "name": "Киномикс",
+        "logo": "",
+    },
+    {
+        "id": "detektiv",
+        "name": "Детектив",
+        "logo": "",
+    },
+    {
+        "id": "rodnoe_kino",
+        "name": "Родное кино",
+        "logo": "",
+    },
+    {
+        "id": "patriot",
+        "name": "Патриот",
+        "logo": "",
+    },
+    {
+        "id": "rtg_hd",
+        "name": "RTG HD",
+        "logo": "",
+    },
+    {
+        "id": "rtg_int",
+        "name": "RTG Int",
+        "logo": "",
+    },
     {
         "id": "nat_geo_ru",
         "name": "National Geographic RU",
@@ -411,8 +564,16 @@ EXTRA_CHANNELS = [
         "name": "NAT GEO WILD",
         "logo": "",
     },
-    {"id": "kinoujas", "name": "КИНОУЖАС", "logo": ""},
-    {"id": "kinosemya", "name": "КИНОСЕМЬЯ", "logo": ""},
+    {
+        "id": "kinoujas",
+        "name": "КИНОУЖАС",
+        "logo": "",
+    },
+    {
+        "id": "kinosemya",
+        "name": "КИНОСЕМЬЯ",
+        "logo": "",
+    },
     {
         "id": "russkiy_roman",
         "name": "Русский роман",
@@ -423,25 +584,81 @@ EXTRA_CHANNELS = [
         "name": "Русский детектив",
         "logo": "",
     },
-    {"id": "komediya", "name": "Комедия", "logo": ""},
-    {"id": "klyuch", "name": "Ключ", "logo": ""},
-    {"id": "ntv_plus", "name": "НТВ-ПЛЮС", "logo": ""},
-    {"id": "rutube", "name": "RUTUBE", "logo": ""},
-    {"id": "premier", "name": "PREMIER", "logo": ""},
-    {"id": "ntv", "name": "НТВ", "logo": ""},
-    {"id": "tnt", "name": "ТНТ", "logo": ""},
-    {"id": "pyatnica", "name": "Пятница!", "logo": ""},
-    {"id": "tv3", "name": "ТВ-3", "logo": ""},
-    {"id": "tnt4", "name": "ТНТ4", "logo": ""},
-    {"id": "match_tv", "name": "Матч ТВ", "logo": ""},
-    {"id": "trash", "name": "Trash", "logo": ""},
+    {
+        "id": "komediya",
+        "name": "Комедия",
+        "logo": "",
+    },
+    {
+        "id": "klyuch",
+        "name": "Ключ",
+        "logo": "",
+    },
+    {
+        "id": "ntv_plus",
+        "name": "НТВ-ПЛЮС",
+        "logo": "",
+    },
+    {
+        "id": "rutube",
+        "name": "RUTUBE",
+        "logo": "",
+    },
+    {
+        "id": "premier",
+        "name": "PREMIER",
+        "logo": "",
+    },
+    {
+        "id": "ntv",
+        "name": "НТВ",
+        "logo": "",
+    },
+    {
+        "id": "tnt",
+        "name": "ТНТ",
+        "logo": "",
+    },
+    {
+        "id": "pyatnica",
+        "name": "Пятница!",
+        "logo": "",
+    },
+    {
+        "id": "tv3",
+        "name": "ТВ-3",
+        "logo": "",
+    },
+    {
+        "id": "tnt4",
+        "name": "ТНТ4",
+        "logo": "",
+    },
+    {
+        "id": "match_tv",
+        "name": "Матч ТВ",
+        "logo": "",
+    },
+    {
+        "id": "trash",
+        "name": "Trash",
+        "logo": "",
+    },
     {
         "id": "match_strana",
         "name": "Матч! Страна",
         "logo": "",
     },
-    {"id": "2x2", "name": "2x2", "logo": ""},
-    {"id": "subbota", "name": "Суббота!", "logo": ""},
+    {
+        "id": "2x2",
+        "name": "2x2",
+        "logo": "",
+    },
+    {
+        "id": "subbota",
+        "name": "Суббота!",
+        "logo": "",
+    },
     {
         "id": "ntv_style",
         "name": "НТВ Стиль",
@@ -457,13 +674,21 @@ EXTRA_CHANNELS = [
         "name": "НТВ Сериал",
         "logo": "",
     },
-    {"id": "ntv_hit", "name": "НТВ Хит", "logo": ""},
+    {
+        "id": "ntv_hit",
+        "name": "НТВ Хит",
+        "logo": "",
+    },
     {
         "id": "unknown_russia",
         "name": "Неизвестная Россия",
         "logo": "",
     },
-    {"id": "boec", "name": "Боец", "logo": ""},
+    {
+        "id": "boec",
+        "name": "Боец",
+        "logo": "",
+    },
 ]
 
 
@@ -508,12 +733,107 @@ class AliasMatch:
     match_type: str
     confidence: float
     reason: str
-    candidates: List[AliasCandidate] = field(
-        default_factory=list
+    candidates: List[
+        AliasCandidate
+    ] = field(default_factory=list)
+    streams: List[
+        CDNStream
+    ] = field(default_factory=list)
+
+
+# ============================================================
+# UTILS
+# ============================================================
+
+def utc_now() -> str:
+
+    return datetime.now(
+        timezone.utc
+    ).isoformat()
+
+
+def stable_sha256(
+    value: str,
+) -> str:
+
+    return hashlib.sha256(
+        value.encode(
+            "utf-8",
+            errors="ignore",
+        )
+    ).hexdigest()
+
+
+def safe_int(
+    value: Any,
+    default: int = 0,
+) -> int:
+
+    try:
+        return int(value)
+    except (
+        TypeError,
+        ValueError,
+    ):
+        return default
+
+
+def safe_float(
+    value: Any,
+    default: float = 0.0,
+) -> float:
+
+    try:
+        return float(value)
+    except (
+        TypeError,
+        ValueError,
+    ):
+        return default
+
+
+def parse_bool(
+    value: Any,
+) -> Optional[bool]:
+
+    if isinstance(
+        value,
+        bool,
+    ):
+        return value
+
+    if value is None:
+        return None
+
+    text = (
+        str(value)
+        .strip()
+        .casefold()
     )
-    streams: List[CDNStream] = field(
-        default_factory=list
-    )
+
+    if text in {
+        "1",
+        "true",
+        "yes",
+        "success",
+        "ok",
+        "valid",
+        "confirmed",
+    }:
+        return True
+
+    if text in {
+        "0",
+        "false",
+        "no",
+        "fail",
+        "failed",
+        "invalid",
+        "unknown",
+    }:
+        return False
+
+    return None
 
 
 # ============================================================
@@ -521,26 +841,35 @@ class AliasMatch:
 # ============================================================
 
 REMOTE_JSON_SOURCES = [
-    "https://raw.githubusercontent.com/"
-    "Phoenix89S/IpTV_playlist_2026Ru/main/"
-    "Ai_Alias_export.json",
-
-    "https://raw.githubusercontent.com/"
-    "Phoenix89S/IpTV_playlist_2026Ru/main/"
-    "Ai_Alias_export_1.json",
-
-    "https://raw.githubusercontent.com/"
-    "Phoenix89S/IpTV_playlist_2026Ru/main/"
-    "Ai_Alias_export_2.json",
+    (
+        "https://raw.githubusercontent.com/"
+        "Phoenix89S/IpTV_playlist_2026Ru/main/"
+        "Ai_Alias_export.json"
+    ),
+    (
+        "https://raw.githubusercontent.com/"
+        "Phoenix89S/IpTV_playlist_2026Ru/main/"
+        "Ai_Alias_export_1.json"
+    ),
+    (
+        "https://raw.githubusercontent.com/"
+        "Phoenix89S/IpTV_playlist_2026Ru/main/"
+        "Ai_Alias_export_2.json"
+    ),
 ]
 
 
-def load_json_source(source):
+def load_json_source(
+    source: str,
+) -> Optional[Any]:
 
     try:
 
         if str(source).startswith(
-            ("http://", "https://")
+            (
+                "http://",
+                "https://",
+            )
         ):
 
             req = Request(
@@ -564,85 +893,127 @@ def load_json_source(source):
                 )
 
                 if status_code != 200:
-                    print(
-                        f"[JSON] HTTP "
-                        f"{status_code}: "
-                        f"{source}"
+
+                    LOGGER.warning(
+                        "[JSON] HTTP %s: %s",
+                        status_code,
+                        source,
                     )
+
+                    return None
+
+                raw = response.read()
+
+                if not raw:
                     return None
 
                 return json.loads(
-                    response.read().decode(
-                        "utf-8"
+                    raw.decode(
+                        "utf-8-sig"
                     )
                 )
 
         path = Path(source)
 
         if not path.exists():
-            print(
-                f"[JSON] Файл не найден: "
-                f"{path}"
-            )
             return None
 
-        with open(
-            path,
-            "r",
-            encoding="utf-8",
-        ) as f:
+        if not path.is_file():
+            return None
 
-            return json.load(f)
-
-    except Exception as e:
-
-        print(
-            f"[JSON] Ошибка загрузки "
-            f"{source}: {e}"
+        return json.loads(
+            path.read_text(
+                encoding="utf-8-sig"
+            )
         )
 
-        return None
+    except (
+        HTTPError,
+        URLError,
+        TimeoutError,
+        OSError,
+        json.JSONDecodeError,
+    ) as exc:
+
+        LOGGER.warning(
+            "[JSON] Ошибка загрузки %s: %s",
+            source,
+            exc,
+        )
+
+    except Exception as exc:
+
+        LOGGER.warning(
+            "[JSON] Непредвиденная ошибка "
+            "%s: %s",
+            source,
+            exc,
+        )
+
+    return None
 
 
-def iter_json_records(data):
+def iter_json_records(
+    data: Any,
+) -> Iterable[Dict[str, Any]]:
 
-    if isinstance(data, list):
+    if isinstance(
+        data,
+        list,
+    ):
 
         for item in data:
 
-            if isinstance(item, dict):
+            if isinstance(
+                item,
+                dict,
+            ):
                 yield item
 
         return
 
-    if isinstance(data, dict):
+    if not isinstance(
+        data,
+        dict,
+    ):
+        return
 
-        for key in (
-            "records",
-            "data",
-            "items",
-            "results",
-            "aliases",
-            "channels",
+    containers = (
+        "records",
+        "data",
+        "items",
+        "results",
+        "aliases",
+        "channels",
+        "history",
+        "attempts",
+    )
+
+    for key in containers:
+
+        value = data.get(key)
+
+        if isinstance(
+            value,
+            list,
         ):
 
-            value = data.get(key)
+            for item in value:
 
-            if isinstance(value, list):
+                if isinstance(
+                    item,
+                    dict,
+                ):
+                    yield item
 
-                for item in value:
+            return
 
-                    if isinstance(item, dict):
-                        yield item
-
-                return
-
-        yield data
+    yield data
 
 
-def find_all_json_sources():
+def find_all_json_sources() -> List[str]:
 
-    sources = []
+    sources: List[str] = []
 
     patterns = [
         "*.json",
@@ -650,22 +1021,41 @@ def find_all_json_sources():
         "*Alias*.json",
     ]
 
-    found = set()
+    found: Set[str] = set()
 
     for pattern in patterns:
 
-        for path in Path(".").rglob(pattern):
+        for path in Path(
+            "."
+        ).rglob(pattern):
 
             if path.is_file():
-                found.add(
-                    path.resolve()
-                )
+
+                try:
+                    resolved = str(
+                        path.resolve()
+                    )
+
+                    # Не импортируем внутренние
+                    # служебные каталоги Git.
+                    if (
+                        "/.git/"
+                        in resolved.replace(
+                            "\\",
+                            "/",
+                        )
+                    ):
+                        continue
+
+                    found.add(
+                        resolved
+                    )
+
+                except OSError:
+                    continue
 
     for path in sorted(found):
-
-        sources.append(
-            str(path)
-        )
+        sources.append(path)
 
     for url in REMOTE_JSON_SOURCES:
 
@@ -675,21 +1065,24 @@ def find_all_json_sources():
     return sources
 
 
-def load_all_json_records():
+def load_all_json_records() -> List[Dict[str, Any]]:
 
     sources = find_all_json_sources()
 
-    all_records = []
+    all_records: List[
+        Dict[str, Any]
+    ] = []
 
-    print(
-        f"[JSON] Источников найдено: "
-        f"{len(sources)}"
+    LOGGER.info(
+        "[JSON] Источников найдено: %d",
+        len(sources),
     )
 
     for source in sources:
 
-        print(
-            f"[JSON] Загрузка: {source}"
+        LOGGER.info(
+            "[JSON] Загрузка: %s",
+            source,
         )
 
         data = load_json_source(
@@ -717,48 +1110,227 @@ def load_all_json_records():
 
             count += 1
 
-        print(
-            f"[JSON] Получено записей: "
-            f"{count}"
+        LOGGER.info(
+            "[JSON] Получено записей: %d",
+            count,
         )
 
-    print(
-        f"[JSON] Всего записей: "
-        f"{len(all_records)}"
+    LOGGER.info(
+        "[JSON] Всего исторических "
+        "записей: %d",
+        len(all_records),
     )
 
     return all_records
 
 
 # ============================================================
+# HISTORICAL JSON NORMALIZATION
+# ============================================================
+
+def first_value(
+    record: Dict[str, Any],
+    keys: Tuple[str, ...],
+) -> Any:
+
+    for key in keys:
+
+        if key in record:
+
+            value = record[key]
+
+            if value is not None:
+                return value
+
+    return None
+
+
+def normalize_historical_record(
+    record: Dict[str, Any],
+) -> Optional[Dict[str, Any]]:
+
+    candidate = first_value(
+        record,
+        (
+            "candidate",
+            "alias",
+            "cdn_alias",
+            "cdnAlias",
+            "value",
+            "normalized_name",
+            "normalized",
+        ),
+    )
+
+    rule = first_value(
+        record,
+        (
+            "rule",
+            "rule_name",
+            "reason",
+            "source_rule",
+        ),
+    )
+
+    success_value = first_value(
+        record,
+        (
+            "success",
+            "confirmed",
+            "valid",
+            "reachable",
+            "status",
+        ),
+    )
+
+    if candidate is None:
+        return None
+
+    candidate = str(
+        candidate
+    ).strip()
+
+    if not candidate:
+        return None
+
+    success = parse_bool(
+        success_value
+    )
+
+    if success is None:
+
+        status_code = safe_int(
+            first_value(
+                record,
+                (
+                    "status_code",
+                    "http_status",
+                    "statusCode",
+                ),
+            ),
+            0,
+        )
+
+        success = (
+            status_code == 200
+        )
+
+    if rule is None:
+        rule = "historical_json"
+
+    pattern = first_value(
+        record,
+        (
+            "pattern",
+            "url_pattern",
+        ),
+    )
+
+    node = first_value(
+        record,
+        (
+            "node",
+            "cdn_node",
+        ),
+    )
+
+    status_code = safe_int(
+        first_value(
+            record,
+            (
+                "status_code",
+                "http_status",
+                "statusCode",
+            ),
+        ),
+        200 if success else 0,
+    )
+
+    response_time = safe_float(
+        first_value(
+            record,
+            (
+                "response_time",
+                "response_time_ms",
+                "ping_ms",
+            ),
+        ),
+        0.0,
+    )
+
+    return {
+        "candidate": candidate,
+        "rule": str(rule),
+        "pattern": (
+            str(pattern)
+            if pattern is not None
+            else ""
+        ),
+        "node": (
+            str(node)
+            if node is not None
+            else ""
+        ),
+        "success": 1 if success else 0,
+        "status_code": status_code,
+        "response_time": response_time,
+        "source": str(
+            record.get(
+                "_json_source",
+                "historical_json",
+            )
+        ),
+    }
+
+
+# ============================================================
 # STABLE ML FEATURES
 # ============================================================
 
-def stable_rule_value(rule: str) -> float:
+def stable_rule_value(
+    rule: str,
+) -> float:
     """
-    Стабильное числовое представление правила.
+    Стабильное представление правила.
 
-    ВАЖНО:
-    Python hash() намеренно рандомизируется между
-    процессами. Поэтому старый вариант:
-
-        hash(rule)
-
-    был плохим ML-признаком.
+    НИКОГДА не используется Python hash().
     """
 
-    total = 0
-
-    for index, char in enumerate(
-        rule.casefold()
-    ):
-        total += (
-            (index + 1)
-            * ord(char)
+    digest = hashlib.sha256(
+        rule.casefold().encode(
+            "utf-8"
         )
+    ).digest()
+
+    value = int.from_bytes(
+        digest[:4],
+        byteorder="big",
+        signed=False,
+    )
 
     return float(
-        total % 10000
+        value % 10000
+    )
+
+
+def stable_string_value(
+    value: str,
+) -> float:
+
+    digest = hashlib.sha256(
+        value.casefold().encode(
+            "utf-8"
+        )
+    ).digest()
+
+    number = int.from_bytes(
+        digest[:4],
+        byteorder="big",
+        signed=False,
+    )
+
+    return float(
+        number % 10000
     )
 
 
@@ -813,6 +1385,11 @@ def make_features(
         + val.count(" ")
     )
 
+    uppercase = sum(
+        c.isupper()
+        for c in val
+    )
+
     return [
         float(len(val)),
         float(alpha),
@@ -834,9 +1411,26 @@ def make_features(
         float("live" in lower),
         float("channel" in lower),
 
-        float(bool(re.search(r"\d", val))),
-        float(bool(re.search(r"^\d", val))),
-        float(bool(re.search(r"\d$", val))),
+        float(bool(
+            re.search(
+                r"\d",
+                val,
+            )
+        )),
+
+        float(bool(
+            re.search(
+                r"^\d",
+                val,
+            )
+        )),
+
+        float(bool(
+            re.search(
+                r"\d$",
+                val,
+            )
+        )),
 
         float(
             len(
@@ -847,14 +1441,7 @@ def make_features(
             )
         ),
 
-        float(
-            len(
-                re.findall(
-                    r"[aeiouyаеиоуыэюя]",
-                    lower,
-                )
-            )
-        ),
+        float(vowels),
 
         float(consonants),
 
@@ -862,9 +1449,7 @@ def make_features(
             translit == lower
         ),
 
-        float(
-            len(translit)
-        ),
+        float(len(translit)),
 
         float("viju" in lower),
         float("ntv" in lower),
@@ -873,34 +1458,64 @@ def make_features(
         float("mir" in lower),
         float("match" in lower),
 
+        float(uppercase),
+
         float(
-            sum(
-                c.isupper()
-                for c in val
+            digits / max(
+                len(val),
+                1,
             )
         ),
 
         float(
-            digits / max(len(val), 1)
-        ),
-
-        float(
-            unique / max(len(val), 1)
+            unique / max(
+                len(val),
+                1,
+            )
         ),
 
         stable_rule_value(rule),
+
+        stable_string_value(
+            candidate
+        ),
+
+        stable_string_value(
+            rule
+        ),
     ]
 
 
 def build_matrix(
-    rows: List[Dict],
+    rows: List[Dict[str, Any]],
 ) -> np.ndarray:
+
+    if not rows:
+
+        return np.empty(
+            (
+                0,
+                len(
+                    make_features(
+                        "",
+                        "",
+                    )
+                ),
+            ),
+            dtype=np.float64,
+        )
 
     return np.asarray(
         [
             make_features(
-                row["candidate"],
-                row["rule"],
+                row.get(
+                    "candidate",
+                    "",
+                ),
+                row.get(
+                    "rule",
+                    "",
+                ),
             )
             for row in rows
         ],
@@ -909,57 +1524,77 @@ def build_matrix(
 
 
 # ============================================================
-# POWERFUL ML ENSEMBLE
+# ML MODEL
 # ============================================================
 
 class EnsembleModel:
 
     VERSION = ENGINE_VERSION
 
+    FEATURE_SCHEMA = (
+        FEATURE_SCHEMA_VERSION
+    )
+
+    MODEL_SCHEMA = (
+        MODEL_SCHEMA_VERSION
+    )
+
     def __init__(self):
 
         self.trained = False
 
-        self.metrics = {}
+        self.metrics: Dict[
+            str,
+            float,
+        ] = {}
 
         self.training_samples = 0
 
-        self.created_at = None
+        self.created_at: Optional[
+            str
+        ] = None
+
+        self.feature_schema = (
+            FEATURE_SCHEMA_VERSION
+        )
+
+        self.model_schema = (
+            MODEL_SCHEMA_VERSION
+        )
+
+        self.class_distribution: Dict[
+            str,
+            int,
+        ] = {}
 
         if not HAS_ML:
             return
 
-        # ----------------------------------------------------
-        # MODEL 1
-        # ----------------------------------------------------
-
-        self.random_forest = RandomForestClassifier(
-            n_estimators=700,
-            max_depth=20,
-            min_samples_leaf=1,
-            max_features="sqrt",
-            class_weight="balanced_subsample",
-            random_state=42,
-            n_jobs=-1,
+        self.random_forest = (
+            RandomForestClassifier(
+                n_estimators=700,
+                max_depth=20,
+                min_samples_leaf=1,
+                max_features="sqrt",
+                class_weight=(
+                    "balanced_subsample"
+                ),
+                random_state=42,
+                n_jobs=-1,
+            )
         )
 
-        # ----------------------------------------------------
-        # MODEL 2
-        # ----------------------------------------------------
-
-        self.extra_trees = ExtraTreesClassifier(
-            n_estimators=700,
-            max_depth=24,
-            min_samples_leaf=1,
-            max_features="sqrt",
-            class_weight="balanced",
-            random_state=123,
-            n_jobs=-1,
+        self.extra_trees = (
+            ExtraTreesClassifier(
+                n_estimators=700,
+                max_depth=24,
+                min_samples_leaf=1,
+                max_features="sqrt",
+                class_weight="balanced",
+                random_state=123,
+                n_jobs=-1,
+            )
         )
-
-        # ----------------------------------------------------
-        # MODEL 3
-        # ----------------------------------------------------
 
         self.gradient_boosting = (
             HistGradientBoostingClassifier(
@@ -971,10 +1606,6 @@ class EnsembleModel:
                 random_state=777,
             )
         )
-
-        # ----------------------------------------------------
-        # MODEL 4
-        # ----------------------------------------------------
 
         self.random_forest_deep = (
             RandomForestClassifier(
@@ -990,51 +1621,134 @@ class EnsembleModel:
 
     def fit(
         self,
-        rows: List[Dict],
+        rows: List[Dict[str, Any]],
     ) -> Dict[str, float]:
 
         if not HAS_ML:
+
             raise ValueError(
                 "Scikit-learn не установлен."
             )
 
-        if len(rows) < MIN_TRAINING_SAMPLES:
+        if len(rows) < (
+            MIN_TRAINING_SAMPLES
+        ):
+
             raise ValueError(
-                f"Недостаточно данных "
-                f"({len(rows)}/"
-                f"{MIN_TRAINING_SAMPLES})."
+                "Недостаточно данных: "
+                f"{len(rows)}/"
+                f"{MIN_TRAINING_SAMPLES}."
             )
 
-        X = build_matrix(rows)
+        X = build_matrix(
+            rows
+        )
 
         y = np.asarray(
             [
-                int(row["success"])
+                int(
+                    row.get(
+                        "success",
+                        0,
+                    )
+                )
                 for row in rows
             ],
             dtype=np.int8,
         )
 
-        classes = set(
-            y.tolist()
+        unique, counts = np.unique(
+            y,
+            return_counts=True,
         )
 
-        if len(classes) < 2:
+        if len(unique) < 2:
 
             raise ValueError(
-                "Требуются данные обоих "
-                "классов (SUCCESS и FAIL)."
+                "Требуются SUCCESS и FAIL."
             )
 
-        X_train, X_test, y_train, y_test = (
-            train_test_split(
-                X,
-                y,
-                test_size=0.25,
-                random_state=RANDOM_STATE,
-                stratify=y,
+        class_distribution = {
+            str(
+                int(cls)
+            ): int(count)
+            for cls, count
+            in zip(
+                unique,
+                counts,
             )
+        }
+
+        if any(
+            count < MIN_CLASS_SAMPLES
+            for count in counts
+        ):
+
+            raise ValueError(
+                "Для каждого класса "
+                "нужно минимум "
+                f"{MIN_CLASS_SAMPLES} "
+                "наблюдения."
+            )
+
+        test_size = max(
+            0.25,
+            1.0 / max(
+                len(rows),
+                1,
+            ),
         )
+
+        # Не позволяем test-набору
+        # оказаться меньше количества классов.
+        test_count = max(
+            int(
+                round(
+                    len(rows)
+                    * test_size
+                )
+            ),
+            len(unique),
+        )
+
+        if (
+            len(rows)
+            - test_count
+            < len(unique)
+        ):
+
+            test_count = len(unique)
+
+        if (
+            test_count >= len(rows)
+        ):
+
+            test_count = max(
+                len(unique),
+                int(
+                    len(rows)
+                    * 0.2
+                ),
+            )
+
+        try:
+
+            X_train, X_test, y_train, y_test = (
+                train_test_split(
+                    X,
+                    y,
+                    test_size=test_count,
+                    random_state=RANDOM_STATE,
+                    stratify=y,
+                )
+            )
+
+        except ValueError as exc:
+
+            raise ValueError(
+                "Не удалось разделить "
+                f"training/test данные: {exc}"
+            )
 
         LOGGER.info(
             "ML train: %d samples",
@@ -1045,10 +1759,6 @@ class EnsembleModel:
             "ML test: %d samples",
             len(X_test),
         )
-
-        # ----------------------------------------------------
-        # TRAIN FOUR MODELS
-        # ----------------------------------------------------
 
         self.random_forest.fit(
             X_train,
@@ -1070,10 +1780,6 @@ class EnsembleModel:
             y_train,
         )
 
-        # ----------------------------------------------------
-        # PROBABILITIES
-        # ----------------------------------------------------
-
         rf_prob = (
             self.random_forest
             .predict_proba(X_test)[:, 1]
@@ -1093,10 +1799,6 @@ class EnsembleModel:
             self.random_forest_deep
             .predict_proba(X_test)[:, 1]
         )
-
-        # ----------------------------------------------------
-        # ENSEMBLE
-        # ----------------------------------------------------
 
         probability = (
             rf_prob * 0.30
@@ -1149,21 +1851,23 @@ class EnsembleModel:
 
         self.metrics = metrics
 
-        self.training_samples = len(
-            rows
+        self.training_samples = (
+            len(rows)
         )
 
-        self.created_at = (
-            datetime.now(
-                timezone.utc
-            ).isoformat()
+        self.created_at = utc_now()
+
+        self.class_distribution = (
+            class_distribution
         )
 
         return metrics
 
     def predict_probability(
         self,
-        candidates: List[Dict],
+        candidates: List[
+            Dict[str, Any]
+        ],
     ) -> List[float]:
 
         if (
@@ -1171,6 +1875,26 @@ class EnsembleModel:
             or not self.trained
             or not candidates
         ):
+
+            return [
+                0.5
+                for _ in candidates
+            ]
+
+        if (
+            getattr(
+                self,
+                "feature_schema",
+                None,
+            )
+            != FEATURE_SCHEMA_VERSION
+        ):
+
+            LOGGER.warning(
+                "Feature schema модели "
+                "несовместима с текущей."
+            )
+
             return [
                 0.5
                 for _ in candidates
@@ -1180,34 +1904,59 @@ class EnsembleModel:
             candidates
         )
 
-        rf_prob = (
-            self.random_forest
-            .predict_proba(X)[:, 1]
-        )
+        try:
 
-        et_prob = (
-            self.extra_trees
-            .predict_proba(X)[:, 1]
-        )
+            rf_prob = (
+                self.random_forest
+                .predict_proba(X)[:, 1]
+            )
 
-        gb_prob = (
-            self.gradient_boosting
-            .predict_proba(X)[:, 1]
-        )
+            et_prob = (
+                self.extra_trees
+                .predict_proba(X)[:, 1]
+            )
 
-        deep_prob = (
-            self.random_forest_deep
-            .predict_proba(X)[:, 1]
-        )
+            gb_prob = (
+                self.gradient_boosting
+                .predict_proba(X)[:, 1]
+            )
 
-        probability = (
-            rf_prob * 0.30
-            + et_prob * 0.30
-            + gb_prob * 0.25
-            + deep_prob * 0.15
-        )
+            deep_prob = (
+                self.random_forest_deep
+                .predict_proba(X)[:, 1]
+            )
 
-        return probability.tolist()
+            probability = (
+                rf_prob * 0.30
+                + et_prob * 0.30
+                + gb_prob * 0.25
+                + deep_prob * 0.15
+            )
+
+            return [
+                float(
+                    min(
+                        max(
+                            value,
+                            0.0,
+                        ),
+                        1.0,
+                    )
+                )
+                for value in probability
+            ]
+
+        except Exception as exc:
+
+            LOGGER.warning(
+                "Ошибка ML prediction: %s",
+                exc,
+            )
+
+            return [
+                0.5
+                for _ in candidates
+            ]
 
     def save(
         self,
@@ -1230,7 +1979,9 @@ class EnsembleModel:
     @staticmethod
     def load(
         path: Path = MODEL_FILE,
-    ) -> Optional["EnsembleModel"]:
+    ) -> Optional[
+        "EnsembleModel"
+    ]:
 
         path = Path(path)
 
@@ -1243,22 +1994,65 @@ class EnsembleModel:
                 path
             )
 
-            if isinstance(
+            if not isinstance(
                 model,
                 EnsembleModel,
             ):
-                return model
 
-        except Exception as e:
+                LOGGER.warning(
+                    "Файл %s содержит "
+                    "неизвестный объект.",
+                    path,
+                )
+
+                return None
+
+            if (
+                getattr(
+                    model,
+                    "feature_schema",
+                    None,
+                )
+                != FEATURE_SCHEMA_VERSION
+            ):
+
+                LOGGER.warning(
+                    "Модель %s имеет "
+                    "старую схему признаков.",
+                    path,
+                )
+
+                return None
+
+            if (
+                getattr(
+                    model,
+                    "model_schema",
+                    None,
+                )
+                != MODEL_SCHEMA_VERSION
+            ):
+
+                LOGGER.warning(
+                    "Модель %s имеет "
+                    "несовместимую схему.",
+                    path,
+                )
+
+                return None
+
+            return model
+
+        except Exception as exc:
 
             LOGGER.warning(
-                "Не удалось загрузить ML "
-                "модель %s: %s",
+                "Не удалось загрузить "
+                "ML модель %s: %s",
                 path,
-                e,
+                exc,
             )
 
-        return None
+            return None
 
 
 # ============================================================
@@ -1281,7 +2075,8 @@ class Database:
     ) -> sqlite3.Connection:
 
         conn = sqlite3.connect(
-            self.db_path
+            self.db_path,
+            timeout=30,
         )
 
         conn.row_factory = (
@@ -1306,6 +2101,8 @@ class Database:
                     status_code INTEGER,
                     response_time REAL,
                     run_number INTEGER DEFAULT 0,
+                    source TEXT DEFAULT 'live_scan',
+                    record_hash TEXT,
                     created_at DATETIME
                 )
                 """
@@ -1318,7 +2115,7 @@ class Database:
                     cdn_alias TEXT NOT NULL,
                     confidence REAL DEFAULT 1.0,
                     hit_count INTEGER DEFAULT 1,
-                    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
+                    last_updated DATETIME
                 )
                 """
             )
@@ -1347,27 +2144,64 @@ class Database:
                 """
             )
 
-            # ------------------------------------------------
-            # Миграция старой БД
-            # ------------------------------------------------
+            conn.execute(
+                """
+                CREATE UNIQUE INDEX IF NOT EXISTS
+                idx_att_record_hash
+                ON attempts(record_hash)
+                """
+            )
 
-            columns = [
-                row[1]
-                for row in conn.execute(
-                    "PRAGMA table_info(attempts)"
-                ).fetchall()
-            ]
-
-            if "run_number" not in columns:
-
-                conn.execute(
-                    """
-                    ALTER TABLE attempts
-                    ADD COLUMN run_number INTEGER DEFAULT 0
-                    """
-                )
+            self._migrate_columns(
+                conn
+            )
 
             conn.commit()
+
+    @staticmethod
+    def _migrate_columns(
+        conn: sqlite3.Connection,
+    ) -> None:
+
+        columns = {
+            row[1]
+            for row in conn.execute(
+                "PRAGMA table_info(attempts)"
+            ).fetchall()
+        }
+
+        migrations = {
+            "run_number":
+                "ALTER TABLE attempts "
+                "ADD COLUMN run_number "
+                "INTEGER DEFAULT 0",
+
+            "source":
+                "ALTER TABLE attempts "
+                "ADD COLUMN source "
+                "TEXT DEFAULT 'live_scan'",
+
+            "record_hash":
+                "ALTER TABLE attempts "
+                "ADD COLUMN record_hash "
+                "TEXT",
+
+        }
+
+        for column, sql in migrations.items():
+
+            if column not in columns:
+
+                try:
+
+                    conn.execute(sql)
+
+                except sqlite3.OperationalError:
+
+                    LOGGER.debug(
+                        "Колонка %s уже существует.",
+                        column,
+                    )
 
     def save_attempt(
         self,
@@ -1379,45 +2213,198 @@ class Database:
         status_code: Optional[int],
         response_time: float,
         run_number: int = RUN_NUMBER,
-    ) -> None:
+        source: str = "live_scan",
+        record_hash: Optional[str] = None,
+    ) -> bool:
 
-        with self._get_connection() as conn:
+        if record_hash is None:
 
-            conn.execute(
-                """
-                INSERT INTO attempts (
+            raw = "|".join(
+                [
                     candidate,
                     rule,
                     pattern,
                     node,
-                    success,
-                    status_code,
-                    response_time,
-                    run_number,
-                    created_at
-                )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """,
-                (
-                    candidate,
-                    rule,
-                    pattern,
-                    node,
-                    1 if success else 0,
-                    status_code,
-                    response_time,
-                    run_number,
-                    datetime.now(
-                        timezone.utc
-                    ).isoformat(),
-                ),
+                    str(
+                        1
+                        if success
+                        else 0
+                    ),
+                    str(
+                        status_code
+                        or 0
+                    ),
+                    f"{response_time:.4f}",
+                    str(run_number),
+                    source,
+                ]
             )
 
-            conn.commit()
+            record_hash = stable_sha256(
+                raw
+            )
+
+        try:
+
+            with self._get_connection() as conn:
+
+                cursor = conn.execute(
+                    """
+                    INSERT OR IGNORE INTO attempts (
+                        candidate,
+                        rule,
+                        pattern,
+                        node,
+                        success,
+                        status_code,
+                        response_time,
+                        run_number,
+                        source,
+                        record_hash,
+                        created_at
+                    )
+                    VALUES (
+                        ?, ?, ?, ?, ?, ?,
+                        ?, ?, ?, ?, ?
+                    )
+                    """,
+                    (
+                        candidate,
+                        rule,
+                        pattern,
+                        node,
+                        1 if success else 0,
+                        status_code,
+                        response_time,
+                        run_number,
+                        source,
+                        record_hash,
+                        utc_now(),
+                    ),
+                )
+
+                conn.commit()
+
+                return (
+                    cursor.rowcount > 0
+                )
+
+        except sqlite3.Error as exc:
+
+            LOGGER.warning(
+                "SQLite save_attempt error: %s",
+                exc,
+            )
+
+            return False
+
+    def import_historical_records(
+        self,
+        records: List[
+            Dict[str, Any]
+        ],
+    ) -> int:
+
+        imported = 0
+
+        for record in records:
+
+            normalized = (
+                normalize_historical_record(
+                    record
+                )
+            )
+
+            if normalized is None:
+                continue
+
+            source = normalized[
+                "source"
+            ]
+
+            raw = "|".join(
+                [
+                    normalized[
+                        "candidate"
+                    ],
+                    normalized[
+                        "rule"
+                    ],
+                    normalized[
+                        "pattern"
+                    ],
+                    normalized[
+                        "node"
+                    ],
+                    str(
+                        normalized[
+                            "success"
+                        ]
+                    ),
+                    str(
+                        normalized[
+                            "status_code"
+                        ]
+                    ),
+                    str(
+                        normalized[
+                            "response_time"
+                        ]
+                    ),
+                    "historical",
+                    source,
+                ]
+            )
+
+            record_hash = (
+                stable_sha256(raw)
+            )
+
+            if self.save_attempt(
+                candidate=normalized[
+                    "candidate"
+                ],
+                rule=normalized[
+                    "rule"
+                ],
+                pattern=normalized[
+                    "pattern"
+                ],
+                node=normalized[
+                    "node"
+                ],
+                success=bool(
+                    normalized[
+                        "success"
+                    ]
+                ),
+                status_code=normalized[
+                    "status_code"
+                ],
+                response_time=normalized[
+                    "response_time"
+                ],
+                run_number=0,
+                source=(
+                    "historical_json:"
+                    + source
+                ),
+                record_hash=record_hash,
+            ):
+
+                imported += 1
+
+        LOGGER.info(
+            "[JSON] Импортировано новых "
+            "исторических ML-наблюдений: %d",
+            imported,
+        )
+
+        return imported
 
     def get_training_data(
         self,
-    ) -> List[Dict]:
+    ) -> List[Dict[str, Any]]:
 
         with self._get_connection() as conn:
 
@@ -1429,7 +2416,8 @@ class Database:
                     success,
                     status_code,
                     response_time,
-                    run_number
+                    run_number,
+                    source
                 FROM attempts
                 ORDER BY id
                 """
@@ -1444,6 +2432,7 @@ class Database:
         self,
         channel_name: str,
         cdn_alias: str,
+        confidence: float = 1.0,
     ) -> None:
 
         with self._get_connection() as conn:
@@ -1454,21 +2443,40 @@ class Database:
                     channel_name,
                     cdn_alias,
                     confidence,
-                    hit_count
+                    hit_count,
+                    last_updated
                 )
-                VALUES (?, ?, 1.0, 1)
+                VALUES (
+                    ?, ?, ?, 1, ?
+                )
 
                 ON CONFLICT(channel_name)
                 DO UPDATE SET
-                    cdn_alias = excluded.cdn_alias,
+                    cdn_alias =
+                        CASE
+                            WHEN excluded.confidence
+                                 >= learned_aliases.confidence
+                            THEN excluded.cdn_alias
+                            ELSE learned_aliases.cdn_alias
+                        END,
+
+                    confidence =
+                        MAX(
+                            learned_aliases.confidence,
+                            excluded.confidence
+                        ),
+
                     hit_count =
-                        hit_count + 1,
+                        learned_aliases.hit_count + 1,
+
                     last_updated =
-                        CURRENT_TIMESTAMP
+                        excluded.last_updated
                 """,
                 (
                     channel_name,
                     cdn_alias,
+                    confidence,
+                    utc_now(),
                 ),
             )
 
@@ -1492,21 +2500,83 @@ class Database:
                 """
             ).fetchone()[0]
 
+            historical = conn.execute(
+                """
+                SELECT COUNT(*)
+                FROM attempts
+                WHERE source LIKE 'historical_json:%'
+                """
+            ).fetchone()[0]
+
+            live = conn.execute(
+                """
+                SELECT COUNT(*)
+                FROM attempts
+                WHERE source = 'live_scan'
+                """
+            ).fetchone()[0]
+
             runs = conn.execute(
                 """
-                SELECT COUNT(
-                    DISTINCT run_number
-                )
+                SELECT COUNT(DISTINCT run_number)
                 FROM attempts
+                WHERE run_number > 0
+                """
+            ).fetchone()[0]
+
+            aliases = conn.execute(
+                """
+                SELECT COUNT(*)
+                FROM learned_aliases
                 """
             ).fetchone()[0]
 
             return {
-                "total": total,
-                "successful": successful,
-                "failed": total - successful,
-                "runs": runs,
+                "total": int(total),
+                "successful": int(
+                    successful
+                ),
+                "failed": int(
+                    total - successful
+                ),
+                "runs": int(runs),
+                "historical": int(
+                    historical
+                ),
+                "live": int(live),
+                "learned_aliases": int(
+                    aliases
+                ),
             }
+
+    def get_top_aliases(
+        self,
+        limit: int = 20,
+    ) -> List[Dict[str, Any]]:
+
+        with self._get_connection() as conn:
+
+            rows = conn.execute(
+                """
+                SELECT
+                    channel_name,
+                    cdn_alias,
+                    confidence,
+                    hit_count,
+                    last_updated
+                FROM learned_aliases
+                ORDER BY
+                    confidence DESC,
+                    hit_count DESC
+                LIMIT ?
+                """,
+                (limit,),
+            ).fetchall()
+
+            return [
+                dict(row)
+                for row in rows
+            ]
 
 
 # ============================================================
@@ -1532,7 +2602,7 @@ class EPGKnowledgeBase:
             Set[str],
         ] = {}
 
-    def load(self):
+    def load(self) -> None:
 
         data = None
 
@@ -1548,40 +2618,39 @@ class EPGKnowledgeBase:
 
             with urlopen(
                 req,
-                timeout=10,
+                timeout=EPG_REQUEST_TIMEOUT,
                 context=SSL_CONTEXT,
             ) as resp:
 
-                raw_bytes = (
-                    resp.read()
-                )
+                raw_bytes = resp.read()
 
-                data = json.loads(
-                    raw_bytes.decode(
-                        "utf-8"
+                if raw_bytes:
+
+                    data = json.loads(
+                        raw_bytes.decode(
+                            "utf-8-sig"
+                        )
                     )
-                )
 
-                self.cache_path.write_bytes(
-                    raw_bytes
-                )
+                    self.cache_path.write_bytes(
+                        raw_bytes
+                    )
 
-                LOGGER.info(
-                    "База xml_2016_knowledge.json "
-                    "обновлена из GitHub Raw."
-                )
+                    LOGGER.info(
+                        "EPG 2016 knowledge "
+                        "обновлена из GitHub."
+                    )
 
-        except Exception as e:
+        except Exception as exc:
 
             LOGGER.warning(
                 "Не удалось скачать "
-                "xml_2016_knowledge.json "
-                "(%s). Пробуем кэш...",
-                e,
+                "EPG 2016 knowledge: %s",
+                exc,
             )
 
         if (
-            not data
+            data is None
             and self.cache_path.exists()
         ):
 
@@ -1589,35 +2658,55 @@ class EPGKnowledgeBase:
 
                 data = json.loads(
                     self.cache_path.read_text(
-                        encoding="utf-8"
+                        encoding="utf-8-sig"
                     )
                 )
 
                 LOGGER.info(
-                    "База xml_2016_knowledge.json "
-                    "загружена из локального файла."
+                    "EPG 2016 knowledge "
+                    "загружена из кэша."
                 )
 
-            except Exception as e:
+            except Exception as exc:
 
                 LOGGER.error(
-                    "Ошибка чтения локального "
-                    "EPG 2016: %s",
-                    e,
+                    "Ошибка локального "
+                    "EPG knowledge: %s",
+                    exc,
                 )
 
-        if data and "items" in data:
+        if not isinstance(
+            data,
+            dict,
+        ):
+            return
+
+        items = data.get(
+            "items",
+            [],
+        )
+
+        if isinstance(
+            items,
+            list,
+        ):
 
             self._index(
-                data["items"]
+                items
             )
 
     def _index(
         self,
         items: List[dict],
-    ):
+    ) -> None:
 
         for item in items:
+
+            if not isinstance(
+                item,
+                dict,
+            ):
+                continue
 
             ru_names = item.get(
                 "ru_names",
@@ -1645,7 +2734,21 @@ class EPGKnowledgeBase:
                 continue
 
             all_names = set(
-                ru_names + en_names
+                ru_names
+                if isinstance(
+                    ru_names,
+                    list,
+                )
+                else []
+            )
+
+            all_names.update(
+                en_names
+                if isinstance(
+                    en_names,
+                    list,
+                )
+                else []
             )
 
             if channel_id:
@@ -1656,31 +2759,27 @@ class EPGKnowledgeBase:
             for name in all_names:
 
                 norm_key = (
-                    self._normalize(name)
+                    self._normalize(
+                        str(name)
+                    )
                 )
 
-                if norm_key:
+                if not norm_key:
+                    continue
 
-                    if (
-                        norm_key
-                        not in
-                        self.name_to_candidates
-                    ):
-
-                        self.name_to_candidates[
-                            norm_key
-                        ] = set()
-
-                    self.name_to_candidates[
-                        norm_key
-                    ].update(
-                        candidates
-                    )
+                self.name_to_candidates.setdefault(
+                    norm_key,
+                    set(),
+                ).update(
+                    str(candidate)
+                    for candidate
+                    in candidates
+                    if str(candidate).strip()
+                )
 
         LOGGER.info(
-            "Индексация EPG 2016 "
-            "завершена. "
-            "Индексировано названий: %d",
+            "EPG 2016 индексировано "
+            "названий: %d",
             len(
                 self.name_to_candidates
             ),
@@ -1691,7 +2790,9 @@ class EPGKnowledgeBase:
         s: str,
     ) -> str:
 
-        s = s.lower().strip()
+        s = canonical_text(
+            s
+        )
 
         s = re.sub(
             r"\(.*?\)",
@@ -1700,7 +2801,7 @@ class EPGKnowledgeBase:
         )
 
         s = re.sub(
-            r"[^a-zа-я0-9]",
+            r"[^a-zа-яё0-9]",
             "",
             s,
         )
@@ -1713,36 +2814,55 @@ class EPGKnowledgeBase:
         tvg_id: str = "",
     ) -> List[str]:
 
-        results = set()
+        results: Set[str] = set()
 
         for key in (
             channel_name,
             tvg_id,
         ):
 
-            if key:
+            if not key:
+                continue
 
-                norm = self._normalize(
-                    key
+            norm = self._normalize(
+                key
+            )
+
+            if norm in (
+                self.name_to_candidates
+            ):
+
+                results.update(
+                    self.name_to_candidates[
+                        norm
+                    ]
                 )
 
-                if (
-                    norm
-                    in self.name_to_candidates
-                ):
-
-                    results.update(
-                        self.name_to_candidates[
-                            norm
-                        ]
-                    )
-
-        return list(results)
+        return sorted(
+            results
+        )
 
 
 # ============================================================
 # ALIAS GENERATION
 # ============================================================
+
+def clean_alias(
+    value: str,
+) -> str:
+
+    value = normalize_unicode(
+        str(value)
+    ).casefold()
+
+    value = re.sub(
+        r"[^a-z0-9]+",
+        "_",
+        value,
+    )
+
+    return value.strip("_")
+
 
 def generate_alias_candidates(
     channel: ChannelInput,
@@ -1754,7 +2874,9 @@ def generate_alias_candidates(
     ] = None,
 ) -> List[AliasCandidate]:
 
-    name = channel.display_name
+    name = (
+        channel.display_name
+    )
 
     epg_id = (
         channel.tvg_id
@@ -1767,15 +2889,13 @@ def generate_alias_candidates(
     ] = {}
 
     def add_cand(
-        val: str,
+        value: str,
         rule: str,
-    ):
+    ) -> None:
 
-        val_clean = re.sub(
-            r"[^a-z0-9]+",
-            "_",
-            str(val).casefold(),
-        ).strip("_")
+        val_clean = clean_alias(
+            value
+        )
 
         if (
             val_clean
@@ -1796,13 +2916,15 @@ def generate_alias_candidates(
 
     if epg_kb:
 
-        for cand in epg_kb.get_candidates(
-            name,
-            channel.tvg_id,
+        for candidate in (
+            epg_kb.get_candidates(
+                name,
+                channel.tvg_id,
+            )
         ):
 
             add_cand(
-                cand,
+                candidate,
                 "epg_xml_2016",
             )
 
@@ -1810,8 +2932,8 @@ def generate_alias_candidates(
     # DICTIONARY
     # --------------------------------------------------------
 
-    display_norm = (
-        name.strip().casefold()
+    display_norm = canonical_text(
+        name
     )
 
     mapped_name = (
@@ -1851,13 +2973,11 @@ def generate_alias_candidates(
         name.lower().strip()
     )
 
-    clean_id = (
-        epg_id
-        .lower()
-        .replace(" ", "")
-        .replace("-", "")
-        .replace("_", "")
-    )
+    clean_id = re.sub(
+        r"[^a-zA-Z0-9]+",
+        "",
+        epg_id,
+    ).casefold()
 
     translit_name = (
         transliterate_russian(
@@ -1951,10 +3071,6 @@ def generate_alias_candidates(
             "mapped_name",
         )
 
-    # --------------------------------------------------------
-    # ML RANKING
-    # --------------------------------------------------------
-
     cand_dicts = [
         {
             "candidate": value,
@@ -1982,7 +3098,9 @@ def generate_alias_candidates(
             for _ in cand_dicts
         ]
 
-    result = []
+    result: List[
+        AliasCandidate
+    ] = []
 
     for (
         (value, rule),
@@ -2000,10 +3118,34 @@ def generate_alias_candidates(
             )
         )
 
-    return sorted(
-        result,
-        key=lambda x: -x.score,
+    # Вторичный приоритет:
+    # одинаковый score -> EPG/dictionary выше.
+    rule_priority = {
+        "epg_xml_2016": 5,
+        "known_dictionary": 4,
+        "mapped_name": 3,
+        "exact_id": 3,
+        "clean_id": 2,
+        "translit_underscore": 2,
+        "translit_nospaces": 2,
+        "underscore": 1,
+        "no_spaces": 1,
+        "strip_hd": 1,
+        "viju_prefix": 1,
+    }
+
+    result.sort(
+        key=lambda item: (
+            -item.score,
+            -rule_priority.get(
+                item.reason,
+                0,
+            ),
+            item.value,
+        )
     )
+
+    return result
 
 
 # ============================================================
@@ -2033,14 +3175,16 @@ class MultiNodeScanner:
             str
         ] = []
 
-    def ping_nodes(self):
+    def ping_nodes(self) -> List[str]:
 
         LOGGER.info(
-            "Опрос доступности узлов "
+            "Опрос доступности "
             "Ngenix CDN..."
         )
 
-        valid_nodes = []
+        valid_nodes: List[
+            str
+        ] = []
 
         def check_node(
             node: str,
@@ -2067,20 +3211,18 @@ class MultiNodeScanner:
                     context=SSL_CONTEXT,
                 ) as response:
 
-                    if (
-                        getattr(
-                            response,
-                            "status",
-                            200,
-                        )
-                        < 500
-                    ):
+                    status = getattr(
+                        response,
+                        "status",
+                        200,
+                    )
 
+                    if status < 500:
                         return node
 
-            except HTTPError as e:
+            except HTTPError as exc:
 
-                if e.code < 500:
+                if exc.code < 500:
                     return node
 
             except Exception:
@@ -2089,7 +3231,7 @@ class MultiNodeScanner:
             return None
 
         with concurrent.futures.ThreadPoolExecutor(
-            max_workers=15
+            max_workers=MAX_NODE_WORKERS
         ) as executor:
 
             futures = [
@@ -2100,33 +3242,46 @@ class MultiNodeScanner:
                 for node in NGENIX_NODES
             ]
 
-            for future in (
-                concurrent.futures.as_completed(
-                    futures
-                )
+            for future in concurrent.futures.as_completed(
+                futures
             ):
 
-                res = future.result()
+                try:
 
-                if res:
-                    valid_nodes.append(
-                        res
+                    result = (
+                        future.result()
                     )
 
-        self.active_nodes = (
-            sorted(valid_nodes)
-            if valid_nodes
-            else ["s70378"]
+                except Exception:
+
+                    result = None
+
+                if result:
+
+                    valid_nodes.append(
+                        result
+                    )
+
+        self.active_nodes = sorted(
+            set(valid_nodes)
         )
 
+        if not self.active_nodes:
+
+            LOGGER.warning(
+                "Не найдено доступных "
+                "Ngenix узлов."
+            )
+
         LOGGER.info(
-            "Откликнулись узлы Ngenix "
-            "(%d/%d): %s",
+            "Доступных узлов: %d/%d: %s",
             len(self.active_nodes),
             len(NGENIX_NODES),
             ", ".join(
                 self.active_nodes
-            ),
+            )
+            if self.active_nodes
+            else "NONE",
         )
 
         return self.active_nodes
@@ -2140,13 +3295,17 @@ class MultiNodeScanner:
         float,
     ]:
 
-        start_time = time.time()
+        start_time = time.monotonic()
 
         req = Request(
             url,
             headers={
                 "User-Agent":
-                DEFAULT_USER_AGENT
+                DEFAULT_USER_AGENT,
+                "Accept":
+                "application/vnd.apple.mpegurl,"
+                "application/x-mpegURL,"
+                "text/plain,*/*",
             },
         )
 
@@ -2158,50 +3317,75 @@ class MultiNodeScanner:
                 context=SSL_CONTEXT,
             ) as response:
 
-                status = getattr(
-                    response,
-                    "status",
+                status = safe_int(
+                    getattr(
+                        response,
+                        "status",
+                        200,
+                    ),
                     200,
                 )
 
                 elapsed_ms = (
-                    time.time()
+                    time.monotonic()
                     - start_time
                 ) * 1000.0
 
-                if status == 200:
+                if status != 200:
 
-                    chunk = (
-                        response.read(
-                            256
-                        )
-                        .decode(
-                            "utf-8",
-                            errors="ignore",
-                        )
+                    return (
+                        False,
+                        status,
+                        elapsed_ms,
                     )
 
-                    if "#EXTM3U" in chunk:
+                chunk = (
+                    response.read(
+                        HLS_PROBE_BYTES
+                    )
+                )
 
-                        return (
-                            True,
-                            200,
-                            elapsed_ms,
-                        )
+                text = chunk.decode(
+                    "utf-8",
+                    errors="ignore",
+                )
+
+                # HLS playlist должен иметь
+                # EXTM3U в начале/первых KB.
+                valid = (
+                    "#EXTM3U"
+                    in text.upper()
+                )
 
                 return (
-                    False,
+                    valid,
                     status,
                     elapsed_ms,
                 )
 
-        except HTTPError as e:
+        except HTTPError as exc:
 
             return (
                 False,
-                e.code,
+                exc.code,
                 (
-                    time.time()
+                    time.monotonic()
+                    - start_time
+                )
+                * 1000.0,
+            )
+
+        except (
+            URLError,
+            TimeoutError,
+            OSError,
+        ):
+
+            return (
+                False,
+                0,
+                (
+                    time.monotonic()
                     - start_time
                 )
                 * 1000.0,
@@ -2213,7 +3397,7 @@ class MultiNodeScanner:
                 False,
                 0,
                 (
-                    time.time()
+                    time.monotonic()
                     - start_time
                 )
                 * 1000.0,
@@ -2236,26 +3420,66 @@ class MultiNodeScanner:
             candidates[:TOP_RESULTS]
         )
 
-        nodes = (
+        if not selected_candidates:
+
+            return AliasMatch(
+                channel_name=(
+                    channel.display_name
+                ),
+                normalized_name="",
+                cdn_alias=None,
+                match_type="UNKNOWN",
+                confidence=0.0,
+                reason=(
+                    "Не удалось "
+                    "сформировать кандидатов."
+                ),
+                candidates=[],
+                streams=[],
+            )
+
+        nodes = list(
             self.active_nodes
-            if self.active_nodes
-            else ["s70378"]
         )
 
-        for cand in selected_candidates:
+        if not nodes:
+
+            return AliasMatch(
+                channel_name=(
+                    channel.display_name
+                ),
+                normalized_name=(
+                    channel.display_name
+                ),
+                cdn_alias=None,
+                match_type="NO_CDN_NODES",
+                confidence=0.0,
+                reason=(
+                    "Нет доступных "
+                    "Ngenix узлов."
+                ),
+                candidates=candidates,
+                streams=[],
+            )
+
+        for candidate in (
+            selected_candidates
+        ):
 
             for node in nodes:
 
-                for pattern in DEFAULT_PATTERNS:
+                for pattern in (
+                    DEFAULT_PATTERNS
+                ):
 
                     relative_path = (
                         pattern.format(
-                            v=cand.value
+                            v=candidate.value
                         )
                     )
 
                     stream_url = (
-                        f"https://"
+                        "https://"
                         f"{node}.cdn.ngenix.net/"
                         f"{relative_path}"
                     )
@@ -2264,72 +3488,112 @@ class MultiNodeScanner:
                         is_valid,
                         http_status,
                         ping_ms,
-                    ) = self.verify_hls_stream(
-                        stream_url
+                    ) = (
+                        self.verify_hls_stream(
+                            stream_url
+                        )
                     )
 
                     self.db.save_attempt(
-                        candidate=cand.value,
-                        rule=cand.reason,
+                        candidate=(
+                            candidate.value
+                        ),
+                        rule=(
+                            candidate.reason
+                        ),
                         pattern=pattern,
                         node=node,
                         success=is_valid,
-                        status_code=http_status,
-                        response_time=ping_ms,
+                        status_code=(
+                            http_status
+                        ),
+                        response_time=(
+                            ping_ms
+                        ),
                         run_number=RUN_NUMBER,
+                        source="live_scan",
                     )
 
                     if is_valid:
 
-                        cand.confirmed = True
+                        candidate.confirmed = True
+
+                        # Для подтверждённого потока
+                        # физическая проверка важнее
+                        # вероятности старой модели.
+                        confidence = max(
+                            float(
+                                candidate.score
+                            ),
+                            0.90,
+                        )
 
                         self.db.record_learned_alias(
                             channel.display_name,
-                            cand.value,
+                            candidate.value,
+                            confidence,
                         )
 
                         stream = CDNStream(
-                            alias=cand.value,
+                            alias=(
+                                candidate.value
+                            ),
                             url=stream_url,
-                            node=f"{node}.cdn.ngenix.net",
+                            node=(
+                                f"{node}.cdn.ngenix.net"
+                            ),
                             pattern=pattern,
-                            rule_name=cand.reason,
-                            http_status=http_status,
+                            rule_name=(
+                                candidate.reason
+                            ),
+                            http_status=(
+                                http_status
+                            ),
                             reachable=True,
-                            response_time_ms=ping_ms,
+                            response_time_ms=(
+                                ping_ms
+                            ),
                         )
 
                         return AliasMatch(
-                            channel_name=channel.display_name,
-                            normalized_name=cand.value,
-                            cdn_alias=cand.value,
+                            channel_name=(
+                                channel.display_name
+                            ),
+                            normalized_name=(
+                                candidate.value
+                            ),
+                            cdn_alias=(
+                                candidate.value
+                            ),
                             match_type=(
                                 "CONFIRMED_ML_ENSEMBLE"
                             ),
-                            confidence=cand.score,
+                            confidence=confidence,
                             reason=(
-                                f"HLS поток "
-                                f"валидирован на "
+                                "HLS поток "
+                                "валидирован на "
                                 f"{node} "
-                                f"(Правило: "
-                                f"{cand.reason})"
+                                "(правило: "
+                                f"{candidate.reason})"
                             ),
                             candidates=candidates,
                             streams=[stream],
                         )
 
         return AliasMatch(
-            channel_name=channel.display_name,
+            channel_name=(
+                channel.display_name
+            ),
             normalized_name=(
-                channel.display_name.lower()
+                channel.display_name
             ),
             cdn_alias=None,
             match_type="UNKNOWN",
             confidence=0.0,
             reason=(
                 "Ни один кандидат/"
-                "узел не прошел "
-                "проверку HLS"
+                "узел/паттерн не прошёл "
+                "проверку HLS."
             ),
             candidates=candidates,
             streams=[],
@@ -2345,8 +3609,7 @@ def fetch_epg_channels() -> List[
 ]:
 
     LOGGER.info(
-        "Загрузка и парсинг EPG "
-        "с %s ...",
+        "Загрузка EPG: %s",
         EPG_URL,
     )
 
@@ -2358,60 +3621,87 @@ def fetch_epg_channels() -> List[
         },
     )
 
-    channels = []
+    channels: List[
+        ChannelInput
+    ] = []
 
     try:
 
         with urlopen(
             req,
-            timeout=15,
+            timeout=EPG_REQUEST_TIMEOUT,
             context=SSL_CONTEXT,
         ) as resp:
 
-            gz = gzip.GzipFile(
-                fileobj=io.BytesIO(
-                    resp.read()
+            raw = resp.read()
+
+            if not raw:
+                raise ValueError(
+                    "EPG пустой."
                 )
-            )
+
+            try:
+
+                with gzip.GzipFile(
+                    fileobj=io.BytesIO(raw)
+                ) as gz:
+
+                    xml_data = gz.read()
+
+            except OSError:
+
+                # Некоторые серверы могут
+                # вернуть уже распакованный XML.
+                xml_data = raw
 
             root = ET.fromstring(
-                gz.read()
+                xml_data
             )
 
             for ch in root.findall(
                 "channel"
             ):
 
-                cid = ch.get(
-                    "id",
-                    "",
-                ).strip()
+                cid = (
+                    ch.get(
+                        "id",
+                        "",
+                    ).strip()
+                )
 
-                disp = ch.find(
+                display_nodes = ch.findall(
                     "display-name"
                 )
+
+                name = ""
+
+                for node in display_nodes:
+
+                    if (
+                        node.text
+                        and node.text.strip()
+                    ):
+
+                        name = (
+                            node.text.strip()
+                        )
+
+                        break
 
                 icon = ch.find(
                     "icon"
                 )
 
-                logo = (
-                    icon.get(
-                        "src",
-                        "",
-                    ).strip()
-                    if icon is not None
-                    else ""
-                )
+                logo = ""
 
-                name = (
-                    disp.text.strip()
-                    if (
-                        disp is not None
-                        and disp.text
+                if icon is not None:
+
+                    logo = (
+                        icon.get(
+                            "src",
+                            "",
+                        ).strip()
                     )
-                    else ""
-                )
 
                 if cid and name:
 
@@ -2419,34 +3709,140 @@ def fetch_epg_channels() -> List[
                         ChannelInput(
                             display_name=name,
                             tvg_id=cid,
+                            tvg_name=name,
                             logo=logo,
                         )
                     )
 
-    except Exception as e:
+    except Exception as exc:
 
         LOGGER.error(
             "Ошибка загрузки EPG: %s",
-            e,
+            exc,
         )
+
+    # --------------------------------------------------------
+    # EXTRA CHANNELS
+    # --------------------------------------------------------
+
+    existing_ids = {
+        canonical_text(
+            channel.tvg_id
+        )
+        for channel
+        in channels
+        if channel.tvg_id
+    }
+
+    existing_names = {
+        canonical_text(
+            channel.display_name
+        )
+        for channel
+        in channels
+    }
 
     for extra in EXTRA_CHANNELS:
 
+        extra_id = canonical_text(
+            extra["id"]
+        )
+
+        extra_name = canonical_text(
+            extra["name"]
+        )
+
+        if (
+            extra_id in existing_ids
+            or extra_name in existing_names
+        ):
+            continue
+
         channels.append(
             ChannelInput(
-                display_name=extra["name"],
-                tvg_id=extra["id"],
-                logo=extra["logo"],
+                display_name=extra[
+                    "name"
+                ],
+                tvg_id=extra[
+                    "id"
+                ],
+                tvg_name=extra[
+                    "name"
+                ],
+                logo=extra[
+                    "logo"
+                ],
             )
         )
 
+    # КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ:
+    # детерминированный порядок.
+    channels.sort(
+        key=lambda channel: (
+            canonical_text(
+                channel.display_name
+            ),
+            canonical_text(
+                channel.tvg_id
+            ),
+        )
+    )
+
     LOGGER.info(
-        "Всего сформировано каналов "
-        "для сканирования: %d",
+        "Всего каналов для "
+        "сканирования: %d",
         len(channels),
     )
 
     return channels
+
+
+# ============================================================
+# REPORT HELPERS
+# ============================================================
+
+def escape_m3u_attribute(
+    value: str,
+) -> str:
+
+    return (
+        str(value)
+        .replace(
+            '"',
+            "'",
+        )
+        .replace(
+            "\r",
+            " ",
+        )
+        .replace(
+            "\n",
+            " ",
+        )
+    )
+
+
+def result_map(
+    channels: List[ChannelInput],
+    results: List[AliasMatch],
+) -> Dict[str, AliasMatch]:
+
+    mapping: Dict[
+        str,
+        AliasMatch,
+    ] = {}
+
+    for result in results:
+
+        key = (
+            canonical_text(
+                result.channel_name
+            )
+        )
+
+        mapping[key] = result
+
+    return mapping
 
 
 # ============================================================
@@ -2456,7 +3852,17 @@ def fetch_epg_channels() -> List[
 def save_all_reports(
     channels: List[ChannelInput],
     results: List[AliasMatch],
+    model: Optional[
+        EnsembleModel
+    ] = None,
 ) -> None:
+
+    generated_at = utc_now()
+
+    mapping = result_map(
+        channels,
+        results,
+    )
 
     # --------------------------------------------------------
     # HUMAN REPORT
@@ -2469,9 +3875,11 @@ def save_all_reports(
     ) as f:
 
         f.write(
-            "=== ALIAS ENGINE "
-            "6.1.7602.2901626_AI_build_6.1.760229.0162631 "
-            "ML-EVOLUTION REPORT ===\n"
+            "=== ALIAS VERIFICATION ENGINE ===\n"
+        )
+
+        f.write(
+            f"ENGINE={ENGINE_VERSION}\n"
         )
 
         f.write(
@@ -2479,62 +3887,87 @@ def save_all_reports(
         )
 
         f.write(
-            f"GENERATED="
-            f"{datetime.now(timezone.utc)"
-            ".isoformat()}\n\n"
+            f"FEATURE_SCHEMA="
+            f"{FEATURE_SCHEMA_VERSION}\n"
         )
 
-        for res in results:
+        f.write(
+            f"GENERATED={generated_at}\n\n"
+        )
 
-            if (
-                res.cdn_alias
-                and res.streams
-            ):
+        for channel in channels:
 
-                s = res.streams[0]
-
-                f.write(
-                    f"[КАНАЛ] "
-                    f"{res.channel_name}\n"
+            result = mapping.get(
+                canonical_text(
+                    channel.display_name
                 )
+            )
 
-                f.write(
-                    f"  [ALIAS] "
-                    f"{res.cdn_alias}\n"
-                )
+            if result is None:
+                continue
 
-                f.write(
-                    f"  [CONFIDENCE] "
-                    f"{res.confidence:.6f}\n"
-                )
+            f.write(
+                f"[КАНАЛ] "
+                f"{result.channel_name}\n"
+            )
+
+            f.write(
+                f"  [ALIAS] "
+                f"{result.cdn_alias or ''}\n"
+            )
+
+            f.write(
+                f"  [MATCH] "
+                f"{result.match_type}\n"
+            )
+
+            f.write(
+                f"  [CONFIDENCE] "
+                f"{result.confidence:.6f}\n"
+            )
+
+            f.write(
+                f"  [REASON] "
+                f"{result.reason}\n"
+            )
+
+            if result.streams:
+
+                stream = result.streams[0]
 
                 f.write(
                     f"  [NODE] "
-                    f"{s.node}\n"
+                    f"{stream.node}\n"
                 )
 
                 f.write(
                     f"  [RULE] "
-                    f"{s.rule_name}\n"
+                    f"{stream.rule_name}\n"
+                )
+
+                f.write(
+                    f"  [STATUS] "
+                    f"{stream.http_status}\n"
+                )
+
+                f.write(
+                    f"  [TIME_MS] "
+                    f"{stream.response_time_ms:.2f}\n"
                 )
 
                 f.write(
                     f"  [URL] "
-                    f"{s.url}\n"
+                    f"{stream.url}\n"
                 )
 
-                f.write(
-                    "-" * 60
-                    + "\n"
-                )
+            f.write(
+                "-" * 70
+                + "\n"
+            )
 
     # --------------------------------------------------------
     # MACHINE REPORT
     # --------------------------------------------------------
-
-    found_time = datetime.now(
-        timezone.utc
-    ).isoformat()
 
     with open(
         MACHINE_REPORT_FILE,
@@ -2543,39 +3976,63 @@ def save_all_reports(
     ) as f:
 
         f.write(
-            f"RUN={RUN_NUMBER}\n\n"
+            f"RUN={RUN_NUMBER}\n"
         )
 
-        for res in results:
+        f.write(
+            f"ENGINE={ENGINE_VERSION}\n"
+        )
 
-            s = (
-                res.streams[0]
-                if res.streams
+        f.write(
+            f"FEATURE_SCHEMA="
+            f"{FEATURE_SCHEMA_VERSION}\n\n"
+        )
+
+        for channel in channels:
+
+            result = mapping.get(
+                canonical_text(
+                    channel.display_name
+                )
+            )
+
+            if result is None:
+                continue
+
+            stream = (
+                result.streams[0]
+                if result.streams
                 else None
             )
 
             f.write(
-                f"NAME={res.channel_name}\n"
+                f"NAME="
+                f"{result.channel_name}\n"
             )
 
             f.write(
                 f"ALIAS="
-                f"{res.cdn_alias or ''}\n"
+                f"{result.cdn_alias or ''}\n"
             )
 
             f.write(
                 f"CONFIDENCE="
-                f"{res.confidence:.6f}\n"
+                f"{result.confidence:.6f}\n"
+            )
+
+            f.write(
+                f"TYPE="
+                f"{result.match_type}\n"
             )
 
             f.write(
                 f"URL="
-                f"{s.url if s else ''}\n"
+                f"{stream.url if stream else ''}\n"
             )
 
             f.write(
                 f"STATUS="
-                f"{s.http_status if s else 'UNKNOWN'}\n"
+                f"{stream.http_status if stream else 'UNKNOWN'}\n"
             )
 
             f.write(
@@ -2587,12 +4044,65 @@ def save_all_reports(
             )
 
             f.write(
-                f"FOUND={found_time}\n\n"
+                f"FOUND={generated_at}\n\n"
             )
 
     # --------------------------------------------------------
     # JSON
     # --------------------------------------------------------
+
+    export_results = []
+
+    for channel in channels:
+
+        result = mapping.get(
+            canonical_text(
+                channel.display_name
+            )
+        )
+
+        if result is None:
+            continue
+
+        item = asdict(
+            result
+        )
+
+        item[
+            "channel"
+        ] = asdict(
+            channel
+        )
+
+        export_results.append(
+            item
+        )
+
+    json_payload = {
+        "engine": ENGINE_NAME,
+        "engine_version": ENGINE_VERSION,
+        "feature_schema": FEATURE_SCHEMA_VERSION,
+        "model_schema": MODEL_SCHEMA_VERSION,
+        "run_number": RUN_NUMBER,
+        "generated_at": generated_at,
+        "model": {
+            "trained": bool(
+                model
+                and model.trained
+            ),
+            "training_samples": (
+                model.training_samples
+                if model
+                else 0
+            ),
+            "metrics": (
+                model.metrics
+                if model
+                else {}
+            ),
+        },
+        "results": export_results,
+    }
 
     with open(
         JSON_EXPORT_FILE,
@@ -2601,19 +4111,7 @@ def save_all_reports(
     ) as f:
 
         json.dump(
-            {
-                "engine": (
-                    "AliasEngine"
-                    "6.1.7602.2901626_AI_build_"
-                    "6.1.760229.0162631"
-                ),
-                "run_number": RUN_NUMBER,
-                "generated_at": found_time,
-                "results": [
-                    asdict(r)
-                    for r in results
-                ],
-            },
+            json_payload,
             f,
             ensure_ascii=False,
             indent=2,
@@ -2631,50 +4129,76 @@ def save_all_reports(
 
         f.write(
             '#EXTM3U '
-            'url-tvg="http://epg.one/epg2.xml.gz" '
-            f' x-ngg-run="{RUN_NUMBER}"\n'
+            'url-tvg="'
+            f'{EPG_URL}'
+            '" '
+            f'x-ngg-run="{RUN_NUMBER}" '
+            f'x-ngg-engine="{ENGINE_VERSION}"\n'
         )
 
-        for idx, res in enumerate(
-            results
-        ):
+        for channel in channels:
+
+            result = mapping.get(
+                canonical_text(
+                    channel.display_name
+                )
+            )
 
             if (
-                res.cdn_alias
-                and res.streams
+                result is None
+                or not result.cdn_alias
+                or not result.streams
             ):
+                continue
 
-                ch = (
-                    channels[idx]
-                    if idx < len(channels)
-                    else ChannelInput(
-                        display_name=(
-                            res.channel_name
-                        )
-                    )
-                )
+            stream = result.streams[0]
 
-                logo_attr = (
-                    f' tvg-logo="{ch.logo}"'
-                    if ch.logo
-                    else ""
-                )
+            tvg_id = escape_m3u_attribute(
+                channel.tvg_id
+            )
 
-                f.write(
-                    f'#EXTINF:-1 '
-                    f'tvg-id="{ch.tvg_id}" '
-                    f'tvg-name="{res.channel_name}"'
-                    f'{logo_attr},'
-                    f'{res.channel_name}\n'
-                )
+            tvg_name = escape_m3u_attribute(
+                channel.tvg_name
+                or channel.display_name
+            )
 
-                f.write(
-                    f"{res.streams[0].url}\n"
+            logo = escape_m3u_attribute(
+                channel.logo
+            )
+
+            display_name = (
+                escape_m3u_attribute(
+                    channel.display_name
                 )
+            )
+
+            logo_attr = (
+                f' tvg-logo="{logo}"'
+                if logo
+                else ""
+            )
+
+            f.write(
+                '#EXTINF:-1 '
+                f'tvg-id="{tvg_id}" '
+                f'tvg-name="{tvg_name}"'
+                f'{logo_attr},'
+                f'{display_name}\n'
+            )
+
+            f.write(
+                f"{stream.url}\n"
+            )
 
     # --------------------------------------------------------
     # LEARNED REPORT
     # --------------------------------------------------------
+
+    successful = sum(
+        1
+        for result in results
+        if result.cdn_alias
+    )
 
     with open(
         LEARNED_REPORT_FILE,
@@ -2691,24 +4215,26 @@ def save_all_reports(
         )
 
         f.write(
-            "ENGINE="
-            "AliasEngine"
-            "6.1.7602.2901626_AI_build_"
-            "6.1.760229.0162631\n"
+            f"ENGINE={ENGINE_VERSION}\n"
         )
 
         f.write(
-            f"MODEL={VERSIONED_MODEL_FILE}\n\n"
-        )
-
-        successful = sum(
-            1
-            for r in results
-            if r.cdn_alias
+            f"FEATURE_SCHEMA="
+            f"{FEATURE_SCHEMA_VERSION}\n"
         )
 
         f.write(
-            f"CHANNELS={len(results)}\n"
+            f"MODEL_SCHEMA="
+            f"{MODEL_SCHEMA_VERSION}\n"
+        )
+
+        f.write(
+            f"MODEL_FILE="
+            f"{VERSIONED_MODEL_FILE}\n\n"
+        )
+
+        f.write(
+            f"CHANNELS={len(channels)}\n"
         )
 
         f.write(
@@ -2717,43 +4243,97 @@ def save_all_reports(
 
         f.write(
             f"UNKNOWN="
-            f"{len(results) - successful}\n\n"
+            f"{len(channels) - successful}\n\n"
         )
 
-        for res in results:
+        if model:
 
-            if res.cdn_alias:
+            f.write(
+                "=== MODEL ===\n"
+            )
+
+            f.write(
+                f"TRAINED="
+                f"{model.trained}\n"
+            )
+
+            f.write(
+                f"SAMPLES="
+                f"{model.training_samples}\n"
+            )
+
+            f.write(
+                f"CREATED="
+                f"{model.created_at}\n"
+            )
+
+            f.write(
+                f"CLASS_DISTRIBUTION="
+                f"{json.dumps("
+                f"model.class_distribution,"
+                f"ensure_ascii=False"
+                f")}\n"
+            )
+
+            for key, value in (
+                model.metrics.items()
+            ):
 
                 f.write(
-                    f"{res.channel_name}"
+                    f"{key.upper()}="
+                    f"{value:.6f}\n"
+                )
+
+            f.write("\n")
+
+        f.write(
+            "=== LEARNED ALIASES ===\n"
+        )
+
+        for channel in channels:
+
+            result = mapping.get(
+                canonical_text(
+                    channel.display_name
+                )
+            )
+
+            if (
+                result is not None
+                and result.cdn_alias
+            ):
+
+                f.write(
+                    f"{result.channel_name}"
                     f" => "
-                    f"{res.cdn_alias}"
+                    f"{result.cdn_alias}"
                     f" | "
-                    f"{res.confidence:.6f}\n"
+                    f"{result.confidence:.6f}"
+                    f"\n"
                 )
 
     LOGGER.info(
-        "Сохранен текстовый отчет: %s",
+        "Сохранён HUMAN report: %s",
         HUMAN_REPORT_FILE,
     )
 
     LOGGER.info(
-        "Сохранен машинный отчет: %s",
+        "Сохранён MACHINE report: %s",
         MACHINE_REPORT_FILE,
     )
 
     LOGGER.info(
-        "Сохранен JSON экспорт: %s",
+        "Сохранён JSON export: %s",
         JSON_EXPORT_FILE,
     )
 
     LOGGER.info(
-        "Сохранен M3U плейлист: %s",
+        "Сохранён M3U: %s",
         PLAYLIST_FILE,
     )
 
     LOGGER.info(
-        "Сохранен ML report: %s",
+        "Сохранён learning report: %s",
         LEARNED_REPORT_FILE,
     )
 
@@ -2762,34 +4342,39 @@ def save_all_reports(
 # TRAINING
 # ============================================================
 
-def retrain_ml_model() -> Optional[
+def retrain_ml_model(
+    db: Optional[
+        Database
+    ] = None,
+) -> Optional[
     EnsembleModel
 ]:
 
     if not HAS_ML:
 
         LOGGER.warning(
-            "Scikit-learn не найден. "
-            "Обучение пропущено."
+            "Scikit-learn не установлен. "
+            "ML обучение пропущено."
         )
 
         return None
 
-    db = Database()
+    db = db or Database()
 
     rows = db.get_training_data()
 
     LOGGER.info(
-        "Собрано %d наблюдений "
-        "из БД для ML-обучения.",
+        "ML: накоплено наблюдений: %d",
         len(rows),
     )
 
-    if len(rows) < MIN_TRAINING_SAMPLES:
+    if len(rows) < (
+        MIN_TRAINING_SAMPLES
+    ):
 
         LOGGER.info(
-            "Недостаточно попыток "
-            "для ML (%d/%d).",
+            "ML: недостаточно данных "
+            "(%d/%d).",
             len(rows),
             MIN_TRAINING_SAMPLES,
         )
@@ -2797,7 +4382,12 @@ def retrain_ml_model() -> Optional[
         return None
 
     successes = sum(
-        int(row["success"])
+        int(
+            row.get(
+                "success",
+                0,
+            )
+        )
         for row in rows
     )
 
@@ -2807,19 +4397,19 @@ def retrain_ml_model() -> Optional[
     )
 
     LOGGER.info(
-        "TRAINING DATA: "
-        "SUCCESS=%d FAIL=%d",
+        "ML DATA: SUCCESS=%d FAIL=%d",
         successes,
         failures,
     )
 
-    if successes == 0 or failures == 0:
+    if (
+        successes < MIN_CLASS_SAMPLES
+        or failures < MIN_CLASS_SAMPLES
+    ):
 
         LOGGER.warning(
-            "Обучение пока невозможно: "
-            "в накопленной истории "
-            "должны присутствовать "
-            "оба класса SUCCESS и FAIL."
+            "Недостаточно примеров "
+            "одного из классов."
         )
 
         return None
@@ -2832,36 +4422,28 @@ def retrain_ml_model() -> Optional[
             rows
         )
 
-        # ----------------------------------------------------
-        # Версия текущего запуска
-        # ----------------------------------------------------
-
+        # Сначала версия запуска.
         model.save(
             VERSIONED_MODEL_FILE
         )
 
-        # ----------------------------------------------------
-        # Последняя рабочая модель
-        # ----------------------------------------------------
-
+        # Затем latest.
         model.save(
             MODEL_FILE
         )
 
         LOGGER.info(
-            "ML-модель сохранена: %s",
+            "ML versioned model: %s",
             VERSIONED_MODEL_FILE,
         )
 
         LOGGER.info(
-            "ML latest сохранён: %s",
+            "ML latest model: %s",
             MODEL_FILE,
         )
 
         LOGGER.info(
-            "=== ML ENSEMBLE "
-            "6.1.7602.2901626_AI_build_"
-            "6.1.760229.0162631 ==="
+            "=== ML ENSEMBLE ==="
         )
 
         for key, value in (
@@ -2876,11 +4458,20 @@ def retrain_ml_model() -> Optional[
 
         return model
 
-    except ValueError as e:
+    except ValueError as exc:
 
         LOGGER.warning(
-            "Обучение пока невозможно: %s",
-            e,
+            "ML обучение невозможно: %s",
+            exc,
+        )
+
+        return None
+
+    except Exception as exc:
+
+        LOGGER.exception(
+            "Критическая ошибка ML: %s",
+            exc,
         )
 
         return None
@@ -2890,16 +4481,25 @@ def retrain_ml_model() -> Optional[
 # PIPELINE
 # ============================================================
 
-def run_pipeline():
+def run_pipeline() -> None:
 
     LOGGER.info(
         "========================================"
     )
 
     LOGGER.info(
-        "Alias Verification Engine "
-        "6.1.7602.2901626_AI_build_"
-        "6.1.760229.0162631"
+        "%s",
+        ENGINE_NAME,
+    )
+
+    LOGGER.info(
+        "ENGINE VERSION: %s",
+        ENGINE_VERSION,
+    )
+
+    LOGGER.info(
+        "FEATURE SCHEMA: %s",
+        FEATURE_SCHEMA_VERSION,
     )
 
     LOGGER.info(
@@ -2913,6 +4513,10 @@ def run_pipeline():
 
     db = Database()
 
+    # --------------------------------------------------------
+    # EPG KNOWLEDGE
+    # --------------------------------------------------------
+
     epg_kb = (
         EPGKnowledgeBase()
     )
@@ -2920,7 +4524,7 @@ def run_pipeline():
     epg_kb.load()
 
     # --------------------------------------------------------
-    # Historical JSON
+    # HISTORICAL JSON
     # --------------------------------------------------------
 
     all_json_records = (
@@ -2929,52 +4533,54 @@ def run_pipeline():
 
     if all_json_records:
 
+        imported = (
+            db.import_historical_records(
+                all_json_records
+            )
+        )
+
         LOGGER.info(
-            "[JSON] Успешно обработано "
-            "записей из единого пула: %d",
-            len(all_json_records),
+            "[JSON] Новых записей "
+            "в Knowledge Base: %d",
+            imported,
         )
 
     # --------------------------------------------------------
-    # Existing model
-    #
-    # Используется latest модель ДО нового обучения.
+    # EXISTING MODEL
     # --------------------------------------------------------
 
     ml_model = (
         EnsembleModel.load()
     )
 
-    if ml_model and ml_model.trained:
+    if ml_model:
 
         LOGGER.info(
-            "Загружена предыдущая "
-            "ML-модель для ранжирования."
+            "Загружена совместимая "
+            "предыдущая ML-модель."
         )
 
         LOGGER.info(
-            "Модель обучена на: %d "
-            "наблюдениях",
+            "Модель обучена на %d "
+            "наблюдениях.",
             ml_model.training_samples,
         )
 
     else:
 
         LOGGER.info(
-            "Рабочая ML-модель отсутствует. "
-            "Используется базовое ранжирование."
+            "Совместимая ML-модель "
+            "не найдена."
         )
-
-        ml_model = None
 
     # --------------------------------------------------------
     # CDN
     # --------------------------------------------------------
 
     scanner = MultiNodeScanner(
-        db,
-        epg_kb,
-        ml_model,
+        db=db,
+        epg_kb=epg_kb,
+        ml_model=ml_model,
     )
 
     scanner.ping_nodes()
@@ -2987,95 +4593,168 @@ def run_pipeline():
         fetch_epg_channels()
     )
 
-    results: List[
-        AliasMatch
-    ] = []
+    results_by_name: Dict[
+        str,
+        AliasMatch,
+    ] = {}
 
     LOGGER.info(
         "Старт параллельного "
-        "ML-сканирования "
-        "6.1.7602.2901626_AI_build_"
-        "6.1.760229.0162631..."
+        "CDN/ML сканирования..."
     )
 
     with concurrent.futures.ThreadPoolExecutor(
         max_workers=MAX_WORKER_THREADS
     ) as executor:
 
-        future_to_ch = {
+        future_to_channel = {
             executor.submit(
                 scanner.probe_channel,
-                ch,
-            ): ch
-            for ch in channels
+                channel,
+            ): channel
+            for channel in channels
         }
 
-        for future in (
-            concurrent.futures.as_completed(
-                future_to_ch
-            )
+        for future in concurrent.futures.as_completed(
+            future_to_channel
         ):
 
-            res = future.result()
+            channel = future_to_channel[
+                future
+            ]
 
-            results.append(
-                res
-            )
+            try:
 
-            if res.cdn_alias:
+                result = (
+                    future.result()
+                )
+
+            except Exception as exc:
+
+                LOGGER.exception(
+                    "Ошибка сканирования "
+                    "канала %s: %s",
+                    channel.display_name,
+                    exc,
+                )
+
+                result = AliasMatch(
+                    channel_name=(
+                        channel.display_name
+                    ),
+                    normalized_name=(
+                        channel.display_name
+                    ),
+                    cdn_alias=None,
+                    match_type="ERROR",
+                    confidence=0.0,
+                    reason=str(exc),
+                    candidates=[],
+                    streams=[],
+                )
+
+            results_by_name[
+                canonical_text(
+                    channel.display_name
+                )
+            ] = result
+
+            if result.cdn_alias:
 
                 LOGGER.info(
-                    "[+] Найден: "
-                    "%s -> %s "
-                    "(%.4f)",
-                    res.channel_name,
-                    res.streams[0].url,
-                    res.confidence,
+                    "[+] %s -> %s "
+                    "(confidence=%.4f)",
+                    result.channel_name,
+                    result.cdn_alias,
+                    result.confidence,
                 )
 
     # --------------------------------------------------------
-    # IMPORTANT:
-    #
-    # Только ПОСЛЕ свежего сканирования
-    # добавленные SUCCESS/FAIL попадают
-    # в обучение.
+    # CRITICAL:
+    # RESTORE ORIGINAL CHANNEL ORDER
+    # --------------------------------------------------------
+
+    results: List[
+        AliasMatch
+    ] = []
+
+    for channel in channels:
+
+        key = canonical_text(
+            channel.display_name
+        )
+
+        result = results_by_name.get(
+            key
+        )
+
+        if result is None:
+
+            result = AliasMatch(
+                channel_name=(
+                    channel.display_name
+                ),
+                normalized_name=(
+                    channel.display_name
+                ),
+                cdn_alias=None,
+                match_type="MISSING",
+                confidence=0.0,
+                reason=(
+                    "Результат сканирования "
+                    "отсутствует."
+                ),
+                candidates=[],
+                streams=[],
+            )
+
+        results.append(
+            result
+        )
+
+    # --------------------------------------------------------
+    # RETRAIN
     # --------------------------------------------------------
 
     LOGGER.info(
-        "Запуск автообучения ML-модели "
-        "по всей накопленной истории..."
+        "Запуск ML обучения "
+        "по ВСЕЙ накопленной истории..."
     )
 
     trained_model = (
-        retrain_ml_model()
+        retrain_ml_model(
+            db
+        )
     )
 
     if trained_model:
 
         LOGGER.info(
-            "Новая ML-модель построена "
-            "на всей накопленной истории."
+            "Новая ML модель "
+            "успешно построена."
         )
 
     else:
 
         LOGGER.info(
-            "Новая модель не создана. "
-            "Существующая история сохранена."
+            "Новая ML модель "
+            "не создана."
         )
 
     # --------------------------------------------------------
-    # Reports
+    # REPORTS
     # --------------------------------------------------------
 
-    LOGGER.info(
-        "Экспорт всех видов отчетов..."
+    save_all_reports(
+        channels=channels,
+        results=results,
+        model=trained_model
+        or ml_model,
     )
 
-    save_all_reports(
-        channels,
-        results,
-    )
+    # --------------------------------------------------------
+    # STATS
+    # --------------------------------------------------------
 
     stats = db.get_statistics()
 
@@ -3086,11 +4765,6 @@ def run_pipeline():
     LOGGER.info(
         "RUN #%d FINISHED",
         RUN_NUMBER,
-    )
-
-    LOGGER.info(
-        "ENGINE VERSION: %s",
-        ENGINE_VERSION,
     )
 
     LOGGER.info(
@@ -3109,8 +4783,23 @@ def run_pipeline():
     )
 
     LOGGER.info(
+        "DB live: %d",
+        stats["live"],
+    )
+
+    LOGGER.info(
+        "DB historical: %d",
+        stats["historical"],
+    )
+
+    LOGGER.info(
         "DB runs: %d",
         stats["runs"],
+    )
+
+    LOGGER.info(
+        "Learned aliases: %d",
+        stats["learned_aliases"],
     )
 
     LOGGER.info(
@@ -3122,7 +4811,7 @@ def run_pipeline():
 # STATS
 # ============================================================
 
-def show_stats():
+def show_stats() -> None:
 
     db = Database()
 
@@ -3130,34 +4819,59 @@ def show_stats():
         db.get_statistics()
     )
 
+    print()
     print(
-        "\n=== СТАТИСТИКА "
-        "БАЗЫ ДАННЫХ ==="
+        "=== СТАТИСТИКА KNOWLEDGE BASE ==="
     )
 
     print(
-        f"Версия движка: "
+        f"Engine:            "
+        f"{ENGINE_NAME}"
+    )
+
+    print(
+        f"Engine version:    "
         f"{ENGINE_VERSION}"
     )
 
     print(
-        f"Всего проверок: "
+        f"Feature schema:    "
+        f"{FEATURE_SCHEMA_VERSION}"
+    )
+
+    print(
+        f"Всего проверок:    "
         f"{stats['total']}"
     )
 
     print(
-        f"Успешных:       "
+        f"Успешных:          "
         f"{stats['successful']}"
     )
 
     print(
-        f"Неуспешных:     "
+        f"Неуспешных:        "
         f"{stats['failed']}"
     )
 
     print(
-        f"Запусков:       "
+        f"Live scan:         "
+        f"{stats['live']}"
+    )
+
+    print(
+        f"Historical JSON:   "
+        f"{stats['historical']}"
+    )
+
+    print(
+        f"Запусков:          "
         f"{stats['runs']}"
+    )
+
+    print(
+        f"Learned aliases:   "
+        f"{stats['learned_aliases']}"
     )
 
     model = (
@@ -3166,23 +4880,39 @@ def show_stats():
 
     if model:
 
+        print()
         print(
-            "\n=== ПОСЛЕДНЯЯ ML-МОДЕЛЬ ==="
+            "=== ПОСЛЕДНЯЯ ML-МОДЕЛЬ ==="
         )
 
         print(
-            f"Версия:          "
+            f"Version:           "
             f"{model.VERSION}"
         )
 
         print(
-            f"Обучающих данных: "
+            f"Feature schema:    "
+            f"{model.feature_schema}"
+        )
+
+        print(
+            f"Model schema:      "
+            f"{model.model_schema}"
+        )
+
+        print(
+            f"Training samples:  "
             f"{model.training_samples}"
         )
 
         print(
-            f"Создана:          "
+            f"Created:           "
             f"{model.created_at}"
+        )
+
+        print(
+            f"Classes:           "
+            f"{model.class_distribution}"
         )
 
         for key, value in (
@@ -3190,8 +4920,39 @@ def show_stats():
         ):
 
             print(
-                f"{key}: "
+                f"{key:12s}: "
                 f"{value:.6f}"
+            )
+
+    else:
+
+        print()
+        print(
+            "ML latest model: отсутствует "
+            "или несовместима."
+        )
+
+    aliases = db.get_top_aliases(
+        limit=20
+    )
+
+    if aliases:
+
+        print()
+        print(
+            "=== TOP LEARNED ALIASES ==="
+        )
+
+        for item in aliases:
+
+            print(
+                f"{item['channel_name']} "
+                f"=> "
+                f"{item['cdn_alias']} "
+                f"| confidence="
+                f"{item['confidence']:.4f} "
+                f"| hits="
+                f"{item['hit_count']}"
             )
 
 
@@ -3199,14 +4960,12 @@ def show_stats():
 # CLI
 # ============================================================
 
-def main():
+def main() -> None:
 
     parser = argparse.ArgumentParser(
         description=(
-            "Alias Verification Engine "
-            "6.1.7602.2901626_AI_build_"
-            "6.1.760229.0162631 "
-            "ML Evolution"
+            f"{ENGINE_NAME} "
+            f"{ENGINE_VERSION}"
         )
     )
 
@@ -3214,8 +4973,8 @@ def main():
         "--scan",
         action="store_true",
         help=(
-            "Полное сканирование "
-            "и обучение"
+            "Полное сканирование, "
+            "импорт истории и обучение"
         ),
     )
 
@@ -3223,8 +4982,8 @@ def main():
         "--train",
         action="store_true",
         help=(
-            "Переобучить ML-модель "
-            "по всей накопленной истории"
+            "Переобучить ML по всей "
+            "накопленной истории"
         ),
     )
 
@@ -3232,8 +4991,17 @@ def main():
         "--stats",
         action="store_true",
         help=(
-            "Показать статистику "
-            "и состояние модели"
+            "Показать состояние "
+            "Knowledge Base и ML"
+        ),
+    )
+
+    parser.add_argument(
+        "--import-json",
+        action="store_true",
+        help=(
+            "Импортировать исторические "
+            "JSON без CDN сканирования"
         ),
     )
 
@@ -3245,16 +5013,44 @@ def main():
 
     elif args.train:
 
-        retrain_ml_model()
+        db = Database()
+
+        retrain_ml_model(
+            db
+        )
 
     elif args.stats:
 
         show_stats()
+
+    elif args.import_json:
+
+        db = Database()
+
+        records = (
+            load_all_json_records()
+        )
+
+        imported = (
+            db.import_historical_records(
+                records
+            )
+        )
+
+        print(
+            f"Импортировано новых записей: "
+            f"{imported}"
+        )
 
     else:
 
         run_pipeline()
 
 
+# ============================================================
+# ENTRY POINT
+# ============================================================
+
 if __name__ == "__main__":
+
     main()
