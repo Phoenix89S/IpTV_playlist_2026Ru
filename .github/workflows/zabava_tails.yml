@@ -1,4 +1,4 @@
-name: ZABAVA TAILS SCAN
+Name: ZABAVA TAILS SCAN
 
 on:
   workflow_dispatch:
@@ -25,7 +25,11 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests
+          pip install requests PyYAML
+
+      - name: Download latest script version
+        run: |
+          curl -sSL "https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/zabava_tails.py" -o zabava_tails.py
 
       - name: Run ZABAVA TAILS scanner
         run: |
@@ -45,6 +49,7 @@ jobs:
           ls -lh \
             zabava_tails.txt \
             zabava_tails.json \
+            zabava_tails.yaml \
             zabava_scan.log
 
       - name: Commit results
@@ -55,11 +60,12 @@ jobs:
           git add \
             zabava_tails.txt \
             zabava_tails.json \
+            zabava_tails.yaml \
             zabava_scan.log
 
           if git diff --cached --quiet; then
             echo "No changes detected."
           else
-            git commit -m "Update ZABAVA tails"
+            git commit -m "Update ZABAVA tails and YAML [skip ci]"
             git push
           fi
