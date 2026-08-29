@@ -5,7 +5,6 @@ on:
   push:
     paths:
       - "ai_zabava_tiles.py"
-      - "channel_ids.txt"
       - ".github/workflows/ai_zabava_tiles.yml"
 
 jobs:
@@ -13,18 +12,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # ============================================================
-      # CHECKOUT
-      # ============================================================
-
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      # ============================================================
-      # PYTHON
-      # ============================================================
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -32,88 +23,53 @@ jobs:
           python-version: "3.10"
           cache: "pip"
 
-      # ============================================================
-      # DEPENDENCIES
-      # ============================================================
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install aiohttp
-
-      # ============================================================
-      # CHECK INPUT
-      # ============================================================
-
-      - name: Check channel_ids.txt
-        run: |
-          set -e
-
-          echo "========================================"
-          echo "CHECK INPUT"
-          echo "========================================"
-
-          if [ ! -f "channel_ids.txt" ]; then
-            echo "ERROR: channel_ids.txt not found"
-            exit 1
-          fi
-
-          echo "channel_ids.txt found"
-
-          CHANNEL_COUNT=$(grep -c '^CH_' channel_ids.txt || true)
-
-          echo "CH_* entries: $CHANNEL_COUNT"
-
-          if [ "$CHANNEL_COUNT" -eq 0 ]; then
-            echo "ERROR: channel_ids.txt contains no CH_* entries"
-            exit 1
-          fi
-
-      # ============================================================
-      # RUN SCANNER
-      # ============================================================
+          python -m pip install aiohttp requests
 
       - name: Run ai_zabava_tiles.py
         run: |
           set -e
 
           echo "========================================"
-          echo "START AI ZABAVA TILES"
+          echo "       START AI ZABAVA TILES"
           echo "========================================"
 
           python ai_zabava_tiles.py
 
           echo "========================================"
-          echo "SCANNER FINISHED"
+          echo "       SCAN FINISHED"
           echo "========================================"
 
-      # ============================================================
-      # CHECK RESULTS
-      # ============================================================
-
-      - name: Check generated files
+      - name: Verify generated files
         run: |
           set -e
 
           echo "========================================"
-          echo "GENERATED FILES"
+          echo "       GENERATED FILES"
           echo "========================================"
+
+          test -f playlist_ngenix_working.m3u
+          test -f playlist_ngenix_data.json
+          test -f skala_ngenix_report.txt
+          test -f scan_ngenix_process.log
+          test -f zabava_tails.txt
+          test -f zabava_tails.json
 
           ls -lh \
             playlist_ngenix_working.m3u \
             playlist_ngenix_data.json \
             skala_ngenix_report.txt \
-            scan_ngenix_process.log
+            scan_ngenix_process.log \
+            zabava_tails.txt \
+            zabava_tails.json
 
           echo "========================================"
-          echo "M3U:"
+          echo "       M3U ENTRIES"
           echo "========================================"
 
           grep -c '^#EXTINF:' playlist_ngenix_working.m3u || true
-
-      # ============================================================
-      # COMMIT RESULTS
-      # ============================================================
 
       - name: Commit generated results
         run: |
@@ -126,7 +82,9 @@ jobs:
             playlist_ngenix_working.m3u \
             playlist_ngenix_data.json \
             skala_ngenix_report.txt \
-            scan_ngenix_process.log
+            scan_ngenix_process.log \
+            zabava_tails.txt \
+            zabava_tails.json
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
