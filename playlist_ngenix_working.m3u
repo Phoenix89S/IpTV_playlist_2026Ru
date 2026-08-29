@@ -1,0 +1,1120 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="CH_D-TV6" tvg-name="D-TV6",D-TV6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_D-TV6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_DMITRY-TVHD" tvg-name="DMITRY-TVHD",DMITRY-TVHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_DMITRY-TVHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_1TV-1" tvg-name="1TV-1",1TV-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_1TV-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_1TV" tvg-name="1TV",1TV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_1TV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_1TV_2" tvg-name="1TV_2",1TV_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_1TV_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_1TV_4" tvg-name="1TV_4",1TV_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_1TV_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_1TV_6" tvg-name="1TV_6",1TV_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_1TV_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_1TV_7" tvg-name="1TV_7",1TV_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_1TV_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_1TV_8" tvg-name="1TV_8",1TV_8
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_1TV_8/variant.m3u8
+#EXTINF:-1 tvg-id="CH_1TV_9" tvg-name="1TV_9",1TV_9
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_1TV_9/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RUSSIA1-1" tvg-name="RUSSIA1-1",RUSSIA1-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RUSSIA1" tvg-name="RUSSIA1",RUSSIA1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RUSSIA1_2" tvg-name="RUSSIA1_2",RUSSIA1_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RUSSIA1_4" tvg-name="RUSSIA1_4",RUSSIA1_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RUSSIA1_6" tvg-name="RUSSIA1_6",RUSSIA1_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RUSSIA1_7" tvg-name="RUSSIA1_7",RUSSIA1_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RUSSIA1_8" tvg-name="RUSSIA1_8",RUSSIA1_8
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1_8/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RUSSIA1_9" tvg-name="RUSSIA1_9",RUSSIA1_9
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1_9/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NTV-1" tvg-name="NTV-1",NTV-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NTV-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NTV" tvg-name="NTV",NTV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NTV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NTV_2" tvg-name="NTV_2",NTV_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NTV_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NTV_4" tvg-name="NTV_4",NTV_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NTV_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NTV_6" tvg-name="NTV_6",NTV_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NTV_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NTV_7" tvg-name="NTV_7",NTV_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NTV_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_5TV-1" tvg-name="5TV-1",5TV-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_5TV-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_5TV" tvg-name="5TV",5TV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_5TV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_5TV_2" tvg-name="5TV_2",5TV_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_5TV_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_5TV_4" tvg-name="5TV_4",5TV_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_5TV_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_5TV_6" tvg-name="5TV_6",5TV_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_5TV_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_5TV_7" tvg-name="5TV_7",5TV_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_5TV_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RUSSIAK-1" tvg-name="RUSSIAK-1",RUSSIAK-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIAK-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RUSSIAK" tvg-name="RUSSIAK",RUSSIAK
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIAK/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RUSSIAK_2" tvg-name="RUSSIAK_2",RUSSIAK_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIAK_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RUSSIAK_4" tvg-name="RUSSIAK_4",RUSSIAK_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIAK_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RUSSIAK_6" tvg-name="RUSSIAK_6",RUSSIAK_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIAK_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RUSSIAK_7" tvg-name="RUSSIAK_7",RUSSIAK_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIAK_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RUSSIA24" tvg-name="RUSSIA24",RUSSIA24
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA24/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RUSSIA24_2" tvg-name="RUSSIA24_2",RUSSIA24_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA24_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_KARUSEL-1" tvg-name="KARUSEL-1",KARUSEL-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KARUSEL-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_KARUSEL" tvg-name="KARUSEL",KARUSEL
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KARUSEL/variant.m3u8
+#EXTINF:-1 tvg-id="CH_KARUSEL_2" tvg-name="KARUSEL_2",KARUSEL_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KARUSEL_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_KARUSEL_4" tvg-name="KARUSEL_4",KARUSEL_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KARUSEL_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_KARUSEL_6" tvg-name="KARUSEL_6",KARUSEL_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KARUSEL_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_KARUSEL_7" tvg-name="KARUSEL_7",KARUSEL_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KARUSEL_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_KARUSEL_8" tvg-name="KARUSEL_8",KARUSEL_8
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KARUSEL_8/variant.m3u8
+#EXTINF:-1 tvg-id="CH_OTR" tvg-name="OTR",OTR
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_OTR/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TVC-1" tvg-name="TVC-1",TVC-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TVC-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TVC" tvg-name="TVC",TVC
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TVC/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TVC_2" tvg-name="TVC_2",TVC_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TVC_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TVC_4" tvg-name="TVC_4",TVC_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TVC_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TVC_6" tvg-name="TVC_6",TVC_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TVC_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TVC_7" tvg-name="TVC_7",TVC_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TVC_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RENTV-1" tvg-name="RENTV-1",RENTV-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RENTV" tvg-name="RENTV",RENTV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RENTV_2" tvg-name="RENTV_2",RENTV_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RENTV_4" tvg-name="RENTV_4",RENTV_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RENTV_6" tvg-name="RENTV_6",RENTV_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RENTV_7" tvg-name="RENTV_7",RENTV_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SPAS-1" tvg-name="SPAS-1",SPAS-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SPAS-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SPAS" tvg-name="SPAS",SPAS
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SPAS/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SPAS_2" tvg-name="SPAS_2",SPAS_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SPAS_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SPAS_4" tvg-name="SPAS_4",SPAS_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SPAS_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SPAS_6" tvg-name="SPAS_6",SPAS_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SPAS_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SPAS_7" tvg-name="SPAS_7",SPAS_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SPAS_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_STS-1" tvg-name="STS-1",STS-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_STS-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_STS" tvg-name="STS",STS
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_STS/variant.m3u8
+#EXTINF:-1 tvg-id="CH_STS_2" tvg-name="STS_2",STS_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_STS_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_STS_4" tvg-name="STS_4",STS_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_STS_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_STS_6" tvg-name="STS_6",STS_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_STS_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_STS_7" tvg-name="STS_7",STS_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_STS_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_DOMASHNIY-1" tvg-name="DOMASHNIY-1",DOMASHNIY-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_DOMASHNIY-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_DOMASHNIY" tvg-name="DOMASHNIY",DOMASHNIY
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_DOMASHNIY/variant.m3u8
+#EXTINF:-1 tvg-id="CH_DOMASHNIY_2" tvg-name="DOMASHNIY_2",DOMASHNIY_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_DOMASHNIY_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_DOMASHNIY_4" tvg-name="DOMASHNIY_4",DOMASHNIY_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_DOMASHNIY_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_DOMASHNIY_6" tvg-name="DOMASHNIY_6",DOMASHNIY_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_DOMASHNIY_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_DOMASHNIY_7" tvg-name="DOMASHNIY_7",DOMASHNIY_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_DOMASHNIY_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TV3-1" tvg-name="TV3-1",TV3-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TV3-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TV3" tvg-name="TV3",TV3
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TV3/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TV3_2" tvg-name="TV3_2",TV3_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TV3_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TV3_4" tvg-name="TV3_4",TV3_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TV3_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TV3_6" tvg-name="TV3_6",TV3_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TV3_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TV3_7" tvg-name="TV3_7",TV3_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TV3_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_FRIDAY-1" tvg-name="FRIDAY-1",FRIDAY-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_FRIDAY-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_FRIDAY" tvg-name="FRIDAY",FRIDAY
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_FRIDAY/variant.m3u8
+#EXTINF:-1 tvg-id="CH_FRIDAY_2" tvg-name="FRIDAY_2",FRIDAY_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_FRIDAY_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_FRIDAY_4" tvg-name="FRIDAY_4",FRIDAY_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_FRIDAY_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_FRIDAY_6" tvg-name="FRIDAY_6",FRIDAY_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_FRIDAY_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_FRIDAY_7" tvg-name="FRIDAY_7",FRIDAY_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_FRIDAY_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ZVEZDA-1" tvg-name="ZVEZDA-1",ZVEZDA-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ZVEZDA-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ZVEZDA" tvg-name="ZVEZDA",ZVEZDA
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ZVEZDA/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ZVEZDA_2" tvg-name="ZVEZDA_2",ZVEZDA_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ZVEZDA_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ZVEZDA_4" tvg-name="ZVEZDA_4",ZVEZDA_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ZVEZDA_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ZVEZDA_6" tvg-name="ZVEZDA_6",ZVEZDA_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ZVEZDA_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ZVEZDA_7" tvg-name="ZVEZDA_7",ZVEZDA_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ZVEZDA_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MIR-1" tvg-name="MIR-1",MIR-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MIR-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MIR" tvg-name="MIR",MIR
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MIR/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MIR_2" tvg-name="MIR_2",MIR_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MIR_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MIR_4" tvg-name="MIR_4",MIR_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MIR_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MIR_6" tvg-name="MIR_6",MIR_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MIR_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MIR_7" tvg-name="MIR_7",MIR_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MIR_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TNT-1" tvg-name="TNT-1",TNT-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TNT" tvg-name="TNT",TNT
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TNT_2" tvg-name="TNT_2",TNT_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TNT_4" tvg-name="TNT_4",TNT_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TNT_6" tvg-name="TNT_6",TNT_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TNT_7" tvg-name="TNT_7",TNT_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MUZTV-1" tvg-name="MUZTV-1",MUZTV-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MUZTV-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MUZTV" tvg-name="MUZTV",MUZTV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MUZTV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MUZTV_2" tvg-name="MUZTV_2",MUZTV_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MUZTV_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MUZTV_4" tvg-name="MUZTV_4",MUZTV_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MUZTV_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MUZTV_6" tvg-name="MUZTV_6",MUZTV_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MUZTV_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MUZTV_7" tvg-name="MUZTV_7",MUZTV_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MUZTV_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_CHE-1" tvg-name="CHE-1",CHE-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_CHE-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_CHE" tvg-name="CHE",CHE
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_CHE/variant.m3u8
+#EXTINF:-1 tvg-id="CH_CHE_2" tvg-name="CHE_2",CHE_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_CHE_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_CHE_4" tvg-name="CHE_4",CHE_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_CHE_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_CHE_6" tvg-name="CHE_6",CHE_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_CHE_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_CHE_7" tvg-name="CHE_7",CHE_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_CHE_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_U-1" tvg-name="U-1",U-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_U-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_U" tvg-name="U",U
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_U/variant.m3u8
+#EXTINF:-1 tvg-id="CH_U_2" tvg-name="U_2",U_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_U_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_U_4" tvg-name="U_4",U_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_U_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_U_6" tvg-name="U_6",U_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_U_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_U_7" tvg-name="U_7",U_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_U_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RTSHD720" tvg-name="RTSHD720",RTSHD720
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RTSHD720/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TV7" tvg-name="TV7",TV7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TV7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_8CHANNEL_KRSK" tvg-name="8CHANNEL_KRSK",8CHANNEL_KRSK
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_8CHANNEL_KRSK/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ABAKAN24HD" tvg-name="ABAKAN24HD",ABAKAN24HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ABAKAN24HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_REGION29" tvg-name="REGION29",REGION29
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_REGION29/variant.m3u8
+#EXTINF:-1 tvg-id="CH_STV24" tvg-name="STV24",STV24
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_STV24/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ASTRAKHAN24HD" tvg-name="ASTRAKHAN24HD",ASTRAKHAN24HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ASTRAKHAN24HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_PRO_ASTRAKHANHD" tvg-name="PRO_ASTRAKHANHD",PRO_ASTRAKHANHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_PRO_ASTRAKHANHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ACHINSKOETVHD" tvg-name="ACHINSKOETVHD",ACHINSKOETVHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ACHINSKOETVHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_KATUN24" tvg-name="KATUN24",KATUN24
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KATUN24/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TOLK" tvg-name="TOLK",TOLK
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TOLK/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MIR_BLGRYA" tvg-name="MIR_BLGRYA",MIR_BLGRYA
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MIR_BLGRYA/variant.m3u8
+#EXTINF:-1 tvg-id="CH_BELGOROD24" tvg-name="BELGOROD24",BELGOROD24
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_BELGOROD24/variant.m3u8
+#EXTINF:-1 tvg-id="CH_BIYSKTVHD" tvg-name="BIYSKTVHD",BIYSKTVHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_BIYSKTVHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NTK" tvg-name="NTK",NTK
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NTK/variant.m3u8
+#EXTINF:-1 tvg-id="CH_AOTV" tvg-name="AOTV",AOTV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_AOTV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_GOROD24" tvg-name="GOROD24",GOROD24
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_GOROD24/variant.m3u8
+#EXTINF:-1 tvg-id="CH_BST24HD" tvg-name="BST24HD",BST24HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_BST24HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_360_BRATSK" tvg-name="360_BRATSK",360_BRATSK
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_360_BRATSK/variant.m3u8
+#EXTINF:-1 tvg-id="CH_AKTIS_AGRSK" tvg-name="AKTIS_AGRSK",AKTIS_AGRSK
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_AKTIS_AGRSK/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TCTHD_CHRMVO" tvg-name="TCTHD_CHRMVO",TCTHD_CHRMVO
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TCTHD_CHRMVO/variant.m3u8
+#EXTINF:-1 tvg-id="CH_BRGUBERNIAHD" tvg-name="BRGUBERNIAHD",BRGUBERNIAHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_BRGUBERNIAHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_BRYANSK24HD" tvg-name="BRYANSK24HD",BRYANSK24HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_BRYANSK24HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NOVGORODTV" tvg-name="NOVGORODTV",NOVGORODTV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NOVGORODTV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_OTV" tvg-name="OTV",OTV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_OTV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_8KANAL" tvg-name="8KANAL",8KANAL
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_8KANAL/variant.m3u8
+#EXTINF:-1 tvg-id="CH_VOSTOK24" tvg-name="VOSTOK24",VOSTOK24
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_VOSTOK24/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TELEMIKS" tvg-name="TELEMIKS",TELEMIKS
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TELEMIKS/variant.m3u8
+#EXTINF:-1 tvg-id="CH_25REGIONHD" tvg-name="25REGIONHD",25REGIONHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_25REGIONHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_IRISTONHD" tvg-name="IRISTONHD",IRISTONHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_IRISTONHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_GUBERNIA33HD" tvg-name="GUBERNIA33HD",GUBERNIA33HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_GUBERNIA33HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_VARIANT_V" tvg-name="VARIANT_V",VARIANT_V
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_VARIANT_V/variant.m3u8
+#EXTINF:-1 tvg-id="CH_6KANALHD" tvg-name="6KANALHD",6KANALHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_6KANALHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_VOLGOGRAD1HD" tvg-name="VOLGOGRAD1HD",VOLGOGRAD1HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_VOLGOGRAD1HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_VOLGOGRAD24HD" tvg-name="VOLGOGRAD24HD",VOLGOGRAD24HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_VOLGOGRAD24HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RUSEVER" tvg-name="RUSEVER",RUSEVER
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSEVER/variant.m3u8
+#EXTINF:-1 tvg-id="CH_12CHANNEL_CHER" tvg-name="12CHANNEL_CHER",12CHANNEL_CHER
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_12CHANNEL_CHER/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TVGUBERNIYA" tvg-name="TVGUBERNIYA",TVGUBERNIYA
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TVGUBERNIYA/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ARGUS" tvg-name="ARGUS",ARGUS
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ARGUS/variant.m3u8
+#EXTINF:-1 tvg-id="CH_IZVESTIYA" tvg-name="IZVESTIYA",IZVESTIYA
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_IZVESTIYA/variant.m3u8
+#EXTINF:-1 tvg-id="CH_OTVHD" tvg-name="OTVHD",OTVHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_OTVHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RIMHD" tvg-name="RIMHD",RIMHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RIMHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_IRBITVEST" tvg-name="IRBITVEST",IRBITVEST
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_IRBITVEST/variant.m3u8
+#EXTINF:-1 tvg-id="CH_INKOMTV_TALICA" tvg-name="INKOMTV_TALICA",INKOMTV_TALICA
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_INKOMTV_TALICA/variant.m3u8
+#EXTINF:-1 tvg-id="CH_VEKTORHD720_TRNSK" tvg-name="VEKTORHD720_TRNSK",VEKTORHD720_TRNSK
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_VEKTORHD720_TRNSK/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TELEKON24HD" tvg-name="TELEKON24HD",TELEKON24HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TELEKON24HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_4CHANNEL" tvg-name="4CHANNEL",4CHANNEL
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_4CHANNEL/variant.m3u8
+#EXTINF:-1 tvg-id="CH_BARS" tvg-name="BARS",BARS
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_BARS/variant.m3u8
+#EXTINF:-1 tvg-id="CH_IOT" tvg-name="IOT",IOT
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_IOT/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MYUDMURTIA" tvg-name="MYUDMURTIA",MYUDMURTIA
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MYUDMURTIA/variant.m3u8
+#EXTINF:-1 tvg-id="CH_METR" tvg-name="METR",METR
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_METR/variant.m3u8
+#EXTINF:-1 tvg-id="CH_AISTHD" tvg-name="AISTHD",AISTHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_AISTHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_AKTISHD720" tvg-name="AKTISHD720",AKTISHD720
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_AKTISHD720/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NTSHD" tvg-name="NTSHD",NTSHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NTSHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TNVT" tvg-name="TNVT",TNVT
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TNVT/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TATARSTAN24" tvg-name="TATARSTAN24",TATARSTAN24
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TATARSTAN24/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MAIDAN" tvg-name="MAIDAN",MAIDAN
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MAIDAN/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TMTV" tvg-name="TMTV",TMTV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TMTV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_EFIR" tvg-name="EFIR",EFIR
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_EFIR/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TNVPLANETA" tvg-name="TNVPLANETA",TNVPLANETA
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TNVPLANETA/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SHAYANTV_KZN" tvg-name="SHAYANTV_KZN",SHAYANTV_KZN
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SHAYANTV_KZN/variant.m3u8
+#EXTINF:-1 tvg-id="CH_KASKAD" tvg-name="KASKAD",KASKAD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KASKAD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NIKA" tvg-name="NIKA",NIKA
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NIKA/variant.m3u8
+#EXTINF:-1 tvg-id="CH_KAMCHATKA1HD" tvg-name="KAMCHATKA1HD",KAMCHATKA1HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KAMCHATKA1HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_41REG" tvg-name="41REG",41REG
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_41REG/variant.m3u8
+#EXTINF:-1 tvg-id="CH_KUZBASS1" tvg-name="KUZBASS1",KUZBASS1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KUZBASS1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_IZVEST_KEMR" tvg-name="IZVEST_KEMR",IZVEST_KEMR
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_IZVEST_KEMR/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ANGERSKTV" tvg-name="ANGERSKTV",ANGERSKTV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ANGERSKTV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_9TVHD" tvg-name="9TVHD",9TVHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_9TVHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_1GORODSKOYHD720" tvg-name="1GORODSKOYHD720",1GORODSKOYHD720
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_1GORODSKOYHD720/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RUS" tvg-name="RUS",RUS
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUS/variant.m3u8
+#EXTINF:-1 tvg-id="CH_KUBAN24" tvg-name="KUBAN24",KUBAN24
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KUBAN24/variant.m3u8
+#EXTINF:-1 tvg-id="CH_KRASNODARHD" tvg-name="KRASNODARHD",KRASNODARHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KRASNODARHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RBC-KRD" tvg-name="RBC-KRD",RBC-KRD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RBC-KRD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ENISEYHD" tvg-name="ENISEYHD",ENISEYHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ENISEYHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_7CHANNELHD" tvg-name="7CHANNELHD",7CHANNELHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_7CHANNELHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_PRIMAHD" tvg-name="PRIMAHD",PRIMAHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_PRIMAHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TVK24HD" tvg-name="TVK24HD",TVK24HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TVK24HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_INFO24HD" tvg-name="INFO24HD",INFO24HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_INFO24HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_OBLAST45HD720" tvg-name="OBLAST45HD720",OBLAST45HD720
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_OBLAST45HD720/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TAKT24" tvg-name="TAKT24",TAKT24
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TAKT24/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SEIM" tvg-name="SEIM",SEIM
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SEIM/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TUVA24" tvg-name="TUVA24",TUVA24
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TUVA24/variant.m3u8
+#EXTINF:-1 tvg-id="CH_LVREMYAHD" tvg-name="LVREMYAHD",LVREMYAHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_LVREMYAHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_VOTTVHD" tvg-name="VOTTVHD",VOTTVHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_VOTTVHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_LIPTIMEHD" tvg-name="LIPTIMEHD",LIPTIMEHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_LIPTIMEHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ELETS" tvg-name="ELETS",ELETS
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ELETS/variant.m3u8
+#EXTINF:-1 tvg-id="CH_KOLYMAHD" tvg-name="KOLYMAHD",KOLYMAHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KOLYMAHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_KARIBU" tvg-name="KARIBU",KARIBU
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KARIBU/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MGDN_MGTK" tvg-name="MGDN_MGTK",MGDN_MGTK
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MGDN_MGTK/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MAYKOP" tvg-name="MAYKOP",MAYKOP
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MAYKOP/variant.m3u8
+#EXTINF:-1 tvg-id="CH_DAGESTAN" tvg-name="DAGESTAN",DAGESTAN
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_DAGESTAN/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MOSKVA24" tvg-name="MOSKVA24",MOSKVA24
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MOSKVA24/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MOSKVADOVERIE" tvg-name="MOSKVADOVERIE",MOSKVADOVERIE
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MOSKVADOVERIE/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TEOTVHD" tvg-name="TEOTVHD",TEOTVHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TEOTVHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ARCTICHD" tvg-name="ARCTICHD",ARCTICHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ARCTICHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TV21PLUS" tvg-name="TV21PLUS",TV21PLUS
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TV21PLUS/variant.m3u8
+#EXTINF:-1 tvg-id="CH_KBR" tvg-name="KBR",KBR
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KBR/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SEVER" tvg-name="SEVER",SEVER
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SEVER/variant.m3u8
+#EXTINF:-1 tvg-id="CH_VOLGA" tvg-name="VOLGA",VOLGA
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_VOLGA/variant.m3u8
+#EXTINF:-1 tvg-id="CH_VOLGA24HD720" tvg-name="VOLGA24HD720",VOLGA24HD720
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_VOLGA24HD720/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NNTVHD720" tvg-name="NNTVHD720",NNTVHD720
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NNTVHD720/variant.m3u8
+#EXTINF:-1 tvg-id="CH_DZERZHINSKHD" tvg-name="DZERZHINSKHD",DZERZHINSKHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_DZERZHINSKHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TAGILTV" tvg-name="TAGILTV",TAGILTV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TAGILTV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_DESYATKA" tvg-name="DESYATKA",DESYATKA
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_DESYATKA/variant.m3u8
+#EXTINF:-1 tvg-id="CH_PROZHIZNHD" tvg-name="PROZHIZNHD",PROZHIZNHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_PROZHIZNHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_OTSHD_BERDSK" tvg-name="OTSHD_BERDSK",OTSHD_BERDSK
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_OTSHD_BERDSK/variant.m3u8
+#EXTINF:-1 tvg-id="CH_OTSHD" tvg-name="OTSHD",OTSHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_OTSHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NSK49CHANNELHD" tvg-name="NSK49CHANNELHD",NSK49CHANNELHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NSK49CHANNELHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_8CHANNEL" tvg-name="8CHANNEL",8CHANNEL
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_8CHANNEL/variant.m3u8
+#EXTINF:-1 tvg-id="CH_YAMREG" tvg-name="YAMREG",YAMREG
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_YAMREG/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MIGTVHD" tvg-name="MIGTVHD",MIGTVHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MIGTVHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_IMPULSHD" tvg-name="IMPULSHD",IMPULSHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_IMPULSHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MURAVLENKO24HD" tvg-name="MURAVLENKO24HD",MURAVLENKO24HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MURAVLENKO24HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_YAMAL1HD" tvg-name="YAMAL1HD",YAMAL1HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_YAMAL1HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_VEKTOR24_GUBK" tvg-name="VEKTOR24_GUBK",VEKTOR24_GUBK
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_VEKTOR24_GUBK/variant.m3u8
+#EXTINF:-1 tvg-id="CH_VESTN_NADHD" tvg-name="VESTN_NADHD",VESTN_NADHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_VESTN_NADHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_LUTCHHD" tvg-name="LUTCHHD",LUTCHHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_LUTCHHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_12CHANNELHD" tvg-name="12CHANNELHD",12CHANNELHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_12CHANNELHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_1GORODSKOY" tvg-name="1GORODSKOY",1GORODSKOY
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_1GORODSKOY/variant.m3u8
+#EXTINF:-1 tvg-id="CH_PRODVIZHENIEHD" tvg-name="PRODVIZHENIEHD",PRODVIZHENIEHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_PRODVIZHENIEHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_OMSKTVHD" tvg-name="OMSKTVHD",OMSKTVHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_OMSKTVHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_1OBLASTNOY" tvg-name="1OBLASTNOY",1OBLASTNOY
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_1OBLASTNOY/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ISTOKI" tvg-name="ISTOKI",ISTOKI
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ISTOKI/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ORTPLANETA" tvg-name="ORTPLANETA",ORTPLANETA
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ORTPLANETA/variant.m3u8
+#EXTINF:-1 tvg-id="CH_EVRAZIYAHD" tvg-name="EVRAZIYAHD",EVRAZIYAHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_EVRAZIYAHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_EXPRESSHD" tvg-name="EXPRESSHD",EXPRESSHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_EXPRESSHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NASHDOMHD" tvg-name="NASHDOMHD",NASHDOMHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NASHDOMHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_VETTA24" tvg-name="VETTA24",VETTA24
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_VETTA24/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RIFEY" tvg-name="RIFEY",RIFEY
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RIFEY/variant.m3u8
+#EXTINF:-1 tvg-id="CH_VERHTV_BRZKI" tvg-name="VERHTV_BRZKI",VERHTV_BRZKI
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_VERHTV_BRZKI/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SVOETV_BRZKI" tvg-name="SVOETV_BRZKI",SVOETV_BRZKI
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SVOETV_BRZKI/variant.m3u8
+#EXTINF:-1 tvg-id="CH_LTKHD_LSVA" tvg-name="LTKHD_LSVA",LTKHD_LSVA
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_LTKHD_LSVA/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SOYUZ_CHUS" tvg-name="SOYUZ_CHUS",SOYUZ_CHUS
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SOYUZ_CHUS/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SAMPOTV" tvg-name="SAMPOTV",SAMPOTV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SAMPOTV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_1ROSTOVSKIYHD" tvg-name="1ROSTOVSKIYHD",1ROSTOVSKIYHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_1ROSTOVSKIYHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_DON24HD" tvg-name="DON24HD",DON24HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_DON24HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TAGANROG5_TGNROG" tvg-name="TAGANROG5_TGNROG",TAGANROG5_TGNROG
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TAGANROG5_TGNROG/variant.m3u8
+#EXTINF:-1 tvg-id="CH_VOLGVEST_VOLG" tvg-name="VOLGVEST_VOLG",VOLGVEST_VOLG
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_VOLGVEST_VOLG/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NOVOSHAHTINSKHD_NVSHNSK" tvg-name="NOVOSHAHTINSKHD_NVSHNSK",NOVOSHAHTINSKHD_NVSHNSK
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NOVOSHAHTINSKHD_NVSHNSK/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SHAHTYHD" tvg-name="SHAHTYHD",SHAHTYHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SHAHTYHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_BATAYSKHD" tvg-name="BATAYSKHD",BATAYSKHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_BATAYSKHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NOVOCHERKASSKHD" tvg-name="NOVOCHERKASSKHD",NOVOCHERKASSKHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NOVOCHERKASSKHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RYBINSK40HD" tvg-name="RYBINSK40HD",RYBINSK40HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RYBINSK40HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TKPHD" tvg-name="TKPHD",TKPHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TKPHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_GOROD" tvg-name="GOROD",GOROD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_GOROD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SAMARA24" tvg-name="SAMARA24",SAMARA24
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SAMARA24/variant.m3u8
+#EXTINF:-1 tvg-id="CH_KTVLUCH" tvg-name="KTVLUCH",KTVLUCH
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KTVLUCH/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TOLYTTI24HD" tvg-name="TOLYTTI24HD",TOLYTTI24HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TOLYTTI24HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_GUBERNIA" tvg-name="GUBERNIA",GUBERNIA
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_GUBERNIA/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SAMARAGISHD" tvg-name="SAMARAGISHD",SAMARAGISHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SAMARAGISHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_LENTV24" tvg-name="LENTV24",LENTV24
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_LENTV24/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SPB" tvg-name="SPB",SPB
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SPB/variant.m3u8
+#EXTINF:-1 tvg-id="CH_78CHANNELHD" tvg-name="78CHANNELHD",78CHANNELHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_78CHANNELHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_10CHANNEL" tvg-name="10CHANNEL",10CHANNEL
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_10CHANNEL/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NTM" tvg-name="NTM",NTM
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NTM/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SARATOV24HD" tvg-name="SARATOV24HD",SARATOV24HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SARATOV24HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_OTV_SLIN" tvg-name="OTV_SLIN",OTV_SLIN
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_OTV_SLIN/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ACTV" tvg-name="ACTV",ACTV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ACTV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SOCHI24HD" tvg-name="SOCHI24HD",SOCHI24HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SOCHI24HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_KAVKAZ24" tvg-name="KAVKAZ24",KAVKAZ24
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KAVKAZ24/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SVOETVHD" tvg-name="SVOETVHD",SVOETVHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SVOETVHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ATV" tvg-name="ATV",ATV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ATV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_UGRA" tvg-name="UGRA",UGRA
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_UGRA/variant.m3u8
+#EXTINF:-1 tvg-id="CH_UGRATRAVEL" tvg-name="UGRATRAVEL",UGRATRAVEL
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_UGRATRAVEL/variant.m3u8
+#EXTINF:-1 tvg-id="CH_C1HD" tvg-name="C1HD",C1HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_C1HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_C86HD" tvg-name="C86HD",C86HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_C86HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SURGUT24HD" tvg-name="SURGUT24HD",SURGUT24HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SURGUT24HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_1SOVETSKIYHD" tvg-name="1SOVETSKIYHD",1SOVETSKIYHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_1SOVETSKIYHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_2TV_RADUZHNY" tvg-name="2TV_RADUZHNY",2TV_RADUZHNY
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_2TV_RADUZHNY/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NGORHD" tvg-name="NGORHD",NGORHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NGORHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_YUGANSK_YUNSK" tvg-name="YUGANSK_YUNSK",YUGANSK_YUNSK
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_YUGANSK_YUNSK/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NYAGANTV" tvg-name="NYAGANTV",NYAGANTV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NYAGANTV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TNR7HD" tvg-name="TNR7HD",TNR7HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TNR7HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TNR24HD_NIZH" tvg-name="TNR24HD_NIZH",TNR24HD_NIZH
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TNR24HD_NIZH/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SAMOTLORHD_NIZH" tvg-name="SAMOTLORHD_NIZH",SAMOTLORHD_NIZH
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SAMOTLORHD_NIZH/variant.m3u8
+#EXTINF:-1 tvg-id="CH_PYT-YAHINFORM" tvg-name="PYT-YAHINFORM",PYT-YAHINFORM
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_PYT-YAHINFORM/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MEGAPOLISHD" tvg-name="MEGAPOLISHD",MEGAPOLISHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MEGAPOLISHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_YURGAN" tvg-name="YURGAN",YURGAN
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_YURGAN/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NOVIY_VEK" tvg-name="NOVIY_VEK",NOVIY_VEK
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NOVIY_VEK/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TVERPROSPHD" tvg-name="TVERPROSPHD",TVERPROSPHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TVERPROSPHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_PANORAMATVHD" tvg-name="PANORAMATVHD",PANORAMATVHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_PANORAMATVHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TOMSKVREMYAHD" tvg-name="TOMSKVREMYAHD",TOMSKVREMYAHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TOMSKVREMYAHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_1TULSKIY" tvg-name="1TULSKIY",1TULSKIY
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_1TULSKIY/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TUMVREMYA" tvg-name="TUMVREMYA",TUMVREMYA
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TUMVREMYA/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TVOYA" tvg-name="TVOYA",TVOYA
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TVOYA/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TOBOLSKOEVREMYA_TBLSK" tvg-name="TOBOLSKOEVREMYA_TBLSK",TOBOLSKOEVREMYA_TBLSK
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TOBOLSKOEVREMYA_TBLSK/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ATVMEDIA" tvg-name="ATVMEDIA",ATVMEDIA
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ATVMEDIA/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TIVICOMHD" tvg-name="TIVICOMHD",TIVICOMHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TIVICOMHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ARIGUSHD" tvg-name="ARIGUSHD",ARIGUSHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ARIGUSHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_BURYAADHD" tvg-name="BURYAADHD",BURYAADHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_BURYAADHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_REP73" tvg-name="REP73",REP73
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_REP73/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ULPRAVDAHD" tvg-name="ULPRAVDAHD",ULPRAVDAHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ULPRAVDAHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_BASHKORTOSTAN24HD720" tvg-name="BASHKORTOSTAN24HD720",BASHKORTOSTAN24HD720
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_BASHKORTOSTAN24HD720/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MATURTVHD" tvg-name="MATURTVHD",MATURTVHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MATURTVHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TAMYRTV" tvg-name="TAMYRTV",TAMYRTV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TAMYRTV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SALYAMHD" tvg-name="SALYAMHD",SALYAMHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SALYAMHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NEXTTV_NFSK" tvg-name="NEXTTV_NFSK",NEXTTV_NFSK
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NEXTTV_NFSK/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TUGANTEL" tvg-name="TUGANTEL",TUGANTEL
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TUGANTEL/variant.m3u8
+#EXTINF:-1 tvg-id="CH_KURAYTV" tvg-name="KURAYTV",KURAYTV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KURAYTV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_UCHALYTV" tvg-name="UCHALYTV",UCHALYTV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_UCHALYTV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_GUBERNIYA" tvg-name="GUBERNIYA",GUBERNIYA
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_GUBERNIYA/variant.m3u8
+#EXTINF:-1 tvg-id="CH_6TV" tvg-name="6TV",6TV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_6TV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_6TVKMS" tvg-name="6TVKMS",6TVKMS
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_6TVKMS/variant.m3u8
+#EXTINF:-1 tvg-id="CH_UTV" tvg-name="UTV",UTV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_UTV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NATIONALTVHD" tvg-name="NATIONALTVHD",NATIONALTVHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NATIONALTVHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_31TV" tvg-name="31TV",31TV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_31TV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_URAL1HD" tvg-name="URAL1HD",URAL1HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_URAL1HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TVINHD_MAGN" tvg-name="TVINHD_MAGN",TVINHD_MAGN
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TVINHD_MAGN/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ZLATTV" tvg-name="ZLATTV",ZLATTV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ZLATTV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_VOSTEXPRESSHD" tvg-name="VOSTEXPRESSHD",VOSTEXPRESSHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_VOSTEXPRESSHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_OTVHD" tvg-name="OTVHD",OTVHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_OTVHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_ARKHIZ24HD" tvg-name="ARKHIZ24HD",ARKHIZ24HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_ARKHIZ24HD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_RTKZABHD" tvg-name="RTKZABHD",RTKZABHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RTKZABHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_NVCHD" tvg-name="NVCHD",NVCHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NVCHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_YAKT24" tvg-name="YAKT24",YAKT24
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_YAKT24/variant.m3u8
+#EXTINF:-1 tvg-id="CH_MAMONT" tvg-name="MAMONT",MAMONT
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MAMONT/variant.m3u8
+#EXTINF:-1 tvg-id="CH_1YAROSLAVSKIYHD" tvg-name="1YAROSLAVSKIYHD",1YAROSLAVSKIYHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_1YAROSLAVSKIYHD/variant.m3u8
+#EXTINF:-1 tvg-id="CH_GTREG" tvg-name="GTREG",GTREG
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_GTREG/variant.m3u8
+#EXTINF:-1 tvg-id="CH_STSLOVE-1" tvg-name="STSLOVE-1",STSLOVE-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_STSLOVE-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_STSLOVE" tvg-name="STSLOVE",STSLOVE
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_STSLOVE/variant.m3u8
+#EXTINF:-1 tvg-id="CH_STSLOVE_2" tvg-name="STSLOVE_2",STSLOVE_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_STSLOVE_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_STSLOVE_4" tvg-name="STSLOVE_4",STSLOVE_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_STSLOVE_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_2X2-1" tvg-name="2X2-1",2X2-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_2X2-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_2X2" tvg-name="2X2",2X2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_2X2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_2X2_2" tvg-name="2X2_2",2X2_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_2X2_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_2X2_4" tvg-name="2X2_4",2X2_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_2X2_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_2X2_6" tvg-name="2X2_6",2X2_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_2X2_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_2X2_7" tvg-name="2X2_7",2X2_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_2X2_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SUBBOTA-1" tvg-name="SUBBOTA-1",SUBBOTA-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SUBBOTA-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SUBBOTA" tvg-name="SUBBOTA",SUBBOTA
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SUBBOTA/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SUBBOTA_2" tvg-name="SUBBOTA_2",SUBBOTA_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SUBBOTA_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SUBBOTA_4" tvg-name="SUBBOTA_4",SUBBOTA_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SUBBOTA_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SUBBOTA_6" tvg-name="SUBBOTA_6",SUBBOTA_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SUBBOTA_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_SUBBOTA_7" tvg-name="SUBBOTA_7",SUBBOTA_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_SUBBOTA_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TNT4-1" tvg-name="TNT4-1",TNT4-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT4-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TNT4" tvg-name="TNT4",TNT4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TNT4_2" tvg-name="TNT4_2",TNT4_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT4_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TNT4_4" tvg-name="TNT4_4",TNT4_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT4_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TNT4_6" tvg-name="TNT4_6",TNT4_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT4_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_TNT4_7" tvg-name="TNT4_7",TNT4_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT4_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_DISNEY-1" tvg-name="DISNEY-1",DISNEY-1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_DISNEY-1/variant.m3u8
+#EXTINF:-1 tvg-id="CH_DISNEY" tvg-name="DISNEY",DISNEY
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_DISNEY/variant.m3u8
+#EXTINF:-1 tvg-id="CH_DISNEY_2" tvg-name="DISNEY_2",DISNEY_2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_DISNEY_2/variant.m3u8
+#EXTINF:-1 tvg-id="CH_DISNEY_4" tvg-name="DISNEY_4",DISNEY_4
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_DISNEY_4/variant.m3u8
+#EXTINF:-1 tvg-id="CH_DISNEY_6" tvg-name="DISNEY_6",DISNEY_6
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_DISNEY_6/variant.m3u8
+#EXTINF:-1 tvg-id="CH_DISNEY_7" tvg-name="DISNEY_7",DISNEY_7
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_DISNEY_7/variant.m3u8
+#EXTINF:-1 tvg-id="CH_VSETV" tvg-name="VSETV",VSETV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_VSETV/variant.m3u8
+#EXTINF:-1 tvg-id="CH_VSETVHD" tvg-name="VSETVHD",VSETVHD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://zabava-htlive.cdn.ngenix.net/hls/CH_VSETVHD/variant.m3u8
