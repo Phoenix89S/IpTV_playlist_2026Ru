@@ -27,17 +27,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Download zabava_tails.py
-        run: |
-          curl -fL \
-            "https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/zabava_tails.py" \
-            -o zabava_tails.py
-
       - name: Run zabava_tails.py
         run: |
           python zabava_tails.py
 
-      - name: Push results to repository
+      - name: Push results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
