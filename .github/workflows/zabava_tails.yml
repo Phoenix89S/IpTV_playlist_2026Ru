@@ -26,12 +26,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Download zabava_tails.py from root
+      - name: Download zabava_tails.py (RAW)
         run: |
-          echo "Downloading zabava_tails.py from main branch root..."
-          curl -fL \
-            "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/zabava_tails.py" \
-            -o zabava_tails.py
+          RAW_URL="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/zabava_tails.py"
+
+          echo "Downloading script from:"
+          echo "$RAW_URL"
+
+          curl -fL "$RAW_URL" -o zabava_tails.py
 
           echo "Download OK"
 
@@ -49,7 +51,6 @@ jobs:
 
       - name: Verify generated files
         run: |
-          echo "Generated files:"
           ls -lh zabava_tails.txt zabava_tails.json zabava_scan.log
 
           test -f zabava_tails.txt
@@ -68,11 +69,6 @@ jobs:
             exit 0
           fi
 
-          echo "Committing changes..."
           git commit -m "Update ZABAVA tails [skip ci]"
-
-          echo "Pulling latest state..."
           git pull --rebase
-
-          echo "Pushing..."
           git push
