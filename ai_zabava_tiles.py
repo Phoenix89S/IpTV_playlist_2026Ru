@@ -4,43 +4,54 @@
 import json
 import re
 import requests
+
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urljoin
 
 
 # ============================================================
 #                         CONFIGURATION
 # ============================================================
 
-# Результат сканирования DmitryTV
+# ------------------------------------------------------------
+# DmitryTV result
+# ------------------------------------------------------------
+
 JSON_INPUT = "_scanner_zaba_1788021849270.txt"
 
+
+# ------------------------------------------------------------
 # NGENIX CDN
+# ------------------------------------------------------------
+
 BASE_CDN = "https://zabava-htlive.cdn.ngenix.net"
 
-# Мастер-вариант NGENIX
+# Эталон:
 #
-# Именно эта структура является эталоном:
-#
-# /hls/CH_TVC/variant.m3u8
+# https://zabava-htlive.cdn.ngenix.net/hls/CH_TVC/variant.m3u8
 #
 MASTER_VARIANT = "/hls/CH_TVC/variant.m3u8"
 
-# ============================================================
-#                         OUTPUT
-# ============================================================
+
+# ------------------------------------------------------------
+# OUTPUT
+# ------------------------------------------------------------
 
 OUT_JSON = "zabava_ngenix_scan.json"
 OUT_M3U = "zabava_ngenix.m3u"
 OUT_SKALA = "zabava_ngenix_skala.txt"
 OUT_LOG = "zabava_ngenix_scan.log"
 
-# HTTP timeout
+
+# ------------------------------------------------------------
+# HTTP
+# ------------------------------------------------------------
+
 HTTP_TIMEOUT = 10
 
-# HTTP headers
 HEADERS = {
-    "User-Agent": "ZABAVA-NGENIX-SCANNER/3.0",
+    "User-Agent": "Mozilla/5.0 ZABAVA-NGENIX-SCANNER/3.0",
     "Accept": "*/*",
 }
 
@@ -56,7 +67,7 @@ class ScalaLogger:
         self.filename = filename
 
         with open(
-            self.filename,
+            filename,
             "w",
             encoding="utf-8"
         ):
@@ -102,115 +113,178 @@ class ScalaLogger:
 
 
 # ============================================================
-#                  LOAD DMITRYTV RESULT
+#                 LOAD DMITRYTV SOURCE
 # ============================================================
 
-def load_source_json(logger):
+def load_dmitrytv_source(logger):
 
     logger.info(
-        f"LOAD DMITRYTV JSON: {JSON_INPUT}"
+        f"LOAD DMITRYTV SOURCE: {JSON_INPUT}"
     )
 
-    with open(
-        JSON_INPUT,
-        "r",
-        encoding="utf-8"
-    ) as f:
+    path = Path(JSON_INPUT)
 
-        data = json.load(f)
+    if not path.exists():
 
-    if not isinstance(data, dict):
+        raise FileNotFoundError(
+            f"Файл не найден: {JSON_INPUT}"
+        )
+
+    text = path.read_text(
+        encoding="utf-8-sig"
+    )
+
+    text = text.strip()
+
+    if not text:
 
         raise ValueError(
-            "Исходный JSON должен быть объектом"
+            "Файл DmitryTV пустой"
         )
 
-    if "tails" not in data:
+    # --------------------------------------------------------
+    # Вариант 1: файл является JSON
+    # --------------------------------------------------------
 
-        raise KeyError(
-            "В исходном JSON отсутствует поле 'tails'"
-        )
+    try:
 
-    tails = data["tails"]
+        data = json.loads(text)
 
-    if not isinstance(tails, list):
+        if isinstance(data, dict):
 
-        raise ValueError(
-            "Поле 'tails' должно быть массивом"
-        )
+            tails = data.get(
+                "tails",
+                []
+            )
+
+            if isinstance(
+                tails,
+                list
+            ):
+
+                logger.info(
+                    f"JSON TAILS: {len(tails)}"
+                )
+
+                return data, tails
+
+        elif isinstance(data, list):
+
+            logger.info(
+                f"JSON ARRAY TAILS: {len(data)}"
+            )
+
+            return {
+                "tails": data
+            }, data
+
+    except json.JSONDecodeError:
+
+        pass
+
+    # --------------------------------------------------------
+    # Вариант 2: обычный TXT со строками tails
+    # --------------------------------------------------------
+
+    tails = []
+
+    for line in text.splitlines():
+
+        line = line.strip()
+
+        if not line:
+            continue
+
+        if line.startswith("#"):
+            continue
+
+        tails.append(line)
 
     logger.info(
-        f"DMITRYTV TAILS LOADED: {len(tails)}"
+        f"TEXT TAILS: {len(tails)}"
     )
 
-    return data, tails
+    return {
+        "tails": tails
+    }, tails
 
 
 # ============================================================
-#                     EXTRACT CH ALIAS
+#              EXTRACT EXACT CH ALIAS FROM TAIL
 # ============================================================
 
-def extract_alias(tail):
+def extract_alias_from_tail(tail):
 
     """
-    Из tail извлекается только CH-алиас.
+    ВАЖНО:
+
+    Берём ровно имя CH_... перед .m3u8.
 
     Например:
 
-        /hls/DmitryTV/CH_TVC/mono.m3u8
+        /hls/DVB-T2/CH_1TV-1.m3u8
+        -> CH_1TV-1
 
-    превращается в:
+        /hls/DVB-T2/CH_1TV.m3u8
+        -> CH_1TV
 
-        CH_TVC
+        /hls/DVB-T2/CH_1TV_2.m3u8
+        -> CH_1TV_2
 
-    Никакая часть DmitryTV URL дальше
-    не используется для формирования NGENIX URL.
+        /hls/zabava/region/ABAKAN/CH_TV7.m3u8
+        -> CH_TV7
+
+    Никаких объединений или удаления суффиксов.
     """
 
-    if not isinstance(tail, str):
-
+    if not isinstance(
+        tail,
+        str
+    ):
         return None
 
     tail = tail.strip()
 
     if not tail:
-
         return None
 
-    # Основной вариант.
+    # --------------------------------------------------------
+    # Берём ПОСЛЕДНИЙ сегмент пути:
     #
-    # Ищем отдельный сегмент:
-    #
-    # /CH_TVC/
-    # /CH_NTV/
-    # /CH_REN/
-    #
+    # CH_XXXXX.m3u8
+    # --------------------------------------------------------
 
     match = re.search(
-        r"(?:^|/)"
-        r"(CH_[A-Za-z0-9_-]+)"
-        r"(?:/|$)",
-        tail
+        r"/(CH_[^/]+)\.m3u8(?:[?#].*)?$",
+        tail,
+        flags=re.IGNORECASE
     )
 
     if match:
 
         return match.group(1)
 
-    # Если tail уже является самим алиасом.
+    # --------------------------------------------------------
+    # На случай если в данных уже:
+    #
+    # CH_TVC.m3u8
+    # --------------------------------------------------------
 
-    if re.fullmatch(
-        r"CH_[A-Za-z0-9_-]+",
-        tail
-    ):
+    match = re.fullmatch(
+        r"(CH_[^/]+)\.m3u8",
+        tail,
+        flags=re.IGNORECASE
+    )
 
-        return tail
+    if match:
+
+        return match.group(1)
 
     return None
 
 
 # ============================================================
-#                  EXTRACT UNIQUE ALIASES
+#                  EXTRACT ALL ALIASES
 # ============================================================
 
 def extract_aliases(
@@ -220,15 +294,14 @@ def extract_aliases(
 
     aliases = []
 
-    # Для каждого alias сохраняем
-    # все исходные DmitryTV tails.
-    alias_sources = {}
+    # alias -> исходные tails
+    source_map = {}
 
     seen = set()
 
     for tail in tails:
 
-        alias = extract_alias(
+        alias = extract_alias_from_tail(
             tail
         )
 
@@ -240,15 +313,28 @@ def extract_aliases(
 
             continue
 
-        if alias not in alias_sources:
+        # ----------------------------------------------------
+        # Сохраняем происхождение
+        # ----------------------------------------------------
 
-            alias_sources[alias] = []
-
-        alias_sources[alias].append(
+        source_map.setdefault(
+            alias,
+            []
+        ).append(
             tail
         )
 
-        # Один alias проверяем только один раз.
+        # ----------------------------------------------------
+        # Одинаковый alias проверяем один раз.
+        #
+        # Но разные:
+        #
+        # CH_1TV
+        # CH_1TV_2
+        # CH_1TV_4
+        #
+        # считаются РАЗНЫМИ alias.
+        # ----------------------------------------------------
 
         if alias in seen:
 
@@ -260,7 +346,9 @@ def extract_aliases(
 
         seen.add(alias)
 
-        aliases.append(alias)
+        aliases.append(
+            alias
+        )
 
         logger.found(
             f"ALIAS EXTRACTED: {alias}"
@@ -270,22 +358,14 @@ def extract_aliases(
         f"UNIQUE ALIASES: {len(aliases)}"
     )
 
-    return aliases, alias_sources
+    return aliases, source_map
 
 
 # ============================================================
-#                    BUILD NGENIX URL
+#                   BUILD NGENIX URL
 # ============================================================
 
 def build_ngenix_tail(alias):
-
-    """
-    Формирует tail NGENIX строго по master:
-
-        /hls/CH_TVC/variant.m3u8
-
-    где CH_TVC заменяется на найденный alias.
-    """
 
     return (
         "/hls/"
@@ -296,13 +376,6 @@ def build_ngenix_tail(alias):
 
 def build_ngenix_url(alias):
 
-    """
-    Формирует полный NGENIX URL:
-
-        https://zabava-htlive.cdn.ngenix.net
-        /hls/CH_TVC/variant.m3u8
-    """
-
     return (
         BASE_CDN
         + build_ngenix_tail(alias)
@@ -310,85 +383,247 @@ def build_ngenix_url(alias):
 
 
 # ============================================================
-#                GENERATE COMPLETE NGENIX LIST
+#                GENERATE COMPLETE LIST
 # ============================================================
 
-def generate_ngenix_list(
+def generate_ngenix_candidates(
     aliases,
-    alias_sources,
+    source_map,
     logger
 ):
 
-    channels = []
+    candidates = []
 
-    for alias in aliases:
+    for index, alias in enumerate(
+        aliases,
+        start=1
+    ):
 
-        nginx_tail = build_ngenix_tail(
+        ngenix_tail = build_ngenix_tail(
             alias
         )
 
-        url = build_ngenix_url(
+        ngenix_url = build_ngenix_url(
             alias
         )
 
         item = {
 
-            # Алиас, полученный из DmitryTV
-            "alias": alias,
+            "index":
+                index,
 
-            # Исходные tails DmitryTV,
-            # из которых получен alias
-            "source_tails": alias_sources.get(
+            "alias":
                 alias,
-                []
-            ),
 
-            # Новый tail NGENIX
-            "ngenix_tail": nginx_tail,
+            "source_tails":
+                source_map.get(
+                    alias,
+                    []
+                ),
 
-            # Полная ссылка NGENIX
-            "ngenix_url": url,
+            "ngenix_tail":
+                ngenix_tail,
+
+            "ngenix_url":
+                ngenix_url,
 
         }
 
-        channels.append(
+        candidates.append(
             item
         )
 
         logger.info(
-            f"NGENIX GENERATED: "
-            f"{alias} -> {url}"
+            f"GENERATED "
+            f"[{index}/{len(aliases)}] "
+            f"{alias} -> {ngenix_url}"
         )
 
     logger.info(
-        f"NGENIX URLS GENERATED: "
-        f"{len(channels)}"
+        f"TOTAL NGENIX CANDIDATES: "
+        f"{len(candidates)}"
     )
 
-    return channels
+    return candidates
 
 
 # ============================================================
-#                     NGENIX CDN CHECK
+#                 EXTRACT EXTINF INFORMATION
+# ============================================================
+
+def parse_extinf(playlist_text):
+
+    """
+    Берём реальный #EXTINF из полученного
+    NGENIX variant.m3u8.
+
+    Возвращаем:
+
+        extinf
+        tvg attributes
+        display name
+
+    Ничего не придумываем, если #EXTINF есть.
+    """
+
+    if not playlist_text:
+
+        return {
+            "extinf": None,
+            "tvg": {},
+            "name": None,
+        }
+
+    lines = playlist_text.splitlines()
+
+    for line in lines:
+
+        line = line.strip()
+
+        if not line.startswith(
+            "#EXTINF:"
+        ):
+            continue
+
+        extinf = line
+
+        # ----------------------------------------------------
+        # Извлекаем duration
+        # ----------------------------------------------------
+
+        duration = None
+
+        duration_match = re.match(
+            r"#EXTINF:([^,]+),",
+            line
+        )
+
+        if duration_match:
+
+            duration = (
+                duration_match.group(1)
+            )
+
+        # ----------------------------------------------------
+        # Извлекаем tvg-* атрибуты
+        # ----------------------------------------------------
+
+        tvg = {}
+
+        attributes = re.findall(
+            r'([\w-]+)="([^"]*)"',
+            line
+        )
+
+        for key, value in attributes:
+
+            if key.startswith(
+                "tvg-"
+            ):
+
+                tvg[key] = value
+
+        # ----------------------------------------------------
+        # Имя после последней запятой
+        # ----------------------------------------------------
+
+        name = None
+
+        if "," in line:
+
+            name = (
+                line.split(
+                    ",",
+                    1
+                )[1]
+                .strip()
+            )
+
+        return {
+            "extinf": extinf,
+            "duration": duration,
+            "tvg": tvg,
+            "name": name,
+        }
+
+    return {
+        "extinf": None,
+        "duration": None,
+        "tvg": {},
+        "name": None,
+    }
+
+
+# ============================================================
+#             EXTRACT ADDITIONAL PLAYLIST DATA
+# ============================================================
+
+def extract_playlist_info(
+    playlist_text,
+    variant_url
+):
+
+    """
+    Сохраняем полезную информацию
+    из реально полученного variant.m3u8.
+
+    Это не проверка сегментов.
+    Это просто разбор уже полученного
+    master/media playlist.
+    """
+
+    info = parse_extinf(
+        playlist_text
+    )
+
+    segments = []
+
+    if playlist_text:
+
+        for line in playlist_text.splitlines():
+
+            line = line.strip()
+
+            if not line:
+                continue
+
+            if line.startswith("#"):
+                continue
+
+            segments.append(
+                urljoin(
+                    variant_url,
+                    line
+                )
+            )
+
+    info["segment_count"] = len(
+        segments
+    )
+
+    return info
+
+
+# ============================================================
+#                    CHECK NGENIX CDN
 # ============================================================
 
 def check_ngenix(
-    channels,
+    candidates,
     logger
 ):
 
     """
-    Проверяется КАЖДЫЙ сформированный NGENIX URL.
+    Для каждого alias:
 
-    Единственный критерий рабочего канала:
+        1. GET NGENIX variant.m3u8
+        2. проверяем HTTP 200
+        3. если 200 — сохраняем содержимое
+        4. извлекаем реальный EXTINF
+        5. канал считается рабочим
 
-        HTTP 200
-
-    Если HTTP != 200:
-        канал считается нерабочим.
-
-    Никаких дополнительных проверок
-    сегментов, EPG и содержимого здесь нет.
+    Никакого опроса DmitryTV здесь нет.
+    Проверяется именно NGENIX.
     """
 
     results = []
@@ -399,29 +634,40 @@ def check_ngenix(
         HEADERS
     )
 
-    total = len(channels)
+    total = len(candidates)
 
-    for number, channel in enumerate(
-        channels,
+    for number, candidate in enumerate(
+        candidates,
         start=1
     ):
 
-        alias = channel["alias"]
-        url = channel["ngenix_url"]
+        alias = candidate[
+            "alias"
+        ]
+
+        url = candidate[
+            "ngenix_url"
+        ]
 
         status = None
         error = None
+        response_text = None
 
         try:
 
             response = session.get(
                 url,
                 timeout=HTTP_TIMEOUT,
-                allow_redirects=True,
-                stream=True
+                allow_redirects=True
             )
 
             status = response.status_code
+
+            if status == 200:
+
+                response_text = (
+                    response.text
+                )
 
             response.close()
 
@@ -434,56 +680,117 @@ def check_ngenix(
         )
 
         result = dict(
-            channel
+            candidate
         )
 
         result["http"] = status
         result["ok"] = ok
 
+        # ----------------------------------------------------
+        # Реальный EXTINF из NGENIX
+        # ----------------------------------------------------
+
+        if ok:
+
+            playlist_info = (
+                extract_playlist_info(
+                    response_text,
+                    url
+                )
+            )
+
+            result[
+                "playlist"
+            ] = playlist_info
+
+            # Сохраняем реальный EXTINF
+            result[
+                "extinf"
+            ] = playlist_info.get(
+                "extinf"
+            )
+
+            result[
+                "channel_name"
+            ] = playlist_info.get(
+                "name"
+            )
+
+        else:
+
+            result[
+                "playlist"
+            ] = {
+                "extinf": None,
+                "duration": None,
+                "tvg": {},
+                "name": None,
+                "segment_count": 0,
+            }
+
+            result[
+                "extinf"
+            ] = None
+
+            result[
+                "channel_name"
+            ] = None
+
         if error:
 
-            result["error"] = error
+            result[
+                "error"
+            ] = error
 
         results.append(
             result
         )
 
-        # ----------------------------------------------------
-        # КРАТКИЙ РЕЗУЛЬТАТ В SKALA
-        # ----------------------------------------------------
+        # ====================================================
+        # КРАТКИЙ SKALA
+        # ====================================================
 
         if ok:
 
+            ext_name = (
+                result.get(
+                    "channel_name"
+                )
+                or alias
+            )
+
             logger.found(
                 f"[{number}/{total}] "
-                f"NGENIX {alias} -> 200 OK"
+                f"{alias} -> 200 OK -> "
+                f"{ext_name}"
             )
 
         elif error:
 
             logger.warn(
                 f"[{number}/{total}] "
-                f"NGENIX {alias} -> ERROR"
+                f"{alias} -> ERROR"
             )
 
         else:
 
             logger.warn(
                 f"[{number}/{total}] "
-                f"NGENIX {alias} -> HTTP {status}"
+                f"{alias} -> HTTP {status}"
             )
 
     return results
 
 
 # ============================================================
-#                    BUILD FINAL JSON
+#                  BUILD FINAL JSON
 # ============================================================
 
 def build_final_json(
     source_data,
     tails,
     aliases,
+    candidates,
     results
 ):
 
@@ -502,7 +809,7 @@ def build_final_json(
     return {
 
         # ----------------------------------------------------
-        # Scanner
+        # Scanner information
         # ----------------------------------------------------
 
         "scanner": {
@@ -521,7 +828,7 @@ def build_final_json(
         },
 
         # ----------------------------------------------------
-        # Source DmitryTV
+        # DmitryTV source
         # ----------------------------------------------------
 
         "source": {
@@ -538,7 +845,7 @@ def build_final_json(
         },
 
         # ----------------------------------------------------
-        # NGENIX
+        # NGENIX master
         # ----------------------------------------------------
 
         "ngenix": {
@@ -549,7 +856,7 @@ def build_final_json(
             "master_variant":
                 MASTER_VARIANT,
 
-            "generated_variant":
+            "generated_pattern":
                 "/hls/{alias}/variant.m3u8",
 
         },
@@ -566,10 +873,13 @@ def build_final_json(
             "aliases_extracted":
                 len(aliases),
 
-            "aliases_checked":
+            "urls_generated":
+                len(candidates),
+
+            "urls_checked":
                 len(results),
 
-            "working_http_200":
+            "http_200":
                 len(working),
 
             "failed":
@@ -578,38 +888,34 @@ def build_final_json(
         },
 
         # ----------------------------------------------------
-        # Complete channel information
+        # ALL generated and checked channels
         # ----------------------------------------------------
 
         "channels":
             results,
 
         # ----------------------------------------------------
-        # Convenient working list
+        # Working NGENIX channels
         # ----------------------------------------------------
 
         "working_channels": [
-
-            item["alias"]
-
-            for item in working
-
+            item
+            for item in results
+            if item["ok"]
         ],
 
         # ----------------------------------------------------
-        # Failed list
+        # Failed channels
         # ----------------------------------------------------
 
         "failed_channels": [
-
-            item["alias"]
-
-            for item in failed
-
+            item
+            for item in results
+            if not item["ok"]
         ],
 
         # ----------------------------------------------------
-        # Original DmitryTV JSON
+        # Original DmitryTV source
         # ----------------------------------------------------
 
         "source_snapshot":
@@ -619,7 +925,7 @@ def build_final_json(
 
 
 # ============================================================
-#                        BUILD M3U
+#                       BUILD M3U
 # ============================================================
 
 def build_m3u(results):
@@ -630,18 +936,51 @@ def build_m3u(results):
 
     for item in results:
 
-        # Только HTTP 200
-
         if not item["ok"]:
-
             continue
 
-        alias = item["alias"]
-        url = item["ngenix_url"]
+        url = item[
+            "ngenix_url"
+        ]
 
-        lines.append(
-            f"#EXTINF:-1,{alias}"
+        # ----------------------------------------------------
+        # Если NGENIX действительно вернул EXTINF,
+        # используем его БЕЗ изменения.
+        # ----------------------------------------------------
+
+        extinf = item.get(
+            "extinf"
         )
+
+        if extinf:
+
+            lines.append(
+                extinf
+            )
+
+        else:
+
+            # ------------------------------------------------
+            # Резервный EXTINF только если
+            # NGENIX не прислал его.
+            # ------------------------------------------------
+
+            name = (
+                item.get(
+                    "channel_name"
+                )
+                or item[
+                    "alias"
+                ]
+            )
+
+            lines.append(
+                f"#EXTINF:-1,{name}"
+            )
+
+        # ----------------------------------------------------
+        # URL именно NGENIX
+        # ----------------------------------------------------
 
         lines.append(
             url
@@ -654,12 +993,13 @@ def build_m3u(results):
 
 
 # ============================================================
-#                    BUILD SKALA REPORT
+#                    BUILD SKALA TXT
 # ============================================================
 
 def build_skala(
     tails,
     aliases,
+    candidates,
     results
 ):
 
@@ -677,116 +1017,177 @@ def build_skala(
     lines = []
 
     lines.append(
-        "========================================"
+        "=================================================="
     )
 
     lines.append(
-        "          ZABAVA NGENIX SKALA"
+        "             ZABAVA NGENIX SKALA"
     )
 
     lines.append(
-        "========================================"
-    )
-
-    lines.append("")
-
-    lines.append(
-        f"SOURCE       : DmitryTV"
-    )
-
-    lines.append(
-        f"NGENIX CDN   : {BASE_CDN}"
-    )
-
-    lines.append(
-        f"MASTER       : {MASTER_VARIANT}"
+        "=================================================="
     )
 
     lines.append("")
 
     lines.append(
-        "--------------- SUMMARY --------------"
+        f"SOURCE        : DmitryTV"
     )
 
     lines.append(
-        f"TAILS        : {len(tails)}"
+        f"CDN           : {BASE_CDN}"
     )
 
     lines.append(
-        f"ALIASES      : {len(aliases)}"
-    )
-
-    lines.append(
-        f"CHECKED      : {len(results)}"
-    )
-
-    lines.append(
-        f"HTTP 200     : {working}"
-    )
-
-    lines.append(
-        f"FAILED       : {failed}"
+        f"MASTER        : {MASTER_VARIANT}"
     )
 
     lines.append("")
 
+    # --------------------------------------------------------
+    # Summary
+    # --------------------------------------------------------
+
     lines.append(
-        "------------- CHANNELS ---------------"
+        "---------------- SUMMARY ----------------"
+    )
+
+    lines.append(
+        f"TAILS         : {len(tails)}"
+    )
+
+    lines.append(
+        f"ALIASES       : {len(aliases)}"
+    )
+
+    lines.append(
+        f"GENERATED     : {len(candidates)}"
+    )
+
+    lines.append(
+        f"CHECKED       : {len(results)}"
+    )
+
+    lines.append(
+        f"HTTP 200      : {working}"
+    )
+
+    lines.append(
+        f"FAILED        : {failed}"
+    )
+
+    lines.append("")
+
+    # --------------------------------------------------------
+    # Channels
+    # --------------------------------------------------------
+
+    lines.append(
+        "---------------- CHANNELS ----------------"
     )
 
     for item in results:
 
-        alias = item["alias"]
-        status = item["http"]
+        alias = item[
+            "alias"
+        ]
+
+        status = item[
+            "http"
+        ]
 
         if item["ok"]:
 
-            state = "OK"
+            name = (
+                item.get(
+                    "channel_name"
+                )
+                or "-"
+            )
+
+            lines.append(
+                f"{alias:<32} "
+                f"{str(status):<5} "
+                f"OK   "
+                f"{name}"
+            )
 
         else:
 
-            state = "FAIL"
+            lines.append(
+                f"{alias:<32} "
+                f"{str(status):<5} "
+                f"FAIL"
+            )
+
+    lines.append("")
+
+    # --------------------------------------------------------
+    # Working
+    # --------------------------------------------------------
+
+    lines.append(
+        "--------------- WORKING ----------------"
+    )
+
+    for item in results:
+
+        if not item["ok"]:
+            continue
+
+        alias = item[
+            "alias"
+        ]
+
+        name = (
+            item.get(
+                "channel_name"
+            )
+            or "-"
+        )
 
         lines.append(
-            f"{alias:<30} "
-            f"{str(status):<5} "
-            f"{state}"
+            f"{alias} -> {name}"
         )
 
     lines.append("")
 
+    # --------------------------------------------------------
+    # Output
+    # --------------------------------------------------------
+
     lines.append(
-        "--------------- OUTPUT ---------------"
+        "---------------- OUTPUT -----------------"
     )
 
     lines.append(
-        f"JSON         : {OUT_JSON}"
+        f"JSON          : {OUT_JSON}"
     )
 
     lines.append(
-        f"PLAYLIST     : {OUT_M3U}"
+        f"PLAYLIST      : {OUT_M3U}"
     )
 
     lines.append(
-        f"SKALA        : {OUT_SKALA}"
+        f"SKALA TXT     : {OUT_SKALA}"
     )
 
     lines.append(
-        f"LOG          : {OUT_LOG}"
+        f"LOG           : {OUT_LOG}"
     )
 
     lines.append("")
 
     lines.append(
-        "========================================"
+        "=================================================="
     )
 
     lines.append(
-        "             SKALA COMPLETE"
+        "              SKALA REPORT END"
     )
 
     lines.append(
-        "========================================"
+        "=================================================="
     )
 
     return (
@@ -796,7 +1197,7 @@ def build_skala(
 
 
 # ============================================================
-#                       SAVE JSON
+#                         SAVE JSON
 # ============================================================
 
 def save_json(
@@ -804,7 +1205,9 @@ def save_json(
     data
 ):
 
-    Path(filename).write_text(
+    Path(
+        filename
+    ).write_text(
 
         json.dumps(
             data,
@@ -827,15 +1230,19 @@ def main():
     )
 
     logger.info(
-        "========================================"
+        "=================================================="
     )
 
     logger.info(
-        "       START ZABAVA NGENIX SCAN"
+        "          START ZABAVA NGENIX SCAN"
     )
 
     logger.info(
-        "========================================"
+        "=================================================="
+    )
+
+    logger.info(
+        f"DMITRYTV SOURCE: {JSON_INPUT}"
     )
 
     logger.info(
@@ -843,54 +1250,62 @@ def main():
     )
 
     logger.info(
-        f"MASTER VARIANT: {MASTER_VARIANT}"
+        f"NGENIX MASTER: {MASTER_VARIANT}"
     )
 
     # ========================================================
-    # 1. Получаем tails DmitryTV
+    # 1. Читаем результат DmitryTV
     # ========================================================
 
-    source_data, tails = load_source_json(
-        logger
+    source_data, tails = (
+        load_dmitrytv_source(
+            logger
+        )
     )
 
     # ========================================================
-    # 2. Извлекаем CH_* aliases
+    # 2. Из каждого tail берём РОВНО CH_...m3u8
     # ========================================================
 
-    aliases, alias_sources = extract_aliases(
-        tails,
-        logger
+    aliases, source_map = (
+        extract_aliases(
+            tails,
+            logger
+        )
     )
 
     # ========================================================
-    # 3. Для каждого alias создаём
-    #    одну NGENIX variant.m3u8 ссылку
+    # 3. Для КАЖДОГО alias строим ОДНУ
+    #    ссылку NGENIX
     # ========================================================
 
-    channels = generate_ngenix_list(
-        aliases,
-        alias_sources,
-        logger
+    candidates = (
+        generate_ngenix_candidates(
+            aliases,
+            source_map,
+            logger
+        )
     )
 
     # ========================================================
-    # 4. Проверяем каждую ссылку NGENIX
+    # 4. Полностью сформированный список
+    #    проверяем на NGENIX
     # ========================================================
 
     results = check_ngenix(
-        channels,
+        candidates,
         logger
     )
 
     # ========================================================
-    # 5. Формируем полный итоговый JSON
+    # 5. Полный итоговый JSON
     # ========================================================
 
     final_json = build_final_json(
         source_data,
         tails,
         aliases,
+        candidates,
         results
     )
 
@@ -915,12 +1330,13 @@ def main():
     )
 
     # ========================================================
-    # 7. SKALA REPORT
+    # 7. SKALA TXT
     # ========================================================
 
     skala = build_skala(
         tails,
         aliases,
+        candidates,
         results
     )
 
@@ -932,7 +1348,7 @@ def main():
     )
 
     # ========================================================
-    # 8. FINAL LOGGER RESULT
+    # 8. Финальный лог
     # ========================================================
 
     working = sum(
@@ -947,15 +1363,15 @@ def main():
     )
 
     logger.info(
-        "========================================"
+        "=================================================="
     )
 
     logger.info(
-        "              FINAL RESULT"
+        "                  FINAL RESULT"
     )
 
     logger.info(
-        "========================================"
+        "=================================================="
     )
 
     logger.info(
@@ -967,39 +1383,47 @@ def main():
     )
 
     logger.info(
-        f"NGENIX CHECKED  : {len(results)}"
+        f"NGENIX URLS    : {len(candidates)}"
     )
 
     logger.info(
-        f"NGENIX HTTP 200 : {working}"
+        f"NGENIX CHECKED : {len(results)}"
     )
 
     logger.info(
-        f"FAILED          : {failed}"
+        f"HTTP 200       : {working}"
     )
 
     logger.info(
-        f"JSON            : {OUT_JSON}"
+        f"FAILED         : {failed}"
     )
 
     logger.info(
-        f"M3U             : {OUT_M3U}"
+        f"JSON           : {OUT_JSON}"
     )
 
     logger.info(
-        f"SKALA           : {OUT_SKALA}"
+        f"M3U            : {OUT_M3U}"
     )
 
     logger.info(
-        f"LOG             : {OUT_LOG}"
+        f"SKALA TXT      : {OUT_SKALA}"
     )
 
     logger.info(
-        "========================================"
+        f"LOG            : {OUT_LOG}"
     )
 
     logger.info(
-        "=== NGENIX SCAN COMPLETE ==="
+        "=================================================="
+    )
+
+    logger.info(
+        "             NGENIX SCAN COMPLETE"
+    )
+
+    logger.info(
+        "=================================================="
     )
 
 
