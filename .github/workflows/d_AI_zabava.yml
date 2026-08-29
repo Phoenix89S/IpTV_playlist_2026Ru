@@ -1,0 +1,172 @@
+name: d_AI_zabava
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    # Раз в три месяца
+    # 1 января
+    # 1 апреля
+    # 1 июля
+    # 1 октября
+    # 00:00 UTC / 03:00 MSK
+    - cron: "0 0 1 1,4,7,10 *"
+
+permissions:
+  contents: write
+
+jobs:
+  d-ai-zabava:
+    name: SKALA DREG / D-AI ZABAVA
+    runs-on: ubuntu-latest
+
+    env:
+      TZ: Europe/Moscow
+      PYTHONUNBUFFERED: "1"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set Moscow timezone
+        run: |
+          sudo timedatectl set-timezone Europe/Moscow
+
+          echo "========================================"
+          echo "UTC:"
+          date -u
+          echo ""
+          echo "MOSCOW:"
+          TZ=Europe/Moscow date
+          echo "========================================"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Verify d_AI_zabava.py
+        run: |
+          test -f d_AI_zabava.py
+          python -m py_compile d_AI_zabava.py
+
+      - name: Run d_AI_zabava
+        run: |
+          echo "========================================"
+          echo "        START D-AI ZABAVA"
+          echo "========================================"
+
+          echo "UTC:"
+          date -u
+
+          echo ""
+          echo "MOSCOW:"
+          TZ=Europe/Moscow date
+
+          echo ""
+          echo "Running SKALA DREG..."
+
+          python d_AI_zabava.py \
+            --scan \
+            --timeout 4 \
+            --workers 16
+
+          echo ""
+          echo "========================================"
+          echo "        D-AI ZABAVA FINISHED"
+          echo "========================================"
+
+      - name: Verify generated files
+        run: |
+          echo "========================================"
+          echo "GENERATED FILES"
+          echo "========================================"
+
+          ls -lh \
+            d_AI_zabava.json \
+            d_AI_zabava.txt \
+            d_AI_zabava.m3u
+
+          test -s d_AI_zabava.json
+          test -s d_AI_zabava.txt
+          test -s d_AI_zabava.m3u
+
+      - name: Show result statistics
+        run: |
+          python - <<'PY'
+          import json
+
+          with open(
+              "d_AI_zabava.json",
+              "r",
+              encoding="utf-8"
+          ) as f:
+              data = json.load(f)
+
+          summary = data.get("summary", {})
+          run = data.get("run", {})
+
+          print("========================================")
+          print("D-AI ZABAVA / SKALA DREG SUMMARY")
+          print("========================================")
+
+          print("Run ID:", run.get("run_id"))
+          print("Start UTC:", run.get("started_utc"))
+          print("Start MSK:", run.get("started_msk"))
+          print("Finish UTC:", run.get("finished_utc"))
+          print("Finish MSK:", run.get("finished_msk"))
+
+          print("----------------------------------------")
+
+          print(
+              "Candidates:",
+              summary.get("candidates_checked")
+          )
+
+          print(
+              "Positive:",
+              summary.get("positive_events")
+          )
+
+          print(
+              "Negative:",
+              summary.get("negative_events")
+          )
+
+          print(
+              "Successful channels:",
+              summary.get("successful_channels")
+          )
+
+          print(
+              "Success rate:",
+              summary.get("success_rate_percent"),
+              "%"
+          )
+
+          print("========================================")
+          PY
+
+      - name: Commit generated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add \
+            d_AI_zabava.json \
+            d_AI_zabava.txt \
+            d_AI_zabava.m3u
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit \
+              -m "D-AI ZABAVA: update SKALA DREG telemetry"
+            git push
+          fi
