@@ -7,47 +7,31 @@ d_AI_zabava.py
 ===============================================================================
 
 СКАЛА ДРЕГ / D-AI ZABAVA
-Максимальная телеметрия + MSK time + JSON ML dataset + TXT report + M3U.
+Modernized discovery + telemetry + HLS validation + ML dataset + M3U.
 
-ВАЖНО:
-    Этот файл уже существует и НЕ создаёт сам себя.
-
-При запуске создаются только:
-
+OUTPUT:
     d_AI_zabava.json
     d_AI_zabava.txt
     d_AI_zabava.m3u
 
-Назначение:
+Основные изменения:
+    • расширенная генерация URL-кандидатов;
+    • улучшенная HLS/M3U8 validation;
+    • Content-Type учитывается как дополнительный признак;
+    • BOM/whitespace корректно обрабатываются;
+    • discovery score;
+    • channel-level aggregation;
+    • несколько рабочих URL одного канала;
+    • M3U содержит найденные каналы;
+    • дубликаты URL удаляются;
+    • лучший URL канала идёт первым;
+    • сохраняются все успешные варианты;
+    • JSON содержит discovery summary;
+    • TXT содержит список найденных каналов;
+    • tvg-id / tvg-name / tvg-chno / group-title сохраняются.
 
-    • анализировать заданные NGENIX CDN nodes
-    • генерировать URL-кандидатов
-    • проверять HTTP/HLS
-    • фиксировать HTTP status
-    • фиксировать ошибки
-    • фиксировать latency
-    • фиксировать DNS timing
-    • фиксировать request/read timing
-    • сохранять UTC + Moscow time
-    • сохранять channel/node/path identifiers
-    • сохранять candidate features
-    • сохранять положительные и отрицательные результаты
-    • выполнять HLS validation
-    • формировать ML-ready dataset
-    • формировать SQL-friendly projection
-    • сохранять полную историю проверок
-    • формировать максимально полный M3U
-    • добавлять tvg-id
-    • добавлять tvg-name
-    • добавлять tvg-chno
-    • добавлять group-title
-    • формировать полный SKALA DREG TXT report
-    • добавлять в TXT выдержку JSON
-    • добавлять в TXT выдержку M3U
-
-HTTP 200 НЕ считается автоматически рабочим каналом.
-Кандидат попадает в рабочий M3U только после дополнительной
-проверки содержимого как HLS/M3U8.
+HTTP 200 сам по себе НЕ является достаточным условием.
+Рабочим считается URL, который распознан как HLS/M3U8.
 
 ===============================================================================
 """
@@ -71,7 +55,7 @@ from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse
 
 try:
     import requests
@@ -102,8 +86,8 @@ OUTPUT_M3U = "d_AI_zabava.m3u"
 # =============================================================================
 
 SKALA_NAME = "СКАЛА ДРЕГ"
-VERSION = "4.1.0"
-SCHEMA_VERSION = "4.1"
+VERSION = "4.2.0"
+SCHEMA_VERSION = "4.2"
 ENGINE_NAME = "D-AI ZABAVA"
 
 
@@ -114,8 +98,14 @@ ENGINE_NAME = "D-AI ZABAVA"
 DEFAULT_TIMEOUT = 4.0
 DEFAULT_WORKERS = 16
 
+MAX_INSPECT_BYTES = 65536
+
+# Сколько рабочих URL максимум сохранять для одного канала.
+# 0 = все найденные.
+MAX_URLS_PER_CHANNEL = 0
+
 USER_AGENT = (
-    "SKALA-DREG/4.1 "
+    "SKALA-DREG/4.2 "
     "(D-AI-ZABAVA; telemetry; HLS validator)"
 )
 
@@ -302,6 +292,7 @@ def iso_msk(dt: datetime) -> str:
 
 
 def timestamp_bundle(dt: datetime) -> Dict[str, Any]:
+
     msk = moscow_datetime(dt)
 
     return {
@@ -310,7 +301,9 @@ def timestamp_bundle(dt: datetime) -> Dict[str, Any]:
         "timezone": "Europe/Moscow",
         "utc_offset": "+03:00",
         "unix": dt.timestamp(),
-        "epoch_ms": int(dt.timestamp() * 1000),
+        "epoch_ms": int(
+            dt.timestamp() * 1000
+        ),
         "msk_datetime": (
             msk.isoformat()
             if msk is not None
@@ -320,7 +313,7 @@ def timestamp_bundle(dt: datetime) -> Dict[str, Any]:
 
 
 # =============================================================================
-# HASHING
+# HASH
 # =============================================================================
 
 def sha256_text(value: str) -> str:
@@ -334,53 +327,53 @@ def sha256_bytes(value: bytes) -> str:
 
 
 # =============================================================================
-# PATH GENERATOR
+# PATH GENERATION
 # =============================================================================
 
 def generate_paths(
     channel: Dict[str, Any],
 ) -> List[str]:
 
-    aliases = channel.get(
-        "aliases",
-        [],
+    aliases = list(
+        channel.get(
+            "aliases",
+            [],
+        )
     )
-
-    result: List[str] = []
-
-    for alias in aliases:
-
-        result.append(
-            f"/{alias}/1/index.m3u8"
-        )
-
-        result.append(
-            f"/{alias}/2/index.m3u8"
-        )
-
-        result.append(
-            f"/hls/{alias}/variant.m3u8"
-        )
-
-        result.append(
-            f"/{alias}/index.m3u8"
-        )
-
-        result.append(
-            f"/hls/{alias}/index.m3u8"
-        )
 
     key = channel["key"]
 
-    result.extend(
-        [
-            f"/{key}/1/index.m3u8",
-            f"/{key}/2/index.m3u8",
-            f"/hls/{key}/variant.m3u8",
-            f"/{key}/index.m3u8",
-            f"/hls/{key}/index.m3u8",
-        ]
-    )
+    # Canonical key ставится первым.
+    tokens: List[str] = []
+
+    for token in [key] + aliases:
+        token = str(token).strip()
+
+        if token and token not in tokens:
+            tokens.append(token)
+
+    result: List[str] = []
+
+    patterns = [
+        "/{token}/1/index.m3u8",
+        "/{token}/2/index.m3u8",
+        "/{token}/index.m3u8",
+        "/hls/{token}/index.m3u8",
+        "/hls/{token}/variant.m3u8",
+        "/{token}/variant.m3u8",
+        "/{token}/master.m3u8",
+        "/hls/{token}/master.m3u8",
+        "/{token}/playlist.m3u8",
+        "/hls/{token}/playlist.m3u8",
+    ]
+
+    for token in tokens:
+        for pattern in patterns:
+            result.append(
+                pattern.format(
+                    token=token
+                )
+            )
 
     unique: List[str] = []
     seen = set()
@@ -394,6 +387,547 @@ def generate_paths(
         unique.append(path)
 
     return unique
+
+
+# =============================================================================
+# CANDIDATE FEATURES
+# =============================================================================
+
+def candidate_features(
+    node: str,
+    path: str,
+    channel: Dict[str, Any],
+) -> Dict[str, Any]:
+
+    parsed = urlparse(
+        f"https://{node}{path}"
+    )
+
+    path_lower = path.lower()
+
+    parts = [
+        x
+        for x in path.split("/")
+        if x
+    ]
+
+    filename = (
+        parts[-1]
+        if parts
+        else ""
+    )
+
+    extension = (
+        filename.rsplit(
+            ".",
+            1,
+        )[-1].lower()
+        if "." in filename
+        else ""
+    )
+
+    node_match = re.search(
+        r"s(\d+)",
+        node,
+    )
+
+    node_numeric_id = (
+        int(
+            node_match.group(1)
+        )
+        if node_match
+        else -1
+    )
+
+    return {
+        "node_length": len(node),
+
+        "node_numeric_id": (
+            node_numeric_id
+        ),
+
+        "path_length": len(path),
+
+        "path_depth": len(parts),
+
+        "filename_length": len(
+            filename
+        ),
+
+        "extension": extension,
+
+        "contains_hls": int(
+            "/hls/" in path_lower
+        ),
+
+        "contains_variant": int(
+            "variant.m3u8"
+            in path_lower
+        ),
+
+        "contains_master": int(
+            "master.m3u8"
+            in path_lower
+        ),
+
+        "contains_playlist": int(
+            "playlist.m3u8"
+            in path_lower
+        ),
+
+        "contains_index": int(
+            "index.m3u8"
+            in path_lower
+        ),
+
+        "contains_numeric_variant": int(
+            bool(
+                re.search(
+                    r"/[0-9]+/index\.m3u8$",
+                    path_lower,
+                )
+            )
+        ),
+
+        "contains_ch_prefix": int(
+            bool(
+                re.search(
+                    r"/ch_[^/]+/",
+                    path_lower,
+                )
+            )
+        ),
+
+        "contains_hd": int(
+            "hd" in path_lower
+        ),
+
+        "contains_m3u8": int(
+            ".m3u8" in path_lower
+        ),
+
+        "contains_index_name": int(
+            filename == "index.m3u8"
+        ),
+
+        "contains_variant_name": int(
+            filename == "variant.m3u8"
+        ),
+
+        "contains_master_name": int(
+            filename == "master.m3u8"
+        ),
+
+        "url_length": len(
+            f"https://{node}{path}"
+        ),
+
+        "hostname": (
+            parsed.hostname or ""
+        ),
+
+        "channel_number": channel[
+            "chno"
+        ],
+
+        "alias_count": len(
+            channel.get(
+                "aliases",
+                [],
+            )
+        ),
+
+        "channel_key_length": len(
+            channel["key"]
+        ),
+    }
+
+
+# =============================================================================
+# HEADERS
+# =============================================================================
+
+def build_headers() -> Dict[str, str]:
+
+    return {
+        "User-Agent": USER_AGENT,
+
+        "Accept": (
+            "application/vnd.apple.mpegurl,"
+            "application/x-mpegURL,"
+            "audio/mpegurl,"
+            "audio/x-mpegurl,"
+            "text/plain,*/*"
+        ),
+
+        "Connection": "close",
+
+        "Cache-Control": "no-cache",
+
+        "Accept-Encoding": "identity",
+    }
+
+
+# =============================================================================
+# HLS VALIDATION
+# =============================================================================
+
+def inspect_hls_body(
+    body: bytes,
+    content_type: str = "",
+    final_url: str = "",
+) -> Dict[str, Any]:
+
+    inspected = body[
+        :MAX_INSPECT_BYTES
+    ]
+
+    try:
+        text = inspected.decode(
+            "utf-8-sig",
+            errors="replace",
+        )
+    except Exception:
+        text = ""
+
+    # Иногда playlist начинается с BOM или пробелов.
+    text = text.lstrip(
+        "\ufeff \t\r\n"
+    )
+
+    lower_text = text.lower()
+
+    lines = [
+        line.strip()
+        for line in text.splitlines()
+        if line.strip()
+    ]
+
+    first_line = (
+        lines[0]
+        if lines
+        else ""
+    )
+
+    has_extm3u = (
+        first_line.upper()
+        == "#EXTM3U"
+    )
+
+    has_ext_x = (
+        "#EXT-X-" in text.upper()
+    )
+
+    has_target_duration = (
+        "#EXT-X-TARGETDURATION"
+        in text.upper()
+    )
+
+    has_media_sequence = (
+        "#EXT-X-MEDIA-SEQUENCE"
+        in text.upper()
+    )
+
+    has_stream_inf = (
+        "#EXT-X-STREAM-INF"
+        in text.upper()
+    )
+
+    has_extinf = (
+        "#EXTINF:" in text.upper()
+    )
+
+    has_endlist = (
+        "#EXT-X-ENDLIST"
+        in text.upper()
+    )
+
+    has_media_segment = False
+
+    media_uri_count = 0
+    m3u8_uri_count = 0
+
+    for line in lines:
+
+        if line.startswith("#"):
+            continue
+
+        uri_lower = line.lower()
+
+        if (
+            ".m3u8" in uri_lower
+            or ".ts" in uri_lower
+            or ".aac" in uri_lower
+            or ".mp4" in uri_lower
+            or ".m4s" in uri_lower
+            or ".mp3" in uri_lower
+        ):
+            media_uri_count += 1
+
+        if ".m3u8" in uri_lower:
+            m3u8_uri_count += 1
+
+        if (
+            ".ts" in uri_lower
+            or ".aac" in uri_lower
+            or ".m4s" in uri_lower
+        ):
+            has_media_segment = True
+
+    content_type_lower = (
+        content_type.lower()
+        if content_type
+        else ""
+    )
+
+    content_type_hls = any(
+        marker in content_type_lower
+        for marker in (
+            "mpegurl",
+            "m3u8",
+            "vnd.apple.mpegurl",
+            "x-mpegurl",
+        )
+    )
+
+    url_hls = (
+        ".m3u8"
+        in final_url.lower()
+    )
+
+    if has_stream_inf:
+        playlist_type = "MASTER"
+
+    elif (
+        has_extinf
+        or has_media_sequence
+        or has_media_segment
+    ):
+        playlist_type = "MEDIA"
+
+    else:
+        playlist_type = "UNKNOWN"
+
+    structural_score = 0
+
+    if has_extm3u:
+        structural_score += 35
+
+    if has_ext_x:
+        structural_score += 15
+
+    if has_target_duration:
+        structural_score += 10
+
+    if has_media_sequence:
+        structural_score += 10
+
+    if has_stream_inf:
+        structural_score += 15
+
+    if has_extinf:
+        structural_score += 15
+
+    if media_uri_count > 0:
+        structural_score += 10
+
+    if content_type_hls:
+        structural_score += 10
+
+    if url_hls:
+        structural_score += 5
+
+    structural_score = min(
+        structural_score,
+        100,
+    )
+
+    # Более устойчивое распознавание:
+    #
+    # 1. Нормальный #EXTM3U + HLS tags;
+    # 2. либо #EXTM3U + URI;
+    # 3. либо явный HLS Content-Type + HLS structure.
+    #
+    # Не считаем простой HTTP 200 рабочим.
+
+    valid_hls = bool(
+        has_extm3u
+        and (
+            has_ext_x
+            or has_extinf
+            or media_uri_count > 0
+        )
+    )
+
+    if not valid_hls:
+        if (
+            content_type_hls
+            and has_ext_x
+            and (
+                media_uri_count > 0
+                or has_extinf
+                or has_stream_inf
+            )
+        ):
+            valid_hls = True
+
+    return {
+        "content_bytes": len(body),
+
+        "inspect_bytes": len(
+            inspected
+        ),
+
+        "looks_like_m3u8": bool(
+            has_extm3u
+            or has_ext_x
+            or content_type_hls
+        ),
+
+        "has_extm3u": has_extm3u,
+
+        "has_ext_x": has_ext_x,
+
+        "has_target_duration": (
+            has_target_duration
+        ),
+
+        "has_media_sequence": (
+            has_media_sequence
+        ),
+
+        "has_stream_inf": (
+            has_stream_inf
+        ),
+
+        "has_extinf": has_extinf,
+
+        "has_endlist": has_endlist,
+
+        "has_media_segment": (
+            has_media_segment
+        ),
+
+        "media_uri_count": (
+            media_uri_count
+        ),
+
+        "m3u8_uri_count": (
+            m3u8_uri_count
+        ),
+
+        "content_type_hls": (
+            content_type_hls
+        ),
+
+        "url_hls": url_hls,
+
+        "first_line": first_line[
+            :200
+        ],
+
+        "playlist_type": playlist_type,
+
+        "structural_score": (
+            structural_score
+        ),
+
+        "valid_hls": valid_hls,
+
+        "body_sha256": sha256_bytes(
+            body
+        ),
+    }
+
+
+# =============================================================================
+# DISCOVERY SCORE
+# =============================================================================
+
+def calculate_discovery_score(
+    event: Dict[str, Any],
+) -> float:
+
+    response = event.get(
+        "response",
+        {}
+    )
+
+    hls = event.get(
+        "hls",
+        {}
+    )
+
+    result = event.get(
+        "result",
+        {}
+    )
+
+    if not result.get(
+        "success",
+        False,
+    ):
+        return 0.0
+
+    score = 0.0
+
+    status = response.get(
+        "status_code"
+    )
+
+    if status == 200:
+        score += 30
+
+    structural = float(
+        hls.get(
+            "structural_score",
+            0,
+        )
+    )
+
+    score += (
+        structural * 0.5
+    )
+
+    if hls.get(
+        "content_type_hls",
+        False,
+    ):
+        score += 10
+
+    if hls.get(
+        "has_extm3u",
+        False,
+    ):
+        score += 10
+
+    latency = response.get(
+        "latency_ms"
+    )
+
+    if latency is not None:
+
+        if latency <= 100:
+            score += 10
+
+        elif latency <= 250:
+            score += 7
+
+        elif latency <= 500:
+            score += 4
+
+        elif latency <= 1000:
+            score += 2
+
+    score = min(
+        score,
+        100.0,
+    )
+
+    return round(
+        score,
+        3,
+    )
 
 
 # =============================================================================
@@ -447,16 +981,16 @@ def classify_error(
     ):
         return {
             "error_class": f"HTTP_{status_code}",
-            "error_family": (
-                "SERVER_OR_RATE_LIMIT"
-            ),
+            "error_family": "SERVER_OR_RATE_LIMIT",
             "retryable": True,
             "severity": 2,
         }
 
     if exception_type:
 
-        name = exception_type.lower()
+        name = (
+            exception_type.lower()
+        )
 
         if (
             "timeout" in name
@@ -539,293 +1073,6 @@ def classify_error(
 
 
 # =============================================================================
-# HLS VALIDATION
-# =============================================================================
-
-def inspect_hls_body(
-    body: bytes,
-) -> Dict[str, Any]:
-
-    max_inspect = body[:65536]
-
-    try:
-        text = max_inspect.decode(
-            "utf-8",
-            errors="replace",
-        )
-    except Exception:
-        text = ""
-
-    stripped = text.lstrip()
-
-    has_extm3u = stripped.startswith(
-        "#EXTM3U"
-    )
-
-    has_ext_x = "#EXT-X-" in text
-
-    has_target_duration = (
-        "#EXT-X-TARGETDURATION"
-        in text
-    )
-
-    has_media_sequence = (
-        "#EXT-X-MEDIA-SEQUENCE"
-        in text
-    )
-
-    has_stream_inf = (
-        "#EXT-X-STREAM-INF"
-        in text
-    )
-
-    has_extinf = (
-        "#EXTINF:"
-        in text
-    )
-
-    has_endlist = (
-        "#EXT-X-ENDLIST"
-        in text
-    )
-
-    media_uri_count = 0
-
-    for line in text.splitlines():
-
-        line = line.strip()
-
-        if (
-            line
-            and not line.startswith("#")
-            and (
-                ".m3u8" in line
-                or ".ts" in line
-                or ".aac" in line
-                or ".mp4" in line
-            )
-        ):
-            media_uri_count += 1
-
-    if has_stream_inf:
-        playlist_type = "MASTER"
-
-    elif (
-        has_extinf
-        or has_media_sequence
-    ):
-        playlist_type = "MEDIA"
-
-    else:
-        playlist_type = "UNKNOWN"
-
-    looks_like_m3u8 = (
-        has_extm3u
-        or has_ext_x
-    )
-
-    structural_score = 0
-
-    if has_extm3u:
-        structural_score += 30
-
-    if has_ext_x:
-        structural_score += 20
-
-    if has_target_duration:
-        structural_score += 15
-
-    if has_media_sequence:
-        structural_score += 10
-
-    if has_stream_inf:
-        structural_score += 15
-
-    if has_extinf:
-        structural_score += 15
-
-    if media_uri_count:
-        structural_score += 15
-
-    structural_score = min(
-        structural_score,
-        100,
-    )
-
-    valid_hls = bool(
-        looks_like_m3u8
-        and structural_score >= 30
-    )
-
-    return {
-        "content_bytes": len(body),
-        "inspect_bytes": len(
-            max_inspect
-        ),
-        "looks_like_m3u8": (
-            looks_like_m3u8
-        ),
-        "has_extm3u": has_extm3u,
-        "has_ext_x": has_ext_x,
-        "has_target_duration": (
-            has_target_duration
-        ),
-        "has_media_sequence": (
-            has_media_sequence
-        ),
-        "has_stream_inf": (
-            has_stream_inf
-        ),
-        "has_extinf": has_extinf,
-        "has_endlist": has_endlist,
-        "media_uri_count": media_uri_count,
-        "playlist_type": playlist_type,
-        "structural_score": structural_score,
-        "valid_hls": valid_hls,
-        "body_sha256": sha256_bytes(body),
-    }
-
-
-# =============================================================================
-# CANDIDATE FEATURES
-# =============================================================================
-
-def candidate_features(
-    node: str,
-    path: str,
-    channel: Dict[str, Any],
-) -> Dict[str, Any]:
-
-    parsed = urlparse(
-        f"https://{node}{path}"
-    )
-
-    path_lower = path.lower()
-
-    path_parts = [
-        x
-        for x in path.split("/")
-        if x
-    ]
-
-    filename = (
-        path_parts[-1]
-        if path_parts
-        else ""
-    )
-
-    extension = (
-        filename.rsplit(
-            ".",
-            1,
-        )[-1].lower()
-        if "." in filename
-        else ""
-    )
-
-    return {
-        "node_length": len(node),
-        "node_numeric_id": (
-            int(
-                re.search(
-                    r"s(\d+)",
-                    node,
-                ).group(1)
-            )
-            if re.search(
-                r"s(\d+)",
-                node,
-            )
-            else -1
-        ),
-        "path_length": len(path),
-        "path_depth": len(path_parts),
-        "filename_length": len(filename),
-        "extension": extension,
-        "contains_hls": int(
-            "/hls/" in path_lower
-        ),
-        "contains_variant": int(
-            "variant.m3u8"
-            in path_lower
-        ),
-        "contains_index": int(
-            "index.m3u8"
-            in path_lower
-        ),
-        "contains_numeric_variant": int(
-            bool(
-                re.search(
-                    r"/[0-9]+/index\.m3u8$",
-                    path_lower,
-                )
-            )
-        ),
-        "contains_ch_prefix": int(
-            bool(
-                re.search(
-                    r"/ch_[^/]+/",
-                    path_lower,
-                )
-            )
-        ),
-        "contains_hd": int(
-            "hd" in path_lower
-        ),
-        "contains_master": int(
-            "master" in path_lower
-        ),
-        "contains_playlist": int(
-            "playlist" in path_lower
-        ),
-        "contains_index_name": int(
-            filename == "index.m3u8"
-        ),
-        "contains_variant_name": int(
-            filename == "variant.m3u8"
-        ),
-        "url_length": len(
-            f"https://{node}{path}"
-        ),
-        "hostname": (
-            parsed.hostname
-            or ""
-        ),
-        "channel_number": channel[
-            "chno"
-        ],
-        "alias_count": len(
-            channel.get(
-                "aliases",
-                [],
-            )
-        ),
-        "channel_key_length": len(
-            channel["key"]
-        ),
-    }
-
-
-# =============================================================================
-# REQUEST HEADERS
-# =============================================================================
-
-def build_headers() -> Dict[str, str]:
-
-    return {
-        "User-Agent": USER_AGENT,
-        "Accept": (
-            "application/vnd.apple.mpegurl,"
-            "application/x-mpegURL,"
-            "audio/mpegurl,"
-            "text/plain,*/*"
-        ),
-        "Connection": "close",
-        "Cache-Control": "no-cache",
-    }
-
-
-# =============================================================================
 # HTTP PROBE
 # =============================================================================
 
@@ -855,6 +1102,7 @@ def probe_candidate(
     content_type = ""
 
     redirect_count = 0
+
     final_url = url
 
     response_content_length = 0
@@ -862,17 +1110,15 @@ def probe_candidate(
     try:
 
         # ---------------------------------------------------------------------
-        # DNS timing
+        # DNS
         # ---------------------------------------------------------------------
 
         dns_start = time.perf_counter()
 
         try:
-
             socket.gethostbyname(
                 candidate["node"]
             )
-
         except Exception:
             pass
 
@@ -880,16 +1126,17 @@ def probe_candidate(
             (
                 time.perf_counter()
                 - dns_start
-            )
-            * 1000,
+            ) * 1000,
             3,
         )
 
         # ---------------------------------------------------------------------
-        # HTTP request
+        # HTTP
         # ---------------------------------------------------------------------
 
-        request_start = time.perf_counter()
+        request_start = (
+            time.perf_counter()
+        )
 
         response = requests.get(
             url,
@@ -904,7 +1151,9 @@ def probe_candidate(
             - request_start
         )
 
-        status_code = response.status_code
+        status_code = (
+            response.status_code
+        )
 
         final_url = str(
             response.url
@@ -921,49 +1170,69 @@ def probe_candidate(
             )
         )
 
-        response_content_length = len(
-            response.content
+        response_content_length = (
+            len(response.content)
         )
 
         response_headers = {
             "content_type": content_type,
-            "content_length": response.headers.get(
-                "Content-Length",
-                "",
+
+            "content_length": (
+                response.headers.get(
+                    "Content-Length",
+                    "",
+                )
             ),
-            "cache_control": response.headers.get(
-                "Cache-Control",
-                "",
+
+            "cache_control": (
+                response.headers.get(
+                    "Cache-Control",
+                    "",
+                )
             ),
-            "server": response.headers.get(
-                "Server",
-                "",
+
+            "server": (
+                response.headers.get(
+                    "Server",
+                    "",
+                )
             ),
-            "etag": response.headers.get(
-                "ETag",
-                "",
+
+            "etag": (
+                response.headers.get(
+                    "ETag",
+                    "",
+                )
             ),
-            "last_modified": response.headers.get(
-                "Last-Modified",
-                "",
+
+            "last_modified": (
+                response.headers.get(
+                    "Last-Modified",
+                    "",
+                )
             ),
-            "location": response.headers.get(
-                "Location",
-                "",
+
+            "location": (
+                response.headers.get(
+                    "Location",
+                    "",
+                )
             ),
-            "content_encoding": response.headers.get(
-                "Content-Encoding",
-                "",
+
+            "content_encoding": (
+                response.headers.get(
+                    "Content-Encoding",
+                    "",
+                )
             ),
-            "accept_ranges": response.headers.get(
-                "Accept-Ranges",
-                "",
+
+            "accept_ranges": (
+                response.headers.get(
+                    "Accept-Ranges",
+                    "",
+                )
             ),
         }
-
-        # requests does not expose a reliable independent
-        # connect/read split in this implementation.
-        connect_ms = None
 
         read_ms = round(
             request_elapsed * 1000,
@@ -971,23 +1240,26 @@ def probe_candidate(
         )
 
         # ---------------------------------------------------------------------
-        # HLS validation
+        # HLS
         # ---------------------------------------------------------------------
 
         if status_code == 200:
 
             hls_info = inspect_hls_body(
-                response.content
+                response.content,
+                content_type=content_type,
+                final_url=final_url,
             )
 
-            if not hls_info[
-                "valid_hls"
-            ]:
+            if not hls_info.get(
+                "valid_hls",
+                False,
+            ):
 
                 error = (
                     "HTTP 200 but response "
                     "is not recognized as "
-                    "valid M3U8/HLS"
+                    "valid HLS/M3U8"
                 )
 
         else:
@@ -998,9 +1270,7 @@ def probe_candidate(
 
     except requests.exceptions.Timeout as exc:
 
-        exception_type = (
-            "Timeout"
-        )
+        exception_type = "Timeout"
 
         error = (
             str(exc)
@@ -1046,8 +1316,7 @@ def probe_candidate(
         (
             time.perf_counter()
             - started_perf
-        )
-        * 1000,
+        ) * 1000,
         3,
     )
 
@@ -1129,7 +1398,9 @@ def probe_candidate(
             redirect_count
         ),
 
-        "success": int(success),
+        "success": int(
+            success
+        ),
 
         "retryable": int(
             error_meta[
@@ -1137,9 +1408,9 @@ def probe_candidate(
             ]
         ),
 
-        "severity": error_meta[
-            "severity"
-        ],
+        "severity": (
+            error_meta["severity"]
+        ),
 
         "valid_hls": int(
             hls_info.get(
@@ -1161,9 +1432,25 @@ def probe_candidate(
                 0,
             )
         ),
+
+        "m3u8_uri_count": int(
+            hls_info.get(
+                "m3u8_uri_count",
+                0,
+            )
+        ),
+
+        "content_type_hls": int(
+            hls_info.get(
+                "content_type_hls",
+                False,
+            )
+        ),
+
+        "discovery_score": 0.0,
     }
 
-    return {
+    event = {
         "event_type": (
             "url_probe_completed"
         ),
@@ -1185,15 +1472,19 @@ def probe_candidate(
             "number": candidate[
                 "channel"
             ]["chno"],
+
             "name": candidate[
                 "channel"
             ]["name"],
+
             "key": candidate[
                 "channel"
             ]["key"],
+
             "tvg_id": candidate[
                 "channel"
             ]["tvg_id"],
+
             "aliases": candidate[
                 "channel"
             ].get(
@@ -1206,9 +1497,11 @@ def probe_candidate(
             "hostname": candidate[
                 "node"
             ],
+
             "url_host": candidate[
                 "node"
             ],
+
             "node_family": "NGENIX",
         },
 
@@ -1216,16 +1509,21 @@ def probe_candidate(
             "path": candidate[
                 "path"
             ],
+
             "url": url,
+
             "final_url": final_url,
+
             "url_sha256": sha256_text(
                 url
             ),
+
             "path_sha256": sha256_text(
                 candidate[
                     "path"
                 ]
             ),
+
             "features": candidate[
                 "features"
             ],
@@ -1233,30 +1531,45 @@ def probe_candidate(
 
         "request": {
             "method": "GET",
+
             "timeout_seconds": timeout,
+
             "allow_redirects": True,
+
             "user_agent": USER_AGENT,
+
             "headers": build_headers(),
         },
 
         "response": {
             "status_code": status_code,
+
             "latency_ms": latency_ms,
+
             "dns_ms": dns_ms,
+
             "connect_ms": connect_ms,
+
             "read_ms": read_ms,
+
             "redirect_count": redirect_count,
+
             "final_url": final_url,
+
             "content_type": content_type,
+
             "content_length": (
                 response_content_length
             ),
+
             "headers": response_headers,
         },
 
         "error": {
             **error_meta,
+
             "message": error,
+
             "exception_type": exception_type,
         },
 
@@ -1264,11 +1577,13 @@ def probe_candidate(
 
         "result": {
             "success": success,
+
             "label": (
                 "positive"
                 if success
                 else "negative"
             ),
+
             "playlist_eligible": success,
         },
 
@@ -1293,9 +1608,37 @@ def probe_candidate(
         },
     }
 
+    discovery_score = (
+        calculate_discovery_score(
+            event
+        )
+    )
+
+    event["discovery"] = {
+        "score": discovery_score,
+
+        "found": success,
+
+        "channel_key": candidate[
+            "channel"
+        ]["key"],
+
+        "channel_number": candidate[
+            "channel"
+        ]["chno"],
+    }
+
+    event["ml"][
+        "feature_vector"
+    ][
+        "discovery_score"
+    ] = discovery_score
+
+    return event
+
 
 # =============================================================================
-# CANDIDATE BUILD
+# CANDIDATES
 # =============================================================================
 
 def build_candidates(
@@ -1323,10 +1666,15 @@ def build_candidates(
                 candidates.append(
                     {
                         "run_id": run_id,
+
                         "channel": channel,
+
                         "node": node,
+
                         "path": path,
+
                         "url": url,
+
                         "features": (
                             candidate_features(
                                 node=node,
@@ -1341,7 +1689,113 @@ def build_candidates(
 
 
 # =============================================================================
-# EVENT NORMALIZATION
+# SUCCESSFUL CHANNEL INDEX
+# =============================================================================
+
+def build_success_index(
+    events: List[Dict[str, Any]],
+) -> Dict[str, List[Dict[str, Any]]]:
+
+    by_channel: Dict[
+        str,
+        List[Dict[str, Any]],
+    ] = defaultdict(list)
+
+    seen = set()
+
+    for event in events:
+
+        if not event.get(
+            "result",
+            {},
+        ).get(
+            "playlist_eligible",
+            False,
+        ):
+            continue
+
+        url = event.get(
+            "candidate",
+            {},
+        ).get(
+            "url"
+        )
+
+        if not url:
+            continue
+
+        if url in seen:
+            continue
+
+        seen.add(url)
+
+        channel_key = event.get(
+            "channel",
+            {},
+        ).get(
+            "key"
+        )
+
+        if not channel_key:
+            continue
+
+        by_channel[
+            channel_key
+        ].append(
+            event
+        )
+
+    for channel_key in by_channel:
+
+        by_channel[
+            channel_key
+        ].sort(
+            key=lambda event: (
+                -float(
+                    event.get(
+                        "discovery",
+                        {},
+                    ).get(
+                        "score",
+                        0,
+                    )
+                ),
+
+                float(
+                    event.get(
+                        "response",
+                        {},
+                    ).get(
+                        "latency_ms"
+                    )
+                    or 999999
+                ),
+
+                event.get(
+                    "node",
+                    {},
+                ).get(
+                    "hostname",
+                    ""
+                ),
+
+                event.get(
+                    "candidate",
+                    {},
+                ).get(
+                    "url",
+                    ""
+                ),
+            )
+        )
+
+    return dict(
+        by_channel
+    )
+
+
+# =============================================================================
+# SQL ROW
 # =============================================================================
 
 def event_to_sql_row(
@@ -1395,6 +1849,11 @@ def event_to_sql_row(
 
     started = timestamp.get(
         "started",
+        {},
+    )
+
+    discovery = event.get(
+        "discovery",
         {},
     )
 
@@ -1533,6 +1992,19 @@ def event_to_sql_row(
             "media_uri_count"
         ),
 
+        "m3u8_uri_count": hls.get(
+            "m3u8_uri_count"
+        ),
+
+        "content_type_hls": int(
+            bool(
+                hls.get(
+                    "content_type_hls",
+                    False,
+                )
+            )
+        ),
+
         "playlist_eligible": int(
             bool(
                 result.get(
@@ -1540,6 +2012,11 @@ def event_to_sql_row(
                     False,
                 )
             )
+        ),
+
+        "discovery_score": discovery.get(
+            "score",
+            0,
         ),
 
         "ml_target": ml.get(
@@ -1565,6 +2042,77 @@ def event_to_sql_row(
 
 
 # =============================================================================
+# LATENCY
+# =============================================================================
+
+def latency_statistics(
+    values: List[float],
+) -> Dict[str, Any]:
+
+    if not values:
+
+        return {
+            "avg_ms": None,
+            "min_ms": None,
+            "max_ms": None,
+            "p50_ms": None,
+            "p95_ms": None,
+            "p99_ms": None,
+        }
+
+    ordered = sorted(
+        values
+    )
+
+    count = len(
+        ordered
+    )
+
+    def percentile(
+        fraction: float,
+    ) -> float:
+
+        index = min(
+            max(
+                int(
+                    count
+                    * fraction
+                ),
+                0,
+            ),
+            count - 1,
+        )
+
+        return ordered[
+            index
+        ]
+
+    return {
+        "avg_ms": round(
+            sum(ordered)
+            / count,
+            3,
+        ),
+
+        "min_ms": ordered[0],
+
+        "max_ms": ordered[-1],
+
+        "p50_ms": percentile(
+            0.50
+        ),
+
+        "p95_ms": percentile(
+            0.95
+        ),
+
+        "p99_ms": percentile(
+            0.99
+        ),
+    }
+
+
+# =============================================================================
 # AGGREGATIONS
 # =============================================================================
 
@@ -1572,10 +2120,7 @@ def build_aggregations(
     events: List[Dict[str, Any]],
 ) -> Dict[str, Any]:
 
-    node_stats: Dict[
-        str,
-        Dict[str, Any],
-    ] = defaultdict(
+    node_stats = defaultdict(
         lambda: {
             "events": 0,
             "positive": 0,
@@ -1586,10 +2131,7 @@ def build_aggregations(
         }
     )
 
-    channel_stats: Dict[
-        str,
-        Dict[str, Any],
-    ] = defaultdict(
+    channel_stats = defaultdict(
         lambda: {
             "events": 0,
             "positive": 0,
@@ -1602,42 +2144,51 @@ def build_aggregations(
 
     for event in events:
 
-        node = event[
-            "node"
-        ][
-            "hostname"
-        ]
+        node = event.get(
+            "node",
+            {},
+        ).get(
+            "hostname",
+            "UNKNOWN",
+        )
 
-        channel = event[
-            "channel"
-        ][
-            "name"
-        ]
+        channel = event.get(
+            "channel",
+            {},
+        ).get(
+            "name",
+            "UNKNOWN",
+        )
 
-        response = event[
-            "response"
-        ]
+        response = event.get(
+            "response",
+            {},
+        )
 
-        status = response[
+        status = response.get(
             "status_code"
-        ]
+        )
 
-        latency = response[
+        latency = response.get(
             "latency_ms"
-        ]
+        )
 
-        error_class = event[
-            "error"
-        ][
-            "error_class"
-        ]
+        error_class = event.get(
+            "error",
+            {},
+        ).get(
+            "error_class",
+            "UNKNOWN",
+        )
 
         success = bool(
-            event[
-                "result"
-            ][
-                "success"
-            ]
+            event.get(
+                "result",
+                {},
+            ).get(
+                "success",
+                False,
+            )
         )
 
         for bucket in (
@@ -1645,12 +2196,18 @@ def build_aggregations(
             channel_stats[channel],
         ):
 
-            bucket["events"] += 1
+            bucket[
+                "events"
+            ] += 1
 
             if success:
-                bucket["positive"] += 1
+                bucket[
+                    "positive"
+                ] += 1
             else:
-                bucket["negative"] += 1
+                bucket[
+                    "negative"
+                ] += 1
 
             if latency is not None:
                 bucket[
@@ -1681,63 +2238,6 @@ def build_aggregations(
 
         for key, value in data.items():
 
-            latencies = value[
-                "latencies_ms"
-            ]
-
-            if latencies:
-
-                ordered = sorted(
-                    latencies
-                )
-
-                count = len(
-                    ordered
-                )
-
-                p50 = ordered[
-                    int(
-                        count
-                        * 0.50
-                    )
-                ]
-
-                p95 = ordered[
-                    min(
-                        int(
-                            count
-                            * 0.95
-                        ),
-                        count - 1,
-                    )
-                ]
-
-                p99 = ordered[
-                    min(
-                        int(
-                            count
-                            * 0.99
-                        ),
-                        count - 1,
-                    )
-                ]
-
-                avg = sum(
-                    ordered
-                ) / count
-
-                minimum = ordered[0]
-                maximum = ordered[-1]
-
-            else:
-
-                avg = None
-                minimum = None
-                maximum = None
-                p50 = None
-                p95 = None
-                p99 = None
-
             events_count = value[
                 "events"
             ]
@@ -1748,10 +2248,13 @@ def build_aggregations(
 
             result[key] = {
                 "events": events_count,
+
                 "positive": positive,
+
                 "negative": value[
                     "negative"
                 ],
+
                 "success_rate_percent": (
                     round(
                         positive
@@ -1762,26 +2265,19 @@ def build_aggregations(
                     if events_count
                     else 0.0
                 ),
-                "latency": {
-                    "avg_ms": (
-                        round(
-                            avg,
-                            3,
-                        )
-                        if avg is not None
-                        else None
-                    ),
-                    "min_ms": minimum,
-                    "max_ms": maximum,
-                    "p50_ms": p50,
-                    "p95_ms": p95,
-                    "p99_ms": p99,
-                },
+
+                "latency": latency_statistics(
+                    value[
+                        "latencies_ms"
+                    ]
+                ),
+
                 "statuses": dict(
                     value[
                         "statuses"
                     ]
                 ),
+
                 "errors": dict(
                     value[
                         "errors"
@@ -1795,6 +2291,7 @@ def build_aggregations(
         "by_node": finalize(
             node_stats
         ),
+
         "by_channel": finalize(
             channel_stats
         ),
@@ -1882,11 +2379,8 @@ def make_json_document(
             "success",
             False,
         ):
-
             positive += 1
-
         else:
-
             negative += 1
 
         if event.get(
@@ -1896,11 +2390,8 @@ def make_json_document(
             "valid_hls",
             False,
         ):
-
             valid_hls += 1
-
         else:
-
             invalid_hls += 1
 
         latency = response.get(
@@ -1918,7 +2409,9 @@ def make_json_document(
         ][
             "url"
         ]
+
         for event in events
+
         if event.get(
             "result",
             {},
@@ -1934,92 +2427,81 @@ def make_json_document(
         )
     )
 
-    if latencies:
-
-        ordered_latencies = sorted(
-            latencies
+    success_index = (
+        build_success_index(
+            events
         )
+    )
 
-        count = len(
-            ordered_latencies
-        )
+    channels_found = []
 
-        avg_latency = (
-            sum(
-                ordered_latencies
+    for channel in CHANNELS:
+
+        key = channel["key"]
+
+        found_events = (
+            success_index.get(
+                key,
+                []
             )
-            / count
         )
 
-        p50_latency = (
-            ordered_latencies[
-                min(
-                    int(
-                        count * 0.50
-                    ),
-                    count - 1,
-                )
-            ]
+        channels_found.append(
+            {
+                "number": channel[
+                    "chno"
+                ],
+
+                "name": channel[
+                    "name"
+                ],
+
+                "key": key,
+
+                "tvg_id": channel[
+                    "tvg_id"
+                ],
+
+                "found": bool(
+                    found_events
+                ),
+
+                "url_count": len(
+                    found_events
+                ),
+
+                "urls": [
+                    item[
+                        "candidate"
+                    ][
+                        "url"
+                    ]
+                    for item in found_events
+                ],
+            }
         )
-
-        p95_latency = (
-            ordered_latencies[
-                min(
-                    int(
-                        count * 0.95
-                    ),
-                    count - 1,
-                )
-            ]
-        )
-
-        p99_latency = (
-            ordered_latencies[
-                min(
-                    int(
-                        count * 0.99
-                    ),
-                    count - 1,
-                )
-            ]
-        )
-
-    else:
-
-        avg_latency = None
-        p50_latency = None
-        p95_latency = None
-        p99_latency = None
-
-    started_ts = timestamp_bundle(
-        started
-    )
-
-    finished_ts = timestamp_bundle(
-        finished
-    )
-
-    sql_rows = [
-        event_to_sql_row(
-            event
-        )
-        for event in events
-    ]
 
     document = {
         "schema": {
             "name": (
                 "SKALA_DREG_TELEMETRY"
             ),
+
             "version": SCHEMA_VERSION,
+
             "engine": ENGINE_NAME,
+
             "description": (
                 "Full URL probing "
-                "telemetry dataset "
-                "for SQL/ML analysis."
+                "telemetry and "
+                "validated channel "
+                "discovery dataset."
             ),
+
             "format": "JSON",
+
             "encoding": "UTF-8",
+
             "time_standard": (
                 "UTC + Europe/Moscow"
             ),
@@ -2027,23 +2509,35 @@ def make_json_document(
 
         "engine": {
             "name": ENGINE_NAME,
+
             "skala_name": SKALA_NAME,
+
             "version": VERSION,
+
             "mode": "FULL_SCAN",
+
             "purpose": (
                 "URL/HLS candidate "
-                "discovery and "
-                "telemetry generation"
+                "discovery, "
+                "validation and "
+                "playlist generation"
             ),
         },
 
         "run": {
             "run_id": run_id,
+
             "engine": ENGINE_NAME,
+
             "version": VERSION,
 
-            "started": started_ts,
-            "finished": finished_ts,
+            "started": timestamp_bundle(
+                started
+            ),
+
+            "finished": timestamp_bundle(
+                finished
+            ),
 
             "duration_seconds": round(
                 (
@@ -2054,58 +2548,123 @@ def make_json_document(
             ),
 
             "host": platform.node(),
+
             "platform": platform.platform(),
+
             "python": sys.version,
+
             "pid": os.getpid(),
         },
 
         "configuration": {
-            "timeout_seconds": DEFAULT_TIMEOUT,
-            "workers": DEFAULT_WORKERS,
+            "timeout_seconds": (
+                DEFAULT_TIMEOUT
+            ),
+
+            "workers": (
+                DEFAULT_WORKERS
+            ),
+
+            "max_urls_per_channel": (
+                MAX_URLS_PER_CHANNEL
+            ),
+
             "user_agent": USER_AGENT,
+
             "nodes": NGENIX_NODES,
+
             "channel_count": len(
                 CHANNELS
             ),
+
             "candidate_count": len(
                 candidates
             ),
+
             "path_generation": {
                 "method": (
-                    "aliases + canonical "
-                    "key patterns"
+                    "canonical key + "
+                    "aliases + "
+                    "HLS path patterns"
                 ),
+
                 "deduplicate": True,
             },
+
             "hls_validation": {
                 "enabled": True,
-                "max_inspect_bytes": 65536,
-                "http_200_requires_valid_hls": True,
+
+                "max_inspect_bytes": (
+                    MAX_INSPECT_BYTES
+                ),
+
+                "http_200_requires_valid_hls": (
+                    True
+                ),
+
+                "content_type_detection": True,
+
+                "bom_support": True,
+
+                "master_playlist_support": True,
+
+                "media_playlist_support": True,
             },
         },
 
         "channel_canon": CHANNELS,
 
+        "discovery": {
+            "channels_total": len(
+                CHANNELS
+            ),
+
+            "channels_found": sum(
+                1
+                for item in channels_found
+                if item["found"]
+            ),
+
+            "channels_not_found": sum(
+                1
+                for item in channels_found
+                if not item["found"]
+            ),
+
+            "total_validated_urls": len(
+                unique_successful_urls
+            ),
+
+            "channels": channels_found,
+        },
+
         "summary": {
             "candidates_generated": len(
                 candidates
             ),
+
             "candidates_checked": len(
                 events
             ),
+
             "positive_events": positive,
+
             "negative_events": negative,
+
             "valid_hls_events": valid_hls,
+
             "invalid_hls_events": invalid_hls,
 
             "successful_channels": len(
-                set(
+                {
                     event[
                         "channel"
                     ][
                         "key"
                     ]
+
                     for event in events
+
                     if event.get(
                         "result",
                         {},
@@ -2113,17 +2672,19 @@ def make_json_document(
                         "success",
                         False,
                     )
-                )
+                }
             ),
 
             "successful_nodes": len(
-                set(
+                {
                     event[
                         "node"
                     ][
                         "hostname"
                     ]
+
                     for event in events
+
                     if event.get(
                         "result",
                         {},
@@ -2131,7 +2692,7 @@ def make_json_document(
                         "success",
                         False,
                     )
-                )
+                }
             ),
 
             "success_rate_percent": (
@@ -2156,19 +2717,9 @@ def make_json_document(
                 else 0.0
             ),
 
-            "latency": {
-                "avg_ms": (
-                    round(
-                        avg_latency,
-                        3,
-                    )
-                    if avg_latency is not None
-                    else None
-                ),
-                "p50_ms": p50_latency,
-                "p95_ms": p95_latency,
-                "p99_ms": p99_latency,
-            },
+            "latency": latency_statistics(
+                latencies
+            ),
 
             "status_counts": dict(
                 status_counter
@@ -2216,8 +2767,7 @@ def make_json_document(
             ),
 
             "feature_policy": (
-                "Every probe is retained, "
-                "including failures."
+                "Every probe is retained."
             ),
 
             "features": [
@@ -2230,14 +2780,16 @@ def make_json_document(
                 "node_numeric_id",
                 "contains_hls",
                 "contains_variant",
+                "contains_master",
+                "contains_playlist",
                 "contains_index",
                 "contains_numeric_variant",
                 "contains_ch_prefix",
                 "contains_hd",
-                "contains_master",
-                "contains_playlist",
+                "contains_m3u8",
                 "contains_index_name",
                 "contains_variant_name",
+                "contains_master_name",
                 "url_length",
                 "alias_count",
                 "status_code",
@@ -2253,6 +2805,9 @@ def make_json_document(
                 "valid_hls",
                 "hls_structural_score",
                 "media_uri_count",
+                "m3u8_uri_count",
+                "content_type_hls",
+                "discovery_score",
             ],
 
             "sql_ml_ready": True,
@@ -2297,7 +2852,10 @@ def make_json_document(
                 "hls_type",
                 "hls_structural_score",
                 "media_uri_count",
+                "m3u8_uri_count",
+                "content_type_hls",
                 "playlist_eligible",
+                "discovery_score",
                 "ml_target",
                 "ml_class",
                 "ml_label",
@@ -2305,15 +2863,23 @@ def make_json_document(
                 "path_sha256",
             ],
 
-            "rows": sql_rows,
+            "rows": [
+                event_to_sql_row(
+                    event
+                )
+                for event in events
+            ],
         },
 
         "training_statistics": {
             "row_count": len(
-                sql_rows
+                events
             ),
+
             "positive_rows": positive,
+
             "negative_rows": negative,
+
             "class_balance": {
                 "positive_percent": (
                     round(
@@ -2325,6 +2891,7 @@ def make_json_document(
                     if events
                     else 0.0
                 ),
+
                 "negative_percent": (
                     round(
                         negative
@@ -2336,9 +2903,11 @@ def make_json_document(
                     else 0.0
                 ),
             },
+
             "recommended_ml_target": (
                 "ml_target"
             ),
+
             "recommended_grouping": [
                 "channel_key",
                 "node",
@@ -2362,145 +2931,237 @@ def build_m3u(
     lines = [
         "#EXTM3U",
         (
-            f'# Generated by {SKALA_NAME} '
-            f'v{VERSION}'
+            f"# Generated by "
+            f"{SKALA_NAME} v{VERSION}"
         ),
         "# X-SKALA-ENGINE=D-AI-ZABAVA",
         "# X-SKALA-SCHEMA=SKALA_DREG_TELEMETRY",
         "# X-SKALA-TIMEZONE=Europe/Moscow",
         "# X-SKALA-UTC-OFFSET=+03:00",
         "# X-SKALA-VALIDATION=HTTP200+VALID_HLS",
+        "# X-SKALA-DISCOVERY=CHANNEL_GROUPED",
         "",
     ]
 
-    successful = [
-        event
-        for event in events
-        if event.get(
-            "result",
-            {},
-        ).get(
-            "playlist_eligible",
-            False,
-        )
-    ]
-
-    successful.sort(
-        key=lambda event: (
-            event[
-                "channel"
-            ][
-                "number"
-            ],
-            event[
-                "channel"
-            ][
-                "name"
-            ],
-            event[
-                "node"
-            ][
-                "hostname"
-            ],
-            event[
-                "candidate"
-            ][
-                "url"
-            ],
+    success_index = (
+        build_success_index(
+            events
         )
     )
 
-    seen_urls = set()
+    # -------------------------------------------------------------------------
+    # Каналы идут по каноническому номеру.
+    # -------------------------------------------------------------------------
 
-    for event in successful:
+    found_channel_count = 0
+    found_url_count = 0
 
-        url = event[
-            "candidate"
-        ][
-            "url"
+    for channel in CHANNELS:
+
+        channel_key = channel[
+            "key"
         ]
 
-        if url in seen_urls:
+        channel_events = (
+            success_index.get(
+                channel_key,
+                [],
+            )
+        )
+
+        if not channel_events:
             continue
 
-        seen_urls.add(url)
+        found_channel_count += 1
 
-        channel = event[
-            "channel"
-        ]
-
-        number = channel[
-            "number"
-        ]
-
-        name = channel[
-            "name"
-        ]
-
-        tvg_id = channel[
-            "tvg_id"
-        ]
-
-        node = event[
-            "node"
-        ][
-            "hostname"
-        ]
-
-        latency = event[
-            "response"
-        ].get(
-            "latency_ms"
-        )
-
-        latency_text = (
-            f"{latency}ms"
-            if latency is not None
-            else "NA"
-        )
-
-        lines.append(
-            (
-                f'#EXTINF:-1 '
-                f'tvg-id="{tvg_id}" '
-                f'tvg-name="{name}" '
-                f'tvg-chno="{number}" '
-                f'group-title="ZABAVA",'
-                f'{name}'
+        if (
+            MAX_URLS_PER_CHANNEL > 0
+        ):
+            channel_events = (
+                channel_events[
+                    :MAX_URLS_PER_CHANNEL
+                ]
             )
-        )
 
-        lines.append(
-            (
-                f"#EXTVLCOPT:http-referrer="
-                f""
+        for variant_index, event in enumerate(
+            channel_events,
+            start=1,
+        ):
+
+            url = event[
+                "candidate"
+            ][
+                "url"
+            ]
+
+            final_url = event[
+                "candidate"
+            ].get(
+                "final_url",
+                url,
             )
-        )
 
-        lines.append(
-            (
-                f"#EXT-X-SKALA-CHANNEL={number}"
+            if not final_url:
+                final_url = url
+
+            latency = event[
+                "response"
+            ].get(
+                "latency_ms"
             )
-        )
 
-        lines.append(
-            (
-                f"#EXT-X-SKALA-NODE={node}"
+            discovery_score = (
+                event.get(
+                    "discovery",
+                    {},
+                ).get(
+                    "score",
+                    0,
+                )
             )
-        )
 
-        lines.append(
-            (
-                f"#EXT-X-SKALA-LATENCY="
-                f"{latency_text}"
+            node = event[
+                "node"
+            ][
+                "hostname"
+            ]
+
+            hls_type = event.get(
+                "hls",
+                {},
+            ).get(
+                "playlist_type",
+                "UNKNOWN",
             )
+
+            if latency is None:
+                latency_text = "NA"
+            else:
+                latency_text = (
+                    f"{latency}ms"
+                )
+
+            display_name = (
+                channel["name"]
+                if variant_index == 1
+                else (
+                    f"{channel['name']} "
+                    f"[вариант {variant_index}]"
+                )
+            )
+
+            lines.append(
+                (
+                    f'#EXTINF:-1 '
+                    f'tvg-id="{channel["tvg_id"]}" '
+                    f'tvg-name="{channel["name"]}" '
+                    f'tvg-chno="{channel["chno"]}" '
+                    f'group-title="ZABAVA",'
+                    f'{display_name}'
+                )
+            )
+
+            lines.append(
+                (
+                    f"#EXTVLCOPT:http-user-agent="
+                    f"{USER_AGENT}"
+                )
+            )
+
+            lines.append(
+                (
+                    f"# X-SKALA-CHANNEL="
+                    f"{channel['chno']}"
+                )
+            )
+
+            lines.append(
+                (
+                    f"# X-SKALA-CHANNEL-KEY="
+                    f"{channel['key']}"
+                )
+            )
+
+            lines.append(
+                (
+                    f"# X-SKALA-NODE="
+                    f"{node}"
+                )
+            )
+
+            lines.append(
+                (
+                    f"# X-SKALA-LATENCY="
+                    f"{latency_text}"
+                )
+            )
+
+            lines.append(
+                (
+                    f"# X-SKALA-DISCOVERY-SCORE="
+                    f"{discovery_score}"
+                )
+            )
+
+            lines.append(
+                (
+                    f"# X-SKALA-HLS-TYPE="
+                    f"{hls_type}"
+                )
+            )
+
+            lines.append(
+                (
+                    f"# X-SKALA-VARIANT="
+                    f"{variant_index}"
+                )
+            )
+
+            lines.append(
+                url
+            )
+
+            lines.append("")
+
+            found_url_count += 1
+
+    # -------------------------------------------------------------------------
+    # Если ничего не найдено — явно фиксируем это.
+    # Но нормальный найденный результат выше всегда содержит EXTINF.
+    # -------------------------------------------------------------------------
+
+    if found_url_count == 0:
+
+        lines.extend(
+            [
+                "# X-SKALA-DISCOVERY-RESULT=NO_VALIDATED_CHANNELS",
+                "# X-SKALA-DISCOVERY-CHANNELS=0",
+                "# X-SKALA-DISCOVERY-URLS=0",
+                "",
+            ]
         )
 
-        lines.append(url)
+    else:
 
-        lines.append("")
+        lines.extend(
+            [
+                (
+                    f"# X-SKALA-DISCOVERY-CHANNELS="
+                    f"{found_channel_count}"
+                ),
 
-    return "\n".join(lines)
+                (
+                    f"# X-SKALA-DISCOVERY-URLS="
+                    f"{found_url_count}"
+                ),
+
+                "",
+            ]
+        )
+
+    return "\n".join(
+        lines
+    )
 
 
 # =============================================================================
@@ -2520,14 +3181,19 @@ def make_txt_report(
         "run"
     ]
 
+    discovery = document[
+        "discovery"
+    ]
+
     lines: List[str] = []
 
     lines.append(
-        "=" * 100
+        "=" * 110
     )
 
     lines.append(
-        f"{SKALA_NAME} | {ENGINE_NAME} | "
+        f"{SKALA_NAME} | "
+        f"{ENGINE_NAME} | "
         f"VERSION {VERSION}"
     )
 
@@ -2536,7 +3202,7 @@ def make_txt_report(
     )
 
     lines.append(
-        "=" * 100
+        "=" * 110
     )
 
     lines.append(
@@ -2569,17 +3235,15 @@ def make_txt_report(
     )
 
     lines.append(
-        f"Timezone: "
-        f"{run['started']['timezone']}"
+        ""
     )
 
-    lines.append(
-        f"UTC offset: "
-        f"{run['started']['utc_offset']}"
-    )
+    # -------------------------------------------------------------------------
+    # SUMMARY
+    # -------------------------------------------------------------------------
 
     lines.append(
-        "=" * 100
+        "=" * 110
     )
 
     lines.append(
@@ -2587,16 +3251,16 @@ def make_txt_report(
     )
 
     lines.append(
-        "=" * 100
+        "=" * 110
     )
 
     lines.append(
-        f"Сгенерировано кандидатов: "
+        f"Кандидатов сгенерировано: "
         f"{summary['candidates_generated']}"
     )
 
     lines.append(
-        f"Проверено URL: "
+        f"URL проверено: "
         f"{summary['candidates_checked']}"
     )
 
@@ -2626,8 +3290,13 @@ def make_txt_report(
     )
 
     lines.append(
-        f"Успешных NGENIX nodes: "
+        f"Успешных nodes: "
         f"{summary['successful_nodes']}"
+    )
+
+    lines.append(
+        f"Успешных URL: "
+        f"{len(summary['successful_urls'])}"
     )
 
     lines.append(
@@ -2641,31 +3310,91 @@ def make_txt_report(
     )
 
     lines.append(
-        f"Средняя latency: "
-        f"{summary['latency']['avg_ms']} ms"
+        ""
+    )
+
+    # -------------------------------------------------------------------------
+    # CHANNEL DISCOVERY
+    # -------------------------------------------------------------------------
+
+    lines.append(
+        "=" * 110
     )
 
     lines.append(
-        f"P50 latency: "
-        f"{summary['latency']['p50_ms']} ms"
+        "НАЙДЕННЫЕ КАНАЛЫ"
     )
 
     lines.append(
-        f"P95 latency: "
-        f"{summary['latency']['p95_ms']} ms"
+        "=" * 110
     )
 
     lines.append(
-        f"P99 latency: "
-        f"{summary['latency']['p99_ms']} ms"
+        f"Всего каналов в CANON: "
+        f"{discovery['channels_total']}"
+    )
+
+    lines.append(
+        f"Найдено каналов: "
+        f"{discovery['channels_found']}"
+    )
+
+    lines.append(
+        f"Не найдено: "
+        f"{discovery['channels_not_found']}"
+    )
+
+    lines.append(
+        f"Всего валидированных URL: "
+        f"{discovery['total_validated_urls']}"
     )
 
     lines.append(
         ""
     )
 
+    for item in discovery[
+        "channels"
+    ]:
+
+        if item["found"]:
+
+            lines.append(
+                (
+                    f"[FOUND] "
+                    f"{item['number']:02d} | "
+                    f"{item['name']} | "
+                    f"URLs={item['url_count']}"
+                )
+            )
+
+            for index, url in enumerate(
+                item["urls"],
+                start=1,
+            ):
+
+                lines.append(
+                    f"    {index}. {url}"
+                )
+
+        else:
+
+            lines.append(
+                (
+                    f"[NOT FOUND] "
+                    f"{item['number']:02d} | "
+                    f"{item['name']}"
+                )
+            )
+
+        lines.append("")
+
+    # -------------------------------------------------------------------------
+    # HTTP
+    # -------------------------------------------------------------------------
+
     lines.append(
-        "=" * 100
+        "=" * 110
     )
 
     lines.append(
@@ -2673,7 +3402,7 @@ def make_txt_report(
     )
 
     lines.append(
-        "=" * 100
+        "=" * 110
     )
 
     for status, count in sorted(
@@ -2686,12 +3415,16 @@ def make_txt_report(
             f"HTTP {status}: {count}"
         )
 
+    # -------------------------------------------------------------------------
+    # ERRORS
+    # -------------------------------------------------------------------------
+
     lines.append(
         ""
     )
 
     lines.append(
-        "=" * 100
+        "=" * 110
     )
 
     lines.append(
@@ -2699,7 +3432,7 @@ def make_txt_report(
     )
 
     lines.append(
-        "=" * 100
+        "=" * 110
     )
 
     for (
@@ -2728,7 +3461,7 @@ def make_txt_report(
     )
 
     lines.append(
-        "=" * 100
+        "=" * 110
     )
 
     lines.append(
@@ -2736,7 +3469,7 @@ def make_txt_report(
     )
 
     lines.append(
-        "=" * 100
+        "=" * 110
     )
 
     for (
@@ -2784,21 +3517,14 @@ def make_txt_report(
             f"{stats['latency']['p95_ms']} ms"
         )
 
-        lines.append(
-            f"    P99 latency: "
-            f"{stats['latency']['p99_ms']} ms"
-        )
-
-        lines.append(
-            ""
-        )
+        lines.append("")
 
     # -------------------------------------------------------------------------
     # CHANNEL ANALYSIS
     # -------------------------------------------------------------------------
 
     lines.append(
-        "=" * 100
+        "=" * 110
     )
 
     lines.append(
@@ -2806,7 +3532,7 @@ def make_txt_report(
     )
 
     lines.append(
-        "=" * 100
+        "=" * 110
     )
 
     for (
@@ -2849,16 +3575,14 @@ def make_txt_report(
             f"{stats['latency']['avg_ms']} ms"
         )
 
-        lines.append(
-            ""
-        )
+        lines.append("")
 
     # -------------------------------------------------------------------------
     # FULL TELEMETRY
     # -------------------------------------------------------------------------
 
     lines.append(
-        "=" * 100
+        "=" * 110
     )
 
     lines.append(
@@ -2866,7 +3590,7 @@ def make_txt_report(
     )
 
     lines.append(
-        "=" * 100
+        "=" * 110
     )
 
     for event in document[
@@ -2904,6 +3628,11 @@ def make_txt_report(
         hls = event[
             "hls"
         ]
+
+        discovery_event = event.get(
+            "discovery",
+            {}
+        )
 
         state = (
             "OK"
@@ -2981,16 +3710,6 @@ def make_txt_report(
         )
 
         lines.append(
-            f"    Connect: "
-            f"{response.get('connect_ms')} ms"
-        )
-
-        lines.append(
-            f"    Read: "
-            f"{response.get('read_ms')} ms"
-        )
-
-        lines.append(
             f"    Content-Type: "
             f"{response.get('content_type', '')}"
         )
@@ -3051,8 +3770,18 @@ def make_txt_report(
         )
 
         lines.append(
-            f"    HLS bytes: "
-            f"{hls.get('content_bytes', 0)}"
+            f"    HLS m3u8 URI count: "
+            f"{hls.get('m3u8_uri_count', 0)}"
+        )
+
+        lines.append(
+            f"    HLS Content-Type: "
+            f"{hls.get('content_type_hls', False)}"
+        )
+
+        lines.append(
+            f"    Discovery score: "
+            f"{discovery_event.get('score', 0)}"
         )
 
         lines.append(
@@ -3070,150 +3799,38 @@ def make_txt_report(
             f"{event['ml'].get('label')}"
         )
 
-        lines.append(
-            ""
-        )
-
-    # -------------------------------------------------------------------------
-    # SUCCESSFUL URL LIST
-    # -------------------------------------------------------------------------
-
-    lines.append(
-        "=" * 100
-    )
-
-    lines.append(
-        "VALIDATED SUCCESSFUL URLS"
-    )
-
-    lines.append(
-        "=" * 100
-    )
-
-    for index, url in enumerate(
-        summary[
-            "successful_urls"
-        ],
-        start=1,
-    ):
-
-        lines.append(
-            f"{index}. {url}"
-        )
-
-    # -------------------------------------------------------------------------
-    # JSON EXCERPT
-    # -------------------------------------------------------------------------
-
-    lines.append(
-        ""
-    )
-
-    lines.append(
-        "=" * 100
-    )
-
-    lines.append(
-        "JSON EXCERPT — ML / SQL TELEMETRY"
-    )
-
-    lines.append(
-        "=" * 100
-    )
-
-    excerpt = {
-        "schema": document[
-            "schema"
-        ],
-        "engine": document[
-            "engine"
-        ],
-        "run": document[
-            "run"
-        ],
-        "configuration": document[
-            "configuration"
-        ],
-        "summary": document[
-            "summary"
-        ],
-        "ml_dataset": document[
-            "ml_dataset"
-        ],
-        "sql_projection": {
-            "table": document[
-                "sql_projection"
-            ][
-                "table"
-            ],
-            "columns": document[
-                "sql_projection"
-            ][
-                "recommended_columns"
-            ],
-            "rows_excerpt": document[
-                "sql_projection"
-            ][
-                "rows"
-            ][:10],
-        },
-        "events_excerpt": document[
-            "events"
-        ][:5],
-    }
-
-    lines.append(
-        json.dumps(
-            excerpt,
-            ensure_ascii=False,
-            indent=2,
-        )
-    )
+        lines.append("")
 
     # -------------------------------------------------------------------------
     # M3U EXCERPT
     # -------------------------------------------------------------------------
 
     lines.append(
-        ""
+        "=" * 110
     )
 
     lines.append(
-        "=" * 100
+        "M3U PLAYLIST"
     )
 
     lines.append(
-        "M3U PLAYLIST EXCERPT"
-    )
-
-    lines.append(
-        "=" * 100
-    )
-
-    m3u_lines = (
-        m3u.splitlines()
+        "=" * 110
     )
 
     lines.extend(
-        m3u_lines[:300]
+        m3u.splitlines()
     )
 
-    if len(m3u_lines) > 300:
-
-        lines.append(
-            ""
-        )
-
-        lines.append(
-            "... M3U EXCERPT TRUNCATED ..."
-        )
+    # -------------------------------------------------------------------------
+    # END
+    # -------------------------------------------------------------------------
 
     lines.append(
         ""
     )
 
     lines.append(
-        "=" * 100
+        "=" * 110
     )
 
     lines.append(
@@ -3221,7 +3838,7 @@ def make_txt_report(
     )
 
     lines.append(
-        "=" * 100
+        "=" * 110
     )
 
     return "\n".join(
@@ -3250,9 +3867,7 @@ def run_scan(
 
     started = utc_now()
 
-    print(
-        "=" * 100
-    )
+    print("=" * 100)
 
     print(
         f"{SKALA_NAME} | "
@@ -3260,9 +3875,7 @@ def run_scan(
         f"VERSION {VERSION}"
     )
 
-    print(
-        "=" * 100
-    )
+    print("=" * 100)
 
     print(
         f"Run ID: {run_id}"
@@ -3307,9 +3920,7 @@ def run_scan(
         f"{timeout}s"
     )
 
-    print(
-        "=" * 100
-    )
+    print("=" * 100)
 
     events: List[
         Dict[str, Any]
@@ -3367,6 +3978,7 @@ def run_scan(
                                 now
                             )
                         ),
+
                         "finished": (
                             timestamp_bundle(
                                 now
@@ -3374,9 +3986,21 @@ def run_scan(
                         ),
                     },
 
+                    "channel": {},
+
+                    "node": {},
+
+                    "candidate": {},
+
+                    "response": {},
+
+                    "hls": {},
+
                     "result": {
                         "success": False,
+
                         "label": "negative",
+
                         "playlist_eligible": False,
                     },
 
@@ -3384,10 +4008,15 @@ def run_scan(
                         "error_class": (
                             "SCANNER_INTERNAL_ERROR"
                         ),
+
                         "error_family": "ENGINE",
+
                         "retryable": True,
+
                         "severity": 5,
+
                         "message": str(exc),
+
                         "exception_type": (
                             type(exc).__name__
                         ),
@@ -3399,10 +4028,19 @@ def run_scan(
 
                     "ml": {
                         "target": 0,
+
                         "class": "negative",
+
                         "label": (
                             "SCANNER_INTERNAL_ERROR"
                         ),
+
+                        "feature_vector": {},
+                    },
+
+                    "discovery": {
+                        "score": 0,
+                        "found": False,
                     },
                 }
 
@@ -3430,18 +4068,51 @@ def run_scan(
                 print(
                     f"[СКАЛА] "
                     f"{index}/{total} | "
-                    f"OK={success_count} | "
+                    f"FOUND={success_count} | "
                     f"FAIL="
                     f"{index - success_count}"
                 )
 
     finished = utc_now()
 
+    # Стабильный порядок telemetry.
+    events.sort(
+        key=lambda event: (
+            event.get(
+                "channel",
+                {},
+            ).get(
+                "number",
+                999999,
+            ),
+
+            event.get(
+                "node",
+                {},
+            ).get(
+                "hostname",
+                "",
+            ),
+
+            event.get(
+                "candidate",
+                {},
+            ).get(
+                "url",
+                "",
+            ),
+        )
+    )
+
     document = make_json_document(
         run_id=run_id,
+
         started=started,
+
         finished=finished,
+
         candidates=candidates,
+
         events=events,
     )
 
@@ -3451,6 +4122,7 @@ def run_scan(
 
     txt = make_txt_report(
         document=document,
+
         m3u=m3u,
     )
 
@@ -3506,7 +4178,8 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
             "СКАЛА ДРЕГ / D-AI ZABAVA "
-            "NGENIX telemetry + ML + M3U"
+            "modernized discovery + "
+            "telemetry + HLS + M3U"
         )
     )
 
@@ -3548,15 +4221,9 @@ def main() -> int:
 
     args = parse_args()
 
-    # Никакого self-copy.
-    # d_AI_zabava.py уже существует.
-    # Создаются только JSON/TXT/M3U.
-
     if not args.scan:
 
-        print(
-            "=" * 100
-        )
+        print("=" * 100)
 
         print(
             f"{SKALA_NAME} | "
@@ -3564,9 +4231,7 @@ def main() -> int:
             f"VERSION {VERSION}"
         )
 
-        print(
-            "=" * 100
-        )
+        print("=" * 100)
 
         print()
 
@@ -3597,7 +4262,7 @@ def main() -> int:
         print()
 
         print(
-            "Будут созданы только:"
+            "Будут созданы:"
         )
 
         print(
@@ -3649,33 +4314,23 @@ def main() -> int:
             "summary"
         ]
 
+        discovery = document[
+            "discovery"
+        ]
+
         print()
 
-        print(
-            "=" * 100
-        )
+        print("=" * 100)
 
         print(
             "СКАЛА ДРЕГ — FINISHED"
         )
 
-        print(
-            "=" * 100
-        )
+        print("=" * 100)
 
         print(
-            f"Проверено комбинаций URL: "
+            f"Проверено URL: "
             f"{summary['candidates_checked']}"
-        )
-
-        print(
-            f"Успешных событий: "
-            f"{summary['positive_events']}"
-        )
-
-        print(
-            f"Неуспешных событий: "
-            f"{summary['negative_events']}"
         )
 
         print(
@@ -3684,8 +4339,14 @@ def main() -> int:
         )
 
         print(
-            f"Успешных каналов: "
-            f"{summary['successful_channels']}"
+            f"Найдено каналов: "
+            f"{discovery['channels_found']}/"
+            f"{discovery['channels_total']}"
+        )
+
+        print(
+            f"Найдено рабочих URL: "
+            f"{discovery['total_validated_urls']}"
         )
 
         print(
@@ -3696,11 +4357,6 @@ def main() -> int:
         print(
             f"Success rate: "
             f"{summary['success_rate_percent']}%"
-        )
-
-        print(
-            f"HLS valid rate: "
-            f"{summary['hls_valid_rate_percent']}%"
         )
 
         print()
@@ -3717,9 +4373,32 @@ def main() -> int:
             f"[FILE] {OUTPUT_M3U}"
         )
 
+        print()
+
+        # -------------------------------------------------------------
+        # ВАЖНО: непосредственно показываем результат M3U в консоли.
+        # -------------------------------------------------------------
+
         print(
-            "=" * 100
+            "НАЙДЕННЫЕ КАНАЛЫ:"
         )
+
+        for item in discovery[
+            "channels"
+        ]:
+
+            if item["found"]:
+
+                print(
+                    f"  [{item['number']:02d}] "
+                    f"{item['name']} "
+                    f"-> "
+                    f"{item['url_count']} URL"
+                )
+
+        print()
+
+        print("=" * 100)
 
         return 0
 
