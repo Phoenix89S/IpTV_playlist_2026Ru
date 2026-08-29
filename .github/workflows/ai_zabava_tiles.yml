@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - "ai_zabava_tiles.py"
+      - "channel_ids.txt"
       - ".github/workflows/ai_zabava_tiles.yml"
 
 jobs:
@@ -12,47 +13,124 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # ============================================================
+      # CHECKOUT
+      # ============================================================
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Generate scanner JSON (auto-create)
-        run: |
-          echo "{
-            \"scanner\": \"zabava_tails.py\",
-            \"version\": \"1.0\",
-            \"timestamp\": \"$(date -u +%Y-%m-%dT%H:%M:%S.%NZ)\",
-            \"source\": \"auto-generated\",
-            \"tails\": []
-          }" > _scanner_zaba_1788021849270.txt
+      # ============================================================
+      # PYTHON
+      # ============================================================
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
+          cache: "pip"
+
+      # ============================================================
+      # DEPENDENCIES
+      # ============================================================
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests
+          python -m pip install aiohttp
+
+      # ============================================================
+      # CHECK INPUT
+      # ============================================================
+
+      - name: Check channel_ids.txt
+        run: |
+          set -e
+
+          echo "========================================"
+          echo "CHECK INPUT"
+          echo "========================================"
+
+          if [ ! -f "channel_ids.txt" ]; then
+            echo "ERROR: channel_ids.txt not found"
+            exit 1
+          fi
+
+          echo "channel_ids.txt found"
+
+          CHANNEL_COUNT=$(grep -c '^CH_' channel_ids.txt || true)
+
+          echo "CH_* entries: $CHANNEL_COUNT"
+
+          if [ "$CHANNEL_COUNT" -eq 0 ]; then
+            echo "ERROR: channel_ids.txt contains no CH_* entries"
+            exit 1
+          fi
+
+      # ============================================================
+      # RUN SCANNER
+      # ============================================================
 
       - name: Run ai_zabava_tiles.py
         run: |
+          set -e
+
+          echo "========================================"
+          echo "START AI ZABAVA TILES"
+          echo "========================================"
+
           python ai_zabava_tiles.py
+
+          echo "========================================"
+          echo "SCANNER FINISHED"
+          echo "========================================"
+
+      # ============================================================
+      # CHECK RESULTS
+      # ============================================================
+
+      - name: Check generated files
+        run: |
+          set -e
+
+          echo "========================================"
+          echo "GENERATED FILES"
+          echo "========================================"
+
+          ls -lh \
+            playlist_ngenix_working.m3u \
+            playlist_ngenix_data.json \
+            skala_ngenix_report.txt \
+            scan_ngenix_process.log
+
+          echo "========================================"
+          echo "M3U:"
+          echo "========================================"
+
+          grep -c '^#EXTINF:' playlist_ngenix_working.m3u || true
+
+      # ============================================================
+      # COMMIT RESULTS
+      # ============================================================
 
       - name: Commit generated results
         run: |
+          set -e
+
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-          git add zabava_tiles.json || true
-          git add zabava_tiles.txt || true
-          git add zabava_tiles.m3u || true
+          git add \
+            playlist_ngenix_working.m3u \
+            playlist_ngenix_data.json \
+            skala_ngenix_report.txt \
+            scan_ngenix_process.log
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "AI Zabava Tiles: auto-update results"
+            git commit -m "AI Zabava Ngenix: auto-update results"
             git push
           fi
