@@ -4118,7 +4118,7 @@ def save_all_reports(
         )
 
     # --------------------------------------------------------
-    # M3U
+    # M3U (с поддержкой tvg-chno для Televizo и кастомной нумерации)
     # --------------------------------------------------------
 
     with open(
@@ -4136,6 +4136,7 @@ def save_all_reports(
             f'x-ngg-engine="{ENGINE_VERSION}"\n'
         )
 
+        idx = 1
         for channel in channels:
 
             result = mapping.get(
@@ -4179,7 +4180,7 @@ def save_all_reports(
             )
 
             f.write(
-                '#EXTINF:-1 '
+                f'#EXTINF:-1 tvg-chno="{idx}" '
                 f'tvg-id="{tvg_id}" '
                 f'tvg-name="{tvg_name}"'
                 f'{logo_attr},'
@@ -4189,6 +4190,7 @@ def save_all_reports(
             f.write(
                 f"{stream.url}\n"
             )
+            idx += 1
 
     # --------------------------------------------------------
     # LEARNED REPORT
