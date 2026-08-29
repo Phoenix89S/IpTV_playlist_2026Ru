@@ -1,921 +1,477 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import json
+"""
+DmitryTV CH_* → Ngenix scanner (v5.0)
+
+1. Читает список CH_* (один на строку) — без дедупликации, порядок сохраняется.
+2. Строит URL: https://zabava-htlive.cdn.ngenix.net/hls/{alias}/variant.m3u8
+3. Параллельно проверяет каждый URL (aiohttp).
+4. Пишет:
+   - playlist_ngenix_working.m3u   — только рабочие
+   - playlist_ngenix_data.json     — полный отчёт
+   - skala_ngenix_report.txt       — человекочитаемый лог/отчёт
+   - scan_ngenix_process.log       — технический лог
+"""
+
+import os
 import re
-import requests
+import json
+import asyncio
+import logging
 from datetime import datetime, timezone
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import List, Dict, Optional
+
+import aiohttp
+
 
 # ============================================================
-# CONFIG
+#                         НАСТРОЙКИ
 # ============================================================
 
-PLAYLIST_URL = (
-    "http://dmitry-tv.ddns.net/iptv/freesat/gtmedia/ZABAVA/custom_url.m3u"
+INPUT_FILE = "channel_ids.txt"   # чистый список CH_* (один на строку)
+
+BASE_URL_TEMPLATE = (
+    "https://zabava-htlive.cdn.ngenix.net/hls/{alias}/variant.m3u8"
 )
 
-NGENIX_BASE_URL = (
-    "https://zabava-htlive.cdn.ngenix.net"
+# Имена с суффиксами, чтобы ничего не затереть
+OUTPUT_M3U   = "playlist_ngenix_working.m3u"
+OUTPUT_JSON  = "playlist_ngenix_data.json"
+OUTPUT_SKALA = "skala_ngenix_report.txt"
+LOG_FILE     = "scan_ngenix_process.log"
+
+USER_AGENT = "HlsWinkPlayer"
+HTTP_TIMEOUT = 8
+CONCURRENCY_LIMIT = 30
+
+
+# ============================================================
+#                       ЛОГИРОВАНИЕ
+# ============================================================
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler(LOG_FILE, encoding="utf-8"),
+        logging.StreamHandler(),
+    ],
 )
 
-OUTPUT_TXT = "zabava_tails.txt"
-OUTPUT_JSON = "zabava_tails.json"
-OUTPUT_RESULTS_TXT = "zabava_ngenix_results.txt"
-OUTPUT_RESULTS_JSON = "zabava_ngenix_results.json"
-OUTPUT_M3U = "zabava_working.m3u"          # <-- итоговый рабочий плейлист
-OUTPUT_LOG = "zabava_scan.log"
 
-TIMEOUT = 20
-MAX_WORKERS = 20
+def now_local() -> str:
+    return datetime.now().astimezone().isoformat()
 
-HEADERS = {
-    "User-Agent": "Mozilla/5.0",
-    "Accept": "*/*",
-}
+
+def skala(message: str, level: str = "INFO") -> None:
+    line = f"{now_local()} [{level:<7}] {message}"
+    print(line)
+    with open(OUTPUT_SKALA, "a", encoding="utf-8") as f:
+        f.write(line + "\n")
+
 
 # ============================================================
-# LOGGER
+#             ЗАГРУЗКА CH_* (БЕЗ ДЕДУПЛИКАЦИИ)
 # ============================================================
 
-class ScalaLogger:
-
-    def __init__(self, filename):
-        self.filename = filename
-
-        with open(
-            filename,
-            "w",
-            encoding="utf-8"
-        ):
-            pass
-
-    def log(self, level, message):
-
-        now = datetime.now(
-            timezone.utc
-        ).astimezone()
-
-        timestamp = now.strftime(
-            "%Y-%m-%dT%H:%M:%S.%f%z"
-        )
-
-        line = (
-            f"{timestamp} "
-            f"[{level:<7}] "
-            f"{message}"
-        )
-
-        print(line)
-
-        with open(
-            self.filename,
-            "a",
-            encoding="utf-8"
-        ) as f:
-
-            f.write(line + "\n")
-
-    def info(self, message):
-        self.log("INFO", message)
-
-    def found(self, message):
-        self.log("FOUND", message)
-
-    def warn(self, message):
-        self.log("WARN", message)
-
-    def error(self, message):
-        self.log("ERROR", message)
-
-# ============================================================
-# DOWNLOAD PLAYLIST
-# ============================================================
-
-def download_playlist(logger):
-
-    logger.info("========================================")
-    logger.info("       START ZABAVA NGNIX SCAN")
-    logger.info("========================================")
-
-    logger.info(
-        f"SOURCE : {PLAYLIST_URL}"
-    )
-
-    response = requests.get(
-        PLAYLIST_URL,
-        timeout=TIMEOUT,
-        headers=HEADERS
-    )
-
-    response.raise_for_status()
-
-    logger.info(
-        f"DOWNLOAD OK : HTTP {response.status_code}"
-    )
-
-    logger.info(
-        f"PLAYLIST SIZE : {len(response.content)} bytes"
-    )
-
-    return response.text
-
-# ============================================================
-# EXTRACT URLS
-# ============================================================
-
-def extract_urls(playlist):
-
-    urls = []
-
-    for line in playlist.splitlines():
-
-        line = line.strip()
-
-        if not line:
-            continue
-
-        if line.startswith("#"):
-            continue
-
-        if line.startswith(
-            ("http://", "https://")
-        ):
-
-            urls.append(line)
-
-    return urls
-
-# ============================================================
-# EXTRACT TAIL
-# ============================================================
-
-def extract_tail(url):
-
-    match = re.search(
-        r"(/hls/.*)",
-        url
-    )
-
+def extract_alias(line: str) -> Optional[str]:
+    line = line.strip()
+    if not line or line.startswith("#"):
+        return None
+    # допускаем как чистый CH_XXX, так и любой текст, где есть CH_
+    match = re.search(r"(CH_[A-Za-z0-9_-]+)", line)
     if not match:
         return None
+    return match.group(1)
 
-    tail = match.group(1)
 
-    tail = tail.split(
-        "?",
-        1
-    )[0]
+def load_source_entries(filepath: str) -> List[Dict]:
+    if not os.path.exists(filepath):
+        raise FileNotFoundError(f"Не найден входной файл: {filepath}")
 
-    tail = tail.split(
-        "#",
-        1
-    )[0]
+    entries: List[Dict] = []
 
-    return tail
+    with open(filepath, "r", encoding="utf-8") as f:
+        for line_number, raw_line in enumerate(f, start=1):
+            source_line = raw_line.strip()
+            alias = extract_alias(source_line)
+            if not alias:
+                continue
+
+            # НИКАКОГО seen / set / удаления дублей
+            entries.append({
+                "source_index": len(entries) + 1,
+                "source_line": line_number,
+                "source_path": source_line,
+                "alias": alias,
+            })
+
+    return entries
+
 
 # ============================================================
-# EXTRACT CH_* FROM PLAYLIST
+#                  ПОСТРОЕНИЕ NGENIX URL
 # ============================================================
 
-def extract_channel_ids(
-    playlist,
-    logger
-):
+def build_ngenix_url(alias: str) -> str:
+    return BASE_URL_TEMPLATE.format(alias=alias)
 
-    """
-    Получаем CH_* из исходного M3U.
 
-    ВАЖНО:
+# ============================================================
+#                  ПАРСИНГ M3U8 (лёгкий)
+# ============================================================
 
-    НИКАКОЙ ДЕДУПЛИКАЦИИ.
+def parse_m3u8(text: str, alias: str) -> Dict:
+    lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
 
-    НИКАКОГО set().
+    stream_inf = []
+    media = []
+    urls = []
 
-    НИКАКОГО seen.
-
-    НИКАКОГО удаления повторов.
-
-    Сохраняется исходный порядок.
-    """
-
-    urls = extract_urls(
-        playlist
-    )
-
-    channel_ids = []
-
-    for url in urls:
-
-        tail = extract_tail(
-            url
-        )
-
-        if not tail:
-            continue
-
-        match = re.search(
-            r"/hls/([^/?#]+)",
-            tail
-        )
-
-        if not match:
-            continue
-
-        channel_id = match.group(1)
-
-        if not channel_id.startswith(
-            "CH_"
+    for line in lines:
+        if line.startswith("#EXT-X-STREAM-INF:"):
+            stream_inf.append(line)
+        elif line.startswith("#EXT-X-MEDIA:"):
+            media.append(line)
+        elif not line.startswith("#") and (
+            line.startswith("http://")
+            or line.startswith("https://")
+            or line.endswith(".m3u8")
+            or line.endswith(".ts")
         ):
-            continue
+            urls.append(line)
 
-        channel_ids.append(
-            channel_id
-        )
+    # title по умолчанию — без префикса CH_
+    title = alias[3:] if alias.startswith("CH_") else alias
 
-        logger.found(
-            f"[CH {len(channel_ids):05d}] "
-            f"{channel_id}"
-        )
+    return {
+        "stream_inf": stream_inf,
+        "stream_inf_count": len(stream_inf),
+        "media": media,
+        "media_count": len(media),
+        "urls": urls,
+        "url_count": len(urls),
+        "title": title,
+        "raw_m3u8": text,
+    }
 
-    return urls, channel_ids
-
-# ============================================================
-# BUILD NGENIX URL
-# ============================================================
-
-def build_ngenix_url(channel_id):
-
-    return (
-        f"{NGENIX_BASE_URL}"
-        f"/hls/{channel_id}/variant.m3u8"
-    )
 
 # ============================================================
-# VALIDATE M3U8
+#                ПРОВЕРКА ОДНОГО NGENIX URL
 # ============================================================
 
-def validate_m3u8(content):
+async def check_ngenix(
+    session: aiohttp.ClientSession,
+    semaphore: asyncio.Semaphore,
+    entry: Dict,
+) -> Dict:
 
-    if not content:
-        return False
-
-    text = content.lstrip()
-
-    return text.startswith(
-        "#EXTM3U"
-    )
-
-# ============================================================
-# CHECK ONE URL
-# ============================================================
-
-def check_ngenix(
-    index,
-    channel_id
-):
-
-    url = build_ngenix_url(
-        channel_id
-    )
+    alias = entry["alias"]
+    url = build_ngenix_url(alias)
 
     result = {
-        "index": index,
-        "channel_id": channel_id,
-        "url": url,
+        "source_index": entry["source_index"],
+        "source_line": entry["source_line"],
+        "source_path": entry["source_path"],
+        "alias": alias,
+        "ngenix_url": url,
         "http_status": None,
-        "content_type": None,
-        "content_length": None,
-        "m3u8": False,
-        "status": "ERROR",
+        "working": False,
+        "content_type": "",
+        "content_length": 0,
+        "metadata": {
+            "tvg_id": alias,
+            "tvg_name": alias,
+            "title": alias[3:] if alias.startswith("CH_") else alias,
+        },
+        "stream_inf_count": 0,
+        "media_count": 0,
+        "url_count": 0,
+        "raw_m3u8": "",
         "error": None,
     }
 
-    try:
-
-        response = requests.get(
-            url,
-            timeout=TIMEOUT,
-            headers=HEADERS
-        )
-
-        result["http_status"] = (
-            response.status_code
-        )
-
-        result["content_type"] = (
-            response.headers.get(
-                "Content-Type"
-            )
-        )
-
-        result["content_length"] = (
-            len(response.content)
-        )
-
-        if response.status_code == 200:
-
-            result["m3u8"] = (
-                validate_m3u8(
-                    response.text
-                )
-            )
-
-            if result["m3u8"]:
-
-                result["status"] = "FOUND"
-
-            else:
-
-                result["status"] = (
-                    "HTTP_200_NOT_M3U8"
-                )
-
-        else:
-
-            result["status"] = (
-                "HTTP_ERROR"
-            )
-
-    except requests.Timeout:
-
-        result["status"] = "TIMEOUT"
-
-        result["error"] = (
-            "Request timeout"
-        )
-
-    except requests.RequestException as e:
-
-        result["status"] = "REQUEST_ERROR"
-
-        result["error"] = str(e)
-
-    except Exception as e:
-
-        result["status"] = "ERROR"
-
-        result["error"] = str(e)
-
-    return result
-
-# ============================================================
-# SAVE TAILS
-# ============================================================
-
-def save_tails(
-    urls,
-    logger
-):
-
-    tails = []
-
-    with open(
-        OUTPUT_TXT,
-        "w",
-        encoding="utf-8"
-    ) as f:
-
-        for url in urls:
-
-            tail = extract_tail(
-                url
-            )
-
-            if tail is None:
-                continue
-
-            # НИКАКОГО DEDUPLICATE
-            tails.append(tail)
-
-            f.write(
-                tail + "\n"
-            )
-
-    logger.info(
-        f"TAILS SAVED : {len(tails)}"
-    )
-
-    logger.info(
-        f"TXT SAVED : {OUTPUT_TXT}"
-    )
-
-    return tails
-
-# ============================================================
-# SAVE PARSING JSON
-# ============================================================
-
-def save_parsing_json(
-    urls,
-    tails,
-    channel_ids,
-    logger
-):
-
-    data = {
-        "scanner": "zabava_tails.py",
-        "version": "2.1",
-
-        "timestamp": datetime.now(
-            timezone.utc
-        ).isoformat(),
-
-        "source": PLAYLIST_URL,
-
-        "statistics": {
-            "urls_found": len(urls),
-            "tails_found": len(tails),
-            "channel_ids_found": len(
-                channel_ids
-            ),
-        },
-
-        "channel_ids": channel_ids,
-
-        "tails": tails,
-    }
-
-    with open(
-        OUTPUT_JSON,
-        "w",
-        encoding="utf-8"
-    ) as f:
-
-        json.dump(
-            data,
-            f,
-            ensure_ascii=False,
-            indent=2
-        )
-
-    logger.info(
-        f"JSON SAVED : {OUTPUT_JSON}"
-    )
-
-# ============================================================
-# NGENIX SCAN
-# ============================================================
-
-def scan_ngenix(
-    channel_ids,
-    logger
-):
-
-    total = len(
-        channel_ids
-    )
-
-    logger.info("========================================")
-    logger.info("        START NGENIX INTERROGATION")
-    logger.info("========================================")
-
-    logger.info(
-        f"CHANNEL IDS : {total}"
-    )
-
-    logger.info(
-        f"EXPECTED CHECKS : {total}"
-    )
-
-    logger.info(
-        f"WORKERS : {MAX_WORKERS}"
-    )
-
-    # Результаты заранее создаются
-    # размером ровно с исходный список.
-    #
-    # Поэтому порядок сохраняется.
-    results = [
-        None
-    ] * total
-
-    with ThreadPoolExecutor(
-        max_workers=MAX_WORKERS
-    ) as executor:
-
-        futures = {}
-
-        for index, channel_id in enumerate(
-            channel_ids,
-            start=1
-        ):
-
-            future = executor.submit(
-                check_ngenix,
-                index,
-                channel_id
-            )
-
-            futures[future] = index
-
-        completed = 0
-
-        for future in as_completed(
-            futures
-        ):
-
-            index = futures[
-                future
-            ]
-
-            try:
-
-                result = future.result()
-
-                results[
-                    index - 1
-                ] = result
-
-                completed += 1
-
-                if result["status"] == "FOUND":
-
-                    logger.found(
-                        f"[{index:05d}/{total:05d}] "
-                        f"{result['channel_id']} "
-                        f"-> FOUND "
-                        f"HTTP={result['http_status']} "
-                        f"-> {result['url']}"
+    async with semaphore:
+        try:
+            async with session.get(
+                url,
+                timeout=aiohttp.ClientTimeout(total=HTTP_TIMEOUT),
+                headers={
+                    "User-Agent": USER_AGENT,
+                    "Accept": "*/*",
+                },
+            ) as response:
+
+                result["http_status"] = response.status
+                result["content_type"] = response.headers.get("Content-Type", "")
+
+                if response.status != 200:
+                    result["error"] = f"HTTP {response.status}"
+                    skala(
+                        f"{entry['source_index']:04d} {alias} → HTTP {response.status} → FAIL",
+                        "WARN",
                     )
+                    return result
 
-                else:
+                text = await response.text(errors="replace")
+                result["content_length"] = len(text)
 
-                    logger.info(
-                        f"[{index:05d}/{total:05d}] "
-                        f"{result['channel_id']} "
-                        f"-> {result['status']} "
-                        f"HTTP={result['http_status']}"
+                if not text.lstrip().startswith("#EXTM3U"):
+                    result["error"] = "HTTP 200, но нет #EXTM3U"
+                    skala(
+                        f"{entry['source_index']:04d} {alias} → HTTP 200 → NOT M3U8",
+                        "WARN",
                     )
+                    return result
 
-            except Exception as e:
+                parsed = parse_m3u8(text, alias)
 
-                channel_id = (
-                    channel_ids[
-                        index - 1
-                    ]
+                result["working"] = True
+                result["metadata"]["title"] = parsed["title"]
+                result["stream_inf_count"] = parsed["stream_inf_count"]
+                result["media_count"] = parsed["media_count"]
+                result["url_count"] = parsed["url_count"]
+                result["raw_m3u8"] = text   # полный ответ для анализа
+
+                skala(
+                    f"{entry['source_index']:04d} {alias} → HTTP 200 → OK → {parsed['title']}",
+                    "FOUND",
                 )
+                return result
 
-                results[
-                    index - 1
-                ] = {
-                    "index": index,
-                    "channel_id": channel_id,
-                    "url": build_ngenix_url(
-                        channel_id
-                    ),
-                    "http_status": None,
-                    "content_type": None,
-                    "content_length": None,
-                    "m3u8": False,
-                    "status": "WORKER_ERROR",
-                    "error": str(e),
-                }
+        except asyncio.TimeoutError:
+            result["error"] = "TIMEOUT"
+            skala(f"{entry['source_index']:04d} {alias} → TIMEOUT", "WARN")
+            return result
 
-                completed += 1
+        except aiohttp.ClientError as e:
+            result["error"] = f"{type(e).__name__}: {e}"
+            skala(f"{entry['source_index']:04d} {alias} → HTTP ERROR → {e}", "ERROR")
+            return result
 
-                logger.error(
-                    f"[{index:05d}/{total:05d}] "
-                    f"WORKER ERROR : {e}"
-                )
+        except Exception as e:
+            result["error"] = f"{type(e).__name__}: {e}"
+            skala(f"{entry['source_index']:04d} {alias} → ERROR → {e}", "ERROR")
+            return result
 
+
+# ============================================================
+#                   СКАНИРОВАНИЕ ВСЕХ
+# ============================================================
+
+async def scan_all(entries: List[Dict]) -> List[Dict]:
+    semaphore = asyncio.Semaphore(CONCURRENCY_LIMIT)
+    connector = aiohttp.TCPConnector(limit=CONCURRENCY_LIMIT)
+    timeout = aiohttp.ClientTimeout(total=HTTP_TIMEOUT)
+
+    async with aiohttp.ClientSession(connector=connector, timeout=timeout) as session:
+        tasks = [
+            check_ngenix(session, semaphore, entry)
+            for entry in entries
+        ]
+        results = await asyncio.gather(*tasks)
+
+    # gather сохраняет порядок
     return results
 
-# ============================================================
-# SAVE RESULTS TXT
-# ============================================================
-
-def save_results_txt(
-    results,
-    logger
-):
-
-    with open(
-        OUTPUT_RESULTS_TXT,
-        "w",
-        encoding="utf-8"
-    ) as f:
-
-        for result in results:
-
-            line = (
-                f"{result['index']:05d} | "
-                f"{result['channel_id']} | "
-                f"{result['status']} | "
-                f"HTTP={result['http_status']} | "
-                f"{result['url']}"
-            )
-
-            f.write(
-                line + "\n"
-            )
-
-    logger.info(
-        f"RESULT TXT SAVED : "
-        f"{OUTPUT_RESULTS_TXT}"
-    )
 
 # ============================================================
-# SAVE RESULTS JSON
+#                         JSON
 # ============================================================
 
-def save_results_json(
-    results,
-    logger
-):
+def build_json(entries: List[Dict], results: List[Dict]) -> Dict:
+    working = [r for r in results if r["working"]]
+    failed  = [r for r in results if not r["working"]]
 
-    found = sum(
-        1
-        for result in results
-        if result["status"] == "FOUND"
-    )
-
-    data = {
-        "scanner": "zabava_tails.py",
-        "version": "2.1",
-
-        "timestamp": datetime.now(
-            timezone.utc
-        ).isoformat(),
-
-        "source": PLAYLIST_URL,
-
-        "ngenix_base": NGENIX_BASE_URL,
-
-        "statistics": {
-            "total_checks": len(results),
-            "found": found,
-            "not_found_or_error": (
-                len(results) - found
-            ),
+    return {
+        "scanner": "dmitrytv_to_ngenix",
+        "version": "5.0",
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "source": {
+            "file": INPUT_FILE,
+            "entries_total": len(entries),
         },
-
-        # ВАЖНО:
-        # результаты находятся в том же порядке,
-        # что и CH_* в исходном M3U.
-        #
-        # Повторы НЕ удаляются.
-        "results": results,
+        "ngenix": {
+            "base": "https://zabava-htlive.cdn.ngenix.net",
+            "template": BASE_URL_TEMPLATE,
+        },
+        "statistics": {
+            "source_ch_entries": len(entries),
+            "ngenix_urls_built": len(entries),
+            "checked": len(results),
+            "working": len(working),
+            "failed": len(failed),
+        },
+        "channels": results,   # все, включая FAIL, порядок = исходный
     }
 
-    with open(
-        OUTPUT_RESULTS_JSON,
-        "w",
-        encoding="utf-8"
-    ) as f:
 
-        json.dump(
-            data,
-            f,
-            ensure_ascii=False,
-            indent=2
-        )
+def write_json(entries: List[Dict], results: List[Dict]) -> None:
+    data = build_json(entries, results)
+    with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
-    logger.info(
-        f"RESULT JSON SAVED : "
-        f"{OUTPUT_RESULTS_JSON}"
-    )
 
 # ============================================================
-# GENERATE WORKING M3U
+#                         M3U
 # ============================================================
 
-def generate_working_m3u(
-    results,
-    logger
-):
-    """
-    Собираем итоговый рабочий M3U только из каналов
-    со статусом FOUND (валидный #EXTM3U на Ngenix).
+def write_m3u(results: List[Dict]) -> int:
+    working = [r for r in results if r["working"]]
 
-    Порядок сохраняется как в исходном плейлисте.
-    Повторы НЕ удаляются (как и везде в скрипте).
-    """
-
-    found_count = 0
-
-    with open(
-        OUTPUT_M3U,
-        "w",
-        encoding="utf-8"
-    ) as f:
-
+    with open(OUTPUT_M3U, "w", encoding="utf-8", newline="\n") as f:
         f.write("#EXTM3U\n")
 
-        for result in results:
+        for ch in working:
+            alias = ch["alias"]
+            meta  = ch["metadata"]
+            title = meta.get("title") or (alias[3:] if alias.startswith("CH_") else alias)
 
-            if result["status"] != "FOUND":
-                continue
-
-            channel_id = result["channel_id"]
-            url = result["url"]
-
-            # Простая #EXTINF строка.
-            # Имя = channel_id (можно потом обогатить tvg-name и т.п.)
+            # минимальный, но полезный EXTINF
             f.write(
-                f'#EXTINF:-1 tvg-id="{channel_id}" '
-                f'tvg-name="{channel_id}",{channel_id}\n'
+                f'#EXTINF:-1 tvg-id="{alias}" tvg-name="{title}",{title}\n'
             )
-            f.write(url + "\n")
+            f.write(f"#EXTVLCOPT:http-user-agent={USER_AGENT}\n")
+            f.write(ch["ngenix_url"] + "\n")
 
-            found_count += 1
+    return len(working)
 
-    logger.info(
-        f"WORKING M3U SAVED : {OUTPUT_M3U}"
-    )
-    logger.info(
-        f"WORKING CHANNELS  : {found_count}"
-    )
-
-    return found_count
 
 # ============================================================
-# MAIN
+#                    SKALA ИТОГОВЫЙ ОТЧЁТ
+# ============================================================
+
+def append_final_skala_report(
+    entries: List[Dict],
+    results: List[Dict],
+    m3u_count: int,
+) -> None:
+
+    working = [r for r in results if r["working"]]
+    failed  = [r for r in results if not r["working"]]
+
+    with open(OUTPUT_SKALA, "a", encoding="utf-8", newline="\n") as f:
+        f.write("\n")
+        f.write("============================================================\n")
+        f.write("                 FINAL SKALA REPORT\n")
+        f.write("============================================================\n")
+        f.write(f"TIME: {now_local()}\n")
+        f.write(f"SOURCE: {INPUT_FILE}\n")
+        f.write("NGENIX: https://zabava-htlive.cdn.ngenix.net\n")
+        f.write("\n")
+        f.write("-------------------- СТАТИСТИКА --------------------\n")
+        f.write(f"CH ENTRIES IN SOURCE   : {len(entries)}\n")
+        f.write(f"NGENIX URLS BUILT      : {len(entries)}\n")
+        f.write(f"CHECKED                : {len(results)}\n")
+        f.write(f"HTTP 200 / WORKING     : {len(working)}\n")
+        f.write(f"FAILED                 : {len(failed)}\n")
+        f.write(f"M3U ENTRIES            : {m3u_count}\n")
+
+        if len(entries) == len(results):
+            f.write("ONE-TO-ONE CHECK       : OK\n")
+        else:
+            f.write("ONE-TO-ONE CHECK       : ERROR\n")
+
+        f.write("\n")
+        f.write("-------------------- РЕЗУЛЬТАТЫ --------------------\n")
+
+        for r in results:
+            status = "OK" if r["working"] else "FAIL"
+            title  = r["metadata"].get("title", "")
+            f.write(
+                f"[{r['source_index']:04d}] {r['alias']} → {status} → "
+                f"HTTP {r['http_status']} → {title}\n"
+            )
+            f.write(f"  NGENIX: {r['ngenix_url']}\n")
+            if r["error"]:
+                f.write(f"  ERROR : {r['error']}\n")
+
+        f.write("\n")
+        f.write("-------------------- ФАЙЛЫ --------------------\n")
+        f.write(f"M3U  : {OUTPUT_M3U}\n")
+        f.write(f"JSON : {OUTPUT_JSON}\n")
+        f.write(f"TXT  : {OUTPUT_SKALA}\n")
+        f.write(f"LOG  : {LOG_FILE}\n")
+        f.write("============================================================\n")
+
+
+# ============================================================
+#                           MAIN
 # ============================================================
 
 def main():
+    # Новый запуск — чистый SKALA
+    with open(OUTPUT_SKALA, "w", encoding="utf-8") as f:
+        f.write("SKALA NGENIX SCAN\n")
+        f.write(f"START: {now_local()}\n\n")
 
-    logger = ScalaLogger(
-        OUTPUT_LOG
+    skala("============================================================")
+    skala("START CH_* → NGENIX")
+
+    # 1. Загрузка
+    skala(f"LOAD SOURCE: {INPUT_FILE}")
+    entries = load_source_entries(INPUT_FILE)
+    skala(f"CH ENTRIES EXTRACTED: {len(entries)}")
+
+    if not entries:
+        skala("Нет CH_* для проверки — выход", "ERROR")
+        return
+
+    # 2. Строим URL (one-to-one)
+    skala("BUILD NGENIX URLS: ONE SOURCE CH = ONE NGENIX URL")
+    for entry in entries:
+        url = build_ngenix_url(entry["alias"])
+        skala(f"[{entry['source_index']:04d}] {entry['alias']} → {url}")
+
+    skala(f"NGENIX URLS BUILT: {len(entries)}")
+
+    # 3. Скан
+    skala("START NGENIX SCAN")
+    results = asyncio.run(scan_all(entries))
+
+    # 4. Контроль
+    if len(results) != len(entries):
+        skala("CRITICAL: SOURCE/RESULT COUNT MISMATCH", "ERROR")
+        raise RuntimeError(
+            "Количество результатов Ngenix ≠ количеству исходных CH."
+        )
+
+    skala(
+        f"ONE-TO-ONE CHECK: {len(entries)} → {len(results)} → OK",
+        "FOUND",
     )
 
-    started = datetime.now(
-        timezone.utc
-    )
+    working = [r for r in results if r["working"]]
+    failed  = [r for r in results if not r["working"]]
 
-    try:
+    skala("============================================================")
+    skala(f"SCAN COMPLETE: {len(working)}/{len(entries)} WORKING", "FOUND")
+    skala(f"FAILED: {len(failed)}")
 
-        # ----------------------------------------------------
-        # 1. DOWNLOAD DMITRY-TV
-        # ----------------------------------------------------
+    # 5. JSON
+    write_json(entries, results)
+    skala(f"JSON READY: {OUTPUT_JSON}", "FOUND")
 
-        playlist = download_playlist(
-            logger
-        )
+    # 6. M3U
+    m3u_count = write_m3u(results)
+    skala(f"M3U READY: {OUTPUT_M3U} ({m3u_count} working entries)", "FOUND")
 
-        # ----------------------------------------------------
-        # 2. PARSE
-        # ----------------------------------------------------
+    # 7. Финальный отчёт
+    append_final_skala_report(entries, results, m3u_count)
+    skala(f"SKALA REPORT READY: {OUTPUT_SKALA}", "FOUND")
 
-        urls, channel_ids = (
-            extract_channel_ids(
-                playlist,
-                logger
-            )
-        )
+    # 8. Финал
+    skala("============================================================")
+    skala("FINAL RESULT")
+    skala(f"SOURCE CH         : {len(entries)}")
+    skala(f"NGENIX URLS       : {len(entries)}")
+    skala(f"CHECKED           : {len(results)}")
+    skala(f"WORKING HTTP 200  : {len(working)}", "FOUND")
+    skala(f"FAILED            : {len(failed)}")
+    skala(f"M3U ENTRIES       : {m3u_count}")
+    skala("COMPLETE")
 
-        logger.info(
-            f"URLS FOUND : {len(urls)}"
-        )
-
-        logger.info(
-            f"CHANNEL IDS FOUND : "
-            f"{len(channel_ids)}"
-        )
-
-        # ----------------------------------------------------
-        # 3. SAVE TAILS
-        # ----------------------------------------------------
-
-        tails = save_tails(
-            urls,
-            logger
-        )
-
-        # ----------------------------------------------------
-        # 4. SAVE PARSING JSON
-        # ----------------------------------------------------
-
-        save_parsing_json(
-            urls,
-            tails,
-            channel_ids,
-            logger
-        )
-
-        # ----------------------------------------------------
-        # 5. NGENIX
-        # ----------------------------------------------------
-
-        results = scan_ngenix(
-            channel_ids,
-            logger
-        )
-
-        # ----------------------------------------------------
-        # 6. SAVE NGENIX RESULTS
-        # ----------------------------------------------------
-
-        save_results_txt(
-            results,
-            logger
-        )
-
-        save_results_json(
-            results,
-            logger
-        )
-
-        # ----------------------------------------------------
-        # 7. GENERATE WORKING M3U  ← вот оно
-        # ----------------------------------------------------
-
-        working_count = generate_working_m3u(
-            results,
-            logger
-        )
-
-        # ----------------------------------------------------
-        # 8. FINAL STATISTICS
-        # ----------------------------------------------------
-
-        found = sum(
-            1
-            for result in results
-            if result["status"] == "FOUND"
-        )
-
-        valid_m3u8 = sum(
-            1
-            for result in results
-            if result["m3u8"] is True
-        )
-
-        duration = (
-            datetime.now(
-                timezone.utc
-            )
-            - started
-        ).total_seconds()
-
-        logger.info("========================================")
-        logger.info("             SCAN RESULT")
-        logger.info("========================================")
-
-        logger.info(
-            f"URLS              : {len(urls)}"
-        )
-
-        logger.info(
-            f"TAILS             : {len(tails)}"
-        )
-
-        logger.info(
-            f"CHANNEL IDS       : "
-            f"{len(channel_ids)}"
-        )
-
-        logger.info(
-            f"GENERATED URLS    : "
-            f"{len(channel_ids)}"
-        )
-
-        logger.info(
-            f"TOTAL CHECKS      : "
-            f"{len(results)}"
-        )
-
-        logger.info(
-            f"FOUND             : {found}"
-        )
-
-        logger.info(
-            f"VALID M3U8        : "
-            f"{valid_m3u8}"
-        )
-
-        logger.info(
-            f"WORKING M3U       : {working_count} channels → {OUTPUT_M3U}"
-        )
-
-        logger.info(
-            f"NOT FOUND / ERROR : "
-            f"{len(results) - found}"
-        )
-
-        logger.info(
-            f"DURATION          : "
-            f"{duration:.3f}s"
-        )
-
-        logger.info("========================================")
-        logger.info(
-            "       ZABAVA NGNIX SCAN COMPLETE"
-        )
-        logger.info("========================================")
-
-    except Exception as e:
-
-        logger.error(
-            f"FATAL ERROR : "
-            f"{type(e).__name__}: {e}"
-        )
-
-        raise
-
-# ============================================================
-# ENTRY POINT
-# ============================================================
 
 if __name__ == "__main__":
     main()
