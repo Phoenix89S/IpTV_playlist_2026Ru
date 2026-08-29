@@ -138,44 +138,67 @@ def extract_tail(url: str) -> Optional[str]:
     return tail
 
 
-def extract_channel_ids(playlist: str) -> Tuple[List[str], List[str], List[Dict]]:
+def extract_channel_ids(
+    playlist: str
+) -> Tuple[List[str], List[str], List[Dict]]:
+
     """
-    Возвращает:
-      - urls (все http-строки)
-      - tails (все /hls/... без дедупа)
-      - entries (список dict для Ngenix-скана, порядок = исходный, без дедупа)
+    Извлекает:
+      - все URL из M3U;
+      - tails начиная с /hls/;
+      - CH_* непосредственно из URL.
+
+    ВАЖНО:
+      - порядок сохраняется;
+      - дубликаты НЕ удаляются;
+      - set() НЕ используется;
+      - seen НЕ используется;
+      - один исходный CH_* = одна запись для Ngenix.
     """
+
     urls = extract_urls(playlist)
+
     tails: List[str] = []
     entries: List[Dict] = []
 
     for line_number, url in enumerate(urls, start=1):
+
+        # ----------------------------------------------------
+        # TAIL
+        # ----------------------------------------------------
+
         tail = extract_tail(url)
-        if not tail:
-            continue
 
-        tails.append(tail)
+        if tail:
+            tails.append(tail)
 
-        # CH_* из хвоста
-        match = re.search(r"/hls/([^/?#]+)", tail)
-        if not match:
-            continue
+        # ----------------------------------------------------
+        # CH_* ИЩЕМ ВО ВСЕЙ URL
+        # ----------------------------------------------------
 
-        alias = match.group(1)
-        if not alias.startswith("CH_"):
-            continue
-
-        entries.append({
-            "source_index": len(entries) + 1,
-            "source_line": line_number,
-            "source_path": url,
-            "alias": alias,
-        })
-
-        skala(
-            f"[CH {len(entries):05d}] {alias}",
-            "FOUND",
+        matches = re.findall(
+            r"CH_[A-Za-z0-9_-]+",
+            url
         )
+
+        if not matches:
+            continue
+
+        # Обычно здесь будет одно CH_*.
+        # Если в URL несколько CH_*, каждое сохраняем.
+        for alias in matches:
+
+            entries.append({
+                "source_index": len(entries) + 1,
+                "source_line": line_number,
+                "source_path": url,
+                "alias": alias,
+            })
+
+            skala(
+                f"[CH {len(entries):05d}] {alias}",
+                "FOUND",
+            )
 
     return urls, tails, entries
 
