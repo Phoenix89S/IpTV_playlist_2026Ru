@@ -23,7 +23,7 @@ jobs:
     steps:
 
       # ---------------------------------------------------------
-      # 1. Получение последнего состояния репозитория
+      # 1. Получение ВСЕЙ истории репозитория
       # ---------------------------------------------------------
       - name: Чтение репозитория
         uses: actions/checkout@v4
@@ -32,7 +32,7 @@ jobs:
           persist-credentials: true
 
       # ---------------------------------------------------------
-      # 2. Python
+      # 2. Настройка Python 3.10
       # ---------------------------------------------------------
       - name: Настройка Python 3.10
         uses: actions/setup-python@v5
@@ -57,31 +57,77 @@ jobs:
           fi
 
       # ---------------------------------------------------------
-      # 4. Проверка файлов перед запуском
+      # 4. Проверка окружения
       # ---------------------------------------------------------
       - name: Проверка окружения
         shell: bash
         run: |
           set -e
 
-          echo "Python:"
+          echo "========================================"
+          echo "        ПРОВЕРКА ОКРУЖЕНИЯ"
+          echo "========================================"
+
           python --version
-
-          echo "Рабочая директория:"
-          pwd
-
-          echo "Файлы проекта:"
-          ls -lah
+          echo "Рабочая директория: $(pwd)"
+          echo "Ветка: $(git branch --show-current)"
+          echo "Последний commit:"
+          git log -1 --oneline
 
           if [ ! -f ai_scan_ngg.py ]; then
             echo "ОШИБКА: ai_scan_ngg.py не найден."
             exit 1
           fi
 
-          echo "ai_scan_ngg.py найден."
+          echo "[OK] ai_scan_ngg.py найден."
 
       # ---------------------------------------------------------
-      # 5. Запуск NGG AI Scan
+      # 5. Определение НОМЕРА ТЕКУЩЕГО ЗАПУСКА
+      #
+      # Нумерация:
+      # playlist_1.m3u
+      # playlist_2.m3u
+      # playlist_3.m3u
+      # ...
+      #
+      # Старые версии НЕ удаляются.
+      # ---------------------------------------------------------
+      - name: Определение номера следующего запуска
+        shell: bash
+        run: |
+          set -e
+
+          echo "========================================"
+          echo "     ОПРЕДЕЛЕНИЕ НОМЕРА ЗАПУСКА"
+          echo "========================================"
+
+          LAST=0
+
+          # Ищем максимальный номер среди playlist_N.m3u
+          while IFS= read -r file; do
+            number=$(echo "$file" | sed -nE 's/^playlist_([0-9]+)\.m3u$/\1/p')
+
+            if [ -n "$number" ] && [ "$number" -gt "$LAST" ]; then
+              LAST="$number"
+            fi
+          done < <(
+            find . -maxdepth 1 -type f \
+              -name 'playlist_*.m3u' \
+              -printf '%f\n'
+          )
+
+          NEXT=$((LAST + 1))
+
+          echo "Последняя версия: $LAST"
+          echo "Новая версия:     $NEXT"
+
+          # Передаём номер всем последующим шагам
+          echo "NGG_RUN_NUMBER=$NEXT" >> "$GITHUB_ENV"
+
+      # ---------------------------------------------------------
+      # 6. Запуск AI NGG Scan
+      #
+      # NGG_RUN_NUMBER доступен Python-программе через окружение.
       # ---------------------------------------------------------
       - name: Запуск AI NGG Scan
         shell: bash
@@ -89,96 +135,161 @@ jobs:
           set -e
 
           echo "========================================"
-          echo "        START AI NGG SCAN"
+          echo "       START AI NGG SCAN"
           echo "========================================"
 
-          python ai_scan_ngg.py --scan
+          echo "Номер запуска: $NGG_RUN_NUMBER"
+
+          NGG_RUN_NUMBER="$NGG_RUN_NUMBER" \
+            python ai_scan_ngg.py --scan
 
           echo "========================================"
-          echo "        AI NGG SCAN FINISHED"
+          echo "       AI NGG SCAN FINISHED"
           echo "========================================"
 
       # ---------------------------------------------------------
-      # 6. Проверка результатов
+      # 7. Проверка всех созданных результатов
       # ---------------------------------------------------------
       - name: Проверка результатов
         shell: bash
         run: |
+          set -e
+
           echo "========================================"
-          echo "        РЕЗУЛЬТАТЫ СКАНИРОВАНИЯ"
+          echo "        РЕЗУЛЬТАТЫ ЗАПУСКА"
           echo "========================================"
 
-          echo "--- Git status ---"
-          git status --short
+          echo "Текущий номер: $NGG_RUN_NUMBER"
 
-          echo "--- Основные файлы ---"
+          echo ""
+          echo "===== ПЛЕЙЛИСТЫ ====="
+
+          find . -maxdepth 1 -type f \
+            -name "*.m3u" \
+            -printf '%f\n' | sort -V || true
+
+          echo ""
+          echo "===== Ai_Alias TXT ====="
+
+          find . -maxdepth 1 -type f \
+            -name "Ai_Alias*.txt" \
+            -printf '%f\n' | sort -V || true
+
+          echo ""
+          echo "===== Ai_Alias JSON ====="
+
+          find . -maxdepth 1 -type f \
+            -name "Ai_Alias*.json" \
+            -printf '%f\n' | sort -V || true
+
+          echo ""
+          echo "===== ngSKALA ====="
+
+          find . -maxdepth 1 -type f \
+            -name "ngSKALA*.txt" \
+            -printf '%f\n' | sort -V || true
+
+          echo ""
+          echo "===== DATA / ML ====="
+
+          find data -maxdepth 2 -type f \
+            -printf '%p\n' 2>/dev/null | sort -V || true
+
+          echo ""
+          echo "===== БАЗЫ ====="
 
           for file in \
             knowledge.db \
-            xml_2016_knowledge.json \
-            data/model.joblib
+            xml_2016_knowledge.json
           do
             if [ -f "$file" ]; then
               echo "[OK] $file"
               ls -lh "$file"
-            else
-              echo "[--] $file отсутствует"
             fi
           done
 
-          echo "--- Плейлисты ---"
-          find . -maxdepth 1 -type f -name "*.m3u" -print || true
-
-          echo "--- Отчёты ---"
-          find . -maxdepth 1 -type f \
-            \( -name "Ai_Alias*.txt" -o -name "Ai_Alias*.json" \) \
-            -print || true
-
       # ---------------------------------------------------------
-      # 7. Подготовка результатов к коммиту
+      # 8. Проверка соответствия номера запуска
+      #
+      # Если Python создал playlist_N — проверяем его.
       # ---------------------------------------------------------
-      - name: Подготовка результатов к коммиту
+      - name: Проверка версии текущего запуска
         shell: bash
         run: |
           set -e
+
+          EXPECTED="playlist_${NGG_RUN_NUMBER}.m3u"
+
+          if [ -f "$EXPECTED" ]; then
+            echo "[OK] Создан ожидаемый плейлист: $EXPECTED"
+          else
+            echo "[INFO] Файл $EXPECTED не найден."
+            echo "Python-код может использовать собственную схему именования."
+            echo "Продолжаем без удаления существующих результатов."
+          fi
+
+      # ---------------------------------------------------------
+      # 9. Добавление ВСЕХ версий в Git
+      #
+      # НИЧЕГО не переименовываем.
+      # НИЧЕГО не удаляем.
+      # ---------------------------------------------------------
+      - name: Подготовка всех результатов к коммиту
+        shell: bash
+        run: |
+          set -e
+
+          echo "========================================"
+          echo "       ПОДГОТОВКА ВСЕХ ВЕРСИЙ"
+          echo "========================================"
 
           # База знаний
           if [ -f knowledge.db ]; then
             git add -f knowledge.db
           fi
 
-          # База EPG 2016
+          # EPG knowledge
           if [ -f xml_2016_knowledge.json ]; then
             git add -f xml_2016_knowledge.json
           fi
 
-          # ML-модель и прочие данные
+          # Все ML-данные
           if [ -d data ]; then
             git add -f data/
           fi
 
-          # Плейлисты
-          find . -maxdepth 1 -type f -name "*.m3u" \
-            -exec git add -f {} \; || true
+          # ВСЕ плейлисты:
+          # playlist.m3u
+          # playlist_1.m3u
+          # playlist_2.m3u
+          # playlist_3.m3u
+          # playlist_N.m3u
+          find . -maxdepth 1 -type f \
+            -name "*.m3u" \
+            -exec git add -f {} \;
 
-          # Текстовые отчёты
-          find . -maxdepth 1 -type f -name "Ai_Alias*.txt" \
-            -exec git add -f {} \; || true
+          # ВСЕ Ai_Alias версии
+          find . -maxdepth 1 -type f \
+            -name "Ai_Alias*.txt" \
+            -exec git add -f {} \;
 
-          # JSON отчёты
-          find . -maxdepth 1 -type f -name "Ai_Alias*.json" \
-            -exec git add -f {} \; || true
+          find . -maxdepth 1 -type f \
+            -name "Ai_Alias*.json" \
+            -exec git add -f {} \;
 
-          echo "========================================"
-          echo "        STAGED CHANGES"
-          echo "========================================"
+          # ВСЕ ngSKALA версии
+          find . -maxdepth 1 -type f \
+            -name "ngSKALA*.txt" \
+            -exec git add -f {} \;
 
+          echo ""
+          echo "===== STAGED CHANGES ====="
           git status --short
 
       # ---------------------------------------------------------
-      # 8. Коммит и push
+      # 10. Коммит и push
       # ---------------------------------------------------------
-      - name: Сохранение результатов в репозиторий
+      - name: Сохранение результатов в репозитории
         shell: bash
         run: |
           set -e
@@ -187,17 +298,23 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           if git diff --cached --quiet; then
-            echo "Изменений для коммита нет."
+            echo "Изменений нет."
             exit 0
           fi
 
+          echo "========================================"
+          echo "       СОХРАНЕНИЕ ВЕРСИИ"
+          echo "========================================"
+
+          git diff --cached --stat
+
           git commit \
-            -m "auto: monthly NGG AI scan update"
+            -m "auto: NGG AI evolution run ${NGG_RUN_NUMBER}"
 
           git push origin HEAD:${GITHUB_REF_NAME}
 
       # ---------------------------------------------------------
-      # 9. Финальный статус
+      # 11. Финальный статус
       # ---------------------------------------------------------
       - name: Завершение
         if: always()
@@ -210,4 +327,6 @@ jobs:
           echo "Дата: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
           echo "Workflow: $GITHUB_WORKFLOW"
           echo "Run: $GITHUB_RUN_NUMBER"
+          echo "NGG version: ${NGG_RUN_NUMBER:-unknown}"
+          echo "Branch: $GITHUB_REF_NAME"
           echo "Status: ${{ job.status }}"
