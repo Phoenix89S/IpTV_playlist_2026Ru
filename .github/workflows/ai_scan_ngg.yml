@@ -2,71 +2,212 @@ name: ngg_scan_ai
 
 on:
   schedule:
-    # Запуск каждые 6 часов
-    - cron: '0 */6 * * *'
-  workflow_dispatch: # Ручной запуск из интерфейса GitHub
+    # Автоматический запуск: 1 раз в месяц,
+    # 1-го числа в 06:00 UTC
+    - cron: '0 6 1 * *'
+
+  # Ручной запуск из интерфейса GitHub
+  workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: ngg-scan-ai
+  cancel-in-progress: false
 
 jobs:
   scan-and-update:
     runs-on: ubuntu-latest
 
     steps:
+
+      # ---------------------------------------------------------
+      # 1. Получение последнего состояния репозитория
+      # ---------------------------------------------------------
       - name: Чтение репозитория
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
 
+      # ---------------------------------------------------------
+      # 2. Python
+      # ---------------------------------------------------------
       - name: Настройка Python 3.10
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+          cache: 'pip'
 
-      - name: Кэширование зависимостей и данных ML
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cache/pip
-            xml_2016_knowledge.json
-            knowledge.db
-            data/
-          key: ${{ runner.os }}-iptv-cache-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-iptv-cache-
-
+      # ---------------------------------------------------------
+      # 3. Установка зависимостей
+      # ---------------------------------------------------------
       - name: Установка зависимостей
+        shell: bash
         run: |
-          python -m pip install --upgrade pip
-          pip install scikit-learn numpy joblib
+          set -e
 
-      - name: Запуск сканера Alias Engine v4.7 beta
+          python -m pip install --upgrade pip
+
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          else
+            pip install scikit-learn numpy joblib requests
+          fi
+
+      # ---------------------------------------------------------
+      # 4. Проверка файлов перед запуском
+      # ---------------------------------------------------------
+      - name: Проверка окружения
+        shell: bash
         run: |
+          set -e
+
+          echo "Python:"
+          python --version
+
+          echo "Рабочая директория:"
+          pwd
+
+          echo "Файлы проекта:"
+          ls -lah
+
+          if [ ! -f ai_scan_ngg.py ]; then
+            echo "ОШИБКА: ai_scan_ngg.py не найден."
+            exit 1
+          fi
+
+          echo "ai_scan_ngg.py найден."
+
+      # ---------------------------------------------------------
+      # 5. Запуск NGG AI Scan
+      # ---------------------------------------------------------
+      - name: Запуск AI NGG Scan
+        shell: bash
+        run: |
+          set -e
+
+          echo "========================================"
+          echo "        START AI NGG SCAN"
+          echo "========================================"
+
           python ai_scan_ngg.py --scan
 
-      - name: Сохранение результатов в репозиторий
+          echo "========================================"
+          echo "        AI NGG SCAN FINISHED"
+          echo "========================================"
+
+      # ---------------------------------------------------------
+      # 6. Проверка результатов
+      # ---------------------------------------------------------
+      - name: Проверка результатов
+        shell: bash
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
-          # Безопасное добавление базы данных и кэша знаний
+          echo "========================================"
+          echo "        РЕЗУЛЬТАТЫ СКАНИРОВАНИЯ"
+          echo "========================================"
+
+          echo "--- Git status ---"
+          git status --short
+
+          echo "--- Основные файлы ---"
+
+          for file in \
+            knowledge.db \
+            xml_2016_knowledge.json \
+            data/model.joblib
+          do
+            if [ -f "$file" ]; then
+              echo "[OK] $file"
+              ls -lh "$file"
+            else
+              echo "[--] $file отсутствует"
+            fi
+          done
+
+          echo "--- Плейлисты ---"
+          find . -maxdepth 1 -type f -name "*.m3u" -print || true
+
+          echo "--- Отчёты ---"
+          find . -maxdepth 1 -type f \
+            \( -name "Ai_Alias*.txt" -o -name "Ai_Alias*.json" \) \
+            -print || true
+
+      # ---------------------------------------------------------
+      # 7. Подготовка результатов к коммиту
+      # ---------------------------------------------------------
+      - name: Подготовка результатов к коммиту
+        shell: bash
+        run: |
+          set -e
+
+          # База знаний
           if [ -f knowledge.db ]; then
-            git add knowledge.db
+            git add -f knowledge.db
           fi
+
+          # База EPG 2016
           if [ -f xml_2016_knowledge.json ]; then
-            git add xml_2016_knowledge.json
+            git add -f xml_2016_knowledge.json
           fi
 
-          # Безопасное добавление модели ML, если она существует
-          if [ -f data/model.joblib ]; then
-            git add data/model.joblib
+          # ML-модель и прочие данные
+          if [ -d data ]; then
+            git add -f data/
           fi
 
-          # Гибкий захват любых плейлистов (.m3u) и отчетов (Ai_Alias*) с любыми суффиксами
-          git add *.m3u Ai_Alias*.txt Ai_Alias*.json || true
-          
-          if git status --porcelain | grep -E 'playlist|\.m3u|Ai_Alias|knowledge|model'; then
-            git commit -m "auto: update playlist, ML-model and reports [ngg_scan_ai v4.7 beta]"
-            git push
-          else
-            echo "Изменений не обнаружено. Пропуск push."
+          # Плейлисты
+          find . -maxdepth 1 -type f -name "*.m3u" \
+            -exec git add -f {} \; || true
+
+          # Текстовые отчёты
+          find . -maxdepth 1 -type f -name "Ai_Alias*.txt" \
+            -exec git add -f {} \; || true
+
+          # JSON отчёты
+          find . -maxdepth 1 -type f -name "Ai_Alias*.json" \
+            -exec git add -f {} \; || true
+
+          echo "========================================"
+          echo "        STAGED CHANGES"
+          echo "========================================"
+
+          git status --short
+
+      # ---------------------------------------------------------
+      # 8. Коммит и push
+      # ---------------------------------------------------------
+      - name: Сохранение результатов в репозиторий
+        shell: bash
+        run: |
+          set -e
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if git diff --cached --quiet; then
+            echo "Изменений для коммита нет."
+            exit 0
           fi
+
+          git commit \
+            -m "auto: monthly NGG AI scan update"
+
+          git push origin HEAD:${GITHUB_REF_NAME}
+
+      # ---------------------------------------------------------
+      # 9. Финальный статус
+      # ---------------------------------------------------------
+      - name: Завершение
+        if: always()
+        shell: bash
+        run: |
+          echo "========================================"
+          echo "        NGG AI WORKFLOW FINISHED"
+          echo "========================================"
+
+          echo "Дата: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo "Workflow: $GITHUB_WORKFLOW"
+          echo "Run: $GITHUB_RUN_NUMBER"
+          echo "Status: ${{ job.status }}"
