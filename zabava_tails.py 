@@ -1,0 +1,433 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import json
+import re
+import requests
+from urllib.parse import urlparse
+from datetime import datetime, timezone
+
+
+# ============================================================
+# ZABAVA TAIL SCANNER
+# SCALA-STYLE LOGGING
+# ============================================================
+
+PLAYLIST_URL = (
+    "http://dmitry-tv.ddns.net/iptv/freesat/gtmedia/ZABAVA/custom_url.m3u"
+)
+
+OUTPUT_TXT = "zabava_tails.txt"
+OUTPUT_JSON = "zabava_tails.json"
+OUTPUT_LOG = "zabava_scan.log"
+
+TIMEOUT = 20
+
+ZABAVA_DOMAINS = {
+    "zabava-htlive.cdn.ngenix.net",
+    "zabava.cdn.ngenix.net",
+}
+
+
+# ============================================================
+# LOGGER
+# ============================================================
+
+class ScalaLogger:
+
+    def __init__(self, filename: str):
+        self.filename = filename
+
+        with open(self.filename, "w", encoding="utf-8") as f:
+            f.write("")
+
+
+    def write(self, level: str, message: str):
+        now = datetime.now(timezone.utc).astimezone()
+        timestamp = now.strftime("%Y-%m-%dT%H:%M:%S.%f%z")
+
+        line = (
+            f"{timestamp} "
+            f"[{level.upper():7}] "
+            f"{message}"
+        )
+
+        print(line)
+
+        with open(self.filename, "a", encoding="utf-8") as f:
+            f.write(line + "\n")
+
+
+    def info(self, message: str):
+        self.write("INFO", message)
+
+
+    def found(self, message: str):
+        self.write("FOUND", message)
+
+
+    def warn(self, message: str):
+        self.write("WARN", message)
+
+
+    def error(self, message: str):
+        self.write("ERROR", message)
+
+
+    def debug(self, message: str):
+        self.write("DEBUG", message)
+
+
+# ============================================================
+# DOWNLOAD
+# ============================================================
+
+def download_playlist(url: str, log: ScalaLogger) -> str:
+
+    log.info("========================================")
+    log.info("ZABAVA PLAYLIST SCAN START")
+    log.info("========================================")
+
+    log.info(f"SOURCE      : {url}")
+    log.info(f"TIMEOUT     : {TIMEOUT}s")
+
+    try:
+
+        response = requests.get(
+            url,
+            timeout=TIMEOUT,
+            headers={
+                "User-Agent": "Mozilla/5.0 ZABAVA-SCANNER"
+            }
+        )
+
+        response.raise_for_status()
+
+        text = response.text
+
+        log.info(
+            f"DOWNLOAD OK : HTTP {response.status_code}"
+        )
+
+        log.info(
+            f"BYTES       : {len(text.encode('utf-8'))}"
+        )
+
+        return text
+
+    except Exception as e:
+
+        log.error(
+            f"DOWNLOAD FAILED : {type(e).__name__}: {e}"
+        )
+
+        raise
+
+
+# ============================================================
+# URL EXTRACTION
+# ============================================================
+
+def extract_urls(playlist: str, log: ScalaLogger) -> list[str]:
+
+    urls = []
+
+    for line_number, line in enumerate(
+        playlist.splitlines(),
+        start=1
+    ):
+
+        line = line.strip()
+
+        if not line:
+            continue
+
+        if line.startswith("#"):
+            continue
+
+        if line.startswith(("http://", "https://")):
+
+            urls.append(line)
+
+            log.debug(
+                f"URL[{line_number}] : {line}"
+            )
+
+    log.info(
+        f"PLAYLIST URLS : {len(urls)}"
+    )
+
+    return urls
+
+
+# ============================================================
+# ZABAVA TAIL EXTRACTION
+# ============================================================
+
+def extract_zabava_tail(
+    url: str,
+    log: ScalaLogger
+) -> tuple[str, str] | None:
+
+    try:
+
+        parsed = urlparse(url)
+
+        host = (parsed.hostname or "").lower()
+        path = parsed.path
+
+        if host not in ZABAVA_DOMAINS:
+            return None
+
+        if not path.startswith("/hls/"):
+            return None
+
+        tail = path
+
+        return host, tail
+
+    except Exception as e:
+
+        log.warn(
+            f"URL PARSE ERROR : {url} : {e}"
+        )
+
+        return None
+
+
+# ============================================================
+# SCAN
+# ============================================================
+
+def scan_playlist(
+    playlist: str,
+    log: ScalaLogger
+):
+
+    urls = extract_urls(playlist, log)
+
+    unique_tails = {}
+    duplicate_count = 0
+    zabava_count = 0
+
+    for url in urls:
+
+        result = extract_zabava_tail(url, log)
+
+        if result is None:
+            continue
+
+        host, tail = result
+
+        zabava_count += 1
+
+        if tail in unique_tails:
+
+            duplicate_count += 1
+
+            log.debug(
+                f"DUPLICATE : {tail}"
+            )
+
+            continue
+
+        unique_tails[tail] = {
+            "tail": tail,
+            "host": host,
+            "source_url": url,
+        }
+
+        log.found(
+            f"ZABAVA : {tail}"
+        )
+
+    return (
+        urls,
+        unique_tails,
+        zabava_count,
+        duplicate_count,
+    )
+
+
+# ============================================================
+# TXT
+# ============================================================
+
+def save_txt(
+    tails: dict,
+    filename: str,
+    log: ScalaLogger
+):
+
+    with open(filename, "w", encoding="utf-8") as f:
+
+        for tail in sorted(tails):
+
+            f.write(tail + "\n")
+
+    log.info(
+        f"TXT OUTPUT : {filename}"
+    )
+
+
+# ============================================================
+# JSON
+# ============================================================
+
+def save_json(
+    filename: str,
+    source_url: str,
+    total_urls: int,
+    zabava_urls: int,
+    duplicate_count: int,
+    tails: dict,
+    log: ScalaLogger
+):
+
+    now = datetime.now(timezone.utc).isoformat()
+
+    data = {
+        "scanner": {
+            "name": "ZABAVA Tail Scanner",
+            "version": "1.0",
+            "timestamp": now,
+        },
+
+        "source": {
+            "playlist": source_url,
+        },
+
+        "statistics": {
+            "playlist_urls": total_urls,
+            "zabava_urls": zabava_urls,
+            "unique_tails": len(tails),
+            "duplicates": duplicate_count,
+        },
+
+        "tails": [
+            {
+                "tail": item["tail"],
+                "host": item["host"],
+                "source_url": item["source_url"],
+            }
+            for item in sorted(
+                tails.values(),
+                key=lambda x: x["tail"]
+            )
+        ],
+    }
+
+    with open(
+        filename,
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        json.dump(
+            data,
+            f,
+            ensure_ascii=False,
+            indent=2
+        )
+
+    log.info(
+        f"JSON OUTPUT : {filename}"
+    )
+
+
+# ============================================================
+# MAIN
+# ============================================================
+
+def main():
+
+    log = ScalaLogger(OUTPUT_LOG)
+
+    started = datetime.now(timezone.utc)
+
+    log.info("========================================")
+    log.info("       START ZABAVA SCALA SCAN")
+    log.info("========================================")
+
+    log.info(
+        f"START TIME : {started.isoformat()}"
+    )
+
+    try:
+
+        playlist = download_playlist(
+            PLAYLIST_URL,
+            log
+        )
+
+        (
+            urls,
+            tails,
+            zabava_count,
+            duplicate_count,
+        ) = scan_playlist(
+            playlist,
+            log
+        )
+
+        save_txt(
+            tails,
+            OUTPUT_TXT,
+            log
+        )
+
+        save_json(
+            OUTPUT_JSON,
+            PLAYLIST_URL,
+            len(urls),
+            zabava_count,
+            duplicate_count,
+            tails,
+            log
+        )
+
+        finished = datetime.now(timezone.utc)
+
+        duration = (
+            finished - started
+        ).total_seconds()
+
+        log.info("========================================")
+        log.info("              SCAN RESULT")
+        log.info("========================================")
+
+        log.info(
+            f"PLAYLIST URLS : {len(urls)}"
+        )
+
+        log.info(
+            f"ZABAVA URLS   : {zabava_count}"
+        )
+
+        log.info(
+            f"UNIQUE TAILS  : {len(tails)}"
+        )
+
+        log.info(
+            f"DUPLICATES    : {duplicate_count}"
+        )
+
+        log.info(
+            f"DURATION      : {duration:.3f}s"
+        )
+
+        log.info("========================================")
+        log.info("ZABAVA SCAN COMPLETE")
+        log.info("========================================")
+
+    except Exception as e:
+
+        log.error(
+            f"FATAL ERROR : {type(e).__name__}: {e}"
+        )
+
+        raise
+
+
+if __name__ == "__main__":
+    main()
