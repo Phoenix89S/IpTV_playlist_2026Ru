@@ -2,7 +2,6 @@ name: ZABAVA TAILS SCAN
 
 on:
   workflow_dispatch:
-
   schedule:
     - cron: "0 3 * * *"
 
@@ -27,11 +26,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Download latest script version
+      - name: Download zabava_tails.py from root
         run: |
+          echo "Downloading zabava_tails.py from main branch root..."
           curl -fL \
-            "https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/zabava_tails.py" \
+            "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/zabava_tails.py" \
             -o zabava_tails.py
+
+          echo "Download OK"
 
       - name: Run ZABAVA TAILS scanner
         run: |
@@ -48,29 +50,29 @@ jobs:
       - name: Verify generated files
         run: |
           echo "Generated files:"
+          ls -lh zabava_tails.txt zabava_tails.json zabava_scan.log
 
           test -f zabava_tails.txt
           test -f zabava_tails.json
           test -f zabava_scan.log
-
-          ls -lh \
-            zabava_tails.txt \
-            zabava_tails.json \
-            zabava_scan.log
 
       - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add \
-            zabava_tails.txt \
-            zabava_tails.json \
-            zabava_scan.log
+          git add zabava_tails.txt zabava_tails.json zabava_scan.log
 
           if git diff --cached --quiet; then
             echo "No changes detected."
-          else
-            git commit -m "Update ZABAVA tails [skip ci]"
-            git push
+            exit 0
           fi
+
+          echo "Committing changes..."
+          git commit -m "Update ZABAVA tails [skip ci]"
+
+          echo "Pulling latest state..."
+          git pull --rebase
+
+          echo "Pushing..."
+          git push
