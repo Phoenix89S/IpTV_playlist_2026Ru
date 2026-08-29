@@ -4,14 +4,8 @@
 import json
 import re
 import requests
-from urllib.parse import urlparse
 from datetime import datetime, timezone
 
-
-# ============================================================
-# ZABAVA TAIL SCANNER
-# SCALA-STYLE LOGGING
-# ============================================================
 
 PLAYLIST_URL = (
     "http://dmitry-tv.ddns.net/iptv/freesat/gtmedia/ZABAVA/custom_url.m3u"
@@ -23,119 +17,73 @@ OUTPUT_LOG = "zabava_scan.log"
 
 TIMEOUT = 20
 
-ZABAVA_DOMAINS = {
-    "zabava-htlive.cdn.ngenix.net",
-    "zabava.cdn.ngenix.net",
-}
-
-
-# ============================================================
-# LOGGER
-# ============================================================
 
 class ScalaLogger:
 
-    def __init__(self, filename: str):
+    def __init__(self, filename):
         self.filename = filename
 
-        with open(self.filename, "w", encoding="utf-8") as f:
-            f.write("")
+        with open(filename, "w", encoding="utf-8") as f:
+            pass
 
-
-    def write(self, level: str, message: str):
+    def log(self, level, message):
         now = datetime.now(timezone.utc).astimezone()
         timestamp = now.strftime("%Y-%m-%dT%H:%M:%S.%f%z")
 
-        line = (
-            f"{timestamp} "
-            f"[{level.upper():7}] "
-            f"{message}"
-        )
+        line = f"{timestamp} [{level:<7}] {message}"
 
         print(line)
 
         with open(self.filename, "a", encoding="utf-8") as f:
             f.write(line + "\n")
 
+    def info(self, message):
+        self.log("INFO", message)
 
-    def info(self, message: str):
-        self.write("INFO", message)
+    def found(self, message):
+        self.log("FOUND", message)
 
+    def warn(self, message):
+        self.log("WARN", message)
 
-    def found(self, message: str):
-        self.write("FOUND", message)
-
-
-    def warn(self, message: str):
-        self.write("WARN", message)
-
-
-    def error(self, message: str):
-        self.write("ERROR", message)
+    def error(self, message):
+        self.log("ERROR", message)
 
 
-    def debug(self, message: str):
-        self.write("DEBUG", message)
+def download_playlist(logger):
+
+    logger.info("========================================")
+    logger.info("       START ZABAVA TAIL SCAN")
+    logger.info("========================================")
+
+    logger.info(f"SOURCE : {PLAYLIST_URL}")
+
+    response = requests.get(
+        PLAYLIST_URL,
+        timeout=TIMEOUT,
+        headers={
+            "User-Agent": "Mozilla/5.0"
+        }
+    )
+
+    response.raise_for_status()
+
+    logger.info(
+        f"DOWNLOAD OK : HTTP {response.status_code}"
+    )
+
+    logger.info(
+        f"PLAYLIST SIZE : {len(response.content)} bytes"
+    )
+
+    return response.text
 
 
-# ============================================================
-# DOWNLOAD
-# ============================================================
-
-def download_playlist(url: str, log: ScalaLogger) -> str:
-
-    log.info("========================================")
-    log.info("ZABAVA PLAYLIST SCAN START")
-    log.info("========================================")
-
-    log.info(f"SOURCE      : {url}")
-    log.info(f"TIMEOUT     : {TIMEOUT}s")
-
-    try:
-
-        response = requests.get(
-            url,
-            timeout=TIMEOUT,
-            headers={
-                "User-Agent": "Mozilla/5.0 ZABAVA-SCANNER"
-            }
-        )
-
-        response.raise_for_status()
-
-        text = response.text
-
-        log.info(
-            f"DOWNLOAD OK : HTTP {response.status_code}"
-        )
-
-        log.info(
-            f"BYTES       : {len(text.encode('utf-8'))}"
-        )
-
-        return text
-
-    except Exception as e:
-
-        log.error(
-            f"DOWNLOAD FAILED : {type(e).__name__}: {e}"
-        )
-
-        raise
-
-
-# ============================================================
-# URL EXTRACTION
-# ============================================================
-
-def extract_urls(playlist: str, log: ScalaLogger) -> list[str]:
+def extract_urls(playlist):
 
     urls = []
 
-    for line_number, line in enumerate(
-        playlist.splitlines(),
-        start=1
-    ):
+    for line in playlist.splitlines():
 
         line = line.strip()
 
@@ -146,179 +94,113 @@ def extract_urls(playlist: str, log: ScalaLogger) -> list[str]:
             continue
 
         if line.startswith(("http://", "https://")):
-
             urls.append(line)
-
-            log.debug(
-                f"URL[{line_number}] : {line}"
-            )
-
-    log.info(
-        f"PLAYLIST URLS : {len(urls)}"
-    )
 
     return urls
 
 
-# ============================================================
-# ZABAVA TAIL EXTRACTION
-# ============================================================
+def extract_tail(url):
 
-def extract_zabava_tail(
-    url: str,
-    log: ScalaLogger
-) -> tuple[str, str] | None:
+    """
+    Из любой ссылки извлекается только хвост,
+    начиная с /hls/.
 
-    try:
+    Пример:
 
-        parsed = urlparse(url)
+    https://zabava-htlive.cdn.ngenix.net/hls/CH_TVC/variant.m3u8
 
-        host = (parsed.hostname or "").lower()
-        path = parsed.path
+    превращается в:
 
-        if host not in ZABAVA_DOMAINS:
-            return None
+    /hls/CH_TVC/variant.m3u8
+    """
 
-        if not path.startswith("/hls/"):
-            return None
+    match = re.search(r"(/hls/.*)", url)
 
-        tail = path
-
-        return host, tail
-
-    except Exception as e:
-
-        log.warn(
-            f"URL PARSE ERROR : {url} : {e}"
-        )
-
+    if not match:
         return None
 
+    tail = match.group(1)
 
-# ============================================================
-# SCAN
-# ============================================================
+    # Удаляем query-параметры
+    tail = tail.split("?", 1)[0]
 
-def scan_playlist(
-    playlist: str,
-    log: ScalaLogger
-):
+    # Удаляем fragment
+    tail = tail.split("#", 1)[0]
 
-    urls = extract_urls(playlist, log)
+    return tail
 
-    unique_tails = {}
-    duplicate_count = 0
-    zabava_count = 0
 
-    for url in urls:
+def scan(playlist, logger):
 
-        result = extract_zabava_tail(url, log)
+    urls = extract_urls(playlist)
 
-        if result is None:
+    logger.info(f"URLS FOUND : {len(urls)}")
+
+    tails = []
+    seen = set()
+
+    for index, url in enumerate(urls, start=1):
+
+        tail = extract_tail(url)
+
+        if not tail:
             continue
 
-        host, tail = result
+        if tail in seen:
 
-        zabava_count += 1
-
-        if tail in unique_tails:
-
-            duplicate_count += 1
-
-            log.debug(
-                f"DUPLICATE : {tail}"
+            logger.info(
+                f"DUPLICATE [{index}] : {tail}"
             )
 
             continue
 
-        unique_tails[tail] = {
-            "tail": tail,
-            "host": host,
-            "source_url": url,
-        }
+        seen.add(tail)
+        tails.append(tail)
 
-        log.found(
-            f"ZABAVA : {tail}"
+        logger.found(
+            f"[{len(tails):05d}] {tail}"
         )
 
-    return (
-        urls,
-        unique_tails,
-        zabava_count,
-        duplicate_count,
-    )
+    return urls, tails
 
 
-# ============================================================
-# TXT
-# ============================================================
+def save_txt(tails, logger):
 
-def save_txt(
-    tails: dict,
-    filename: str,
-    log: ScalaLogger
-):
+    with open(
+        OUTPUT_TXT,
+        "w",
+        encoding="utf-8"
+    ) as f:
 
-    with open(filename, "w", encoding="utf-8") as f:
-
-        for tail in sorted(tails):
-
+        for tail in tails:
             f.write(tail + "\n")
 
-    log.info(
-        f"TXT OUTPUT : {filename}"
+    logger.info(
+        f"TXT SAVED : {OUTPUT_TXT}"
     )
 
 
-# ============================================================
-# JSON
-# ============================================================
-
-def save_json(
-    filename: str,
-    source_url: str,
-    total_urls: int,
-    zabava_urls: int,
-    duplicate_count: int,
-    tails: dict,
-    log: ScalaLogger
-):
-
-    now = datetime.now(timezone.utc).isoformat()
+def save_json(tails, urls, logger):
 
     data = {
-        "scanner": {
-            "name": "ZABAVA Tail Scanner",
-            "version": "1.0",
-            "timestamp": now,
-        },
+        "scanner": "zabava_tails.py",
+        "version": "1.0",
+        "timestamp": datetime.now(
+            timezone.utc
+        ).isoformat(),
 
-        "source": {
-            "playlist": source_url,
-        },
+        "source": PLAYLIST_URL,
 
         "statistics": {
-            "playlist_urls": total_urls,
-            "zabava_urls": zabava_urls,
-            "unique_tails": len(tails),
-            "duplicates": duplicate_count,
+            "urls_found": len(urls),
+            "tails_found": len(tails),
         },
 
-        "tails": [
-            {
-                "tail": item["tail"],
-                "host": item["host"],
-                "source_url": item["source_url"],
-            }
-            for item in sorted(
-                tails.values(),
-                key=lambda x: x["tail"]
-            )
-        ],
+        "tails": tails,
     }
 
     with open(
-        filename,
+        OUTPUT_JSON,
         "w",
         encoding="utf-8"
     ) as f:
@@ -330,99 +212,65 @@ def save_json(
             indent=2
         )
 
-    log.info(
-        f"JSON OUTPUT : {filename}"
+    logger.info(
+        f"JSON SAVED : {OUTPUT_JSON}"
     )
 
-
-# ============================================================
-# MAIN
-# ============================================================
 
 def main():
 
-    log = ScalaLogger(OUTPUT_LOG)
+    logger = ScalaLogger(OUTPUT_LOG)
 
     started = datetime.now(timezone.utc)
 
-    log.info("========================================")
-    log.info("       START ZABAVA SCALA SCAN")
-    log.info("========================================")
-
-    log.info(
-        f"START TIME : {started.isoformat()}"
-    )
-
     try:
 
-        playlist = download_playlist(
-            PLAYLIST_URL,
-            log
-        )
+        playlist = download_playlist(logger)
 
-        (
-            urls,
-            tails,
-            zabava_count,
-            duplicate_count,
-        ) = scan_playlist(
+        urls, tails = scan(
             playlist,
-            log
+            logger
         )
 
         save_txt(
             tails,
-            OUTPUT_TXT,
-            log
+            logger
         )
 
         save_json(
-            OUTPUT_JSON,
-            PLAYLIST_URL,
-            len(urls),
-            zabava_count,
-            duplicate_count,
             tails,
-            log
+            urls,
+            logger
         )
-
-        finished = datetime.now(timezone.utc)
 
         duration = (
-            finished - started
+            datetime.now(timezone.utc)
+            - started
         ).total_seconds()
 
-        log.info("========================================")
-        log.info("              SCAN RESULT")
-        log.info("========================================")
+        logger.info("========================================")
+        logger.info("             SCAN RESULT")
+        logger.info("========================================")
 
-        log.info(
-            f"PLAYLIST URLS : {len(urls)}"
+        logger.info(
+            f"URLS        : {len(urls)}"
         )
 
-        log.info(
-            f"ZABAVA URLS   : {zabava_count}"
+        logger.info(
+            f"UNIQUE TAILS: {len(tails)}"
         )
 
-        log.info(
-            f"UNIQUE TAILS  : {len(tails)}"
+        logger.info(
+            f"DURATION    : {duration:.3f}s"
         )
 
-        log.info(
-            f"DUPLICATES    : {duplicate_count}"
-        )
-
-        log.info(
-            f"DURATION      : {duration:.3f}s"
-        )
-
-        log.info("========================================")
-        log.info("ZABAVA SCAN COMPLETE")
-        log.info("========================================")
+        logger.info("========================================")
+        logger.info("       ZABAVA TAIL SCAN COMPLETE")
+        logger.info("========================================")
 
     except Exception as e:
 
-        log.error(
+        logger.error(
             f"FATAL ERROR : {type(e).__name__}: {e}"
         )
 
