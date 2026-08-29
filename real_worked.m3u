@@ -1,167 +1,332 @@
 #EXTM3U
-#EXTINF:-1, RUSSIA1
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", RUSSIA1
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1/variant.m3u8
-#EXTINF:-1, RUSSIA1_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", RUSSIA1_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1_2/variant.m3u8
-#EXTINF:-1, RUSSIA1_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", RUSSIA1_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1_4/variant.m3u8
-#EXTINF:-1, RUSSIA1_7
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", RUSSIA1_7
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1_7/variant.m3u8
-#EXTINF:-1, NTV
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", NTV
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_NTV/variant.m3u8
-#EXTINF:-1, NTV_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", NTV_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_NTV_2/variant.m3u8
-#EXTINF:-1, NTV_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", NTV_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_NTV_4/variant.m3u8
-#EXTINF:-1, NTV_7
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", NTV_7
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_NTV_7/variant.m3u8
-#EXTINF:-1, 5TV
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", 5TV
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_5TV/variant.m3u8
-#EXTINF:-1, 5TV_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", 5TV_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_5TV_2/variant.m3u8
-#EXTINF:-1, 5TV_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", 5TV_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_5TV_4/variant.m3u8
-#EXTINF:-1, 5TV_7
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", 5TV_7
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_5TV_7/variant.m3u8
-#EXTINF:-1, RUSSIAK
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", RUSSIAK
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIAK/variant.m3u8
-#EXTINF:-1, RUSSIAK_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", RUSSIAK_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIAK_2/variant.m3u8
-#EXTINF:-1, RUSSIAK_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", RUSSIAK_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIAK_4/variant.m3u8
-#EXTINF:-1, RUSSIAK_7
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", RUSSIAK_7
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIAK_7/variant.m3u8
-#EXTINF:-1, RUSSIA24
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", RUSSIA24
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA24/variant.m3u8
-#EXTINF:-1, KARUSEL
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", KARUSEL
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_KARUSEL/variant.m3u8
-#EXTINF:-1, KARUSEL_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", KARUSEL_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_KARUSEL_2/variant.m3u8
-#EXTINF:-1, KARUSEL_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", KARUSEL_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_KARUSEL_4/variant.m3u8
-#EXTINF:-1, KARUSEL_7
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", KARUSEL_7
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_KARUSEL_7/variant.m3u8
-#EXTINF:-1, OTR
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", OTR
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_OTR/variant.m3u8
-#EXTINF:-1, TVC
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", TVC
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TVC/variant.m3u8
-#EXTINF:-1, TVC_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", TVC_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TVC_2/variant.m3u8
-#EXTINF:-1, TVC_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", TVC_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TVC_4/variant.m3u8
-#EXTINF:-1, TVC_7
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", TVC_7
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TVC_7/variant.m3u8
-#EXTINF:-1, RENTV
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", RENTV
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV/variant.m3u8
-#EXTINF:-1, RENTV_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", RENTV_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV_2/variant.m3u8
-#EXTINF:-1, RENTV_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", RENTV_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV_4/variant.m3u8
-#EXTINF:-1, RENTV_7
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", RENTV_7
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV_7/variant.m3u8
-#EXTINF:-1, SPAS
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", SPAS
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_SPAS/variant.m3u8
-#EXTINF:-1, SPAS_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", SPAS_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_SPAS_2/variant.m3u8
-#EXTINF:-1, SPAS_7
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", SPAS_7
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_SPAS_7/variant.m3u8
-#EXTINF:-1, STS
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", STS
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_STS/variant.m3u8
-#EXTINF:-1, STS_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", STS_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_STS_2/variant.m3u8
-#EXTINF:-1, STS_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", STS_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_STS_4/variant.m3u8
-#EXTINF:-1, STS_7
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", STS_7
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_STS_7/variant.m3u8
-#EXTINF:-1, DOMASHNIY
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", DOMASHNIY
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_DOMASHNIY/variant.m3u8
-#EXTINF:-1, DOMASHNIY_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", DOMASHNIY_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_DOMASHNIY_4/variant.m3u8
-#EXTINF:-1, TV3
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", TV3
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TV3/variant.m3u8
-#EXTINF:-1, TV3_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", TV3_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TV3_2/variant.m3u8
-#EXTINF:-1, TV3_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", TV3_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TV3_4/variant.m3u8
-#EXTINF:-1, TV3_7
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", TV3_7
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TV3_7/variant.m3u8
-#EXTINF:-1, FRIDAY_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", FRIDAY_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_FRIDAY_2/variant.m3u8
-#EXTINF:-1, FRIDAY_7
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", FRIDAY_7
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_FRIDAY_7/variant.m3u8
-#EXTINF:-1, ZVEZDA
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", ZVEZDA
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_ZVEZDA/variant.m3u8
-#EXTINF:-1, ZVEZDA_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", ZVEZDA_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_ZVEZDA_2/variant.m3u8
-#EXTINF:-1, ZVEZDA_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", ZVEZDA_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_ZVEZDA_4/variant.m3u8
-#EXTINF:-1, ZVEZDA_7
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", ZVEZDA_7
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_ZVEZDA_7/variant.m3u8
-#EXTINF:-1, MIR
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", MIR
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_MIR/variant.m3u8
-#EXTINF:-1, MIR_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", MIR_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_MIR_2/variant.m3u8
-#EXTINF:-1, MIR_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", MIR_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_MIR_4/variant.m3u8
-#EXTINF:-1, MIR_7
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", MIR_7
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_MIR_7/variant.m3u8
-#EXTINF:-1, TNT
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", TNT
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT/variant.m3u8
-#EXTINF:-1, TNT_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", TNT_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT_2/variant.m3u8
-#EXTINF:-1, TNT_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", TNT_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT_4/variant.m3u8
-#EXTINF:-1, TNT_7
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", TNT_7
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT_7/variant.m3u8
-#EXTINF:-1, MUZTV
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", MUZTV
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_MUZTV/variant.m3u8
-#EXTINF:-1, MUZTV_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", MUZTV_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_MUZTV_2/variant.m3u8
-#EXTINF:-1, MUZTV_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", MUZTV_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_MUZTV_4/variant.m3u8
-#EXTINF:-1, MUZTV_7
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", MUZTV_7
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_MUZTV_7/variant.m3u8
-#EXTINF:-1, CHE_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", CHE_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_CHE_2/variant.m3u8
-#EXTINF:-1, CHE_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", CHE_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_CHE_4/variant.m3u8
-#EXTINF:-1, U
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", U
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_U/variant.m3u8
-#EXTINF:-1, U_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", U_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_U_2/variant.m3u8
-#EXTINF:-1, U_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", U_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_U_4/variant.m3u8
-#EXTINF:-1, U_7
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", U_7
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_U_7/variant.m3u8
-#EXTINF:-1, STSLOVE
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", STSLOVE
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_STSLOVE/variant.m3u8
-#EXTINF:-1, STSLOVE_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", STSLOVE_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_STSLOVE_2/variant.m3u8
-#EXTINF:-1, STSLOVE_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", STSLOVE_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_STSLOVE_4/variant.m3u8
-#EXTINF:-1, 2X2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", 2X2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_2X2/variant.m3u8
-#EXTINF:-1, 2X2_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", 2X2_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_2X2_2/variant.m3u8
-#EXTINF:-1, 2X2_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", 2X2_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_2X2_4/variant.m3u8
-#EXTINF:-1, 2X2_7
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", 2X2_7
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_2X2_7/variant.m3u8
-#EXTINF:-1, TNT4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", TNT4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT4/variant.m3u8
-#EXTINF:-1, TNT4_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", TNT4_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT4_2/variant.m3u8
-#EXTINF:-1, TNT4_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", TNT4_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT4_4/variant.m3u8
-#EXTINF:-1, TNT4_7
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", TNT4_7
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TNT4_7/variant.m3u8
-#EXTINF:-1, DISNEY
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", DISNEY
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_DISNEY/variant.m3u8
-#EXTINF:-1, DISNEY_2
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", DISNEY_2
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_DISNEY_2/variant.m3u8
-#EXTINF:-1, DISNEY_4
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", DISNEY_4
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_DISNEY_4/variant.m3u8
-#EXTINF:-1, DISNEY_7
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", DISNEY_7
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_DISNEY_7/variant.m3u8
-#EXTINF:-1, VSETVHD
+
+#EXTINF:-1 tvg-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer", VSETVHD
+#EXTVLCOPT:http-user-agent="WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 https://zabava-htlive.cdn.ngenix.net/hls/CH_VSETVHD/variant.m3u8
