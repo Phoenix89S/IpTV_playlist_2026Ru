@@ -2,6 +2,7 @@ name: ZABAVA TAILS SCAN
 
 on:
   workflow_dispatch:
+
   schedule:
     - cron: "0 3 * * *"
 
@@ -26,49 +27,29 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Download zabava_tails.py (RAW)
+      - name: Download zabava_tails.py
         run: |
-          RAW_URL="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/zabava_tails.py"
+          curl -fL \
+            "https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/zabava_tails.py" \
+            -o zabava_tails.py
 
-          echo "Downloading script from:"
-          echo "$RAW_URL"
-
-          curl -fL "$RAW_URL" -o zabava_tails.py
-
-          echo "Download OK"
-
-      - name: Run ZABAVA TAILS scanner
+      - name: Run zabava_tails.py
         run: |
-          echo "========================================"
-          echo "       START ZABAVA TAILS SCAN"
-          echo "========================================"
-
           python zabava_tails.py
 
-          echo "========================================"
-          echo "       ZABAVA TAILS SCAN FINISHED"
-          echo "========================================"
-
-      - name: Verify generated files
-        run: |
-          ls -lh zabava_tails.txt zabava_tails.json zabava_scan.log
-
-          test -f zabava_tails.txt
-          test -f zabava_tails.json
-          test -f zabava_scan.log
-
-      - name: Commit results
+      - name: Push results to repository
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add zabava_tails.txt zabava_tails.json zabava_scan.log
+          git add \
+            zabava_tails.txt \
+            zabava_tails.json \
+            zabava_scan.log
 
           if git diff --cached --quiet; then
-            echo "No changes detected."
-            exit 0
+            echo "No changes to push."
+          else
+            git commit -m "Update ZABAVA tails [skip ci]"
+            git push
           fi
-
-          git commit -m "Update ZABAVA tails [skip ci]"
-          git pull --rebase
-          git push
