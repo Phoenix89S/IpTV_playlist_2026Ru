@@ -2,28 +2,25 @@
 # -*- coding: utf-8 -*-
 
 import json
-import re
 import requests
 from datetime import datetime, timezone
 from pathlib import Path
 
-# === Исходный плейлист Дмитрий-TV ===
-PLAYLIST_URL = "http://dmitry-tv.ddns.net/iptv/freesat/gtmedia/ZABAVA/custom_url.m3u"
+# === Исходный JSON со списком хвостов ===
+JSON_INPUT = "_scanner_zaba_1788021849270.txt"
 
 # === CDN Zabava ===
 BASE_CDN = "https://zabava-htlive.cdn.ngenix.net"
 
-# === Выходные файлы ===
-OUTPUT_TXT = "zabava_tails.txt"
-OUTPUT_JSON = "zabava_tails.json"
-OUTPUT_LOG = "zabava_scan.log"
+# === Мастер‑пример для структуры ===
+MASTER_VARIANT = "/hls/CH_TVC/variant.m3u8"
 
+# === Выходные файлы ===
 OUT_JSON_NEW = "_scanner_zaba_2.json"
 OUT_PLAYLIST_JSON = "zabava_tiles2.json"
 OUT_SKALA_TXT = "zabava_skala2.txt"
 OUT_M3U = "zabava_tiles2.m3u"
-
-TIMEOUT = 20
+OUT_LOG = "zabava_scan2.log"
 
 
 # ============================================================
@@ -51,113 +48,74 @@ class ScalaLogger:
 
 
 # ============================================================
-#                     СКАЧИВАЕМ ПЛЕЙЛИСТ
+#                     ЗАГРУЗКА ХВОСТОВ
 # ============================================================
 
-def download_playlist(logger):
-    logger.info("========================================")
-    logger.info("       START ZABAVA TAIL SCAN")
-    logger.info("========================================")
-    logger.info(f"SOURCE : {PLAYLIST_URL}")
-
-    response = requests.get(
-        PLAYLIST_URL,
-        timeout=TIMEOUT,
-        headers={"User-Agent": "Mozilla/5.0"}
-    )
-    response.raise_for_status()
-
-    logger.info(f"DOWNLOAD OK : HTTP {response.status_code}")
-    logger.info(f"PLAYLIST SIZE : {len(response.content)} bytes")
-
-    return response.text
+def load_tails(logger):
+    logger.info(f"LOAD JSON: {JSON_INPUT}")
+    with open(JSON_INPUT, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    tails = data["tails"]
+    logger.info(f"TAILS LOADED: {len(tails)}")
+    return tails
 
 
 # ============================================================
-#                     ИЗВЛЕЧЕНИЕ URL
+#                     ГЕНЕРАЦИЯ ССЫЛОК ПО ШАБЛОНУ
 # ============================================================
 
-def extract_urls(playlist):
-    urls = []
-    for line in playlist.splitlines():
-        line = line.strip()
-        if not line or line.startswith("#"):
-            continue
-        if line.startswith(("http://", "https://")):
-            urls.append(line)
-    return urls
+def generate_links_from_tails(tails, logger):
+    """
+    Пример:
+    tail = "/hls/zabava/CH_TVC/mono.m3u8"
 
+    Мы должны получить:
+    https://zabava-htlive.cdn.ngenix.net/hls/zabava/CH_TVC/mono.m3u8
+    """
 
-# ============================================================
-#                     ИЗВЛЕЧЕНИЕ ХВОСТОВ
-# ============================================================
+    links = []
 
-def extract_tail(url):
-    match = re.search(r"(/hls/.*)", url)
-    if not match:
-        return None
-
-    tail = match.group(1)
-    tail = tail.split("?", 1)[0]
-    tail = tail.split("#", 1)[0]
-    return tail
-
-
-def scan(playlist, logger):
-    urls = extract_urls(playlist)
-    logger.info(f"URLS FOUND : {len(urls)}")
-
-    tails = []
-    seen = set()
-
-    for index, url in enumerate(urls, start=1):
-        tail = extract_tail(url)
-        if not tail:
-            continue
-
-        if tail in seen:
-            logger.info(f"DUPLICATE [{index}] : {tail}")
-            continue
-
-        seen.add(tail)
-        tails.append(tail)
-        logger.found(f"[{len(tails):05d}] {tail}")
-
-    return urls, tails
-
-
-# ============================================================
-#                     HTTP ПРОВЕРКА ВСЕХ ХВОСТОВ
-# ============================================================
-
-def check_http_all(tails, logger):
-    results = []
     for tail in tails:
         full_url = BASE_CDN + tail
+        links.append(full_url)
+        logger.found(f"GENERATED: {full_url}")
+
+    return links
+
+
+# ============================================================
+#                     HTTP ПРОВЕРКА
+# ============================================================
+
+def check_http_all(links, logger):
+    results = []
+
+    for url in links:
         try:
-            r = requests.head(full_url, timeout=5)
+            r = requests.head(url, timeout=10)
             status = r.status_code
         except Exception:
             status = None
 
         ok = (status == 200)
+
         results.append({
-            "tail": tail,
-            "url": full_url,
+            "url": url,
+            "tail": url.replace(BASE_CDN, ""),
             "http": status,
             "ok": ok,
         })
 
-        logger.info(f"CHECK {tail} -> {status} {'OK' if ok else 'FAIL'}")
+        logger.info(f"CHECK {url} -> {status} {'OK' if ok else 'FAIL'}")
 
     return results
 
 
 # ============================================================
-#                     СОЗДАНИЕ НОВОГО JSON v2
+#                     СОЗДАНИЕ JSON v2
 # ============================================================
 
-def build_new_scanner_json(results):
+def build_new_json(results):
     tails_ok = [r["tail"] for r in results if r["ok"]]
     return {
         "scanner": "zabava_tails.py",
@@ -176,8 +134,9 @@ def build_playlist_json(results):
     channels = []
     for r in results:
         if r["ok"]:
+            name = r["tail"].split("/")[-1]
             channels.append({
-                "name": r["tail"].split("/")[-1],
+                "name": name,
                 "url": r["url"],
             })
     return {"channels": channels}
@@ -210,52 +169,28 @@ def build_skala_txt(results):
 # ============================================================
 
 def main():
-    logger = ScalaLogger(OUTPUT_LOG)
-    started = datetime.now(timezone.utc)
+    logger = ScalaLogger(OUT_LOG)
+    logger.info("=== START ZABAVA FULL CDN CHECK ===")
 
-    try:
-        playlist = download_playlist(logger)
-        urls, tails = scan(playlist, logger)
+    tails = load_tails(logger)
+    links = generate_links_from_tails(tails, logger)
+    results = check_http_all(links, logger)
 
-        # Сохраняем исходные хвосты
-        Path(OUTPUT_TXT).write_text("\n".join(tails), encoding="utf-8")
-        Path(OUTPUT_JSON).write_text(json.dumps({
-            "tails": tails,
-            "urls": urls
-        }, ensure_ascii=False, indent=2), encoding="utf-8")
+    # Новый JSON v2
+    new_json = build_new_json(results)
+    Path(OUT_JSON_NEW).write_text(json.dumps(new_json, ensure_ascii=False, indent=2), encoding="utf-8")
 
-        # Проверяем хвосты на реальном CDN
-        results = check_http_all(tails, logger)
+    # JSON-плейлист
+    playlist_json = build_playlist_json(results)
+    Path(OUT_PLAYLIST_JSON).write_text(json.dumps(playlist_json, ensure_ascii=False, indent=2), encoding="utf-8")
 
-        # Новый JSON v2
-        new_json = build_new_scanner_json(results)
-        Path(OUT_JSON_NEW).write_text(json.dumps(new_json, ensure_ascii=False, indent=2), encoding="utf-8")
+    # M3U
+    Path(OUT_M3U).write_text(build_m3u(results), encoding="utf-8")
 
-        # JSON-плейлист
-        playlist_json = build_playlist_json(results)
-        Path(OUT_PLAYLIST_JSON).write_text(json.dumps(playlist_json, ensure_ascii=False, indent=2), encoding="utf-8")
+    # SKALA
+    Path(OUT_SKALA_TXT).write_text(build_skala_txt(results), encoding="utf-8")
 
-        # M3U
-        Path(OUT_M3U).write_text(build_m3u(results), encoding="utf-8")
-
-        # SKALA
-        Path(OUT_SKALA_TXT).write_text(build_skala_txt(results), encoding="utf-8")
-
-        duration = (datetime.now(timezone.utc) - started).total_seconds()
-
-        logger.info("========================================")
-        logger.info("             SCAN RESULT")
-        logger.info("========================================")
-        logger.info(f"URLS        : {len(urls)}")
-        logger.info(f"UNIQUE TAILS: {len(tails)}")
-        logger.info(f"DURATION    : {duration:.3f}s")
-        logger.info("========================================")
-        logger.info("       ZABAVA TAIL SCAN COMPLETE")
-        logger.info("========================================")
-
-    except Exception as e:
-        logger.error(f"FATAL ERROR : {type(e).__name__}: {e}")
-        raise
+    logger.info("=== COMPLETE ===")
 
 
 if __name__ == "__main__":
