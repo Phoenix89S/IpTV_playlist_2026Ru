@@ -1,0 +1,11 @@
+SKALA REPORT: ZABAVA CDN
+
+=== VARIANT CHECKS ===
+
+CH_TVC: status=no_matches http=200 matches=0
+CH_1TV: status=no_matches http=200 matches=0
+CH_RUSSIA1: status=no_matches http=200 matches=0
+
+=== HTTP CHECKS ===
+
+OK: 0/0
