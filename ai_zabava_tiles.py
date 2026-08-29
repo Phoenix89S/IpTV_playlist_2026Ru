@@ -9,57 +9,83 @@ from pathlib import Path
 
 
 # ============================================================
-#                     КОНФИГУРАЦИЯ
+#                         CONFIGURATION
 # ============================================================
 
-# Исходный JSON со списком хвостов
+# Результат сканирования DmitryTV
 JSON_INPUT = "_scanner_zaba_1788021849270.txt"
 
-# CDN Zabava
+# NGENIX CDN
 BASE_CDN = "https://zabava-htlive.cdn.ngenix.net"
 
-# Мастер-вариант.
-# Именно по этой структуре строятся ссылки для всех каналов.
+# Мастер-вариант NGENIX
+#
+# Именно эта структура является эталоном:
+#
+# /hls/CH_TVC/variant.m3u8
+#
 MASTER_VARIANT = "/hls/CH_TVC/variant.m3u8"
 
-# Выходные файлы
-OUT_JSON_NEW = "_scanner_zaba_2.json"
-OUT_PLAYLIST_JSON = "zabava_tiles2.json"
-OUT_SKALA_TXT = "zabava_skala2.txt"
-OUT_M3U = "zabava_tiles2.m3u"
-OUT_LOG = "zabava_scan2.log"
+# ============================================================
+#                         OUTPUT
+# ============================================================
+
+OUT_JSON = "zabava_ngenix_scan.json"
+OUT_M3U = "zabava_ngenix.m3u"
+OUT_SKALA = "zabava_ngenix_skala.txt"
+OUT_LOG = "zabava_ngenix_scan.log"
 
 # HTTP timeout
 HTTP_TIMEOUT = 10
 
-# Заголовки запроса
+# HTTP headers
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 ZABAVA-CDN-SCANNER/2.0",
+    "User-Agent": "ZABAVA-NGENIX-SCANNER/3.0",
     "Accept": "*/*",
 }
 
 
 # ============================================================
-#                     ЛОГГЕР SKALA
+#                         SKALA LOGGER
 # ============================================================
 
 class ScalaLogger:
 
     def __init__(self, filename):
+
         self.filename = filename
 
-        with open(filename, "w", encoding="utf-8"):
+        with open(
+            self.filename,
+            "w",
+            encoding="utf-8"
+        ):
             pass
 
     def log(self, level, message):
-        now = datetime.now(timezone.utc).astimezone()
-        timestamp = now.strftime("%Y-%m-%dT%H:%M:%S.%f%z")
 
-        line = f"{timestamp} [{level:<7}] {message}"
+        now = datetime.now(
+            timezone.utc
+        ).astimezone()
+
+        timestamp = now.strftime(
+            "%Y-%m-%dT%H:%M:%S.%f%z"
+        )
+
+        line = (
+            f"{timestamp} "
+            f"[{level:<7}] "
+            f"{message}"
+        )
 
         print(line)
 
-        with open(self.filename, "a", encoding="utf-8") as f:
+        with open(
+            self.filename,
+            "a",
+            encoding="utf-8"
+        ) as f:
+
             f.write(line + "\n")
 
     def info(self, message):
@@ -76,310 +102,524 @@ class ScalaLogger:
 
 
 # ============================================================
-#                     ЗАГРУЗКА JSON
+#                  LOAD DMITRYTV RESULT
 # ============================================================
 
-def load_tails(logger):
-    logger.info(f"LOAD JSON: {JSON_INPUT}")
+def load_source_json(logger):
 
-    with open(JSON_INPUT, "r", encoding="utf-8") as f:
+    logger.info(
+        f"LOAD DMITRYTV JSON: {JSON_INPUT}"
+    )
+
+    with open(
+        JSON_INPUT,
+        "r",
+        encoding="utf-8"
+    ) as f:
+
         data = json.load(f)
 
     if not isinstance(data, dict):
-        raise ValueError("JSON должен содержать объект верхнего уровня")
+
+        raise ValueError(
+            "Исходный JSON должен быть объектом"
+        )
 
     if "tails" not in data:
-        raise KeyError("В JSON отсутствует поле 'tails'")
+
+        raise KeyError(
+            "В исходном JSON отсутствует поле 'tails'"
+        )
 
     tails = data["tails"]
 
     if not isinstance(tails, list):
-        raise ValueError("Поле 'tails' должно быть массивом")
 
-    logger.info(f"TAILS LOADED: {len(tails)}")
+        raise ValueError(
+            "Поле 'tails' должно быть массивом"
+        )
 
-    return tails
+    logger.info(
+        f"DMITRYTV TAILS LOADED: {len(tails)}"
+    )
+
+    return data, tails
 
 
 # ============================================================
-#                 ИЗВЛЕЧЕНИЕ КАНАЛА
+#                     EXTRACT CH ALIAS
 # ============================================================
 
-def extract_channel(tail):
+def extract_alias(tail):
+
     """
-    Извлекает только идентификатор канала.
+    Из tail извлекается только CH-алиас.
 
-    Примеры входа:
+    Например:
 
-        /hls/CH_TVC/mono.m3u8
-        /hls/CH_TVC/variant.m3u8
-        https://example.com/hls/CH_TVC/variant.m3u8
-        CH_TVC
+        /hls/DmitryTV/CH_TVC/mono.m3u8
 
-    Результат:
+    превращается в:
 
         CH_TVC
 
-    Нам нужен только CH_XXX.
+    Никакая часть DmitryTV URL дальше
+    не используется для формирования NGENIX URL.
     """
 
     if not isinstance(tail, str):
+
         return None
 
     tail = tail.strip()
 
     if not tail:
+
         return None
 
-    # Ищем сегмент вида CH_XXXXXX
+    # Основной вариант.
+    #
+    # Ищем отдельный сегмент:
+    #
+    # /CH_TVC/
+    # /CH_NTV/
+    # /CH_REN/
+    #
+
     match = re.search(
-        r"(?:^|/)("
-        r"CH_[A-Za-z0-9_-]+"
-        r")(?:/|$)",
+        r"(?:^|/)"
+        r"(CH_[A-Za-z0-9_-]+)"
+        r"(?:/|$)",
         tail
     )
 
     if match:
+
         return match.group(1)
 
-    # Дополнительный вариант:
-    # если JSON уже содержит просто CH_TVC
-    if re.fullmatch(r"CH_[A-Za-z0-9_-]+", tail):
+    # Если tail уже является самим алиасом.
+
+    if re.fullmatch(
+        r"CH_[A-Za-z0-9_-]+",
+        tail
+    ):
+
         return tail
 
     return None
 
 
 # ============================================================
-#              ФОРМИРОВАНИЕ MASTER-ССЫЛКИ
+#                  EXTRACT UNIQUE ALIASES
 # ============================================================
 
-def build_variant_url(channel):
-    """
-    Формирует ссылку СТРОГО по мастер-примеру:
+def extract_aliases(
+    tails,
+    logger
+):
 
-        /hls/CH_TVC/variant.m3u8
+    aliases = []
 
-    Для CH_NTV:
+    # Для каждого alias сохраняем
+    # все исходные DmitryTV tails.
+    alias_sources = {}
 
-        /hls/CH_NTV/variant.m3u8
-    """
-
-    master_match = re.fullmatch(
-        r"/hls/CH_[A-Za-z0-9_-]+/variant\.m3u8",
-        MASTER_VARIANT
-    )
-
-    if not master_match:
-        raise ValueError(
-            f"MASTER_VARIANT имеет неправильный формат: "
-            f"{MASTER_VARIANT}"
-        )
-
-    path = f"/hls/{channel}/variant.m3u8"
-
-    return BASE_CDN + path
-
-
-# ============================================================
-#              ГЕНЕРАЦИЯ КАНАЛОВ И ССЫЛОК
-# ============================================================
-
-def generate_links_from_tails(tails, logger):
-    """
-    Из tails извлекается только имя канала.
-
-    Затем для каждого канала строится:
-
-        https://zabava-htlive.cdn.ngenix.net/hls/CHANNEL/variant.m3u8
-
-    Дубликаты каналов удаляются.
-    """
-
-    channels = []
     seen = set()
 
     for tail in tails:
 
-        channel = extract_channel(tail)
+        alias = extract_alias(
+            tail
+        )
 
-        if not channel:
+        if not alias:
+
             logger.warn(
-                f"CHANNEL NOT FOUND: {tail}"
+                f"ALIAS NOT FOUND: {tail}"
             )
+
             continue
 
-        if channel in seen:
+        if alias not in alias_sources:
+
+            alias_sources[alias] = []
+
+        alias_sources[alias].append(
+            tail
+        )
+
+        # Один alias проверяем только один раз.
+
+        if alias in seen:
+
             logger.info(
-                f"DUPLICATE CHANNEL SKIP: {channel}"
+                f"DUPLICATE ALIAS SKIP: {alias}"
             )
+
             continue
 
-        seen.add(channel)
+        seen.add(alias)
 
-        url = build_variant_url(channel)
-
-        item = {
-            "channel": channel,
-            "url": url,
-            "tail": f"/hls/{channel}/variant.m3u8",
-        }
-
-        channels.append(item)
+        aliases.append(alias)
 
         logger.found(
-            f"GENERATED: {channel} -> {url}"
+            f"ALIAS EXTRACTED: {alias}"
         )
 
     logger.info(
-        f"CHANNELS GENERATED: {len(channels)}"
+        f"UNIQUE ALIASES: {len(aliases)}"
+    )
+
+    return aliases, alias_sources
+
+
+# ============================================================
+#                    BUILD NGENIX URL
+# ============================================================
+
+def build_ngenix_tail(alias):
+
+    """
+    Формирует tail NGENIX строго по master:
+
+        /hls/CH_TVC/variant.m3u8
+
+    где CH_TVC заменяется на найденный alias.
+    """
+
+    return (
+        "/hls/"
+        + alias
+        + "/variant.m3u8"
+    )
+
+
+def build_ngenix_url(alias):
+
+    """
+    Формирует полный NGENIX URL:
+
+        https://zabava-htlive.cdn.ngenix.net
+        /hls/CH_TVC/variant.m3u8
+    """
+
+    return (
+        BASE_CDN
+        + build_ngenix_tail(alias)
+    )
+
+
+# ============================================================
+#                GENERATE COMPLETE NGENIX LIST
+# ============================================================
+
+def generate_ngenix_list(
+    aliases,
+    alias_sources,
+    logger
+):
+
+    channels = []
+
+    for alias in aliases:
+
+        nginx_tail = build_ngenix_tail(
+            alias
+        )
+
+        url = build_ngenix_url(
+            alias
+        )
+
+        item = {
+
+            # Алиас, полученный из DmitryTV
+            "alias": alias,
+
+            # Исходные tails DmitryTV,
+            # из которых получен alias
+            "source_tails": alias_sources.get(
+                alias,
+                []
+            ),
+
+            # Новый tail NGENIX
+            "ngenix_tail": nginx_tail,
+
+            # Полная ссылка NGENIX
+            "ngenix_url": url,
+
+        }
+
+        channels.append(
+            item
+        )
+
+        logger.info(
+            f"NGENIX GENERATED: "
+            f"{alias} -> {url}"
+        )
+
+    logger.info(
+        f"NGENIX URLS GENERATED: "
+        f"{len(channels)}"
     )
 
     return channels
 
 
 # ============================================================
-#                     HTTP ПРОВЕРКА CDN
+#                     NGENIX CDN CHECK
 # ============================================================
 
-def check_http_all(channels, logger):
-    """
-    Проверка CDN.
+def check_ngenix(
+    channels,
+    logger
+):
 
-    Единственный критерий успеха:
+    """
+    Проверяется КАЖДЫЙ сформированный NGENIX URL.
+
+    Единственный критерий рабочего канала:
 
         HTTP 200
 
-    Никаких дополнительных проверок содержимого,
-    сегментов, EPG и т. д. нет.
+    Если HTTP != 200:
+        канал считается нерабочим.
+
+    Никаких дополнительных проверок
+    сегментов, EPG и содержимого здесь нет.
     """
 
     results = []
 
     session = requests.Session()
-    session.headers.update(HEADERS)
+
+    session.headers.update(
+        HEADERS
+    )
 
     total = len(channels)
 
-    for index, item in enumerate(channels, start=1):
+    for number, channel in enumerate(
+        channels,
+        start=1
+    ):
 
-        channel = item["channel"]
-        url = item["url"]
+        alias = channel["alias"]
+        url = channel["ngenix_url"]
 
         status = None
         error = None
 
         try:
+
             response = session.get(
                 url,
                 timeout=HTTP_TIMEOUT,
                 allow_redirects=True,
-                stream=True,
+                stream=True
             )
 
             status = response.status_code
 
-            # Нам нужен только HTTP-код.
             response.close()
 
         except requests.RequestException as exc:
+
             error = str(exc)
 
-        ok = status == 200
+        ok = (
+            status == 200
+        )
 
-        result = {
-            "channel": channel,
-            "url": url,
-            "tail": item["tail"],
-            "http": status,
-            "ok": ok,
-        }
+        result = dict(
+            channel
+        )
+
+        result["http"] = status
+        result["ok"] = ok
 
         if error:
+
             result["error"] = error
 
-        results.append(result)
+        results.append(
+            result
+        )
+
+        # ----------------------------------------------------
+        # КРАТКИЙ РЕЗУЛЬТАТ В SKALA
+        # ----------------------------------------------------
 
         if ok:
+
             logger.found(
-                f"[{index}/{total}] CDN 200 OK: "
-                f"{channel} -> {url}"
+                f"[{number}/{total}] "
+                f"NGENIX {alias} -> 200 OK"
             )
+
+        elif error:
+
+            logger.warn(
+                f"[{number}/{total}] "
+                f"NGENIX {alias} -> ERROR"
+            )
+
         else:
-            if error:
-                logger.warn(
-                    f"[{index}/{total}] CDN FAIL: "
-                    f"{channel} -> {url} -> {error}"
-                )
-            else:
-                logger.warn(
-                    f"[{index}/{total}] CDN HTTP {status}: "
-                    f"{channel} -> {url}"
-                )
+
+            logger.warn(
+                f"[{number}/{total}] "
+                f"NGENIX {alias} -> HTTP {status}"
+            )
 
     return results
 
 
 # ============================================================
-#                     НОВЫЙ JSON
+#                    BUILD FINAL JSON
 # ============================================================
 
-def build_new_json(results):
-    """
-    В новый JSON попадают только каналы,
-    которые получили HTTP 200.
-    """
+def build_final_json(
+    source_data,
+    tails,
+    aliases,
+    results
+):
 
-    tails_ok = [
-        result["tail"]
-        for result in results
-        if result["ok"]
+    working = [
+        item
+        for item in results
+        if item["ok"]
     ]
 
-    channels_ok = [
-        result["channel"]
-        for result in results
-        if result["ok"]
+    failed = [
+        item
+        for item in results
+        if not item["ok"]
     ]
 
     return {
-        "scanner": "zabava_tails.py",
-        "version": "2.0",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-        "source": BASE_CDN,
-        "master_variant": MASTER_VARIANT,
-        "total_checked": len(results),
-        "total_ok": len(tails_ok),
-        "channels": channels_ok,
-        "tails": tails_ok,
+
+        # ----------------------------------------------------
+        # Scanner
+        # ----------------------------------------------------
+
+        "scanner": {
+
+            "name":
+                "zabava_ngenix_scan",
+
+            "version":
+                "3.0",
+
+            "timestamp":
+                datetime.now(
+                    timezone.utc
+                ).isoformat(),
+
+        },
+
+        # ----------------------------------------------------
+        # Source DmitryTV
+        # ----------------------------------------------------
+
+        "source": {
+
+            "type":
+                "DmitryTV",
+
+            "file":
+                JSON_INPUT,
+
+            "tails_received":
+                len(tails),
+
+        },
+
+        # ----------------------------------------------------
+        # NGENIX
+        # ----------------------------------------------------
+
+        "ngenix": {
+
+            "base":
+                BASE_CDN,
+
+            "master_variant":
+                MASTER_VARIANT,
+
+            "generated_variant":
+                "/hls/{alias}/variant.m3u8",
+
+        },
+
+        # ----------------------------------------------------
+        # Statistics
+        # ----------------------------------------------------
+
+        "statistics": {
+
+            "tails_received":
+                len(tails),
+
+            "aliases_extracted":
+                len(aliases),
+
+            "aliases_checked":
+                len(results),
+
+            "working_http_200":
+                len(working),
+
+            "failed":
+                len(failed),
+
+        },
+
+        # ----------------------------------------------------
+        # Complete channel information
+        # ----------------------------------------------------
+
+        "channels":
+            results,
+
+        # ----------------------------------------------------
+        # Convenient working list
+        # ----------------------------------------------------
+
+        "working_channels": [
+
+            item["alias"]
+
+            for item in working
+
+        ],
+
+        # ----------------------------------------------------
+        # Failed list
+        # ----------------------------------------------------
+
+        "failed_channels": [
+
+            item["alias"]
+
+            for item in failed
+
+        ],
+
+        # ----------------------------------------------------
+        # Original DmitryTV JSON
+        # ----------------------------------------------------
+
+        "source_snapshot":
+            source_data,
+
     }
 
 
 # ============================================================
-#                     JSON-ПЛЕЙЛИСТ
-# ============================================================
-
-def build_playlist_json(results):
-
-    channels = []
-
-    for result in results:
-
-        if not result["ok"]:
-            continue
-
-        channels.append({
-            "name": result["channel"],
-            "url": result["url"],
-        })
-
-    return {
-        "channels": channels
-    }
-
-
-# ============================================================
-#                         M3U
+#                        BUILD M3U
 # ============================================================
 
 def build_m3u(results):
@@ -388,209 +628,322 @@ def build_m3u(results):
         "#EXTM3U"
     ]
 
-    for result in results:
+    for item in results:
 
-        if not result["ok"]:
+        # Только HTTP 200
+
+        if not item["ok"]:
+
             continue
 
-        channel = result["channel"]
-        url = result["url"]
+        alias = item["alias"]
+        url = item["ngenix_url"]
 
         lines.append(
-            f"#EXTINF:-1,{channel}"
+            f"#EXTINF:-1,{alias}"
         )
 
-        lines.append(url)
+        lines.append(
+            url
+        )
 
-    return "\n".join(lines) + "\n"
-
-
-# ============================================================
-#                     SKALA REPORT
-# ============================================================
-
-def build_skala_txt(results):
-
-    lines = [
-        "SKALA REPORT: ZABAVA CDN",
-        ""
-    ]
-
-    ok_count = sum(
-        1 for result in results
-        if result["ok"]
+    return (
+        "\n".join(lines)
+        + "\n"
     )
 
-    total = len(results)
+
+# ============================================================
+#                    BUILD SKALA REPORT
+# ============================================================
+
+def build_skala(
+    tails,
+    aliases,
+    results
+):
+
+    working = sum(
+        1
+        for item in results
+        if item["ok"]
+    )
+
+    failed = (
+        len(results)
+        - working
+    )
+
+    lines = []
 
     lines.append(
-        f"OK: {ok_count}/{total}"
+        "========================================"
+    )
+
+    lines.append(
+        "          ZABAVA NGENIX SKALA"
+    )
+
+    lines.append(
+        "========================================"
     )
 
     lines.append("")
 
-    for result in results:
+    lines.append(
+        f"SOURCE       : DmitryTV"
+    )
 
-        channel = result["channel"]
-        url = result["url"]
-        status = result["http"]
+    lines.append(
+        f"NGENIX CDN   : {BASE_CDN}"
+    )
 
-        if result["ok"]:
+    lines.append(
+        f"MASTER       : {MASTER_VARIANT}"
+    )
+
+    lines.append("")
+
+    lines.append(
+        "--------------- SUMMARY --------------"
+    )
+
+    lines.append(
+        f"TAILS        : {len(tails)}"
+    )
+
+    lines.append(
+        f"ALIASES      : {len(aliases)}"
+    )
+
+    lines.append(
+        f"CHECKED      : {len(results)}"
+    )
+
+    lines.append(
+        f"HTTP 200     : {working}"
+    )
+
+    lines.append(
+        f"FAILED       : {failed}"
+    )
+
+    lines.append("")
+
+    lines.append(
+        "------------- CHANNELS ---------------"
+    )
+
+    for item in results:
+
+        alias = item["alias"]
+        status = item["http"]
+
+        if item["ok"]:
+
             state = "OK"
+
         else:
+
             state = "FAIL"
 
         lines.append(
-            f"{channel} -> {url} -> "
-            f"{status} {state}"
+            f"{alias:<30} "
+            f"{str(status):<5} "
+            f"{state}"
         )
 
-    return "\n".join(lines) + "\n"
+    lines.append("")
+
+    lines.append(
+        "--------------- OUTPUT ---------------"
+    )
+
+    lines.append(
+        f"JSON         : {OUT_JSON}"
+    )
+
+    lines.append(
+        f"PLAYLIST     : {OUT_M3U}"
+    )
+
+    lines.append(
+        f"SKALA        : {OUT_SKALA}"
+    )
+
+    lines.append(
+        f"LOG          : {OUT_LOG}"
+    )
+
+    lines.append("")
+
+    lines.append(
+        "========================================"
+    )
+
+    lines.append(
+        "             SKALA COMPLETE"
+    )
+
+    lines.append(
+        "========================================"
+    )
+
+    return (
+        "\n".join(lines)
+        + "\n"
+    )
 
 
 # ============================================================
-#                     СОХРАНЕНИЕ JSON
+#                       SAVE JSON
 # ============================================================
 
-def save_json(filename, data):
+def save_json(
+    filename,
+    data
+):
 
     Path(filename).write_text(
+
         json.dumps(
             data,
             ensure_ascii=False,
             indent=2
         ),
+
         encoding="utf-8"
     )
 
 
 # ============================================================
-#                         MAIN
+#                          MAIN
 # ============================================================
 
 def main():
 
-    logger = ScalaLogger(OUT_LOG)
+    logger = ScalaLogger(
+        OUT_LOG
+    )
 
     logger.info(
         "========================================"
     )
+
     logger.info(
-        "       START ZABAVA CDN SCAN v2"
+        "       START ZABAVA NGENIX SCAN"
     )
+
     logger.info(
         "========================================"
+    )
+
+    logger.info(
+        f"NGENIX CDN: {BASE_CDN}"
     )
 
     logger.info(
         f"MASTER VARIANT: {MASTER_VARIANT}"
     )
 
-    logger.info(
-        f"BASE CDN: {BASE_CDN}"
+    # ========================================================
+    # 1. Получаем tails DmitryTV
+    # ========================================================
+
+    source_data, tails = load_source_json(
+        logger
     )
 
-    # --------------------------------------------------------
-    # 1. Загружаем tails
-    # --------------------------------------------------------
+    # ========================================================
+    # 2. Извлекаем CH_* aliases
+    # ========================================================
 
-    tails = load_tails(logger)
-
-    # --------------------------------------------------------
-    # 2. Извлекаем CH_XXX и строим variant.m3u8
-    # --------------------------------------------------------
-
-    channels = generate_links_from_tails(
+    aliases, alias_sources = extract_aliases(
         tails,
         logger
     )
 
-    # --------------------------------------------------------
-    # 3. Проверяем CDN
-    # --------------------------------------------------------
+    # ========================================================
+    # 3. Для каждого alias создаём
+    #    одну NGENIX variant.m3u8 ссылку
+    # ========================================================
 
-    results = check_http_all(
+    channels = generate_ngenix_list(
+        aliases,
+        alias_sources,
+        logger
+    )
+
+    # ========================================================
+    # 4. Проверяем каждую ссылку NGENIX
+    # ========================================================
+
+    results = check_ngenix(
         channels,
         logger
     )
 
-    # --------------------------------------------------------
-    # 4. Новый JSON
-    # --------------------------------------------------------
+    # ========================================================
+    # 5. Формируем полный итоговый JSON
+    # ========================================================
 
-    new_json = build_new_json(results)
-
-    save_json(
-        OUT_JSON_NEW,
-        new_json
-    )
-
-    # --------------------------------------------------------
-    # 5. JSON-плейлист
-    # --------------------------------------------------------
-
-    playlist_json = build_playlist_json(
+    final_json = build_final_json(
+        source_data,
+        tails,
+        aliases,
         results
     )
 
     save_json(
-        OUT_PLAYLIST_JSON,
-        playlist_json
+        OUT_JSON,
+        final_json
     )
 
-    # --------------------------------------------------------
-    # 6. M3U
-    # --------------------------------------------------------
+    # ========================================================
+    # 6. Готовый M3U
+    # ========================================================
 
-    Path(OUT_M3U).write_text(
-        build_m3u(results),
+    m3u = build_m3u(
+        results
+    )
+
+    Path(
+        OUT_M3U
+    ).write_text(
+        m3u,
         encoding="utf-8"
     )
 
-    # --------------------------------------------------------
-    # 7. SKALA
-    # --------------------------------------------------------
+    # ========================================================
+    # 7. SKALA REPORT
+    # ========================================================
 
-    Path(OUT_SKALA_TXT).write_text(
-        build_skala_txt(results),
+    skala = build_skala(
+        tails,
+        aliases,
+        results
+    )
+
+    Path(
+        OUT_SKALA
+    ).write_text(
+        skala,
         encoding="utf-8"
     )
 
-    # --------------------------------------------------------
-    # 8. Итог
-    # --------------------------------------------------------
+    # ========================================================
+    # 8. FINAL LOGGER RESULT
+    # ========================================================
 
-    total = len(results)
-
-    ok_count = sum(
-        1 for result in results
-        if result["ok"]
+    working = sum(
+        1
+        for item in results
+        if item["ok"]
     )
 
-    fail_count = total - ok_count
-
-    logger.info(
-        "========================================"
-    )
-
-    logger.info(
-        f"TOTAL CHECKED: {total}"
-    )
-
-    logger.info(
-        f"HTTP 200 OK:   {ok_count}"
-    )
-
-    logger.info(
-        f"FAILED:        {fail_count}"
-    )
-
-    logger.info(
-        f"PLAYLIST:      {OUT_M3U}"
-    )
-
-    logger.info(
-        f"JSON:          {OUT_PLAYLIST_JSON}"
+    failed = (
+        len(results)
+        - working
     )
 
     logger.info(
@@ -598,13 +951,62 @@ def main():
     )
 
     logger.info(
-        "=== COMPLETE ==="
+        "              FINAL RESULT"
+    )
+
+    logger.info(
+        "========================================"
+    )
+
+    logger.info(
+        f"DMITRYTV TAILS : {len(tails)}"
+    )
+
+    logger.info(
+        f"ALIASES        : {len(aliases)}"
+    )
+
+    logger.info(
+        f"NGENIX CHECKED  : {len(results)}"
+    )
+
+    logger.info(
+        f"NGENIX HTTP 200 : {working}"
+    )
+
+    logger.info(
+        f"FAILED          : {failed}"
+    )
+
+    logger.info(
+        f"JSON            : {OUT_JSON}"
+    )
+
+    logger.info(
+        f"M3U             : {OUT_M3U}"
+    )
+
+    logger.info(
+        f"SKALA           : {OUT_SKALA}"
+    )
+
+    logger.info(
+        f"LOG             : {OUT_LOG}"
+    )
+
+    logger.info(
+        "========================================"
+    )
+
+    logger.info(
+        "=== NGENIX SCAN COMPLETE ==="
     )
 
 
 # ============================================================
-#                         ENTRY POINT
+#                       ENTRY POINT
 # ============================================================
 
 if __name__ == "__main__":
+
     main()
