@@ -17,6 +17,16 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Generate scanner JSON (auto-create)
+        run: |
+          echo "{
+            \"scanner\": \"zabava_tails.py\",
+            \"version\": \"1.0\",
+            \"timestamp\": \"$(date -u +%Y-%m-%dT%H:%M:%S.%NZ)\",
+            \"source\": \"auto-generated\",
+            \"tails\": []
+          }" > _scanner_zaba_1788021849270.txt
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
