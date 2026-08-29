@@ -1036,8 +1036,6 @@ def find_all_json_sources() -> List[str]:
                         path.resolve()
                     )
 
-                    # Не импортируем внутренние
-                    # служебные каталоги Git.
                     if (
                         "/.git/"
                         in resolved.replace(
@@ -1699,8 +1697,6 @@ class EnsembleModel:
             ),
         )
 
-        # Не позволяем test-набору
-        # оказаться меньше количества классов.
         test_count = max(
             int(
                 round(
@@ -2910,10 +2906,6 @@ def generate_alias_candidates(
                 rule,
             )
 
-    # --------------------------------------------------------
-    # EPG
-    # --------------------------------------------------------
-
     if epg_kb:
 
         for candidate in (
@@ -2927,10 +2919,6 @@ def generate_alias_candidates(
                 candidate,
                 "epg_xml_2016",
             )
-
-    # --------------------------------------------------------
-    # DICTIONARY
-    # --------------------------------------------------------
 
     display_norm = canonical_text(
         name
@@ -2964,10 +2952,6 @@ def generate_alias_candidates(
             alias,
             "known_dictionary",
         )
-
-    # --------------------------------------------------------
-    # GENERATED VARIANTS
-    # --------------------------------------------------------
 
     name_lower = (
         name.lower().strip()
@@ -3118,8 +3102,6 @@ def generate_alias_candidates(
             )
         )
 
-    # Вторичный приоритет:
-    # одинаковый score -> EPG/dictionary выше.
     rule_priority = {
         "epg_xml_2016": 5,
         "known_dictionary": 4,
@@ -3350,8 +3332,6 @@ class MultiNodeScanner:
                     errors="ignore",
                 )
 
-                # HLS playlist должен иметь
-                # EXTM3U в начале/первых KB.
                 valid = (
                     "#EXTM3U"
                     in text.upper()
@@ -3518,9 +3498,6 @@ class MultiNodeScanner:
 
                         candidate.confirmed = True
 
-                        # Для подтверждённого потока
-                        # физическая проверка важнее
-                        # вероятности старой модели.
                         confidence = max(
                             float(
                                 candidate.score
@@ -3650,8 +3627,6 @@ def fetch_epg_channels() -> List[
 
             except OSError:
 
-                # Некоторые серверы могут
-                # вернуть уже распакованный XML.
                 xml_data = raw
 
             root = ET.fromstring(
@@ -3721,10 +3696,6 @@ def fetch_epg_channels() -> List[
             exc,
         )
 
-    # --------------------------------------------------------
-    # EXTRA CHANNELS
-    # --------------------------------------------------------
-
     existing_ids = {
         canonical_text(
             channel.tvg_id
@@ -3775,8 +3746,6 @@ def fetch_epg_channels() -> List[
             )
         )
 
-    # КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ:
-    # детерминированный порядок.
     channels.sort(
         key=lambda channel: (
             canonical_text(
@@ -3863,10 +3832,6 @@ def save_all_reports(
         channels,
         results,
     )
-
-    # --------------------------------------------------------
-    # HUMAN REPORT
-    # --------------------------------------------------------
 
     with open(
         HUMAN_REPORT_FILE,
@@ -3965,10 +3930,6 @@ def save_all_reports(
                 + "\n"
             )
 
-    # --------------------------------------------------------
-    # MACHINE REPORT
-    # --------------------------------------------------------
-
     with open(
         MACHINE_REPORT_FILE,
         "w",
@@ -4047,10 +4008,6 @@ def save_all_reports(
                 f"FOUND={generated_at}\n\n"
             )
 
-    # --------------------------------------------------------
-    # JSON
-    # --------------------------------------------------------
-
     export_results = []
 
     for channel in channels:
@@ -4116,10 +4073,6 @@ def save_all_reports(
             ensure_ascii=False,
             indent=2,
         )
-
-    # --------------------------------------------------------
-    # M3U (с поддержкой tvg-chno для Televizo и кастомной нумерации)
-    # --------------------------------------------------------
 
     with open(
         PLAYLIST_FILE,
@@ -4192,10 +4145,6 @@ def save_all_reports(
             )
             idx += 1
 
-    # --------------------------------------------------------
-    # LEARNED REPORT
-    # --------------------------------------------------------
-
     successful = sum(
         1
         for result in results
@@ -4250,6 +4199,12 @@ def save_all_reports(
 
         if model:
 
+            # ИСПРАВЛЕННЫЙ БЛОК: json.dumps() вынесен наружу, нет разрывов в f-string
+            class_dist_json = json.dumps(
+                model.class_distribution,
+                ensure_ascii=False
+            )
+
             f.write(
                 "=== MODEL ===\n"
             )
@@ -4271,10 +4226,7 @@ def save_all_reports(
 
             f.write(
                 f"CLASS_DISTRIBUTION="
-                f"{json.dumps("
-                f"model.class_distribution,"
-                f"ensure_ascii=False"
-                f")}\n"
+                f"{class_dist_json}\n"
             )
 
             for key, value in (
@@ -4424,12 +4376,10 @@ def retrain_ml_model(
             rows
         )
 
-        # Сначала версия запуска.
         model.save(
             VERSIONED_MODEL_FILE
         )
 
-        # Затем latest.
         model.save(
             MODEL_FILE
         )
@@ -4515,19 +4465,11 @@ def run_pipeline() -> None:
 
     db = Database()
 
-    # --------------------------------------------------------
-    # EPG KNOWLEDGE
-    # --------------------------------------------------------
-
     epg_kb = (
         EPGKnowledgeBase()
     )
 
     epg_kb.load()
-
-    # --------------------------------------------------------
-    # HISTORICAL JSON
-    # --------------------------------------------------------
 
     all_json_records = (
         load_all_json_records()
@@ -4546,10 +4488,6 @@ def run_pipeline() -> None:
             "в Knowledge Base: %d",
             imported,
         )
-
-    # --------------------------------------------------------
-    # EXISTING MODEL
-    # --------------------------------------------------------
 
     ml_model = (
         EnsembleModel.load()
@@ -4575,10 +4513,6 @@ def run_pipeline() -> None:
             "не найдена."
         )
 
-    # --------------------------------------------------------
-    # CDN
-    # --------------------------------------------------------
-
     scanner = MultiNodeScanner(
         db=db,
         epg_kb=epg_kb,
@@ -4586,10 +4520,6 @@ def run_pipeline() -> None:
     )
 
     scanner.ping_nodes()
-
-    # --------------------------------------------------------
-    # EPG
-    # --------------------------------------------------------
 
     channels = (
         fetch_epg_channels()
@@ -4671,11 +4601,6 @@ def run_pipeline() -> None:
                     result.confidence,
                 )
 
-    # --------------------------------------------------------
-    # CRITICAL:
-    # RESTORE ORIGINAL CHANNEL ORDER
-    # --------------------------------------------------------
-
     results: List[
         AliasMatch
     ] = []
@@ -4714,10 +4639,6 @@ def run_pipeline() -> None:
             result
         )
 
-    # --------------------------------------------------------
-    # RETRAIN
-    # --------------------------------------------------------
-
     LOGGER.info(
         "Запуск ML обучения "
         "по ВСЕЙ накопленной истории..."
@@ -4743,20 +4664,12 @@ def run_pipeline() -> None:
             "не создана."
         )
 
-    # --------------------------------------------------------
-    # REPORTS
-    # --------------------------------------------------------
-
     save_all_reports(
         channels=channels,
         results=results,
         model=trained_model
         or ml_model,
     )
-
-    # --------------------------------------------------------
-    # STATS
-    # --------------------------------------------------------
 
     stats = db.get_statistics()
 
