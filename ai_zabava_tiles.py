@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-DmitryTV -> Ngenix scanner v8.0
+DmitryTV -> Ngenix scanner v10.0
 
 ZOYE-style scanner:
   source observations
@@ -37,6 +37,11 @@ from urllib.parse import urljoin, urlparse
 import aiohttp
 import requests
 
+try:
+    import orjson
+except ImportError:
+    orjson = None
+
 
 # ============================================================
 # CONFIG
@@ -51,7 +56,7 @@ GOLDEN_URL = (
 )
 
 NGENIX_BASE = "https://zabava-htlive.cdn.ngenix.net"
-SCANNER_VERSION = "8.0"
+SCANNER_VERSION = "12.0.6"
 
 DATA_BASE = "playlist_ngenix_data.json"
 DATA_PREFIX = "playlist_ngenix_data"
@@ -67,6 +72,10 @@ OUTPUT_DIAGNOSTICS = "zabava_diagnostics.json"
 OUTPUT_LEARNING = "zabava_learning.json"
 OUTPUT_LEARN_REPORT = "zabava_learning_report.txt"
 OUTPUT_EVOLUTION = "zabava_evolution.json"
+OUTPUT_ROUTE_MATRIX = "zabava_route_matrix.json"
+OUTPUT_DISCOVERY = "ngenix_discovery.json"
+OUTPUT_DISCOVERY_PATTERNS = "ngenix_route_patterns.json"
+OUTPUT_DISCOVERY_EVIDENCE = "ngenix_discovery_evidence.json"
 
 _BASE_OUTPUTS = {
     "m3u": OUTPUT_M3U,
@@ -79,11 +88,17 @@ _BASE_OUTPUTS = {
     "learning": OUTPUT_LEARNING,
     "learn_report": OUTPUT_LEARN_REPORT,
     "evolution": OUTPUT_EVOLUTION,
+    "route_matrix": OUTPUT_ROUTE_MATRIX,
+    "discovery": OUTPUT_DISCOVERY,
+    "discovery_patterns": OUTPUT_DISCOVERY_PATTERNS,
+    "discovery_evidence": OUTPUT_DISCOVERY_EVIDENCE,
 }
 
-KNOWN_ROUTES = ("hls", "region", "regions")
+KNOWN_ROUTES = ("hls", "hls_region", "hls_regions", "region", "regions")
 ROUTE_PRIORITY = {
-    "hls": 3,
+    "hls": 5,
+    "hls_regions": 4,
+    "hls_region": 3,
     "regions": 2,
     "region": 1,
     "other": 0,
@@ -94,7 +109,21 @@ PRIMARY_UA = "WINK/1.40.1 (AndroidTV/9) HlsWinkPlayer"
 HTTP_TIMEOUT = 8
 CHILD_TIMEOUT = 6
 DOWNLOAD_TIMEOUT = 25
-CONCURRENCY_LIMIT = 30
+# V12.0.6: performance release; throughput and local processing are optimized without changing scan logic.y removing validation.
+# Override with NGENIX_CONCURRENCY in CI if the CDN/network needs tuning.
+CONCURRENCY_LIMIT = max(1, int(os.getenv("NGENIX_CONCURRENCY", "180")))
+CONNECTOR_LIMIT = max(CONCURRENCY_LIMIT, int(os.getenv("NGENIX_CONNECTOR_LIMIT", str(CONCURRENCY_LIMIT))))
+DNS_CACHE_TTL = max(0, int(os.getenv("NGENIX_DNS_CACHE_TTL", "300")))
+
+# V12.0.6 Performance Engine:
+# execution optimizations only; discovery/ranking/validation/learning semantics stay intact.
+JSON_INDENT = 2
+JSON_CACHE_ENABLED = True
+JSON_CACHE = {}
+JSON_CACHE_MTIME = {}
+LOG_BUFFER_SIZE = max(1, int(os.getenv("NGENIX_LOG_BUFFER_SIZE", "512")))
+LOG_BUFFER = []
+LOG_BUFFER_FLUSH_EVERY = max(1, int(os.getenv("NGENIX_LOG_FLUSH_EVERY", "512")))
 
 VALIDATE_CHILD_PLAYLISTS = True
 MAX_CHILD_URLS_TO_CHECK = 2
@@ -151,26 +180,68 @@ def versioned_path(filename: str) -> str:
     return f"{root}_{number}{ext}"
 
 
+def _json_dumps(data: Any, *, pretty: bool = True) -> str:
+    if orjson is not None:
+        option = orjson.OPT_INDENT_2 if pretty else 0
+        return orjson.dumps(
+            data,
+            option=option,
+        ).decode("utf-8")
+
+    return json.dumps(
+        data,
+        ensure_ascii=False,
+        indent=JSON_INDENT if pretty else None,
+        separators=None if pretty else (",", ":"),
+    )
+
+
 def write_json(path: str, data: Any) -> None:
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+    payload = _json_dumps(data, pretty=True)
+    with open(path, "w", encoding="utf-8", buffering=1024 * 1024) as f:
+        f.write(payload)
 
 
 def load_json_safe(path: str) -> Optional[Dict[str, Any]]:
     try:
-        with open(path, "r", encoding="utf-8") as f:
-            return json.load(f)
+        stat = os.stat(path)
+        mtime = stat.st_mtime_ns
+
+        if JSON_CACHE_ENABLED:
+            cached_mtime = JSON_CACHE_MTIME.get(path)
+            if cached_mtime == mtime and path in JSON_CACHE:
+                return JSON_CACHE[path]
+
+        with open(path, "rb", buffering=1024 * 1024) as f:
+            raw = f.read()
+
+        if orjson is not None:
+            data = orjson.loads(raw)
+        else:
+            data = json.loads(raw)
+
+        if JSON_CACHE_ENABLED:
+            JSON_CACHE_MTIME[path] = mtime
+            JSON_CACHE[path] = data
+
+        return data
+
     except Exception as exc:
         skala(f"Cannot read {path}: {exc}", "WARN")
         return None
 
+def _flush_log_buffer() -> None:
+    global LOG_BUFFER
+    if LOG_BUFFER:
+        print("\n".join(LOG_BUFFER))
+        LOG_BUFFER = []
+
 
 def skala(message: str, level: str = "INFO") -> None:
     line = f"{now_local()} [{level:<7}] {message}"
-    print(line)
-
-    with open(OUTPUT_SKALA, "a", encoding="utf-8") as f:
-        f.write(line + "\n")
+    LOG_BUFFER.append(line)
+    if len(LOG_BUFFER) >= LOG_BUFFER_FLUSH_EVERY:
+        _flush_log_buffer()
 
 
 def resolve_output_paths() -> None:
@@ -184,6 +255,10 @@ def resolve_output_paths() -> None:
     global OUTPUT_LEARNING
     global OUTPUT_LEARN_REPORT
     global OUTPUT_EVOLUTION
+    global OUTPUT_ROUTE_MATRIX
+    global OUTPUT_DISCOVERY
+    global OUTPUT_DISCOVERY_PATTERNS
+    global OUTPUT_DISCOVERY_EVIDENCE
 
     OUTPUT_M3U = versioned_path(_BASE_OUTPUTS["m3u"])
     OUTPUT_SKALA = versioned_path(_BASE_OUTPUTS["skala"])
@@ -195,6 +270,10 @@ def resolve_output_paths() -> None:
     OUTPUT_LEARNING = versioned_path(_BASE_OUTPUTS["learning"])
     OUTPUT_LEARN_REPORT = versioned_path(_BASE_OUTPUTS["learn_report"])
     OUTPUT_EVOLUTION = versioned_path(_BASE_OUTPUTS["evolution"])
+    OUTPUT_ROUTE_MATRIX = versioned_path(_BASE_OUTPUTS["route_matrix"])
+    OUTPUT_DISCOVERY = versioned_path(_BASE_OUTPUTS["discovery"])
+    OUTPUT_DISCOVERY_PATTERNS = versioned_path(_BASE_OUTPUTS["discovery_patterns"])
+    OUTPUT_DISCOVERY_EVIDENCE = versioned_path(_BASE_OUTPUTS["discovery_evidence"])
 
 
 # ============================================================
@@ -214,20 +293,387 @@ def normalize_alias(alias: str) -> str:
 
 
 def route_from_url(url: str) -> str:
+    """Return the exact route prefix instead of collapsing wildcard suffixes."""
     path = urlparse(url).path or ""
-    match = re.search(
-        r"/(hls|region|regions)(?:/|$)",
-        path,
-        re.I,
-    )
-    return match.group(1).lower() if match else "other"
+    normalized = re.sub(r"/{2,}", "/", path).strip("/")
+    parts = normalized.split("/") if normalized else []
+    try:
+        ch_index = next(i for i, part in enumerate(parts) if re.fullmatch(r"CH_[^/]+", part, re.I))
+    except StopIteration:
+        return "other"
+    prefix_parts = parts[:ch_index]
+    if not prefix_parts:
+        return "other"
+    prefix = "/".join(prefix_parts).lower()
+    if prefix == "hls":
+        return "hls"
+    if prefix == "region":
+        return "region"
+    if prefix == "regions":
+        return "regions"
+    if prefix.startswith("hls/region"):
+        return "hls_" + prefix.split("/", 1)[1].replace("/", "_")
+    if prefix.startswith("region"):
+        return prefix
+    if prefix.startswith("regions"):
+        return prefix
+    # V10 keeps previously unknown structures as an exact route token.
+    return "path_" + re.sub(r"[^a-z0-9_]+", "_", prefix)
 
 
 def build_candidate_url(route: str, alias: str) -> str:
-    if route not in KNOWN_ROUTES:
-        route = "hls"
+    if route == "hls":
+        prefix = "hls"
+    elif route == "hls_region":
+        prefix = "hls/region"
+    elif route == "hls_regions":
+        prefix = "hls/regions"
+    elif route == "region":
+        prefix = "region"
+    elif route == "regions":
+        prefix = "regions"
+    elif route.startswith("path_"):
+        prefix = route[len("path_"):].replace("_", "/")
+    elif re.fullmatch(r"hls_region[^/]*", route, re.I):
+        suffix = route[len("hls_region"):]
+        prefix = f"hls/region{suffix}"
+    elif re.fullmatch(r"hls_regions[^/]*", route, re.I):
+        suffix = route[len("hls_regions"):]
+        prefix = f"hls/regions{suffix}"
+    elif re.fullmatch(r"region[^/]*", route, re.I):
+        prefix = route
+    elif re.fullmatch(r"regions[^/]*", route, re.I):
+        prefix = route
+    else:
+        prefix = route.strip("/") or "hls"
+    return f"{NGENIX_BASE}/{prefix}/{alias}/variant.m3u8"
 
-    return f"{NGENIX_BASE}/{route}/{alias}/variant.m3u8"
+
+def route_supported(route: str) -> bool:
+    return (
+        route in KNOWN_ROUTES
+        or bool(re.fullmatch(r"hls_region[^/]*", route, re.I))
+        or bool(re.fullmatch(r"hls_regions[^/]*", route, re.I))
+        or bool(re.fullmatch(r"region[^/]*", route, re.I))
+        or bool(re.fullmatch(r"regions[^/]*", route, re.I))
+    )
+
+# ============================================================
+# ROUTE MATRIX v9
+# ============================================================
+
+def route_family_variants(alias: str) -> List[Tuple[str, str]]:
+    return [(route, build_candidate_url(route, alias)) for route in KNOWN_ROUTES]
+
+
+def write_route_matrix(aliases: List[str]) -> None:
+    write_json(OUTPUT_ROUTE_MATRIX, {
+        "schema_version": 1,
+        "scanner_version": SCANNER_VERSION,
+        "created_at": now_utc(),
+        "route_families": list(KNOWN_ROUTES),
+        "aliases": [
+            {"alias": alias, "variants": [
+                {"route": route, "url": url}
+                for route, url in route_family_variants(alias)
+            ]}
+            for alias in sorted(set(aliases))
+        ],
+    })
+
+
+# ============================================================
+# V10 AUTONOMOUS NGENIX DISCOVERY
+# ============================================================
+
+DISCOVERY_MAX_CANDIDATES = int(os.getenv("NGENIX_DISCOVERY_MAX", "2500"))
+DISCOVERY_DEPTH = int(os.getenv("NGENIX_DISCOVERY_DEPTH", "3"))
+DISCOVERY_CONFIRMATIONS = int(os.getenv("NGENIX_DISCOVERY_CONFIRMATIONS", "2"))
+DISCOVERY_MIN_CONFIDENCE = float(os.getenv("NGENIX_DISCOVERY_MIN_CONFIDENCE", "0.72"))
+DISCOVERY_PROBE_TIMEOUT = int(os.getenv("NGENIX_DISCOVERY_TIMEOUT", "6"))
+DISCOVERY_TOKENS = (
+    "hls", "region", "regions", "live", "stream", "streams", "tv",
+    "channel", "channels", "broadcast", "playlist", "playlists", "media",
+    "video", "videos", "content", "cdn", "mobile", "android", "wink",
+)
+
+
+def route_prefix_from_candidate(route: str) -> str:
+    if route.startswith("path_"):
+        return route[5:].replace("_", "/")
+    if route == "hls_region":
+        return "hls/region"
+    if route == "hls_regions":
+        return "hls/regions"
+    return route
+
+
+def make_route_token(prefix: str) -> str:
+    prefix = re.sub(r"/{2,}", "/", prefix.strip("/ ")).lower()
+    if prefix in KNOWN_ROUTES:
+        return prefix
+    if prefix.startswith("hls/"):
+        return "path_" + re.sub(r"[^a-z0-9_]+", "_", prefix)
+    return "path_" + re.sub(r"[^a-z0-9_]+", "_", prefix)
+
+
+def load_discovery_memory() -> Dict[str, Any]:
+    data = load_json_safe(OUTPUT_DISCOVERY)
+    if not isinstance(data, dict):
+        return {
+            "schema_version": 2,
+            "scanner_version": SCANNER_VERSION,
+            "routes": {},
+            "patterns": {},
+            "channels": {},
+            "evidence": [],
+            "rejected": {},
+        }
+    return data
+
+
+def _extract_route_prefix(url: str) -> Optional[str]:
+    path = urlparse(url).path or ""
+    path = re.sub(r"/{2,}", "/", path).strip("/")
+    parts = path.split("/") if path else []
+    for i, part in enumerate(parts):
+        if re.fullmatch(r"CH_[A-Za-z0-9_-]+", part, re.I):
+            return "/".join(parts[:i])
+    return None
+
+
+def discover_observed_route_patterns(observations: List[Dict[str, Any]]) -> List[str]:
+    prefixes = set()
+    for obs in observations:
+        prefix = _extract_route_prefix(obs.get("source_url", ""))
+        if prefix:
+            prefixes.add(prefix.lower())
+    return sorted(prefixes)
+
+
+def generate_structural_route_hypotheses(
+    observations: List[Dict[str, Any]],
+    kb: Dict[str, Any],
+    memory: Dict[str, Any],
+) -> List[Dict[str, Any]]:
+    """Generate bounded structural hypotheses, not an unbounded internet crawler."""
+    prefixes = set(discover_observed_route_patterns(observations))
+    for route in kb.get("routes", {}):
+        prefix = route_prefix_from_candidate(route)
+        if prefix:
+            prefixes.add(prefix.lower())
+    for route in memory.get("routes", {}):
+        prefix = route_prefix_from_candidate(route)
+        if prefix:
+            prefixes.add(prefix.lower())
+
+    # Seed one-level structures from observed vocabulary.
+    tokens = set(DISCOVERY_TOKENS)
+    for prefix in list(prefixes):
+        tokens.update(x for x in prefix.split("/") if x)
+
+    hypotheses = set(prefixes)
+    for token in tokens:
+        hypotheses.add(token)
+    for a in tokens:
+        hypotheses.add(f"hls/{a}")
+        hypotheses.add(f"{a}/channel")
+        hypotheses.add(f"{a}/channels")
+    for a in tokens:
+        for b in tokens:
+            if a == b:
+                continue
+            hypotheses.add(f"hls/{a}/{b}")
+            if len(hypotheses) >= DISCOVERY_MAX_CANDIDATES * 2:
+                break
+        if len(hypotheses) >= DISCOVERY_MAX_CANDIDATES * 2:
+            break
+
+    # Preserve exact observed wildcard families such as /hls/region*/CH_*.
+    for prefix in list(prefixes):
+        m = re.fullmatch(r"hls/(regions?|regions?\d+|region\d+)", prefix)
+        if m:
+            base = m.group(1)
+            for n in range(1, 33):
+                hypotheses.add(f"hls/{base}{n}")
+
+    rows = []
+    for prefix in sorted(hypotheses):
+        if not prefix or prefix.count("/") + 1 > DISCOVERY_DEPTH:
+            continue
+        route = make_route_token(prefix)
+        rows.append({
+            "route": route,
+            "prefix": prefix,
+            "kind": "structural_hypothesis",
+            "confidence": 0.05,
+        })
+        if len(rows) >= DISCOVERY_MAX_CANDIDATES:
+            break
+    return rows
+
+
+def generate_autonomous_discovery_candidates(
+    observations: List[Dict[str, Any]],
+    kb: Dict[str, Any],
+    golden: Dict[str, Any],
+    memory: Dict[str, Any],
+) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+    """Build candidates from observed, historical, learned and synthetic structures."""
+    aliases = {o.get("alias") for o in observations if o.get("alias")}
+    aliases.update(kb.get("seen_aliases", set()))
+    aliases.update((golden or {}).get("alias_set", set()))
+    aliases.update(memory.get("channels", {}).keys())
+    aliases = sorted(a for a in aliases if isinstance(a, str) and a.startswith("CH_"))
+
+    hypotheses = generate_structural_route_hypotheses(observations, kb, memory)
+    existing = {
+        (o.get("alias"), o.get("route"), o.get("url"))
+        for o in observations
+    }
+    candidates = []
+    for h in hypotheses:
+        route = h["route"]
+        prefix = h["prefix"]
+        for alias in aliases:
+            url = f"{NGENIX_BASE}/{prefix}/{alias}/variant.m3u8"
+            key = (alias, route, url)
+            if key in existing:
+                continue
+            candidates.append({
+                "alias": alias,
+                "family": normalize_alias(alias),
+                "route": route,
+                "url": url,
+                "origins": ["autonomous_structural_discovery"],
+                "historical_score": 0.0,
+                "sources": [],
+                "discovery": {
+                    "hypothesis": prefix,
+                    "kind": h["kind"],
+                    "confidence": h["confidence"],
+                },
+            })
+            if len(candidates) >= DISCOVERY_MAX_CANDIDATES:
+                break
+        if len(candidates) >= DISCOVERY_MAX_CANDIDATES:
+            break
+
+    meta = {
+        "hypotheses": len(hypotheses),
+        "aliases": len(aliases),
+        "generated": len(candidates),
+        "depth": DISCOVERY_DEPTH,
+        "max_candidates": DISCOVERY_MAX_CANDIDATES,
+    }
+    return candidates, meta
+
+
+def merge_candidates(base: List[Dict[str, Any]], extra: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    index = {(c["alias"], c["route"], c["url"]): c for c in base}
+    for c in extra:
+        key = (c["alias"], c["route"], c["url"])
+        if key not in index:
+            index[key] = c
+        else:
+            origins = index[key].setdefault("origins", [])
+            for origin in c.get("origins", []):
+                if origin not in origins:
+                    origins.append(origin)
+            if c.get("discovery"):
+                index[key]["discovery"] = c["discovery"]
+    rows = list(index.values())
+    rows.sort(key=lambda x: (x.get("alias", ""), x.get("route", ""), x.get("url", "")))
+    return rows[:MAX_CANDIDATES]
+
+
+def update_discovery_memory(
+    memory: Dict[str, Any],
+    results: List[Dict[str, Any]],
+) -> Dict[str, Any]:
+    routes = memory.setdefault("routes", {})
+    patterns = memory.setdefault("patterns", {})
+    channels = memory.setdefault("channels", {})
+    evidence = memory.setdefault("evidence", [])
+    rejected = memory.setdefault("rejected", {})
+    discovered = confirmed = rejected_count = 0
+
+    for row in results:
+        d = row.get("discovery") or {}
+        if not d:
+            continue
+        route = row.get("route")
+        prefix = d.get("hypothesis") or route_prefix_from_candidate(route or "")
+        working = bool(row.get("working"))
+        score = float(row.get("rank_score", 0) or 0)
+        state = routes.setdefault(route, {
+            "prefix": prefix, "attempts": 0, "ok": 0, "fail": 0,
+            "confidence": 0.05, "status": "unknown",
+        })
+        state["attempts"] += 1
+        state["ok" if working else "fail"] += 1
+        total = state["attempts"]
+        rate = state["ok"] / total if total else 0.0
+        confirmations = state["ok"]
+        state["confidence"] = round(clamp(0.05 + 0.90 * rate + min(confirmations, 3) * 0.02, 0.0, 0.99), 4)
+        if working and confirmations >= DISCOVERY_CONFIRMATIONS and state["confidence"] >= DISCOVERY_MIN_CONFIDENCE:
+            state["status"] = "confirmed"
+            confirmed += 1
+        elif working:
+            state["status"] = "candidate"
+            discovered += 1
+        else:
+            state["status"] = "rejected" if total >= DISCOVERY_CONFIRMATIONS and rate == 0 else "unknown"
+            if state["status"] == "rejected":
+                rejected_count += 1
+                rejected[route] = {"prefix": prefix, "attempts": total, "last_reason": row.get("reason", "")}
+        pattern = patterns.setdefault(prefix, {"attempts": 0, "ok": 0, "fail": 0, "channels": []})
+        pattern["attempts"] += 1
+        pattern["ok" if working else "fail"] += 1
+        alias = row.get("alias")
+        if alias and alias not in pattern["channels"]:
+            pattern["channels"].append(alias)
+        channels.setdefault(alias, {}).setdefault(route, {"attempts": 0, "ok": 0})
+        channels[alias][route]["attempts"] += 1
+        channels[alias][route]["ok"] += int(working)
+        evidence.append({
+            "timestamp": now_utc(), "alias": alias, "route": route,
+            "prefix": prefix, "url": row.get("url"),
+            "working": working, "http_status": row.get("http_status"),
+            "reason": row.get("reason", ""), "rank_score": score,
+        })
+
+    memory["evidence"] = evidence[-10000:]
+    memory["scanner_version"] = SCANNER_VERSION
+    return {
+        "discovery_results": sum(1 for r in results if r.get("discovery")),
+        "candidate_routes": discovered,
+        "confirmed_routes": confirmed,
+        "rejected_routes": rejected_count,
+    }
+
+
+def write_discovery_outputs(memory: Dict[str, Any], summary: Dict[str, Any]) -> None:
+    payload = dict(memory)
+    payload["schema_version"] = 2
+    payload["scanner_version"] = SCANNER_VERSION
+    payload["updated_at"] = now_utc()
+    payload["last_summary"] = summary
+    write_json(OUTPUT_DISCOVERY, payload)
+    write_json(OUTPUT_DISCOVERY_PATTERNS, {
+        "schema_version": 1,
+        "scanner_version": SCANNER_VERSION,
+        "updated_at": now_utc(),
+        "patterns": memory.get("patterns", {}),
+        "routes": memory.get("routes", {}),
+    })
+    write_json(OUTPUT_DISCOVERY_EVIDENCE, {
+        "schema_version": 1,
+        "scanner_version": SCANNER_VERSION,
+        "updated_at": now_utc(),
+        "summary": summary,
+        "evidence": memory.get("evidence", [])[-10000:],
+    })
 
 
 # ============================================================
@@ -1752,13 +2198,24 @@ def generate_candidates(
             "source_route",
             "other",
         )
+        observed_url = observation.get("source_url", "")
+        observed_path = urlparse(observed_url).path if observed_url else ""
+        dynamic_match = re.search(
+            r"/(hls)/(region[^/]*)/CH_[^/]+(?:/|$)",
+            observed_path,
+            re.I,
+        )
+        dynamic_route = None
+        if dynamic_match:
+            dynamic_route = f"hls_{dynamic_match.group(2).lower()}"
 
         routes = []
 
-        if observed_route in KNOWN_ROUTES:
-            routes.append(
-                observed_route
-            )
+        if route_supported(observed_route):
+            routes.append(observed_route)
+
+        if dynamic_route and dynamic_route not in routes:
+            routes.append(dynamic_route)
 
         routes.extend(
             route
@@ -1816,7 +2273,7 @@ def generate_candidates(
 
         if (
             alias
-            and route in KNOWN_ROUTES
+            and route_supported(route)
         ):
             add_candidate(
                 alias,
@@ -2459,7 +2916,10 @@ async def validate_child_playlist(
                 async with session.get(
                     child_url,
                     timeout=aiohttp.ClientTimeout(
-                        total=CHILD_TIMEOUT
+                        total=CHILD_TIMEOUT,
+                        connect=min(3, CHILD_TIMEOUT),
+                        sock_connect=min(3, CHILD_TIMEOUT),
+                        sock_read=CHILD_TIMEOUT,
                     ),
                     headers={
                         "User-Agent": PRIMARY_UA,
@@ -2619,7 +3079,10 @@ async def check_candidate(
             async with session.get(
                 url,
                 timeout=aiohttp.ClientTimeout(
-                    total=HTTP_TIMEOUT
+                    total=HTTP_TIMEOUT,
+                    connect=min(3, HTTP_TIMEOUT),
+                    sock_connect=min(3, HTTP_TIMEOUT),
+                    sock_read=HTTP_TIMEOUT,
                 ),
                 headers={
                     "User-Agent": PRIMARY_UA,
@@ -2800,7 +3263,10 @@ async def scan_all(
     )
 
     connector = aiohttp.TCPConnector(
-        limit=CONCURRENCY_LIMIT
+        limit=CONNECTOR_LIMIT,
+        limit_per_host=CONNECTOR_LIMIT,
+        ttl_dns_cache=DNS_CACHE_TTL,
+        enable_cleanup_closed=True,
     )
 
     async with aiohttp.ClientSession(
@@ -3532,15 +3998,35 @@ def main() -> None:
             tails,
         )
 
-        # DISCOVERY
+        # DISCOVERY V9 BASE + V10 AUTONOMOUS STRUCTURAL DISCOVERY
         candidates = generate_candidates(
             observations,
             kb,
         )
 
+        discovery_memory = load_discovery_memory()
+        autonomous_candidates, discovery_meta = generate_autonomous_discovery_candidates(
+            observations,
+            kb,
+            golden,
+            discovery_memory,
+        )
+        candidates = merge_candidates(candidates, autonomous_candidates)
+
+        for candidate in candidates:
+            if candidate.get("discovery"):
+                candidate["discovery"]["autonomous"] = True
+
         skala(
-            f"CANDIDATES: "
-            f"{len(candidates)}"
+            f"AUTONOMOUS DISCOVERY: hypotheses={discovery_meta['hypotheses']} "
+            f"generated={discovery_meta['generated']}"
+        )
+        skala(
+            f"CANDIDATES: {len(candidates)}"
+        )
+
+        write_route_matrix(
+            [observation["alias"] for observation in observations]
         )
 
         # PREDICTION
@@ -3589,6 +4075,17 @@ def main() -> None:
             )
         )
 
+        discovery_by_key = {
+            (c["alias"], c["route"], c["url"]): c.get("discovery")
+            for c in ordered
+            if c.get("discovery")
+        }
+
+        for row in results:
+            key = (row.get("alias"), row.get("route"), row.get("url"))
+            if key in discovery_by_key:
+                row["discovery"] = discovery_by_key[key]
+
         # FINAL SCORE
         for row in results:
             key = (
@@ -3629,6 +4126,22 @@ def main() -> None:
             f"{learning_update['samples']} "
             f"MAE="
             f"{learning_update['mean_absolute_error']:.4f}"
+        )
+
+        # V10 DISCOVERY MEMORY / EVIDENCE
+        discovery_update = update_discovery_memory(
+            discovery_memory,
+            results,
+        )
+        write_discovery_outputs(
+            discovery_memory,
+            discovery_update,
+        )
+        skala(
+            f"AUTONOMOUS DISCOVERY MEMORY: "
+            f"confirmed={discovery_update['confirmed_routes']} "
+            f"candidate={discovery_update['candidate_routes']} "
+            f"rejected={discovery_update['rejected_routes']}"
         )
 
         # SELECTION
@@ -3723,6 +4236,11 @@ def main() -> None:
             },
             "metrics": metrics,
             "learning_update": learning_update,
+            "discovery": {
+                "meta": discovery_meta,
+                "update": discovery_update,
+                "memory_file": OUTPUT_DISCOVERY,
+            },
             "evolution_summary": evolution.get(
                 "summary"
             ),
@@ -3876,6 +4394,9 @@ def main() -> None:
         )
         raise
 
+
+import atexit
+atexit.register(_flush_log_buffer)
 
 if __name__ == "__main__":
     main()
