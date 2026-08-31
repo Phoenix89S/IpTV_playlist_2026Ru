@@ -1,0 +1,96 @@
+name: NGENIX Node Probe
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "30 3 */3 * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ngnodes-probe
+  cancel-in-progress: false
+
+jobs:
+  probe-ngenix:
+    name: Probe NGENIX node
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install requests
+
+      - name: Run NGENIX node probe
+        run: |
+          set -e
+
+          echo "========================================"
+          echo "        NGENIX NODE PROBE"
+          echo "========================================"
+
+          python ngnodes.py
+
+          echo "========================================"
+          echo "        PROBE FINISHED"
+          echo "========================================"
+
+      - name: Show generated files
+        if: always()
+        run: |
+          echo "Generated files:"
+          ls -lah
+
+          if [ -f ngenix_s55766_discovered.m3u ]; then
+            echo
+            echo "Playlist:"
+            wc -l ngenix_s55766_discovered.m3u
+          fi
+
+      - name: Upload probe result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ngenix-node-probe-${{ github.run_number }}
+          path: |
+            ngenix_s55766_discovered.m3u
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Commit updated playlist
+        if: success()
+        run: |
+          set -e
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if [ ! -f ngenix_s55766_discovered.m3u ]; then
+            echo "Playlist not generated."
+            exit 0
+          fi
+
+          git add ngenix_s55766_discovered.m3u
+
+          if git diff --cached --quiet; then
+            echo "No playlist changes."
+            exit 0
+          fi
+
+          git commit -m "chore: update NGENIX node playlist"
+          git push
