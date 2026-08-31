@@ -1,6 +1,6 @@
 {
   "source": "eppg_provider",
-  "total": 571,
+  "total": 568,
   "items": [
     {
       "raw_name": "Первый_Крымский",
@@ -143,12 +143,6 @@
     {
       "raw_name": "Детское_кино",
       "alias": "детское_кино",
-      "confidence": 0.95,
-      "source": "eppg_legacy"
-    },
-    {
-      "raw_name": "АРТ",
-      "alias": "арт",
       "confidence": 0.95,
       "source": "eppg_legacy"
     },
@@ -1089,12 +1083,6 @@
       "source": "eppg_legacy"
     },
     {
-      "raw_name": "Афонтово",
-      "alias": "афонтово",
-      "confidence": 0.95,
-      "source": "eppg_legacy"
-    },
-    {
       "raw_name": "Кино_Ultra_HD",
       "alias": "кино_ultra_hd",
       "confidence": 0.95,
@@ -1547,12 +1535,6 @@
     {
       "raw_name": "Россия_1_(дубль_2)",
       "alias": "россия_1_(дубль_2)",
-      "confidence": 0.95,
-      "source": "eppg_legacy"
-    },
-    {
-      "raw_name": "Шалун",
-      "alias": "шалун",
       "confidence": 0.95,
       "source": "eppg_legacy"
     },
