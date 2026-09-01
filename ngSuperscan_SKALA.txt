@@ -18,6 +18,18 @@
     -> https://s70378.cdn.ngenix.net/vip_serial/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5831639766693115
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/vip_serial/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/vip_serial/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] evrokino
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -32,6 +44,18 @@
     -> https://s70378.cdn.ngenix.net/evrokino/index.m3u8
     -> https://s70378.cdn.ngenix.net/evrokino/1/index.m3u8
     -> https://s70378.cdn.ngenix.net/evrokino/2/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5787227153778076
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/evrokino/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/evrokino/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 [КАНАЛ] sony_turbo
@@ -50,9 +74,33 @@
     -> https://s70378.cdn.ngenix.net/sony_turbo/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.6473574638366699
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/sony_turbo/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/sony_turbo/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] dom_kino_pr
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/dom_kино_pr/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/dom_kино_pr/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5887410640716553
 
   [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/dom_kино_pr/index.m3u8
              STATUS=FAIL_M3U8 speed=None
@@ -79,9 +127,33 @@
     -> https://s70378.cdn.ngenix.net/mnogo_tv/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5835950374603271
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/mnogo_tv/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/mnogo_tv/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] nashe_novoe
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/nashe_novoe/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/nashe_novoe/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.6546347141265869
 
   [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/nashe_novoe/index.m3u8
              STATUS=FAIL_M3U8 speed=None
@@ -108,6 +180,18 @@
     -> https://s70378.cdn.ngenix.net/kinouzhas/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.6534416675567627
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/kinouzhas/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/kinouzhas/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] mir_seriala
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -122,6 +206,18 @@
     -> https://s70378.cdn.ngenix.net/mir_seriala/index.m3u8
     -> https://s70378.cdn.ngenix.net/mir_seriala/1/index.m3u8
     -> https://s70378.cdn.ngenix.net/mir_seriala/2/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.6565759181976318
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/mir_seriala/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/mir_seriala/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 [КАНАЛ] kinoklub
@@ -140,6 +236,18 @@
     -> https://s70378.cdn.ngenix.net/kinoklub/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.6273221969604492
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/kinoklub/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/kinoklub/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] hd_life
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -156,6 +264,18 @@
     -> https://s70378.cdn.ngenix.net/hd_life/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.6477386951446533
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/hd_life/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/hd_life/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] filmbox
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -170,6 +290,18 @@
     -> https://s70378.cdn.ngenix.net/filmbox/index.m3u8
     -> https://s70378.cdn.ngenix.net/filmbox/1/index.m3u8
     -> https://s70378.cdn.ngenix.net/filmbox/2/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.6374650001525879
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/filmbox/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/filmbox/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 [КАНАЛ] filmzone
@@ -189,6 +321,18 @@
     -> https://s70378.cdn.ngenix.net/filmzone/3/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.6455330848693848
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/filmzone/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/filmzone/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] bazmoc
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -204,6 +348,18 @@
     -> https://s70378.cdn.ngenix.net/bazmoc/1/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.6547567844390869
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/bazmoc/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/bazmoc/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] flixsnip
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -217,9 +373,33 @@
   [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.6375858783721924
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/flixsnip/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/flixsnip/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] illusion_pl
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/illusion_pl/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/illusion_pl/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.6525998115539551
 
   [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/illusion_pl/index.m3u8
              STATUS=FAIL_M3U8 speed=None
@@ -246,6 +426,18 @@
     -> https://s70378.cdn.ngenix.net/amc/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5623311996459961
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/amc/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/amc/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] ntv_serial
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -260,6 +452,18 @@
     -> https://s70378.cdn.ngenix.net/ntv_serial/index.m3u8
     -> https://s70378.cdn.ngenix.net/ntv_serial/1/index.m3u8
     -> https://s70378.cdn.ngenix.net/ntv_serial/2/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.655517578125
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/ntv_serial/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/ntv_serial/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 [КАНАЛ] dom_kino
@@ -278,6 +482,18 @@
     -> https://s70378.cdn.ngenix.net/dom_kino/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.6366019248962402
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/dom_kino/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/dom_kino/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] sony_sci_fi
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -292,6 +508,18 @@
     -> https://s70378.cdn.ngenix.net/sony_sci_fi/index.m3u8
     -> https://s70378.cdn.ngenix.net/sony_sci_fi/1/index.m3u8
     -> https://s70378.cdn.ngenix.net/sony_sci_fi/2/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5998477935791016
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/sony_sci_fi/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/sony_sci_fi/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 [КАНАЛ] amedia_2
@@ -310,6 +538,18 @@
     -> https://s70378.cdn.ngenix.net/amedia_2/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.6633760929107666
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/amedia_2/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/amedia_2/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] docubox
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -326,9 +566,33 @@
     -> https://s70378.cdn.ngenix.net/docubox/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.506338357925415
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/docubox/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/docubox/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] curiosity_s
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/curiosity_s/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/curiosity_s/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.49189019203186035
 
   [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/curiosity_s/index.m3u8
              STATUS=FAIL_M3U8 speed=None
@@ -355,6 +619,18 @@
     -> https://s70378.cdn.ngenix.net/history/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.55007004737854
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/history/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/history/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] galaxy
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -369,6 +645,18 @@
     -> https://s70378.cdn.ngenix.net/galaxy/index.m3u8
     -> https://s70378.cdn.ngenix.net/galaxy/1/index.m3u8
     -> https://s70378.cdn.ngenix.net/galaxy/2/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5505642890930176
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/galaxy/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/galaxy/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 [КАНАЛ] zoopark
@@ -387,6 +675,18 @@
     -> https://s70378.cdn.ngenix.net/zoopark/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5515544414520264
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/zoopark/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/zoopark/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] ocean_tv
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -401,6 +701,18 @@
     -> https://s70378.cdn.ngenix.net/ocean_tv/index.m3u8
     -> https://s70378.cdn.ngenix.net/ocean_tv/1/index.m3u8
     -> https://s70378.cdn.ngenix.net/ocean_tv/2/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5035183429718018
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/ocean_tv/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/ocean_tv/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 [КАНАЛ] karusel
@@ -419,6 +731,18 @@
     -> https://s70378.cdn.ngenix.net/karusel/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.4976382255554199
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/karusel/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/karusel/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] terra
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -433,6 +757,18 @@
     -> https://s70378.cdn.ngenix.net/terra/index.m3u8
     -> https://s70378.cdn.ngenix.net/terra/1/index.m3u8
     -> https://s70378.cdn.ngenix.net/terra/2/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5140135288238525
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/terra/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/terra/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 [КАНАЛ] kxl
@@ -451,6 +787,18 @@
     -> https://s70378.cdn.ngenix.net/kxl/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.507835865020752
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/kxl/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/kxl/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] nicktoons
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -467,9 +815,33 @@
     -> https://s70378.cdn.ngenix.net/nicktoons/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5694637298583984
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/nicktoons/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/nicktoons/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] trace_sport
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/trace_sport/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/trace_sport/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5107119083404541
 
   [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/trace_sport/index.m3u8
              STATUS=FAIL_M3U8 speed=None
@@ -496,6 +868,18 @@
     -> https://s70378.cdn.ngenix.net/nickelodeon/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5624346733093262
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/nickelodeon/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/nickelodeon/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] mezzo
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -510,6 +894,18 @@
     -> https://s70378.cdn.ngenix.net/mezzo/index.m3u8
     -> https://s70378.cdn.ngenix.net/mezzo/1/index.m3u8
     -> https://s70378.cdn.ngenix.net/mezzo/2/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5373928546905518
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/mezzo/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/mezzo/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 [КАНАЛ] rtr_planeta
@@ -528,6 +924,18 @@
     -> https://s70378.cdn.ngenix.net/rtr_planeta/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5179190635681152
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/rtr_planeta/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/rtr_planeta/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] tnt_music
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -542,6 +950,18 @@
     -> https://s70378.cdn.ngenix.net/tnt_music/index.m3u8
     -> https://s70378.cdn.ngenix.net/tnt_music/1/index.m3u8
     -> https://s70378.cdn.ngenix.net/tnt_music/2/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.48445844650268555
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/tnt_music/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/tnt_music/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 [КАНАЛ] ducktv
@@ -560,6 +980,18 @@
     -> https://s70378.cdn.ngenix.net/ducktv/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5756723880767822
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/ducktv/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/ducktv/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] gulli
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -576,9 +1008,33 @@
     -> https://s70378.cdn.ngenix.net/gulli/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5363938808441162
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/gulli/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/gulli/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] match_plane
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/match_plane/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/match_plane/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5287809371948242
 
   [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/match_plane/index.m3u8
              STATUS=FAIL_M3U8 speed=None
@@ -605,6 +1061,18 @@
     -> https://s70378.cdn.ngenix.net/ntv_pravo/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.4800264835357666
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/ntv_pravo/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/ntv_pravo/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] tiji
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -619,6 +1087,18 @@
     -> https://s70378.cdn.ngenix.net/tiji/index.m3u8
     -> https://s70378.cdn.ngenix.net/tiji/1/index.m3u8
     -> https://s70378.cdn.ngenix.net/tiji/2/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5866005420684814
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/tiji/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/tiji/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 [КАНАЛ] rtvi
@@ -637,6 +1117,18 @@
     -> https://s70378.cdn.ngenix.net/rtvi/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.4923820495605469
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/rtvi/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/rtvi/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] mir
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -651,6 +1143,18 @@
     -> https://s70378.cdn.ngenix.net/mir/index.m3u8
     -> https://s70378.cdn.ngenix.net/mir/1/index.m3u8
     -> https://s70378.cdn.ngenix.net/mir/2/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.4742741584777832
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/mir/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/mir/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 [КАНАЛ] ren_tv
@@ -669,6 +1173,18 @@
     -> https://s70378.cdn.ngenix.net/ren_tv/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.49361729621887207
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/ren_tv/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/ren_tv/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] rbc
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -683,6 +1199,18 @@
     -> https://s70378.cdn.ngenix.net/rbc/index.m3u8
     -> https://s70378.cdn.ngenix.net/rbc/1/index.m3u8
     -> https://s70378.cdn.ngenix.net/rbc/2/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.512946605682373
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/rbc/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/rbc/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 [КАНАЛ] kvn_tv
@@ -701,6 +1229,18 @@
     -> https://s70378.cdn.ngenix.net/kvn_tv/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.47314929962158203
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/kvn_tv/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/kvn_tv/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] shant
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -714,6 +1254,18 @@
   [ПОТОКИ УЗЛА]
     -> https://s70378.cdn.ngenix.net/shant/index.m3u8
     -> https://s70378.cdn.ngenix.net/shant/1/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5595510005950928
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/shant/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/shant/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 [КАНАЛ] tnt_4
@@ -732,6 +1284,18 @@
     -> https://s70378.cdn.ngenix.net/tnt_4/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.4712400436401367
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/tnt_4/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/tnt_4/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] h2
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -746,6 +1310,18 @@
     -> https://s70378.cdn.ngenix.net/h2/index.m3u8
     -> https://s70378.cdn.ngenix.net/h2/1/index.m3u8
     -> https://s70378.cdn.ngenix.net/h2/2/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5234780311584473
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/h2/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/h2/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 [КАНАЛ] tv_3
@@ -764,6 +1340,18 @@
     -> https://s70378.cdn.ngenix.net/tv_3/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.47608423233032227
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/tv_3/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/tv_3/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] telecafe
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -778,6 +1366,18 @@
     -> https://s70378.cdn.ngenix.net/telecafe/index.m3u8
     -> https://s70378.cdn.ngenix.net/telecafe/1/index.m3u8
     -> https://s70378.cdn.ngenix.net/telecafe/2/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5239262580871582
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/telecafe/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/telecafe/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 [КАНАЛ] zee_tv
@@ -796,6 +1396,18 @@
     -> https://s70378.cdn.ngenix.net/zee_tv/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5524592399597168
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/zee_tv/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/zee_tv/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] h1
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -809,6 +1421,18 @@
   [ПОТОКИ УЗЛА]
     -> https://s70378.cdn.ngenix.net/h1/index.m3u8
     -> https://s70378.cdn.ngenix.net/h1/1/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.549309253692627
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/h1/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/h1/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 [КАНАЛ] euronews
@@ -827,6 +1451,18 @@
     -> https://s70378.cdn.ngenix.net/euronews/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5063307285308838
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/euronews/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/euronews/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] nostalgia
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -841,6 +1477,18 @@
     -> https://s70378.cdn.ngenix.net/nostalgia/index.m3u8
     -> https://s70378.cdn.ngenix.net/nostalgia/1/index.m3u8
     -> https://s70378.cdn.ngenix.net/nostalgia/2/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.45892763137817383
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/nostalgia/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/nostalgia/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 [КАНАЛ] kentron
@@ -859,6 +1507,18 @@
     -> https://s70378.cdn.ngenix.net/kentron/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.48395705223083496
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/kentron/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/kentron/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] playboy
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -875,6 +1535,18 @@
     -> https://s70378.cdn.ngenix.net/playboy/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5462124347686768
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/playboy/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/playboy/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] atv
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -888,6 +1560,18 @@
   [ПОТОКИ УЗЛА]
     -> https://s70378.cdn.ngenix.net/atv/index.m3u8
     -> https://s70378.cdn.ngenix.net/atv/1/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.548957109451294
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/atv/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/atv/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 [КАНАЛ] dar21
@@ -906,6 +1590,18 @@
     -> https://s70378.cdn.ngenix.net/dar21/2/index.m3u8
 ------------------------------------------------------------
 
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5209648609161377
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/dar21/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/dar21/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
+------------------------------------------------------------
+
 [КАНАЛ] erox
   [УЗЕЛ] s70378.cdn.ngenix.net
   [NODE] STATUS=False time=None
@@ -920,6 +1616,18 @@
     -> https://s70378.cdn.ngenix.net/erox/index.m3u8
     -> https://s70378.cdn.ngenix.net/erox/1/index.m3u8
     -> https://s70378.cdn.ngenix.net/erox/2/index.m3u8
+------------------------------------------------------------
+
+  [УЗЕЛ] s70378.cdn.ngenix.net
+  [NODE] STATUS=True time=0.5421440601348877
+
+  [ОРИГИНАЛ] https://a3569457567-s70378.cdn.ngenix.net/erox/index.m3u8
+             STATUS=FAIL_M3U8 speed=None
+
+  [АЛЬТЕРНАТИВА] https://cdn.ngenix.net/erox/index.m3u8
+                 STATUS=FAIL_M3U8 speed=None
+
+  [ПОТОКИ УЗЛА]
 ------------------------------------------------------------
 
 
