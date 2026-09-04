@@ -7,23 +7,42 @@
           ngSKALA / ZOYE Discovery Engine
 ============================================================
 
-РЕЖИМ:
-  • Только наблюдаемые/зафиксированные NGENIX hostname.
+DISCOVERY:
+  • Только наблюдаемые/зафиксированные hostname.
   • Никакого перебора sXXXXX.
   • Никакого угадывания новых hostname.
-  • Проверяются ВСЕ КОМБИНАЦИИ:
-        observed hostname × 84 observed channel aliases
-  • Дополнительно сохраняются специальные ранее найденные paths.
-  • DNS → TCP/443 → bounded HTTP GET.
-  • M3U8 проверяется только ограниченным чтением.
-  • zabava-block-htvod определяется отдельно.
-  • Дедупликация URL.
-  • JSON / GRAPH / M3U / CSV / HISTORY / SKALA REPORT.
+  • observed hostname × observed channel aliases.
+  • Сохраняются специальные ранее найденные paths.
 
-ВАЖНО:
-  Список hostname ограничен зафиксированными наблюдаемыми узлами.
-  Алиасы ниже — переданный пользователем итоговый список из 84
-  уникальных алиасов.
+VALIDATION:
+  1. DNS
+  2. TCP/443
+  3. bounded HTTP GET
+  4. STUB detection
+  5. STUB response parsing
+  6. извлечение фактически возвращённых NGENIX URL
+  7. повторная HTTP verification
+  8. HTTP 200 + #EXTM3U
+  9. извлечение M3U8 metadata
+
+PLAYLIST:
+  • STUB сам в playlist НЕ попадает.
+  • 404/AUTH/ERROR НЕ попадают.
+  • Derived URL попадает только после VERIFIED.
+  • Для VERIFIED название/группа берутся из manifest,
+    если они там присутствуют.
+  • Все STUB / rejected / derived результаты сохраняются
+    в inventory.
+
+SAFETY:
+  • Нет hostname brute force.
+  • Нет sXXXXX generation.
+  • Нет authorization bypass.
+  • Нет credential discovery.
+  • Ограниченное чтение ответов.
+  • Ограниченный concurrency.
+  • Один HTTP request одновременно на hostname
+    посредством host locks.
 ============================================================
 """
 
@@ -36,15 +55,41 @@ import re
 import socket
 import ssl
 import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
+
+from concurrent.futures import (
+    ThreadPoolExecutor,
+    as_completed,
+)
+
+from dataclasses import (
+    asdict,
+    dataclass,
+    field,
+)
+
+from datetime import (
+    datetime,
+    timezone,
+)
+
 from pathlib import Path
 from threading import Lock
 from typing import Iterable
-from urllib.error import HTTPError, URLError
-from urllib.parse import urlparse
-from urllib.request import Request, urlopen
+
+from urllib.error import (
+    HTTPError,
+    URLError,
+)
+
+from urllib.parse import (
+    urljoin,
+    urlparse,
+)
+
+from urllib.request import (
+    Request,
+    urlopen,
+)
 
 
 # ============================================================
@@ -62,8 +107,13 @@ OUTPUT_REPORT = "NGENIX_CDN_CONSTELLATION_SKALA.txt"
 OUTPUT_HISTORY = "NGENIX_CDN_CONSTELLATION_HISTORY.json"
 OUTPUT_CSV = "NGENIX_CDN_CONSTELLATION.csv"
 
-DEFAULT_OUTPUT_DIR = Path("data/ngenix_constellation")
-DEFAULT_REPORT_DIR = Path("reports/ngenix_constellation")
+DEFAULT_OUTPUT_DIR = Path(
+    "data/ngenix_constellation"
+)
+
+DEFAULT_REPORT_DIR = Path(
+    "reports/ngenix_constellation"
+)
 
 
 # ============================================================
@@ -73,14 +123,11 @@ DEFAULT_REPORT_DIR = Path("reports/ngenix_constellation")
 DEFAULT_TIMEOUT = 5.0
 DEFAULT_READ_LIMIT = 65536
 
-# Жёсткий потолок параллелизма.
 DEFAULT_WORKERS = 12
 MAX_WORKERS = 24
 
-# Минимальная пауза между стартами HTTP-проверок.
 DEFAULT_REQUEST_DELAY = 0.05
 
-# Не более одного запроса одновременно к одному hostname.
 HOST_INFLIGHT = 1
 
 
@@ -97,7 +144,9 @@ HOST_RE = re.compile(
 )
 
 SERVICE_RE = re.compile(
-    r"(?<![a-z0-9-])(s\d{5,})(?![a-z0-9-])",
+    r"(?<![a-z0-9-])"
+    r"(s\d{5,})"
+    r"(?![a-z0-9-])",
     re.IGNORECASE,
 )
 
@@ -126,7 +175,9 @@ SUPPORTED_EXTENSIONS = {
 # SPECIAL HOST
 # ============================================================
 
-STUB_HOST = "zabava-block-htvod.cdn.ngenix.net"
+STUB_HOST = (
+    "zabava-block-htvod.cdn.ngenix.net"
+)
 
 
 # ============================================================
@@ -143,7 +194,6 @@ USER_AGENTS = [
 
 # ============================================================
 # OBSERVED S-HOSTS
-# Никакого генерирования диапазонов.
 # ============================================================
 
 SEED_S_HOSTS = [
@@ -317,7 +367,7 @@ SEED_ACCOUNT_HOSTS = [
 
 
 # ============================================================
-# 84 OBSERVED CHANNEL ALIASES
+# OBSERVED CHANNEL ALIASES
 # ============================================================
 
 CHANNEL_ALIASES = [
@@ -484,34 +534,63 @@ SEED_PATHS_SPECIAL = {
         "/s55766-media-origin/rline_high/tracks-v1a1/mono.m3u8",
         "/s55766-media-origin/rline_high/index.m3u8",
     ],
+
     "s68149.cdn.ngenix.net": [
         "/s68149-media-origin/lvs/tvgub/tracks-v1a1/mono.m3u8",
     ],
+
     "s78511.cdn.ngenix.net": [
         "/open/_definst_/TVRain_noaudio/chunklist_DVR.m3u8",
     ],
+
     "s26881.cdn.ngenix.net": [
         "/live/smil:russiak.smil/chunklist_b1600000.m3u8",
     ],
+
     "s80718.cdn.ngenix.net": [
         "/hls/CH_KINOMANHD/variant.m3u8",
     ],
+
     "s27836.cdn.ngenix.net": [
         "/hls/radio_rus/playlist_3.m3u8",
     ],
+
     "s92263.cdn.ngenix.net": [
         "/hls-live/streams/channelone/channelone.m3u8",
     ],
+
     "kprf-htlive.cdn.ngenix.net": [
         "/live/_definst_/stream_high/playlist.m3u8?version=2",
     ],
+
     "tvgubernia-htlive.cdn.ngenix.net": [
         "/live/mp4:tv-gubernia-live/playlist.m3u8",
     ],
+
     "zabava-block-htvod.cdn.ngenix.net": [
         "/rtk_block.m3u8",
     ],
 }
+
+
+# ============================================================
+# DERIVED URL EXTRACTION
+# ============================================================
+
+DERIVED_URL_RE = re.compile(
+    r'https?://'
+    r'[a-z0-9][a-z0-9.-]*'
+    r'\.cdn\.ngenix\.net'
+    r'(?:/[^\s<>"\'\\]+)?',
+    re.IGNORECASE,
+)
+
+RELATIVE_M3U8_RE = re.compile(
+    r'(?<![A-Za-z0-9])'
+    r'(?:/[A-Za-z0-9._~!$&()*+,;=:@%/?#-]+\.m3u8'
+    r'(?:\?[^\s<>"\']*)?)',
+    re.IGNORECASE,
+)
 
 
 # ============================================================
@@ -520,7 +599,9 @@ SEED_PATHS_SPECIAL = {
 
 @dataclass
 class StreamEntry:
+
     url: str
+
     hostname: str
     service_id: str | None
     account_id: str | None
@@ -536,45 +617,146 @@ class StreamEntry:
     source: str
 
     node_status: str = "not_checked"
-    node_ips: list[str] = field(default_factory=list)
+    node_ips: list[str] = field(
+        default_factory=list
+    )
     node_latency_ms: float | None = None
     node_error: str | None = None
 
     stream_status: str = "not_checked"
+
     http_status: int | None = None
+
     stream_latency_ms: float | None = None
+
     stream_content_type: str | None = None
+
     stream_bytes_read: int = 0
+
     stream_error: str | None = None
+
+    # --------------------------------------------------------
+    # STUB
+    # --------------------------------------------------------
 
     is_stub: bool = False
 
+    stub_target: str | None = None
+
+    derived_urls: list[str] = field(
+        default_factory=list
+    )
+
+    # --------------------------------------------------------
+    # SECOND-STAGE VERIFICATION
+    # --------------------------------------------------------
+
+    verification_status: str = (
+        "not_checked"
+    )
+
+    verification_http_status: int | None = None
+
+    verification_content_type: str | None = None
+
+    verification_bytes_read: int = 0
+
+    verification_latency_ms: float | None = None
+
+    verification_error: str | None = None
+
+    # --------------------------------------------------------
+    # MANIFEST METADATA
+    # --------------------------------------------------------
+
+    manifest_name: str | None = None
+
+    manifest_group: str | None = None
+
+    manifest_metadata: dict = field(
+        default_factory=dict
+    )
+
+    # --------------------------------------------------------
+    # TIMESTAMPS
+    # --------------------------------------------------------
+
     first_seen: str | None = None
+
     last_seen: str | None = None
 
 
 # ============================================================
-# GLOBAL RATE LIMITER
+# GLOBAL REQUEST PACER
 # ============================================================
 
 class RequestPacer:
-    def __init__(self, delay: float):
-        self.delay = max(0.0, delay)
+
+    def __init__(
+        self,
+        delay: float,
+    ):
+
+        self.delay = max(
+            0.0,
+            delay,
+        )
+
         self.lock = Lock()
+
         self.last_request = 0.0
 
     def wait(self) -> None:
+
         if self.delay <= 0:
             return
 
         with self.lock:
+
             now = time.monotonic()
-            wait_for = self.delay - (now - self.last_request)
+
+            wait_for = (
+                self.delay
+                - (
+                    now
+                    - self.last_request
+                )
+            )
 
             if wait_for > 0:
-                time.sleep(wait_for)
+                time.sleep(
+                    wait_for
+                )
 
-            self.last_request = time.monotonic()
+            self.last_request = (
+                time.monotonic()
+            )
+
+
+# ============================================================
+# HOST LOCKS
+# ============================================================
+
+_HOST_LOCKS: dict[str, Lock] = {}
+
+_HOST_LOCKS_GUARD = Lock()
+
+
+def get_host_lock(
+    hostname: str,
+) -> Lock:
+
+    with _HOST_LOCKS_GUARD:
+
+        if hostname not in _HOST_LOCKS:
+
+            _HOST_LOCKS[
+                hostname
+            ] = Lock()
+
+        return _HOST_LOCKS[
+            hostname
+        ]
 
 
 # ============================================================
@@ -582,28 +764,52 @@ class RequestPacer:
 # ============================================================
 
 def utc_now() -> str:
-    return datetime.now(timezone.utc).isoformat()
+
+    return datetime.now(
+        timezone.utc
+    ).isoformat()
 
 
-def fqdn(label: str) -> str:
-    label = label.lower().strip()
+def fqdn(
+    label: str,
+) -> str:
 
-    if label.endswith(".cdn.ngenix.net"):
+    label = (
+        label
+        .lower()
+        .strip()
+    )
+
+    if label.endswith(
+        ".cdn.ngenix.net"
+    ):
         return label
 
-    return f"{label}.cdn.ngenix.net"
+    return (
+        f"{label}.cdn.ngenix.net"
+    )
 
 
-def extract_service_id(hostname: str) -> str | None:
-    match = SERVICE_RE.search(hostname)
+def extract_service_id(
+    hostname: str,
+) -> str | None:
+
+    match = SERVICE_RE.search(
+        hostname
+    )
 
     if match:
-        return match.group(1).lower()
+        return match.group(
+            1
+        ).lower()
 
     return None
 
 
-def extract_account_id(hostname: str) -> str | None:
+def extract_account_id(
+    hostname: str,
+) -> str | None:
+
     match = re.search(
         r"(a\d+)-",
         hostname,
@@ -611,21 +817,30 @@ def extract_account_id(hostname: str) -> str | None:
     )
 
     if match:
-        return match.group(1).lower()
+        return match.group(
+            1
+        ).lower()
 
     return None
 
 
-def classify_hostname(hostname: str) -> str:
+def classify_hostname(
+    hostname: str,
+) -> str:
+
     hostname = hostname.lower()
 
     if hostname == STUB_HOST:
         return "stub"
 
-    if ACCOUNT_SERVICE_RE.search(hostname):
+    if ACCOUNT_SERVICE_RE.search(
+        hostname
+    ):
         return "account_service"
 
-    if SERVICE_RE.search(hostname):
+    if SERVICE_RE.search(
+        hostname
+    ):
         return "service"
 
     if "htvod" in hostname:
@@ -637,31 +852,46 @@ def classify_hostname(hostname: str) -> str:
     return "named_cdn"
 
 
-def extract_channel(path: str) -> str | None:
+def extract_channel(
+    path: str,
+) -> str | None:
+
     parts = [
-        x for x in path.split("/")
+        x
+        for x in path.split("/")
         if x
     ]
 
     if not parts:
         return None
 
-    if parts[0].lower() == "hls" and len(parts) > 1:
+    if (
+        parts[0].lower() == "hls"
+        and len(parts) > 1
+    ):
         return parts[1]
 
     return parts[0]
 
 
-def extract_variant(path: str) -> str | None:
+def extract_variant(
+    path: str,
+) -> str | None:
+
     parts = [
-        x for x in path.split("/")
+        x
+        for x in path.split("/")
         if x
     ]
 
     if len(parts) < 2:
         return None
 
-    filename = parts[-1].lower().split("?")[0]
+    filename = (
+        parts[-1]
+        .lower()
+        .split("?")[0]
+    )
 
     if filename in {
         "index.m3u8",
@@ -670,6 +900,7 @@ def extract_variant(path: str) -> str | None:
         "playlist.m3u8",
         "mono.m3u8",
     }:
+
         return parts[-2]
 
     return None
@@ -677,7 +908,10 @@ def extract_variant(path: str) -> str | None:
 
 def parse_extinf(
     line: str,
-) -> tuple[str | None, str | None]:
+) -> tuple[
+    str | None,
+    str | None,
+]:
 
     name = None
     group = None
@@ -685,7 +919,12 @@ def parse_extinf(
     comma = line.find(",")
 
     if comma >= 0:
-        name = line[comma + 1:].strip()
+
+        name = (
+            line[
+                comma + 1:
+            ].strip()
+        )
 
     match = re.search(
         r'group-title="([^"]*)"',
@@ -694,7 +933,10 @@ def parse_extinf(
     )
 
     if match:
-        group = match.group(1)
+
+        group = (
+            match.group(1)
+        )
 
     return name, group
 
@@ -711,10 +953,12 @@ def make_entry(
 ) -> StreamEntry | None:
 
     try:
+
         parsed = urlparse(url)
 
         hostname = (
-            parsed.hostname or ""
+            parsed.hostname
+            or ""
         ).lower()
 
         if not hostname.endswith(
@@ -722,42 +966,73 @@ def make_entry(
         ):
             return None
 
-        path = parsed.path or "/"
+        path = (
+            parsed.path
+            or "/"
+        )
 
         if parsed.query:
+
             path = (
-                f"{path}?{parsed.query}"
+                f"{path}"
+                f"?{parsed.query}"
             )
 
         now = utc_now()
 
         return StreamEntry(
+
             url=url,
+
             hostname=hostname,
-            service_id=extract_service_id(
-                hostname
+
+            service_id=(
+                extract_service_id(
+                    hostname
+                )
             ),
-            account_id=extract_account_id(
-                hostname
+
+            account_id=(
+                extract_account_id(
+                    hostname
+                )
             ),
-            hostname_type=classify_hostname(
-                hostname
+
+            hostname_type=(
+                classify_hostname(
+                    hostname
+                )
             ),
+
             path=path,
-            channel=extract_channel(
-                parsed.path or "/"
+
+            channel=(
+                extract_channel(
+                    parsed.path
+                    or "/"
+                )
             ),
-            variant=extract_variant(
-                parsed.path or "/"
+
+            variant=(
+                extract_variant(
+                    parsed.path
+                    or "/"
+                )
             ),
+
             name=name,
+
             group=group,
+
             source=source,
+
             first_seen=now,
+
             last_seen=now,
         )
 
     except Exception:
+
         return None
 
 
@@ -782,10 +1057,15 @@ def parse_m3u(
         if not line:
             continue
 
-        if line.startswith("#EXTINF"):
+        if line.startswith(
+            "#EXTINF"
+        ):
 
-            current_name, current_group = (
-                parse_extinf(line)
+            (
+                current_name,
+                current_group,
+            ) = parse_extinf(
+                line
             )
 
             continue
@@ -794,11 +1074,16 @@ def parse_m3u(
             continue
 
         if not line.lower().startswith(
-            ("http://", "https://")
+            (
+                "http://",
+                "https://",
+            )
         ):
             continue
 
-        if not HOST_RE.search(line):
+        if not HOST_RE.search(
+            line
+        ):
             continue
 
         url = line.rstrip(
@@ -813,7 +1098,9 @@ def parse_m3u(
         )
 
         if item:
-            entries.append(item)
+            entries.append(
+                item
+            )
 
         current_name = None
         current_group = None
@@ -832,9 +1119,13 @@ def discover_urls_in_text(
 
     entries = []
 
-    for match in HOST_RE.finditer(text):
+    for match in HOST_RE.finditer(
+        text
+    ):
 
-        url = match.group(0).rstrip(
+        url = match.group(
+            0
+        ).rstrip(
             ".,;)]}>\"'"
         )
 
@@ -844,7 +1135,9 @@ def discover_urls_in_text(
         )
 
         if item:
-            entries.append(item)
+            entries.append(
+                item
+            )
 
     return entries
 
@@ -858,11 +1151,14 @@ def discover_repository(
 ) -> list[StreamEntry]:
 
     entries = []
+
     files_seen = 0
 
     print()
     print("=" * 70)
-    print(" PHASE 0 / OPTIONAL REPOSITORY DISCOVERY")
+    print(
+        " PHASE 0 / OPTIONAL REPOSITORY DISCOVERY"
+    )
     print("=" * 70)
 
     for path in root.rglob("*"):
@@ -870,31 +1166,43 @@ def discover_repository(
         if not path.is_file():
             continue
 
-        if path.suffix.lower() not in SUPPORTED_EXTENSIONS:
+        if (
+            path.suffix.lower()
+            not in SUPPORTED_EXTENSIONS
+        ):
             continue
 
-        if "ngenix_constellation" in path.parts:
+        if (
+            "ngenix_constellation"
+            in path.parts
+        ):
             continue
 
         files_seen += 1
 
         try:
+
             text = path.read_text(
                 encoding="utf-8",
                 errors="replace",
             )
+
         except Exception as exc:
 
             print(
-                f"[READ-ERROR] {path}: {exc}"
+                f"[READ-ERROR] "
+                f"{path}: {exc}"
             )
 
             continue
 
-        if path.suffix.lower() in {
-            ".m3u",
-            ".m3u8",
-        }:
+        if (
+            path.suffix.lower()
+            in {
+                ".m3u",
+                ".m3u8",
+            }
+        ):
 
             found = parse_m3u(
                 text,
@@ -903,22 +1211,28 @@ def discover_repository(
 
         else:
 
-            found = discover_urls_in_text(
-                text,
-                str(path),
+            found = (
+                discover_urls_in_text(
+                    text,
+                    str(path),
+                )
             )
 
         if found:
 
             print(
-                f"[DISCOVERY] {path} -> "
+                f"[DISCOVERY] "
+                f"{path} -> "
                 f"{len(found)} endpoints"
             )
 
-            entries.extend(found)
+            entries.extend(
+                found
+            )
 
     print(
-        f"[DISCOVERY] files: {files_seen}"
+        f"[DISCOVERY] files: "
+        f"{files_seen}"
     )
 
     print(
@@ -930,7 +1244,7 @@ def discover_repository(
 
 
 # ============================================================
-# ALL OBSERVED HOSTS
+# OBSERVED HOSTS
 # ============================================================
 
 def observed_hosts() -> list[str]:
@@ -948,19 +1262,26 @@ def observed_hosts() -> list[str]:
 
     for label in labels:
 
-        host = fqdn(label)
+        host = fqdn(
+            label
+        )
 
         if host in seen:
             continue
 
         seen.add(host)
-        result.append(host)
 
-    return sorted(result)
+        result.append(
+            host
+        )
+
+    return sorted(
+        result
+    )
 
 
 # ============================================================
-# BUILD ALL HOST × 84 ALIAS COMBINATIONS
+# OBSERVED HOST × ALIAS
 # ============================================================
 
 def build_alias_matrix() -> list[StreamEntry]:
@@ -979,21 +1300,29 @@ def build_alias_matrix() -> list[StreamEntry]:
 
     print()
     print("=" * 70)
-    print(" PHASE 0A / OBSERVED HOST × ALIAS MATRIX")
+    print(
+        " PHASE 0A / OBSERVED HOST × ALIAS MATRIX"
+    )
     print("=" * 70)
 
     print(
-        f"[MATRIX] observed hosts : {len(hosts)}"
+        f"[MATRIX] observed hosts : "
+        f"{len(hosts)}"
     )
 
     print(
-        f"[MATRIX] aliases        : {len(aliases)}"
+        f"[MATRIX] aliases        : "
+        f"{len(aliases)}"
     )
 
-    total = len(hosts) * len(aliases)
+    total = (
+        len(hosts)
+        * len(aliases)
+    )
 
     print(
-        f"[MATRIX] combinations   : {total}"
+        f"[MATRIX] combinations   : "
+        f"{total}"
     )
 
     for hostname in hosts:
@@ -1009,22 +1338,28 @@ def build_alias_matrix() -> list[StreamEntry]:
                 url,
                 "matrix:observed-host×alias",
                 name=alias,
-                group="NGENIX • ALIAS MATRIX",
+                group=(
+                    "NGENIX • "
+                    "ALIAS MATRIX"
+                ),
             )
 
             if item:
-                entries.append(item)
+
+                entries.append(
+                    item
+                )
 
     print(
-        f"[MATRIX] generated candidates: "
-        f"{len(entries)}"
+        "[MATRIX] generated "
+        f"candidates: {len(entries)}"
     )
 
     return entries
 
 
 # ============================================================
-# SPECIAL / LEGACY OBSERVED PATHS
+# SPECIAL / LEGACY PATHS
 # ============================================================
 
 def seed_special_entries() -> list[StreamEntry]:
@@ -1043,6 +1378,7 @@ def seed_special_entries() -> list[StreamEntry]:
         )
 
         if "s70378" in hostname:
+
             paths.extend(
                 SEED_PATHS_S70378
             )
@@ -1051,17 +1387,21 @@ def seed_special_entries() -> list[StreamEntry]:
             "htlive" in hostname
             or hostname.startswith("s")
         ):
+
             paths.extend(
                 SEED_PATHS_GENERIC
             )
 
         if not paths:
+
             paths = list(
                 SEED_PATHS_GENERIC
             )
 
         unique_paths = list(
-            dict.fromkeys(paths)
+            dict.fromkeys(
+                paths
+            )
         )
 
         for path in unique_paths:
@@ -1077,11 +1417,15 @@ def seed_special_entries() -> list[StreamEntry]:
             )
 
             if item:
-                entries.append(item)
+
+                entries.append(
+                    item
+                )
 
     print(
-        f"[SEED] observed special/generic "
-        f"host×path combinations: "
+        "[SEED] observed "
+        "special/generic "
+        "host×path combinations: "
         f"{len(entries)}"
     )
 
@@ -1096,7 +1440,10 @@ def merge_entries(
     entries: Iterable[StreamEntry],
 ) -> list[StreamEntry]:
 
-    database: dict[str, StreamEntry] = {}
+    database: dict[
+        str,
+        StreamEntry,
+    ] = {}
 
     for item in entries:
 
@@ -1105,37 +1452,57 @@ def merge_entries(
         if key not in database:
 
             database[key] = item
+
             continue
 
         old = database[key]
 
         old.last_seen = utc_now()
 
-        if not old.name and item.name:
+        if (
+            not old.name
+            and item.name
+        ):
+
             old.name = item.name
 
-        if not old.group and item.group:
+        if (
+            not old.group
+            and item.group
+        ):
+
             old.group = item.group
 
         old_sources = set(
-            old.source.split("; ")
+            old.source.split(
+                "; "
+            )
         )
 
         for source in item.source.split(
             "; "
         ):
-            old_sources.add(source)
+
+            old_sources.add(
+                source
+            )
 
         old.source = "; ".join(
-            sorted(old_sources)
+            sorted(
+                old_sources
+            )
         )
 
     return sorted(
         database.values(),
         key=lambda x: (
-            x.service_id or "zzzz",
+            x.service_id
+            or "zzzz",
+
             x.hostname,
+
             x.path,
+
             x.url,
         ),
     )
@@ -1154,7 +1521,9 @@ def resolve_all(
     str | None,
 ]:
 
-    started = time.perf_counter()
+    started = (
+        time.perf_counter()
+    )
 
     old_timeout = (
         socket.getdefaulttimeout()
@@ -1226,7 +1595,7 @@ def resolve_all(
 
 
 # ============================================================
-# TCP CHECK
+# TCP
 # ============================================================
 
 def check_ip(
@@ -1238,7 +1607,9 @@ def check_ip(
     str | None,
 ]:
 
-    started = time.perf_counter()
+    started = (
+        time.perf_counter()
+    )
 
     try:
 
@@ -1298,28 +1669,35 @@ def build_nodes(
 
     print()
     print("=" * 70)
-    print(" PHASE 1 / DNS + TCP NODE DISCOVERY")
+    print(
+        " PHASE 1 / DNS + TCP NODE DISCOVERY"
+    )
     print("=" * 70)
 
     for hostname in hostnames:
 
-        ips, dns_latency, dns_error = (
-            resolve_all(
-                hostname,
-                timeout,
-            )
+        (
+            ips,
+            dns_latency,
+            dns_error,
+        ) = resolve_all(
+            hostname,
+            timeout,
         )
 
         reachable = []
+
         ip_results = {}
 
         for ip in ips:
 
-            online, latency, error = (
-                check_ip(
-                    ip,
-                    timeout,
-                )
+            (
+                online,
+                latency,
+                error,
+            ) = check_ip(
+                ip,
+                timeout,
             )
 
             ip_results[ip] = {
@@ -1330,7 +1708,9 @@ def build_nodes(
             }
 
             if online:
-                reachable.append(ip)
+                reachable.append(
+                    ip
+                )
 
         if dns_error:
 
@@ -1349,23 +1729,37 @@ def build_nodes(
             status = "NO_TCP"
 
         nodes[hostname] = {
+
             "hostname": hostname,
-            "hostname_type": classify_hostname(
-                hostname
+
+            "hostname_type": (
+                classify_hostname(
+                    hostname
+                )
             ),
-            "service_id": extract_service_id(
-                hostname
+
+            "service_id": (
+                extract_service_id(
+                    hostname
+                )
             ),
-            "account_id": extract_account_id(
-                hostname
+
+            "account_id": (
+                extract_account_id(
+                    hostname
+                )
             ),
+
             "status": status,
+
             "dns": {
                 "addresses": ips,
                 "latency_ms": dns_latency,
                 "error": dns_error,
             },
+
             "ip_results": ip_results,
+
             "checked_at": utc_now(),
         }
 
@@ -1397,47 +1791,308 @@ def apply_node_results(
         if not result:
             continue
 
-        item.node_status = result[
-            "status"
-        ]
+        item.node_status = (
+            result["status"]
+        )
 
-        item.node_ips = result[
-            "dns"
-        ]["addresses"]
+        item.node_ips = (
+            result["dns"]["addresses"]
+        )
 
-        item.node_latency_ms = result[
-            "dns"
-        ]["latency_ms"]
+        item.node_latency_ms = (
+            result["dns"]["latency_ms"]
+        )
 
-        item.node_error = result[
-            "dns"
-        ]["error"]
+        item.node_error = (
+            result["dns"]["error"]
+        )
 
 
 # ============================================================
-# STREAM CHECK
+# STUB DETECTION
 # ============================================================
 
-def check_stream(
-    item: StreamEntry,
+def detect_stub(
+    response_url: str,
+    body: str,
+) -> bool:
+
+    final_host = (
+        urlparse(
+            response_url
+        ).hostname
+        or ""
+    ).lower()
+
+    lower_url = response_url.lower()
+    lower_body = body.lower()
+
+    return (
+        final_host == STUB_HOST
+        or STUB_HOST in lower_url
+        or "zabava-block" in lower_url
+        or "rtk_block" in lower_url
+        or STUB_HOST in lower_body
+        or "zabava-block" in lower_body
+    )
+
+
+# ============================================================
+# DERIVED URL EXTRACTION
+# ============================================================
+
+def extract_derived_urls(
+    text: str,
+    source_url: str,
+) -> list[str]:
+
+    found: list[str] = []
+
+    # --------------------------------------------------------
+    # Absolute NGENIX URLs
+    # --------------------------------------------------------
+
+    for match in DERIVED_URL_RE.finditer(
+        text
+    ):
+
+        url = match.group(
+            0
+        ).rstrip(
+            ".,;)]}>\"'"
+        )
+
+        try:
+
+            parsed = urlparse(
+                url
+            )
+
+            hostname = (
+                parsed.hostname
+                or ""
+            ).lower()
+
+            if not hostname.endswith(
+                ".cdn.ngenix.net"
+            ):
+                continue
+
+            found.append(
+                url
+            )
+
+        except Exception:
+            continue
+
+    # --------------------------------------------------------
+    # Relative M3U8 references
+    # --------------------------------------------------------
+
+    for match in RELATIVE_M3U8_RE.finditer(
+        text
+    ):
+
+        raw = match.group(
+            0
+        )
+
+        try:
+
+            absolute = urljoin(
+                source_url,
+                raw,
+            )
+
+            parsed = urlparse(
+                absolute
+            )
+
+            hostname = (
+                parsed.hostname
+                or ""
+            ).lower()
+
+            if not hostname.endswith(
+                ".cdn.ngenix.net"
+            ):
+                continue
+
+            found.append(
+                absolute
+            )
+
+        except Exception:
+            continue
+
+    return list(
+        dict.fromkeys(
+            found
+        )
+    )
+
+
+# ============================================================
+# MANIFEST METADATA
+# ============================================================
+
+def parse_manifest_metadata(
+    text: str,
+) -> tuple[
+    str | None,
+    str | None,
+]:
+
+    name = None
+    group = None
+
+    for line in text.splitlines():
+
+        line = line.strip()
+
+        if line.startswith(
+            "#EXTINF"
+        ):
+
+            (
+                parsed_name,
+                parsed_group,
+            ) = parse_extinf(
+                line
+            )
+
+            if parsed_name:
+                name = parsed_name
+
+            if parsed_group:
+                group = parsed_group
+
+            break
+
+    if not name:
+
+        match = re.search(
+            r'NAME="([^"]+)"',
+            text,
+            re.IGNORECASE,
+        )
+
+        if match:
+
+            name = (
+                match.group(
+                    1
+                ).strip()
+            )
+
+    if not group:
+
+        match = re.search(
+            r'GROUP-ID="([^"]+)"',
+            text,
+            re.IGNORECASE,
+        )
+
+        if match:
+
+            group = (
+                match.group(
+                    1
+                ).strip()
+            )
+
+    return (
+        name,
+        group,
+    )
+
+
+def extract_manifest_metadata(
+    text: str,
+) -> dict:
+
+    lines = [
+        line.strip()
+        for line in text.splitlines()
+        if line.strip()
+    ]
+
+    return {
+
+        "is_m3u8": (
+            "#EXTM3U"
+            in text
+        ),
+
+        "has_stream_inf": (
+            "#EXT-X-STREAM-INF"
+            in text
+        ),
+
+        "has_media_sequence": (
+            "#EXT-X-MEDIA-SEQUENCE"
+            in text
+        ),
+
+        "has_target_duration": (
+            "#EXT-X-TARGETDURATION"
+            in text
+        ),
+
+        "has_extinf": (
+            "#EXTINF"
+            in text
+        ),
+
+        "line_count": len(
+            lines
+        ),
+    }
+
+
+# ============================================================
+# READ HTTP BODY
+# ============================================================
+
+def http_get_bounded(
+    url: str,
     timeout: float,
     read_limit: int,
     pacer: RequestPacer,
-) -> None:
+) -> tuple[
+    int,
+    str,
+    str,
+    str,
+    float,
+]:
 
-    started = time.perf_counter()
+    pacer.wait()
 
-    last_error = None
+    parsed = urlparse(
+        url
+    )
 
-    for ua in USER_AGENTS:
+    hostname = (
+        parsed.hostname
+        or ""
+    ).lower()
 
-        pacer.wait()
+    host_lock = get_host_lock(
+        hostname
+    )
+
+    with host_lock:
+
+        started = (
+            time.perf_counter()
+        )
 
         request = Request(
-            item.url,
+            url,
             method="GET",
             headers={
-                "User-Agent": ua,
+                "User-Agent": USER_AGENTS[0],
                 "Accept": (
                     "application/vnd.apple.mpegurl,"
                     "application/x-mpegURL,"
@@ -1448,112 +2103,21 @@ def check_stream(
             },
         )
 
-        try:
+        context = (
+            ssl.create_default_context()
+        )
 
-            context = (
-                ssl.create_default_context()
+        with urlopen(
+            request,
+            timeout=timeout,
+            context=context,
+        ) as response:
+
+            payload = response.read(
+                read_limit
             )
 
-            with urlopen(
-                request,
-                timeout=timeout,
-                context=context,
-            ) as response:
-
-                item.http_status = (
-                    response.status
-                )
-
-                item.stream_content_type = (
-                    response.headers.get(
-                        "Content-Type"
-                    )
-                )
-
-                final_url = (
-                    response.geturl()
-                    or item.url
-                )
-
-                payload = response.read(
-                    read_limit
-                )
-
-                text_head = (
-                    payload
-                    .decode(
-                        "utf-8",
-                        errors="replace",
-                    )[:4096]
-                )
-
-                item.stream_bytes_read = (
-                    len(payload)
-                )
-
-                item.stream_latency_ms = round(
-                    (
-                        time.perf_counter()
-                        - started
-                    ) * 1000,
-                    2,
-                )
-
-                final_host = (
-                    urlparse(
-                        final_url
-                    ).hostname
-                    or ""
-                ).lower()
-
-                item.is_stub = (
-                    final_host == STUB_HOST
-                    or STUB_HOST in final_url
-                    or "rtk_block" in final_url
-                    or "zabava-block" in final_url
-                )
-
-                if item.is_stub:
-
-                    item.stream_status = (
-                        "STUB"
-                    )
-
-                elif (
-                    200
-                    <= response.status
-                    < 400
-                    and "#EXTM3U"
-                    in text_head
-                ):
-
-                    item.stream_status = (
-                        "ONLINE"
-                    )
-
-                elif (
-                    200
-                    <= response.status
-                    < 400
-                ):
-
-                    item.stream_status = (
-                        "HTTP_OK"
-                    )
-
-                else:
-
-                    item.stream_status = (
-                        "HTTP_ERROR"
-                    )
-
-                return
-
-        except HTTPError as exc:
-
-            item.http_status = exc.code
-
-            item.stream_latency_ms = round(
+            elapsed = round(
                 (
                     time.perf_counter()
                     - started
@@ -1561,92 +2125,183 @@ def check_stream(
                 2,
             )
 
-            item.stream_error = str(
-                exc
+            return (
+                response.status,
+                (
+                    response.geturl()
+                    or url
+                ),
+                (
+                    response.headers.get(
+                        "Content-Type"
+                    )
+                    or ""
+                ),
+                payload.decode(
+                    "utf-8",
+                    errors="replace",
+                ),
+                elapsed,
             )
 
-            if exc.code in {
-                401,
-                403,
-            }:
+
+# ============================================================
+# PRIMARY STREAM CHECK
+# ============================================================
+
+def check_stream(
+    item: StreamEntry,
+    timeout: float,
+    read_limit: int,
+    pacer: RequestPacer,
+) -> None:
+
+    try:
+
+        (
+            status,
+            final_url,
+            content_type,
+            text,
+            elapsed,
+        ) = http_get_bounded(
+            item.url,
+            timeout,
+            read_limit,
+            pacer,
+        )
+
+        item.http_status = status
+
+        item.stream_content_type = (
+            content_type
+        )
+
+        item.stream_bytes_read = (
+            len(
+                text.encode(
+                    "utf-8",
+                    errors="replace",
+                )
+            )
+        )
+
+        item.stream_latency_ms = (
+            elapsed
+        )
+
+        item.stub_target = (
+            final_url
+        )
+
+        item.is_stub = detect_stub(
+            final_url,
+            text,
+        )
+
+        # ----------------------------------------------------
+        # STUB
+        # ----------------------------------------------------
+
+        if item.is_stub:
+
+            item.stream_status = (
+                "STUB"
+            )
+
+            item.derived_urls = (
+                extract_derived_urls(
+                    text,
+                    final_url,
+                )
+            )
+
+            return
+
+        # ----------------------------------------------------
+        # NORMAL HTTP
+        # ----------------------------------------------------
+
+        if status == 200:
+
+            if "#EXTM3U" in text:
 
                 item.stream_status = (
-                    "AUTH"
+                    "ONLINE"
                 )
 
-                return
-
-            if exc.code == 404:
+            else:
 
                 item.stream_status = (
-                    "NOT_FOUND"
+                    "HTTP_OK"
                 )
 
-                return
+        elif (
+            200
+            <= status
+            < 400
+        ):
 
-            last_error = str(exc)
+            item.stream_status = (
+                "HTTP_OK"
+            )
+
+        else:
 
             item.stream_status = (
                 "HTTP_ERROR"
             )
 
-        except (
-            URLError,
-            TimeoutError,
-            socket.timeout,
-        ) as exc:
+    except HTTPError as exc:
 
-            last_error = str(exc)
+        item.http_status = (
+            exc.code
+        )
 
-            item.stream_status = (
-                "UNREACHABLE"
+        item.stream_status = (
+            "AUTH"
+            if exc.code in {
+                401,
+                403,
+            }
+            else (
+                "NOT_FOUND"
+                if exc.code == 404
+                else "HTTP_ERROR"
             )
+        )
 
-            item.stream_latency_ms = round(
-                (
-                    time.perf_counter()
-                    - started
-                ) * 1000,
-                2,
-            )
+        item.stream_error = str(
+            exc
+        )
 
-            item.stream_error = str(
-                exc
-            )
+    except (
+        URLError,
+        TimeoutError,
+        socket.timeout,
+    ) as exc:
 
-            break
+        item.stream_status = (
+            "UNREACHABLE"
+        )
 
-        except Exception as exc:
+        item.stream_error = str(
+            exc
+        )
 
-            last_error = repr(exc)
+    except Exception as exc:
 
-            item.stream_status = (
-                "ERROR"
-            )
+        item.stream_status = (
+            "ERROR"
+        )
 
-            item.stream_latency_ms = round(
-                (
-                    time.perf_counter()
-                    - started
-                ) * 1000,
-                2,
-            )
-
-            item.stream_error = repr(
-                exc
-            )
-
-            break
-
-    if (
-        last_error
-        and not item.stream_error
-    ):
-        item.stream_error = last_error
+        item.stream_error = repr(
+            exc
+        )
 
 
 # ============================================================
-# ALL STREAM CHECKS
+# PRIMARY STREAM CHECKS
 # ============================================================
 
 def check_all_streams(
@@ -1659,12 +2314,14 @@ def check_all_streams(
 
     print()
     print("=" * 70)
-    print(" PHASE 2 / COMPLETE HOST × ALIAS STREAM CHECK")
+    print(
+        " PHASE 2 / PRIMARY STREAM CHECK"
+    )
     print("=" * 70)
 
-    total = len(entries)
-
-    done = 0
+    total = len(
+        entries
+    )
 
     workers = max(
         1,
@@ -1696,6 +2353,7 @@ def check_all_streams(
     ) as pool:
 
         futures = {
+
             pool.submit(
                 check_stream,
                 item,
@@ -1703,8 +2361,11 @@ def check_all_streams(
                 read_limit,
                 pacer,
             ): item
+
             for item in entries
         }
+
+        done = 0
 
         for future in as_completed(
             futures
@@ -1733,11 +2394,475 @@ def check_all_streams(
             print(
                 f"[STREAM "
                 f"{done:>5}/{total:<5}] "
-                f"{item.stream_status:<12} "
+                f"{item.stream_status:<14} "
                 f"{str(item.http_status or '-'):>3} "
                 f"{item.hostname:<45} "
                 f"{item.path}"
             )
+
+
+# ============================================================
+# STUB → DERIVED → VERIFIED
+# ============================================================
+
+def verify_derived_url(
+    stub: StreamEntry,
+    derived_url: str,
+    timeout: float,
+    read_limit: int,
+    pacer: RequestPacer,
+) -> StreamEntry | None:
+
+    candidate = make_entry(
+        derived_url,
+        source=(
+            "derived-from-stub:"
+            + stub.url
+        ),
+    )
+
+    if candidate is None:
+        return None
+
+    try:
+
+        (
+            status,
+            final_url,
+            content_type,
+            text,
+            elapsed,
+        ) = http_get_bounded(
+            derived_url,
+            timeout,
+            read_limit,
+            pacer,
+        )
+
+        candidate.verification_http_status = (
+            status
+        )
+
+        candidate.verification_content_type = (
+            content_type
+        )
+
+        candidate.verification_bytes_read = (
+            len(
+                text.encode(
+                    "utf-8",
+                    errors="replace",
+                )
+            )
+        )
+
+        candidate.verification_latency_ms = (
+            elapsed
+        )
+
+        # ----------------------------------------------------
+        # NEVER automatically trust derived URL.
+        # Must be HTTP 200.
+        # ----------------------------------------------------
+
+        if status != 200:
+
+            candidate.verification_status = (
+                "REJECTED_HTTP"
+            )
+
+            candidate.verification_error = (
+                f"HTTP {status}"
+            )
+
+            return candidate
+
+        # ----------------------------------------------------
+        # Must actually be an M3U8 manifest.
+        # ----------------------------------------------------
+
+        if "#EXTM3U" not in text:
+
+            candidate.verification_status = (
+                "REJECTED_NOT_M3U8"
+            )
+
+            candidate.verification_error = (
+                "HTTP 200 but #EXTM3U absent"
+            )
+
+            return candidate
+
+        # ----------------------------------------------------
+        # Reject a derived URL that resolves to STUB.
+        # ----------------------------------------------------
+
+        if detect_stub(
+            final_url,
+            text,
+        ):
+
+            candidate.verification_status = (
+                "REJECTED_STUB"
+            )
+
+            candidate.verification_error = (
+                "Derived URL resolved to STUB"
+            )
+
+            return candidate
+
+        # ----------------------------------------------------
+        # VERIFIED
+        # ----------------------------------------------------
+
+        (
+            manifest_name,
+            manifest_group,
+        ) = parse_manifest_metadata(
+            text
+        )
+
+        candidate.manifest_name = (
+            manifest_name
+        )
+
+        candidate.manifest_group = (
+            manifest_group
+        )
+
+        candidate.manifest_metadata = (
+            extract_manifest_metadata(
+                text
+            )
+        )
+
+        candidate.verification_status = (
+            "VERIFIED"
+        )
+
+        candidate.stream_status = (
+            "ONLINE"
+        )
+
+        candidate.http_status = (
+            status
+        )
+
+        candidate.stream_content_type = (
+            content_type
+        )
+
+        candidate.stream_bytes_read = (
+            candidate.verification_bytes_read
+        )
+
+        candidate.stream_latency_ms = (
+            elapsed
+        )
+
+        # ----------------------------------------------------
+        # Preserve node information from STUB.
+        # ----------------------------------------------------
+
+        candidate.node_status = (
+            stub.node_status
+        )
+
+        candidate.node_ips = (
+            stub.node_ips.copy()
+        )
+
+        candidate.node_latency_ms = (
+            stub.node_latency_ms
+        )
+
+        candidate.node_error = (
+            stub.node_error
+        )
+
+        return candidate
+
+    except HTTPError as exc:
+
+        candidate.verification_status = (
+            "REJECTED_HTTP"
+        )
+
+        candidate.verification_http_status = (
+            exc.code
+        )
+
+        candidate.verification_error = (
+            str(exc)
+        )
+
+        return candidate
+
+    except (
+        URLError,
+        TimeoutError,
+        socket.timeout,
+    ) as exc:
+
+        candidate.verification_status = (
+            "REJECTED_UNREACHABLE"
+        )
+
+        candidate.verification_error = (
+            str(exc)
+        )
+
+        return candidate
+
+    except Exception as exc:
+
+        candidate.verification_status = (
+            "REJECTED_ERROR"
+        )
+
+        candidate.verification_error = (
+            repr(exc)
+        )
+
+        return candidate
+
+
+def resolve_stubs(
+    entries: list[StreamEntry],
+    timeout: float,
+    read_limit: int,
+    workers: int,
+    request_delay: float,
+) -> list[StreamEntry]:
+
+    stubs = [
+        item
+        for item in entries
+        if item.is_stub
+    ]
+
+    if not stubs:
+
+        print()
+        print(
+            "[STUB] No STUB endpoints detected."
+        )
+
+        return []
+
+    print()
+    print("=" * 70)
+    print(
+        " PHASE 3 / STUB → DERIVED → VERIFICATION"
+    )
+    print("=" * 70)
+
+    print(
+        f"[STUB] detected: "
+        f"{len(stubs)}"
+    )
+
+    derived_pairs = []
+
+    for stub in stubs:
+
+        print()
+        print(
+            "[STUB]"
+            f" {stub.url}"
+        )
+
+        print(
+            f"       target: "
+            f"{stub.stub_target}"
+        )
+
+        print(
+            f"       derived: "
+            f"{len(stub.derived_urls)}"
+        )
+
+        for url in (
+            stub.derived_urls
+        ):
+
+            derived_pairs.append(
+                (
+                    stub,
+                    url,
+                )
+            )
+
+            print(
+                f"       → {url}"
+            )
+
+    if not derived_pairs:
+
+        print(
+            "[STUB] No derived URLs."
+        )
+
+        return []
+
+    workers = max(
+        1,
+        min(
+            workers,
+            MAX_WORKERS,
+        ),
+    )
+
+    pacer = RequestPacer(
+        request_delay
+    )
+
+    results = []
+
+    with ThreadPoolExecutor(
+        max_workers=workers
+    ) as pool:
+
+        futures = {
+
+            pool.submit(
+                verify_derived_url,
+                stub,
+                url,
+                timeout,
+                read_limit,
+                pacer,
+            ): (
+                stub,
+                url,
+            )
+
+            for stub, url
+            in derived_pairs
+        }
+
+        done = 0
+
+        total = len(
+            futures
+        )
+
+        for future in as_completed(
+            futures
+        ):
+
+            stub, url = futures[
+                future
+            ]
+
+            try:
+
+                result = (
+                    future.result()
+                )
+
+            except Exception as exc:
+
+                print(
+                    "[STUB VERIFY ERROR]"
+                    f" {url}: {exc!r}"
+                )
+
+                result = None
+
+            if result:
+
+                results.append(
+                    result
+                )
+
+                print(
+                    f"[STUB VERIFY] "
+                    f"{result.verification_status:<24} "
+                    f"{url}"
+                )
+
+            done += 1
+
+            print(
+                f"[STUB VERIFY "
+                f"{done}/{total}]"
+            )
+
+    verified = [
+        x
+        for x in results
+        if (
+            x.verification_status
+            == "VERIFIED"
+        )
+    ]
+
+    print()
+    print(
+        f"[STUB] derived candidates : "
+        f"{len(results)}"
+    )
+
+    print(
+        f"[STUB] VERIFIED            : "
+        f"{len(verified)}"
+    )
+
+    print(
+        f"[STUB] REJECTED             : "
+        f"{len(results) - len(verified)}"
+    )
+
+    return results
+
+
+# ============================================================
+# PLAYLIST ELIGIBILITY
+# ============================================================
+
+def is_playlist_eligible(
+    item: StreamEntry,
+) -> bool:
+
+    # --------------------------------------------------------
+    # Direct observed endpoint
+    # --------------------------------------------------------
+
+    if (
+        not item.is_stub
+        and item.stream_status
+        == "ONLINE"
+        and item.http_status
+        == 200
+        and item.verification_status
+        in {
+            "not_checked",
+            "VERIFIED",
+        }
+    ):
+
+        return True
+
+    # --------------------------------------------------------
+    # Derived endpoint from STUB
+    # --------------------------------------------------------
+
+    if (
+        item.verification_status
+        == "VERIFIED"
+        and item.verification_http_status
+        == 200
+        and item.manifest_metadata.get(
+            "is_m3u8",
+            False,
+        )
+    ):
+
+        return True
+
+    return False
 
 
 # ============================================================
@@ -1756,7 +2881,9 @@ def build_graph(
 
     for item in entries:
 
-        service = item.service_id
+        service = (
+            item.service_id
+        )
 
         if service:
 
@@ -1794,6 +2921,8 @@ def build_graph(
                     "hostnames": set(),
                     "streams": set(),
                     "online": 0,
+                    "verified": 0,
+                    "stubs": 0,
                 },
             )
 
@@ -1813,12 +2942,34 @@ def build_graph(
                 item.url
             )
 
-            if item.stream_status == "ONLINE":
+            if (
+                item.stream_status
+                == "ONLINE"
+            ):
 
                 aliases[
                     item.channel
                 ][
                     "online"
+                ] += 1
+
+            if (
+                item.verification_status
+                == "VERIFIED"
+            ):
+
+                aliases[
+                    item.channel
+                ][
+                    "verified"
+                ] += 1
+
+            if item.is_stub:
+
+                aliases[
+                    item.channel
+                ][
+                    "stubs"
                 ] += 1
 
         hostnames.setdefault(
@@ -1885,9 +3036,10 @@ def build_graph(
 
             result[key] = {}
 
-            for field_name, field_value in (
-                item.items()
-            ):
+            for (
+                field_name,
+                field_value,
+            ) in item.items():
 
                 if isinstance(
                     field_value,
@@ -1909,19 +3061,25 @@ def build_graph(
         return result
 
     return {
+
         "generated_at": utc_now(),
+
         "services": normalize(
             services
         ),
+
         "aliases": normalize(
             aliases
         ),
+
         "hostnames": normalize(
             hostnames
         ),
+
         "ips": normalize(
             ips
         ),
+
         "nodes": nodes,
     }
 
@@ -1977,59 +3135,132 @@ def build_inventory(
     online_entries = [
         x
         for x in entries
-        if x.stream_status == "ONLINE"
+        if x.stream_status
+        == "ONLINE"
+    ]
+
+    verified_entries = [
+        x
+        for x in entries
+        if x.verification_status
+        == "VERIFIED"
+    ]
+
+    stub_entries = [
+        x
+        for x in entries
+        if x.is_stub
+    ]
+
+    rejected_derived = [
+        x
+        for x in entries
+        if (
+            x.source.startswith(
+                "derived-from-stub:"
+            )
+            and x.verification_status
+            != "VERIFIED"
+        )
     ]
 
     return {
+
         "engine": ENGINE_NAME,
+
         "version": ENGINE_VERSION,
+
         "constellation": CONSTELLATION_NAME,
+
         "generated_at": utc_now(),
 
         "method": {
+
             "discovery": (
                 "NGENIX DIRECT "
                 "observed hostname matrix"
             ),
+
             "matrix": (
                 "observed hostname × "
-                "84 observed aliases"
+                "observed aliases"
             ),
+
             "service_id_guessing": False,
+
             "hostname_bruteforce": False,
+
             "authorization_bypass": False,
+
+            "stub_resolution": (
+                "observed response only"
+            ),
+
+            "derived_url_generation": False,
+
+            "derived_url_verification": True,
+
+            "playlist_policy": (
+                "HTTP 200 + valid M3U8"
+            ),
         },
 
         "alias_inventory": {
-            "count": len(CHANNEL_ALIASES),
+
+            "count": len(
+                CHANNEL_ALIASES
+            ),
+
             "aliases": CHANNEL_ALIASES,
         },
 
         "summary": {
-            "cdn_hostnames": len(hosts),
-            "service_ids": len(services),
-            "account_ids": len(accounts),
-            "ips": len(ips),
-            "channels": len(channels),
-            "unique_streams": len(entries),
+
+            "cdn_hostnames": len(
+                hosts
+            ),
+
+            "service_ids": len(
+                services
+            ),
+
+            "account_ids": len(
+                accounts
+            ),
+
+            "ips": len(
+                ips
+            ),
+
+            "channels": len(
+                channels
+            ),
+
+            "unique_streams": len(
+                entries
+            ),
 
             "online_nodes": sum(
-                x["status"] == "ONLINE"
+                x["status"]
+                == "ONLINE"
                 for x in nodes.values()
             ),
 
             "online_streams": sum(
-                x.stream_status == "ONLINE"
+                x.stream_status
+                == "ONLINE"
                 for x in entries
             ),
 
             "http_ok_streams": sum(
-                x.stream_status == "HTTP_OK"
+                x.stream_status
+                == "HTTP_OK"
                 for x in entries
             ),
 
             "auth_streams": sum(
-                x.stream_status == "AUTH"
+                x.stream_status
+                == "AUTH"
                 for x in entries
             ),
 
@@ -2039,17 +3270,44 @@ def build_inventory(
                 for x in entries
             ),
 
-            "stub_streams": sum(
-                x.is_stub
+            "stub_streams": len(
+                stub_entries
+            ),
+
+            "derived_candidates": sum(
+                bool(
+                    x.derived_urls
+                )
+                for x in entries
+            ),
+
+            "verified_derived": len(
+                verified_entries
+            ),
+
+            "rejected_derived": len(
+                rejected_derived
+            ),
+
+            "playlist_entries": sum(
+                is_playlist_eligible(
+                    x
+                )
                 for x in entries
             ),
         },
 
         "online_aliases": sorted(
             {
-                x.channel
+                (
+                    x.manifest_name
+                    or x.channel
+                )
                 for x in online_entries
-                if x.channel
+                if (
+                    x.manifest_name
+                    or x.channel
+                )
             }
         ),
 
@@ -2074,37 +3332,84 @@ def save_playlist(
 ) -> None:
 
     lines = [
+
         "#EXTM3U",
-        f"#PLAYLIST:{CONSTELLATION_NAME}",
-        f"#ENGINE:{ENGINE_NAME}",
-        f"#VERSION:{ENGINE_VERSION}",
-        "#DISCOVERY:NGENIX DIRECT observed hosts × aliases",
-        "#GENERATED-UTC:" + utc_now(),
+
+        f"#PLAYLIST:"
+        f"{CONSTELLATION_NAME}",
+
+        f"#ENGINE:"
+        f"{ENGINE_NAME}",
+
+        f"#VERSION:"
+        f"{ENGINE_VERSION}",
+
+        (
+            "#DISCOVERY:"
+            "NGENIX DIRECT observed hosts × aliases"
+        ),
+
+        "#PLAYLIST_POLICY:"
+        "HTTP 200 + valid M3U8",
+
+        "#GENERATED-UTC:"
+        + utc_now(),
+
         "",
     ]
 
     current_group = None
 
-    for item in entries:
+    playlist_entries = [
+        item
+        for item in entries
+        if is_playlist_eligible(
+            item
+        )
+    ]
 
-        if item.stream_status not in {
-            "ONLINE",
-            "HTTP_OK",
-            "not_checked",
-        }:
-            continue
+    # --------------------------------------------------------
+    # Deterministic order
+    # --------------------------------------------------------
 
-        if item.is_stub:
-            continue
+    playlist_entries = sorted(
+        playlist_entries,
+        key=lambda x: (
+            (
+                x.manifest_group
+                or x.group
+                or ""
+            ).lower(),
+
+            (
+                x.manifest_name
+                or x.name
+                or x.channel
+                or ""
+            ).lower(),
+
+            x.url,
+        ),
+    )
+
+    for item in playlist_entries:
 
         group = (
-            item.group
+            item.manifest_group
+            or item.group
             or (
                 f"NGENIX • "
                 f"{item.service_id}"
                 if item.service_id
                 else "NGENIX • OTHER"
             )
+        )
+
+        name = (
+            item.manifest_name
+            or item.name
+            or item.channel
+            or item.path
         )
 
         if group != current_group:
@@ -2118,17 +3423,19 @@ def save_playlist(
 
             current_group = group
 
-        name = (
-            item.name
-            or item.channel
-            or item.path
+        # ----------------------------------------------------
+        # Metadata/provenance is preserved in EXTINF.
+        # ----------------------------------------------------
+
+        display_name = (
+            f"{name} "
+            f"[{item.hostname}]"
         )
 
         lines.append(
             f'#EXTINF:-1 '
             f'group-title="{group}",'
-            f'{name} '
-            f'[{item.hostname}]'
+            f'{display_name}'
         )
 
         lines.append(
@@ -2141,8 +3448,16 @@ def save_playlist(
     )
 
     filename.write_text(
-        "\n".join(lines) + "\n",
+        "\n".join(
+            lines
+        )
+        + "\n",
         encoding="utf-8",
+    )
+
+    print(
+        f"[PLAYLIST] eligible: "
+        f"{len(playlist_entries)}"
     )
 
 
@@ -2185,23 +3500,62 @@ def save_csv(
     )
 
     fields = [
+
         "url",
+
         "hostname",
+
         "service_id",
+
         "account_id",
+
         "hostname_type",
+
         "path",
+
         "channel",
+
         "variant",
+
         "node_status",
+
         "stream_status",
+
         "http_status",
+
         "stream_latency_ms",
+
         "stream_content_type",
+
         "stream_bytes_read",
+
         "is_stub",
+
+        "stub_target",
+
+        "derived_urls",
+
+        "verification_status",
+
+        "verification_http_status",
+
+        "verification_content_type",
+
+        "verification_bytes_read",
+
+        "verification_latency_ms",
+
+        "manifest_name",
+
+        "manifest_group",
+
+        "manifest_metadata",
+
         "source",
+
         "stream_error",
+
+        "verification_error",
     ]
 
     with filename.open(
@@ -2219,15 +3573,43 @@ def save_csv(
 
         for item in entries:
 
-            row = asdict(item)
+            row = asdict(
+                item
+            )
+
+            for field_name in [
+                "derived_urls",
+                "manifest_metadata",
+            ]:
+
+                if isinstance(
+                    row.get(
+                        field_name
+                    ),
+                    (
+                        list,
+                        dict,
+                    ),
+                ):
+
+                    row[
+                        field_name
+                    ] = json.dumps(
+                        row[
+                            field_name
+                        ],
+                        ensure_ascii=False,
+                    )
 
             writer.writerow(
                 {
-                    field_name: row.get(
+                    field_name:
+                    row.get(
                         field_name,
                         "",
                     )
-                    for field_name in fields
+                    for field_name
+                    in fields
                 }
             )
 
@@ -2257,6 +3639,7 @@ def update_history(
                 history,
                 list,
             ):
+
                 history = []
 
         except Exception:
@@ -2265,12 +3648,16 @@ def update_history(
 
     history.append(
         {
-            "timestamp": inventory[
-                "generated_at"
-            ],
-            "summary": inventory[
-                "summary"
-            ],
+
+            "timestamp":
+                inventory[
+                    "generated_at"
+                ],
+
+            "summary":
+                inventory[
+                    "summary"
+                ],
         }
     )
 
@@ -2298,41 +3685,147 @@ def build_report(
     graph: dict,
 ) -> str:
 
-    summary = inventory[
-        "summary"
-    ]
+    summary = (
+        inventory[
+            "summary"
+        ]
+    )
 
     lines = [
+
         "============================================================",
+
         "       NGENIX CDN CONSTELLATION / ULTRA SKALA REPORT",
+
         "============================================================",
-        f"Generated UTC : {inventory['generated_at']}",
-        f"Engine        : {inventory['engine']}",
-        f"Version       : {inventory['version']}",
+
+        (
+            "Generated UTC : "
+            f"{inventory['generated_at']}"
+        ),
+
+        (
+            "Engine        : "
+            f"{inventory['engine']}"
+        ),
+
+        (
+            "Version       : "
+            f"{inventory['version']}"
+        ),
+
         "",
+
         "DISCOVERY METHOD",
+
         "------------------------------------------------------------",
-        "Observed hostname matrix × 84 channel aliases",
+
+        "Observed hostname matrix × observed aliases",
+
         "No sXXXXX brute force",
+
         "No hostname generation",
+
         "No authorization bypass",
+
+        "STUB URLs preserved in inventory",
+
+        "Derived URLs extracted only from observed STUB response",
+
+        "Derived URLs require second-stage verification",
+
+        "Playlist requires HTTP 200 + #EXTM3U",
+
         "",
+
         "SUMMARY",
+
         "------------------------------------------------------------",
-        f"CDN hostnames : {summary['cdn_hostnames']}",
-        f"Service IDs   : {summary['service_ids']}",
-        f"Account IDs   : {summary['account_ids']}",
-        f"Unique IPs    : {summary['ips']}",
-        f"Channels      : {summary['channels']}",
-        f"Streams       : {summary['unique_streams']}",
-        f"Online nodes  : {summary['online_nodes']}",
-        f"Online streams: {summary['online_streams']}",
-        f"HTTP OK       : {summary['http_ok_streams']}",
-        f"Auth/403      : {summary['auth_streams']}",
-        f"404           : {summary['not_found_streams']}",
-        f"Stub          : {summary['stub_streams']}",
+
+        (
+            f"CDN hostnames : "
+            f"{summary['cdn_hostnames']}"
+        ),
+
+        (
+            f"Service IDs   : "
+            f"{summary['service_ids']}"
+        ),
+
+        (
+            f"Account IDs   : "
+            f"{summary['account_ids']}"
+        ),
+
+        (
+            f"Unique IPs    : "
+            f"{summary['ips']}"
+        ),
+
+        (
+            f"Channels      : "
+            f"{summary['channels']}"
+        ),
+
+        (
+            f"Streams       : "
+            f"{summary['unique_streams']}"
+        ),
+
+        (
+            f"Online nodes  : "
+            f"{summary['online_nodes']}"
+        ),
+
+        (
+            f"Online streams: "
+            f"{summary['online_streams']}"
+        ),
+
+        (
+            f"HTTP OK       : "
+            f"{summary['http_ok_streams']}"
+        ),
+
+        (
+            f"Auth/403      : "
+            f"{summary['auth_streams']}"
+        ),
+
+        (
+            f"404           : "
+            f"{summary['not_found_streams']}"
+        ),
+
+        (
+            f"STUB          : "
+            f"{summary['stub_streams']}"
+        ),
+
+        (
+            f"Derived       : "
+            f"{summary['derived_candidates']}"
+        ),
+
+        (
+            f"Verified      : "
+            f"{summary['verified_derived']}"
+        ),
+
+        (
+            f"Rejected      : "
+            f"{summary['rejected_derived']}"
+        ),
+
+        (
+            f"Playlist      : "
+            f"{summary['playlist_entries']}"
+        ),
+
         "",
-        "ALIASES WITH ONLINE STREAMS",
+
+        "ALIASES WITH ONLINE / VERIFIED STREAMS",
+
         "------------------------------------------------------------",
     ]
 
@@ -2352,11 +3845,17 @@ def build_report(
         ]
     )
 
-    for service_id, data in sorted(
-        graph["services"].items()
+    for (
+        service_id,
+        data,
+    ) in sorted(
+        graph[
+            "services"
+        ].items()
     ):
 
         lines.append("")
+
         lines.append(
             f"[{service_id}]"
         )
@@ -2381,27 +3880,79 @@ def build_report(
         ]
     )
 
-    for alias, data in sorted(
-        graph["aliases"].items()
+    for (
+        alias,
+        data,
+    ) in sorted(
+        graph[
+            "aliases"
+        ].items()
     ):
 
         lines.append(
             f"{alias:<30} "
             f"online={data['online']:<4} "
+            f"verified={data['verified']:<4} "
+            f"stubs={data['stubs']:<4} "
             f"hosts={len(data['hostnames']):<4} "
             f"streams={len(data['streams'])}"
         )
 
-    lines.append("")
-    lines.append(
-        "============================================================"
+    lines.extend(
+        [
+            "",
+            "STUB MAP",
+            "------------------------------------------------------------",
+        ]
     )
 
-    return "\n".join(lines)
+    for item in sorted(
+        (
+            x
+            for x in inventory[
+                "entries"
+            ]
+            if x["is_stub"]
+        ),
+        key=lambda x: x["url"],
+    ):
+
+        lines.append(
+            f"STUB: {item['url']}"
+        )
+
+        if item[
+            "stub_target"
+        ]:
+
+            lines.append(
+                f"  TARGET: "
+                f"{item['stub_target']}"
+            )
+
+        for derived in item[
+            "derived_urls"
+        ]:
+
+            lines.append(
+                f"  DERIVED: "
+                f"{derived}"
+            )
+
+    lines.extend(
+        [
+            "",
+            "============================================================",
+        ]
+    )
+
+    return "\n".join(
+        lines
+    )
 
 
 # ============================================================
-# CONSOLE SUMMARY
+# MATRIX SUMMARY
 # ============================================================
 
 def print_matrix_summary(
@@ -2409,8 +3960,11 @@ def print_matrix_summary(
 ) -> None:
 
     matrix_entries = [
+
         x
+
         for x in entries
+
         if (
             "matrix:observed-host×alias"
             in x.source
@@ -2418,38 +3972,59 @@ def print_matrix_summary(
     ]
 
     online = [
+
         x
+
         for x in matrix_entries
-        if x.stream_status == "ONLINE"
+
+        if x.stream_status
+        == "ONLINE"
     ]
 
     http_ok = [
+
         x
+
         for x in matrix_entries
-        if x.stream_status == "HTTP_OK"
+
+        if x.stream_status
+        == "HTTP_OK"
     ]
 
     auth = [
+
         x
+
         for x in matrix_entries
-        if x.stream_status == "AUTH"
+
+        if x.stream_status
+        == "AUTH"
     ]
 
     not_found = [
+
         x
+
         for x in matrix_entries
-        if x.stream_status == "NOT_FOUND"
+
+        if x.stream_status
+        == "NOT_FOUND"
     ]
 
     stubs = [
+
         x
+
         for x in matrix_entries
+
         if x.is_stub
     ]
 
     print()
     print("=" * 70)
-    print(" MATRIX RESULT")
+    print(
+        " MATRIX RESULT"
+    )
     print("=" * 70)
 
     print(
@@ -2501,7 +4076,8 @@ def print_matrix_summary(
             {
                 x.hostname
                 for x in online
-                if x.channel == alias
+                if x.channel
+                == alias
             }
         )
 
@@ -2509,6 +4085,38 @@ def print_matrix_summary(
             f"  {alias:<30} "
             f"hosts={len(hosts)}"
         )
+
+    if stubs:
+
+        print()
+        print(
+            "STUB ENDPOINTS:"
+        )
+
+        for item in sorted(
+            stubs,
+            key=lambda x: x.url,
+        ):
+
+            print(
+                f"  {item.url}"
+            )
+
+            if item.stub_target:
+
+                print(
+                    f"      target="
+                    f"{item.stub_target}"
+                )
+
+            for derived in (
+                item.derived_urls
+            ):
+
+                print(
+                    f"      derived="
+                    f"{derived}"
+                )
 
 
 # ============================================================
@@ -2636,7 +4244,7 @@ def main() -> None:
     print("=" * 70)
     print(
         " MODE: NGENIX DIRECT / "
-        "OBSERVED HOST × 84 ALIASES"
+        "OBSERVED HOST × ALIASES"
     )
     print("=" * 70)
 
@@ -2661,9 +4269,9 @@ def main() -> None:
         StreamEntry
     ] = []
 
-    # --------------------------------------------------------
+    # ========================================================
     # OPTIONAL REPOSITORY
-    # --------------------------------------------------------
+    # ========================================================
 
     if args.repo:
 
@@ -2688,9 +4296,9 @@ def main() -> None:
             "[MODE] repository scan: OFF"
         )
 
-    # --------------------------------------------------------
+    # ========================================================
     # OBSERVED HOST SEED
-    # --------------------------------------------------------
+    # ========================================================
 
     if not args.no_seed:
 
@@ -2703,7 +4311,7 @@ def main() -> None:
         )
 
         # ----------------------------------------------------
-        # ALL OBSERVED HOST × ALIAS
+        # MATRIX
         # ----------------------------------------------------
 
         if not args.no_matrix:
@@ -2713,7 +4321,7 @@ def main() -> None:
             )
 
         # ----------------------------------------------------
-        # OLD OBSERVED PATHS
+        # OBSERVED PATHS
         # ----------------------------------------------------
 
         if not args.no_special:
@@ -2728,9 +4336,9 @@ def main() -> None:
             "[MODE] observed seed: OFF"
         )
 
-    # --------------------------------------------------------
+    # ========================================================
     # DEDUP
-    # --------------------------------------------------------
+    # ========================================================
 
     entries = merge_entries(
         entries
@@ -2738,11 +4346,13 @@ def main() -> None:
 
     print()
     print("=" * 70)
-    print(" CANONICAL INVENTORY")
+    print(
+        " CANONICAL INVENTORY"
+    )
     print("=" * 70)
 
     print(
-        f"[CANON] Unique NGENIX endpoints: "
+        "[CANON] Unique NGENIX endpoints: "
         f"{len(entries)}"
     )
 
@@ -2789,10 +4399,6 @@ def main() -> None:
         f"{len(entries)}"
     )
 
-    # --------------------------------------------------------
-    # SERVICE LIST
-    # --------------------------------------------------------
-
     print()
     print(
         "[CANON] OBSERVED sXXXXX:"
@@ -2804,9 +4410,9 @@ def main() -> None:
             f"    {service}"
         )
 
-    # --------------------------------------------------------
+    # ========================================================
     # DNS / TCP
-    # --------------------------------------------------------
+    # ========================================================
 
     nodes = build_nodes(
         entries,
@@ -2818,9 +4424,9 @@ def main() -> None:
         nodes,
     )
 
-    # --------------------------------------------------------
-    # HTTP / M3U8
-    # --------------------------------------------------------
+    # ========================================================
+    # HTTP
+    # ========================================================
 
     if not args.no_stream_check:
 
@@ -2832,6 +4438,30 @@ def main() -> None:
             args.request_delay,
         )
 
+        # ====================================================
+        # STUB SECOND STAGE
+        # ====================================================
+
+        derived_results = (
+            resolve_stubs(
+                entries,
+                args.timeout,
+                args.read_limit,
+                args.workers,
+                args.request_delay,
+            )
+        )
+
+        if derived_results:
+
+            entries.extend(
+                derived_results
+            )
+
+            entries = merge_entries(
+                entries
+            )
+
     else:
 
         print()
@@ -2839,9 +4469,9 @@ def main() -> None:
             "[MODE] stream HTTP check: OFF"
         )
 
-    # --------------------------------------------------------
-    # GRAPH
-    # --------------------------------------------------------
+    # ========================================================
+    # GRAPH / INVENTORY
+    # ========================================================
 
     inventory = build_inventory(
         entries,
@@ -2853,9 +4483,9 @@ def main() -> None:
         nodes,
     )
 
-    # --------------------------------------------------------
+    # ========================================================
     # OUTPUT
-    # --------------------------------------------------------
+    # ========================================================
 
     output_dir.mkdir(
         parents=True,
@@ -2869,31 +4499,37 @@ def main() -> None:
 
     save_json(
         inventory,
-        output_dir / OUTPUT_JSON,
+        output_dir
+        / OUTPUT_JSON,
     )
 
     save_json(
         graph,
-        output_dir / OUTPUT_GRAPH,
+        output_dir
+        / OUTPUT_GRAPH,
     )
 
     save_playlist(
         entries,
-        output_dir / OUTPUT_M3U,
+        output_dir
+        / OUTPUT_M3U,
     )
 
     save_csv(
         entries,
-        output_dir / OUTPUT_CSV,
+        output_dir
+        / OUTPUT_CSV,
     )
 
     update_history(
         inventory,
-        output_dir / OUTPUT_HISTORY,
+        output_dir
+        / OUTPUT_HISTORY,
     )
 
     report_path = (
-        report_dir / OUTPUT_REPORT
+        report_dir
+        / OUTPUT_REPORT
     )
 
     report_path.write_text(
@@ -2904,17 +4540,17 @@ def main() -> None:
         encoding="utf-8",
     )
 
-    # --------------------------------------------------------
-    # MATRIX SUMMARY
-    # --------------------------------------------------------
+    # ========================================================
+    # SUMMARY
+    # ========================================================
 
     print_matrix_summary(
         entries
     )
 
-    # --------------------------------------------------------
+    # ========================================================
     # FINAL
-    # --------------------------------------------------------
+    # ========================================================
 
     print()
     print("=" * 70)
@@ -2923,57 +4559,82 @@ def main() -> None:
     )
     print("=" * 70)
 
+    summary = inventory[
+        "summary"
+    ]
+
     print(
         f"Hostnames : "
-        f"{inventory['summary']['cdn_hostnames']}"
+        f"{summary['cdn_hostnames']}"
     )
 
     print(
         f"sXXXXX    : "
-        f"{inventory['summary']['service_ids']}"
+        f"{summary['service_ids']}"
     )
 
     print(
         f"Aliases   : "
-        f"{inventory['summary']['channels']}"
+        f"{summary['channels']}"
     )
 
     print(
         f"Streams   : "
-        f"{inventory['summary']['unique_streams']}"
+        f"{summary['unique_streams']}"
     )
 
     print(
         f"Node OK   : "
-        f"{inventory['summary']['online_nodes']}"
+        f"{summary['online_nodes']}"
     )
 
     print(
         f"Stream OK : "
-        f"{inventory['summary']['online_streams']}"
+        f"{summary['online_streams']}"
     )
 
     print(
         f"HTTP OK   : "
-        f"{inventory['summary']['http_ok_streams']}"
+        f"{summary['http_ok_streams']}"
     )
 
     print(
         f"Auth/403  : "
-        f"{inventory['summary']['auth_streams']}"
+        f"{summary['auth_streams']}"
     )
 
     print(
         f"404       : "
-        f"{inventory['summary']['not_found_streams']}"
+        f"{summary['not_found_streams']}"
     )
 
     print(
         f"Stub      : "
-        f"{inventory['summary']['stub_streams']}"
+        f"{summary['stub_streams']}"
+    )
+
+    print(
+        f"Derived   : "
+        f"{summary['derived_candidates']}"
+    )
+
+    print(
+        f"Verified  : "
+        f"{summary['verified_derived']}"
+    )
+
+    print(
+        f"Rejected  : "
+        f"{summary['rejected_derived']}"
+    )
+
+    print(
+        f"Playlist  : "
+        f"{summary['playlist_entries']}"
     )
 
     print()
+
     print(
         f"[OUTPUT] "
         f"{output_dir / OUTPUT_JSON}"
