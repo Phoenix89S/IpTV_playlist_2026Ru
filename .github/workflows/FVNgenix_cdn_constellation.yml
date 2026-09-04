@@ -1,1 +1,90 @@
-просто заглушка 
+name: NGENIX CDN Constellation
+
+on:
+  workflow_dispatch:
+
+  # Запуск каждые 4 месяца:
+  # январь → май → сентябрь → январь ...
+  schedule:
+    - cron: "0 4 1 1,5,9 *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ngenix-cdn-constellation
+  cancel-in-progress: false
+
+jobs:
+  constellation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
+
+      - name: Create output directories
+        run: |
+          mkdir -p data/ngenix_constellation
+          mkdir -p reports/ngenix_constellation
+
+      - name: Run FVNgenix CDN Constellation
+        run: |
+          python FVNgenix_cdn_constellation.py
+
+      - name: Verify generated artifacts
+        run: |
+          echo "=== NGENIX CDN Constellation artifacts ==="
+
+          test -f data/ngenix_constellation/ngenix_cdn_constellation.m3u
+          test -f data/ngenix_constellation/ngenix_cdn_constellation.json
+          test -f reports/ngenix_constellation/ngenix_cdn_constellation_SKALA.txt
+
+          ls -lh \
+            data/ngenix_constellation/ngenix_cdn_constellation.m3u \
+            data/ngenix_constellation/ngenix_cdn_constellation.json \
+            reports/ngenix_constellation/ngenix_cdn_constellation_SKALA.txt
+
+      # Гарантированно создаём изменение репозитория
+      # на каждом запуске workflow.
+      - name: Write heartbeat
+        run: |
+          date -u +"%Y-%m-%dT%H:%M:%SZ" \
+            > data/ngenix_constellation/LAST_RUN_UTC.txt
+
+      - name: Commit generated results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add \
+            data/ngenix_constellation/ \
+            reports/ngenix_constellation/
+
+          if git diff --cached --quiet; then
+            echo "ERROR: Nothing staged for commit."
+            exit 1
+          fi
+
+          git commit \
+            -m "NGENIX Constellation: scheduled scan $(date -u +'%Y-%m-%d')"
+
+      - name: Push results
+        run: |
+          git push origin HEAD:${GITHUB_REF_NAME}
