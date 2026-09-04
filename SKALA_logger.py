@@ -13,17 +13,26 @@ from pathlib import Path
 from typing import Iterable
 from urllib.parse import urlparse
 
+
 import requests
 
 
-SYSTEM_NAME = "СИСТЕМА ЭВС (ЭВМ) версия — последняя сборка_Iptv_AI_edition."
-SYSTEM_INFO = "SKALA IPTV 8.2026 / IPTV _zoye / Version 6.3 (Build 9600)"
-DEFAULT_OUTPUT = "ngenix_run_full_telegraph.txt"
+SYSTEM_NAME = (
+    "СИСТЕМА ЭВС (ЭВМ) версия — последняя сборка_Iptv_AI_edition."
+)
+
+SYSTEM_INFO = (
+    "SKALA IPTV 8.2026 / IPTV _zoye / Version 6.3 (Build 9600)"
+)
+
+DEFAULT_OUTPUT = "SKALA_RUN_33892073670.txt"
+
 TIMEOUT = 60
 
 SEPARATOR_TOP = "#************************************************************"
 SEPARATOR_MAIN = "#=============================================="
 SEPARATOR_BLOCK = "#================================================="
+SEPARATOR_END = "#*************************************************"
 
 
 @dataclass
@@ -35,50 +44,114 @@ class StepLog:
     source_file: str
 
 
-def parse_run_url(url: str) -> tuple[str, str, int]:
+def parse_target_url(url: str) -> tuple[str, str, int]:
+    """
+    Поддерживаются оба варианта:
+
+    GitHub Run:
+    https://github.com/OWNER/REPO/actions/runs/RUN_ID
+
+    GitHub API:
+    https://api.github.com/repos/OWNER/REPO/actions/runs/RUN_ID
+    """
+
     url = url.strip()
+
     parsed = urlparse(url)
 
-    if parsed.netloc.lower() not in {"github.com", "www.github.com"}:
+    host = parsed.netloc.lower()
+
+    parts = [
+        part
+        for part in parsed.path.split("/")
+        if part
+    ]
+
+    # ---------------------------------------------------------
+    # Обычная ссылка GitHub Actions Run
+    # ---------------------------------------------------------
+
+    if host in {"github.com", "www.github.com"}:
+
+        if (
+            len(parts) >= 5
+            and parts[2] == "actions"
+            and parts[3] == "runs"
+        ):
+            owner = parts[0]
+            repo = parts[1]
+
+            try:
+                run_id = int(parts[4])
+            except ValueError:
+                raise ValueError(
+                    f"Некорректный RUN_ID: {parts[4]}"
+                )
+
+            return owner, repo, run_id
+
         raise ValueError(
-            "Ожидается ссылка вида "
+            "Некорректная ссылка GitHub Actions Run.\n"
+            "Ожидается:\n"
             "https://github.com/OWNER/REPO/actions/runs/RUN_ID"
         )
 
-    parts = [p for p in parsed.path.split("/") if p]
+    # ---------------------------------------------------------
+    # GitHub API URL
+    # ---------------------------------------------------------
 
-    try:
-        idx = parts.index("runs")
-    except ValueError:
-        raise ValueError("В ссылке не найден /actions/runs/<RUN_ID>")
+    if host == "api.github.com":
 
-    if idx < 2 or idx + 1 >= len(parts):
-        raise ValueError("Не удалось определить OWNER, REPO и RUN_ID.")
+        if (
+            len(parts) >= 6
+            and parts[0] == "repos"
+            and parts[3] == "actions"
+            and parts[4] == "runs"
+        ):
+            owner = parts[1]
+            repo = parts[2]
 
-    owner = parts[idx - 2]
-    repo = parts[idx - 1]
+            try:
+                run_id = int(parts[5])
+            except ValueError:
+                raise ValueError(
+                    f"Некорректный RUN_ID: {parts[5]}"
+                )
 
-    try:
-        run_id = int(parts[idx + 1])
-    except ValueError:
-        raise ValueError(f"Некорректный RUN_ID: {parts[idx + 1]}")
+            return owner, repo, run_id
 
-    return owner, repo, run_id
+        raise ValueError(
+            "Некорректная ссылка GitHub API Run.\n"
+            "Ожидается:\n"
+            "https://api.github.com/repos/OWNER/REPO/actions/runs/RUN_ID"
+        )
+
+    raise ValueError(
+        "Неизвестный GitHub URL."
+    )
 
 
 def github_session() -> requests.Session:
+
     session = requests.Session()
 
     session.headers.update({
         "Accept": "application/vnd.github+json",
-        "User-Agent": "SKALA-IPTV-ZOYE-LogExporter/6.3",
+        "User-Agent": (
+            "SKALA-IPTV-ZOYE-LogExporter/6.3"
+        ),
         "X-GitHub-Api-Version": "2022-11-28",
     })
 
-    token = os.environ.get("GITHUB_TOKEN")
+    token = (
+        os.environ.get("GITHUB_TOKEN")
+        or os.environ.get("GH_TOKEN")
+    )
 
     if token:
-        session.headers["Authorization"] = f"Bearer {token}"
+        session.headers[
+            "Authorization"
+        ] = f"Bearer {token}"
 
     return session
 
@@ -100,22 +173,24 @@ def api_get(
     if response.status_code == 401:
         raise RuntimeError(
             "GitHub вернул 401 Unauthorized. "
-            "Для этого репозитория нужен GITHUB_TOKEN."
+            "GITHUB_TOKEN недействителен или отсутствует."
         )
 
     if response.status_code == 403:
         raise RuntimeError(
             "GitHub вернул 403 Forbidden. "
-            "Проверь GITHUB_TOKEN и права доступа к Actions."
+            "Недостаточно прав для чтения Actions."
         )
 
     if response.status_code == 404:
         raise RuntimeError(
-            "GitHub вернул 404 Not Found. "
-            "Проверь ссылку на Run и доступ к репозиторию."
+            "GitHub вернул 404 Not Found.\n"
+            f"URL API: {url}\n"
+            "Проверь OWNER/REPO/RUN_ID и права GITHUB_TOKEN."
         )
 
     response.raise_for_status()
+
     return response
 
 
@@ -127,11 +202,14 @@ def get_run_info(
 ) -> dict:
 
     url = (
-        f"https://api.github.com/repos/"
+        "https://api.github.com/repos/"
         f"{owner}/{repo}/actions/runs/{run_id}"
     )
 
-    return api_get(session, url).json()
+    return api_get(
+        session,
+        url,
+    ).json()
 
 
 def download_run_logs(
@@ -142,7 +220,7 @@ def download_run_logs(
 ) -> bytes:
 
     url = (
-        f"https://api.github.com/repos/"
+        "https://api.github.com/repos/"
         f"{owner}/{repo}/actions/runs/{run_id}/logs"
     )
 
@@ -160,6 +238,11 @@ def download_run_logs(
         if chunk:
             data.extend(chunk)
 
+    if not data:
+        raise RuntimeError(
+            "GitHub вернул пустой архив логов."
+        )
+
     return bytes(data)
 
 
@@ -173,10 +256,9 @@ def decode_log(data: bytes) -> str:
     ):
         try:
             return data.decode(
-                encoding,
-                errors="replace",
+                encoding
             )
-        except Exception:
+        except UnicodeDecodeError:
             continue
 
     return data.decode(
@@ -191,10 +273,17 @@ def extract_logs(
 
     result = []
 
-    with zipfile.ZipFile(
-        io.BytesIO(zip_bytes),
-        "r",
-    ) as archive:
+    try:
+        archive = zipfile.ZipFile(
+            io.BytesIO(zip_bytes),
+            "r",
+        )
+    except zipfile.BadZipFile as exc:
+        raise RuntimeError(
+            "GitHub не вернул корректный ZIP-архив логов."
+        ) from exc
+
+    with archive:
 
         for member in archive.infolist():
 
@@ -211,7 +300,7 @@ def extract_logs(
             )
 
     result.sort(
-        key=lambda x: x[0].lower()
+        key=lambda item: item[0].lower()
     )
 
     return result
@@ -223,9 +312,11 @@ TIMESTAMP_RE = re.compile(
     r"(?:\.\d+)?Z\s?"
 )
 
+
 GROUP_START_RE = re.compile(
     r"##\[group\]\s*(.*)"
 )
+
 
 GROUP_END_RE = re.compile(
     r"##\[endgroup\]"
@@ -245,11 +336,14 @@ def normalize_log(text: str) -> str:
             line,
         )
 
-        match = GROUP_START_RE.search(line)
+        match = GROUP_START_RE.search(
+            line
+        )
 
         if match:
             output.append(
-                f"[НАЧАЛО БЛОКА] {match.group(1).strip()}"
+                f"[НАЧАЛО БЛОКА] "
+                f"{match.group(1).strip()}"
             )
             continue
 
@@ -264,7 +358,9 @@ def normalize_log(text: str) -> str:
     return "\n".join(output).strip()
 
 
-def job_name_from_path(path: str) -> str:
+def job_name_from_path(
+    path: str,
+) -> str:
 
     parts = Path(path).parts
 
@@ -279,11 +375,14 @@ def build_step_logs(
 ) -> list[StepLog]:
 
     result = []
+
     number = 1
 
     for filename, text in extracted:
 
-        normalized = normalize_log(text)
+        normalized = normalize_log(
+            text
+        )
 
         if not normalized:
             continue
@@ -291,8 +390,12 @@ def build_step_logs(
         result.append(
             StepLog(
                 number=number,
-                name=Path(filename).name,
-                job_name=job_name_from_path(filename),
+                name=Path(
+                    filename
+                ).name,
+                job_name=job_name_from_path(
+                    filename
+                ),
                 text=normalized,
                 source_file=filename,
             )
@@ -303,7 +406,9 @@ def build_step_logs(
     return result
 
 
-def score_main_log(step: StepLog) -> int:
+def score_main_log(
+    step: StepLog,
+) -> int:
 
     text = (
         step.name
@@ -344,12 +449,15 @@ def find_main_logs(
         return []
 
     scored = [
-        (score_main_log(step), step)
+        (
+            score_main_log(step),
+            step,
+        )
         for step in steps
     ]
 
     scored.sort(
-        key=lambda x: x[0],
+        key=lambda item: item[0],
         reverse=True,
     )
 
@@ -371,6 +479,7 @@ def find_main_logs(
 
 
 def utc_now() -> str:
+
     return datetime.now(
         timezone.utc
     ).isoformat()
@@ -388,15 +497,24 @@ def make_header(
         f"# {SYSTEM_INFO}",
         SEPARATOR_TOP,
         "",
-        f"# GitHub Run ID: {run_info.get('id', 'unknown')}",
-        f"# Название запуска: {run_info.get('name', 'unknown')}",
-        f"# Статус: {run_info.get('status', 'unknown')}",
-        f"# Результат: {run_info.get('conclusion', 'unknown')}",
-        f"# Ветка: {run_info.get('head_branch', 'unknown')}",
-        f"# SHA: {run_info.get('head_sha', 'unknown')}",
-        f"# Создан: {run_info.get('created_at', 'unknown')}",
-        f"# Начат: {run_info.get('run_started_at', 'unknown')}",
-        f"# Экспортирован UTC: {utc_now()}",
+        f"# GitHub Run ID: "
+        f"{run_info.get('id', 'unknown')}",
+        f"# Название запуска: "
+        f"{run_info.get('name', 'unknown')}",
+        f"# Статус: "
+        f"{run_info.get('status', 'unknown')}",
+        f"# Результат: "
+        f"{run_info.get('conclusion', 'unknown')}",
+        f"# Ветка: "
+        f"{run_info.get('head_branch', 'unknown')}",
+        f"# SHA: "
+        f"{run_info.get('head_sha', 'unknown')}",
+        f"# Создан: "
+        f"{run_info.get('created_at', 'unknown')}",
+        f"# Начат: "
+        f"{run_info.get('run_started_at', 'unknown')}",
+        f"# Экспортирован UTC: "
+        f"{utc_now()}",
         "",
     ])
 
@@ -405,7 +523,9 @@ def render_main_log(
     steps: list[StepLog],
 ) -> str:
 
-    main_logs = find_main_logs(steps)
+    main_logs = find_main_logs(
+        steps
+    )
 
     if not main_logs:
         return "\n".join([
@@ -428,7 +548,10 @@ def render_main_log(
                 SEPARATOR_MAIN,
                 "#**********************************************************",
                 "#",
-                f"# главный лог проверки узла — {step.name}",
+                (
+                    "# главный лог проверки узла — "
+                    f"{step.name}"
+                ),
                 "#",
                 "#**********************************************************",
                 SEPARATOR_MAIN,
@@ -447,7 +570,10 @@ def render_step(
 
     return "\n".join([
         SEPARATOR_BLOCK,
-        f"# ШАГ {step.number} — {step.name}",
+        (
+            f"# ШАГ {step.number} — "
+            f"{step.name}"
+        ),
         f"# JOB: {step.job_name}",
         SEPARATOR_BLOCK,
         "",
@@ -472,7 +598,9 @@ def render_document(
     )
 
     parts.append(
-        render_main_log(steps)
+        render_main_log(
+            steps
+        )
     )
 
     parts.append(
@@ -496,7 +624,7 @@ def render_document(
             "",
             "#**********************************************",
             "# конец телетайпа",
-            "#*************************************************",
+            SEPARATOR_END,
             "",
         ])
     )
@@ -533,8 +661,8 @@ def main() -> int:
     parser.add_argument(
         "run_url",
         help=(
-            "URL GitHub Actions Run, например: "
-            "https://github.com/OWNER/REPO/actions/runs/123"
+            "GitHub Actions Run URL или "
+            "GitHub API Run URL."
         ),
     )
 
@@ -542,7 +670,7 @@ def main() -> int:
         "-o",
         "--output",
         default=DEFAULT_OUTPUT,
-        help="Имя/путь итогового TXT.",
+        help="Итоговый TXT.",
     )
 
     parser.add_argument(
@@ -563,18 +691,32 @@ def main() -> int:
 
     try:
 
-        owner, repo, run_id = parse_run_url(
+        owner, repo, run_id = parse_target_url(
             args.run_url
         )
 
         print(
-            f"[INFO] Репозиторий: {owner}/{repo}"
+            f"[INFO] Репозиторий: "
+            f"{owner}/{repo}"
         )
+
         print(
             f"[INFO] Run ID: {run_id}"
         )
 
         session = github_session()
+
+        run_api_url = (
+            "https://api.github.com/repos/"
+            f"{owner}/{repo}/actions/runs/"
+            f"{run_id}"
+        )
+
+        logs_api_url = (
+            "https://api.github.com/repos/"
+            f"{owner}/{repo}/actions/runs/"
+            f"{run_id}/logs"
+        )
 
         print(
             "[INFO] Получение информации о запуске..."
@@ -588,14 +730,7 @@ def main() -> int:
         )
 
         print(
-            f"[INFO] Название: "
-            f"{run_info.get('name')}"
-        )
-
-        print(
-            f"[INFO] Статус: "
-            f"{run_info.get('status')} / "
-            f"{run_info.get('conclusion')}"
+            "[INFO] Информация о Run получена."
         )
 
         print(
@@ -610,21 +745,11 @@ def main() -> int:
         )
 
         print(
-            f"[INFO] Получено байт: "
-            f"{len(zip_bytes):,}"
-        )
-
-        print(
-            "[INFO] Распаковка ВСЕХ логов..."
+            "[INFO] Архив логов получен."
         )
 
         extracted = extract_logs(
             zip_bytes
-        )
-
-        print(
-            f"[INFO] Файлов в архиве: "
-            f"{len(extracted)}"
         )
 
         steps = build_step_logs(
@@ -632,30 +757,7 @@ def main() -> int:
         )
 
         print(
-            f"[INFO] Логов включено в TXT: "
-            f"{len(steps)}"
-        )
-
-        main_logs = find_main_logs(steps)
-
-        if main_logs:
-            print(
-                "[INFO] Главный лог:"
-            )
-
-            for step in main_logs:
-                print(
-                    f"       {step.name}"
-                )
-
-        else:
-            print(
-                "[WARN] Главный лог автоматически "
-                "не определён."
-            )
-
-        print(
-            "[INFO] Формирование телетайпа SKALA..."
+            "[INFO] Формирование SKALA-документа..."
         )
 
         document = render_document(
@@ -664,39 +766,46 @@ def main() -> int:
             args.export_number,
         )
 
-        output = Path(args.output)
+        output = Path(
+            args.output
+        )
 
         save_text(
             output,
             document,
         )
 
-        print("=" * 60)
-        print("[OK] ВЫГРУЗКА ЗАВЕРШЕНА")
+        if not output.is_file():
+            raise RuntimeError(
+                "Итоговый TXT не создан."
+            )
+
+        if output.stat().st_size <= 0:
+            raise RuntimeError(
+                "Итоговый TXT пуст."
+            )
+
         print(
-            f"[OK] Файл: {output.resolve()}"
+            "[OK] SKALA TXT создан."
         )
-        print(
-            f"[OK] Размер: "
-            f"{output.stat().st_size:,} байт"
-        )
-        print("=" * 60)
 
         return 0
 
     except KeyboardInterrupt:
-        print(
-            "\n[STOP] Операция прервана."
-        )
         return 130
 
     except Exception as exc:
+
         print(
-            f"\n[ERROR] {type(exc).__name__}: {exc}",
+            f"[ERROR] "
+            f"{type(exc).__name__}: {exc}",
             file=sys.stderr,
         )
+
         return 1
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(
+        main()
+    )
