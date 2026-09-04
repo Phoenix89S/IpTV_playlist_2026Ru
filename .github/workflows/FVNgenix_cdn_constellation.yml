@@ -3,8 +3,7 @@ name: NGENIX CDN Constellation
 on:
   workflow_dispatch:
 
-  # Один запуск каждые 4 месяца:
-  # январь → май → сентябрь → январь ...
+  # январь → май → сентябрь → январь
   schedule:
     - cron: "0 4 1 1,5,9 *"
 
@@ -29,120 +28,45 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: "pip"
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-
-          if [ -f requirements.txt ]; then
-            pip install -r requirements.txt
-          fi
-
-      - name: Prepare directories
+      - name: Create output directories
         run: |
           mkdir -p data/ngenix_constellation
           mkdir -p reports/ngenix_constellation
-          mkdir -p .ngenix_inputs
 
-      - name: Collect M3U sources
-        shell: bash
+      - name: Run NGENIX CDN Constellation
         run: |
-          set -e
-
-          found=0
-
-          while IFS= read -r -d '' file; do
-            cp "$file" ".ngenix_inputs/$(basename "$file")"
-            found=$((found + 1))
-          done < <(
-            find . \
-              -type f \
-              \( -iname "*.m3u" -o -iname "*.m3u8" \) \
-              ! -path "./.git/*" \
-              ! -path "./data/ngenix_constellation/*" \
-              -print0
-          )
-
-          echo "Found M3U/M3U8 sources: $found"
-
-          if [ "$found" -eq 0 ]; then
-            echo "ERROR: No M3U/M3U8 input files found."
-            exit 1
-          fi
-
-          find .ngenix_inputs -type f -print
-
-      - name: Run FVNgenix CDN Constellation
-        shell: bash
-        run: |
-          set -e
-
-          mapfile -d '' INPUTS < <(
-            find .ngenix_inputs \
-              -type f \
-              \( -iname "*.m3u" -o -iname "*.m3u8" \) \
-              -print0
-          )
-
           python FVNgenix_cdn_constellation.py \
-            "${INPUTS[@]}" \
-            --check \
+            --root . \
+            --output-dir data/ngenix_constellation \
+            --report-dir reports/ngenix_constellation \
             --timeout 5 \
-            --output-dir data/ngenix_constellation
-
-      - name: Move SKALA report
-        run: |
-          cp \
-            data/ngenix_constellation/NGENIX_MASTER_DISCOVERY_SKALA.txt \
-            reports/ngenix_constellation/NGENIX_MASTER_DISCOVERY_SKALA.txt
+            --read-limit 8192
 
       - name: Verify generated artifacts
-        shell: bash
         run: |
           set -e
 
-          test -s \
-            data/ngenix_constellation/NGENIX_MASTER_DISCOVERY.m3u
+          test -s data/ngenix_constellation/NGENIX_CDN_CONSTELLATION.m3u
+          test -s data/ngenix_constellation/NGENIX_CDN_CONSTELLATION.json
+          test -s data/ngenix_constellation/NGENIX_CDN_CONSTELLATION_HISTORY.json
+          test -s reports/ngenix_constellation/NGENIX_CDN_CONSTELLATION_SKALA.txt
 
-          test -s \
-            data/ngenix_constellation/NGENIX_MASTER_DISCOVERY.json
-
-          test -s \
-            data/ngenix_constellation/NGENIX_MASTER_DISCOVERY_HISTORY.json
-
-          test -s \
-            data/ngenix_constellation/NGENIX_MASTER_DISCOVERY_SKALA.txt
-
-          test -s \
-            reports/ngenix_constellation/NGENIX_MASTER_DISCOVERY_SKALA.txt
-
-          echo
-          echo "=========================================="
-          echo " NGENIX CDN CONSTELLATION"
-          echo " Generated artifacts"
-          echo "=========================================="
+          echo "=== Generated artifacts ==="
 
           ls -lh \
-            data/ngenix_constellation/ \
-            reports/ngenix_constellation/
+            data/ngenix_constellation/NGENIX_CDN_CONSTELLATION.m3u \
+            data/ngenix_constellation/NGENIX_CDN_CONSTELLATION.json \
+            data/ngenix_constellation/NGENIX_CDN_CONSTELLATION_HISTORY.json \
+            reports/ngenix_constellation/NGENIX_CDN_CONSTELLATION_SKALA.txt
 
-      # Heartbeat гарантирует изменение репозитория
-      # при каждом запуске workflow.
       - name: Write heartbeat
         run: |
           date -u +"%Y-%m-%dT%H:%M:%SZ" \
             > data/ngenix_constellation/LAST_RUN_UTC.txt
 
-      - name: Cleanup temporary inputs
-        run: |
-          rm -rf .ngenix_inputs
-
       - name: Commit generated results
-        shell: bash
         run: |
-          set -e
-
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
@@ -156,7 +80,7 @@ jobs:
           fi
 
           git commit \
-            -m "NGENIX Constellation: scheduled scan $(date -u +'%Y-%m-%d')"
+            -m "NGENIX CDN Constellation: $(date -u +'%Y-%m-%d')"
 
       - name: Push results
         run: |
