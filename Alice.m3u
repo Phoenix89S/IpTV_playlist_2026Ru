@@ -446,3 +446,474 @@ https://s68149.cdn.ngenix.net/s68149-media-origin/lvs/tvgub/tracks-v1a1/mono.m3u
 
 #EXTINF:-1 tvg-id="KPRF" tvg-name="Красная линия (КПРФ)" group-title="Прочие", Красная линия (КПРФ)
 http://kprf-htlive.cdn.ngenix.net/live/_definst_/stream_high/playlist.m3u8?version=2
+
+
+
+#EXTINF:-1,STUB | s14553 | REN TV
+https://s14553.cdn.ngenix.net/hls/ren_tv/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | RTR Planeta
+https://s14553.cdn.ngenix.net/hls/rtr_planeta/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | RTVI
+https://s14553.cdn.ngenix.net/hls/rtvi/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | Shant
+https://s14553.cdn.ngenix.net/hls/shant/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | Sony Channel
+https://s14553.cdn.ngenix.net/hls/sony_channel/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | Sony Turbo
+https://s14553.cdn.ngenix.net/hls/sony_turbo/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | Sony Sci-Fi
+https://s14553.cdn.ngenix.net/hls/sony_sci_fi/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | TNT4
+https://s14553.cdn.ngenix.net/hls/tnt_4/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | Telecafe
+https://s14553.cdn.ngenix.net/hls/telecafe/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | TiJi
+https://s14553.cdn.ngenix.net/hls/tiji/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | Terra
+https://s14553.cdn.ngenix.net/hls/terra/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | TNT Music
+https://s14553.cdn.ngenix.net/hls/tnt_music/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | Trace Sport Stars
+https://s14553.cdn.ngenix.net/hls/trace_sport_stars/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | TV5 Monde
+https://s14553.cdn.ngenix.net/hls/tv5_monde/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | TV XXI
+https://s14553.cdn.ngenix.net/hls/tv_xxi/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | Viasat Explore
+https://s14553.cdn.ngenix.net/hls/viasat_explore/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | Trace Sport
+https://s14553.cdn.ngenix.net/hls/trace_sport/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | Viasat Nature
+https://s14553.cdn.ngenix.net/hls/viasat_nature/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | Viasat Sport
+https://s14553.cdn.ngenix.net/hls/viasat_sport/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | VIP Comedy
+https://s14553.cdn.ngenix.net/hls/vip_comedy/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | Viasat History
+https://s14553.cdn.ngenix.net/hls/viasat_history/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | VIP Megahit
+https://s14553.cdn.ngenix.net/hls/vip_megahit/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | VIP Premiere
+https://s14553.cdn.ngenix.net/hls/vip_premiere/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | Zee TV
+https://s14553.cdn.ngenix.net/hls/zee_tv/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | Zoopark
+https://s14553.cdn.ngenix.net/hls/zoopark/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | VIP Serial
+https://s14553.cdn.ngenix.net/hls/vip_serial/variant.m3u8
+
+#EXTINF:-1,STUB | s14553 | index
+https://s14553.cdn.ngenix.net/index.m3u8
+
+#EXTINF:-1,STUB | s14553 | playlist
+https://s14553.cdn.ngenix.net/playlist.m3u8
+
+#EXTINF:-1,STUB | s14553 | rtk_block
+https://s14553.cdn.ngenix.net/rtk_block.m3u8
+
+#EXTINF:-1,STUB | s14553 | variant
+https://s14553.cdn.ngenix.net/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | 1TV SD
+https://s18209.cdn.ngenix.net/hls/CH_1TVSD/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | 1TV
+https://s18209.cdn.ngenix.net/hls/CH_1TV/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | 5TV
+https://s18209.cdn.ngenix.net/hls/CH_5TV/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | 2x2
+https://s18209.cdn.ngenix.net/hls/CH_2X2/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | 365 Дней ТВ
+https://s18209.cdn.ngenix.net/hls/365_dney_tv/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Известия HD
+https://s18209.cdn.ngenix.net/hls/CH_C03_IZVESTIYAHD/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Россия 1 HD
+https://s18209.cdn.ngenix.net/hls/CH_C05_RUSSIA1HD/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | AIVA HD
+https://s18209.cdn.ngenix.net/hls/CH_AIVAHD/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | CGTN Russia
+https://s18209.cdn.ngenix.net/hls/CH_CGTNRUS/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Че
+https://s18209.cdn.ngenix.net/hls/CH_CHE/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Disney
+https://s18209.cdn.ngenix.net/hls/CH_DISNEY/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Карусель
+https://s18209.cdn.ngenix.net/hls/CH_KARUSEL/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Матч ТВ
+https://s18209.cdn.ngenix.net/hls/CH_MATCHTV/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Футбол 1 HD
+https://s18209.cdn.ngenix.net/hls/CH_FUTBALL1HD/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Домашний
+https://s18209.cdn.ngenix.net/hls/CH_DOMASHNIY/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Мир
+https://s18209.cdn.ngenix.net/hls/CH_MIR/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | НТВ
+https://s18209.cdn.ngenix.net/hls/CH_NTV/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Муз ТВ
+https://s18209.cdn.ngenix.net/hls/CH_MUZTV/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | НТВ HD
+https://s18209.cdn.ngenix.net/hls/CH_NTV_HD/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Москва 24 HD
+https://s18209.cdn.ngenix.net/hls/CH_MOSKVA24HD/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Перец
+https://s18209.cdn.ngenix.net/hls/CH_PERETZ/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | ОТР
+https://s18209.cdn.ngenix.net/hls/CH_OTR/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Подмосковье HD
+https://s18209.cdn.ngenix.net/hls/CH_PODMOSKOVIEHD/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Пятница
+https://s18209.cdn.ngenix.net/hls/CH_PYATNIZZA/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Охота и рыбалка
+https://s18209.cdn.ngenix.net/hls/CH_OHOTAIRYBALKS/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | РЕН ТВ
+https://s18209.cdn.ngenix.net/hls/CH_RENTV/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Россия 1
+https://s18209.cdn.ngenix.net/hls/CH_RUSSIA1/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Россия 24
+https://s18209.cdn.ngenix.net/hls/CH_RUSSIA24/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | СТС
+https://s18209.cdn.ngenix.net/hls/CH_STS/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Спас
+https://s18209.cdn.ngenix.net/hls/CH_SPAS/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | СТС Love
+https://s18209.cdn.ngenix.net/hls/CH_STSLOVE/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Супер
+https://s18209.cdn.ngenix.net/hls/CH_SUPER/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Россия-К
+https://s18209.cdn.ngenix.net/hls/CH_RUSSIAK/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | ТНТ HD
+https://s18209.cdn.ngenix.net/hls/CH_TNTHD/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | ТНТ
+https://s18209.cdn.ngenix.net/hls/CH_TNT/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | ТВ3
+https://s18209.cdn.ngenix.net/hls/CH_TV3/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | ТНТ4
+https://s18209.cdn.ngenix.net/hls/CH_TNT4/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | ТВЦ
+https://s18209.cdn.ngenix.net/hls/CH_TVC/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | ВСЕ ТВ HD
+https://s18209.cdn.ngenix.net/hls/CH_VSETVHD/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Звезда
+https://s18209.cdn.ngenix.net/hls/CH_ZVEZDA/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | U
+https://s18209.cdn.ngenix.net/hls/CH_U/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Amedia 1
+https://s18209.cdn.ngenix.net/hls/amedia_1/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | AMC
+https://s18209.cdn.ngenix.net/hls/amc/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Amedia 2
+https://s18209.cdn.ngenix.net/hls/amedia_2/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Amedia Hit
+https://s18209.cdn.ngenix.net/hls/amedia_hit/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Amedia Premium HD
+https://s18209.cdn.ngenix.net/hls/amedia_premium_hd/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | ATV
+https://s18209.cdn.ngenix.net/hls/atv/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Baby TV
+https://s18209.cdn.ngenix.net/hls/baby_tv/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Da Vinci
+https://s18209.cdn.ngenix.net/hls/da_vinci/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Curiosity
+https://s18209.cdn.ngenix.net/hls/curiosity_s/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Bazmoc
+https://s18209.cdn.ngenix.net/hls/bazmoc/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Docubox
+https://s18209.cdn.ngenix.net/hls/docubox/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | DAR21
+https://s18209.cdn.ngenix.net/hls/dar21/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Дом кино
+https://s18209.cdn.ngenix.net/hls/dom_kino/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Дом кино Premium HD
+https://s18209.cdn.ngenix.net/hls/dom_kino_premium_hd/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Дом кино Премиум
+https://s18209.cdn.ngenix.net/hls/dom_kino_pr/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Duck TV
+https://s18209.cdn.ngenix.net/hls/ducktv/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Erox
+https://s18209.cdn.ngenix.net/hls/erox/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Euronews
+https://s18209.cdn.ngenix.net/hls/euronews/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Еврокино
+https://s18209.cdn.ngenix.net/hls/evrokino/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Fashion TV
+https://s18209.cdn.ngenix.net/hls/fashion_tv/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | FightBox
+https://s18209.cdn.ngenix.net/hls/fightbox/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | FilmBox Arthouse
+https://s18209.cdn.ngenix.net/hls/filmbox_arthouse/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | FilmBox
+https://s18209.cdn.ngenix.net/hls/filmbox/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | FilmZone
+https://s18209.cdn.ngenix.net/hls/filmzone/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | FlixSnip
+https://s18209.cdn.ngenix.net/hls/flixsnip/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Galaxy
+https://s18209.cdn.ngenix.net/hls/galaxy/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Gulli
+https://s18209.cdn.ngenix.net/hls/gulli/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | HD Life
+https://s18209.cdn.ngenix.net/hls/hd_life/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Illusion PL
+https://s18209.cdn.ngenix.net/hls/illusion_pl/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | H1
+https://s18209.cdn.ngenix.net/hls/h1/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | History 2
+https://s18209.cdn.ngenix.net/hls/history_2/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Illusion+
+https://s18209.cdn.ngenix.net/hls/illusion_plus/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | H2
+https://s18209.cdn.ngenix.net/hls/h2/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | History
+https://s18209.cdn.ngenix.net/hls/history/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Kentron
+https://s18209.cdn.ngenix.net/hls/kentron/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Киноклуб
+https://s18209.cdn.ngenix.net/hls/kinoklub/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Киноужас
+https://s18209.cdn.ngenix.net/hls/kinouzhas/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Карусель
+https://s18209.cdn.ngenix.net/hls/karusel/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | КХЛ
+https://s18209.cdn.ngenix.net/hls/kxl/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | КВН ТВ
+https://s18209.cdn.ngenix.net/hls/kvn_tv/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Матч Планета
+https://s18209.cdn.ngenix.net/hls/match_planeta/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Матч Премьер
+https://s18209.cdn.ngenix.net/hls/match_plane/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Mezzo
+https://s18209.cdn.ngenix.net/hls/mezzo/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Kitchen TV
+https://s18209.cdn.ngenix.net/hls/kitchen_tv/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Много ТВ
+https://s18209.cdn.ngenix.net/hls/mnogo_tv/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Мир
+https://s18209.cdn.ngenix.net/hls/mir/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Наше Новое
+https://s18209.cdn.ngenix.net/hls/nashe_novoe/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Nickelodeon
+https://s18209.cdn.ngenix.net/hls/nickelodeon/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Ностальгия
+https://s18209.cdn.ngenix.net/hls/nostalgia/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Мир сериала
+https://s18209.cdn.ngenix.net/hls/mir_seriala/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | НТВ Сериал
+https://s18209.cdn.ngenix.net/hls/ntv_serial/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Ocean TV
+https://s18209.cdn.ngenix.net/hls/ocean_tv/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Nicktoons
+https://s18209.cdn.ngenix.net/hls/nicktoons/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | НТВ Право
+https://s18209.cdn.ngenix.net/hls/ntv_pravo/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | RTVI
+https://s18209.cdn.ngenix.net/hls/rtvi/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | RTR Planeta
+https://s18209.cdn.ngenix.net/hls/rtr_planeta/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | REN TV
+https://s18209.cdn.ngenix.net/hls/ren_tv/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Sony Channel
+https://s18209.cdn.ngenix.net/hls/sony_channel/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Shant
+https://s18209.cdn.ngenix.net/hls/shant/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Sony Turbo
+https://s18209.cdn.ngenix.net/hls/sony_turbo/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Terra
+https://s18209.cdn.ngenix.net/hls/terra/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | RBC
+https://s18209.cdn.ngenix.net/hls/rbc/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Sony Sci-Fi
+https://s18209.cdn.ngenix.net/hls/sony_sci_fi/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | TiJi
+https://s18209.cdn.ngenix.net/hls/tiji/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | TNT4
+https://s18209.cdn.ngenix.net/hls/tnt_4/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Telecafe
+https://s18209.cdn.ngenix.net/hls/telecafe/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Trace Sport
+https://s18209.cdn.ngenix.net/hls/trace_sport/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Trace Sport Stars
+https://s18209.cdn.ngenix.net/hls/trace_sport_stars/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | TNT Music
+https://s18209.cdn.ngenix.net/hls/tnt_music/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Viasat History
+https://s18209.cdn.ngenix.net/hls/viasat_history/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | TV XXI
+https://s18209.cdn.ngenix.net/hls/tv_xxi/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Viasat Explore
+https://s18209.cdn.ngenix.net/hls/viasat_explore/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | TV5 Monde
+https://s18209.cdn.ngenix.net/hls/tv5_monde/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Viasat Nature
+https://s18209.cdn.ngenix.net/hls/viasat_nature/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | VIP Comedy
+https://s18209.cdn.ngenix.net/hls/vip_comedy/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | VIP Premiere
+https://s18209.cdn.ngenix.net/hls/vip_premiere/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Zee TV
+https://s18209.cdn.ngenix.net/hls/zee_tv/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | VIP Megahit
+https://s18209.cdn.ngenix.net/hls/vip_megahit/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Viasat Sport
+https://s18209.cdn.ngenix.net/hls/viasat_sport/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | VIP Serial
+https://s18209.cdn.ngenix.net/hls/vip_serial/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | index
+https://s18209.cdn.ngenix.net/index.m3u8
+
+#EXTINF:-1,STUB | s18209 | rtk_block
+https://s18209.cdn.ngenix.net/rtk_block.m3u8
+
+#EXTINF:-1,STUB | s18209 | playlist
+https://s18209.cdn.ngenix.net/playlist.m3u8
+
+#EXTINF:-1,STUB | s18209 | variant
+https://s18209.cdn.ngenix.net/variant.m3u8
+
+#EXTINF:-1,STUB | s18209 | Zoopark
+https://s18209.cdn.ngenix.net/hls/zoopark/variant.m3u8
+
