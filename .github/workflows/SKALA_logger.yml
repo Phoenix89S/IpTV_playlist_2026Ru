@@ -5,6 +5,11 @@ on:
 
 permissions:
   contents: write
+  actions: read
+
+concurrency:
+  group: skala-logger
+  cancel-in-progress: false
 
 jobs:
   skala_logger:
@@ -15,6 +20,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: main
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -26,41 +32,36 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install requests
 
-      - name: Run SKALA_logger.py
+      - name: Run SKALA logger
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -Eeuo pipefail
 
           test -s SKALA_logger.py
+          python -m py_compile SKALA_logger.py
 
           python SKALA_logger.py \
             "https://github.com/Phoenix89S/IpTV_playlist_2026Ru/actions/runs/33892073670" \
             --output "SKALA_RUN_33892073670.txt" \
             --export-number "1"
 
-      - name: Verify result
-        run: |
-          set -Eeuo pipefail
-
           test -s SKALA_RUN_33892073670.txt
 
-          echo "=============================================="
-          echo " SKALA LOGGER — ГОТОВ"
-          echo "=============================================="
-          ls -lh SKALA_RUN_33892073670.txt
-          echo "=============================================="
-
-      - name: Commit TXT to repository
+      - name: Commit and push
         run: |
           set -Eeuo pipefail
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add SKALA_RUN_33892073670.txt
-
-          git commit -m "SKALA Logger: Run 33892073670"
-
           git fetch origin main
           git rebase origin/main
+
+          git add SKALA_RUN_33892073670.txt
+
+          git diff --cached --quiet && exit 1
+
+          git commit -m "SKALA Logger: Run 33892073670"
 
           git push origin HEAD:main
