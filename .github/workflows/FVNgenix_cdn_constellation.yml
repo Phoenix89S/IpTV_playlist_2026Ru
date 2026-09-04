@@ -14,74 +14,406 @@ concurrency:
   group: ngenix-cdn-constellation
   cancel-in-progress: false
 
+env:
+  SCANNER: FVNgenix_cdn_constellation.py
+  OUTPUT_DIR: data/ngenix_constellation
+  REPORT_DIR: reports/ngenix_constellation
+
 jobs:
   constellation:
+    name: NGENIX CDN Constellation
     runs-on: ubuntu-latest
+    timeout-minutes: 90
 
     steps:
+
+      # ============================================================
+      # CHECKOUT
+      # ============================================================
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: true
 
+      # ============================================================
+      # PYTHON
+      # ============================================================
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
+      # ============================================================
+      # PREPARE
+      # ============================================================
       - name: Create output directories
+        shell: bash
         run: |
-          mkdir -p data/ngenix_constellation
-          mkdir -p reports/ngenix_constellation
+          set -Eeuo pipefail
 
-      - name: Run NGENIX CDN Constellation
+          mkdir -p "$OUTPUT_DIR"
+          mkdir -p "$REPORT_DIR"
+
+          echo "=============================================="
+          echo " NGENIX CDN CONSTELLATION"
+          echo "=============================================="
+          echo "Scanner    : $SCANNER"
+          echo "Output     : $OUTPUT_DIR"
+          echo "Reports    : $REPORT_DIR"
+          echo "Branch     : $GITHUB_REF_NAME"
+          echo "Run ID     : $GITHUB_RUN_ID"
+          echo "=============================================="
+
+      # ============================================================
+      # VERIFY SCRIPT
+      # ============================================================
+      - name: Verify scanner
+        shell: bash
         run: |
-          python FVNgenix_cdn_constellation.py \
-            --root . \
-            --output-dir data/ngenix_constellation \
-            --report-dir reports/ngenix_constellation \
-            --timeout 5 \
-            --read-limit 8192
+          set -Eeuo pipefail
 
-      - name: Verify generated artifacts
-        run: |
-          set -e
-
-          test -s data/ngenix_constellation/NGENIX_CDN_CONSTELLATION.m3u
-          test -s data/ngenix_constellation/NGENIX_CDN_CONSTELLATION.json
-          test -s data/ngenix_constellation/NGENIX_CDN_CONSTELLATION_HISTORY.json
-          test -s reports/ngenix_constellation/NGENIX_CDN_CONSTELLATION_SKALA.txt
-
-          echo "=== Generated artifacts ==="
-
-          ls -lh \
-            data/ngenix_constellation/NGENIX_CDN_CONSTELLATION.m3u \
-            data/ngenix_constellation/NGENIX_CDN_CONSTELLATION.json \
-            data/ngenix_constellation/NGENIX_CDN_CONSTELLATION_HISTORY.json \
-            reports/ngenix_constellation/NGENIX_CDN_CONSTELLATION_SKALA.txt
-
-      - name: Write heartbeat
-        run: |
-          date -u +"%Y-%m-%dT%H:%M:%SZ" \
-            > data/ngenix_constellation/LAST_RUN_UTC.txt
-
-      - name: Commit generated results
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add \
-            data/ngenix_constellation/ \
-            reports/ngenix_constellation/
-
-          if git diff --cached --quiet; then
-            echo "ERROR: Nothing staged for commit."
+          if [[ ! -f "$SCANNER" ]]; then
+            echo "[FATAL] Scanner not found:"
+            echo "$SCANNER"
             exit 1
           fi
 
-          git commit \
-            -m "NGENIX CDN Constellation: $(date -u +'%Y-%m-%d')"
+          python -m py_compile "$SCANNER"
 
-      - name: Push results
+          echo "[OK] Scanner exists and compiles:"
+          echo "$SCANNER"
+
+      # ============================================================
+      # RUN SCANNER
+      #
+      # ВАЖНО:
+      # root у FVNgenix_cdn_constellation.py является POSITIONAL.
+      #
+      # БЫЛО:
+      #   --root .
+      #
+      # ПРАВИЛЬНО:
+      #   .
+      #
+      # Также НЕ отключаем matrix/special/seed:
+      # скрипт сам использует свои значения по умолчанию.
+      # ============================================================
+      - name: Run NGENIX CDN Constellation
+        shell: bash
         run: |
-          git push origin HEAD:${GITHUB_REF_NAME}
+          set -Eeuo pipefail
+
+          python "$SCANNER" \
+            . \
+            --output-dir "$OUTPUT_DIR" \
+            --report-dir "$REPORT_DIR" \
+            --timeout 5 \
+            --read-limit 8192 \
+            --workers 16
+
+      # ============================================================
+      # VERIFY ARTIFACTS
+      # ============================================================
+      - name: Verify generated artifacts
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          REQUIRED_FILES=(
+            "$OUTPUT_DIR/NGENIX_CDN_CONSTELLATION.m3u"
+            "$OUTPUT_DIR/NGENIX_CDN_CONSTELLATION.json"
+            "$OUTPUT_DIR/NGENIX_CDN_CONSTELLATION_HISTORY.json"
+            "$REPORT_DIR/NGENIX_CDN_CONSTELLATION_SKALA.txt"
+          )
+
+          echo "=============================================="
+          echo " GENERATED ARTIFACTS"
+          echo "=============================================="
+
+          for file in "${REQUIRED_FILES[@]}"; do
+            if [[ ! -s "$file" ]]; then
+              echo "[FATAL] Missing or empty:"
+              echo "$file"
+              exit 1
+            fi
+
+            echo "[OK] $file"
+          done
+
+          echo ""
+          ls -lh \
+            "$OUTPUT_DIR/NGENIX_CDN_CONSTELLATION.m3u" \
+            "$OUTPUT_DIR/NGENIX_CDN_CONSTELLATION.json" \
+            "$OUTPUT_DIR/NGENIX_CDN_CONSTELLATION_HISTORY.json" \
+            "$REPORT_DIR/NGENIX_CDN_CONSTELLATION_SKALA.txt"
+
+      # ============================================================
+      # VALIDATE JSON
+      # ============================================================
+      - name: Validate JSON
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          files = [
+              Path("data/ngenix_constellation/NGENIX_CDN_CONSTELLATION.json"),
+              Path("data/ngenix_constellation/NGENIX_CDN_CONSTELLATION_HISTORY.json"),
+          ]
+
+          for path in files:
+              print(f"[CHECK] {path}")
+
+              with path.open("r", encoding="utf-8") as fh:
+                  data = json.load(fh)
+
+              if path.name == "NGENIX_CDN_CONSTELLATION.json":
+                  if "summary" not in data:
+                      raise SystemExit("Missing summary")
+                  if "entries" not in data:
+                      raise SystemExit("Missing entries")
+                  if "nodes" not in data:
+                      raise SystemExit("Missing nodes")
+
+              if path.name == "NGENIX_CDN_CONSTELLATION_HISTORY.json":
+                  if not isinstance(data, list):
+                      raise SystemExit("History is not a list")
+
+          print("[OK] JSON validation passed")
+          PY
+
+      # ============================================================
+      # HEARTBEAT
+      # ============================================================
+      - name: Write heartbeat
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          date -u +"%Y-%m-%dT%H:%M:%SZ" \
+            > "$OUTPUT_DIR/LAST_RUN_UTC.txt"
+
+          echo "[OK] Heartbeat:"
+          cat "$OUTPUT_DIR/LAST_RUN_UTC.txt"
+
+      # ============================================================
+      # SHOW CHANGES
+      # ============================================================
+      - name: Show generated changes
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          echo "=============================================="
+          echo " GIT STATUS BEFORE COMMIT"
+          echo "=============================================="
+
+          git status --short
+
+      # ============================================================
+      # CONFIGURE GIT
+      # ============================================================
+      - name: Configure Git
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git config commit.gpgsign false
+
+          echo "[OK] Git configured"
+
+      # ============================================================
+      # STAGE
+      # ============================================================
+      - name: Stage generated results
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          git add "$OUTPUT_DIR/"
+          git add "$REPORT_DIR/"
+
+          echo "=============================================="
+          echo " STAGED FILES"
+          echo "=============================================="
+
+          git diff --cached --name-status
+
+          if git diff --cached --quiet; then
+            echo "[FATAL] Nothing staged."
+            echo "Scanner completed but generated data produced no repository change."
+            exit 1
+          fi
+
+      # ============================================================
+      # COMMIT
+      # ============================================================
+      - name: Commit generated results
+        id: commit
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          DATE_UTC="$(date -u +'%Y-%m-%d')"
+
+          git commit \
+            -m "NGENIX CDN Constellation: ${DATE_UTC}"
+
+          COMMIT_SHA="$(git rev-parse HEAD)"
+
+          echo "commit_sha=$COMMIT_SHA" >> "$GITHUB_OUTPUT"
+
+          echo "=============================================="
+          echo " COMMIT CREATED"
+          echo "=============================================="
+          echo "SHA: $COMMIT_SHA"
+
+      # ============================================================
+      # LOCAL COMMIT VERIFICATION
+      # ============================================================
+      - name: Verify local commit
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          SHA="${{ steps.commit.outputs.commit_sha }}"
+
+          if [[ -z "$SHA" ]]; then
+            echo "[FATAL] Commit SHA is empty."
+            exit 1
+          fi
+
+          if ! git cat-file -e "${SHA}^{commit}"; then
+            echo "[FATAL] Commit does not exist."
+            echo "$SHA"
+            exit 1
+          fi
+
+          HEAD_SHA="$(git rev-parse HEAD)"
+
+          if [[ "$HEAD_SHA" != "$SHA" ]]; then
+            echo "[FATAL] HEAD does not match created commit."
+            echo "Expected: $SHA"
+            echo "Actual:   $HEAD_SHA"
+            exit 1
+          fi
+
+          echo "[OK] Local commit verified:"
+          echo "$SHA"
+
+      # ============================================================
+      # PUSH
+      # ============================================================
+      - name: Push results
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          BRANCH="$GITHUB_REF_NAME"
+          SHA="$(git rev-parse HEAD)"
+
+          echo "=============================================="
+          echo " PUSH"
+          echo "=============================================="
+          echo "Branch: $BRANCH"
+          echo "Commit: $SHA"
+
+          git push origin "HEAD:${BRANCH}"
+
+      # ============================================================
+      # GUARANTEED REMOTE COMMIT VERIFICATION
+      #
+      # После push получаем состояние origin заново.
+      # Workflow падает, если remote SHA != созданному SHA.
+      # ============================================================
+      - name: Verify remote commit
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          BRANCH="$GITHUB_REF_NAME"
+          LOCAL_SHA="$(git rev-parse HEAD)"
+
+          echo "[VERIFY] Fetching remote branch..."
+
+          git fetch origin "$BRANCH"
+
+          REMOTE_SHA="$(git rev-parse "origin/${BRANCH}")"
+
+          echo ""
+          echo "=============================================="
+          echo " REMOTE COMMIT VERIFICATION"
+          echo "=============================================="
+          echo "Local :  $LOCAL_SHA"
+          echo "Remote:  $REMOTE_SHA"
+          echo "=============================================="
+
+          if [[ "$LOCAL_SHA" != "$REMOTE_SHA" ]]; then
+            echo ""
+            echo "[FATAL] COMMIT WAS NOT VERIFIED ON REMOTE."
+            echo ""
+            echo "Local and remote SHA differ."
+            exit 1
+          fi
+
+          echo ""
+          echo "[OK] Remote contains the generated commit."
+          echo "[OK] Commit SHA verified."
+          echo "[OK] Push verified."
+
+      # ============================================================
+      # FINAL CLEAN CHECK
+      # ============================================================
+      - name: Final repository verification
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          echo "=============================================="
+          echo " FINAL NGENIX CONSTELLATION STATUS"
+          echo "=============================================="
+
+          git status --short
+
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "[FATAL] Repository is not clean after commit."
+            exit 1
+          fi
+
+          echo ""
+          echo "HEAD:"
+          git rev-parse HEAD
+
+          echo ""
+          echo "Latest commit:"
+          git log -1 --oneline
+
+          echo ""
+          echo "[SUCCESS]"
+          echo "NGENIX CDN Constellation completed."
+          echo "Artifacts validated."
+          echo "Commit created."
+          echo "Commit pushed."
+          echo "Remote SHA verified."
+          echo "Repository is clean."
+
+      # ============================================================
+      # ARTIFACT BACKUP
+      # ============================================================
+      - name: Upload constellation artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: NGENIX-CDN-Constellation-${{ github.run_number }}
+          path: |
+            data/ngenix_constellation/
+            reports/ngenix_constellation/
+          if-no-files-found: warn
+          retention-days: 30
