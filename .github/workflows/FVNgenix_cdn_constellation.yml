@@ -3,7 +3,7 @@ name: NGENIX CDN Constellation
 on:
   workflow_dispatch:
 
-  # Запуск каждые 4 месяца:
+  # Один запуск каждые 4 месяца:
   # январь → май → сентябрь → январь ...
   schedule:
     - cron: "0 4 1 1,5,9 *"
@@ -39,37 +39,110 @@ jobs:
             pip install -r requirements.txt
           fi
 
-      - name: Create output directories
+      - name: Prepare directories
         run: |
           mkdir -p data/ngenix_constellation
           mkdir -p reports/ngenix_constellation
+          mkdir -p .ngenix_inputs
+
+      - name: Collect M3U sources
+        shell: bash
+        run: |
+          set -e
+
+          found=0
+
+          while IFS= read -r -d '' file; do
+            cp "$file" ".ngenix_inputs/$(basename "$file")"
+            found=$((found + 1))
+          done < <(
+            find . \
+              -type f \
+              \( -iname "*.m3u" -o -iname "*.m3u8" \) \
+              ! -path "./.git/*" \
+              ! -path "./data/ngenix_constellation/*" \
+              -print0
+          )
+
+          echo "Found M3U/M3U8 sources: $found"
+
+          if [ "$found" -eq 0 ]; then
+            echo "ERROR: No M3U/M3U8 input files found."
+            exit 1
+          fi
+
+          find .ngenix_inputs -type f -print
 
       - name: Run FVNgenix CDN Constellation
+        shell: bash
         run: |
-          python FVNgenix_cdn_constellation.py
+          set -e
+
+          mapfile -d '' INPUTS < <(
+            find .ngenix_inputs \
+              -type f \
+              \( -iname "*.m3u" -o -iname "*.m3u8" \) \
+              -print0
+          )
+
+          python FVNgenix_cdn_constellation.py \
+            "${INPUTS[@]}" \
+            --check \
+            --timeout 5 \
+            --output-dir data/ngenix_constellation
+
+      - name: Move SKALA report
+        run: |
+          cp \
+            data/ngenix_constellation/NGENIX_MASTER_DISCOVERY_SKALA.txt \
+            reports/ngenix_constellation/NGENIX_MASTER_DISCOVERY_SKALA.txt
 
       - name: Verify generated artifacts
+        shell: bash
         run: |
-          echo "=== NGENIX CDN Constellation artifacts ==="
+          set -e
 
-          test -f data/ngenix_constellation/ngenix_cdn_constellation.m3u
-          test -f data/ngenix_constellation/ngenix_cdn_constellation.json
-          test -f reports/ngenix_constellation/ngenix_cdn_constellation_SKALA.txt
+          test -s \
+            data/ngenix_constellation/NGENIX_MASTER_DISCOVERY.m3u
+
+          test -s \
+            data/ngenix_constellation/NGENIX_MASTER_DISCOVERY.json
+
+          test -s \
+            data/ngenix_constellation/NGENIX_MASTER_DISCOVERY_HISTORY.json
+
+          test -s \
+            data/ngenix_constellation/NGENIX_MASTER_DISCOVERY_SKALA.txt
+
+          test -s \
+            reports/ngenix_constellation/NGENIX_MASTER_DISCOVERY_SKALA.txt
+
+          echo
+          echo "=========================================="
+          echo " NGENIX CDN CONSTELLATION"
+          echo " Generated artifacts"
+          echo "=========================================="
 
           ls -lh \
-            data/ngenix_constellation/ngenix_cdn_constellation.m3u \
-            data/ngenix_constellation/ngenix_cdn_constellation.json \
-            reports/ngenix_constellation/ngenix_cdn_constellation_SKALA.txt
+            data/ngenix_constellation/ \
+            reports/ngenix_constellation/
 
-      # Гарантированно создаём изменение репозитория
-      # на каждом запуске workflow.
+      # Heartbeat гарантирует изменение репозитория
+      # при каждом запуске workflow.
       - name: Write heartbeat
         run: |
           date -u +"%Y-%m-%dT%H:%M:%SZ" \
             > data/ngenix_constellation/LAST_RUN_UTC.txt
 
-      - name: Commit generated results
+      - name: Cleanup temporary inputs
         run: |
+          rm -rf .ngenix_inputs
+
+      - name: Commit generated results
+        shell: bash
+        run: |
+          set -e
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
