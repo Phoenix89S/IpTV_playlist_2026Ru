@@ -1,304 +1,602 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="karusel" group-title="Эфирные ТВ Плюс",1. Карусель
+
+# --- Карусель ---
+#EXTINF:-1 tvg-id="karusel" group-title="Эфирные ТВ Плюс",Карусель
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/karusel/index.m3u8
+#EXTINF:-1 tvg-id="karusel" group-title="Эфирные ТВ Плюс",Карусель (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/karusel/1/index.m3u8
-#EXTINF:-1 tvg-id="karusel" group-title="Эфирные ТВ Плюс",2. Карусель
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="karusel" group-title="Эфирные ТВ Плюс",Карусель (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
 https://s70378.cdn.ngenix.net/karusel/2/index.m3u8
-#EXTINF:-1 tvg-id="karusel" group-title="Эфирные ТВ Плюс",3. Карусель
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/karusel/index.m3u8
-#EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ Плюс",4. РЕН ТВ
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/ren_tv/2/index.m3u8
-#EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ Плюс",5. РЕН ТВ
+#EXTINF:-1 tvg-id="karusel" group-title="Эфирные ТВ Плюс",Карусель (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/karusel/3/index.m3u8
+#EXTINF:-1 tvg-id="karusel" group-title="Эфирные ТВ Плюс",Карусель (Резерв 4)
+#EXTVLCOPT:http-user-agent=Wink/1.0 (Linux; Android 9; Smart TV) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/karusel/4/index.m3u8
+
+# --- РЕН ТВ ---
+#EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ Плюс",РЕН ТВ
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/ren_tv/index.m3u8
+#EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ Плюс",РЕН ТВ (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/ren_tv/1/index.m3u8
-#EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ Плюс",6. РЕН ТВ
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/ren_tv/index.m3u8
-#EXTINF:-1 tvg-id="tv3" group-title="Эфирные ТВ Плюс",7. ТВ-3
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/tv_3/2/index.m3u8
-#EXTINF:-1 tvg-id="tv3" group-title="Эфирные ТВ Плюс",8. ТВ-3
+#EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ Плюс",РЕН ТВ (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/ren_tv/2/index.m3u8
+#EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ Плюс",РЕН ТВ (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/ren_tv/3/index.m3u8
+#EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ Плюс",РЕН ТВ (Резерв 4)
+#EXTVLCOPT:http-user-agent=Wink/1.0 (Linux; Android 9; Smart TV) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/ren_tv/4/index.m3u8
+
+# --- ТВ-3 ---
+#EXTINF:-1 tvg-id="tv3" group-title="Эфирные ТВ Плюс",ТВ-3
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/tv_3/index.m3u8
+#EXTINF:-1 tvg-id="tv3" group-title="Эфирные ТВ Плюс",ТВ-3 (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/tv_3/1/index.m3u8
-#EXTINF:-1 tvg-id="tv3" group-title="Эфирные ТВ Плюс",9. ТВ-3
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/tv_3/index.m3u8
-#EXTINF:-1 tvg-id="mir" group-title="Эфирные ТВ Плюс",10. Мир
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/mir/2/index.m3u8
-#EXTINF:-1 tvg-id="mir" group-title="Эфирные ТВ Плюс",11. Мир
+#EXTINF:-1 tvg-id="tv3" group-title="Эфирные ТВ Плюс",ТВ-3 (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/tv_3/2/index.m3u8
+#EXTINF:-1 tvg-id="tv3" group-title="Эфирные ТВ Плюс",ТВ-3 (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/tv_3/3/index.m3u8
+#EXTINF:-1 tvg-id="tv3" group-title="Эфирные ТВ Плюс",ТВ-3 (Резерв 4)
+#EXTVLCOPT:http-user-agent=Wink/1.0 (Linux; Android 9; Smart TV) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/tv_3/4/index.m3u8
+
+# --- Мир ---
+#EXTINF:-1 tvg-id="mir" group-title="Эфирные ТВ Плюс",Мир
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/mir/index.m3u8
+#EXTINF:-1 tvg-id="mir" group-title="Эфирные ТВ Плюс",Мир (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/mir/1/index.m3u8
-#EXTINF:-1 tvg-id="mir" group-title="Эфирные ТВ Плюс",12. Мир
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/mir/index.m3u8
-#EXTINF:-1 tvg-id="ocean_tv" group-title="Эфирные ТВ Плюс",13. Ocean TV
+#EXTINF:-1 tvg-id="mir" group-title="Эфирные ТВ Плюс",Мир (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/mir/2/index.m3u8
+#EXTINF:-1 tvg-id="mir" group-title="Эфирные ТВ Плюс",Мир (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/mir/3/index.m3u8
+#EXTINF:-1 tvg-id="mir" group-title="Эфирные ТВ Плюс",Мир (Резерв 4)
+#EXTVLCOPT:http-user-agent=Wink/1.0 (Linux; Android 9; Smart TV) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/mir/4/index.m3u8
+
+# --- Ocean TV ---
+#EXTINF:-1 tvg-id="ocean_tv" group-title="Эфирные ТВ Плюс",Ocean TV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/ocean_tv/index.m3u8
+#EXTINF:-1 tvg-id="ocean_tv" group-title="Эфирные ТВ Плюс",Ocean TV (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/ocean_tv/1/index.m3u8
-#EXTINF:-1 tvg-id="ocean_tv" group-title="Эфирные ТВ Плюс",14. Ocean TV
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/ocean_tv/index.m3u8
-#EXTINF:-1 tvg-id="ocean_tv" group-title="Эфирные ТВ Плюс",15. Ocean TV
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="ocean_tv" group-title="Эфирные ТВ Плюс",Ocean TV (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
 https://s70378.cdn.ngenix.net/ocean_tv/2/index.m3u8
-#EXTINF:-1 tvg-id="viasat_nature" group-title="Эфирные ТВ Плюс",16. viju_nature
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="ocean_tv" group-title="Эфирные ТВ Плюс",Ocean TV (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/ocean_tv/3/index.m3u8
+#EXTINF:-1 tvg-id="ocean_tv" group-title="Эфирные ТВ Плюс",Ocean TV (Резерв 4)
+#EXTVLCOPT:http-user-agent=Wink/1.0 (Linux; Android 9; Smart TV) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/ocean_tv/4/index.m3u8
+
+# --- Viju / Viasat ---
+#EXTINF:-1 tvg-id="viasat_nature" group-title="Эфирные ТВ Плюс",viju_nature
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/viasat_nature/index.m3u8
-#EXTINF:-1 tvg-id="viasat_explore" group-title="Эфирные ТВ Плюс",17. viju_explore
+#EXTINF:-1 tvg-id="viasat_nature" group-title="Эфирные ТВ Плюс",viju_nature (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/viasat_nature/1/index.m3u8
+#EXTINF:-1 tvg-id="viasat_nature" group-title="Эфирные ТВ Плюс",viju_nature (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/viasat_nature/2/index.m3u8
+#EXTINF:-1 tvg-id="viasat_nature" group-title="Эфирные ТВ Плюс",viju_nature (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/viasat_nature/3/index.m3u8
+
+#EXTINF:-1 tvg-id="viasat_explore" group-title="Эфирные ТВ Плюс",viju_explore
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/viasat_explore/index.m3u8
-#EXTINF:-1 tvg-id="viasat_history" group-title="Эфирные ТВ Плюс",18. viju_history
+#EXTINF:-1 tvg-id="viasat_explore" group-title="Эфирные ТВ Плюс",viju_explore (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/viasat_explore/1/index.m3u8
+#EXTINF:-1 tvg-id="viasat_explore" group-title="Эфирные ТВ Плюс",viju_explore (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/viasat_explore/2/index.m3u8
+#EXTINF:-1 tvg-id="viasat_explore" group-title="Эфирные ТВ Плюс",viju_explore (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/viasat_explore/3/index.m3u8
+
+#EXTINF:-1 tvg-id="viasat_history" group-title="Эфирные ТВ Плюс",viju_history
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/viasat_history/index.m3u8
-#EXTINF:-1 tvg-id="tiji" group-title="Эфирные ТВ Плюс",19. TiJi
+#EXTINF:-1 tvg-id="viasat_history" group-title="Эфирные ТВ Плюс",viju_history (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/tiji/2/index.m3u8
-#EXTINF:-1 tvg-id="tiji" group-title="Эфирные ТВ Плюс",20. TiJi
+https://s70378.cdn.ngenix.net/viasat_history/1/index.m3u8
+#EXTINF:-1 tvg-id="viasat_history" group-title="Эфирные ТВ Плюс",viju_history (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/viasat_history/2/index.m3u8
+#EXTINF:-1 tvg-id="viasat_history" group-title="Эфирные ТВ Плюс",viju_history (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/viasat_history/3/index.m3u8
+
+# --- TiJi & Gulli ---
+#EXTINF:-1 tvg-id="tiji" group-title="Эфирные ТВ Плюс",TiJi
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/tiji/index.m3u8
+#EXTINF:-1 tvg-id="tiji" group-title="Эфирные ТВ Плюс",TiJi (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/tiji/1/index.m3u8
-#EXTINF:-1 tvg-id="tiji" group-title="Эфирные ТВ Плюс",21. TiJi
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/tiji/index.m3u8
-#EXTINF:-1 tvg-id="gulli" group-title="Эфирные ТВ Плюс",22. Gulli
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/gulli/2/index.m3u8
-#EXTINF:-1 tvg-id="gulli" group-title="Эфирные ТВ Плюс",23. Gulli
+#EXTINF:-1 tvg-id="tiji" group-title="Эфирные ТВ Плюс",TiJi (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/tiji/2/index.m3u8
+#EXTINF:-1 tvg-id="tiji" group-title="Эфирные ТВ Плюс",TiJi (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/tiji/3/index.m3u8
+
+#EXTINF:-1 tvg-id="gulli" group-title="Эфирные ТВ Плюс",Gulli
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/gulli/index.m3u8
+#EXTINF:-1 tvg-id="gulli" group-title="Эфирные ТВ Плюс",Gulli (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/gulli/1/index.m3u8
-#EXTINF:-1 tvg-id="gulli" group-title="Эфирные ТВ Плюс",24. Gulli
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/gulli/index.m3u8
-#EXTINF:-1 tvg-id="nickelodeon" group-title="Эфирные ТВ Плюс",25. Nickelodeon
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="gulli" group-title="Эфирные ТВ Плюс",Gulli (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/gulli/2/index.m3u8
+#EXTINF:-1 tvg-id="gulli" group-title="Эфирные ТВ Плюс",Gulli (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/gulli/3/index.m3u8
+
+# --- Nickelodeon / NickToons / Baby TV ---
+#EXTINF:-1 tvg-id="nickelodeon" group-title="Эфирные ТВ Плюс",Nickelodeon
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/nickelodeon/index.m3u8
-#EXTINF:-1 tvg-id="nicktoons" group-title="Эфирные ТВ Плюс",26. NickToons
+#EXTINF:-1 tvg-id="nickelodeon" group-title="Эфирные ТВ Плюс",Nickelodeon (Резерв 1)
+#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/nickelodeon/1/index.m3u8
+#EXTINF:-1 tvg-id="nickelodeon" group-title="Эфирные ТВ Плюс",Nickelodeon (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/nickelodeon/2/index.m3u8
+#EXTINF:-1 tvg-id="nickelodeon" group-title="Эфирные ТВ Плюс",Nickelodeon (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/nickelodeon/3/index.m3u8
+
+#EXTINF:-1 tvg-id="nicktoons" group-title="Эфирные ТВ Плюс",NickToons
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/nicktoons/index.m3u8
+#EXTINF:-1 tvg-id="nicktoons" group-title="Эфирные ТВ Плюс",NickToons (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/nicktoons/1/index.m3u8
-#EXTINF:-1 tvg-id="nicktoons" group-title="Эфирные ТВ Плюс",27. NickToons
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="nicktoons" group-title="Эфирные ТВ Плюс",NickToons (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
 https://s70378.cdn.ngenix.net/nicktoons/2/index.m3u8
-#EXTINF:-1 tvg-id="nicktoons" group-title="Эфирные ТВ Плюс",28. NickToons
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/nicktoons/index.m3u8
-#EXTINF:-1 tvg-id="baby_tv" group-title="Эфирные ТВ Плюс",29. Baby TV
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/baby_tv/2/index.m3u8
-#EXTINF:-1 tvg-id="baby_tv" group-title="Эфирные ТВ Плюс",30. Baby TV
+#EXTINF:-1 tvg-id="nicktoons" group-title="Эфирные ТВ Плюс",NickToons (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/nicktoons/3/index.m3u8
+
+#EXTINF:-1 tvg-id="baby_tv" group-title="Эфирные ТВ Плюс",Baby TV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/baby_tv/index.m3u8
+#EXTINF:-1 tvg-id="baby_tv" group-title="Эфирные ТВ Плюс",Baby TV (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/baby_tv/1/index.m3u8
-#EXTINF:-1 tvg-id="baby_tv" group-title="Эфирные ТВ Плюс",31. Baby TV
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/baby_tv/index.m3u8
-#EXTINF:-1 tvg-id="match_planeta" group-title="Эфирные ТВ Плюс",32. Матч! Планета
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="baby_tv" group-title="Эфирные ТВ Плюс",Baby TV (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/baby_tv/2/index.m3u8
+#EXTINF:-1 tvg-id="baby_tv" group-title="Эфирные ТВ Плюс",Baby TV (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/baby_tv/3/index.m3u8
+
+# --- Спорт & Боевики ---
+#EXTINF:-1 tvg-id="match_planeta" group-title="Эфирные ТВ Плюс",Матч! Планета
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/match_planeta/index.m3u8
-#EXTINF:-1 tvg-id="fightbox" group-title="Эфирные ТВ Плюс",33. FightBox
+#EXTINF:-1 tvg-id="match_planeta" group-title="Эфирные ТВ Плюс",Матч! Планета (Резерв 1)
+#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/match_planeta/1/index.m3u8
+#EXTINF:-1 tvg-id="match_planeta" group-title="Эфирные ТВ Плюс",Матч! Планета (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/match_planeta/2/index.m3u8
+
+#EXTINF:-1 tvg-id="fightbox" group-title="Эфирные ТВ Плюс",FightBox
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/fightbox/index.m3u8
+#EXTINF:-1 tvg-id="fightbox" group-title="Эфирные ТВ Плюс",FightBox (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/fightbox/1/index.m3u8
-#EXTINF:-1 tvg-id="fightbox" group-title="Эфирные ТВ Плюс",34. FightBox
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="fightbox" group-title="Эфирные ТВ Плюс",FightBox (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
 https://s70378.cdn.ngenix.net/fightbox/2/index.m3u8
-#EXTINF:-1 tvg-id="fightbox" group-title="Эфирные ТВ Плюс",35. FightBox
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/fightbox/index.m3u8
-#EXTINF:-1 tvg-id="trace_sport_stars" group-title="Эфирные ТВ Плюс",36. Trace Sport Stars
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="fightbox" group-title="Эфирные ТВ Плюс",FightBox (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/fightbox/3/index.m3u8
+
+#EXTINF:-1 tvg-id="trace_sport_stars" group-title="Эфирные ТВ Плюс",Trace Sport Stars
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/trace_sport_stars/index.m3u8
-#EXTINF:-1 tvg-id="amedia_1" group-title="Эфирные ТВ Плюс",37. Amedia 1
+#EXTINF:-1 tvg-id="trace_sport_stars" group-title="Эфирные ТВ Плюс",Trace Sport Stars (Резерв 1)
+#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/trace_sport_stars/1/index.m3u8
+#EXTINF:-1 tvg-id="trace_sport_stars" group-title="Эфирные ТВ Плюс",Trace Sport Stars (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/trace_sport_stars/2/index.m3u8
+
+# --- Кино Пакет Amedia ---
+#EXTINF:-1 tvg-id="amedia_1" group-title="Эфирные ТВ Плюс",Amedia 1
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/amedia_1/index.m3u8
+#EXTINF:-1 tvg-id="amedia_1" group-title="Эфирные ТВ Плюс",Amedia 1 (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/amedia_1/1/index.m3u8
-#EXTINF:-1 tvg-id="amedia_1" group-title="Эфирные ТВ Плюс",38. Amedia 1
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="amedia_1" group-title="Эфирные ТВ Плюс",Amedia 1 (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
 https://s70378.cdn.ngenix.net/amedia_1/2/index.m3u8
-#EXTINF:-1 tvg-id="amedia_1" group-title="Эфирные ТВ Плюс",39. Amedia 1
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/amedia_1/index.m3u8
-#EXTINF:-1 tvg-id="amedia_2" group-title="Эфирные ТВ Плюс",40. Amedia 2
+#EXTINF:-1 tvg-id="amedia_1" group-title="Эфирные ТВ Плюс",Amedia 1 (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/amedia_1/3/index.m3u8
+
+#EXTINF:-1 tvg-id="amedia_2" group-title="Эфирные ТВ Плюс",Amedia 2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/amedia_2/index.m3u8
+#EXTINF:-1 tvg-id="amedia_2" group-title="Эфирные ТВ Плюс",Amedia 2 (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/amedia_2/1/index.m3u8
-#EXTINF:-1 tvg-id="amedia_2" group-title="Эфирные ТВ Плюс",41. Amedia 2
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/amedia_2/index.m3u8
-#EXTINF:-1 tvg-id="amedia_2" group-title="Эфирные ТВ Плюс",42. Amedia 2
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="amedia_2" group-title="Эфирные ТВ Плюс",Amedia 2 (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
 https://s70378.cdn.ngenix.net/amedia_2/2/index.m3u8
-#EXTINF:-1 tvg-id="amedia_premium_hd" group-title="Эфирные ТВ Плюс",43. Amedia Premium HD
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="amedia_2" group-title="Эфирные ТВ Плюс",Amedia 2 (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/amedia_2/3/index.m3u8
+
+#EXTINF:-1 tvg-id="amedia_premium_hd" group-title="Эфирные ТВ Плюс",Amedia Premium HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/amedia_premium_hd/index.m3u8
-#EXTINF:-1 tvg-id="amedia_hit" group-title="Эфирные ТВ Плюс",44. Amedia Hit
+#EXTINF:-1 tvg-id="amedia_premium_hd" group-title="Эфирные ТВ Плюс",Amedia Premium HD (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/amedia_premium_hd/1/index.m3u8
+#EXTINF:-1 tvg-id="amedia_premium_hd" group-title="Эфирные ТВ Плюс",Amedia Premium HD (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/amedia_premium_hd/2/index.m3u8
+
+#EXTINF:-1 tvg-id="amedia_hit" group-title="Эфирные ТВ Плюс",Amedia Hit
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/amedia_hit/index.m3u8
-#EXTINF:-1 tvg-id="filmbox" group-title="Эфирные ТВ Плюс",45. FilmBox
+#EXTINF:-1 tvg-id="amedia_hit" group-title="Эфирные ТВ Плюс",Amedia Hit (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/filmbox/2/index.m3u8
-#EXTINF:-1 tvg-id="filmbox" group-title="Эфирные ТВ Плюс",46. FilmBox
+https://s70378.cdn.ngenix.net/amedia_hit/1/index.m3u8
+#EXTINF:-1 tvg-id="amedia_hit" group-title="Эфирные ТВ Плюс",Amedia Hit (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/amedia_hit/2/index.m3u8
+
+# --- FilmBox & AMC ---
+#EXTINF:-1 tvg-id="filmbox" group-title="Эфирные ТВ Плюс",FilmBox
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/filmbox/index.m3u8
+#EXTINF:-1 tvg-id="filmbox" group-title="Эфирные ТВ Плюс",FilmBox (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/filmbox/1/index.m3u8
-#EXTINF:-1 tvg-id="filmbox" group-title="Эфирные ТВ Плюс",47. FilmBox
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/filmbox/index.m3u8
-#EXTINF:-1 tvg-id="filmbox_arthouse" group-title="Эфирные ТВ Плюс",48. FilmBox Arthouse
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="filmbox" group-title="Эфирные ТВ Плюс",FilmBox (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/filmbox/2/index.m3u8
+#EXTINF:-1 tvg-id="filmbox" group-title="Эфирные ТВ Плюс",FilmBox (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/filmbox/3/index.m3u8
+
+#EXTINF:-1 tvg-id="filmbox_arthouse" group-title="Эфирные ТВ Плюс",FilmBox Arthouse
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/filmbox_arthouse/index.m3u8
-#EXTINF:-1 tvg-id="amc" group-title="Эфирные ТВ Плюс",49. AMC
+#EXTINF:-1 tvg-id="filmbox_arthouse" group-title="Эфирные ТВ Плюс",FilmBox Arthouse (Резерв 1)
+#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/filmbox_arthouse/1/index.m3u8
+#EXTINF:-1 tvg-id="filmbox_arthouse" group-title="Эфирные ТВ Плюс",FilmBox Arthouse (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/filmbox_arthouse/2/index.m3u8
+
+#EXTINF:-1 tvg-id="amc" group-title="Эфирные ТВ Плюс",AMC
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/amc/index.m3u8
+#EXTINF:-1 tvg-id="amc" group-title="Эфирные ТВ Плюс",AMC (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/amc/1/index.m3u8
-#EXTINF:-1 tvg-id="amc" group-title="Эфирные ТВ Плюс",50. AMC
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="amc" group-title="Эфирные ТВ Плюс",AMC (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
 https://s70378.cdn.ngenix.net/amc/2/index.m3u8
-#EXTINF:-1 tvg-id="amc" group-title="Эфирные ТВ Плюс",51. AMC
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/amc/index.m3u8
-#EXTINF:-1 tvg-id="dom_kino" group-title="Эфирные ТВ Плюс",52. Дом Кино
+#EXTINF:-1 tvg-id="amc" group-title="Эфирные ТВ Плюс",AMC (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/amc/3/index.m3u8
+
+# --- Дом Кино & Фильмы ---
+#EXTINF:-1 tvg-id="dom_kino" group-title="Эфирные ТВ Плюс",Дом Кино
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/dom_kino/index.m3u8
+#EXTINF:-1 tvg-id="dom_kino" group-title="Эфирные ТВ Плюс",Дом Кино (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/dom_kino/1/index.m3u8
-#EXTINF:-1 tvg-id="dom_kino" group-title="Эфирные ТВ Плюс",53. Дом Кино
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="dom_kino" group-title="Эфирные ТВ Плюс",Дом Кино (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
 https://s70378.cdn.ngenix.net/dom_kino/2/index.m3u8
-#EXTINF:-1 tvg-id="dom_kino" group-title="Эфирные ТВ Плюс",54. Дом Кино
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/dom_kino/index.m3u8
-#EXTINF:-1 tvg-id="dom_kino_premium_hd" group-title="Эфирные ТВ Плюс",55. Дом Кино Премиум HD
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="dom_kino" group-title="Эфирные ТВ Плюс",Дом Кино (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/dom_kino/3/index.m3u8
+
+#EXTINF:-1 tvg-id="dom_kino_premium_hd" group-title="Эфирные ТВ Плюс",Дом Кино Премиум HD
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/dom_kino_premium_hd/index.m3u8
-#EXTINF:-1 tvg-id="evrokino" group-title="Эфирные ТВ Плюс",56. Еврокино
+#EXTINF:-1 tvg-id="dom_kino_premium_hd" group-title="Эфирные ТВ Плюс",Дом Кино Премиум HD (Резерв 1)
+#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/dom_kino_premium_hd/1/index.m3u8
+#EXTINF:-1 tvg-id="dom_kino_premium_hd" group-title="Эфирные ТВ Плюс",Дом Кино Премиум HD (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/dom_kino_premium_hd/2/index.m3u8
+
+#EXTINF:-1 tvg-id="evrokino" group-title="Эфирные ТВ Плюс",Еврокино
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/evrokino/index.m3u8
+#EXTINF:-1 tvg-id="evrokino" group-title="Эфирные ТВ Плюс",Еврокино (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/evrokino/1/index.m3u8
-#EXTINF:-1 tvg-id="evrokino" group-title="Эфирные ТВ Плюс",57. Еврокино
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/evrokino/index.m3u8
-#EXTINF:-1 tvg-id="evrokino" group-title="Эфирные ТВ Плюс",58. Еврокино
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="evrokino" group-title="Эфирные ТВ Плюс",Еврокино (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
 https://s70378.cdn.ngenix.net/evrokino/2/index.m3u8
-#EXTINF:-1 tvg-id="illusion_plus" group-title="Эфирные ТВ Плюс",59. Иллюзион+
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="evrokino" group-title="Эфирные ТВ Плюс",Еврокино (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/evrokino/3/index.m3u8
+
+#EXTINF:-1 tvg-id="illusion_plus" group-title="Эфирные ТВ Плюс",Иллюзион+
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/illusion_plus/index.m3u8
-#EXTINF:-1 tvg-id="mir_seriala" group-title="Эфирные ТВ Плюс",60. Мир сериала
+#EXTINF:-1 tvg-id="illusion_plus" group-title="Эфирные ТВ Плюс",Иллюзион+ (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/illusion_plus/1/index.m3u8
+#EXTINF:-1 tvg-id="illusion_plus" group-title="Эфирные ТВ Плюс",Иллюзион+ (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/illusion_plus/2/index.m3u8
+
+#EXTINF:-1 tvg-id="mir_seriala" group-title="Эфирные ТВ Плюс",Мир сериала
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/mir_seriala/index.m3u8
-#EXTINF:-1 tvg-id="tv_xxi" group-title="Эфирные ТВ Плюс",61. ТВ XXI
+#EXTINF:-1 tvg-id="mir_seriala" group-title="Эфирные ТВ Плюс",Мир сериала (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/tv_xxi/2/index.m3u8
-#EXTINF:-1 tvg-id="tv_xxi" group-title="Эфирные ТВ Плюс",62. ТВ XXI
+https://s70378.cdn.ngenix.net/mir_seriala/1/index.m3u8
+#EXTINF:-1 tvg-id="mir_seriala" group-title="Эфирные ТВ Плюс",Мир сериала (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/mir_seriala/2/index.m3u8
+
+#EXTINF:-1 tvg-id="tv_xxi" group-title="Эфирные ТВ Плюс",ТВ XXI
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/tv_xxi/index.m3u8
+#EXTINF:-1 tvg-id="tv_xxi" group-title="Эфирные ТВ Плюс",ТВ XXI (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/tv_xxi/1/index.m3u8
-#EXTINF:-1 tvg-id="tv_xxi" group-title="Эфирные ТВ Плюс",63. ТВ XXI
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/tv_xxi/index.m3u8
-#EXTINF:-1 tvg-id="365_dney_tv" group-title="Эфирные ТВ Плюс",64. 365 дней ТВ
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="tv_xxi" group-title="Эфирные ТВ Плюс",ТВ XXI (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/tv_xxi/2/index.m3u8
+#EXTINF:-1 tvg-id="tv_xxi" group-title="Эфирные ТВ Плюс",ТВ XXI (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/tv_xxi/3/index.m3u8
+
+# --- Познавательные & История ---
+#EXTINF:-1 tvg-id="365_dney_tv" group-title="Эфирные ТВ Плюс",365 дней ТВ
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/365_dney_tv/index.m3u8
-#EXTINF:-1 tvg-id="galaxy" group-title="Эфирные ТВ Плюс",65. Galaxy
+#EXTINF:-1 tvg-id="365_dney_tv" group-title="Эфирные ТВ Плюс",365 дней ТВ (Резерв 1)
+#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/365_dney_tv/1/index.m3u8
+#EXTINF:-1 tvg-id="365_dney_tv" group-title="Эфирные ТВ Плюс",365 дней ТВ (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/365_dney_tv/2/index.m3u8
+
+#EXTINF:-1 tvg-id="galaxy" group-title="Эфирные ТВ Плюс",Galaxy
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/galaxy/index.m3u8
+#EXTINF:-1 tvg-id="galaxy" group-title="Эфирные ТВ Плюс",Galaxy (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/galaxy/1/index.m3u8
-#EXTINF:-1 tvg-id="galaxy" group-title="Эфирные ТВ Плюс",66. Galaxy
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/galaxy/index.m3u8
-#EXTINF:-1 tvg-id="galaxy" group-title="Эфирные ТВ Плюс",67. Galaxy
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="galaxy" group-title="Эфирные ТВ Плюс",Galaxy (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
 https://s70378.cdn.ngenix.net/galaxy/2/index.m3u8
-#EXTINF:-1 tvg-id="sony_channel" group-title="Эфирные ТВ Плюс",68. Sony Channel
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="galaxy" group-title="Эфирные ТВ Плюс",Galaxy (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/galaxy/3/index.m3u8
+
+#EXTINF:-1 tvg-id="sony_channel" group-title="Эфирные ТВ Плюс",Sony Channel
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/sony_channel/index.m3u8
-#EXTINF:-1 tvg-id="sony_turbo" group-title="Эфирные ТВ Плюс",69. Sony Turbo
+#EXTINF:-1 tvg-id="sony_channel" group-title="Эфирные ТВ Плюс",Sony Channel (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/sony_channel/1/index.m3u8
+#EXTINF:-1 tvg-id="sony_channel" group-title="Эфирные ТВ Плюс",Sony Channel (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/sony_channel/2/index.m3u8
+
+#EXTINF:-1 tvg-id="sony_turbo" group-title="Эфирные ТВ Плюс",Sony Turbo
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/sony_turbo/index.m3u8
-#EXTINF:-1 tvg-id="history_2" group-title="Эфирные ТВ Плюс",70. History 2
+#EXTINF:-1 tvg-id="sony_turbo" group-title="Эфирные ТВ Плюс",Sony Turbo (Резерв 1)
+#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/sony_turbo/1/index.m3u8
+#EXTINF:-1 tvg-id="sony_turbo" group-title="Эфирные ТВ Плюс",Sony Turbo (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/sony_turbo/2/index.m3u8
+
+#EXTINF:-1 tvg-id="history_2" group-title="Эфирные ТВ Плюс",History 2
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/history_2/index.m3u8
+#EXTINF:-1 tvg-id="history_2" group-title="Эфирные ТВ Плюс",History 2 (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/history_2/1/index.m3u8
-#EXTINF:-1 tvg-id="history_2" group-title="Эфирные ТВ Плюс",71. History 2
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="history_2" group-title="Эфирные ТВ Плюс",History 2 (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
 https://s70378.cdn.ngenix.net/history_2/2/index.m3u8
-#EXTINF:-1 tvg-id="history_2" group-title="Эфирные ТВ Плюс",72. History 2
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/history_2/index.m3u8
-#EXTINF:-1 tvg-id="docubox" group-title="Эфирные ТВ Плюс",73. DocuBox
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/docubox/2/index.m3u8
-#EXTINF:-1 tvg-id="docubox" group-title="Эфирные ТВ Плюс",74. DocuBox
+#EXTINF:-1 tvg-id="history_2" group-title="Эфирные ТВ Плюс",History 2 (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/history_2/3/index.m3u8
+
+#EXTINF:-1 tvg-id="docubox" group-title="Эфирные ТВ Плюс",DocuBox
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/docubox/index.m3u8
+#EXTINF:-1 tvg-id="docubox" group-title="Эфирные ТВ Плюс",DocuBox (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/docubox/1/index.m3u8
-#EXTINF:-1 tvg-id="docubox" group-title="Эфирные ТВ Плюс",75. DocuBox
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/docubox/index.m3u8
-#EXTINF:-1 tvg-id="nostalgia" group-title="Эфирные ТВ Плюс",76. Ностальгия
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/nostalgia/2/index.m3u8
-#EXTINF:-1 tvg-id="nostalgia" group-title="Эфирные ТВ Плюс",77. Ностальгия
+#EXTINF:-1 tvg-id="docubox" group-title="Эфирные ТВ Плюс",DocuBox (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/docubox/2/index.m3u8
+#EXTINF:-1 tvg-id="docubox" group-title="Эфирные ТВ Плюс",DocuBox (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/docubox/3/index.m3u8
+
+# --- Ностальгия / Da Vinci / Кухня ---
+#EXTINF:-1 tvg-id="nostalgia" group-title="Эфирные ТВ Плюс",Ностальгия
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/nostalgia/index.m3u8
+#EXTINF:-1 tvg-id="nostalgia" group-title="Эфирные ТВ Плюс",Ностальгия (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/nostalgia/1/index.m3u8
-#EXTINF:-1 tvg-id="nostalgia" group-title="Эфирные ТВ Плюс",78. Ностальгия
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/nostalgia/index.m3u8
-#EXTINF:-1 tvg-id="da_vinci" group-title="Эфирные ТВ Плюс",79. Da Vinci
+#EXTINF:-1 tvg-id="nostalgia" group-title="Эфирные ТВ Плюс",Ностальгия (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/nostalgia/2/index.m3u8
+#EXTINF:-1 tvg-id="nostalgia" group-title="Эфирные ТВ Плюс",Ностальгия (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/nostalgia/3/index.m3u8
+
+#EXTINF:-1 tvg-id="da_vinci" group-title="Эфирные ТВ Плюс",Da Vinci
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/da_vinci/index.m3u8
+#EXTINF:-1 tvg-id="da_vinci" group-title="Эфирные ТВ Плюс",Da Vinci (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/da_vinci/1/index.m3u8
-#EXTINF:-1 tvg-id="da_vinci" group-title="Эфирные ТВ Плюс",80. Da Vinci
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="da_vinci" group-title="Эфирные ТВ Плюс",Da Vinci (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
 https://s70378.cdn.ngenix.net/da_vinci/2/index.m3u8
-#EXTINF:-1 tvg-id="da_vinci" group-title="Эфирные ТВ Плюс",81. Da Vinci
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/da_vinci/index.m3u8
-#EXTINF:-1 tvg-id="kitchen_tv" group-title="Эфирные ТВ Плюс",82. Kitchen TV
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="da_vinci" group-title="Эфирные ТВ Плюс",Da Vinci (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/da_vinci/3/index.m3u8
+
+#EXTINF:-1 tvg-id="kitchen_tv" group-title="Эфирные ТВ Плюс",Kitchen TV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/kitchen_tv/index.m3u8
-#EXTINF:-1 tvg-id="mezzo" group-title="Эфирные ТВ Плюс",83. Mezzo
+#EXTINF:-1 tvg-id="kitchen_tv" group-title="Эфирные ТВ Плюс",Kitchen TV (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/mezzo/2/index.m3u8
-#EXTINF:-1 tvg-id="mezzo" group-title="Эфирные ТВ Плюс",84. Mezzo
+https://s70378.cdn.ngenix.net/kitchen_tv/1/index.m3u8
+#EXTINF:-1 tvg-id="kitchen_tv" group-title="Эфирные ТВ Плюс",Kitchen TV (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/kitchen_tv/2/index.m3u8
+
+# --- Музыка & Инфо ---
+#EXTINF:-1 tvg-id="mezzo" group-title="Эфирные ТВ Плюс",Mezzo
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/mezzo/index.m3u8
+#EXTINF:-1 tvg-id="mezzo" group-title="Эфирные ТВ Плюс",Mezzo (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/mezzo/1/index.m3u8
-#EXTINF:-1 tvg-id="mezzo" group-title="Эфирные ТВ Плюс",85. Mezzo
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/mezzo/index.m3u8
-#EXTINF:-1 tvg-id="tnt_music" group-title="Эфирные ТВ Плюс",86. ТНТ Music
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="mezzo" group-title="Эфирные ТВ Плюс",Mezzo (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/mezzo/2/index.m3u8
+#EXTINF:-1 tvg-id="mezzo" group-title="Эфирные ТВ Плюс",Mezzo (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/mezzo/3/index.m3u8
+
+#EXTINF:-1 tvg-id="tnt_music" group-title="Эфирные ТВ Плюс",ТНТ Music
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/tnt_music/index.m3u8
-#EXTINF:-1 tvg-id="tnt_music" group-title="Эфирные ТВ Плюс",87. ТНТ Music
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/tnt_music/2/index.m3u8
-#EXTINF:-1 tvg-id="tnt_music" group-title="Эфирные ТВ Плюс",88. ТНТ Music
+#EXTINF:-1 tvg-id="tnt_music" group-title="Эфирные ТВ Плюс",ТНТ Music (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/tnt_music/1/index.m3u8
-#EXTINF:-1 tvg-id="rtvi" group-title="Эфирные ТВ Плюс",89. RTVi
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/rtvi/2/index.m3u8
-#EXTINF:-1 tvg-id="rtvi" group-title="Эфирные ТВ Плюс",90. RTVi
+#EXTINF:-1 tvg-id="tnt_music" group-title="Эфирные ТВ Плюс",ТНТ Music (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/tnt_music/2/index.m3u8
+#EXTINF:-1 tvg-id="tnt_music" group-title="Эфирные ТВ Плюс",ТНТ Music (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/tnt_music/3/index.m3u8
+
+#EXTINF:-1 tvg-id="rtvi" group-title="Эфирные ТВ Плюс",RTVi
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/rtvi/index.m3u8
+#EXTINF:-1 tvg-id="rtvi" group-title="Эфирные ТВ Плюс",RTVi (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/rtvi/1/index.m3u8
-#EXTINF:-1 tvg-id="rtvi" group-title="Эфирные ТВ Плюс",91. RTVi
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/rtvi/index.m3u8
-#EXTINF:-1 tvg-id="tv5_monde" group-title="Эфирные ТВ Плюс",92. TV5 Monde
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/tv5_monde/2/index.m3u8
-#EXTINF:-1 tvg-id="tv5_monde" group-title="Эфирные ТВ Плюс",93. TV5 Monde
+#EXTINF:-1 tvg-id="rtvi" group-title="Эфирные ТВ Плюс",RTVi (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/rtvi/2/index.m3u8
+#EXTINF:-1 tvg-id="rtvi" group-title="Эфирные ТВ Плюс",RTVi (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/rtvi/3/index.m3u8
+
+#EXTINF:-1 tvg-id="tv5_monde" group-title="Эфирные ТВ Плюс",TV5 Monde
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/tv5_monde/index.m3u8
+#EXTINF:-1 tvg-id="tv5_monde" group-title="Эфирные ТВ Плюс",TV5 Monde (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/tv5_monde/1/index.m3u8
-#EXTINF:-1 tvg-id="tv5_monde" group-title="Эфирные ТВ Плюс",94. TV5 Monde
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/tv5_monde/index.m3u8
-#EXTINF:-1 tvg-id="fashion_tv" group-title="Эфирные ТВ Плюс",95. Fashion TV
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+#EXTINF:-1 tvg-id="tv5_monde" group-title="Эфирные ТВ Плюс",TV5 Monde (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/tv5_monde/2/index.m3u8
+#EXTINF:-1 tvg-id="tv5_monde" group-title="Эфирные ТВ Плюс",TV5 Monde (Резерв 3)
+#EXTVLCOPT:http-user-agent=smarttv-wink-app/1.0
+https://s70378.cdn.ngenix.net/tv5_monde/3/index.m3u8
+
+#EXTINF:-1 tvg-id="fashion_tv" group-title="Эфирные ТВ Плюс",Fashion TV
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/fashion_tv/index.m3u8
-#EXTINF:-1 tvg-id="viasat_sport" group-title="Эфирные ТВ Плюс",96. viju_plus_sport
+#EXTINF:-1 tvg-id="fashion_tv" group-title="Эфирные ТВ Плюс",Fashion TV (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/fashion_tv/1/index.m3u8
+#EXTINF:-1 tvg-id="fashion_tv" group-title="Эфирные ТВ Плюс",Fashion TV (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/fashion_tv/2/index.m3u8
+
+# --- Пакет Viju+ ---
+#EXTINF:-1 tvg-id="viasat_sport" group-title="Эфирные ТВ Плюс",viju_plus_sport
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/viasat_sport/index.m3u8
-#EXTINF:-1 tvg-id="vip_premiere" group-title="Эфирные ТВ Плюс",97. viju_plus_premiere
+#EXTINF:-1 tvg-id="viasat_sport" group-title="Эфирные ТВ Плюс",viju_plus_sport (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/viasat_sport/1/index.m3u8
+#EXTINF:-1 tvg-id="viasat_sport" group-title="Эфирные ТВ Плюс",viju_plus_sport (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/viasat_sport/2/index.m3u8
+
+#EXTINF:-1 tvg-id="vip_premiere" group-title="Эфирные ТВ Плюс",viju_plus_premiere
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/vip_premiere/index.m3u8
-#EXTINF:-1 tvg-id="vip_megahit" group-title="Эфирные ТВ Плюс",98. viju_plus_megahit
+#EXTINF:-1 tvg-id="vip_premiere" group-title="Эфирные ТВ Плюс",viju_plus_premiere (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/vip_premiere/1/index.m3u8
+#EXTINF:-1 tvg-id="vip_premiere" group-title="Эфирные ТВ Плюс",viju_plus_premiere (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/vip_premiere/2/index.m3u8
+
+#EXTINF:-1 tvg-id="vip_megahit" group-title="Эфирные ТВ Плюс",viju_plus_megahit
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/vip_megahit/index.m3u8
-#EXTINF:-1 tvg-id="vip_comedy" group-title="Эфирные ТВ Плюс",99. viju_plus_comedy
+#EXTINF:-1 tvg-id="vip_megahit" group-title="Эфирные ТВ Плюс",viju_plus_megahit (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/vip_megahit/1/index.m3u8
+#EXTINF:-1 tvg-id="vip_megahit" group-title="Эфирные ТВ Плюс",viju_plus_megahit (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/vip_megahit/2/index.m3u8
+
+#EXTINF:-1 tvg-id="vip_comedy" group-title="Эфирные ТВ Плюс",viju_plus_comedy
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
 https://s70378.cdn.ngenix.net/vip_comedy/index.m3u8
-#EXTINF:-1 tvg-id="vip_serial" group-title="Эфирные ТВ Плюс",100. viju_plus_serial
+#EXTINF:-1 tvg-id="vip_comedy" group-title="Эфирные ТВ Плюс",viju_plus_comedy (Резерв 1)
+#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
+https://s70378.cdn.ngenix.net/vip_comedy/1/index.m3u8
+#EXTINF:-1 tvg-id="vip_comedy" group-title="Эфирные ТВ Плюс",viju_plus_comedy (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/vip_comedy/2/index.m3u8
+
+#EXTINF:-1 tvg-id="vip_serial" group-title="Эфирные ТВ Плюс",viju_plus_serial
+#EXTVLCOPT:http-user-agent=HlsWinkPlayer
+https://s70378.cdn.ngenix.net/vip_serial/index.m3u8
+#EXTINF:-1 tvg-id="vip_serial" group-title="Эфирные ТВ Плюс",viju_plus_serial (Резерв 1)
 #EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
 https://s70378.cdn.ngenix.net/vip_serial/1/index.m3u8
-#EXTINF:-1 tvg-id="vip_serial" group-title="Эфирные ТВ Плюс",101. viju_plus_serial
-#EXTVLCOPT:http-user-agent=WINK/1.31.1 (AndroidTV/7.1.1) HlsWinkPlayer
-https://s70378.cdn.ngenix.net/vip_serial/index.m3u8
+#EXTINF:-1 tvg-id="vip_serial" group-title="Эфирные ТВ Плюс",viju_plus_serial (Резерв 2)
+#EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
+https://s70378.cdn.ngenix.net/vip_serial/2/index.m3u8
