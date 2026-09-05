@@ -657,6 +657,7 @@ HTTP_CLASSIFICATION = {
     511: ("NETWORK_AUTH_REQUIRED", "ТРЕБУЕТСЯ СЕТЕВАЯ АВТОРИЗАЦИЯ", "Network authentication required"),
 }
 
+# Классифицирует HTTP-код и возвращает машинное имя, русское описание и пояснение.
 def classify_http_status(status: int | None) -> tuple[str, str, str]:
     if status is None:
         return ("NO_HTTP_STATUS", "НЕТ HTTP-ОТВЕТА", "No HTTP status received")
@@ -674,6 +675,7 @@ def classify_http_status(status: int | None) -> tuple[str, str, str]:
         return ("HTTP_5XX", "ОШИБКА СЕРВЕРА", "Server error")
     return ("HTTP_UNKNOWN", "НЕИЗВЕСТНЫЙ HTTP-КОД", "Unknown HTTP status")
 
+# Классифицирует сетевое исключение и возвращает машинный код и русское описание ошибки.
 def classify_transport_error(exc: BaseException) -> tuple[str, str]:
     name = type(exc).__name__
     msg = str(exc)
@@ -793,6 +795,7 @@ class StreamEntry:
 
 class RequestPacer:
 
+    # Инициализирует объект ограничителя или планировщика запросов.
     def __init__(
         self,
         delay: float,
@@ -807,6 +810,7 @@ class RequestPacer:
 
         self.last_request = 0.0
 
+    # Ожидает необходимую паузу глобального планировщика перед следующим запросом.
     def wait(self) -> None:
 
         if self.delay <= 0:
@@ -840,12 +844,14 @@ class RequestPacer:
 
 class HostLimiter:
 
+    # Инициализирует объект ограничителя или планировщика запросов.
     def __init__(self, inflight: int, min_interval: float):
         self.semaphore = Semaphore(max(1, inflight))
         self.min_interval = max(0.0, min_interval)
         self.lock = Lock()
         self.last_start = 0.0
 
+    # Занимает слот хоста и соблюдает минимальный интервал между стартами запросов.
     def enter(self) -> None:
         self.semaphore.acquire()
         with self.lock:
@@ -855,12 +861,14 @@ class HostLimiter:
                 time.sleep(wait_for)
             self.last_start = time.monotonic()
 
+    # Освобождает занятый слот хоста после завершения операции.
     def leave(self) -> None:
         self.semaphore.release()
 
 _HOST_LIMITERS: dict[str, HostLimiter] = {}
 _HOST_LIMITERS_GUARD = Lock()
 
+# Возвращает общий ограничитель запросов для указанного hostname.
 def get_host_limiter(hostname: str) -> HostLimiter:
     with _HOST_LIMITERS_GUARD:
         if hostname not in _HOST_LIMITERS:
@@ -874,6 +882,7 @@ def get_host_limiter(hostname: str) -> HostLimiter:
 # BASIC HELPERS
 # ============================================================
 
+# Возвращает текущее время в UTC в ISO-формате.
 def utc_now() -> str:
 
     return datetime.now(
@@ -881,6 +890,7 @@ def utc_now() -> str:
     ).isoformat()
 
 
+# Возвращает текущее время в часовом поясе UTC+03:00 в ISO-формате.
 def msk_now() -> str:
 
     from datetime import timedelta, timezone as _timezone
@@ -913,6 +923,7 @@ _TELEMETRY: list[TelemetryEvent] = []
 _TELEMETRY_LOCK = Lock()
 
 
+# Создаёт событие телеметрии, классифицирует результат и добавляет его в общий журнал.
 def record_telemetry(
     started_monotonic: float,
     operation: str,
@@ -950,6 +961,7 @@ def record_telemetry(
         _TELEMETRY.append(event)
 
 
+# Приводит имя хоста к полному имени в зоне cdn.ngenix.net.
 def fqdn(
     label: str,
 ) -> str:
@@ -970,6 +982,7 @@ def fqdn(
     )
 
 
+# Извлекает идентификатор sXXXXX из hostname, если он присутствует.
 def extract_service_id(
     hostname: str,
 ) -> str | None:
@@ -986,6 +999,7 @@ def extract_service_id(
     return None
 
 
+# Извлекает идентификатор аккаунта aXXXXXXXX из hostname.
 def extract_account_id(
     hostname: str,
 ) -> str | None:
@@ -1004,6 +1018,7 @@ def extract_account_id(
     return None
 
 
+# Определяет тип наблюдаемого hostname по его структуре.
 def classify_hostname(
     hostname: str,
 ) -> str:
@@ -1032,6 +1047,7 @@ def classify_hostname(
     return "named_cdn"
 
 
+# Извлекает имя канала из пути потока.
 def extract_channel(
     path: str,
 ) -> str | None:
@@ -1054,6 +1070,7 @@ def extract_channel(
     return parts[0]
 
 
+# Извлекает вариант потока из пути.
 def extract_variant(
     path: str,
 ) -> str | None:
@@ -1086,6 +1103,7 @@ def extract_variant(
     return None
 
 
+# Разбирает строку #EXTINF и извлекает название и группу канала.
 def parse_extinf(
     line: str,
 ) -> tuple[
@@ -1125,6 +1143,7 @@ def parse_extinf(
 # ENTRY CREATION
 # ============================================================
 
+# Создаёт объект StreamEntry из URL и связанных метаданных, отбрасывая неподходящие URL.
 def make_entry(
     url: str,
     source: str,
@@ -1220,6 +1239,7 @@ def make_entry(
 # M3U PARSER
 # ============================================================
 
+# Разбирает M3U-текст и формирует список наблюдаемых записей потоков.
 def parse_m3u(
     text: str,
     source: str,
@@ -1292,6 +1312,7 @@ def parse_m3u(
 # TEXT DISCOVERY
 # ============================================================
 
+# Находит NGENIX URL внутри произвольного текста и преобразует их в записи.
 def discover_urls_in_text(
     text: str,
     source: str,
@@ -1326,6 +1347,7 @@ def discover_urls_in_text(
 # OPTIONAL REPOSITORY DISCOVERY
 # ============================================================
 
+# Просматривает поддерживаемые файлы репозитория и собирает наблюдаемые NGENIX URL.
 def discover_repository(
     root: Path,
 ) -> list[StreamEntry]:
@@ -1427,6 +1449,7 @@ def discover_repository(
 # OBSERVED HOSTS
 # ============================================================
 
+# Формирует объединённый список ранее наблюдавшихся hostname без их генерации.
 def observed_hosts() -> list[str]:
 
     labels = (
@@ -1464,6 +1487,7 @@ def observed_hosts() -> list[str]:
 # OBSERVED HOST × ALIAS
 # ============================================================
 
+# Строит матрицу наблюдаемых хостов и наблюдаемых алиасов каналов.
 def build_alias_matrix() -> list[StreamEntry]:
 
     entries = []
@@ -1545,6 +1569,7 @@ def build_alias_matrix() -> list[StreamEntry]:
 CLUSTER_HYPOTHESIS_ANCHOR = "s70378"
 CLUSTER_HYPOTHESIS_NEIGHBORS = [f"s{x}" for x in range(70379, 70389)]
 
+# Формирует записи на основе кластерной гипотезы, не создавая новые hostname вне наблюдаемого набора.
 def build_cluster_hypothesis_entries() -> list[StreamEntry]:
     """Probe adjacent service labels only as a hypothesis test.
 
@@ -1571,6 +1596,7 @@ def build_cluster_hypothesis_entries() -> list[StreamEntry]:
 # SPECIAL / LEGACY PATHS
 # ============================================================
 
+# Добавляет заранее зафиксированные специальные пути к соответствующим наблюдаемым хостам.
 def seed_special_entries() -> list[StreamEntry]:
 
     entries = []
@@ -1645,6 +1671,7 @@ def seed_special_entries() -> list[StreamEntry]:
 # MERGE / DEDUP
 # ============================================================
 
+# Объединяет записи, удаляя дубликаты по каноническому URL и сохраняя полезные метаданные.
 def merge_entries(
     entries: Iterable[StreamEntry],
 ) -> list[StreamEntry]:
@@ -1721,6 +1748,7 @@ def merge_entries(
 # DNS
 # ============================================================
 
+# Выполняет полный этап разрешения и проверки DNS/TCP для набора потоков.
 def resolve_all(
     hostname: str,
     timeout: float,
@@ -1807,6 +1835,7 @@ def resolve_all(
 # TCP
 # ============================================================
 
+# Проверяет доступность конкретного IP узла и измеряет сетевую задержку.
 def check_ip(
     ip: str,
     timeout: float,
@@ -1861,6 +1890,7 @@ def check_ip(
 # NODE DISCOVERY
 # ============================================================
 
+# Строит список узлов из наблюдаемых hostname и результатов DNS/TCP-проверок.
 def build_nodes(
     entries: list[StreamEntry],
     timeout: float,
@@ -1998,6 +2028,7 @@ def build_nodes(
 # APPLY NODE RESULTS
 # ============================================================
 
+# Применяет результаты проверки узлов к соответствующим StreamEntry.
 def apply_node_results(
     entries: list[StreamEntry],
     nodes: dict,
@@ -2033,6 +2064,7 @@ def apply_node_results(
 # STUB DETECTION
 # ============================================================
 
+# Определяет, является ли HTTP-ответ заглушкой, и фиксирует её целевой адрес.
 def detect_stub(
     response_url: str,
     body: str,
@@ -2062,6 +2094,7 @@ def detect_stub(
 # DERIVED URL EXTRACTION
 # ============================================================
 
+# Извлекает фактически возвращённые NGENIX URL из содержимого заглушки или манифеста.
 def extract_derived_urls(
     text: str,
     source_url: str,
@@ -2157,6 +2190,7 @@ def extract_derived_urls(
 # MANIFEST METADATA
 # ============================================================
 
+# Разбирает текст M3U8 и извлекает доступные метаданные манифеста.
 def parse_manifest_metadata(
     text: str,
 ) -> tuple[
@@ -2228,6 +2262,7 @@ def parse_manifest_metadata(
     )
 
 
+# Извлекает имя, группу и дополнительные поля из найденного манифеста.
 def extract_manifest_metadata(
     text: str,
 ) -> dict:
@@ -2275,6 +2310,7 @@ def extract_manifest_metadata(
 # READ HTTP BODY
 # ============================================================
 
+# Выполняет ограниченный HTTP GET с таймаутом и лимитом чтения, возвращая нормализованный результат.
 def http_get_bounded(
     url: str,
     timeout: float,
@@ -2371,6 +2407,7 @@ def http_get_bounded(
 # PRIMARY STREAM CHECK
 # ============================================================
 
+# Выполняет первичную проверку потока с классификацией HTTP/сетевого результата.
 def check_stream(
     item: StreamEntry,
     timeout: float,
@@ -2542,6 +2579,7 @@ def check_stream(
 # PRIMARY STREAM CHECKS
 # ============================================================
 
+# Адаптирует число рабочих потоков по накопленной статистике ошибок.
 def _adaptive_workers(current: int, completed: int, failures: int) -> int:
 
     if completed < 10:
@@ -2554,6 +2592,7 @@ def _adaptive_workers(current: int, completed: int, failures: int) -> int:
     return current
 
 
+# Проверяет все кандидаты пакетами с ограниченным concurrency и адаптивным числом workers.
 def check_all_streams(
     entries: list[StreamEntry],
     timeout: float,
@@ -2600,7 +2639,7 @@ def check_all_streams(
                 completed += 1
                 if item.stream_status in {"ERROR", "UNREACHABLE"}:
                     failures += 1
-index += len(batch)
+        index += len(batch)
         current_workers = _adaptive_workers(current_workers, completed, failures)
 
 
@@ -2608,6 +2647,7 @@ index += len(batch)
 # STUB → DERIVED → VERIFIED
 # ============================================================
 
+# Повторно проверяет URL, полученный из заглушки, и возвращает подтверждённую запись.
 def verify_derived_url(
     stub: StreamEntry,
     derived_url: str,
@@ -2847,6 +2887,7 @@ def verify_derived_url(
         )
 
 
+# Обрабатывает заглушки, извлекает derived URL и запускает их вторичную проверку.
 def resolve_stubs(
     entries: list[StreamEntry],
     timeout: float,
@@ -3041,6 +3082,7 @@ def resolve_stubs(
 # PLAYLIST ELIGIBILITY
 # ============================================================
 
+# Определяет, может ли подтверждённая запись попасть в итоговый плейлист.
 def is_playlist_eligible(
     item: StreamEntry,
 ) -> bool:
@@ -3091,6 +3133,7 @@ def is_playlist_eligible(
 # GRAPH
 # ============================================================
 
+# Строит граф связей между hostname, сервисами, алиасами и потоками.
 def build_graph(
     entries: list[StreamEntry],
     nodes: dict,
@@ -3248,6 +3291,7 @@ def build_graph(
                 item.url
             )
 
+    # Нормализует значение для безопасного хранения и сравнения в отчётах.
     def normalize(
         value: dict,
     ) -> dict:
@@ -3310,6 +3354,7 @@ def build_graph(
 # INVENTORY
 # ============================================================
 
+# Формирует итоговый inventory со сводкой, узлами, записями и временными метками.
 def build_inventory(
     entries: list[StreamEntry],
     nodes: dict,
@@ -3548,6 +3593,7 @@ def build_inventory(
 # M3U OUTPUT
 # ============================================================
 
+# Сохраняет подтверждённые записи в итоговый M3U-плейлист.
 def save_playlist(
     entries: list[StreamEntry],
     filename: Path,
@@ -3687,6 +3733,7 @@ def save_playlist(
 # JSON
 # ============================================================
 
+# Сохраняет inventory или другую структуру данных в JSON с читаемым форматированием.
 def save_json(
     data: dict,
     filename: Path,
@@ -3711,6 +3758,7 @@ def save_json(
 # CSV
 # ============================================================
 
+# Сохраняет записи потоков в табличный CSV с сериализацией вложенных структур.
 def save_csv(
     entries: list[StreamEntry],
     filename: Path,
@@ -3840,6 +3888,7 @@ def save_csv(
 # HISTORY
 # ============================================================
 
+# Добавляет текущую сводку inventory в исторический JSON-журнал.
 def update_history(
     inventory: dict,
     filename: Path,
@@ -3902,6 +3951,7 @@ def update_history(
 # SCALA / DREG TELEMETRY OUTPUT
 # ============================================================
 
+# Сохраняет полный журнал ДРЕГ-телеметрии в текстовый файл.
 def save_telemetry_txt(filename: Path, compact: bool = False) -> None:
     filename.parent.mkdir(parents=True, exist_ok=True)
     with _TELEMETRY_LOCK:
@@ -3926,6 +3976,7 @@ def save_telemetry_txt(filename: Path, compact: bool = False) -> None:
     filename.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+# Сохраняет компактное представление SCALA-телеметрии для быстрого просмотра.
 def save_scala_compact(filename: Path) -> None:
     filename.parent.mkdir(parents=True, exist_ok=True)
     with _TELEMETRY_LOCK:
@@ -3947,6 +3998,7 @@ def save_scala_compact(filename: Path) -> None:
 # REPORT
 # ============================================================
 
+# Формирует подробный SKALA-отчёт по результатам сканирования и верификации.
 def build_report(
     inventory: dict,
     graph: dict,
@@ -4233,6 +4285,7 @@ def build_report(
 # MATRIX SUMMARY
 # ============================================================
 
+# Печатает сводку построенной матрицы наблюдаемых хостов и алиасов.
 def print_matrix_summary(
     entries: list[StreamEntry],
 ) -> None:
@@ -4401,6 +4454,7 @@ def print_matrix_summary(
 # MAIN
 # ============================================================
 
+# Разбирает аргументы командной строки, запускает этапы движка и сохраняет результаты.
 def main() -> None:
 
     parser = argparse.ArgumentParser(
