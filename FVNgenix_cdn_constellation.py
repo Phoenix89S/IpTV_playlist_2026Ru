@@ -97,7 +97,7 @@ from urllib.request import (
 # ============================================================
 
 ENGINE_NAME = "ngSKALA"
-ENGINE_VERSION = "NGENIX-CONSTELLATION-v5-ULTRA-2"
+ENGINE_VERSION = "NGENIX-CONSTELLATION-v5-ULTRA-2-HTTPCLASS-DREG"
 CONSTELLATION_NAME = "NGENIX CDN CONSTELLATION ULTRA"
 
 OUTPUT_M3U = "NGENIX_CDN_CONSTELLATION_2.m3u"
@@ -596,6 +596,104 @@ RELATIVE_M3U8_RE = re.compile(
 )
 
 
+
+# ============================================================
+# HTTP / NETWORK RESPONSE CLASSIFICATION
+# Русские + английские обозначения. Коды сохраняются дословно.
+# ============================================================
+
+HTTP_CLASSIFICATION = {
+    200: ("ONLINE", "ЖИВОЙ / УСПЕШНЫЙ", "Successful manifest/stream response"),
+    201: ("CREATED", "СОЗДАН", "Resource created"),
+    202: ("ACCEPTED", "ПРИНЯТ", "Request accepted for processing"),
+    204: ("NO_CONTENT", "НЕТ СОДЕРЖИМОГО", "Successful response without body"),
+
+    301: ("REDIRECT_PERMANENT", "ПОСТОЯННАЯ ПЕРЕАДРЕСАЦИЯ", "Permanent redirect"),
+    302: ("REDIRECT_TEMPORARY", "ВРЕМЕННАЯ ПЕРЕАДРЕСАЦИЯ", "Temporary redirect"),
+    303: ("REDIRECT_SEE_OTHER", "ПЕРЕАДРЕСАЦИЯ SEE OTHER", "See other resource"),
+    307: ("REDIRECT_TEMPORARY_PRESERVE_METHOD", "ВРЕМЕННАЯ ПЕРЕАДРЕСАЦИЯ", "Temporary redirect, method preserved"),
+    308: ("REDIRECT_PERMANENT_PRESERVE_METHOD", "ПОСТОЯННАЯ ПЕРЕАДРЕСАЦИЯ", "Permanent redirect, method preserved"),
+
+    400: ("BAD_REQUEST", "ОШИБКА ЗАПРОСА", "Malformed or invalid request"),
+    401: ("UNAUTHORIZED", "ТРЕБУЕТСЯ АВТОРИЗАЦИЯ", "Authentication required"),
+    402: ("PAYMENT_REQUIRED", "ТРЕБУЕТСЯ ОПЛАТА", "Payment required"),
+    403: ("FORBIDDEN", "ДОСТУП ЗАПРЕЩЁН", "Access forbidden"),
+    404: ("NOT_FOUND", "НЕ НАЙДЕНО", "Resource not found"),
+    405: ("METHOD_NOT_ALLOWED", "МЕТОД ЗАПРЕЩЁН", "HTTP method not allowed"),
+    406: ("NOT_ACCEPTABLE", "НЕПРИЕМЛЕМО", "Requested representation not acceptable"),
+    407: ("PROXY_AUTH_REQUIRED", "ТРЕБУЕТСЯ АВТОРИЗАЦИЯ ПРОКСИ", "Proxy authentication required"),
+    408: ("REQUEST_TIMEOUT", "ТАЙМАУТ ЗАПРОСА", "Server-side request timeout"),
+    409: ("CONFLICT", "КОНФЛИКТ", "Request conflicts with resource state"),
+    410: ("GONE", "УДАЛЕНО", "Resource permanently gone"),
+    411: ("LENGTH_REQUIRED", "ТРЕБУЕТСЯ CONTENT-LENGTH", "Length required"),
+    412: ("PRECONDITION_FAILED", "ПРЕДУСЛОВИЕ НЕ ВЫПОЛНЕНО", "Precondition failed"),
+    413: ("PAYLOAD_TOO_LARGE", "ЗАПРОС СЛИШКОМ БОЛЬШОЙ", "Payload too large"),
+    414: ("URI_TOO_LONG", "URI СЛИШКОМ ДЛИННЫЙ", "URI too long"),
+    415: ("UNSUPPORTED_MEDIA_TYPE", "НЕПОДДЕРЖИВАЕМЫЙ ТИП", "Unsupported media type"),
+    416: ("RANGE_NOT_SATISFIABLE", "RANGE НЕВОЗМОЖЕН", "Requested range cannot be satisfied"),
+    417: ("EXPECTATION_FAILED", "ОЖИДАНИЕ НЕ ВЫПОЛНЕНО", "Expectation failed"),
+    418: ("IM_A_TEAPOT", "TEAPOT", "Non-standard response"),
+    421: ("MISDIRECTED_REQUEST", "ЗАПРОС НАПРАВЛЕН НЕ ТУДА", "Misdirected request"),
+    422: ("UNPROCESSABLE_CONTENT", "НЕОБРАБАТЫВАЕМОЕ СОДЕРЖИМОЕ", "Unprocessable content"),
+    423: ("LOCKED", "ЗАБЛОКИРОВАНО", "Resource locked"),
+    424: ("FAILED_DEPENDENCY", "ОШИБКА ЗАВИСИМОСТИ", "Failed dependency"),
+    425: ("TOO_EARLY", "СЛИШКОМ РАНО", "Too early"),
+    426: ("UPGRADE_REQUIRED", "ТРЕБУЕТСЯ ОБНОВЛЕНИЕ ПРОТОКОЛА", "Upgrade required"),
+    428: ("PRECONDITION_REQUIRED", "ТРЕБУЕТСЯ ПРЕДУСЛОВИЕ", "Precondition required"),
+    429: ("TOO_MANY_REQUESTS", "СЛИШКОМ МНОГО ЗАПРОСОВ", "Rate limit / throttling"),
+    431: ("REQUEST_HEADER_FIELDS_TOO_LARGE", "ЗАГОЛОВКИ СЛИШКОМ БОЛЬШИЕ", "Request headers too large"),
+    451: ("UNAVAILABLE_FOR_LEGAL_REASONS", "НЕДОСТУПНО ПО ЮРИДИЧЕСКИМ ПРИЧИНАМ", "Unavailable for legal reasons"),
+
+    500: ("INTERNAL_SERVER_ERROR", "ВНУТРЕННЯЯ ОШИБКА СЕРВЕРА", "Server error"),
+    501: ("NOT_IMPLEMENTED", "НЕ РЕАЛИЗОВАНО", "Not implemented"),
+    502: ("BAD_GATEWAY", "ОШИБКА ШЛЮЗА", "Gateway received invalid upstream response"),
+    503: ("SERVICE_UNAVAILABLE", "СЕРВИС НЕДОСТУПЕН", "Service temporarily unavailable; NOT itself proof of redirect"),
+    504: ("GATEWAY_TIMEOUT", "ТАЙМАУТ ШЛЮЗА", "Gateway/upstream timeout"),
+    505: ("HTTP_VERSION_NOT_SUPPORTED", "ВЕРСИЯ HTTP НЕ ПОДДЕРЖИВАЕТСЯ", "HTTP version unsupported"),
+    506: ("VARIANT_ALSO_NEGOTIATES", "ОШИБКА СОГЛАСОВАНИЯ ВАРИАНТА", "Variant negotiation error"),
+    507: ("INSUFFICIENT_STORAGE", "НЕДОСТАТОЧНО ХРАНИЛИЩА", "Insufficient storage"),
+    508: ("LOOP_DETECTED", "ОБНАРУЖЕН ЦИКЛ", "Loop detected"),
+    510: ("NOT_EXTENDED", "РАСШИРЕНИЕ ТРЕБУЕТСЯ", "Further extensions required"),
+    511: ("NETWORK_AUTH_REQUIRED", "ТРЕБУЕТСЯ СЕТЕВАЯ АВТОРИЗАЦИЯ", "Network authentication required"),
+}
+
+def classify_http_status(status: int | None) -> tuple[str, str, str]:
+    if status is None:
+        return ("NO_HTTP_STATUS", "НЕТ HTTP-ОТВЕТА", "No HTTP status received")
+    if status in HTTP_CLASSIFICATION:
+        return HTTP_CLASSIFICATION[status]
+    if 100 <= status < 200:
+        return ("HTTP_1XX", "ИНФОРМАЦИОННЫЙ ОТВЕТ", "Informational response")
+    if 200 <= status < 300:
+        return ("HTTP_2XX", "УСПЕШНЫЙ ОТВЕТ", "Successful response")
+    if 300 <= status < 400:
+        return ("HTTP_3XX", "ПЕРЕАДРЕСАЦИЯ", "Redirection response")
+    if 400 <= status < 500:
+        return ("HTTP_4XX", "ОШИБКА КЛИЕНТА", "Client error")
+    if 500 <= status < 600:
+        return ("HTTP_5XX", "ОШИБКА СЕРВЕРА", "Server error")
+    return ("HTTP_UNKNOWN", "НЕИЗВЕСТНЫЙ HTTP-КОД", "Unknown HTTP status")
+
+def classify_transport_error(exc: BaseException) -> tuple[str, str]:
+    name = type(exc).__name__
+    msg = str(exc)
+    low = msg.lower()
+    if isinstance(exc, socket.timeout) or "timed out" in low:
+        return ("TIMEOUT", "ТАЙМАУТ")
+    if isinstance(exc, ssl.SSLError):
+        return ("TLS_ERROR", "ОШИБКА TLS/SSL")
+    if isinstance(exc, socket.gaierror):
+        return ("DNS_ERROR", "ОШИБКА DNS")
+    if isinstance(exc, ConnectionRefusedError):
+        return ("CONNECTION_REFUSED", "СОЕДИНЕНИЕ ОТКЛОНЕНО")
+    if isinstance(exc, ConnectionResetError):
+        return ("CONNECTION_RESET", "СОЕДИНЕНИЕ СБРОШЕНО")
+    if isinstance(exc, ConnectionError):
+        return ("CONNECTION_ERROR", "ОШИБКА СОЕДИНЕНИЯ")
+    if isinstance(exc, URLError):
+        return ("URL_ERROR", "ОШИБКА URL/СЕТИ")
+    return (name.upper(), "ОШИБКА СЕТИ/ВЫПОЛНЕНИЯ")
+
 # ============================================================
 # DATA MODEL
 # ============================================================
@@ -804,6 +902,8 @@ class TelemetryEvent:
     alias: str
     path: str
     result: str
+    result_ru: str = ""
+    result_en: str = ""
     http_status: int | None = None
     error: str | None = None
     extra: dict = field(default_factory=dict)
@@ -827,6 +927,9 @@ def record_telemetry(
 ) -> None:
 
     finished = time.perf_counter()
+    code_name, code_ru, code_en = classify_http_status(http_status)
+    result_ru = code_ru if http_status is not None else result
+    result_en = code_name if http_status is not None else result
     event = TelemetryEvent(
         timestamp_start=msk_now(),
         timestamp_end=msk_now(),
@@ -836,7 +939,9 @@ def record_telemetry(
         node=node,
         alias=alias,
         path=path,
-        result=result,
+        result=result or code_name,
+        result_ru=result_ru,
+        result_en=result_en,
         http_status=http_status,
         error=error,
         extra=extra or {},
@@ -2468,6 +2573,9 @@ def check_all_streams(
     print(f"[CHECK] candidates : {total}")
     print(f"[CHECK] workers    : {current_workers} (adaptive {MIN_WORKERS}-{MAX_WORKERS})")
     print(f"[CHECK] host inflight: {HOST_INFLIGHT} / host interval: {HOST_MIN_INTERVAL:.3f}s")
+    print("[CHECK] console output: COMPACT; full operation telemetry -> DREG TXT")
+    print("[CHECK] statuses: 200/3xx/4xx/5xx + transport errors are classified in full")
+
 
     # Bounded batches allow the worker count to adapt without creating a
     # second unbounded queue. Every submitted task is an actual operation.
@@ -2492,13 +2600,7 @@ def check_all_streams(
                 completed += 1
                 if item.stream_status in {"ERROR", "UNREACHABLE"}:
                     failures += 1
-                print(
-                    f"[STREAM {completed:>5}/{total:<5}] "
-                    f"{item.stream_status:<14} "
-                    f"{str(item.http_status or '-'):>3} "
-                    f"{item.hostname:<45} {item.path}"
-                )
-        index += len(batch)
+index += len(batch)
         current_workers = _adaptive_workers(current_workers, completed, failures)
 
 
@@ -3817,7 +3919,8 @@ def save_telemetry_txt(filename: Path, compact: bool = False) -> None:
             f"{e.timestamp_start} -> {e.timestamp_end} | "
             f"{e.duration_ms:8.2f} ms | {e.operation}/{e.suboperation} | "
             f"node={e.node} | alias={e.alias} | path={e.path} | "
-            f"result={e.result} | HTTP={e.http_status if e.http_status is not None else '-'} | "
+            f"RESULT={e.result_en} / {e.result_ru} | "
+            f"HTTP={e.http_status if e.http_status is not None else '-'} | "
             f"error={e.error or '-'} | extra={json.dumps(e.extra, ensure_ascii=False, separators=(",",":"))}"
         )
     filename.write_text("\n".join(lines) + "\n", encoding="utf-8")
