@@ -1,4 +1,4 @@
-name: SKALA Logger — Run 33892073670
+name: SKALA Logger
 
 on:
   workflow_dispatch:
@@ -37,18 +37,34 @@ jobs:
       - name: Run SKALA logger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TARGET_RUN_URL: "https://github.com/Phoenix89S/IpTV_playlist_2026Ru/actions/runs/33892073670"
         run: |
           set -Eeuo pipefail
 
           test -s SKALA_python_export_run.py
           python -m py_compile SKALA_python_export_run.py
 
+          RUN_ID="$(printf '%s' "$TARGET_RUN_URL" | sed -E 's#.*/actions/runs/([0-9]+).*#\1#')"
+
+          if ! [[ "$RUN_ID" =~ ^[0-9]+$ ]]; then
+            echo "[ERROR] Не удалось определить RUN_ID из TARGET_RUN_URL"
+            exit 1
+          fi
+
+          OUTPUT="SKALA_RUN_${RUN_ID}.txt"
+
+          echo "[INFO] Целевой Run: $RUN_ID"
+          echo "[INFO] Выходной файл: $OUTPUT"
+
           python SKALA_python_export_run.py \
-            "https://github.com/Phoenix89S/IpTV_playlist_2026Ru/actions/runs/33892073670" \
-            --output "SKALA_RUN_33892073670.txt" \
+            "$TARGET_RUN_URL" \
+            --output "$OUTPUT" \
             --export-number "1"
 
-          test -s SKALA_RUN_33892073670.txt
+          test -s "$OUTPUT"
+
+          echo "RUN_ID=$RUN_ID" >> "$GITHUB_ENV"
+          echo "OUTPUT=$OUTPUT" >> "$GITHUB_ENV"
 
       - name: Commit and push
         run: |
@@ -60,10 +76,13 @@ jobs:
           git fetch origin main
           git rebase origin/main
 
-          git add SKALA_RUN_33892073670.txt
+          git add "$OUTPUT"
 
-          git diff --cached --quiet && exit 1
+          if git diff --cached --quiet; then
+            echo "[INFO] Новых изменений нет."
+            exit 0
+          fi
 
-          git commit -m "SKALA Logger: Run 33892073670"
+          git commit -m "SKALA Logger: Run $RUN_ID"
 
           git push origin HEAD:main
