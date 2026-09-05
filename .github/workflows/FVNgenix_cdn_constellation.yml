@@ -23,7 +23,7 @@ jobs:
   constellation:
     name: NGENIX CDN Constellation
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 720
 
     steps:
 
