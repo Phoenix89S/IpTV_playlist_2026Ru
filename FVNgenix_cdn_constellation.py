@@ -130,8 +130,8 @@ MAX_WORKERS = 32
 MIN_WORKERS = 8
 
 DEFAULT_REQUEST_DELAY = 0.0
-HOST_MIN_INTERVAL = 0.12
-HOST_INFLIGHT = 2
+HOST_MIN_INTERVAL = 0.0
+HOST_INFLIGHT = 4
 
 
 # ============================================================
