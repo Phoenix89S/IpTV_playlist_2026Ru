@@ -73,7 +73,7 @@ from datetime import (
 )
 
 from pathlib import Path
-from threading import Lock
+from threading import Lock, Semaphore
 from typing import Iterable
 
 from urllib.error import (
@@ -97,15 +97,17 @@ from urllib.request import (
 # ============================================================
 
 ENGINE_NAME = "ngSKALA"
-ENGINE_VERSION = "NGENIX-CONSTELLATION-v4-ULTRA"
+ENGINE_VERSION = "NGENIX-CONSTELLATION-v5-ULTRA-2"
 CONSTELLATION_NAME = "NGENIX CDN CONSTELLATION ULTRA"
 
-OUTPUT_M3U = "NGENIX_CDN_CONSTELLATION.m3u"
-OUTPUT_JSON = "NGENIX_CDN_CONSTELLATION.json"
-OUTPUT_GRAPH = "NGENIX_CDN_CONSTELLATION_GRAPH.json"
-OUTPUT_REPORT = "NGENIX_CDN_CONSTELLATION_SKALA.txt"
-OUTPUT_HISTORY = "NGENIX_CDN_CONSTELLATION_HISTORY.json"
-OUTPUT_CSV = "NGENIX_CDN_CONSTELLATION.csv"
+OUTPUT_M3U = "NGENIX_CDN_CONSTELLATION_2.m3u"
+OUTPUT_JSON = "NGENIX_CDN_CONSTELLATION_2.json"
+OUTPUT_GRAPH = "NGENIX_CDN_CONSTELLATION_GRAPH_2.json"
+OUTPUT_REPORT = "NGENIX_CDN_CONSTELLATION_SKALA_2.txt"
+OUTPUT_HISTORY = "NGENIX_CDN_CONSTELLATION_HISTORY_2.json"
+OUTPUT_CSV = "NGENIX_CDN_CONSTELLATION_2.csv"
+OUTPUT_DREG = "NGENIX_CDN_CONSTELLATION_DREG_2.txt"
+OUTPUT_SCALA = "NGENIX_CDN_CONSTELLATION_SCALA_2.txt"
 
 DEFAULT_OUTPUT_DIR = Path(
     "data/ngenix_constellation"
@@ -123,12 +125,13 @@ DEFAULT_REPORT_DIR = Path(
 DEFAULT_TIMEOUT = 5.0
 DEFAULT_READ_LIMIT = 65536
 
-DEFAULT_WORKERS = 12
-MAX_WORKERS = 24
+DEFAULT_WORKERS = 16
+MAX_WORKERS = 32
+MIN_WORKERS = 8
 
-DEFAULT_REQUEST_DELAY = 0.05
-
-HOST_INFLIGHT = 1
+DEFAULT_REQUEST_DELAY = 0.0
+HOST_MIN_INTERVAL = 0.12
+HOST_INFLIGHT = 2
 
 
 # ============================================================
@@ -734,29 +737,39 @@ class RequestPacer:
 
 
 # ============================================================
-# HOST LOCKS
+# HOST LIMITERS
 # ============================================================
 
-_HOST_LOCKS: dict[str, Lock] = {}
+class HostLimiter:
 
-_HOST_LOCKS_GUARD = Lock()
+    def __init__(self, inflight: int, min_interval: float):
+        self.semaphore = Semaphore(max(1, inflight))
+        self.min_interval = max(0.0, min_interval)
+        self.lock = Lock()
+        self.last_start = 0.0
 
+    def enter(self) -> None:
+        self.semaphore.acquire()
+        with self.lock:
+            now = time.monotonic()
+            wait_for = self.min_interval - (now - self.last_start)
+            if wait_for > 0:
+                time.sleep(wait_for)
+            self.last_start = time.monotonic()
 
-def get_host_lock(
-    hostname: str,
-) -> Lock:
+    def leave(self) -> None:
+        self.semaphore.release()
 
-    with _HOST_LOCKS_GUARD:
+_HOST_LIMITERS: dict[str, HostLimiter] = {}
+_HOST_LIMITERS_GUARD = Lock()
 
-        if hostname not in _HOST_LOCKS:
-
-            _HOST_LOCKS[
-                hostname
-            ] = Lock()
-
-        return _HOST_LOCKS[
-            hostname
-        ]
+def get_host_limiter(hostname: str) -> HostLimiter:
+    with _HOST_LIMITERS_GUARD:
+        if hostname not in _HOST_LIMITERS:
+            _HOST_LIMITERS[hostname] = HostLimiter(
+                HOST_INFLIGHT, HOST_MIN_INTERVAL
+            )
+        return _HOST_LIMITERS[hostname]
 
 
 # ============================================================
@@ -768,6 +781,68 @@ def utc_now() -> str:
     return datetime.now(
         timezone.utc
     ).isoformat()
+
+
+def msk_now() -> str:
+
+    from datetime import timedelta, timezone as _timezone
+
+    return datetime.now(
+        _timezone(timedelta(hours=3))
+    ).isoformat(timespec="milliseconds")
+
+
+@dataclass
+class TelemetryEvent:
+
+    timestamp_start: str
+    timestamp_end: str
+    duration_ms: float
+    operation: str
+    suboperation: str
+    node: str
+    alias: str
+    path: str
+    result: str
+    http_status: int | None = None
+    error: str | None = None
+    extra: dict = field(default_factory=dict)
+
+
+_TELEMETRY: list[TelemetryEvent] = []
+_TELEMETRY_LOCK = Lock()
+
+
+def record_telemetry(
+    started_monotonic: float,
+    operation: str,
+    suboperation: str,
+    node: str = "",
+    alias: str = "",
+    path: str = "",
+    result: str = "",
+    http_status: int | None = None,
+    error: str | None = None,
+    extra: dict | None = None,
+) -> None:
+
+    finished = time.perf_counter()
+    event = TelemetryEvent(
+        timestamp_start=msk_now(),
+        timestamp_end=msk_now(),
+        duration_ms=round((finished - started_monotonic) * 1000, 2),
+        operation=operation,
+        suboperation=suboperation,
+        node=node,
+        alias=alias,
+        path=path,
+        result=result,
+        http_status=http_status,
+        error=error,
+        extra=extra or {},
+    )
+    with _TELEMETRY_LOCK:
+        _TELEMETRY.append(event)
 
 
 def fqdn(
@@ -1359,6 +1434,35 @@ def build_alias_matrix() -> list[StreamEntry]:
 
 
 # ============================================================
+# CLUSTER CORRELATION HYPOTHESIS — NOT CANONICAL DISCOVERY
+# ============================================================
+
+CLUSTER_HYPOTHESIS_ANCHOR = "s70378"
+CLUSTER_HYPOTHESIS_NEIGHBORS = [f"s{x}" for x in range(70379, 70389)]
+
+def build_cluster_hypothesis_entries() -> list[StreamEntry]:
+    """Probe adjacent service labels only as a hypothesis test.
+
+    These hosts are NOT added to observed_hosts() and therefore do not
+    become canonical inventory merely because the probe succeeds.
+    """
+    entries = []
+    aliases = list(dict.fromkeys(a.lower().strip() for a in CHANNEL_ALIASES if a.strip()))
+    for label in CLUSTER_HYPOTHESIS_NEIGHBORS:
+        hostname = fqdn(label)
+        for alias in aliases:
+            item = make_entry(
+                f"https://{hostname}/hls/{alias}/variant.m3u8",
+                "hypothesis:neighbor-cluster:s70378",
+                name=alias,
+                group="NGENIX • CLUSTER HYPOTHESIS",
+            )
+            if item:
+                entries.append(item)
+    return entries
+
+
+# ============================================================
 # SPECIAL / LEGACY PATHS
 # ============================================================
 
@@ -1676,6 +1780,7 @@ def build_nodes(
 
     for hostname in hostnames:
 
+        dns_started = time.perf_counter()
         (
             ips,
             dns_latency,
@@ -1684,6 +1789,11 @@ def build_nodes(
             hostname,
             timeout,
         )
+        record_telemetry(
+            dns_started, "NODE", "DNS", hostname, "", "/",
+            "OK" if ips else "ERROR", None, dns_error,
+            {"addresses": ips},
+        )
 
         reachable = []
 
@@ -1691,6 +1801,7 @@ def build_nodes(
 
         for ip in ips:
 
+            tcp_started = time.perf_counter()
             (
                 online,
                 latency,
@@ -1698,6 +1809,11 @@ def build_nodes(
             ) = check_ip(
                 ip,
                 timeout,
+            )
+            record_telemetry(
+                tcp_started, "NODE", "TCP_443", hostname, "", "/",
+                "ONLINE" if online else "NO_TCP", None, error,
+                {"ip": ip},
             )
 
             ip_results[ip] = {
@@ -2078,12 +2194,10 @@ def http_get_bounded(
         or ""
     ).lower()
 
-    host_lock = get_host_lock(
-        hostname
-    )
+    host_limiter = get_host_limiter(hostname)
+    host_limiter.enter()
 
-    with host_lock:
-
+    try:
         started = (
             time.perf_counter()
         )
@@ -2144,6 +2258,9 @@ def http_get_bounded(
                 elapsed,
             )
 
+    finally:
+        host_limiter.leave()
+
 
 # ============================================================
 # PRIMARY STREAM CHECK
@@ -2155,6 +2272,8 @@ def check_stream(
     read_limit: int,
     pacer: RequestPacer,
 ) -> None:
+
+    operation_started = time.perf_counter()
 
     try:
 
@@ -2299,10 +2418,36 @@ def check_stream(
             exc
         )
 
+    finally:
+        record_telemetry(
+            operation_started,
+            "HTTP",
+            "primary_stream",
+            item.hostname,
+            item.channel or "",
+            item.path,
+            item.stream_status,
+            item.http_status,
+            item.stream_error,
+            {"url": item.url},
+        )
+
 
 # ============================================================
 # PRIMARY STREAM CHECKS
 # ============================================================
+
+def _adaptive_workers(current: int, completed: int, failures: int) -> int:
+
+    if completed < 10:
+        return current
+    ratio = failures / max(1, completed)
+    if ratio > 0.25:
+        return max(MIN_WORKERS, current - 2)
+    if ratio < 0.05:
+        return min(MAX_WORKERS, current + 2)
+    return current
+
 
 def check_all_streams(
     entries: list[StreamEntry],
@@ -2314,91 +2459,47 @@ def check_all_streams(
 
     print()
     print("=" * 70)
-    print(
-        " PHASE 2 / PRIMARY STREAM CHECK"
-    )
+    print(" PHASE 2 / PRIMARY STREAM CHECK / ADAPTIVE")
     print("=" * 70)
 
-    total = len(
-        entries
-    )
+    total = len(entries)
+    current_workers = max(MIN_WORKERS, min(workers, MAX_WORKERS))
+    pacer = RequestPacer(request_delay)
+    print(f"[CHECK] candidates : {total}")
+    print(f"[CHECK] workers    : {current_workers} (adaptive {MIN_WORKERS}-{MAX_WORKERS})")
+    print(f"[CHECK] host inflight: {HOST_INFLIGHT} / host interval: {HOST_MIN_INTERVAL:.3f}s")
 
-    workers = max(
-        1,
-        min(
-            workers,
-            MAX_WORKERS,
-        ),
-    )
-
-    pacer = RequestPacer(
-        request_delay
-    )
-
-    print(
-        f"[CHECK] candidates : {total}"
-    )
-
-    print(
-        f"[CHECK] workers    : {workers}"
-    )
-
-    print(
-        f"[CHECK] delay      : "
-        f"{request_delay:.3f}s"
-    )
-
-    with ThreadPoolExecutor(
-        max_workers=workers
-    ) as pool:
-
-        futures = {
-
-            pool.submit(
-                check_stream,
-                item,
-                timeout,
-                read_limit,
-                pacer,
-            ): item
-
-            for item in entries
-        }
-
-        done = 0
-
-        for future in as_completed(
-            futures
-        ):
-
-            item = futures[
-                future
-            ]
-
-            try:
-
-                future.result()
-
-            except Exception as exc:
-
-                item.stream_status = (
-                    "ERROR"
+    # Bounded batches allow the worker count to adapt without creating a
+    # second unbounded queue. Every submitted task is an actual operation.
+    index = 0
+    completed = 0
+    failures = 0
+    while index < total:
+        batch = entries[index:index + max(current_workers * 4, current_workers)]
+        with ThreadPoolExecutor(max_workers=current_workers) as pool:
+            futures = {
+                pool.submit(check_stream, item, timeout, read_limit, pacer): item
+                for item in batch
+            }
+            for future in as_completed(futures):
+                item = futures[future]
+                try:
+                    future.result()
+                except Exception as exc:
+                    failures += 1
+                    item.stream_status = "ERROR"
+                    item.stream_error = repr(exc)
+                completed += 1
+                if item.stream_status in {"ERROR", "UNREACHABLE"}:
+                    failures += 1
+                print(
+                    f"[STREAM {completed:>5}/{total:<5}] "
+                    f"{item.stream_status:<14} "
+                    f"{str(item.http_status or '-'):>3} "
+                    f"{item.hostname:<45} {item.path}"
                 )
-
-                item.stream_error = (
-                    repr(exc)
-                )
-
-            done += 1
-
-            print(
-                f"[STREAM "
-                f"{done:>5}/{total:<5}] "
-                f"{item.stream_status:<14} "
-                f"{str(item.http_status or '-'):>3} "
-                f"{item.hostname:<45} "
-                f"{item.path}"
-            )
+        index += len(batch)
+        current_workers = _adaptive_workers(current_workers, completed, failures)
 
 
 # ============================================================
@@ -2412,6 +2513,8 @@ def verify_derived_url(
     read_limit: int,
     pacer: RequestPacer,
 ) -> StreamEntry | None:
+
+    operation_started = time.perf_counter()
 
     candidate = make_entry(
         derived_url,
@@ -2627,6 +2730,20 @@ def verify_derived_url(
 
         return candidate
 
+    finally:
+        record_telemetry(
+            operation_started,
+            "HTTP",
+            "derived_verification",
+            candidate.hostname,
+            candidate.channel or "",
+            candidate.path,
+            candidate.verification_status,
+            candidate.verification_http_status,
+            candidate.verification_error,
+            {"url": derived_url, "stub": stub.url},
+        )
+
 
 def resolve_stubs(
     entries: list[StreamEntry],
@@ -2829,6 +2946,9 @@ def is_playlist_eligible(
     # --------------------------------------------------------
     # Direct observed endpoint
     # --------------------------------------------------------
+
+    if item.source.startswith("hypothesis:"):
+        return False
 
     if (
         not item.is_stub
@@ -3677,6 +3797,50 @@ def update_history(
 
 
 # ============================================================
+# SCALA / DREG TELEMETRY OUTPUT
+# ============================================================
+
+def save_telemetry_txt(filename: Path, compact: bool = False) -> None:
+    filename.parent.mkdir(parents=True, exist_ok=True)
+    with _TELEMETRY_LOCK:
+        events = list(_TELEMETRY)
+    lines = [
+        "============================================================",
+        "NGENIX CDN CONSTELLATION / ДРЕГ TELEMETRY",
+        "============================================================",
+        f"TIMEZONE: MSK (UTC+03:00)",
+        f"EVENTS: {len(events)}",
+        "",
+    ]
+    for e in events:
+        lines.append(
+            f"{e.timestamp_start} -> {e.timestamp_end} | "
+            f"{e.duration_ms:8.2f} ms | {e.operation}/{e.suboperation} | "
+            f"node={e.node} | alias={e.alias} | path={e.path} | "
+            f"result={e.result} | HTTP={e.http_status if e.http_status is not None else '-'} | "
+            f"error={e.error or '-'} | extra={json.dumps(e.extra, ensure_ascii=False, separators=(",",":"))}"
+        )
+    filename.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def save_scala_compact(filename: Path) -> None:
+    filename.parent.mkdir(parents=True, exist_ok=True)
+    with _TELEMETRY_LOCK:
+        events = list(_TELEMETRY)
+    by_result = {}
+    for e in events:
+        by_result[e.result] = by_result.get(e.result, 0) + 1
+    lines = [
+        "SCALA NGENIX TELEMETRY",
+        f"MSK: {msk_now()}",
+        f"OPERATIONS: {len(events)}",
+        "RESULTS: " + ", ".join(f"{k}={v}" for k,v in sorted(by_result.items())),
+        f"HYPOTHESIS EVENTS: {sum(1 for e in events if e.node in [fqdn(x) for x in CLUSTER_HYPOTHESIS_NEIGHBORS])}",
+    ]
+    filename.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+# ============================================================
 # REPORT
 # ============================================================
 
@@ -3695,7 +3859,7 @@ def build_report(
 
         "============================================================",
 
-        "       NGENIX CDN CONSTELLATION / ULTRA SKALA REPORT",
+        "       NGENIX CDN CONSTELLATION / ULTRA SKALA REPORT / v5",
 
         "============================================================",
 
@@ -3720,7 +3884,7 @@ def build_report(
 
         "------------------------------------------------------------",
 
-        "Observed hostname matrix × observed aliases",
+        "Observed hostname matrix × observed aliases; neighbor cluster is hypothesis-only",
 
         "No sXXXXX brute force",
 
@@ -3938,6 +4102,17 @@ def build_report(
                 f"  DERIVED: "
                 f"{derived}"
             )
+
+    lines.extend(
+        [
+            "",
+            "CLUSTER HYPOTHESIS",
+            "------------------------------------------------------------",
+            f"Anchor: {CLUSTER_HYPOTHESIS_ANCHOR}",
+            "Neighbors: " + ", ".join(CLUSTER_HYPOTHESIS_NEIGHBORS),
+            "Classification: hypothesis_only (not canonical discovery)",
+        ]
+    )
 
     lines.extend(
         [
@@ -4204,6 +4379,15 @@ def main() -> None:
     )
 
     parser.add_argument(
+        "--cluster-hypothesis",
+        action="store_true",
+        help=(
+            "Проверить соседние s70379-s70388 как отдельную "
+            "гипотезу; не считать их наблюдаемыми автоматически"
+        ),
+    )
+
+    parser.add_argument(
         "--no-special",
         action="store_true",
         help=(
@@ -4268,6 +4452,8 @@ def main() -> None:
     entries: list[
         StreamEntry
     ] = []
+
+    hypothesis_entries: list[StreamEntry] = []
 
     # ========================================================
     # OPTIONAL REPOSITORY
@@ -4334,6 +4520,17 @@ def main() -> None:
 
         print(
             "[MODE] observed seed: OFF"
+        )
+
+    # ========================================================
+    # CLUSTER HYPOTHESIS (SEPARATE CLASS)
+    # ========================================================
+
+    if args.cluster_hypothesis:
+        hypothesis_entries = build_cluster_hypothesis_entries()
+        print(
+            f"[HYPOTHESIS] adjacent-node candidates: "
+            f"{len(hypothesis_entries)}"
         )
 
     # ========================================================
@@ -4414,13 +4611,15 @@ def main() -> None:
     # DNS / TCP
     # ========================================================
 
+    check_entries = entries + hypothesis_entries
+
     nodes = build_nodes(
-        entries,
+        check_entries,
         args.timeout,
     )
 
     apply_node_results(
-        entries,
+        check_entries,
         nodes,
     )
 
@@ -4431,7 +4630,7 @@ def main() -> None:
     if not args.no_stream_check:
 
         check_all_streams(
-            entries,
+            check_entries,
             args.timeout,
             args.read_limit,
             args.workers,
@@ -4478,6 +4677,14 @@ def main() -> None:
         nodes,
     )
 
+    inventory["cluster_hypothesis"] = {
+        "anchor": CLUSTER_HYPOTHESIS_ANCHOR,
+        "neighbors": CLUSTER_HYPOTHESIS_NEIGHBORS,
+        "classification": "hypothesis_only",
+        "canonical": False,
+        "entries": [asdict(x) for x in hypothesis_entries],
+    }
+
     graph = build_graph(
         entries,
         nodes,
@@ -4519,6 +4726,14 @@ def main() -> None:
         entries,
         output_dir
         / OUTPUT_CSV,
+    )
+
+    save_telemetry_txt(
+        report_dir / OUTPUT_DREG
+    )
+
+    save_scala_compact(
+        report_dir / OUTPUT_SCALA
     )
 
     update_history(
@@ -4663,6 +4878,16 @@ def main() -> None:
     print(
         f"[REPORT] "
         f"{report_path}"
+    )
+
+    print(
+        f"[DREG] "
+        f"{report_dir / OUTPUT_DREG}"
+    )
+
+    print(
+        f"[SCALA] "
+        f"{report_dir / OUTPUT_SCALA}"
     )
 
 
