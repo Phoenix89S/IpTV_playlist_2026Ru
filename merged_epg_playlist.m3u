@@ -119,7 +119,7 @@ https://tass-hls.servicecdn.ru/httpstreamer/tass-loop-main.stream/playlist.m3u8
 https://s70378.cdn.ngenix.net/gulli/2/index.m3u8
 #EXTINF:-1 tvg-id="423" group-title="Дополнительные Эфирные ТВ Плюс",59. Nickelodeon
 https://s70378.cdn.ngenix.net/nickelodeon/2/index.m3u8
-#EXTINF:-1 tvg-id="100054" group-title="Дополнительные Эфирные ТВ Плюс",60. Tiji
+#EXTINF:-1 tvg-id="tiji" group-title="Дополнительные Эфирные ТВ Плюс",60. Tiji
 https://s70378.cdn.ngenix.net/tiji/2/index.m3u8
 #EXTINF:-1 tvg-id="923" group-title="Дополнительные Эфирные ТВ Плюс",61. Детский мир
 https://s70378.cdn.ngenix.net/detskij_mir/2/index.m3u8
