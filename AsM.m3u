@@ -1,0 +1,638 @@
+#EXTM3U url-tvg="https://iptvx.one/epg/epg_lite.xml.gz"
+
+#EXTINF:-1 group-title="Общие",KTK
+http://stream.mcquack.net/26/index.m3u8
+#EXTINF:-1 group-title="Спорт",Беларусь 5
+http://stream.mcquack.net/33/index.m3u8
+#EXTINF:-1 group-title="Общие",Kentron TV
+http://stream.mcquack.net/39/index.m3u8
+#EXTINF:-1 group-title="Детские",О!
+http://stream.mcquack.net/60/index.m3u8
+#EXTINF:-1 group-title="Кино",Kinopokaz
+http://stream.mcquack.net/64/index.m3u8
+#EXTINF:-1 group-title="Юмор",Komedia
+http://stream.mcquack.net/68/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",.red
+http://stream.mcquack.net/69/index.m3u8
+#EXTINF:-1 group-title="Документальные",365 дней ТВ
+http://stream.mcquack.net/70/index.m3u8
+#EXTINF:-1 group-title="Юмор",Komediynoe
+http://stream.mcquack.net/74/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",Вопросы и Ответы
+http://stream.mcquack.net/76/index.m3u8
+#EXTINF:-1 group-title="Авто",Avto24
+http://stream.mcquack.net/78/index.m3u8
+#EXTINF:-1 group-title="Детские",Mama
+http://stream.mcquack.net/79/index.m3u8
+#EXTINF:-1 group-title="Детские",Mult i muzyka
+http://stream.mcquack.net/82/index.m3u8
+#EXTINF:-1 group-title="Познавательные",Живая природа
+http://stream.mcquack.net/83/index.m3u8
+#EXTINF:-1 group-title="Музыка",Muz-TV
+http://stream.mcquack.net/86/index.m3u8
+#EXTINF:-1 group-title="Музыка",BRIDGE Deluxe
+http://stream.mcquack.net/92/index.m3u8
+#EXTINF:-1 group-title="Детские",В гостях у сказки
+http://stream.mcquack.net/93/index.m3u8
+#EXTINF:-1 group-title="Кино",viju TV1000 action
+http://stream.mcquack.net/100/index.m3u8
+#EXTINF:-1 group-title="Документальные",viju History
+http://stream.mcquack.net/101/index.m3u8
+#EXTINF:-1 group-title="Кино",Индийское кино
+http://stream.mcquack.net/104/index.m3u8
+#EXTINF:-1 group-title="Кино",Мужское кино
+http://stream.mcquack.net/107/index.m3u8
+#EXTINF:-1 group-title="Кино",Дом кино Premium
+http://stream.mcquack.net/108/index.m3u8
+#EXTINF:-1 group-title="Музыка",RU.TV
+http://stream.mcquack.net/109/index.m3u8
+#EXTINF:-1 group-title="Кино",viju TV1000
+http://stream.mcquack.net/110/index.m3u8
+#EXTINF:-1 group-title="Детские",TiJi
+http://stream.mcquack.net/111/index.m3u8
+#EXTINF:-1 group-title="Спорт",Match! Боец
+http://stream.mcquack.net/112/index.m3u8
+#EXTINF:-1 group-title="Документальные",National Geographic / TERRA
+http://stream.mcquack.net/116/index.m3u8
+#EXTINF:-1 group-title="Детские",Солнце
+http://stream.mcquack.net/118/index.m3u8
+#EXTINF:-1 group-title="Детские",Карусель
+http://stream.mcquack.net/120/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",Перец International
+http://stream.mcquack.net/121/index.m3u8
+#EXTINF:-1 group-title="Познавательные",Моя планета
+http://stream.mcquack.net/124/index.m3u8
+#EXTINF:-1 group-title="Документальные",Наука
+http://stream.mcquack.net/125/index.m3u8
+#EXTINF:-1 group-title="Кино",KinoHit
+http://stream.mcquack.net/126/index.m3u8
+#EXTINF:-1 group-title="Кино",START Air
+http://stream.mcquack.net/128/index.m3u8
+#EXTINF:-1 group-title="Кино",Kinomix
+http://stream.mcquack.net/133/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",ТНТ
+http://stream.mcquack.net/135/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",СТС
+http://stream.mcquack.net/138/index.m3u8
+#EXTINF:-1 group-title="Путешествия",Моя стихия
+http://stream.mcquack.net/141/index.m3u8
+#EXTINF:-1 group-title="Спорт",Match! Страна
+http://stream.mcquack.net/143/index.m3u8
+#EXTINF:-1 group-title="Детские",Капитан Фантастика
+http://stream.mcquack.net/144/index.m3u8
+#EXTINF:-1 group-title="Кино",TV 21 International
+http://stream.mcquack.net/152/index.m3u8
+#EXTINF:-1 group-title="Музыка",Музыка Первого
+http://stream.mcquack.net/153/index.m3u8
+#EXTINF:-1 group-title="Спорт",Boks TV
+http://stream.mcquack.net/154/index.m3u8
+#EXTINF:-1 group-title="Охота/рыбалка",Охота и рыбалка
+http://stream.mcquack.net/155/index.m3u8
+#EXTINF:-1 group-title="Документальные",Точка РФ
+http://stream.mcquack.net/161/index.m3u8
+#EXTINF:-1 group-title="Кино",Amedia Hit
+http://stream.mcquack.net/162/index.m3u8
+#EXTINF:-1 group-title="Спорт",Match! Арена
+http://stream.mcquack.net/163/index.m3u8
+#EXTINF:-1 group-title="Путешествия",RTG TV
+http://stream.mcquack.net/164/index.m3u8
+#EXTINF:-1 group-title="Спорт",КХЛ
+http://stream.mcquack.net/166/index.m3u8
+#EXTINF:-1 group-title="Спорт",Match! Ultra
+http://stream.mcquack.net/169/index.m3u8
+#EXTINF:-1 group-title="Кино",Kinosemja
+http://stream.mcquack.net/170/index.m3u8
+#EXTINF:-1 group-title="Кино",Kinosvidanie
+http://stream.mcquack.net/171/index.m3u8
+#EXTINF:-1 group-title="Общие",Armenia TV Satellite
+http://stream.mcquack.net/175/index.m3u8
+#EXTINF:-1 group-title="Спорт",КХЛ Prime
+http://stream.mcquack.net/178/index.m3u8
+#EXTINF:-1 group-title="Кулинария",Кухня
+http://stream.mcquack.net/179/index.m3u8
+#EXTINF:-1 group-title="Кино",.sci-fi
+http://stream.mcquack.net/180/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",Пятница!
+http://stream.mcquack.net/181/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",СТС Love
+http://stream.mcquack.net/183/index.m3u8
+#EXTINF:-1 group-title="Музыка",Europa Plus TV
+http://stream.mcquack.net/184/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",2x2
+http://stream.mcquack.net/187/index.m3u8
+#EXTINF:-1 group-title="Спорт",Match! Игра
+http://stream.mcquack.net/188/index.m3u8
+#EXTINF:-1 group-title="Кино",Ретро
+http://stream.mcquack.net/191/index.m3u8
+#EXTINF:-1 group-title="Охота/рыбалка",Охотник и рыболов
+http://stream.mcquack.net/194/index.m3u8
+#EXTINF:-1 group-title="Детские",СТС kids
+http://stream.mcquack.net/197/index.m3u8
+#EXTINF:-1 group-title="Познавательные",Приключения
+http://stream.mcquack.net/198/index.m3u8
+#EXTINF:-1 group-title="Кино",viju+ Megahit
+http://stream.mcquack.net/200/index.m3u8
+#EXTINF:-1 group-title="Кино",viju+ Comedy
+http://stream.mcquack.net/201/index.m3u8
+#EXTINF:-1 group-title="Кино",viju+ Premiere
+http://stream.mcquack.net/202/index.m3u8
+#EXTINF:-1 group-title="Кино",Русский детектив
+http://stream.mcquack.net/204/index.m3u8
+#EXTINF:-1 group-title="Кино",НСТ / Новый русский
+http://stream.mcquack.net/207/index.m3u8
+#EXTINF:-1 group-title="Кино",Русский бестселлер
+http://stream.mcquack.net/208/index.m3u8
+#EXTINF:-1 group-title="Познавательные",T24
+http://stream.mcquack.net/209/index.m3u8
+#EXTINF:-1 group-title="Познавательные",Усадьба
+http://stream.mcquack.net/211/index.m3u8
+#EXTINF:-1 group-title="Кино",Душевное
+http://stream.mcquack.net/213/index.m3u8
+#EXTINF:-1 group-title="Кино",Остросюжетное
+http://stream.mcquack.net/214/index.m3u8
+#EXTINF:-1 group-title="Кулинария",FoodTime
+http://stream.mcquack.net/216/index.m3u8
+#EXTINF:-1 group-title="Кино",Наше
+http://stream.mcquack.net/217/index.m3u8
+#EXTINF:-1 group-title="Детские",Nick Jr.
+http://stream.mcquack.net/220/index.m3u8
+#EXTINF:-1 group-title="Кино",Kino TV
+http://stream.mcquack.net/221/index.m3u8
+#EXTINF:-1 group-title="Познавательные",Живая природа
+http://stream.mcquack.net/225/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",Домашний
+http://stream.mcquack.net/227/index.m3u8
+#EXTINF:-1 group-title="Культура",Россия К
+http://stream.mcquack.net/229/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",Ю
+http://stream.mcquack.net/230/index.m3u8
+#EXTINF:-1 group-title="Детские",Мульт
+http://stream.mcquack.net/232/index.m3u8
+#EXTINF:-1 group-title="Кино",Дом кино
+http://stream.mcquack.net/236/index.m3u8
+#EXTINF:-1 group-title="Познавательные",Время
+http://stream.mcquack.net/237/index.m3u8
+#EXTINF:-1 group-title="Образование",Da Vinci
+http://stream.mcquack.net/238/index.m3u8
+#EXTINF:-1 group-title="Документальные",viju Explore
+http://stream.mcquack.net/239/index.m3u8
+#EXTINF:-1 group-title="Документальные",viju+ Planet
+http://stream.mcquack.net/240/index.m3u8
+#EXTINF:-1 group-title="Познавательные",В мире животных
+http://stream.mcquack.net/241/index.m3u8
+#EXTINF:-1 group-title="Кино",Родное кино
+http://stream.mcquack.net/242/index.m3u8
+#EXTINF:-1 group-title="Культура",ATR
+http://stream.mcquack.net/244/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",.black
+http://stream.mcquack.net/263/index.m3u8
+#EXTINF:-1 group-title="Охота/рыбалка",Рыболов
+http://stream.mcquack.net/264/index.m3u8
+#EXTINF:-1 group-title="Юмор",Кинокомедия
+http://stream.mcquack.net/265/index.m3u8
+#EXTINF:-1 group-title="Кино",Русский роман
+http://stream.mcquack.net/266/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",Суббота!
+http://stream.mcquack.net/269/index.m3u8
+#EXTINF:-1 group-title="Музыка",BRIDGE Classic
+http://stream.mcquack.net/272/index.m3u8
+#EXTINF:-1 group-title="Охота/рыбалка",Дикая охота
+http://stream.mcquack.net/274/index.m3u8
+#EXTINF:-1 group-title="Охота/рыбалка",Дикая рыбалка
+http://stream.mcquack.net/275/index.m3u8
+#EXTINF:-1 group-title="Кино",Киноужас
+http://stream.mcquack.net/278/index.m3u8
+#EXTINF:-1 group-title="Сериалы",НТВ Сериал
+http://stream.mcquack.net/301/index.m3u8
+#EXTINF:-1 group-title="Детские",Gulli Girl
+http://stream.mcquack.net/305/index.m3u8
+#EXTINF:-1 group-title="Детские",Ani
+http://stream.mcquack.net/306/index.m3u8
+#EXTINF:-1 group-title="Сериалы",viju+ Serial
+http://stream.mcquack.net/311/index.m3u8
+#EXTINF:-1 group-title="Музыка",Classic Music
+http://stream.mcquack.net/312/index.m3u8
+#EXTINF:-1 group-title="Музыка",BRIDGE
+http://stream.mcquack.net/318/index.m3u8
+#EXTINF:-1 group-title="Музыка",Russian MusicBox
+http://stream.mcquack.net/319/index.m3u8
+#EXTINF:-1 group-title="Музыка",BRIDGE Hits
+http://stream.mcquack.net/320/index.m3u8
+#EXTINF:-1 group-title="Спорт",viju+ Sport
+http://stream.mcquack.net/333/index.m3u8
+#EXTINF:-1 group-title="Охота/рыбалка",Трофеи
+http://stream.mcquack.net/357/index.m3u8
+#EXTINF:-1 group-title="Кино",Наше мужское
+http://stream.mcquack.net/362/index.m3u8
+#EXTINF:-1 group-title="Кино",Hit
+http://stream.mcquack.net/363/index.m3u8
+#EXTINF:-1 group-title="Кино",Блокбастер
+http://stream.mcquack.net/364/index.m3u8
+#EXTINF:-1 group-title="Кино",Мосфильм Золотая коллекция
+http://stream.mcquack.net/369/index.m3u8
+#EXTINF:-1 group-title="Новости",Настоящее время
+http://stream.mcquack.net/384/index.m3u8
+#EXTINF:-1 group-title="Кино",Еврокино
+http://stream.mcquack.net/385/index.m3u8
+#EXTINF:-1 group-title="Музыка",Жара
+http://stream.mcquack.net/386/index.m3u8
+#EXTINF:-1 group-title="Общие",31 канал
+http://stream.mcquack.net/388/index.m3u8
+#EXTINF:-1 group-title="Общие",НТК
+http://stream.mcquack.net/389/index.m3u8
+#EXTINF:-1 group-title="Спорт",Setanta Sports+ Ukraine
+http://stream.mcquack.net/390/index.m3u8
+#EXTINF:-1 group-title="Кино",Kino 1
+http://stream.mcquack.net/395/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",Quiz TV
+http://stream.mcquack.net/397/index.m3u8
+#EXTINF:-1 group-title="Познавательные",Fauna
+http://stream.mcquack.net/401/index.m3u8
+#EXTINF:-1 group-title="Познавательные",Терра
+http://stream.mcquack.net/402/index.m3u8
+#EXTINF:-1 group-title="Документальные",Наука (Украина)
+http://stream.mcquack.net/403/index.m3u8
+#EXTINF:-1 group-title="Общие",Law TV
+http://stream.mcquack.net/406/index.m3u8
+#EXTINF:-1 group-title="Кино",Dorama
+http://stream.mcquack.net/412/index.m3u8
+#EXTINF:-1 group-title="Документальные",Nano
+http://stream.mcquack.net/419/index.m3u8
+#EXTINF:-1 group-title="Анимация/Кино",FAN
+http://stream.mcquack.net/420/index.m3u8
+#EXTINF:-1 group-title="Кино",Премиальное
+http://stream.mcquack.net/421/index.m3u8
+#EXTINF:-1 group-title="Новости",DW
+http://stream.mcquack.net/440/index.m3u8
+#EXTINF:-1 group-title="Культура",Ost West 24
+http://stream.mcquack.net/455/index.m3u8
+#EXTINF:-1 group-title="Кино",Наше любимое кино
+http://stream.mcquack.net/456/index.m3u8
+#EXTINF:-1 group-title="Спорт",Sport 1 Baltic
+http://stream.mcquack.net/461/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",RAZ 1
+http://stream.mcquack.net/463/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",RAZ 2
+http://stream.mcquack.net/464/index.m3u8
+#EXTINF:-1 group-title="Кино",Kino 2
+http://stream.mcquack.net/465/index.m3u8
+#EXTINF:-1 group-title="Спорт",Okko Футбол
+http://stream.mcquack.net/491/index.m3u8
+#EXTINF:-1 group-title="Спорт",Okko Спорт
+http://stream.mcquack.net/492/index.m3u8
+#EXTINF:-1 group-title="Спорт",Okko Prajm Sport
+http://stream.mcquack.net/493/index.m3u8
+
+
+
+# ===== VIJU / VIASAT =====
+#EXTINF:-1 group-title="Кино" tvg-id="tv1000" tvg-logo="https://iptvx.one/picons/tv1000.png",viju TV1000
+http://stream.mcquack.net/110/index.m3u8
+#EXTINF:-1 group-title="Кино" tvg-id="tv1000-action" tvg-logo="https://iptvx.one/picons/tv1000-action.png",viju TV1000 Action
+http://stream.mcquack.net/100/index.m3u8
+#EXTINF:-1 group-title="Кино" tvg-id="tv1000-russkoe-kino" tvg-logo="https://iptvx.one/picons/tv1000-russkoe-kino.png",viju TV1000 русское
+http://stream.mcquack.net/116/index.m3u8
+#EXTINF:-1 group-title="Документальные" tvg-id="viasat-history" tvg-logo="https://iptvx.one/picons/viasat-history.png",viju History
+http://stream.mcquack.net/101/index.m3u8
+#EXTINF:-1 group-title="Познавательные" tvg-id="viasat-explore" tvg-logo="https://iptvx.one/picons/viasat-explore.png",viju Explore HD
+http://stream.mcquack.net/239/index.m3u8
+#EXTINF:-1 group-title="Документальные" tvg-id="viasat-nature-history-hd" tvg-logo="https://iptvx.one/picons/viasat-nature-history-hd.png",viju+ Planet
+http://stream.mcquack.net/240/index.m3u8
+#EXTINF:-1 group-title="Сериалы" tvg-id="vip-serial" tvg-logo="https://iptvx.one/picons/vip-serial.png",viju+ Serial
+http://stream.mcquack.net/311/index.m3u8
+#EXTINF:-1 group-title="Спорт" tvg-id="viasat-sport" tvg-logo="https://iptvx.one/picons/viasat-sport.png",viju+ Sport
+http://stream.mcquack.net/333/index.m3u8
+
+# ===== НОВЫЕ КАНАЛЫ (не было в первом списке) =====
+#EXTINF:-1 group-title="Кино",Bolt HD
+http://stream.mcquack.net/73/index.m3u8
+#EXTINF:-1 group-title="Кино",Amedia 1 HD
+http://stream.mcquack.net/117/index.m3u8
+#EXTINF:-1 group-title="Кино",FX Life HD
+http://stream.mcquack.net/129/index.m3u8
+#EXTINF:-1 group-title="Общие",Novyi Channel
+http://stream.mcquack.net/157/index.m3u8
+#EXTINF:-1 group-title="Познавательные",Animal Planet
+http://stream.mcquack.net/177/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",Investigation Discovery HD
+http://stream.mcquack.net/205/index.m3u8
+#EXTINF:-1 group-title="Путешествия",RTG HD
+http://stream.mcquack.net/231/index.m3u8
+#EXTINF:-1 group-title="Музыка",Mezzo Live HD
+http://stream.mcquack.net/276/index.m3u8
+#EXTINF:-1 group-title="Спорт",Setanta Sports 1 HD
+http://stream.mcquack.net/279/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",Глазами туриста
+http://stream.mcquack.net/304/index.m3u8
+#EXTINF:-1 group-title="Познавательные",Инсайт ТВ HD
+http://stream.mcquack.net/361/index.m3u8
+
+# ===== КИНО =====
+#EXTINF:-1 group-title="Кино",Kinopokaz
+http://stream.mcquack.net/64/index.m3u8
+#EXTINF:-1 group-title="Кино",KinoHit HD
+http://stream.mcquack.net/126/index.m3u8
+#EXTINF:-1 group-title="Кино",START Air
+http://stream.mcquack.net/128/index.m3u8
+#EXTINF:-1 group-title="Кино",Kinomix
+http://stream.mcquack.net/133/index.m3u8
+#EXTINF:-1 group-title="Кино",TV 21 International
+http://stream.mcquack.net/152/index.m3u8
+#EXTINF:-1 group-title="Кино",Amedia Hit
+http://stream.mcquack.net/162/index.m3u8
+#EXTINF:-1 group-title="Кино",Kinosemja
+http://stream.mcquack.net/170/index.m3u8
+#EXTINF:-1 group-title="Кино",Kinosvidanie HD
+http://stream.mcquack.net/171/index.m3u8
+#EXTINF:-1 group-title="Кино",.sci-fi
+http://stream.mcquack.net/180/index.m3u8
+#EXTINF:-1 group-title="Кино",Русский детектив
+http://stream.mcquack.net/204/index.m3u8
+#EXTINF:-1 group-title="Кино",НСТ / Новый русский
+http://stream.mcquack.net/207/index.m3u8
+#EXTINF:-1 group-title="Кино",Русский бестселлер
+http://stream.mcquack.net/208/index.m3u8
+#EXTINF:-1 group-title="Кино",Душевное
+http://stream.mcquack.net/213/index.m3u8
+#EXTINF:-1 group-title="Кино",Остросюжетное
+http://stream.mcquack.net/214/index.m3u8
+#EXTINF:-1 group-title="Кино",Наше
+http://stream.mcquack.net/217/index.m3u8
+#EXTINF:-1 group-title="Кино",Kino TV
+http://stream.mcquack.net/221/index.m3u8
+#EXTINF:-1 group-title="Кино",Родное кино
+http://stream.mcquack.net/242/index.m3u8
+#EXTINF:-1 group-title="Кино",.black
+http://stream.mcquack.net/263/index.m3u8
+#EXTINF:-1 group-title="Кино",Кинокомедия HD
+http://stream.mcquack.net/265/index.m3u8
+#EXTINF:-1 group-title="Кино",Русский роман
+http://stream.mcquack.net/266/index.m3u8
+#EXTINF:-1 group-title="Кино",Киноужас HD
+http://stream.mcquack.net/278/index.m3u8
+#EXTINF:-1 group-title="Кино",НТВ Сериал
+http://stream.mcquack.net/301/index.m3u8
+#EXTINF:-1 group-title="Кино",Наше мужское
+http://stream.mcquack.net/362/index.m3u8
+#EXTINF:-1 group-title="Кино",Hit
+http://stream.mcquack.net/363/index.m3u8
+#EXTINF:-1 group-title="Кино",Блокбастер
+http://stream.mcquack.net/364/index.m3u8
+#EXTINF:-1 group-title="Кино",Мосфильм Золотая коллекция HD
+http://stream.mcquack.net/369/index.m3u8
+#EXTINF:-1 group-title="Кино",Еврокино HD
+http://stream.mcquack.net/385/index.m3u8
+#EXTINF:-1 group-title="Кино",Kino 1
+http://stream.mcquack.net/395/index.m3u8
+#EXTINF:-1 group-title="Кино",Dorama
+http://stream.mcquack.net/412/index.m3u8
+#EXTINF:-1 group-title="Кино",FAN
+http://stream.mcquack.net/420/index.m3u8
+#EXTINF:-1 group-title="Кино",Премиальное
+http://stream.mcquack.net/421/index.m3u8
+#EXTINF:-1 group-title="Кино",Наше любимое кино HD
+http://stream.mcquack.net/456/index.m3u8
+#EXTINF:-1 group-title="Кино",Kino 2
+http://stream.mcquack.net/465/index.m3u8
+#EXTINF:-1 group-title="Кино",Индийское кино
+http://stream.mcquack.net/104/index.m3u8
+#EXTINF:-1 group-title="Кино",Мужское кино HD
+http://stream.mcquack.net/107/index.m3u8
+#EXTINF:-1 group-title="Кино",Дом кино Premium
+http://stream.mcquack.net/108/index.m3u8
+#EXTINF:-1 group-title="Кино",Дом кино
+http://stream.mcquack.net/236/index.m3u8
+#EXTINF:-1 group-title="Кино",.red
+http://stream.mcquack.net/69/index.m3u8
+
+# ===== СПОРТ =====
+#EXTINF:-1 group-title="Спорт",Беларусь 5
+http://stream.mcquack.net/33/index.m3u8
+#EXTINF:-1 group-title="Спорт",Match! Боец
+http://stream.mcquack.net/112/index.m3u8
+#EXTINF:-1 group-title="Спорт",Match! Страна
+http://stream.mcquack.net/143/index.m3u8
+#EXTINF:-1 group-title="Спорт",Boks TV
+http://stream.mcquack.net/154/index.m3u8
+#EXTINF:-1 group-title="Спорт",Match! Арена
+http://stream.mcquack.net/163/index.m3u8
+#EXTINF:-1 group-title="Спорт",КХЛ
+http://stream.mcquack.net/166/index.m3u8
+#EXTINF:-1 group-title="Спорт",Match! Ultra
+http://stream.mcquack.net/169/index.m3u8
+#EXTINF:-1 group-title="Спорт",КХЛ Prime
+http://stream.mcquack.net/178/index.m3u8
+#EXTINF:-1 group-title="Спорт",Match! Игра
+http://stream.mcquack.net/188/index.m3u8
+#EXTINF:-1 group-title="Спорт",Setanta Sports+ Ukraine
+http://stream.mcquack.net/390/index.m3u8
+#EXTINF:-1 group-title="Спорт",Sport 1 Baltic
+http://stream.mcquack.net/461/index.m3u8
+#EXTINF:-1 group-title="Спорт",Okko Футбол
+http://stream.mcquack.net/491/index.m3u8
+#EXTINF:-1 group-title="Спорт",Okko Спорт
+http://stream.mcquack.net/492/index.m3u8
+#EXTINF:-1 group-title="Спорт",Okko Prajm Sport
+http://stream.mcquack.net/493/index.m3u8
+
+# ===== ДЕТСКИЕ =====
+#EXTINF:-1 group-title="Детские",О!
+http://stream.mcquack.net/60/index.m3u8
+#EXTINF:-1 group-title="Детские",Mama
+http://stream.mcquack.net/79/index.m3u8
+#EXTINF:-1 group-title="Детские",Mult i muzyka
+http://stream.mcquack.net/82/index.m3u8
+#EXTINF:-1 group-title="Детские",В гостях у сказки
+http://stream.mcquack.net/93/index.m3u8
+#EXTINF:-1 group-title="Детские",TiJi
+http://stream.mcquack.net/111/index.m3u8
+#EXTINF:-1 group-title="Детские",Солнце
+http://stream.mcquack.net/118/index.m3u8
+#EXTINF:-1 group-title="Детские",Карусель
+http://stream.mcquack.net/120/index.m3u8
+#EXTINF:-1 group-title="Детские",Капитан Фантастика
+http://stream.mcquack.net/144/index.m3u8
+#EXTINF:-1 group-title="Детские",Nick Jr.
+http://stream.mcquack.net/220/index.m3u8
+#EXTINF:-1 group-title="Детские",Мульт
+http://stream.mcquack.net/232/index.m3u8
+#EXTINF:-1 group-title="Детские",Da Vinci
+http://stream.mcquack.net/238/index.m3u8
+#EXTINF:-1 group-title="Детские",Gulli Girl
+http://stream.mcquack.net/305/index.m3u8
+#EXTINF:-1 group-title="Детские",Ani
+http://stream.mcquack.net/306/index.m3u8
+#EXTINF:-1 group-title="Детские",СТС kids
+http://stream.mcquack.net/197/index.m3u8
+
+# ===== МУЗЫКА =====
+#EXTINF:-1 group-title="Музыка",Muz-TV
+http://stream.mcquack.net/86/index.m3u8
+#EXTINF:-1 group-title="Музыка",Bridge Deluxe HD
+http://stream.mcquack.net/92/index.m3u8
+#EXTINF:-1 group-title="Музыка",RU.TV
+http://stream.mcquack.net/109/index.m3u8
+#EXTINF:-1 group-title="Музыка",Музыка Первого
+http://stream.mcquack.net/153/index.m3u8
+#EXTINF:-1 group-title="Музыка",Europa Plus TV
+http://stream.mcquack.net/184/index.m3u8
+#EXTINF:-1 group-title="Музыка",BRIDGE Classic
+http://stream.mcquack.net/272/index.m3u8
+#EXTINF:-1 group-title="Музыка",Classic Music
+http://stream.mcquack.net/312/index.m3u8
+#EXTINF:-1 group-title="Музыка",BRIDGE
+http://stream.mcquack.net/318/index.m3u8
+#EXTINF:-1 group-title="Музыка",Russian MusicBox
+http://stream.mcquack.net/319/index.m3u8
+#EXTINF:-1 group-title="Музыка",BRIDGE Hits
+http://stream.mcquack.net/320/index.m3u8
+#EXTINF:-1 group-title="Музыка",Жара HD
+http://stream.mcquack.net/386/index.m3u8
+
+# ===== ПОЗНАВАТЕЛЬНЫЕ / ДОКУМЕНТАЛЬНЫЕ =====
+#EXTINF:-1 group-title="Документальные",365 дней ТВ
+http://stream.mcquack.net/70/index.m3u8
+#EXTINF:-1 group-title="Познавательные",Живая природа
+http://stream.mcquack.net/83/index.m3u8
+#EXTINF:-1 group-title="Познавательные",Моя планета
+http://stream.mcquack.net/124/index.m3u8
+#EXTINF:-1 group-title="Документальные",Наука
+http://stream.mcquack.net/125/index.m3u8
+#EXTINF:-1 group-title="Познавательные",Приключения
+http://stream.mcquack.net/198/index.m3u8
+#EXTINF:-1 group-title="Познавательные",T24
+http://stream.mcquack.net/209/index.m3u8
+#EXTINF:-1 group-title="Познавательные",Усадьба
+http://stream.mcquack.net/211/index.m3u8
+#EXTINF:-1 group-title="Познавательные",Живая природа
+http://stream.mcquack.net/225/index.m3u8
+#EXTINF:-1 group-title="Познавательные",В мире животных
+http://stream.mcquack.net/241/index.m3u8
+#EXTINF:-1 group-title="Документальные",Точка РФ
+http://stream.mcquack.net/161/index.m3u8
+#EXTINF:-1 group-title="Документальные",Nano
+http://stream.mcquack.net/419/index.m3u8
+#EXTINF:-1 group-title="Познавательные",Fauna
+http://stream.mcquack.net/401/index.m3u8
+#EXTINF:-1 group-title="Познавательные",Терра
+http://stream.mcquack.net/402/index.m3u8
+#EXTINF:-1 group-title="Документальные",Наука (Украина)
+http://stream.mcquack.net/403/index.m3u8
+#EXTINF:-1 group-title="Познавательные",Время
+http://stream.mcquack.net/237/index.m3u8
+
+# ===== РАЗВЛЕКАТЕЛЬНЫЕ =====
+#EXTINF:-1 group-title="Развлекательные",ТНТ
+http://stream.mcquack.net/135/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",СТС
+http://stream.mcquack.net/138/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",Перец International
+http://stream.mcquack.net/121/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",Пятница!
+http://stream.mcquack.net/181/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",СТС Love
+http://stream.mcquack.net/183/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",2x2
+http://stream.mcquack.net/187/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",Домашний
+http://stream.mcquack.net/227/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",Ю
+http://stream.mcquack.net/230/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",Суббота!
+http://stream.mcquack.net/269/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",Quiz TV
+http://stream.mcquack.net/397/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",RAZ 1
+http://stream.mcquack.net/463/index.m3u8
+#EXTINF:-1 group-title="Развлекательные",RAZ 2
+http://stream.mcquack.net/464/index.m3u8
+
+# ===== ХОББИ / ОХОТА / РЫБАЛКА / ПУТЕШЕСТВИЯ =====
+#EXTINF:-1 group-title="Охота/рыбалка",Охота и рыбалка
+http://stream.mcquack.net/155/index.m3u8
+#EXTINF:-1 group-title="Охота/рыбалка",Охотник и рыболов
+http://stream.mcquack.net/194/index.m3u8
+#EXTINF:-1 group-title="Охота/рыбалка",Рыболов
+http://stream.mcquack.net/264/index.m3u8
+#EXTINF:-1 group-title="Охота/рыбалка",Дикая охота HD
+http://stream.mcquack.net/274/index.m3u8
+#EXTINF:-1 group-title="Охота/рыбалка",Дикая рыбалка
+http://stream.mcquack.net/275/index.m3u8
+#EXTINF:-1 group-title="Охота/рыбалка",Трофеи
+http://stream.mcquack.net/357/index.m3u8
+#EXTINF:-1 group-title="Путешествия",Моя стихия
+http://stream.mcquack.net/141/index.m3u8
+#EXTINF:-1 group-title="Путешествия",RTG TV
+http://stream.mcquack.net/164/index.m3u8
+
+# ===== КУЛИНАРИЯ =====
+#EXTINF:-1 group-title="Кулинария",Кухня
+http://stream.mcquack.net/179/index.m3u8
+#EXTINF:-1 group-title="Кулинария",FoodTime
+http://stream.mcquack.net/216/index.m3u8
+
+# ===== АВТО =====
+#EXTINF:-1 group-title="Авто",Авто 24
+http://stream.mcquack.net/78/index.m3u8
+
+# ===== ЮМОР =====
+#EXTINF:-1 group-title="Юмор",Komedia
+http://stream.mcquack.net/68/index.m3u8
+#EXTINF:-1 group-title="Юмор",Komediynoe
+http://stream.mcquack.net/74/index.m3u8
+#EXTINF:-1 group-title="Юмор",Кинокомедия HD
+http://stream.mcquack.net/265/index.m3u8
+
+# ===== ОБЩИЕ =====
+#EXTINF:-1 group-title="Общие",KTK
+http://stream.mcquack.net/26/index.m3u8
+#EXTINF:-1 group-title="Общие",Kentron TV
+http://stream.mcquack.net/39/index.m3u8
+#EXTINF:-1 group-title="Общие",Armenia TV Satellite
+http://stream.mcquack.net/175/index.m3u8
+#EXTINF:-1 group-title="Общие",31 канал
+http://stream.mcquack.net/388/index.m3u8
+#EXTINF:-1 group-title="Общие",НТК
+http://stream.mcquack.net/389/index.m3u8
+#EXTINF:-1 group-title="Общие",Law TV
+http://stream.mcquack.net/406/index.m3u8
+
+# ===== КУЛЬТУРА =====
+#EXTINF:-1 group-title="Культура",Россия К
+http://stream.mcquack.net/229/index.m3u8
+#EXTINF:-1 group-title="Культура",ATR
+http://stream.mcquack.net/244/index.m3u8
+#EXTINF:-1 group-title="Культура",Ost West 24
+http://stream.mcquack.net/455/index.m3u8
+
+# ===== НОВОСТИ =====
+#EXTINF:-1 group-title="Новости",Настоящее время
+http://stream.mcquack.net/384/index.m3u8
+#EXTINF:-1 group-title="Новости",DW
+http://stream.mcquack.net/440/index.m3u8
+
+# ===== НЕИДЕНТИФИЦИРОВАННЫЕ (найдены в плейлистах без названия) =====
+#EXTINF:-1 group-title="Неизвестные",mcquack /114
+http://stream.mcquack.net/114/index.m3u8
+#EXTINF:-1 group-title="Неизвестные",mcquack /176
+http://stream.mcquack.net/176/index.m3u8
+#EXTINF:-1 group-title="Неизвестные",mcquack /182
+http://stream.mcquack.net/182/index.m3u8
+#EXTINF:-1 group-title="Неизвестные",mcquack /192
+http://stream.mcquack.net/192/index.m3u8
+#EXTINF:-1 group-title="Неизвестные",mcquack /196
+http://stream.mcquack.net/196/index.m3u8
+#EXTINF:-1 group-title="Неизвестные",mcquack /268
+http://stream.mcquack.net/268/index.m3u8
+#EXTINF:-1 group-title="Неизвестные",mcquack /399
+http://stream.mcquack.net/399/index.m3u8
+#EXTINF:-1 group-title="Неизвестные",mcquack /405
+http://stream.mcquack.net/405/index.m3u8
+#EXTINF:-1 group-title="Неизвестные",mcquack /448
+http://stream.mcquack.net/448/index.m3u8
+#EXTINF:-1 group-title="Неизвестные",mcquack /450
+http://stream.mcquack.net/450/index.m3u8
+#EXTINF:-1 group-title="Неизвестные",mcquack /451
+http://stream.mcquack.net/451/index.m3u8
+
+
