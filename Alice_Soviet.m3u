@@ -600,3 +600,399 @@ https://s70378.cdn.ngenix.net/vip_serial/1/index.m3u8
 #EXTINF:-1 tvg-id="vip_serial" group-title="Эфирные ТВ Плюс",viju_plus_serial (Резерв 2)
 #EXTVLCOPT:http-user-agent=Wink/1.54.1 (Android/10; Mobile)
 https://s70378.cdn.ngenix.net/vip_serial/2/index.m3u8
+
+
+# ===== ОКОТВ-LIVE: ЭФИРНЫЕ (22) =====
+#EXTINF:-1 tvg-name="Pervii_Kanal_HD" group-title="Эфирные" ,Первый канал HD
+https://okkotv-live.cdnvideo.ru/channel/Pervii_Kanal_OTT_HD.m3u8
+#EXTINF:-1 tvg-name="Russia1HD" group-title="Эфирные" ,Россия 1 HD
+https://okkotv-live.cdnvideo.ru/channel/Russia1HD.m3u8
+#EXTINF:-1 tvg-name="Match_HD" group-title="Эфирные" ,Матч! HD
+https://okkotv-live.cdnvideo.ru/channel/Match_OTT_HD.m3u8
+#EXTINF:-1 tvg-name="5kanal" group-title="Эфирные" ,5 канал
+https://okkotv-live.cdnvideo.ru/channel/5_OTT.m3u8
+#EXTINF:-1 tvg-name="Russia24" group-title="Эфирные" ,Россия 24
+https://okkotv-live.cdnvideo.ru/channel/Russia24.m3u8
+#EXTINF:-1 tvg-name="RussiaK" group-title="Эфирные" ,Россия К
+https://okkotv-live.cdnvideo.ru/channel/Russia_K_SD.m3u8
+#EXTINF:-1 tvg-name="Rentv_HD" group-title="Эфирные" ,РЕН ТВ HD
+https://okkotv-live.cdnvideo.ru/channel/Rentv_HD_OTT.m3u8
+#EXTINF:-1 tvg-name="CTC_HD" group-title="Эфирные" ,СТС HD
+https://okkotv-live.cdnvideo.ru/channel/CTC_HD_OTT.m3u8
+#EXTINF:-1 tvg-name="CTC_Love" group-title="Эфирные" ,СТС Love
+https://okkotv-live.cdnvideo.ru/channel/CTC_Love_OTT_2.m3u8
+#EXTINF:-1 tvg-name="Dom_HD" group-title="Эфирные" ,Домашний HD
+https://okkotv-live.cdnvideo.ru/channel/Dom_HD_OTT.m3u8
+#EXTINF:-1 tvg-name="TV3_HD" group-title="Эфирные" ,ТВ-3 HD
+https://okkotv-live.cdnvideo.ru/channel/TV3_OTT_HD.m3u8
+#EXTINF:-1 tvg-name="Pyatnizza_HD" group-title="Эфирные" ,Пятница! HD
+https://okkotv-live.cdnvideo.ru/channel/Pyatnizza_OTT_HD.m3u8
+#EXTINF:-1 tvg-name="TNT_HD" group-title="Эфирные" ,ТНТ HD
+https://okkotv-live.cdnvideo.ru/channel/TNT_OTT_HD.m3u8
+#EXTINF:-1 tvg-name="Yu" group-title="Эфирные" ,Ю
+https://okkotv-live.cdnvideo.ru/channel/Yu_OTT.m3u8
+#EXTINF:-1 tvg-name="Che" group-title="Эфирные" ,Че!
+https://okkotv-live.cdnvideo.ru/channel/Che_OTT_2.m3u8
+#EXTINF:-1 tvg-name="Zvezda" group-title="Эфирные" ,Звезда
+https://okkotv-live.cdnvideo.ru/channel/Zvezda_SD.m3u8
+#EXTINF:-1 tvg-name="Mir" group-title="Эфирные" ,Мир
+https://okkotv-live.cdnvideo.ru/channel/Mir_OTT.m3u8
+#EXTINF:-1 tvg-name="Mir24_HD" group-title="Эфирные" ,Мир 24 HD
+https://okkotv-live.cdnvideo.ru/channel/Mir_24_OTT_HD.m3u8
+#EXTINF:-1 tvg-name="MuzTV" group-title="Эфирные" ,Муз-ТВ
+https://okkotv-live.cdnvideo.ru/channel/MuzTV.m3u8
+#EXTINF:-1 tvg-name="Izvestiya" group-title="Эфирные" ,Известия
+https://okkotv-live.cdnvideo.ru/channel/Izvestiya_HD_2.m3u8
+#EXTINF:-1 tvg-name="Spas" group-title="Эфирные" ,СПАС
+https://okkotv-live.cdnvideo.ru/channel/Spas.m3u8
+#EXTINF:-1 tvg-name="Kaleidoskop" group-title="Эфирные" ,Калейдоскоп
+https://okkotv-live.cdnvideo.ru/channel/Kaleidoskop.m3u8
+
+# ===== ОКОТВ-LIVE: КИНО И СЕРИАЛЫ (27) =====
+#EXTINF:-1 tvg-name="A1_HD" group-title="Кино и сериалы" ,A1 HD
+https://okkotv-live.cdnvideo.ru/channel/A1_HD.m3u8
+#EXTINF:-1 tvg-name="A2_HD" group-title="Кино и сериалы" ,A2 HD
+https://okkotv-live.cdnvideo.ru/channel/A2_HD.m3u8
+#EXTINF:-1 tvg-name="Amedia_Hit_HD" group-title="Кино и сериалы" ,Amedia Hit HD
+https://okkotv-live.cdnvideo.ru/channel/Amedia_Hit_HD.m3u8
+#EXTINF:-1 tvg-name="Amedia_Premium" group-title="Кино и сериалы" ,Amedia Premium HD (DASH)
+https://okkotv-live.cdnvideo.ru/channel/dash/amedia_premium_hd/playlist.mpd
+#EXTINF:-1 tvg-name="TV1000_HD" group-title="Кино и сериалы" ,TV1000 HD
+https://okkotv-live.cdnvideo.ru/channel/TV1000_HD.m3u8
+#EXTINF:-1 tvg-name="TV1000_Action_HD" group-title="Кино и сериалы" ,TV1000 Action HD
+https://okkotv-live.cdnvideo.ru/channel/TV1000_Action_HD.m3u8
+#EXTINF:-1 tvg-name="TV1000_Rus_Kino_HD" group-title="Кино и сериалы" ,TV1000 Русское кино HD
+https://okkotv-live.cdnvideo.ru/channel/TV1000_Rus_Kino_HD.m3u8
+#EXTINF:-1 tvg-name="VIP_Premiere_HD" group-title="Кино и сериалы" ,VIP Premiere HD
+https://okkotv-live.cdnvideo.ru/channel/VIP_Premiere_HD.m3u8
+#EXTINF:-1 tvg-name="VIP_Megahit_HD" group-title="Кино и сериалы" ,VIP Megahit HD
+https://okkotv-live.cdnvideo.ru/channel/VIP_Megahit_HD.m3u8
+#EXTINF:-1 tvg-name="VIP_Comedy_HD" group-title="Кино и сериалы" ,VIP Comedy HD
+https://okkotv-live.cdnvideo.ru/channel/VIP_Comedy_HD.m3u8
+#EXTINF:-1 tvg-name="VIP_Serial_HD" group-title="Кино и сериалы" ,VIP Serial HD
+https://okkotv-live.cdnvideo.ru/channel/VIP_Serial_HD.m3u8
+#EXTINF:-1 tvg-name="Fox_HD" group-title="Кино и сериалы" ,Fox HD
+https://okkotv-live.cdnvideo.ru/channel/Fox_HD.m3u8
+#EXTINF:-1 tvg-name="Fox_Life_HD" group-title="Кино и сериалы" ,Fox Life HD
+https://okkotv-live.cdnvideo.ru/channel/Fox_Life_HD.m3u8
+#EXTINF:-1 tvg-name="Phoenix" group-title="Кино и сериалы" ,Phoenix (SD)
+https://okkotv-live.cdnvideo.ru/channel/Phoenix.m3u8
+#EXTINF:-1 tvg-name="Phoenix_HD" group-title="Кино и сериалы" ,Phoenix HD
+https://okkotv-live.cdnvideo.ru/channel/Phoenix_HD.m3u8
+#EXTINF:-1 tvg-name="Bolt_HD" group-title="Кино и сериалы" ,Bolt HD
+https://okkotv-live.cdnvideo.ru/channel/Bolt_HD.m3u8
+#EXTINF:-1 tvg-name="Star_Family_HD" group-title="Кино и сериалы" ,Star Family HD
+https://okkotv-live.cdnvideo.ru/channel/Star_Family_HD.m3u8
+#EXTINF:-1 tvg-name="Star_Cinema_HD" group-title="Кино и сериалы" ,Star Cinema HD
+https://okkotv-live.cdnvideo.ru/channel/Star_Cinema_HD.m3u8
+#EXTINF:-1 tvg-name="Sony_Turbo" group-title="Кино и сериалы" ,.black
+https://okkotv-live.cdnvideo.ru/channel/Sony_Turbo.m3u8
+#EXTINF:-1 tvg-name="Sony_ET" group-title="Кино и сериалы" ,.red
+https://okkotv-live.cdnvideo.ru/channel/Sony_ET.m3u8
+#EXTINF:-1 tvg-name="Sony_SciFi" group-title="Кино и сериалы" ,.sci-fi
+https://okkotv-live.cdnvideo.ru/channel/Sony_SciFi.m3u8
+#EXTINF:-1 tvg-name="START_World_HD" group-title="Кино и сериалы" ,START World HD
+https://okkotv-live.cdnvideo.ru/channel/START_World_HD.m3u8
+#EXTINF:-1 tvg-name="START_Air_HD" group-title="Кино и сериалы" ,START Air HD
+https://okkotv-live.cdnvideo.ru/channel/START_Air_HD.m3u8
+#EXTINF:-1 tvg-name="Start" group-title="Кино и сериалы" ,Start
+https://okkotv-live.cdnvideo.ru/channel/Start.m3u8
+#EXTINF:-1 tvg-name="Start_Triumph_HD" group-title="Кино и сериалы" ,START Triumph HD
+https://okkotv-live.cdnvideo.ru/channel/Start_Triumph_HD.m3u8
+#EXTINF:-1 tvg-name="Start_Triumph_HD_DASH" group-title="Кино и сериалы" ,START Triumph HD (DASH)
+https://okkotv-live.cdnvideo.ru/channel/dash/start_triumph_hd/playlist.mpd
+#EXTINF:-1 tvg-name="Dorama_HD" group-title="Кино и сериалы" ,Дорама HD
+https://okkotv-live.cdnvideo.ru/channel/Dorama_HD.m3u8
+
+# ===== ОКОТВ-LIVE: ПОЗНАВАТЕЛЬНЫЕ (10) =====
+#EXTINF:-1 tvg-name="Da_Vinci" group-title="Познавательные" ,Da Vinci
+https://okkotv-live.cdnvideo.ru/channel/Da_Vinci.m3u8
+#EXTINF:-1 tvg-name="Viasat_Explore_HD" group-title="Познавательные" ,Viasat Explore HD
+https://okkotv-live.cdnvideo.ru/channel/Viasat_Explore_HD.m3u8
+#EXTINF:-1 tvg-name="Viasat_History_HD" group-title="Познавательные" ,Viasat History HD
+https://okkotv-live.cdnvideo.ru/channel/Viasat_History_ad_HD.m3u8
+#EXTINF:-1 tvg-name="Viasat_Nature_HD" group-title="Познавательные" ,Viasat Nature HD
+https://okkotv-live.cdnvideo.ru/channel/Viasat_Nature_ad_HD.m3u8
+#EXTINF:-1 tvg-name="Viasat_Nature_History_HD" group-title="Познавательные" ,Viasat Nature/History HD
+https://okkotv-live.cdnvideo.ru/channel/Viasat_Nature_History_HD.m3u8
+#EXTINF:-1 tvg-name="NGC_HD" group-title="Познавательные" ,Nat Geo HD
+https://okkotv-live.cdnvideo.ru/channel/NGC_HD.m3u8
+#EXTINF:-1 tvg-name="NGC_Wild_HD" group-title="Познавательные" ,Nat Geo Wild HD
+https://okkotv-live.cdnvideo.ru/channel/NGC_Wild_HD.m3u8
+#EXTINF:-1 tvg-name="Dikiy" group-title="Познавательные" ,Дикий
+https://okkotv-live.cdnvideo.ru/channel/Dikiy.m3u8
+#EXTINF:-1 tvg-name="Dikaya_Ohota_HD" group-title="Познавательные" ,Дикая охота HD
+https://okkotv-live.cdnvideo.ru/channel/Dikaya_Ohota_HD.m3u8
+#EXTINF:-1 tvg-name="Dikaya_Rybalka_HD" group-title="Познавательные" ,Дикая рыбалка HD
+https://okkotv-live.cdnvideo.ru/channel/Dikaya_Rybalka_HD.m3u8
+
+# ===== ОКОТВ-LIVE: ДЕТСКИЕ (5) =====
+#EXTINF:-1 tvg-name="CTC_Kids_HD" group-title="Детские" ,СТС Kids HD
+https://okkotv-live.cdnvideo.ru/channel/CTC_Kids_HD.m3u8
+#EXTINF:-1 tvg-name="Multilandia_HD" group-title="Детские" ,Мультиландия HD
+https://okkotv-live.cdnvideo.ru/channel/Multilandia_HD.m3u8
+#EXTINF:-1 tvg-name="Disney" group-title="Детские" ,Disney
+https://okkotv-live.cdnvideo.ru/channel/Disney.m3u8
+#EXTINF:-1 tvg-name="DuckTV" group-title="Детские" ,DuckTV
+https://okkotv-live.cdnvideo.ru/channel/DuckTV.m3u8
+#EXTINF:-1 tvg-name="BabyTV" group-title="Детские" ,BabyTV
+https://okkotv-live.cdnvideo.ru/channel/BabyTV.m3u8
+
+# ===== ОКОТВ-LIVE: НОВОСТИ (1) =====
+#EXTINF:-1 tvg-name="360_Novosti_HD" group-title="Новости" ,360 Новости HD
+https://okkotv-live.cdnvideo.ru/channel/360_Novosti_HD.m3u8
+
+# ===== ОКОТВ-LIVE: РАЗНОЕ (1) =====
+#EXTINF:-1 tvg-name="Fashion_TV_HD" group-title="Разное" ,Fashion TV HD
+https://okkotv-live.cdnvideo.ru/channel/Fashion_TV_HD.m3u8
+
+# ===== ОКОТВ-LIVE: СПОРТ (3) =====
+#EXTINF:-1 tvg-name="Viasat_Sport_HD" group-title="Спорт" ,Viasat Sport HD
+https://okkotv-live.cdnvideo.ru/channel/Viasat_Sport_HD.m3u8
+#EXTINF:-1 tvg-name="KHL_HD" group-title="Спорт" ,KHL HD (DASH)
+https://okkotv-live.cdnvideo.ru/channel/dash/khl_hd_2/playlist.mpd
+#EXTINF:-1 tvg-name="KHL_Prime_HD" group-title="Спорт" ,KHL Prime HD (DASH)
+https://okkotv-live.cdnvideo.ru/channel/dash/khl_prime_hd/playlist.mpd
+
+# ===== ОКОТВ-LIVE: OKKO-БРЕНДОВЫЕ (7) — URL РЕКОНСТРУИРОВАНЫ, НЕ ПОДТВЕРЖДЕНЫ =====
+#EXTINF:-1 tvg-name="Okko_Sport" group-title="Okko (вероятные)" ,Okko Спорт
+https://okkotv-live.cdnvideo.ru/channel/Okko_Sport.m3u8
+#EXTINF:-1 tvg-name="Okko_Sport_Football" group-title="Okko (вероятные)" ,Okko Спорт. Футбол
+https://okkotv-live.cdnvideo.ru/channel/Okko_Sport_Football.m3u8
+#EXTINF:-1 tvg-name="Okko_Prime" group-title="Okko (вероятные)" ,Okko Прайм
+https://okkotv-live.cdnvideo.ru/channel/Okko_Prime.m3u8
+#EXTINF:-1 tvg-name="Okko_TV" group-title="Okko (вероятные)" ,Okko TV
+https://okkotv-live.cdnvideo.ru/channel/Okko_TV.m3u8
+#EXTINF:-1 tvg-name="BubOkko" group-title="Okko (вероятные)" ,БубOKKO тв
+https://okkotv-live.cdnvideo.ru/channel/BubOkko.m3u8
+#EXTINF:-1 tvg-name="Solnce" group-title="Okko (вероятные)" ,Солнце
+https://okkotv-live.cdnvideo.ru/channel/Solnce.m3u8
+#EXTINF:-1 tvg-name="Okkolokino" group-title="Okko (вероятные)" ,Okkoлокино
+https://okkotv-live.cdnvideo.ru/channel/Okkolokino.m3u8
+
+# ===== ДРУГИЕ CDNVIDEO.RU: ФЕДЕРАЛЬНЫЕ (9) =====
+#EXTINF:-1 tvg-name="Mir_HD" group-title="Федеральные (др. CDN)" ,Мир HD
+https://hls.mirtv.cdnvideo.ru/mirtv-parampublish/mirtv_2500/playlist.m3u8
+#EXTINF:-1 tvg-name="Mir_Premium_HD" group-title="Федеральные (др. CDN)" ,Мир Premium HD
+https://hls.mirtv.cdnvideo.ru/mirtv-parampublish/hd/playlist.m3u8
+#EXTINF:-1 tvg-name="Mir24_HD_alt" group-title="Федеральные (др. CDN)" ,Мир 24 HD (alt)
+https://hls.mirtv.cdnvideo.ru/mirtv-parampublish/mir24_2500/playlist.m3u8
+#EXTINF:-1 tvg-name="TVC" group-title="Федеральные (др. CDN)" ,ТВ Центр
+https://tvc-hls.cdnvideo.ru/tvc-res/smil:vd9221_2.smil/playlist.m3u8
+#EXTINF:-1 tvg-name="OTR" group-title="Федеральные (др. CDN)" ,ОТР
+https://live-otronline.cdnvideo.ru/otr-decklink/otr/playlist.m3u8
+#EXTINF:-1 tvg-name="Rentv_alt" group-title="Федеральные (др. CDN)" ,РЕН ТВ (alt)
+https://ad-hls-rentv.cdnvideo.ru/ren/smil:ren.smil/playlist.m3u8
+#EXTINF:-1 tvg-name="Spas_alt" group-title="Федеральные (др. CDN)" ,СПАС (alt)
+https://live-spastv.cdnvideo.ru/spastv-publish/spastv/playlist.m3u8
+#EXTINF:-1 tvg-name="Zvezda_alt" group-title="Федеральные (др. CDN)" ,Звезда (alt)
+https://livezvezda.cdnvideo.ru/zv/zvezda1.sdp/playlist.m3u8
+#EXTINF:-1 tvg-name="Izvestiya_alt" group-title="Федеральные (др. CDN)" ,Известия ТВ (alt)
+https://hls-igi.cdnvideo.ru/igi/igi_hq/playlist.m3u8
+
+# ===== ДРУГИЕ CDNVIDEO.RU: ВГТРК РЕГИОНАЛЬНЫЕ (15) =====
+#EXTINF:-1 tvg-name="Russia1_SaintPetersburg" group-title="ВГТРК Регионы" ,Россия 1 (Санкт-Петербург)
+https://vgtrkregion-reg.cdnvideo.ru/russia1-saintpetersburg/playlist.m3u8
+#EXTINF:-1 tvg-name="Russia1_Moscow" group-title="ВГТРК Регионы" ,Россия 1 (Москва)
+https://vgtrkregion-reg.cdnvideo.ru/russia1-moscow/playlist.m3u8
+#EXTINF:-1 tvg-name="Russia1_Kaliningrad" group-title="ВГТРК Регионы" ,Россия 1 (Калининград)
+https://vgtrkregion-reg.cdnvideo.ru/russia1-kaliningrad/playlist.m3u8
+#EXTINF:-1 tvg-name="Russia1_Samara" group-title="ВГТРК Регионы" ,Россия 1 (Самара)
+https://vgtrkregion-reg.cdnvideo.ru/russia1-samara/playlist.m3u8
+#EXTINF:-1 tvg-name="Russia1_Volgograd" group-title="ВГТРК Регионы" ,Россия 1 (Волгоград)
+https://vgtrkregion-reg.cdnvideo.ru/russia1-volgograd/playlist.m3u8
+#EXTINF:-1 tvg-name="Russia1_Vladivostok" group-title="ВГТРК Регионы" ,Россия 1 (Владивосток)
+https://vgtrkregion-reg.cdnvideo.ru/russia1-vladivostok/playlist.m3u8
+#EXTINF:-1 tvg-name="Russia1_Stavropol" group-title="ВГТРК Регионы" ,Россия 1 (Ставрополь)
+https://vgtrkregion-reg.cdnvideo.ru/russia1-stavropol/playlist.m3u8
+#EXTINF:-1 tvg-name="Russia1_Ingushetia" group-title="ВГТРК Регионы" ,Россия 1 (Ингушетия)
+https://vgtrkregion-reg.cdnvideo.ru/russia1-ingushetia/playlist.m3u8
+#EXTINF:-1 tvg-name="Russia1_Simferopol" group-title="ВГТРК Регионы" ,Россия 1 (Симферополь)
+https://vgtrkregion-reg.cdnvideo.ru/russia1-simferopol/playlist.m3u8
+#EXTINF:-1 tvg-name="Russia24_SaintPetersburg" group-title="ВГТРК Регионы" ,Россия 24 (Санкт-Петербург)
+https://vgtrkregion-reg.cdnvideo.ru/russia24-saintpetersburg/playlist.m3u8
+#EXTINF:-1 tvg-name="Russia24_Moscow" group-title="ВГТРК Регионы" ,Россия 24 (Москва)
+https://vgtrkregion-reg.cdnvideo.ru/russia24-moscow/playlist.m3u8
+#EXTINF:-1 tvg-name="Russia24_Kaliningrad" group-title="ВГТРК Регионы" ,Россия 24 (Калининград)
+https://vgtrkregion-reg.cdnvideo.ru/russia24-kaliningrad/playlist.m3u8
+#EXTINF:-1 tvg-name="Samara24" group-title="ВГТРК Регионы" ,Самара 24
+https://vgtrkregion-reg.cdnvideo.ru/samara24/playlist.m3u8
+#EXTINF:-1 tvg-name="Vostok24" group-title="ВГТРК Регионы" ,Восток 24
+https://vgtrkregion-reg.cdnvideo.ru/vostok24/playlist.m3u8
+#EXTINF:-1 tvg-name="Kavkaz24" group-title="ВГТРК Регионы" ,Кавказ 24
+https://vgtrkregion-reg.cdnvideo.ru/kavkaz24/playlist.m3u8
+
+# ===== ДРУГИЕ CDNVIDEO.RU: РЕГИОНАЛЬНЫЕ (29) =====
+#EXTINF:-1 tvg-name="BigAsia" group-title="Региональные" ,Большая Азия
+https://live-bigasia.cdnvideo.ru/bigasia/playlist.m3u8
+#EXTINF:-1 tvg-name="Arhys24" group-title="Региональные" ,Архыз 24
+https://arhys24.cdnvideo.ru/arhys24/playlist.m3u8
+#EXTINF:-1 tvg-name="BumTV" group-title="Региональные" ,Бум ТВ
+https://live-bumtv.cdnvideo.ru/bumtv/playlist.m3u8
+#EXTINF:-1 tvg-name="GornayaStrana" group-title="Региональные" ,Горная Страна
+https://hls-sneg.cdnvideo.ru/sneg/playlist.m3u8
+#EXTINF:-1 tvg-name="GuberniaTV" group-title="Региональные" ,Губерния ТВ
+https://live.guberniatv.cdnvideo.ru/gubernia/playlist.m3u8
+#EXTINF:-1 tvg-name="NN24" group-title="Региональные" ,НН24 (Нижний Новгород)
+https://live-vestinn.cdnvideo.ru/vestinn/playlist.m3u8
+#EXTINF:-1 tvg-name="NVKSaha" group-title="Региональные" ,НВК Саха / Якутия 24
+https://live-saha.cdnvideo.ru/saha/playlist.m3u8
+#EXTINF:-1 tvg-name="Mordovia24" group-title="Региональные" ,Мордовия 24
+https://live-mordovia24.cdnvideo.ru/mordovia24/playlist.m3u8
+#EXTINF:-1 tvg-name="TVKrasnodar" group-title="Региональные" ,Краснодар ТВ
+https://live-tvkrasnodar.cdnvideo.ru/tvkrasnodar/playlist.m3u8
+#EXTINF:-1 tvg-name="Sochi24" group-title="Региональные" ,Сочи 24 / Макс 24
+https://live.maksmedia.cdnvideo.ru/maksmedia/playlist.m3u8
+#EXTINF:-1 tvg-name="TopSPb" group-title="Региональные" ,ТОП СПб
+https://live-topspb-geo.cdnvideo.ru/topspb/playlist.m3u8
+#EXTINF:-1 tvg-name="RIKTV" group-title="Региональные" ,РИК ТВ
+https://hls-rictv.cdnvideo.ru/rictv/playlist.m3u8
+#EXTINF:-1 tvg-name="SibInformBuro" group-title="Региональные" ,Сибинформбюро
+https://hls-sibinformburo.cdnvideo.ru/sibinformburo/playlist.m3u8
+#EXTINF:-1 tvg-name="EniseyTV" group-title="Региональные" ,Енисей ТВ
+https://hls-eniseytv.cdnvideo.ru/eniseytv/playlist.m3u8
+#EXTINF:-1 tvg-name="8KanalNsk" group-title="Региональные" ,8 канал (Новосибирск)
+https://live-8knsk.cdnvideo.ru/8knsk/playlist.m3u8
+#EXTINF:-1 tvg-name="AistTV" group-title="Региональные" ,Аист ТВ (Иркутск)
+https://live2-aisttv.cdnvideo.ru/aisttv/playlist.m3u8
+#EXTINF:-1 tvg-name="NikaTV" group-title="Региональные" ,Ника ТВ
+https://live-nikatv.cdnvideo.ru/nikatv/playlist.m3u8
+#EXTINF:-1 tvg-name="NTM13" group-title="Региональные" ,НТМ (Торжок)
+https://live-ntm13.cdnvideo.ru/ntm13/smil:ntm13.smil/playlist.m3u8
+#EXTINF:-1 tvg-name="UgraTV" group-title="Региональные" ,Югра ТВ
+https://live.ugratv.cdnvideo.ru/ugratv/playlist.m3u8
+#EXTINF:-1 tvg-name="MyUdm" group-title="Региональные" ,Мой Удмуртия
+https://hls-myudm.cdnvideo.ru/myudm/playlist.m3u8
+#EXTINF:-1 tvg-name="YamalRegion" group-title="Региональные" ,Ямал-Регион
+https://live-yamalregion.cdnvideo.ru/yamalregion/playlist.m3u8
+#EXTINF:-1 tvg-name="IKSTV" group-title="Региональные" ,ИКС ТВ (Севастополь)
+https://live-ikstv.cdnvideo.ru/ikstv/playlist.m3u8
+#EXTINF:-1 tvg-name="Sevastopol24" group-title="Региональные" ,Севастополь 24
+https://stv92-live.cdnvideo.ru/stv92/playlist.m3u8
+#EXTINF:-1 tvg-name="TVChernomorsk" group-title="Региональные" ,ТВЧ (Черноморск)
+https://live.tvchernomorsk.cdnvideo.ru/tvchernomorsk/playlist.m3u8
+#EXTINF:-1 tvg-name="IngushetiaTV" group-title="Региональные" ,Ингушетия ТВ
+https://live-ntk.cdnvideo.ru/ntk/playlist.m3u8
+#EXTINF:-1 tvg-name="EchoTV" group-title="Региональные" ,Эхо ТВ (Рязань)
+https://live-echotv.cdnvideo.ru/echotv/playlist.m3u8
+#EXTINF:-1 tvg-name="RostovPapa" group-title="Региональные" ,Ростов Папа
+https://hls-rostovpapa.cdnvideo.ru/rostovpapa/playlist.m3u8
+#EXTINF:-1 tvg-name="TRK33" group-title="Региональные" ,ТРК 33 (Владимир)
+https://live-trc33.cdnvideo.ru/trc33/playlist.m3u8
+#EXTINF:-1 tvg-name="ElTV360" group-title="Региональные" ,ЕлТВ/360 (Калуга)
+https://live-cdne13.cdnvideo.ru/cdne13/playlist.m3u8
+#EXTINF:-1 tvg-name="1Gorodskoi" group-title="Региональные" ,1 Городской (Калуга)
+https://live-1gorodskoi.cdnvideo.ru/1gorodskoi/playlist.m3u8
+
+# ===== ДРУГИЕ CDNVIDEO.RU: NAT TELE2 (5) =====
+#EXTINF:-1 tvg-name="Tele2_Tambov" group-title="NAT Tele2" ,NAT Тамбов
+https://tele2dvrnat01.cdnvideo.ru/nat-tambov/playlist.m3u8
+#EXTINF:-1 tvg-name="Tele2_Reporter73" group-title="NAT Tele2" ,NAT Reporter73
+https://tele2dvrnat02.cdnvideo.ru/nat-reporter73/playlist.m3u8
+#EXTINF:-1 tvg-name="Tele2_Volga" group-title="NAT Tele2" ,NAT Волга
+https://tele2dvrnat02.cdnvideo.ru/nat-volga/playlist.m3u8
+#EXTINF:-1 tvg-name="Tele2_Ekaterinburg" group-title="NAT Tele2" ,NAT Екатеринбург
+https://tele2dvrnat02.cdnvideo.ru/nat-ekaterinburg/playlist.m3u8
+#EXTINF:-1 tvg-name="Tele2_Prima" group-title="NAT Tele2" ,NAT Прима
+https://tele2dvrnat02.cdnvideo.ru/nat-prima/playlist.m3u8
+
+# ===== ДРУГИЕ CDNVIDEO.RU: МУЗЫКАЛЬНЫЕ (8) =====
+#EXTINF:-1 tvg-name="ShansonTV" group-title="Музыкальные" ,Шансон ТВ
+https://hls.shansontv.cdnvideo.ru/shansontv/playlist.m3u8
+#EXTINF:-1 tvg-name="MusicBox" group-title="Музыкальные" ,Music Box
+https://musicbox.cdnvideo.ru/musicbox/playlist.m3u8
+#EXTINF:-1 tvg-name="YumorBox" group-title="Музыкальные" ,Юмор Box
+https://live.musicbox.cdnvideo.ru/yumorbox/playlist.m3u8
+#EXTINF:-1 tvg-name="MuzZone" group-title="Музыкальные" ,MuzZone
+https://live.muzzone.cdnvideo.ru/muzzone/playlist.m3u8
+#EXTINF:-1 tvg-name="RUTV" group-title="Музыкальные" ,RU TV
+https://live-rmg.cdnvideo.ru/rutv/playlist.m3u8
+#EXTINF:-1 tvg-name="TVSoyuz" group-title="Музыкальные" ,МузСоюз / Союз
+https://hls-tvsoyuz.cdnvideo.ru/tvsoyuz/playlist.m3u8
+#EXTINF:-1 tvg-name="EuropaPlusTV" group-title="Музыкальные" ,Europa Plus ТВ
+https://europaplus.cdnvideo.ru/europaplus/playlist.m3u8
+#EXTINF:-1 tvg-name="MaidanTV" group-title="Музыкальные" ,Майдан ТВ
+https://live-maidantv.cdnvideo.ru/maidantv/playlist.m3u8
+
+# ===== ДРУГИЕ CDNVIDEO.RU: ПРОЧИЕ (10) =====
+#EXTINF:-1 tvg-name="BoutiqueTV" group-title="Прочие (cdnvideo)" ,Boutique TV (БТQ)
+https://live-btq.cdnvideo.ru/btq/playlist.m3u8
+#EXTINF:-1 tvg-name="BoxingTV" group-title="Прочие (cdnvideo)" ,Бокс ТВ
+https://hls.boxingtvru.cdnvideo.ru/boxing/playlist.m3u8
+#EXTINF:-1 tvg-name="OceanTV" group-title="Прочие (cdnvideo)" ,Ocean TV
+https://live-oceantvhd.cdnvideo.ru/oceantv/playlist.m3u8
+#EXTINF:-1 tvg-name="TVA" group-title="Прочие (cdnvideo)" ,ТВА / РЖД ТВ
+https://hls.tva.cdnvideo.ru/tva/playlist.m3u8
+#EXTINF:-1 tvg-name="UvelirochkaTV" group-title="Прочие (cdnvideo)" ,Ювелирочка ТВ
+https://live-uvelirochka.cdnvideo.ru/uvelirochka/playlist.m3u8
+#EXTINF:-1 tvg-name="TDKTV" group-title="Прочие (cdnvideo)" ,ТДК ТВ
+https://live.tdktv.cdnvideo.ru/tdktv/playlist.m3u8
+#EXTINF:-1 tvg-name="AlluTV" group-title="Прочие (cdnvideo)" ,Аллу ТВ
+https://hls-mycdn0539860594.cdnvideo.ru/allutv/playlist.m3u8
+#EXTINF:-1 tvg-name="SolnTV" group-title="Прочие (cdnvideo)" ,Солн ТВ
+https://hls.solntv.cdnvideo.ru/solntv/playlist.m3u8
+#EXTINF:-1 tvg-name="INVATV" group-title="Прочие (cdnvideo)" ,ИНВА ТВ
+https://invatv.cdnvideo.ru/invatv/playlist.m3u8
+#EXTINF:-1 tvg-name="Nadezhda" group-title="Прочие (cdnvideo)" ,Надежда
+https://tvhope.cdnvideo.ru/tvhope/playlist.m3u8
+
+# ===== ДРУГИЕ CDNVIDEO.RU: МЕЖДУНАРОДНЫЕ (4) =====
+#EXTINF:-1 tvg-name="AlmatyTV" group-title="Международные" ,Алматы ТВ (Казахстан)
+https://live-almatytv.cdnvideo.ru/almatytv/playlist.m3u8
+#EXTINF:-1 tvg-name="Atameken" group-title="Международные" ,Атамекен (Казахстан)
+https://live-atameken.cdnvideo.ru/atameken/playlist.m3u8
+#EXTINF:-1 tvg-name="RikaTV" group-title="Международные" ,Рика ТВ (Казахстан)
+https://live-rikatv.cdnvideo.ru/rikatv/playlist.m3u8
+#EXTINF:-1 tvg-name="KyivTV" group-title="Международные" ,Киев ТВ
+https://hls-kyivtv.cdnvideo.ru/kyivtv/playlist.m3u8
+
+# ===== АЛЬТ. ИСТОЧНИКИ: КИНО — RED MEDIA (10) =====
+#EXTINF:-1 tvg-name="KinoUzhas" group-title="Кино (альт.)" ,Киноужас
+http://stream.mcquack.net/278/index.m3u8
+#EXTINF:-1 tvg-name="KinoHit" group-title="Кино (альт.)" ,Кинохит
+http://streamer1.ruslanatv.ru/russia/kinohit_2023/playlist.m3u8
+#EXTINF:-1 tvg-name="KinoPremiera" group-title="Кино (альт.)" ,Кинопремьера
+http://45.159.74.13/Kinopremera/index.m3u8
+#EXTINF:-1 tvg-name="KinoMiks" group-title="Кино (альт.)" ,Киномикс
+http://streamer1.ruslanatv.ru/russia/kinomiks_2023/playlist.m3u8
+#EXTINF:-1 tvg-name="KinoSemya" group-title="Кино (альт.)" ,Киносемья
+http://streamer1.ruslanatv.ru/russia/kinosemya_2023/playlist.m3u8
+#EXTINF:-1 tvg-name="KinoSvidanie" group-title="Кино (альт.)" ,Киносвидание
+http://94.154.83.88:10000/kinosvidanie
+#EXTINF:-1 tvg-name="KinoSeriya" group-title="Кино (альт.)" ,Киносерия
+http://streamer1.ruslanatv.ru/russia/kinoseria_2023/playlist.m3u8
+#EXTINF:-1 tvg-name="MuzhskoeKino" group-title="Кино (альт.)" ,Мужское кино
+http://streamer1.ruslanatv.ru/russia/mujskoe_kino_2023/playlist.m3u8
+#EXTINF:-1 tvg-name="NasheNovoeKino" group-title="Кино (альт.)" ,Наше новое кино
+http://streamer1.ruslanatv.ru/russia/nashe_novoe_kino_2023/playlist.m3u8
+#EXTINF:-1 tvg-name="RodnoeKino" group-title="Кино (альт.)" ,Родное кино
+http://streamer1.ruslanatv.ru/russia/rodnoe_kino_2023/playlist.m3u8
+#EXTINF:-1 tvg-name="IndiyskoeKino" group-title="Кино (альт.)" ,Индийское кино
+http://streamer1.ruslanatv.ru/russia/indiyskoe_kino_2023/playlist.m3u8
+
+# ===== АЛЬТ. ИСТОЧНИКИ: ПРОЧИЕ КИНОКАНАЛЫ (5) =====
+#EXTINF:-1 tvg-name="Sumiko_HD" group-title="Кино (альт.)" ,Sumiko HD (аниме)
+http://158.160.149.81:8080/8709/index.m3u8
+#EXTINF:-1 tvg-name="NST" group-title="Кино (альт.)" ,НСТ (Настоящее Страшное ТВ)
+https://s12.federal.tv:8082/feda/nst.stream/playlist.m3u8
+#EXTINF:-1 tvg-name="StrashnoeHD" group-title="Кино (альт.)" ,Страшное HD
+https://stream.backustv.ru/content/39864/index.m3u8
+#EXTINF:-1 tvg-name="NST_alt2" group-title="Кино (альт.)" ,НСТ (alt 2)
+https://cdn-cache01.voka.tv:443/live/6008.m3u8
+#EXTINF:-1 tvg-name="StrashnoeHD_alt" group-title="Кино (альт.)" ,Страшное HD (alt)
+http://stream.backustv.ru/live/btv2/index.m3u8
+
+# ===== АЛЬТ. ИСТОЧНИКИ: САПФИР (1) =====
+#EXTINF:-1 tvg-name="Sapfir_HD" group-title="Кино (альт.)" ,Сапфир HD (турецкие сериалы)
+http://rhsbjv7k.tvclub.xyz/iptv/UELNZLB72BZFXQ/6389/index.m3u8
+
+# ===== ДОПОЛНИТЕЛЬНО: СТРАНА FM TV (1) =====
+#EXTINF:-1 tvg-name="StranaFM" group-title="Прочие (cdnvideo)" ,Страна FM TV
+https://live.stranafm.cdnvideo.ru/stranafm/playlist.m3u8
+
+
+
+
+
+
+
