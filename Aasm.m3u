@@ -866,6 +866,141 @@ http://stream.mcquack.net/200/index.m3u8
 http://stream.mcquack.net/311/index.m3u8
 
 
+#EXTINF:-1 tvg-id="karusel" group-title="Эфирные ТВ Плюс",1. Карусель [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_KARUSEL/variant.m3u8
+#EXTINF:-1 tvg-id="karusel" group-title="Эфирные ТВ Плюс",2. Карусель [RT федеральный]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_KARUSEL/variant.m3u8
+#EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ Плюс",3. РЕН ТВ [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_RENTV/variant.m3u8
+#EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ Плюс",4. РЕН ТВ [RT федеральный]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_RENTV/variant.m3u8
+#EXTINF:-1 tvg-id="tv3" group-title="Эфирные ТВ Плюс",5. ТВ-3 [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_TV3/variant.m3u8
+#EXTINF:-1 tvg-id="tv3" group-title="Эфирные ТВ Плюс",6. ТВ-3 [RT федеральный]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_TV3/variant.m3u8
+#EXTINF:-1 tvg-id="mir" group-title="Эфирные ТВ Плюс",7. Мир [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_MIR/variant.m3u8
+#EXTINF:-1 tvg-id="mir" group-title="Эфирные ТВ Плюс",8. Мир [RT федеральный]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_MIR/variant.m3u8
+#EXTINF:-1 tvg-id="ocean_tv" group-title="Эфирные ТВ Плюс",9. Ocean TV [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_OCEANTV/variant.m3u8
+#EXTINF:-1 tvg-id="viasat_nature" group-title="Эфирные ТВ Плюс",10. viju_nature [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_VIASATNATUREHD/variant.m3u8
+#EXTINF:-1 tvg-id="viasat_nature" group-title="Эфирные ТВ Плюс",11. viju_nature [RT федеральный]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_VIASATNATUREHD/variant.m3u8
+#EXTINF:-1 tvg-id="viasat_explore" group-title="Эфирные ТВ Плюс",12. viju_explore [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_VIASATEXPLOREHD/variant.m3u8
+#EXTINF:-1 tvg-id="viasat_explore" group-title="Эфирные ТВ Плюс",13. viju_explore [RT федеральный]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_VIASATEXPLOREHD/variant.m3u8
+#EXTINF:-1 tvg-id="viasat_history" group-title="Эфирные ТВ Плюс",14. viju_history [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_VIASATHISTORYHD/variant.m3u8
+#EXTINF:-1 tvg-id="viasat_history" group-title="Эфирные ТВ Плюс",15. viju_history [RT федеральный]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_VIASATHISTORYHD/variant.m3u8
+#EXTINF:-1 tvg-id="tiji" group-title="Эфирные ТВ Плюс",16. TiJi [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_TIJI/variant.m3u8
+#EXTINF:-1 tvg-id="tiji" group-title="Эфирные ТВ Плюс",17. TiJi [RT федеральный]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_TIJI/variant.m3u8
+#EXTINF:-1 tvg-id="gulli" group-title="Эфирные ТВ Плюс",18. Gulli [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_GULLI/variant.m3u8
+#EXTINF:-1 tvg-id="gulli" group-title="Эфирные ТВ Плюс",19. Gulli [RT федеральный]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_GULLI/variant.m3u8
+#EXTINF:-1 tvg-id="nickelodeon" group-title="Эфирные ТВ Плюс",20. Nickelodeon [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_NICKEL/variant.m3u8
+#EXTINF:-1 tvg-id="nicktoons" group-title="Эфирные ТВ Плюс",21. NickToons [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_NICKTOONS/variant.m3u8
+#EXTINF:-1 tvg-id="baby_tv" group-title="Эфирные ТВ Плюс",22. Baby TV [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_BABYTV/variant.m3u8
+#EXTINF:-1 tvg-id="match_planeta" group-title="Эфирные ТВ Плюс",23. Матч! Планета [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_MATCHPLANETA/variant.m3u8
+#EXTINF:-1 tvg-id="fightbox" group-title="Эфирные ТВ Плюс",24. FightBox [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_FIGHTBOX/variant.m3u8
+#EXTINF:-1 tvg-id="trace_sport_stars" group-title="Эфирные ТВ Плюс",25. Trace Sport Stars [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_TRACESPORT/variant.m3u8
+#EXTINF:-1 tvg-id="amedia_1" group-title="Эфирные ТВ Плюс",26. Amedia 1 [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_AMEDIA1/variant.m3u8
+#EXTINF:-1 tvg-id="amedia_2" group-title="Эфирные ТВ Плюс",27. Amedia 2 [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_AMEDIA2/variant.m3u8
+#EXTINF:-1 tvg-id="amedia_premium_hd" group-title="Эфирные ТВ Плюс",28. Amedia Premium HD [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_AMEDIAPREMIUMHD/variant.m3u8
+#EXTINF:-1 tvg-id="amedia_hit" group-title="Эфирные ТВ Плюс",29. Amedia Hit [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_AMEDIAHITHD/variant.m3u8
+#EXTINF:-1 tvg-id="amedia_hit" group-title="Эфирные ТВ Плюс",30. Amedia Hit [RT федеральный]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_AMEDIAHITHD/variant.m3u8
+#EXTINF:-1 tvg-id="filmbox" group-title="Эфирные ТВ Плюс",31. FilmBox [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_FILMBOX/variant.m3u8
+#EXTINF:-1 tvg-id="filmbox_arthouse" group-title="Эфирные ТВ Плюс",32. FilmBox Arthouse [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_FILMBOXARTHOUSE/variant.m3u8
+#EXTINF:-1 tvg-id="amc" group-title="Эфирные ТВ Плюс",33. AMC [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_AMC/variant.m3u8
+#EXTINF:-1 tvg-id="dom_kino" group-title="Эфирные ТВ Плюс",34. Дом Кино [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_DOMKINO/variant.m3u8
+#EXTINF:-1 tvg-id="dom_kino" group-title="Эфирные ТВ Плюс",35. Дом Кино [RT федеральный]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_DOMKINO/variant.m3u8
+#EXTINF:-1 tvg-id="dom_kino_premium_hd" group-title="Эфирные ТВ Плюс",36. Дом Кино Премиум HD [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_DOMKINOPREMIUMHD/variant.m3u8
+#EXTINF:-1 tvg-id="dom_kino_premium_hd" group-title="Эфирные ТВ Плюс",37. Дом Кино Премиум HD [RT федеральный]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_DOMKINOPREMIUMHD/variant.m3u8
+#EXTINF:-1 tvg-id="evrokino" group-title="Эфирные ТВ Плюс",38. Еврокино [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_EUROKINO/variant.m3u8
+#EXTINF:-1 tvg-id="evrokino" group-title="Эфирные ТВ Плюс",39. Еврокино [RT федеральный]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_EUROKINO/variant.m3u8
+#EXTINF:-1 tvg-id="illusion_plus" group-title="Эфирные ТВ Плюс",40. Иллюзион+ [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_ILLUSIONPLUS/variant.m3u8
+#EXTINF:-1 tvg-id="mir_seriala" group-title="Эфирные ТВ Плюс",41. Мир сериала [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_MIRSERIALA/variant.m3u8
+#EXTINF:-1 tvg-id="mir_seriala" group-title="Эфирные ТВ Плюс",42. Мир сериала [RT федеральный]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_MIRSERIALA/variant.m3u8
+#EXTINF:-1 tvg-id="tv_xxi" group-title="Эфирные ТВ Плюс",43. ТВ XXI [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_TVXXI/variant.m3u8
+#EXTINF:-1 tvg-id="365_dney_tv" group-title="Эфирные ТВ Плюс",44. 365 дней ТВ [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_365DNEYTV/variant.m3u8
+#EXTINF:-1 tvg-id="galaxy" group-title="Эфирные ТВ Плюс",45. Galaxy [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_GALAXY/variant.m3u8
+#EXTINF:-1 tvg-id="sony_channel" group-title="Эфирные ТВ Плюс",46. Sony Channel [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_SONYCHANNEL/variant.m3u8
+#EXTINF:-1 tvg-id="sony_turbo" group-title="Эфирные ТВ Плюс",47. Sony Turbo [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_SONYTURBO/variant.m3u8
+#EXTINF:-1 tvg-id="sony_turbo" group-title="Эфирные ТВ Плюс",48. Sony Turbo [RT федеральный]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_SONYTURBO/variant.m3u8
+#EXTINF:-1 tvg-id="history_2" group-title="Эфирные ТВ Плюс",49. History 2 [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_HISTORY2/variant.m3u8
+#EXTINF:-1 tvg-id="docubox" group-title="Эфирные ТВ Плюс",50. DocuBox [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_DOCUBOX/variant.m3u8
+#EXTINF:-1 tvg-id="nostalgia" group-title="Эфирные ТВ Плюс",51. Ностальгия [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_NOSTALGIA/variant.m3u8
+#EXTINF:-1 tvg-id="da_vinci" group-title="Эфирные ТВ Плюс",52. Da Vinci [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_DAVINCILEARNING/variant.m3u8
+#EXTINF:-1 tvg-id="da_vinci" group-title="Эфирные ТВ Плюс",53. Da Vinci [RT федеральный]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_DAVINCILEARNING/variant.m3u8
+#EXTINF:-1 tvg-id="kitchen_tv" group-title="Эфирные ТВ Плюс",54. Kitchen TV [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_KITCHENTV/variant.m3u8
+#EXTINF:-1 tvg-id="mezzo" group-title="Эфирные ТВ Плюс",55. Mezzo [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_MEZZO/variant.m3u8
+#EXTINF:-1 tvg-id="tnt_music" group-title="Эфирные ТВ Плюс",56. ТНТ Music [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_TNTMUSICHD/variant.m3u8
+#EXTINF:-1 tvg-id="tnt_music" group-title="Эфирные ТВ Плюс",57. ТНТ Music [RT федеральный]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_TNTMUSICHD/variant.m3u8
+#EXTINF:-1 tvg-id="rtvi" group-title="Эфирные ТВ Плюс",58. RTVi [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_RTVI/variant.m3u8
+#EXTINF:-1 tvg-id="tv5_monde" group-title="Эфирные ТВ Плюс",59. TV5 Monde [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_TV5MONDE/variant.m3u8
+#EXTINF:-1 tvg-id="fashion_tv" group-title="Эфирные ТВ Плюс",60. Fashion TV [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_FASHIONTVHD/variant.m3u8
+#EXTINF:-1 tvg-id="fashion_tv" group-title="Эфирные ТВ Плюс",61. Fashion TV [RT федеральный]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_FASHIONTVHD/variant.m3u8
+#EXTINF:-1 tvg-id="viasat_sport" group-title="Эфирные ТВ Плюс",62. viju_plus_sport [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_VIASATSPORT/variant.m3u8
+#EXTINF:-1 tvg-id="viasat_sport" group-title="Эфирные ТВ Плюс",63. viju_plus_sport [RT федеральный]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_VIASATSPORT/variant.m3u8
+#EXTINF:-1 tvg-id="vip_premiere" group-title="Эфирные ТВ Плюс",64. viju_plus_premiere [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_VIJUPREMIERE/variant.m3u8
+#EXTINF:-1 tvg-id="vip_megahit" group-title="Эфирные ТВ Плюс",65. viju_plus_megahit [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_VIJUMEGAHIT/variant.m3u8
+#EXTINF:-1 tvg-id="vip_comedy" group-title="Эфирные ТВ Плюс",66. viju_plus_comedy [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_VIJUCOMEDY/variant.m3u8
+#EXTINF:-1 tvg-id="vip_serial" group-title="Эфирные ТВ Плюс",67. viju_plus_serial [Калининград]
+https://rt-nw-klgr-htlive.cdn.ngenix.net/hls/CH_R01_VIJUSERIAL/variant.m3u8
+
 
 
 
