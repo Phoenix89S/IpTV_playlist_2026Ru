@@ -57,8 +57,7 @@ http://stream.mcquack.net/62/index.m3u8
 http://stream.mcquack.net/63/index.m3u8
 #EXTINF:-1 group-title="Кино",Kinopokaz
 http://stream.mcquack.net/64/index.m3u8
-#EXTINF:-1 group-title="Общие",Канал 66
-http://stream.mcquack.net/66/index.m3u8
+
 #EXTINF:-1 group-title="Юмор",Komedia
 http://stream.mcquack.net/68/index.m3u8
 #EXTINF:-1 group-title="Развлекательные",.red
