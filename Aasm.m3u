@@ -434,10 +434,8 @@ http://stream.mcquack.net/286/index.m3u8
 http://stream.mcquack.net/287/index.m3u8
 #EXTINF:-1 group-title="Развлекательные",Fashion
 http://stream.mcquack.net/288/index.m3u8
-#EXTINF:-1 group-title="Развлекательные",Канал 289
-http://stream.mcquack.net/289/index.m3u8
-#EXTINF:-1 group-title="Развлекательные",Канал 290
-http://stream.mcquack.net/290/index.m3u8
+
+
 #EXTINF:-1 group-title="Новости",Channel 5
 http://stream.mcquack.net/291/index.m3u8
 #EXTINF:-1 group-title="Спорт",Канал 292
