@@ -1,0 +1,87 @@
+name: IpTV_fallback
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    # Каждый день в 04:00 UTC
+    - cron: "0 4 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: iptv-fallback
+  cancel-in-progress: true
+
+jobs:
+  IpTV_fallback:
+    name: IPTV Fallback / FULL PATH HLS MATRIX
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Show environment
+        run: |
+          python --version
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "Run: $GITHUB_RUN_ID"
+          echo "Commit: $GITHUB_SHA"
+
+      - name: Verify fallback script
+        run: |
+          test -f IpTV_fallback.py
+          python -m py_compile IpTV_fallback.py
+          echo "IpTV_fallback.py OK"
+
+      - name: Run IPTV fallback
+        run: |
+          python3 IpTV_fallback.py \
+            --playlist "ngSKALA.m3u" \
+            --output "megred_auto.m3u"
+
+      - name: Validate generated playlist
+        run: |
+          test -f megred_auto.m3u
+          echo "Generated playlist:"
+          wc -l megred_auto.m3u
+          echo "Streams:"
+          grep -c '^http' megred_auto.m3u || true
+
+      - name: Show result
+        run: |
+          echo "===== megred_auto.m3u ====="
+          sed -n '1,80p' megred_auto.m3u
+          echo "===== END ====="
+
+      - name: Upload megred_auto.m3u
+        uses: actions/upload-artifact@v4
+        with:
+          name: megred_auto
+          path: megred_auto.m3u
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Commit generated playlist
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add megred_auto.m3u
+
+          if git diff --cached --quiet; then
+            echo "No changes in megred_auto.m3u"
+          else
+            git commit -m "Auto-update megred_auto.m3u"
+            git push
+          fi
