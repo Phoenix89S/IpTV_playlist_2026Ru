@@ -47,28 +47,10 @@ http://stream.mcquack.net/48/index.m3u8
 http://stream.mcquack.net/49/index.m3u8
 #EXTINF:-1 group-title="Общие",Канал 50
 http://stream.mcquack.net/50/index.m3u8
-#EXTINF:-1 group-title="Общие",Канал 51
-http://stream.mcquack.net/51/index.m3u8
-#EXTINF:-1 group-title="Общие",Канал 52
-http://stream.mcquack.net/52/index.m3u8
-#EXTINF:-1 group-title="Общие",Канал 53
-http://stream.mcquack.net/53/index.m3u8
-#EXTINF:-1 group-title="Общие",Канал 54
-http://stream.mcquack.net/54/index.m3u8
-#EXTINF:-1 group-title="Общие",Канал 55
-http://stream.mcquack.net/55/index.m3u8
-#EXTINF:-1 group-title="Общие",Канал 56
-http://stream.mcquack.net/56/index.m3u8
-#EXTINF:-1 group-title="Общие",Канал 57
-http://stream.mcquack.net/57/index.m3u8
-#EXTINF:-1 group-title="Общие",Канал 58
-http://stream.mcquack.net/58/index.m3u8
-#EXTINF:-1 group-title="Общие",Канал 59
-http://stream.mcquack.net/59/index.m3u8
+
 #EXTINF:-1 group-title="Детские",О!
 http://stream.mcquack.net/60/index.m3u8
-#EXTINF:-1 group-title="Общие",Канал 61
-http://stream.mcquack.net/61/index.m3u8
+
 #EXTINF:-1 group-title="Общие",Канал 62
 http://stream.mcquack.net/62/index.m3u8
 #EXTINF:-1 group-title="Общие",Канал 63
