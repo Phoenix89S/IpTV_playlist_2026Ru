@@ -1185,6 +1185,8 @@ http://maxtv.123tv.to:8080/live/GregWoi/6zb7jrUQNK/78189.m3u8
 http://maxtv.123tv.to:8080/live/GregWoi/6zb7jrUQNK/78190.m3u8
 #EXTINF:-1 tvg-id="Canalplus Sport 5 PL" tvg-logo="http://tugapt.com/picons/canal-plus-sport-5-polska-pl.png" group-title="Poland",CANAL+ Sport 5 HD PL
 http://maxtv.123tv.to:8080/live/GregWoi/6zb7jrUQNK/54963.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr0V9Q9JX0PFH0qliVQj44nEvcdNQA-AfxbuEDuBPGdyVRyuBtPMo3fsFv&s=10" group-title="Poland",Canal+ Sport 6 PL
+http://maxtv.123tv.to:8080/live/GregWoi/6zb7jrUQNK/146171.m3u8
 #EXTINF:-1 tvg-id="Canalplus NOW PL" tvg-logo="http://tugapt.com/picons/canal+now-pl.png" group-title="Poland",Canal+ NOW FHD PL
 http://maxtv.123tv.to:8080/live/GregWoi/6zb7jrUQNK/78204.m3u8
 #EXTINF:-1 tvg-id="Canalplus Sport 2 PL" tvg-logo="http://tugapt.com/picons/canalplussport2hd.png" group-title="Poland",Canal+ Sport 2 HD PL
