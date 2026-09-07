@@ -420,12 +420,10 @@ http://stream.mcquack.net/279/index.m3u8
 http://stream.mcquack.net/280/index.m3u8
 #EXTINF:-1 group-title="Музыка",UA Music
 http://stream.mcquack.net/281/index.m3u8
-#EXTINF:-1 group-title="Музыка",Канал 282
-http://stream.mcquack.net/282/index.m3u8
+
 #EXTINF:-1 group-title="Музыка",Black
 http://stream.mcquack.net/283/index.m3u8
-#EXTINF:-1 group-title="Музыка",Канал 284
-http://stream.mcquack.net/284/index.m3u8
+
 #EXTINF:-1 group-title="Музыка",¡Viva Latino!
 http://stream.mcquack.net/285/index.m3u8
 #EXTINF:-1 group-title="Музыка",Канал 286
