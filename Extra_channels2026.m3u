@@ -12785,8 +12785,7 @@ http://stream.mcquack.net/277/index.m3u8
 http://stream.mcquack.net/278/index.m3u8
 #EXTINF:-1 group-title="Разное ТВ-эфир", 207. UDAR
 http://stream.mcquack.net/279/index.m3u8
-#EXTINF:-1 group-title="Разное ТВ-эфир", 208. Канал 280
-http://stream.mcquack.net/280/index.m3u8
+
 #EXTINF:-1 group-title="Разное ТВ-эфир", 209. UA Music
 http://stream.mcquack.net/281/index.m3u8
 #EXTINF:-1 group-title="Разное ТВ-эфир", 210. Black
