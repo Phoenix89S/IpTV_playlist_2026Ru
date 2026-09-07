@@ -1,73 +1,25 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""IPTV FALLBACK / AUTO RECOVERY
 
-"""
-IPTV FALLBACK / AUTO RECOVERY
-=============================
+Накопительный failover-модуль для Зои.
+- проверяет каждый исходный поток;
+- для мёртвого канала ищет строго совпадающие кандидаты;
+- генерирует CH_* / CH_R01_* варианты на известных NGENIX и RT host;
+- проверяет HLS, HTTP-код и latency;
+- сохраняет кандидатов и историю проверок в SQLite без удаления старых записей;
+- создаёт новый merged_auto_N.m3u и fallback_report_N.json при каждом запуске;
+- старые результаты никогда не перезаписываются.
 
-Назначение:
-    Автоматическое обнаружение мёртвых IPTV-потоков и восстановление
-    вещания путём поиска/генерации и проверки альтернативных потоков.
-
-Основная схема:
-
-    PLAYLIST
-       |
-       +--> проверка существующих потоков
-       |
-       +--> dead channel
-                |
-                +--> known aliases
-                +--> NGENIX hosts / s7xxxx
-                +--> RT / Ростелеком HLS
-                +--> generated CH_* paths
-                +--> external public M3U sources
-                +--> public discovery pages
-                |
-                +--> STRICT CHANNEL MATCH
-                |
-                +--> HLS CHECK
-                |
-                +--> FALLBACK
-                         |
-                         +--> megred_auto.m3u
-                         +--> fallback_report.txt
-                         +--> fallback_state.json
-
-Примеры:
-
-    python3 IpTV_fallback.py \
-        --playlist input.m3u \
-        --output megred_auto.m3u
-
-    python3 IpTV_fallback.py \
-        --playlist input.m3u \
-        --output megred_auto.m3u \
-        --watch
-
-    python3 IpTV_fallback.py \
-        --playlist input.m3u \
-        --output megred_auto.m3u \
-        --workers 32
-
-ВАЖНО:
-    Этот модуль НЕ считает ссылку рабочей только потому, что она найдена.
-    Каждый кандидат проходит проверку.
-
-    Также URL не считается заменой только из-за похожего названия.
-    Для fallback требуется совпадение tvg-id, точного alias или достаточно
-    строгого имени канала.
-
-    Например:
-        "H1 Исторический"
-    не может автоматически получить:
-        "Первый канал"
+Источники ограничены публичными M3U/URL, переданными пользователем или указанными
+в конфигурации.
 """
 
 import argparse
 import concurrent.futures
 import json
 import re
+import sqlite3
 import ssl
 import sys
 import time
@@ -77,17 +29,15 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 
-# ============================================================
-# CONFIG
-# ============================================================
-
-DEFAULT_WORKERS = 32
+DEFAULT_WORKERS = 48
 DEFAULT_TIMEOUT = 5
-DEFAULT_FETCH_TIMEOUT = 15
-DEFAULT_WATCH_INTERVAL = 60
+DEFAULT_FETCH_TIMEOUT = 20
+DEFAULT_INTERVAL = 60
 
-OUTPUT_REPORT = "fallback_report.txt"
-OUTPUT_STATE = "fallback_state.json"
+DB_PATH = "fallback_candidates.db"
+DEFAULT_OUTPUT = "merged_auto.m3u"
+DEFAULT_REPORT = "fallback_report.json"
+
 
 SSL_CTX = ssl.create_default_context()
 SSL_CTX.check_hostname = False
@@ -105,22 +55,20 @@ UA_GENERIC = (
 )
 
 UA_WINK_ZABAVA = (
-    "Wink/1.0 "
-    "(Linux; Android 10; TV)"
+    "Wink/1.0 (Linux; Android 10; TV)"
 )
 
 UA_HLS = (
     "Mozilla/5.0 "
-    "(compatible; IPTV-Fallback/1.0; +https://github.com/)"
+    "(compatible; IPTV-Fallback/2.0)"
 )
 
 
 # ============================================================
-# KNOWN EXTERNAL SOURCES
+# EXTERNAL SOURCES
 # ============================================================
 
 EXTERNAL_SOURCES = [
-    # Public IPTV repositories / playlists.
     "https://iptv-org.github.io/iptv/countries/ru.m3u",
     "https://naggdd.github.io/iptv/ru.m3u",
     "https://raw.githubusercontent.com/Free-TV/IPTV/master/playlists/playlist_russia.m3u8",
@@ -128,26 +76,13 @@ EXTERNAL_SOURCES = [
 
 
 # ============================================================
-# NGENIX HOSTS
+# NGENIX / RT HOSTS
 # ============================================================
 
-# Известные/используемые NGENIX entry points.
-# Список можно расширять без изменения основной логики.
 NGENIX_HOSTS = [
     "rt-nw-klgr-htlive.cdn.ngenix.net",
-]
-
-# s7xxxx hosts.
-# Допускается автоматическое расширение диапазона через CLI:
-# --ngenix-host s70790.cdn.ngenix.net
-NGENIX_S_HOSTS = [
     "s70790.cdn.ngenix.net",
 ]
-
-
-# ============================================================
-# ROSTELECOM / RT HLS HOSTS
-# ============================================================
 
 RT_HOSTS = [
     "hlsstr01.svc.iptv.rt.ru",
@@ -159,6 +94,7 @@ RT_HOSTS = [
 # ============================================================
 
 CHANNEL_ALIASES = {
+
     "karusel": [
         "карусель",
         "karusel",
@@ -171,8 +107,8 @@ CHANNEL_ALIASES = {
     ],
 
     "tv3": [
-        "тв-3",
         "тв 3",
+        "тв-3",
         "tv3",
         "tv-3",
     ],
@@ -190,22 +126,22 @@ CHANNEL_ALIASES = {
 
     "viasat_nature": [
         "viju nature",
-        "viju_nature",
         "viasat nature",
+        "viju_nature",
         "viasat_nature",
     ],
 
     "viasat_explore": [
         "viju explore",
-        "viju_explore",
         "viasat explore",
+        "viju_explore",
         "viasat_explore",
     ],
 
     "viasat_history": [
         "viju history",
-        "viju_history",
         "viasat history",
+        "viju_history",
         "viasat_history",
     ],
 
@@ -240,7 +176,6 @@ CHANNEL_ALIASES = {
         "матч! планета",
         "match planeta",
         "match! planeta",
-        "match_planeta",
     ],
 
     "fightbox": [
@@ -251,32 +186,29 @@ CHANNEL_ALIASES = {
     "trace_sport_stars": [
         "trace sport",
         "trace sport stars",
-        "trace_sport",
         "trace_sport_stars",
     ],
 
     "amedia_1": [
         "amedia 1",
-        "a1",
         "amedia1",
+        "a1",
     ],
 
     "amedia_2": [
         "amedia 2",
-        "a2",
         "amedia2",
+        "a2",
     ],
 
     "amedia_premium_hd": [
         "amedia premium",
         "amedia premium hd",
-        "amedia_premium_hd",
     ],
 
     "amedia_hit": [
         "amedia hit",
         "amedia hit hd",
-        "amedia_hit",
         "amediahithd",
     ],
 
@@ -288,7 +220,6 @@ CHANNEL_ALIASES = {
     "filmbox_arthouse": [
         "filmbox arthouse",
         "film box arthouse",
-        "filmbox_arthouse",
     ],
 
     "amc": [
@@ -305,7 +236,6 @@ CHANNEL_ALIASES = {
         "дом кино премиум",
         "дом кино премиум hd",
         "dom kino premium",
-        "dom_kino_premium_hd",
     ],
 
     "evrokino": [
@@ -319,7 +249,6 @@ CHANNEL_ALIASES = {
         "иллюзион+",
         "illusion",
         "illusion plus",
-        "illusion_plus",
     ],
 
     "mir_seriala": [
@@ -334,16 +263,13 @@ CHANNEL_ALIASES = {
         "тв 21",
         "tv 21",
         "tvxxi",
-        "tv_xxi",
     ],
 
     "365_dney_tv": [
         "365 дней",
         "365 дней тв",
-        "365",
         "365 dney",
         "365 dney tv",
-        "365_dney_tv",
     ],
 
     "galaxy": [
@@ -354,7 +280,6 @@ CHANNEL_ALIASES = {
     "sony_channel": [
         "sony channel",
         "sony",
-        "sony_channel",
     ],
 
     "sony_turbo": [
@@ -389,7 +314,6 @@ CHANNEL_ALIASES = {
     "kitchen_tv": [
         "kitchen tv",
         "kitchen",
-        "kitchen_tv",
     ],
 
     "mezzo": [
@@ -419,7 +343,6 @@ CHANNEL_ALIASES = {
         "fashion tv",
         "fashion",
         "fashiontv",
-        "fashion_tv",
     ],
 
     "viasat_sport": [
@@ -427,7 +350,6 @@ CHANNEL_ALIASES = {
         "viju+ sport",
         "viasat sport",
         "viasat_sport",
-        "viasatplus sport",
     ],
 
     "vip_premiere": [
@@ -435,7 +357,6 @@ CHANNEL_ALIASES = {
         "viju+ premiere",
         "vip premiere",
         "viju premiere",
-        "vip_premiere",
     ],
 
     "vip_megahit": [
@@ -443,7 +364,6 @@ CHANNEL_ALIASES = {
         "viju+ megahit",
         "vip megahit",
         "viju megahit",
-        "vip_megahit",
     ],
 
     "vip_comedy": [
@@ -451,7 +371,6 @@ CHANNEL_ALIASES = {
         "viju+ comedy",
         "vip comedy",
         "viju comedy",
-        "vip_comedy",
     ],
 
     "vip_serial": [
@@ -459,33 +378,16 @@ CHANNEL_ALIASES = {
         "viju+ serial",
         "vip serial",
         "viju serial",
-        "vip_serial",
     ],
 }
 
 
 # ============================================================
-# KNOWN PATH ALIASES
+# CHANNEL PATH ALIASES
 # ============================================================
 
-# tvg-id -> canonical CH names.
-#
-# Это отдельный слой от названий.
-# Он нужен для преобразования:
-#
-# tvg-id
-#    ->
-# CH_...
-#    ->
-# /hls/CH_.../variant.m3u8
-#
-# и:
-#
-# tvg-id
-#    ->
-# CH_R01_...
-#
 CHANNEL_PATH_ALIASES = {
+
     "karusel": [
         "CH_KARUSEL",
         "CH_R01_KARUSEL",
@@ -729,43 +631,163 @@ CHANNEL_PATH_ALIASES = {
 
 
 # ============================================================
+# NORMALIZATION
+# ============================================================
+
+def norm(value):
+    value = (value or "").lower()
+
+    value = value.replace("ё", "е")
+    value = value.replace("_", " ")
+    value = value.replace("-", " ")
+
+    value = re.sub(
+        r"\[[^]]*\]|\([^)]*\)",
+        " ",
+        value,
+    )
+
+    value = re.sub(
+        r"[^\w\sа-яА-ЯёЁ]+",
+        " ",
+        value,
+    )
+
+    value = re.sub(
+        r"\s+",
+        " ",
+        value,
+    )
+
+    return value.strip()
+
+
+def cid(value):
+    return norm(value).replace(" ", "_")
+
+
+def clean_name(value):
+    value = re.sub(
+        r"^\s*\d+\.\s*",
+        "",
+        value or "",
+    )
+
+    value = re.sub(
+        r"\s*\[(?:калининград|rt федеральный|федеральный)\]\s*$",
+        "",
+        value,
+        flags=re.IGNORECASE,
+    )
+
+    return value.strip()
+
+
+# ============================================================
+# ALIAS RESOLUTION
+# ============================================================
+
+def aliases(channel):
+    tid = cid(channel["tvg_id"])
+
+    result = {
+        norm(channel["tvg_id"]),
+        norm(channel["name"]),
+    }
+
+    result.update(
+        norm(x)
+        for x in CHANNEL_ALIASES.get(tid, [])
+    )
+
+    return {
+        x for x in result
+        if x
+    }
+
+
+def path_aliases(channel):
+    tid = cid(channel["tvg_id"])
+
+    if tid in CHANNEL_PATH_ALIASES:
+        return list(
+            dict.fromkeys(
+                CHANNEL_PATH_ALIASES[tid]
+            )
+        )
+
+    raw = re.sub(
+        r"[^A-Z0-9]+",
+        "",
+        tid.upper(),
+    )
+
+    if not raw:
+        return []
+
+    return [
+        f"CH_{raw}",
+        f"CH_R01_{raw}",
+    ]
+
+
+def channel_score(
+    channel,
+    name="",
+    tvg_id="",
+):
+    target = cid(channel["tvg_id"])
+    candidate_tid = cid(tvg_id)
+
+    candidate_name = norm(name)
+    known = aliases(channel)
+
+    if candidate_tid and candidate_tid == target:
+        return 1000
+
+    if candidate_name and candidate_name in known:
+        return 900
+
+    if (
+        candidate_name
+        and candidate_name == norm(channel["name"])
+    ):
+        return 800
+
+    return 0
+
+
+# ============================================================
 # HTTP
 # ============================================================
 
-def headers_for_url(url):
-    """
-    Выбор User-Agent.
-
-    Для NGENIX / Zabava используется Wink UA.
-    Для остальных HLS используется обычный IPTV UA.
-    """
-    host = urlparse(url).hostname or ""
-    host = host.lower()
+def headers(url):
+    host = (
+        urlparse(url).hostname
+        or ""
+    ).lower()
 
     if (
         "ngenix.net" in host
-        or "cdn.ngenix.net" in host
         or "zabava" in host
     ):
-        return {
-            "User-Agent": UA_WINK_ZABAVA,
-            "Accept": "*/*",
-            "Connection": "close",
-        }
+        ua = UA_WINK_ZABAVA
+    else:
+        ua = UA_HLS
 
     return {
-        "User-Agent": UA_HLS,
+        "User-Agent": ua,
         "Accept": "*/*",
         "Connection": "close",
     }
 
 
-def fetch_url(url, timeout=DEFAULT_FETCH_TIMEOUT):
-    """
-    Загрузка внешнего M3U / страницы.
-    """
+def fetch(
+    url,
+    timeout=DEFAULT_FETCH_TIMEOUT,
+):
     try:
-        req = urllib.request.Request(
+        request = urllib.request.Request(
             url,
             headers={
                 "User-Agent": UA_GENERIC,
@@ -774,136 +796,127 @@ def fetch_url(url, timeout=DEFAULT_FETCH_TIMEOUT):
         )
 
         with urllib.request.urlopen(
-            req,
+            request,
             timeout=timeout,
             context=SSL_CTX,
-        ) as resp:
-            data = resp.read()
+        ) as response:
 
-        return data.decode("utf-8", errors="ignore")
+            return response.read().decode(
+                "utf-8",
+                errors="ignore",
+            )
 
     except Exception:
         return None
 
 
 # ============================================================
-# STREAM CHECK
+# HLS CHECK
 # ============================================================
 
-def check_stream(url, timeout=DEFAULT_TIMEOUT):
-    """
-    Проверка HLS/M3U8.
-
-    Возвращает:
-        {
-            alive,
-            status,
-            reason,
-            content_type
-        }
-
-    Мы НЕ скачиваем весь поток.
-    Читаем только небольшой кусок.
-
-    Это существенно быстрее для большого количества кандидатов.
-    """
-
+def check(
+    url,
+    timeout=DEFAULT_TIMEOUT,
+):
     started = time.monotonic()
 
     try:
-        req = urllib.request.Request(
+        request = urllib.request.Request(
             url,
-            headers=headers_for_url(url),
+            headers=headers(url),
         )
 
         with urllib.request.urlopen(
-            req,
+            request,
             timeout=timeout,
             context=SSL_CTX,
-        ) as resp:
+        ) as response:
 
-            status = getattr(resp, "status", 200)
-            content_type = resp.headers.get("Content-Type", "")
+            status = getattr(
+                response,
+                "status",
+                200,
+            )
 
-            if status < 200 or status >= 400:
-                return {
-                    "alive": False,
-                    "status": status,
-                    "reason": f"http_{status}",
-                    "content_type": content_type,
-                    "latency": round(
-                        time.monotonic() - started,
-                        3,
-                    ),
-                }
+            content_type = response.headers.get(
+                "Content-Type",
+                "",
+            )
 
-            data = resp.read(4096)
+            data = response.read(8192)
 
-            if not data:
-                return {
-                    "alive": False,
-                    "status": status,
-                    "reason": "empty_response",
-                    "content_type": content_type,
-                    "latency": round(
-                        time.monotonic() - started,
-                        3,
-                    ),
-                }
+        latency = round(
+            time.monotonic() - started,
+            3,
+        )
 
-            lower = data.lower()
-
-            # Нормальный HLS playlist.
-            if (
-                b"#extm3u" in lower
-                or b"#extinf" in lower
-                or b"#ext-x-" in lower
-            ):
-                return {
-                    "alive": True,
-                    "status": status,
-                    "reason": "hls_ok",
-                    "content_type": content_type,
-                    "latency": round(
-                        time.monotonic() - started,
-                        3,
-                    ),
-                }
-
-            # Некоторые CDN возвращают binary/media data.
-            if len(data) >= 100:
-                return {
-                    "alive": True,
-                    "status": status,
-                    "reason": "data_ok",
-                    "content_type": content_type,
-                    "latency": round(
-                        time.monotonic() - started,
-                        3,
-                    ),
-                }
-
+        if not (
+            200 <= status < 300
+        ):
             return {
                 "alive": False,
                 "status": status,
-                "reason": "short_response",
+                "reason": f"http_{status}",
+                "latency": latency,
                 "content_type": content_type,
-                "latency": round(
-                    time.monotonic() - started,
-                    3,
-                ),
             }
+
+        lower = data.lower()
+
+        hls = (
+            b"#extm3u" in lower
+            or b"#extinf" in lower
+            or b"#ext-x-" in lower
+        )
+
+        media = (
+            len(data) >= 100
+            and (
+                "mpegurl"
+                in content_type.lower()
+                or "video"
+                in content_type.lower()
+                or "audio"
+                in content_type.lower()
+            )
+        )
+
+        if hls:
+            return {
+                "alive": True,
+                "status": status,
+                "reason": "hls_ok",
+                "latency": latency,
+                "content_type": content_type,
+            }
+
+        if media:
+            return {
+                "alive": True,
+                "status": status,
+                "reason": "media_ok",
+                "latency": latency,
+                "content_type": content_type,
+            }
+
+        return {
+            "alive": False,
+            "status": status,
+            "reason": "not_hls",
+            "latency": latency,
+            "content_type": content_type,
+        }
 
     except urllib.error.HTTPError as exc:
         return {
             "alive": False,
             "status": exc.code,
             "reason": f"http_{exc.code}",
-            "content_type": "",
             "latency": round(
                 time.monotonic() - started,
                 3,
             ),
+            "content_type": "",
         }
 
     except urllib.error.URLError as exc:
@@ -911,11 +924,11 @@ def check_stream(url, timeout=DEFAULT_TIMEOUT):
             "alive": False,
             "status": 0,
             "reason": f"url_error:{exc.reason}",
-            "content_type": "",
             "latency": round(
                 time.monotonic() - started,
                 3,
             ),
+            "content_type": "",
         }
 
     except Exception as exc:
@@ -923,66 +936,12 @@ def check_stream(url, timeout=DEFAULT_TIMEOUT):
             "alive": False,
             "status": 0,
             "reason": type(exc).__name__,
-            "content_type": "",
             "latency": round(
                 time.monotonic() - started,
                 3,
             ),
+            "content_type": "",
         }
-
-
-# ============================================================
-# NORMALIZATION
-# ============================================================
-
-def normalize_text(value):
-    """
-    Нормализация имени для безопасного сравнения.
-
-    Не используется как единственный критерий.
-    """
-    if not value:
-        return ""
-
-    value = value.lower().strip()
-
-    value = value.replace("ё", "е")
-    value = value.replace("_", " ")
-    value = value.replace("-", " ")
-
-    value = re.sub(r"\[[^\]]*\]", " ", value)
-    value = re.sub(r"\([^)]*\)", " ", value)
-
-    value = re.sub(r"[^\w\sа-яА-ЯёЁ]+", " ", value)
-
-    value = re.sub(r"\s+", " ", value)
-
-    return value.strip()
-
-
-def canonical_id(value):
-    """
-    Канонический tvg-id.
-    """
-    return normalize_text(value).replace(" ", "_")
-
-
-def clean_channel_name(name):
-    """
-    Убирает номер и технические хвосты.
-    """
-    if not name:
-        return ""
-
-    name = re.sub(r"^\s*\d+\.\s*", "", name)
-    name = re.sub(
-        r"\s*\[(?:калининград|rt федеральный|федеральный)\]\s*$",
-        "",
-        name,
-        flags=re.IGNORECASE,
-    )
-
-    return name.strip()
 
 
 # ============================================================
@@ -990,20 +949,12 @@ def clean_channel_name(name):
 # ============================================================
 
 def parse_m3u(text):
-    """
-    Парсер M3U.
-
-    Возвращает список каналов, а не dict только по tvg-id.
-    Это важно: один tvg-id может иметь несколько оригинальных потоков.
-    """
-
     channels = []
-
     current = None
 
-    for raw_line in text.splitlines():
+    for line in (text or "").splitlines():
 
-        line = raw_line.strip()
+        line = line.strip()
 
         if not line:
             continue
@@ -1025,19 +976,22 @@ def parse_m3u(text):
             name = ""
 
             if "," in line:
-                name = line.split(",", 1)[1].strip()
-
-            name = clean_channel_name(name)
+                name = clean_name(
+                    line.split(
+                        ",",
+                        1,
+                    )[1]
+                )
 
             tvg_id = (
                 tvg_match.group(1).strip()
                 if tvg_match
-                else canonical_id(name)
+                else cid(name)
             )
 
             current = {
                 "tvg_id": tvg_id,
-                "canonical_id": canonical_id(tvg_id),
+                "canonical_id": cid(tvg_id),
                 "name": name,
                 "group": (
                     group_match.group(1).strip()
@@ -1045,13 +999,13 @@ def parse_m3u(text):
                     else ""
                 ),
                 "streams": [],
+                "fallbacks": [],
             }
 
             channels.append(current)
 
         elif (
             current
-            and not line.startswith("#")
             and (
                 line.startswith("http://")
                 or line.startswith("https://")
@@ -1064,7 +1018,6 @@ def parse_m3u(text):
                     "alive": False,
                     "source": "original",
                     "reason": "not_checked",
-                    "score": 1000,
                 }
             )
 
@@ -1072,204 +1025,52 @@ def parse_m3u(text):
 
 
 # ============================================================
-# ALIAS / PATH RESOLUTION
-# ============================================================
-
-def aliases_for_channel(channel):
-    """
-    Возвращает строгий набор alias.
-
-    Важный момент:
-        tvg-id имеет максимальный приоритет.
-
-    Если tvg-id неизвестен, используем только имя.
-    """
-
-    tid = canonical_id(channel["tvg_id"])
-    name = normalize_text(channel["name"])
-
-    aliases = set()
-
-    if tid in CHANNEL_ALIASES:
-        aliases.update(
-            normalize_text(x)
-            for x in CHANNEL_ALIASES[tid]
-        )
-
-    aliases.add(normalize_text(channel["tvg_id"]))
-
-    if name:
-        aliases.add(name)
-
-    return {
-        x for x in aliases
-        if x
-    }
-
-
-def path_aliases_for_channel(channel):
-    """
-    Возвращает CH_* варианты.
-
-    Сначала используем явно известные варианты.
-    """
-
-    tid = canonical_id(channel["tvg_id"])
-
-    result = []
-
-    if tid in CHANNEL_PATH_ALIASES:
-        result.extend(CHANNEL_PATH_ALIASES[tid])
-
-    # Для неизвестных tvg-id безопасный автоматический вариант.
-    #
-    # ВАЖНО:
-    # это только кандидат.
-    # Он всё равно проходит строгую идентификацию и stream check.
-    if tid and tid not in CHANNEL_PATH_ALIASES:
-        generated = re.sub(
-            r"[^A-Z0-9]+",
-            "",
-            tid.upper(),
-        )
-
-        if generated:
-            result.append(f"CH_{generated}")
-            result.append(f"CH_R01_{generated}")
-
-    return list(dict.fromkeys(result))
-
-
-# ============================================================
-# CHANNEL MATCHING
-# ============================================================
-
-def exact_token_match(a, b):
-    """
-    Строгое сравнение нормализованных значений.
-    """
-    a = normalize_text(a)
-    b = normalize_text(b)
-
-    if not a or not b:
-        return False
-
-    return a == b
-
-
-def channel_match_score(channel, candidate_name="", candidate_tvg_id=""):
-    """
-    СТРОГИЙ scoring.
-
-    Чем выше score, тем лучше.
-
-    1000 = exact tvg-id
-     900 = exact known alias
-     800 = exact channel name
-     700 = exact normalized candidate tvg-id
-
-    0 = нельзя использовать.
-
-    ВАЖНО:
-    substring matching намеренно НЕ используется.
-
-    Именно это предотвращает ситуацию:
-
-        H1 Исторический
-              ->
-        Первый канал
-
-    """
-
-    tid = canonical_id(channel["tvg_id"])
-
-    candidate_tid = canonical_id(candidate_tvg_id)
-
-    aliases = aliases_for_channel(channel)
-
-    candidate_name_norm = normalize_text(candidate_name)
-
-    # 1. Exact tvg-id.
-    if candidate_tid and candidate_tid == tid:
-        return 1000
-
-    # 2. Exact alias.
-    if candidate_name_norm in aliases:
-        return 900
-
-    # 3. Exact original channel name.
-    if exact_token_match(
-        candidate_name_norm,
-        normalize_text(channel["name"]),
-    ):
-        return 800
-
-    return 0
-
-
-def url_path_match_score(channel, url):
-    """
-    Сравнение CH_* path с известными alias.
-
-    Возвращает score:
-        750 / 700
-        или 0
-    """
-
-    path = urlparse(url).path.upper()
-
-    if not path:
-        return 0
-
-    aliases = [
-        x.upper()
-        for x in path_aliases_for_channel(channel)
-    ]
-
-    for alias in aliases:
-
-        expected = f"/HLS/{alias}/VARIANT.M3U8"
-
-        if path.rstrip("/").upper() == expected.rstrip("/").upper():
-            if alias.startswith("CH_R01_"):
-                return 750
-
-            return 700
-
-    return 0
-
-
-# ============================================================
 # CANDIDATE
 # ============================================================
 
-def make_candidate(
-    channel,
+def candidate(
     url,
+    channel,
     source,
-    candidate_name="",
-    candidate_tvg_id="",
-    priority=0,
+    name="",
+    tvg_id="",
+    derivation="",
 ):
-    """
-    Формирует кандидата.
+    path_score = 0
 
-    Кандидат не считается рабочим до check_stream().
-    """
-
-    score = channel_match_score(
-        channel,
-        candidate_name=candidate_name,
-        candidate_tvg_id=candidate_tvg_id,
+    current_path = (
+        urlparse(url)
+        .path
+        .upper()
+        .rstrip("/")
     )
 
-    path_score = url_path_match_score(
-        channel,
-        url,
-    )
+    for alias in path_aliases(channel):
+
+        expected = (
+            f"/HLS/"
+            f"{alias.upper()}/"
+            f"VARIANT.M3U8"
+        )
+
+        if current_path == expected:
+
+            path_score = (
+                750
+                if alias.upper().startswith(
+                    "CH_R01_"
+                )
+                else 700
+            )
+
+            break
 
     score = max(
-        score,
+        channel_score(
+            channel,
+            name,
+            tvg_id,
+        ),
         path_score,
     )
 
@@ -1278,11 +1079,12 @@ def make_candidate(
         "name": channel["name"],
         "url": url,
         "source": source,
-        "candidate_name": candidate_name,
-        "candidate_tvg_id": candidate_tvg_id,
-        "score": score + priority,
-        "verified": False,
+        "candidate_name": name,
+        "candidate_tvg_id": tvg_id,
+        "derivation": derivation,
+        "score": score,
         "alive": False,
+        "verified": False,
         "reason": "not_checked",
     }
 
@@ -1291,30 +1093,13 @@ def make_candidate(
 # URL GENERATION
 # ============================================================
 
-def generate_ngenix_urls(channel, ngenix_hosts):
-    """
-    Генерирует полный набор NGENIX URL.
+def gen_urls(
+    channel,
+    hosts,
+):
+    result = []
 
-    Пример:
-
-        https://rt-nw-klgr-htlive.cdn.ngenix.net/
-            hls/CH_R01_TV3/variant.m3u8
-
-    и:
-
-        https://s70790.cdn.ngenix.net/
-            hls/CH_R01_TV3/variant.m3u8
-
-    Также создаём HTTP/HTTPS.
-
-    Внешняя проверка определит, какой вариант реально существует.
-    """
-
-    urls = []
-
-    paths = path_aliases_for_channel(channel)
-
-    for host in ngenix_hosts:
+    for host in hosts:
 
         host = host.strip()
 
@@ -1322,12 +1107,18 @@ def generate_ngenix_urls(channel, ngenix_hosts):
             continue
 
         if "://" in host:
-            parsed = urlparse(host)
-            hostname = parsed.netloc
+            hostname = urlparse(
+                host
+            ).netloc
         else:
-            hostname = host
+            hostname = host.split(
+                "/",
+                1,
+            )[0]
 
-        for path_alias in paths:
+        for path_alias in path_aliases(
+            channel
+        ):
 
             path = (
                 f"/hls/"
@@ -1335,99 +1126,54 @@ def generate_ngenix_urls(channel, ngenix_hosts):
                 f"variant.m3u8"
             )
 
-            urls.append(
-                f"https://{hostname}{path}"
-            )
+            for scheme in (
+                "https",
+                "http",
+            ):
 
-            urls.append(
-                f"http://{hostname}{path}"
-            )
+                url = (
+                    f"{scheme}://"
+                    f"{hostname}"
+                    f"{path}"
+                )
 
-    return list(dict.fromkeys(urls))
+                derivation = (
+                    f"{hostname}:"
+                    f"{path_alias}:"
+                    f"{scheme}"
+                )
 
+                result.append(
+                    (
+                        url,
+                        derivation,
+                    )
+                )
 
-def generate_rt_urls(channel, rt_hosts):
-    """
-    Генерирует Ростелекомовские HLS URL.
-
-    Например:
-
-        http://hlsstr01.svc.iptv.rt.ru/
-        hls/CH_SONYTURBO/variant.m3u8
-    """
-
-    urls = []
-
-    paths = path_aliases_for_channel(channel)
-
-    for host in rt_hosts:
-
-        host = host.strip()
-
-        if not host:
-            continue
-
-        if "://" in host:
-            parsed = urlparse(host)
-            hostname = parsed.netloc
-        else:
-            hostname = host
-
-        for path_alias in paths:
-
-            path = (
-                f"/hls/"
-                f"{path_alias}/"
-                f"variant.m3u8"
-            )
-
-            urls.append(
-                f"http://{hostname}{path}"
-            )
-
-            urls.append(
-                f"https://{hostname}{path}"
-            )
-
-    return list(dict.fromkeys(urls))
+    return list(
+        dict.fromkeys(result)
+    )
 
 
 # ============================================================
-# EXTERNAL M3U SEARCH
+# EXTERNAL M3U
 # ============================================================
 
-def parse_external_candidates(
+def parse_external(
     text,
     channel,
-    source_url,
+    source,
 ):
-    """
-    Поиск кандидатов во внешнем M3U.
-
-    В отличие от старой версии:
-        НЕ используем "if alias in name".
-
-    Только точные совпадения.
-
-    Это критически важно для failover.
-    """
-
-    candidates = []
+    result = []
 
     current_name = ""
     current_tvg_id = ""
 
-    for raw_line in text.splitlines():
+    for line in (text or "").splitlines():
 
-        line = raw_line.strip()
-
-        if not line:
-            continue
+        line = line.strip()
 
         if line.startswith("#EXTINF"):
-
-            current_name = ""
-            current_tvg_id = ""
 
             tvg_match = re.search(
                 r'tvg-id="([^"]*)"',
@@ -1435,200 +1181,580 @@ def parse_external_candidates(
                 flags=re.IGNORECASE,
             )
 
-            if tvg_match:
-                current_tvg_id = tvg_match.group(1)
-
-            if "," in line:
-                current_name = clean_channel_name(
-                    line.split(",", 1)[1].strip()
-                )
-
-            continue
-
-        if (
-            line.startswith("http://")
-            or line.startswith("https://")
-        ):
-
-            score = channel_match_score(
-                channel,
-                candidate_name=current_name,
-                candidate_tvg_id=current_tvg_id,
+            current_tvg_id = (
+                tvg_match.group(1)
+                if tvg_match
+                else ""
             )
 
-            if score > 0:
+            current_name = clean_name(
+                line.split(
+                    ",",
+                    1,
+                )[1]
+                if "," in line
+                else ""
+            )
 
-                candidates.append(
-                    make_candidate(
-                        channel,
+        elif line.startswith(
+            (
+                "http://",
+                "https://",
+            )
+        ):
+
+            score = channel_score(
+                channel,
+                current_name,
+                current_tvg_id,
+            )
+
+            if score:
+
+                result.append(
+                    candidate(
                         line,
-                        source=source_url,
-                        candidate_name=current_name,
-                        candidate_tvg_id=current_tvg_id,
-                        priority=score,
+                        channel,
+                        source,
+                        current_name,
+                        current_tvg_id,
+                        "external_m3u",
                     )
                 )
 
             current_name = ""
             current_tvg_id = ""
 
-    return candidates
+    return result
 
 
 # ============================================================
-# EXTERNAL DISCOVERY
+# DATABASE
 # ============================================================
 
-def load_external_sources(source_urls):
-    """
-    Быстрая параллельная загрузка M3U.
-    """
-
-    loaded = []
-
-    with concurrent.futures.ThreadPoolExecutor(
-        max_workers=min(8, max(1, len(source_urls)))
-    ) as pool:
-
-        futures = {
-            pool.submit(fetch_url, url): url
-            for url in source_urls
-        }
-
-        for future in concurrent.futures.as_completed(
-            futures
-        ):
-
-            source = futures[future]
-
-            try:
-                text = future.result()
-            except Exception:
-                text = None
-
-            if text:
-                loaded.append(
-                    {
-                        "url": source,
-                        "text": text,
-                    }
-                )
-
-    return loaded
+def utc():
+    return time.strftime(
+        "%Y-%m-%dT%H:%M:%SZ",
+        time.gmtime(),
+    )
 
 
-# ============================================================
-# NGENIX CANDIDATES
-# ============================================================
+def init_db(path):
+    db = sqlite3.connect(
+        path,
+        timeout=30,
+    )
 
-def generated_candidates(
-    channel,
-    ngenix_hosts,
-    rt_hosts,
+    db.execute(
+        "PRAGMA journal_mode=WAL"
+    )
+
+    db.executescript(
+        """
+        CREATE TABLE IF NOT EXISTS runs (
+            run_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            started_utc TEXT NOT NULL,
+            finished_utc TEXT,
+            playlist TEXT,
+            output TEXT,
+            report TEXT
+        );
+
+        CREATE TABLE IF NOT EXISTS candidates (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+            channel_id TEXT NOT NULL,
+            channel_name TEXT,
+            tvg_id TEXT,
+
+            url TEXT NOT NULL UNIQUE,
+
+            host TEXT,
+            provider TEXT,
+
+            source TEXT,
+            discovered_from TEXT,
+            derivation TEXT,
+
+            score INTEGER DEFAULT 0,
+
+            first_seen TEXT NOT NULL,
+            last_checked TEXT,
+
+            last_status INTEGER,
+            last_alive INTEGER DEFAULT 0,
+            last_reason TEXT,
+
+            latency REAL,
+            hls_valid INTEGER DEFAULT 0
+        );
+
+        CREATE TABLE IF NOT EXISTS candidate_sources (
+            candidate_id INTEGER,
+            run_id INTEGER,
+            source TEXT,
+            discovered_from TEXT,
+            seen_utc TEXT,
+
+            PRIMARY KEY (
+                candidate_id,
+                run_id,
+                source,
+                discovered_from
+            )
+        );
+
+        CREATE TABLE IF NOT EXISTS checks (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+            candidate_id INTEGER,
+            run_id INTEGER,
+
+            checked_utc TEXT,
+
+            status INTEGER,
+            alive INTEGER,
+            hls_valid INTEGER,
+
+            reason TEXT,
+            latency REAL
+        );
+
+        CREATE TABLE IF NOT EXISTS aliases (
+            channel_id TEXT,
+            alias TEXT,
+
+            first_seen TEXT,
+            last_seen TEXT,
+
+            PRIMARY KEY (
+                channel_id,
+                alias
+            )
+        );
+
+        CREATE TABLE IF NOT EXISTS hosts (
+            host TEXT PRIMARY KEY,
+
+            provider TEXT,
+
+            first_seen TEXT,
+            last_seen TEXT
+        );
+        """
+    )
+
+    db.commit()
+
+    return db
+
+
+def db_run(
+    db,
+    playlist,
+    output,
+    report,
 ):
-    """
-    Генерация кандидатов непосредственно из известных
-    CDN naming/path схем.
-    """
+    cursor = db.execute(
+        """
+        INSERT INTO runs (
+            started_utc,
+            playlist,
+            output,
+            report
+        )
+        VALUES (?, ?, ?, ?)
+        """,
+        (
+            utc(),
+            playlist,
+            output,
+            report,
+        ),
+    )
 
-    candidates = []
+    db.commit()
 
-    for url in generate_ngenix_urls(
-        channel,
-        ngenix_hosts,
-    ):
+    return cursor.lastrowid
 
-        candidates.append(
-            make_candidate(
-                channel,
-                url,
-                source="generated_ngenix",
-                priority=300,
+
+def db_save_aliases_hosts(
+    db,
+    channel,
+    candidates,
+    run_id,
+):
+    now = utc()
+
+    # --------------------------------------------------------
+    # ALIASES
+    # --------------------------------------------------------
+
+    for alias in aliases(channel):
+
+        db.execute(
+            """
+            INSERT INTO aliases (
+                channel_id,
+                alias,
+                first_seen,
+                last_seen
             )
+            VALUES (?, ?, ?, ?)
+
+            ON CONFLICT (
+                channel_id,
+                alias
+            )
+            DO UPDATE SET
+                last_seen = excluded.last_seen
+            """,
+            (
+                cid(channel["tvg_id"]),
+                alias,
+                now,
+                now,
+            ),
         )
 
-    for url in generate_rt_urls(
-        channel,
-        rt_hosts,
-    ):
+    # --------------------------------------------------------
+    # HOSTS / CANDIDATES
+    # --------------------------------------------------------
 
-        candidates.append(
-            make_candidate(
-                channel,
-                url,
-                source="generated_rostelecom",
-                priority=250,
-            )
+    for item in candidates:
+
+        host = (
+            urlparse(
+                item["url"]
+            ).hostname
+            or ""
         )
 
-    return candidates
+        if (
+            "ngenix.net"
+            in host
+        ):
+            provider = "NGENIX"
+
+        elif (
+            "rt.ru"
+            in host
+        ):
+            provider = "Rostelecom"
+
+        else:
+            provider = "external"
+
+        if host:
+
+            db.execute(
+                """
+                INSERT INTO hosts (
+                    host,
+                    provider,
+                    first_seen,
+                    last_seen
+                )
+                VALUES (?, ?, ?, ?)
+
+                ON CONFLICT(host)
+                DO UPDATE SET
+                    last_seen = excluded.last_seen
+                """,
+                (
+                    host,
+                    provider,
+                    now,
+                    now,
+                ),
+            )
+
+        db.execute(
+            """
+            INSERT INTO candidates (
+                channel_id,
+                channel_name,
+                tvg_id,
+                url,
+                host,
+                provider,
+                source,
+                discovered_from,
+                derivation,
+                score,
+                first_seen
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+            ON CONFLICT(url)
+            DO UPDATE SET
+                channel_name = excluded.channel_name,
+                score = MAX(
+                    candidates.score,
+                    excluded.score
+                )
+            """,
+            (
+                cid(channel["tvg_id"]),
+                channel["name"],
+                channel["tvg_id"],
+                item["url"],
+                host,
+                provider,
+                item.get(
+                    "source",
+                    "",
+                ),
+                item.get(
+                    "source",
+                    "",
+                ),
+                item.get(
+                    "derivation",
+                    "",
+                ),
+                item.get(
+                    "score",
+                    0,
+                ),
+                now,
+            ),
+        )
+
+        db.commit()
+
+        row = db.execute(
+            """
+            SELECT id
+            FROM candidates
+            WHERE url = ?
+            """,
+            (
+                item["url"],
+            ),
+        ).fetchone()
+
+        if row:
+
+            candidate_id = row[0]
+
+            db.execute(
+                """
+                INSERT OR IGNORE INTO
+                candidate_sources (
+                    candidate_id,
+                    run_id,
+                    source,
+                    discovered_from,
+                    seen_utc
+                )
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (
+                    candidate_id,
+                    run_id,
+                    item.get(
+                        "source",
+                        "",
+                    ),
+                    item.get(
+                        "source",
+                        "",
+                    ),
+                    now,
+                ),
+            )
+
+    db.commit()
 
 
-# ============================================================
-# DEDUP
-# ============================================================
+def db_record_checks(
+    db,
+    run_id,
+    checked,
+):
+    now = utc()
 
-def deduplicate_candidates(candidates):
-    """
-    Убирает дубликаты URL.
-    """
+    for item in checked:
 
-    result = []
-    seen = set()
+        row = db.execute(
+            """
+            SELECT id
+            FROM candidates
+            WHERE url = ?
+            """,
+            (
+                item["url"],
+            ),
+        ).fetchone()
 
-    for candidate in candidates:
-
-        url = candidate["url"]
-
-        if url in seen:
+        if not row:
             continue
 
-        seen.add(url)
-        result.append(candidate)
+        candidate_id = row[0]
+
+        hls_valid = int(
+            item.get("alive")
+            and item.get("reason")
+            == "hls_ok"
+        )
+
+        db.execute(
+            """
+            UPDATE candidates
+            SET
+                last_checked = ?,
+                last_status = ?,
+                last_alive = ?,
+                last_reason = ?,
+                latency = ?,
+                hls_valid = ?,
+                score = MAX(
+                    score,
+                    ?
+                )
+            WHERE id = ?
+            """,
+            (
+                now,
+                item.get(
+                    "status",
+                    0,
+                ),
+                int(
+                    item.get(
+                        "alive",
+                        False,
+                    )
+                ),
+                item.get(
+                    "reason",
+                    "",
+                ),
+                item.get(
+                    "latency",
+                    0,
+                ),
+                hls_valid,
+                item.get(
+                    "score",
+                    0,
+                ),
+                candidate_id,
+            ),
+        )
+
+        db.execute(
+            """
+            INSERT INTO checks (
+                candidate_id,
+                run_id,
+                checked_utc,
+                status,
+                alive,
+                hls_valid,
+                reason,
+                latency
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                candidate_id,
+                run_id,
+                now,
+                item.get(
+                    "status",
+                    0,
+                ),
+                int(
+                    item.get(
+                        "alive",
+                        False,
+                    )
+                ),
+                hls_valid,
+                item.get(
+                    "reason",
+                    "",
+                ),
+                item.get(
+                    "latency",
+                    0,
+                ),
+            ),
+        )
+
+    db.commit()
+
+
+def db_known_candidates(
+    db,
+    channel,
+):
+    rows = db.execute(
+        """
+        SELECT
+            url,
+            source,
+            score,
+            last_alive,
+            last_status,
+            last_reason
+        FROM candidates
+        WHERE channel_id = ?
+        ORDER BY
+            last_alive DESC,
+            score DESC,
+            latency ASC
+        """,
+        (
+            cid(
+                channel["tvg_id"]
+            ),
+        ),
+    ).fetchall()
+
+    result = []
+
+    for row in rows:
+
+        result.append(
+            {
+                "channel": channel["tvg_id"],
+                "name": channel["name"],
+                "url": row[0],
+                "source": row[1] or "db",
+                "score": row[2] or 0,
+                "candidate_name": "",
+                "candidate_tvg_id": channel[
+                    "tvg_id"
+                ],
+                "derivation": "db_memory",
+                "alive": False,
+                "verified": False,
+                "reason": "db_unchecked",
+            }
+        )
 
     return result
 
 
 # ============================================================
-# CHECK CANDIDATES
+# EXTERNAL SOURCES
 # ============================================================
 
-def check_candidate(candidate, timeout):
-    """
-    Реальная проверка кандидата.
-    """
-
-    result = check_stream(
-        candidate["url"],
-        timeout=timeout,
-    )
-
-    candidate = dict(candidate)
-
-    candidate["alive"] = result["alive"]
-    candidate["verified"] = True
-    candidate["reason"] = result["reason"]
-    candidate["status"] = result["status"]
-    candidate["latency"] = result["latency"]
-
-    return candidate
-
-
-def verify_candidates(
-    candidates,
-    workers,
-    timeout,
+def load_external_sources(
+    urls,
 ):
-    """
-    Параллельная проверка.
+    result = []
 
-    Не допускаем бесконечных потоков.
-    """
+    if not urls:
+        return result
 
-    if not candidates:
-        return []
-
-    results = []
+    workers = min(
+        8,
+        len(urls),
+    )
 
     with concurrent.futures.ThreadPoolExecutor(
         max_workers=workers
@@ -1636,63 +1762,286 @@ def verify_candidates(
 
         futures = {
             pool.submit(
-                check_candidate,
-                candidate,
-                timeout,
-            ): candidate
-            for candidate in candidates
+                fetch,
+                url,
+            ): url
+            for url in urls
         }
 
         for future in concurrent.futures.as_completed(
             futures
         ):
 
+            source_url = futures[
+                future
+            ]
+
             try:
-                results.append(
-                    future.result()
+                text = future.result()
+            except Exception:
+                text = None
+
+            if text:
+
+                result.append(
+                    {
+                        "url": source_url,
+                        "text": text,
+                    }
                 )
+
+    return result
+
+
+# ============================================================
+# CANDIDATE VERIFICATION
+# ============================================================
+
+def verify(
+    candidates,
+    workers,
+    timeout,
+):
+    if not candidates:
+        return []
+
+    result = []
+
+    with concurrent.futures.ThreadPoolExecutor(
+        max_workers=workers
+    ) as pool:
+
+        futures = {
+            pool.submit(
+                check,
+                item["url"],
+                timeout,
+            ): item
+            for item in candidates
+        }
+
+        for future in concurrent.futures.as_completed(
+            futures
+        ):
+
+            item = dict(
+                futures[future]
+            )
+
+            try:
+                status = future.result()
+
             except Exception as exc:
 
-                candidate = dict(
-                    futures[future]
-                )
+                status = {
+                    "alive": False,
+                    "status": 0,
+                    "reason": (
+                        f"worker_error:"
+                        f"{type(exc).__name__}"
+                    ),
+                    "latency": 0,
+                }
 
-                candidate["verified"] = True
-                candidate["alive"] = False
-                candidate["reason"] = (
-                    f"worker_error:{type(exc).__name__}"
-                )
+            item.update(status)
+            item["verified"] = True
 
-                results.append(candidate)
+            result.append(item)
 
-    return results
+    return result
+
+
+# ============================================================
+# DISCOVERY
+# ============================================================
+
+def discover(
+    channel,
+    external_sources,
+    db,
+    ngenix_hosts,
+    rt_hosts,
+    workers,
+    timeout,
+    run_id,
+):
+    candidates = []
+
+    # --------------------------------------------------------
+    # DATABASE MEMORY
+    # --------------------------------------------------------
+
+    candidates.extend(
+        db_known_candidates(
+            db,
+            channel,
+        )
+    )
+
+    # --------------------------------------------------------
+    # NGENIX
+    # --------------------------------------------------------
+
+    for url, derivation in gen_urls(
+        channel,
+        ngenix_hosts,
+    ):
+
+        candidates.append(
+            candidate(
+                url,
+                channel,
+                "generated_ngenix",
+                derivation=derivation,
+            )
+        )
+
+    # --------------------------------------------------------
+    # ROSTELECOM
+    # --------------------------------------------------------
+
+    for url, derivation in gen_urls(
+        channel,
+        rt_hosts,
+    ):
+
+        candidates.append(
+            candidate(
+                url,
+                channel,
+                "generated_rostelecom",
+                derivation=derivation,
+            )
+        )
+
+    # --------------------------------------------------------
+    # EXTERNAL M3U
+    # --------------------------------------------------------
+
+    for source in external_sources:
+
+        candidates.extend(
+            parse_external(
+                source["text"],
+                channel,
+                source["url"],
+            )
+        )
+
+    # --------------------------------------------------------
+    # DEDUP
+    # --------------------------------------------------------
+
+    unique = {}
+
+    for item in candidates:
+
+        url = item["url"]
+
+        if url not in unique:
+            unique[url] = item
+        else:
+            unique[url]["score"] = max(
+                unique[url].get(
+                    "score",
+                    0,
+                ),
+                item.get(
+                    "score",
+                    0,
+                ),
+            )
+
+    candidates = list(
+        unique.values()
+    )
+
+    # --------------------------------------------------------
+    # STRICT MATCH
+    # --------------------------------------------------------
+
+    candidates = [
+        item
+        for item in candidates
+        if item.get(
+            "score",
+            0,
+        ) > 0
+    ]
+
+    candidates.sort(
+        key=lambda item: (
+            -item.get(
+                "score",
+                0,
+            ),
+            item["url"],
+        )
+    )
+
+    # --------------------------------------------------------
+    # STORE DISCOVERED CANDIDATES
+    # --------------------------------------------------------
+
+    db_save_aliases_hosts(
+        db,
+        channel,
+        candidates,
+        run_id,
+    )
+
+    # --------------------------------------------------------
+    # VERIFY ALL
+    # --------------------------------------------------------
+
+    checked = verify(
+        candidates,
+        workers,
+        timeout,
+    )
+
+    db_record_checks(
+        db,
+        run_id,
+        checked,
+    )
+
+    alive = [
+        item
+        for item in checked
+        if item.get("alive")
+    ]
+
+    alive.sort(
+        key=lambda item: (
+            -item.get(
+                "score",
+                0,
+            ),
+            item.get(
+                "latency",
+                999,
+            ),
+        )
+    )
+
+    return alive, checked
 
 
 # ============================================================
 # ORIGINAL STREAM CHECK
 # ============================================================
 
-def check_original_streams(
+def check_originals(
     channels,
     workers,
     timeout,
 ):
-    """
-    Проверяем все исходные потоки.
-    """
-
-    jobs = []
-
-    for channel in channels:
-
-        for stream in channel["streams"]:
-
-            jobs.append(
-                (
-                    channel,
-                    stream,
-                )
-            )
+    jobs = [
+        (channel, stream)
+        for channel in channels
+        for stream in channel["streams"]
+    ]
 
     if not jobs:
         return
@@ -1703,7 +2052,7 @@ def check_original_streams(
 
         futures = {
             pool.submit(
-                check_stream,
+                check,
                 stream["url"],
                 timeout,
             ): (
@@ -1717,163 +2066,87 @@ def check_original_streams(
             futures
         ):
 
-            channel, stream = futures[future]
+            channel, stream = futures[
+                future
+            ]
 
             try:
                 result = future.result()
+
             except Exception as exc:
 
-                stream["alive"] = False
-                stream["reason"] = (
-                    f"worker_error:{type(exc).__name__}"
-                )
-                continue
+                result = {
+                    "alive": False,
+                    "status": 0,
+                    "reason": (
+                        f"worker_error:"
+                        f"{type(exc).__name__}"
+                    ),
+                    "latency": 0,
+                }
 
-            stream["alive"] = result["alive"]
-            stream["reason"] = result["reason"]
-            stream["status"] = result["status"]
-            stream["latency"] = result["latency"]
+            stream.update(result)
 
 
 # ============================================================
-# FALLBACK DISCOVERY
+# OUTPUT FILE NUMBERING
 # ============================================================
 
-def find_fallbacks_for_channel(
-    channel,
-    external_sources,
-    ngenix_hosts,
-    rt_hosts,
-    workers,
-    timeout,
+def next_pair(
+    output,
+    report,
 ):
-    """
-    Полный discovery одного канала.
+    output_path = Path(output)
+    report_path = Path(report)
 
-    Порядок:
+    number = 0
 
-        1. generated NGENIX
-        2. generated RT
-        3. external M3U
+    while True:
 
-    После этого всё проверяется.
+        if number == 0:
 
-    Возвращаем только реальные рабочие кандидаты.
-    """
+            current_output = output_path
+            current_report = report_path
 
-    candidates = []
+        else:
 
-    # --------------------------------------------------------
-    # GENERATED CDN / RT
-    # --------------------------------------------------------
-
-    candidates.extend(
-        generated_candidates(
-            channel,
-            ngenix_hosts,
-            rt_hosts,
-        )
-    )
-
-    # --------------------------------------------------------
-    # EXTERNAL M3U
-    # --------------------------------------------------------
-
-    for source in external_sources:
-
-        try:
-            candidates.extend(
-                parse_external_candidates(
-                    source["text"],
-                    channel,
-                    source["url"],
+            current_output = (
+                output_path.with_name(
+                    f"{output_path.stem}_"
+                    f"{number}"
+                    f"{output_path.suffix or '.m3u'}"
                 )
             )
-        except Exception:
-            continue
 
-    candidates = deduplicate_candidates(
-        candidates
-    )
+            current_report = (
+                report_path.with_name(
+                    f"{report_path.stem}_"
+                    f"{number}"
+                    f"{report_path.suffix or '.json'}"
+                )
+            )
 
-    # --------------------------------------------------------
-    # STRICT FILTER
-    # --------------------------------------------------------
+        if (
+            not current_output.exists()
+            and not current_report.exists()
+        ):
+            return (
+                current_output,
+                current_report,
+                number,
+            )
 
-    candidates = [
-        c for c in candidates
-        if c["score"] > 0
-    ]
-
-    # --------------------------------------------------------
-    # PRIORITY
-    # --------------------------------------------------------
-
-    candidates.sort(
-        key=lambda x: x["score"],
-        reverse=True,
-    )
-
-    # --------------------------------------------------------
-    # CHECK
-    # --------------------------------------------------------
-
-    checked = verify_candidates(
-        candidates,
-        workers=workers,
-        timeout=timeout,
-    )
-
-    alive = [
-        x for x in checked
-        if x.get("alive")
-    ]
-
-    alive.sort(
-        key=lambda x: (
-            -x.get("score", 0),
-            x.get("latency", 999),
-        )
-    )
-
-    return alive, checked
+        number += 1
 
 
 # ============================================================
-# PLAYLIST GENERATION
+# PLAYLIST
 # ============================================================
 
-def make_extinf(channel, index, tag=""):
-    """
-    Создание EXTINF.
-    """
-
-    tvg_id = channel["tvg_id"]
-    group = channel["group"]
-    name = channel["name"]
-
-    return (
-        f'#EXTINF:-1 '
-        f'tvg-id="{tvg_id}" '
-        f'group-title="{group}",'
-        f'{index}. {name}{tag}'
-    )
-
-
-def generate_playlist(
+def make_playlist(
     channels,
     output_path,
 ):
-    """
-    Создаёт megred_auto.m3u.
-
-    Для каждого канала:
-        - сначала рабочие оригинальные;
-        - затем fallback.
-
-    Таким образом, fallback не уничтожает исходную рабочую ссылку.
-    """
-
     lines = [
         "#EXTM3U",
         "#EXT-X-FALLBACK: generated by IpTV_fallback.py",
@@ -1884,65 +2157,51 @@ def generate_playlist(
 
     for channel in channels:
 
-        # ----------------------------------------------------
-        # ORIGINAL
-        # ----------------------------------------------------
+        original_alive = [
+            stream
+            for stream in channel["streams"]
+            if stream.get("alive")
+        ]
 
-        for stream in channel["streams"]:
+        if original_alive:
 
-            if not stream.get("alive"):
-                continue
+            selected = original_alive
+
+        else:
+
+            selected = channel.get(
+                "fallbacks",
+                [],
+            )
+
+        for stream in selected:
 
             url = stream["url"]
 
             if url in written:
                 continue
 
-            lines.append(
-                make_extinf(
-                    channel,
-                    index,
-                    tag="",
-                )
-            )
-
-            lines.append(url)
-
-            written.add(url)
-            index += 1
-
-        # ----------------------------------------------------
-        # FALLBACK
-        # ----------------------------------------------------
-
-        for fallback in channel.get(
-            "fallbacks",
-            [],
-        ):
-
-            if not fallback.get("alive"):
-                continue
-
-            url = fallback["url"]
-
-            if url in written:
-                continue
-
-            source = fallback.get(
+            source = stream.get(
                 "source",
-                "fallback",
+                "original",
             )
 
-            tag = (
-                f" [fallback:{source}]"
-            )
+            if source == "original":
+                tag = ""
+            else:
+                tag = (
+                    " [fallback:"
+                    f"{source}"
+                    "]"
+                )
 
             lines.append(
-                make_extinf(
-                    channel,
-                    index,
-                    tag=tag,
-                )
+                f'#EXTINF:-1 '
+                f'tvg-id="{channel["tvg_id"]}" '
+                f'group-title="{channel["group"]}",'
+                f'{index}. '
+                f'{channel["name"]}'
+                f'{tag}'
             )
 
             lines.append(url)
@@ -1950,8 +2209,9 @@ def generate_playlist(
             written.add(url)
             index += 1
 
-    Path(output_path).write_text(
-        "\n".join(lines) + "\n",
+    output_path.write_text(
+        "\n".join(lines)
+        + "\n",
         encoding="utf-8",
     )
 
@@ -1959,159 +2219,166 @@ def generate_playlist(
 
 
 # ============================================================
-# REPORT
+# JSON REPORT
 # ============================================================
 
-def write_report(
+def report_json(
     channels,
-    report_path,
-    generated_count,
+    run_id,
+    path,
+    output,
+    started,
+    db_path,
 ):
-    """
-    Подробный текстовый отчёт.
-    """
+    report = {
+        "run_id": run_id,
+        "started_utc": started,
+        "finished_utc": utc(),
+        "database": db_path,
+        "output": str(output),
 
-    lines = []
+        "summary": {
+            "channels": len(channels),
+            "alive": 0,
+            "recovered": 0,
+            "unresolved": 0,
+            "output_entries": 0,
+        },
 
-    lines.append(
-        "IPTV FALLBACK REPORT"
-    )
-
-    lines.append(
-        "=" * 72
-    )
-
-    lines.append(
-        f"UTC: {time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())}"
-    )
-
-    lines.append("")
-
-    total_channels = len(channels)
-
-    alive_channels = sum(
-        1
-        for channel in channels
-        if any(
-            s.get("alive")
-            for s in channel["streams"]
-        )
-        or channel.get("fallbacks")
-    )
-
-    recovered = sum(
-        1
-        for channel in channels
-        if (
-            not any(
-                s.get("alive")
-                for s in channel["streams"]
-            )
-            and channel.get("fallbacks")
-        )
-    )
-
-    dead = total_channels - alive_channels
-
-    lines.append(
-        f"Channels: {total_channels}"
-    )
-
-    lines.append(
-        f"Recovered: {recovered}"
-    )
-
-    lines.append(
-        f"Unresolved: {dead}"
-    )
-
-    lines.append(
-        f"Generated playlist entries: {generated_count}"
-    )
-
-    lines.append("")
+        "channels": [],
+    }
 
     for channel in channels:
 
-        lines.append(
-            "-" * 72
-        )
+        originals = []
 
-        lines.append(
-            f"CHANNEL: {channel['name']}"
-        )
+        for stream in channel[
+            "streams"
+        ]:
 
-        lines.append(
-            f"TVG-ID: {channel['tvg_id']}"
-        )
-
-        original_alive = [
-            s for s in channel["streams"]
-            if s.get("alive")
-        ]
-
-        lines.append(
-            f"Original alive: {len(original_alive)}"
-        )
-
-        for stream in channel["streams"]:
-
-            lines.append(
-                f"  ORIGINAL "
-                f"{'OK' if stream.get('alive') else 'FAIL'} "
-                f"{stream.get('reason', '')} "
-                f"{stream['url']}"
+            originals.append(
+                {
+                    "url": stream["url"],
+                    "alive": stream.get(
+                        "alive",
+                        False,
+                    ),
+                    "status": stream.get(
+                        "status",
+                        0,
+                    ),
+                    "reason": stream.get(
+                        "reason",
+                        "",
+                    ),
+                    "latency": stream.get(
+                        "latency",
+                        0,
+                    ),
+                }
             )
+
+        original_alive = any(
+            item["alive"]
+            for item in originals
+        )
 
         fallbacks = channel.get(
             "fallbacks",
             [],
         )
 
-        lines.append(
-            f"Fallbacks: {len(fallbacks)}"
+        if original_alive:
+
+            report["summary"]["alive"] += 1
+
+        elif fallbacks:
+
+            report["summary"][
+                "recovered"
+            ] += 1
+
+        else:
+
+            report["summary"][
+                "unresolved"
+            ] += 1
+
+        if original_alive:
+
+            selected_for_output = [
+                item
+                for item in channel[
+                    "streams"
+                ]
+                if item.get("alive")
+            ]
+
+        else:
+
+            selected_for_output = fallbacks
+
+        report["summary"][
+            "output_entries"
+        ] += len(
+            selected_for_output
         )
 
-        for fallback in fallbacks:
+        fallback_report = []
 
-            lines.append(
-                f"  FALLBACK "
-                f"score={fallback.get('score', 0)} "
-                f"{fallback.get('reason', '')} "
-                f"{fallback['url']}"
+        for item in fallbacks:
+
+            fallback_report.append(
+                {
+                    key: value
+                    for key, value
+                    in item.items()
+                    if key != "_raw"
+                }
             )
 
-    Path(report_path).write_text(
-        "\n".join(lines) + "\n",
-        encoding="utf-8",
-    )
+        selected = None
 
+        if fallbacks:
+            selected = fallbacks[0]["url"]
 
-# ============================================================
-# JSON STATE
-# ============================================================
+        else:
 
-def write_state(
-    channels,
-    state_path,
-):
-    """
-    Машиночитаемое состояние.
+            for stream in channel[
+                "streams"
+            ]:
 
-    Это пригодится для дальнейшей интеграции в Зою.
-    """
+                if stream.get("alive"):
 
-    state = {
-        "generated_utc": time.strftime(
-            "%Y-%m-%dT%H:%M:%SZ",
-            time.gmtime(),
-        ),
-        "channels": channels,
-    }
+                    selected = stream[
+                        "url"
+                    ]
 
-    Path(state_path).write_text(
+                    break
+
+        report["channels"].append(
+            {
+                "tvg_id": channel[
+                    "tvg_id"
+                ],
+                "name": channel[
+                    "name"
+                ],
+                "group": channel[
+                    "group"
+                ],
+
+                "original": originals,
+
+                "fallbacks": fallback_report,
+
+                "selected": selected,
+            }
+        )
+
+    path.write_text(
         json.dumps(
-            state,
+            report,
             ensure_ascii=False,
             indent=2,
         ),
@@ -2120,29 +2387,35 @@ def write_state(
 
 
 # ============================================================
-# MAIN RECOVERY PASS
+# ONE RECOVERY RUN
 # ============================================================
 
-def recovery_pass(
-    playlist,
-    output,
-    report,
-    state,
-    workers,
-    timeout,
-    source_urls,
+def run_once(
+    args,
+    db,
     ngenix_hosts,
     rt_hosts,
+    source_urls,
 ):
-    """
-    Один полный проход восстановления.
-    """
+    started = utc()
 
-    # --------------------------------------------------------
-    # LOAD PLAYLIST
-    # --------------------------------------------------------
+    output_path, report_path, number = (
+        next_pair(
+            args.output,
+            args.report,
+        )
+    )
 
-    playlist_path = Path(playlist)
+    run_id = db_run(
+        db,
+        args.playlist,
+        str(output_path),
+        str(report_path),
+    )
+
+    playlist_path = Path(
+        args.playlist
+    )
 
     if playlist_path.exists():
 
@@ -2153,70 +2426,59 @@ def recovery_pass(
 
     else:
 
-        text = fetch_url(
-            playlist,
+        text = fetch(
+            args.playlist,
             timeout=DEFAULT_FETCH_TIMEOUT,
         )
 
     if not text:
+
         raise RuntimeError(
-            f"Не удалось загрузить playlist: {playlist}"
+            "Не удалось загрузить "
+            f"playlist: {args.playlist}"
         )
 
-    channels = parse_m3u(text)
+    channels = parse_m3u(
+        text
+    )
 
     if not channels:
+
         raise RuntimeError(
-            "В плейлисте не найдено каналов."
+            "В плейлисте не найдено "
+            "каналов"
         )
 
-    total_streams = sum(
-        len(c["streams"])
-        for c in channels
-    )
-
     print(
-        f"Каналов: {len(channels)} | "
-        f"потоков: {total_streams}"
+        f"RUN #{run_id}: "
+        f"каналов={len(channels)}"
     )
 
     # --------------------------------------------------------
-    # CHECK ORIGINAL
+    # ORIGINAL CHECK
     # --------------------------------------------------------
 
-    print(
-        "Проверяю исходные потоки..."
-    )
-
-    check_original_streams(
+    check_originals(
         channels,
-        workers=workers,
-        timeout=timeout,
+        args.workers,
+        args.timeout,
     )
-
-    alive_channels = [
-        c for c in channels
-        if any(
-            s.get("alive")
-            for s in c["streams"]
-        )
-    ]
 
     dead_channels = [
-        c for c in channels
+        channel
+        for channel in channels
         if not any(
-            s.get("alive")
-            for s in c["streams"]
+            stream.get("alive")
+            for stream in channel[
+                "streams"
+            ]
         )
     ]
 
     print(
-        f"Живых каналов: "
-        f"{len(alive_channels)}"
-    )
-
-    print(
-        f"Требуют восстановления: "
+        "Исходные живые="
+        f"{len(channels) - len(dead_channels)}"
+        " | требуют fallback="
         f"{len(dead_channels)}"
     )
 
@@ -2224,58 +2486,49 @@ def recovery_pass(
     # EXTERNAL SOURCES
     # --------------------------------------------------------
 
-    print(
-        "Загружаю внешние M3U..."
-    )
-
-    external_sources = load_external_sources(
-        source_urls
+    external_sources = (
+        load_external_sources(
+            source_urls
+        )
     )
 
     print(
-        f"Загружено внешних источников: "
+        "Внешних M3U загружено="
         f"{len(external_sources)}"
     )
 
     # --------------------------------------------------------
-    # DISCOVERY
+    # RECOVERY
     # --------------------------------------------------------
 
-    recovered = 0
-
-    for number, channel in enumerate(
+    for number_index, channel in enumerate(
         dead_channels,
         start=1,
     ):
 
         print(
-            f"\n[{number}/{len(dead_channels)}] "
+            f"[{number_index}/"
+            f"{len(dead_channels)}] "
             f"{channel['name']} "
             f"({channel['tvg_id']})"
         )
 
-        fallbacks, checked = (
-            find_fallbacks_for_channel(
-                channel,
-                external_sources,
-                ngenix_hosts,
-                rt_hosts,
-                workers=workers,
-                timeout=timeout,
-            )
+        alive, checked = discover(
+            channel,
+            external_sources,
+            db,
+            ngenix_hosts,
+            rt_hosts,
+            args.workers,
+            args.timeout,
+            run_id,
         )
 
-        # ----------------------------------------------------
-        # ONLY VERIFIED ALIVE
-        # ----------------------------------------------------
+        channel["fallbacks"] = alive
 
-        channel["fallbacks"] = fallbacks
+        if alive:
 
-        if fallbacks:
-
-            recovered += 1
-
-            best = fallbacks[0]
+            best = alive[0]
 
             print(
                 "  OK -> "
@@ -2285,283 +2538,69 @@ def recovery_pass(
             print(
                 "  score="
                 f"{best.get('score', 0)} "
-                f"source="
+                "source="
                 f"{best.get('source', '')} "
-                f"reason="
+                "reason="
                 f"{best.get('reason', '')}"
             )
 
         else:
 
-            channel["fallbacks"] = []
-
             print(
                 "  FAIL -> "
-                "подходящий живой поток "
-                "не найден"
+                "подходящий живой "
+                "поток не найден"
             )
 
     # --------------------------------------------------------
-    # GENERATE OUTPUT
+    # OUTPUT
     # --------------------------------------------------------
 
-    generated_count = generate_playlist(
+    entries = make_playlist(
         channels,
-        output,
+        output_path,
     )
 
-    write_report(
+    report_json(
         channels,
-        report,
-        generated_count,
+        run_id,
+        report_path,
+        output_path,
+        started,
+        args.db,
     )
 
-    write_state(
-        channels,
-        state,
+    db.execute(
+        """
+        UPDATE runs
+        SET finished_utc = ?
+        WHERE run_id = ?
+        """,
+        (
+            utc(),
+            run_id,
+        ),
     )
 
-    print("")
-    print(
-        f"Восстановлено: "
-        f"{recovered}/{len(dead_channels)}"
-    )
-
-    print(
-        f"Итоговый плейлист: "
-        f"{output}"
-    )
-
-    print(
-        f"Записей: "
-        f"{generated_count}"
-    )
+    db.commit()
 
     print(
-        f"Отчёт: "
-        f"{report}"
+        f"Готово: {output_path}"
     )
 
     print(
-        f"State: "
-        f"{state}"
+        f"entries={entries}"
+    )
+
+    print(
+        f"report={report_path}"
+    )
+
+    print(
+        f"DB={args.db}"
     )
 
     return channels
-
-
-# ============================================================
-# WATCH MODE
-# ============================================================
-
-def watch_mode(
-    channels,
-    output,
-    report,
-    state,
-    workers,
-    timeout,
-    interval,
-    source_urls,
-    ngenix_hosts,
-    rt_hosts,
-):
-    """
-    Мониторинг.
-
-    Если текущий рабочий поток умер:
-        -> канал считается dead
-        -> запускается discovery
-        -> fallback проверяется
-        -> playlist пересобирается.
-    """
-
-    print("")
-    print(
-        f"MONITORING: каждые {interval} сек."
-    )
-
-    while True:
-
-        try:
-
-            time.sleep(interval)
-
-            print("")
-            print(
-                "[WATCH] проверка..."
-            )
-
-            changed = False
-
-            # ------------------------------------------------
-            # CHECK ALL KNOWN STREAMS
-            # ------------------------------------------------
-
-            for channel in channels:
-
-                for stream in channel["streams"]:
-
-                    result = check_stream(
-                        stream["url"],
-                        timeout=timeout,
-                    )
-
-                    previous = stream.get(
-                        "alive",
-                        False,
-                    )
-
-                    stream["alive"] = result[
-                        "alive"
-                    ]
-
-                    stream["reason"] = result[
-                        "reason"
-                    ]
-
-                    if previous and not stream[
-                        "alive"
-                    ]:
-
-                        print(
-                            "[WATCH] ОТВАЛ: "
-                            f"{channel['name']} -> "
-                            f"{stream['url']}"
-                        )
-
-                        changed = True
-
-            # ------------------------------------------------
-            # FALLBACK HEALTH CHECK
-            # ------------------------------------------------
-
-            for channel in channels:
-
-                for fallback in channel.get(
-                    "fallbacks",
-                    [],
-                ):
-
-                    result = check_stream(
-                        fallback["url"],
-                        timeout=timeout,
-                    )
-
-                    fallback["alive"] = (
-                        result["alive"]
-                    )
-
-                    fallback["reason"] = (
-                        result["reason"]
-                    )
-
-            # ------------------------------------------------
-            # RECOVER DEAD CHANNELS
-            # ------------------------------------------------
-
-            dead_channels = [
-                c
-                for c in channels
-                if not any(
-                    s.get("alive")
-                    for s in c["streams"]
-                )
-            ]
-
-            if dead_channels:
-
-                print(
-                    "[WATCH] Требуют "
-                    f"восстановления: "
-                    f"{len(dead_channels)}"
-                )
-
-                external_sources = (
-                    load_external_sources(
-                        source_urls
-                    )
-                )
-
-                for channel in dead_channels:
-
-                    fallbacks, checked = (
-                        find_fallbacks_for_channel(
-                            channel,
-                            external_sources,
-                            ngenix_hosts,
-                            rt_hosts,
-                            workers=workers,
-                            timeout=timeout,
-                        )
-                    )
-
-                    if fallbacks:
-
-                        channel["fallbacks"] = (
-                            fallbacks
-                        )
-
-                        changed = True
-
-                        print(
-                            "[WATCH] RECOVERED: "
-                            f"{channel['name']} -> "
-                            f"{fallbacks[0]['url']}"
-                        )
-
-                    else:
-
-                        channel["fallbacks"] = []
-
-                        print(
-                            "[WATCH] NO FALLBACK: "
-                            f"{channel['name']}"
-                        )
-
-            # ------------------------------------------------
-            # REBUILD
-            # ------------------------------------------------
-
-            if changed:
-
-                generated_count = (
-                    generate_playlist(
-                        channels,
-                        output,
-                    )
-                )
-
-                write_report(
-                    channels,
-                    report,
-                    generated_count,
-                )
-
-                write_state(
-                    channels,
-                    state,
-                )
-
-                print(
-                    "[WATCH] playlist обновлён."
-                )
-
-        except KeyboardInterrupt:
-
-            print(
-                "\nОстановка мониторинга."
-            )
-
-            break
-
-        except Exception as exc:
-
-            print(
-                "[WATCH] ERROR: "
-                f"{type(exc).__name__}: "
-                f"{exc}"
-            )
 
 
 # ============================================================
@@ -2572,8 +2611,8 @@ def build_parser():
 
     parser = argparse.ArgumentParser(
         description=(
-            "IPTV automatic failover / "
-            "dead-stream recovery"
+            "IPTV automatic "
+            "failover / recovery"
         )
     )
 
@@ -2581,54 +2620,46 @@ def build_parser():
         "--playlist",
         "-p",
         required=True,
-        help=(
-            "Локальный M3U или URL "
-            "исходного плейлиста"
-        ),
     )
 
     parser.add_argument(
         "--output",
         "-o",
-        default="megred_auto.m3u",
-        help=(
-            "Итоговый плейлист "
-            "(default: megred_auto.m3u)"
-        ),
+        default=DEFAULT_OUTPUT,
     )
 
     parser.add_argument(
-        "--watch",
-        "-w",
-        action="store_true",
-        help="Включить автоматический мониторинг",
+        "--report",
+        default=DEFAULT_REPORT,
     )
 
     parser.add_argument(
-        "--interval",
-        type=int,
-        default=DEFAULT_WATCH_INTERVAL,
-        help=(
-            "Интервал мониторинга в секундах"
-        ),
+        "--db",
+        default=DB_PATH,
     )
 
     parser.add_argument(
         "--workers",
         type=int,
         default=DEFAULT_WORKERS,
-        help=(
-            "Количество параллельных проверок"
-        ),
     )
 
     parser.add_argument(
         "--timeout",
         type=int,
         default=DEFAULT_TIMEOUT,
-        help=(
-            "Timeout проверки одного URL"
-        ),
+    )
+
+    parser.add_argument(
+        "--watch",
+        "-w",
+        action="store_true",
+    )
+
+    parser.add_argument(
+        "--interval",
+        type=int,
+        default=DEFAULT_INTERVAL,
     )
 
     parser.add_argument(
@@ -2637,8 +2668,8 @@ def build_parser():
         dest="sources",
         default=[],
         help=(
-            "Дополнительный внешний M3U URL. "
-            "Можно указать несколько раз."
+            "Дополнительный "
+            "публичный M3U URL"
         ),
     )
 
@@ -2647,8 +2678,8 @@ def build_parser():
         action="append",
         default=[],
         help=(
-            "Дополнительный NGENIX host. "
-            "Например s70790.cdn.ngenix.net"
+            "Дополнительный "
+            "NGENIX host"
         ),
     )
 
@@ -2657,20 +2688,9 @@ def build_parser():
         action="append",
         default=[],
         help=(
-            "Дополнительный RT HLS host."
+            "Дополнительный "
+            "RT/Rostelecom host"
         ),
-    )
-
-    parser.add_argument(
-        "--report",
-        default=OUTPUT_REPORT,
-        help="Файл отчёта",
-    )
-
-    parser.add_argument(
-        "--state",
-        default=OUTPUT_STATE,
-        help="JSON state",
     )
 
     return parser
@@ -2682,28 +2702,28 @@ def build_parser():
 
 def main():
 
-    parser = build_parser()
+    args = build_parser().parse_args()
 
-    args = parser.parse_args()
-
-    workers = max(
+    args.workers = max(
         1,
-        min(args.workers, 128),
+        min(
+            args.workers,
+            128,
+        ),
     )
 
-    timeout = max(
+    args.timeout = max(
         2,
-        min(args.timeout, 30),
+        min(
+            args.timeout,
+            30,
+        ),
     )
 
-    interval = max(
+    args.interval = max(
         10,
         args.interval,
     )
-
-    # --------------------------------------------------------
-    # SOURCES
-    # --------------------------------------------------------
 
     source_urls = list(
         dict.fromkeys(
@@ -2712,21 +2732,12 @@ def main():
         )
     )
 
-    # --------------------------------------------------------
-    # NGENIX HOSTS
-    # --------------------------------------------------------
-
     ngenix_hosts = list(
         dict.fromkeys(
             NGENIX_HOSTS
-            + NGENIX_S_HOSTS
             + args.ngenix_host
         )
     )
-
-    # --------------------------------------------------------
-    # RT HOSTS
-    # --------------------------------------------------------
 
     rt_hosts = list(
         dict.fromkeys(
@@ -2735,83 +2746,79 @@ def main():
         )
     )
 
-    print("=" * 72)
+    db = init_db(
+        args.db
+    )
 
+    print("=" * 72)
     print(
         "IPTV FALLBACK / AUTO RECOVERY"
     )
-
+    print(
+        f"NGENIX hosts="
+        f"{len(ngenix_hosts)}"
+        " | RT hosts="
+        f"{len(rt_hosts)}"
+        " | sources="
+        f"{len(source_urls)}"
+    )
     print("=" * 72)
-
-    print(
-        f"Workers: {workers}"
-    )
-
-    print(
-        f"Timeout: {timeout}s"
-    )
-
-    print(
-        f"NGENIX hosts: {len(ngenix_hosts)}"
-    )
-
-    print(
-        f"RT hosts: {len(rt_hosts)}"
-    )
-
-    print(
-        f"External sources: {len(source_urls)}"
-    )
-
-    print("=" * 72)
-
-    # --------------------------------------------------------
-    # FIRST PASS
-    # --------------------------------------------------------
 
     try:
 
-        channels = recovery_pass(
-            playlist=args.playlist,
-            output=args.output,
-            report=args.report,
-            state=args.state,
-            workers=workers,
-            timeout=timeout,
-            source_urls=source_urls,
-            ngenix_hosts=ngenix_hosts,
-            rt_hosts=rt_hosts,
+        channels = run_once(
+            args,
+            db,
+            ngenix_hosts,
+            rt_hosts,
+            source_urls,
         )
+
+        if args.watch:
+
+            while True:
+
+                time.sleep(
+                    args.interval
+                )
+
+                print(
+                    "[WATCH] "
+                    "новый проход"
+                )
+
+                channels = run_once(
+                    args,
+                    db,
+                    ngenix_hosts,
+                    rt_hosts,
+                    source_urls,
+                )
+
+        return 0
+
+    except KeyboardInterrupt:
+
+        print(
+            "\nОстановка."
+        )
+
+        return 0
 
     except Exception as exc:
 
         print(
-            f"FATAL: {type(exc).__name__}: {exc}",
+            f"FATAL: "
+            f"{type(exc).__name__}: "
+            f"{exc}",
             file=sys.stderr,
         )
 
         return 1
 
-    # --------------------------------------------------------
-    # WATCH
-    # --------------------------------------------------------
+    finally:
 
-    if args.watch:
-
-        watch_mode(
-            channels=channels,
-            output=args.output,
-            report=args.report,
-            state=args.state,
-            workers=workers,
-            timeout=timeout,
-            interval=interval,
-            source_urls=source_urls,
-            ngenix_hosts=ngenix_hosts,
-            rt_hosts=rt_hosts,
-        )
-
-    return 0
+        db.close()
 
 
 if __name__ == "__main__":
