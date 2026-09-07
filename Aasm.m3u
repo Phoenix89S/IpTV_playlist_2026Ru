@@ -738,3 +738,135 @@ http://stream.mcquack.net/491/index.m3u8
 http://stream.mcquack.net/492/index.m3u8
 #EXTINF:-1 group-title="Спорт",Okko Прайм Спорт
 http://stream.mcquack.net/493/index.m3u8
+
+
+#EXTINF:-1 tvg-id="karusel" group-title="Эфирные ТВ Плюс (RT)",1. Карусель [hlsstr01]
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_KARUSEL/variant.m3u8
+#EXTINF:-1 tvg-id="karusel" group-title="Эфирные ТВ Плюс (RT)",2. Карусель [hlsstr02]
+http://hlsstr02.svc.iptv.rt.ru/hls/CH_KARUSEL/variant.m3u8
+#EXTINF:-1 tvg-id="karusel" group-title="Эфирные ТВ Плюс (RT)",3. Карусель [hlsstr03]
+http://hlsstr03.svc.iptv.rt.ru/hls/CH_KARUSEL/variant.m3u8
+#EXTINF:-1 tvg-id="karusel" group-title="Эфирные ТВ Плюс (RT)",4. Карусель [hlsstr04]
+http://hlsstr04.svc.iptv.rt.ru/hls/CH_KARUSEL/variant.m3u8
+#EXTINF:-1 tvg-id="karusel" group-title="Эфирные ТВ Плюс (RT)",5. Карусель (+2)
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_KARUSEL_2/variant.m3u8
+#EXTINF:-1 tvg-id="karusel" group-title="Эфирные ТВ Плюс (RT)",6. Карусель (+4)
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_KARUSEL_4/variant.m3u8
+#EXTINF:-1 tvg-id="karusel" group-title="Эфирные ТВ Плюс (RT)",7. Карусель (+7)
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_KARUSEL_7/variant.m3u8
+#EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ Плюс (RT)",8. РЕН ТВ
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_RENTV/variant.m3u8
+#EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ Плюс (RT)",9. РЕН ТВ HD
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_RENTVHD/variant.m3u8
+#EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ Плюс (RT)",10. РЕН ТВ (+2)
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_RENTV_2/variant.m3u8
+#EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ Плюс (RT)",11. РЕН ТВ (+4)
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_RENTV_4/variant.m3u8
+#EXTINF:-1 tvg-id="rentv" group-title="Эфирные ТВ Плюс (RT)",12. РЕН ТВ (+7)
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_RENTV_7/variant.m3u8
+#EXTINF:-1 tvg-id="tv3" group-title="Эфирные ТВ Плюс (RT)",13. ТВ-3
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_TV3/variant.m3u8
+#EXTINF:-1 tvg-id="tv3" group-title="Эфирные ТВ Плюс (RT)",14. ТВ-3 HD
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_TV3HD/variant.m3u8
+#EXTINF:-1 tvg-id="tv3" group-title="Эфирные ТВ Плюс (RT)",15. ТВ-3 (+2)
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_TV3_2/variant.m3u8
+#EXTINF:-1 tvg-id="tv3" group-title="Эфирные ТВ Плюс (RT)",16. ТВ-3 (+4)
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_TV3_4/variant.m3u8
+#EXTINF:-1 tvg-id="tv3" group-title="Эфирные ТВ Плюс (RT)",17. ТВ-3 (+7)
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_TV3_7/variant.m3u8
+#EXTINF:-1 tvg-id="mir" group-title="Эфирные ТВ Плюс (RT)",18. Мир
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_MIR/variant.m3u8
+#EXTINF:-1 tvg-id="mir" group-title="Эфирные ТВ Плюс (RT)",19. Мир HD
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_MIRHD/variant.m3u8
+#EXTINF:-1 tvg-id="mir" group-title="Эфирные ТВ Плюс (RT)",20. Мир (+2)
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_MIR_2/variant.m3u8
+#EXTINF:-1 tvg-id="mir" group-title="Эфирные ТВ Плюс (RT)",21. Мир (+4)
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_MIR_4/variant.m3u8
+#EXTINF:-1 tvg-id="mir" group-title="Эфирные ТВ Плюс (RT)",22. Мир (+7)
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_MIR_7/variant.m3u8
+#EXTINF:-1 tvg-id="viasat_nature" group-title="Эфирные ТВ Плюс (RT)",23. viju_nature HD
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_VIASATNATUREHD/variant.m3u8
+#EXTINF:-1 tvg-id="viasat_explore" group-title="Эфирные ТВ Плюс (RT)",24. viju_explore HD
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_VIASATEXPLOREHD/variant.m3u8
+#EXTINF:-1 tvg-id="viasat_history" group-title="Эфирные ТВ Плюс (RT)",25. viju_history HD
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_VIASATHISTORYHD/variant.m3u8
+#EXTINF:-1 tvg-id="tiji" group-title="Эфирные ТВ Плюс (RT)",26. TiJi
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_TIJI/variant.m3u8
+#EXTINF:-1 tvg-id="gulli" group-title="Эфирные ТВ Плюс (RT)",27. Gulli
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_GULLI/variant.m3u8
+#EXTINF:-1 tvg-id="amedia_hit" group-title="Эфирные ТВ Плюс (RT)",28. Amedia Hit HD
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_AMEDIAHITHD/variant.m3u8
+#EXTINF:-1 tvg-id="dom_kino" group-title="Эфирные ТВ Плюс (RT)",29. Дом Кино
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_DOMKINO/variant.m3u8
+#EXTINF:-1 tvg-id="dom_kino" group-title="Эфирные ТВ Плюс (RT)",30. Дом Кино HD
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_DOMKINOHD/variant.m3u8
+#EXTINF:-1 tvg-id="dom_kino_premium_hd" group-title="Эфирные ТВ Плюс (RT)",31. Дом Кино Премиум HD
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_DOMKINOPREMIUMHD/variant.m3u8
+#EXTINF:-1 tvg-id="evrokino" group-title="Эфирные ТВ Плюс (RT)",32. Еврокино
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_EUROKINO/variant.m3u8
+#EXTINF:-1 tvg-id="mir_seriala" group-title="Эфирные ТВ Плюс (RT)",33. Мир сериала
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_MIRSERIALA/variant.m3u8
+#EXTINF:-1 tvg-id="sony_turbo" group-title="Эфирные ТВ Плюс (RT)",34. Sony Turbo
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_SONYTURBO/variant.m3u8
+#EXTINF:-1 tvg-id="tnt_music" group-title="Эфирные ТВ Плюс (RT)",35. ТНТ Music
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_MUZTV/variant.m3u8
+#EXTINF:-1 tvg-id="tnt_music" group-title="Эфирные ТВ Плюс (RT)",36. ТНТ Music (+2)
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_MUZTV_2/variant.m3u8
+#EXTINF:-1 tvg-id="tnt_music" group-title="Эфирные ТВ Плюс (RT)",37. ТНТ Music (+4)
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_MUZTV_4/variant.m3u8
+#EXTINF:-1 tvg-id="tnt_music" group-title="Эфирные ТВ Плюс (RT)",38. ТНТ Music (+7)
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_MUZTV_7/variant.m3u8
+#EXTINF:-1 tvg-id="fashion_tv" group-title="Эфирные ТВ Плюс (RT)",39. Fashion TV HD
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_FASHIONTVHD/variant.m3u8
+#EXTINF:-1 tvg-id="da_vinci" group-title="Эфирные ТВ Плюс (RT)",40. Da Vinci
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_DAVINCILEARNING/variant.m3u8
+#EXTINF:-1 tvg-id="viasat_sport" group-title="Эфирные ТВ Плюс (RT)",41. viju_plus_sport
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_VIASATSPORT/variant.m3u8
+#EXTINF:-1 tvg-id="nickelodeon" group-title="Эфирные ТВ Плюс (внешние)",42. Nickelodeon
+http://stream.mcquack.net/443/index.m3u8
+#EXTINF:-1 tvg-id="nicktoons" group-title="Эфирные ТВ Плюс (внешние)",43. NickToons
+http://88.212.15.19/live/test_nicktoons/playlist.m3u8
+#EXTINF:-1 tvg-id="trace_sport_stars" group-title="Эфирные ТВ Плюс (внешние)",44. Trace Sport Stars
+https://stream8.cinerama.uz/1274/index.m3u8
+#EXTINF:-1 tvg-id="amedia_1" group-title="Эфирные ТВ Плюс (внешние)",45. Amedia 1 [DASH]
+http://mfe02.cliptv.az/dash/A1_SDoioioi65.ism/playlist.mpd
+#EXTINF:-1 tvg-id="amedia_2" group-title="Эфирные ТВ Плюс (внешние)",46. Amedia 2
+https://tv.a21network.ru/content/37909/index.m3u8
+#EXTINF:-1 tvg-id="amedia_premium_hd" group-title="Эфирные ТВ Плюс (внешние)",47. Amedia Premium HD
+http://45.145.32.13:20440/amedia_premium_hd/index.m3u8?token=test
+#EXTINF:-1 tvg-id="filmbox" group-title="Эфирные ТВ Плюс (внешние)",48. FilmBox
+http://46.149.191.219:9100/play/a015
+#EXTINF:-1 tvg-id="filmbox_arthouse" group-title="Эфирные ТВ Плюс (внешние)",49. FilmBox Arthouse
+http://188.113.190.15/207/mono.m3u8
+#EXTINF:-1 tvg-id="amc" group-title="Эфирные ТВ Плюс (внешние)",50. AMC
+https://amchls.wns.live/hls/stream.m3u8
+#EXTINF:-1 tvg-id="illusion_plus" group-title="Эфирные ТВ Плюс (внешние)",51. Иллюзион+
+http://176.118.197.101/Illuzion+/index.m3u8
+#EXTINF:-1 tvg-id="tv_xxi" group-title="Эфирные ТВ Плюс (внешние)",52. ТВ XXI
+http://starcius-cinema.com/10148/index.m3u8?token=010101010101
+#EXTINF:-1 tvg-id="365_dney_tv" group-title="Эфирные ТВ Плюс (внешние)",53. 365 дней ТВ
+http://stream.mcquack.net/70/index.m3u8
+#EXTINF:-1 tvg-id="galaxy" group-title="Эфирные ТВ Плюс (внешние)",54. Galaxy
+http://195.26.83.96:7007/play/a00j/index.m3u8
+#EXTINF:-1 tvg-id="sony_channel" group-title="Эфирные ТВ Плюс (внешние)",55. Sony Channel
+http://starcius-cinema.com/10147/index.m3u8?token=010101010101
+#EXTINF:-1 tvg-id="history_2" group-title="Эфирные ТВ Плюс (внешние)",56. History 2
+http://45.177.114.114/HISTORY/index.m3u8
+#EXTINF:-1 tvg-id="docubox" group-title="Эфирные ТВ Плюс (внешние)",57. DocuBox
+http://188.113.190.15/146/mono.m3u8
+#EXTINF:-1 tvg-id="nostalgia" group-title="Эфирные ТВ Плюс (внешние)",58. Ностальгия
+http://stream.mcquack.net/229/index.m3u8
+#EXTINF:-1 tvg-id="mezzo" group-title="Эфирные ТВ Плюс (внешние)",59. Mezzo
+http://stream.mcquack.net/276/index.m3u8
+#EXTINF:-1 tvg-id="vip_premiere" group-title="Эфирные ТВ Плюс (внешние)",60. viju_plus_premiere
+http://stream.mcquack.net/202/index.m3u8
+#EXTINF:-1 tvg-id="vip_megahit" group-title="Эфирные ТВ Плюс (внешние)",61. viju_plus_megahit
+http://stream.mcquack.net/200/index.m3u8
+#EXTINF:-1 tvg-id="vip_serial" group-title="Эфирные ТВ Плюс (внешние)",62. viju_plus_serial
+http://stream.mcquack.net/311/index.m3u8
+
+
+
+
+
+
