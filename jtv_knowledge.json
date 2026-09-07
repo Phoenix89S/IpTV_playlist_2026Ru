@@ -1,6 +1,6 @@
 {
   "source": "eppg_provider",
-  "total": 568,
+  "total": 562,
   "items": [
     {
       "raw_name": "Первый_Крымский",
@@ -71,12 +71,6 @@
     {
       "raw_name": "Первый_канал_(Орбита_2__6)",
       "alias": "первый_канал_(орбита_2__6)",
-      "confidence": 0.95,
-      "source": "eppg_legacy"
-    },
-    {
-      "raw_name": "Любимое_SD",
-      "alias": "любимое_sd",
       "confidence": 0.95,
       "source": "eppg_legacy"
     },
@@ -365,12 +359,6 @@
     {
       "raw_name": "Романтичное_HD",
       "alias": "романтичное_hd",
-      "confidence": 0.95,
-      "source": "eppg_legacy"
-    },
-    {
-      "raw_name": "Тип_Топ",
-      "alias": "тип_топ",
       "confidence": 0.95,
       "source": "eppg_legacy"
     },
@@ -1083,8 +1071,8 @@
       "source": "eppg_legacy"
     },
     {
-      "raw_name": "Кино_Ultra_HD",
-      "alias": "кино_ultra_hd",
+      "raw_name": "Афонтово",
+      "alias": "афонтово",
       "confidence": 0.95,
       "source": "eppg_legacy"
     },
@@ -1539,6 +1527,12 @@
       "source": "eppg_legacy"
     },
     {
+      "raw_name": "Шалун",
+      "alias": "шалун",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
       "raw_name": "KinoJam_1",
       "alias": "kinojam_1",
       "confidence": 0.95,
@@ -1739,12 +1733,6 @@
     {
       "raw_name": "2x2",
       "alias": "2x2",
-      "confidence": 0.95,
-      "source": "eppg_legacy"
-    },
-    {
-      "raw_name": "Пингвин_Лоло",
-      "alias": "пингвин_лоло",
       "confidence": 0.95,
       "source": "eppg_legacy"
     },
@@ -2235,12 +2223,6 @@
       "source": "eppg_legacy"
     },
     {
-      "raw_name": "Angel_TV",
-      "alias": "angel_tv",
-      "confidence": 0.95,
-      "source": "eppg_legacy"
-    },
-    {
       "raw_name": "Чижик",
       "alias": "чижик",
       "confidence": 0.95,
@@ -2649,12 +2631,6 @@
       "source": "eppg_legacy"
     },
     {
-      "raw_name": "Наше",
-      "alias": "наше",
-      "confidence": 0.95,
-      "source": "eppg_legacy"
-    },
-    {
       "raw_name": "Любимое",
       "alias": "любимое",
       "confidence": 0.95,
@@ -2937,12 +2913,6 @@
       "source": "eppg_legacy"
     },
     {
-      "raw_name": "Спорт_1_(Украина)",
-      "alias": "спорт_1_(украина)",
-      "confidence": 0.95,
-      "source": "eppg_legacy"
-    },
-    {
       "raw_name": "Любимое_кино",
       "alias": "любимое_кино",
       "confidence": 0.95,
@@ -3083,12 +3053,6 @@
     {
       "raw_name": "Zooпарк",
       "alias": "zooпарк",
-      "confidence": 0.95,
-      "source": "eppg_legacy"
-    },
-    {
-      "raw_name": "Penthouse",
-      "alias": "penthouse",
       "confidence": 0.95,
       "source": "eppg_legacy"
     },
