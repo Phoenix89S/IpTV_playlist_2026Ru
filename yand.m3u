@@ -1,0 +1,114 @@
+
+#EXTM3U
+#EXTINF:-1,1HD
+http://strm.yandex.ru/kal/1hd/1hd0.m3u8
+#EXTINF:-1,360°
+http://strm.yandex.ru/kal/360tv/360tv0.m3u8
+#EXTINF:-1,DW HD
+http://strm.yandex.ru/kal/dw_supres/dw_supres0_169_720p.json/index-v1-a1.m3u8
+#EXTINF:-1,France 24
+http://strm.yandex.ru/kal/france24/france240.m3u8
+#EXTINF:-1,FreshTV
+http://strm.yandex.ru/kal/fresh/fresh0.m3u8
+#EXTINF:-1,FTV HD
+http://strm.yandex.ru/kal/fashiontv/fashiontv0_169_1080p.json/index-v1-a1.m3u8
+#EXTINF:-1,HD Медиа
+http://strm.yandex.ru/kal/hdmedia/hdmedia0.m3u8
+#EXTINF:-1,HITV
+http://strm.yandex.ru/kal/hittv/hittv0.m3u8
+#EXTINF:-1,RT Doc
+http://strm.yandex.ru/kal/rtd_hd/rtd_hd0.m3u8
+#EXTINF:-1,RT HD
+http://strm.yandex.ru/kal/rt_hd/rt_hd0.m3u8
+#EXTINF:-1,RTG HD
+http://strm.yandex.ru/kal/rtg/rtg0_169_1080p.json/index-v1-a1.m3u8
+#EXTINF:-1,Russian Music Box
+http://strm.yandex.ru/kal/rmbox/rmbox0_169_1080p.json/index-v1-a1.m3u8
+#EXTINF:-1,RUTV
+http://strm.yandex.ru/kal/rutv_cv/rutv_cv0.m3u8
+#EXTINF:-1,WBC
+http://strm.yandex.ru/kal/wbc/wbc0.m3u8
+#EXTINF:-1,World Fashion Channel
+http://strm.yandex.ru/kal/fashion/fashion0.m3u8
+#EXTINF:-1,Большая Азия
+http://strm.yandex.ru/kal/bigasia/bigasia0.m3u8
+#EXTINF:-1,ГРОЗНЫЙ HD
+http://strm.yandex.ru/kal/grozny_supres/grozny_supres0_169_720p.json/index-v1-a1.m3u8
+#EXTINF:-1,ГУБЕРНИЯ
+http://strm.yandex.ru/kal/guberniya/guberniya0_54_576p.json/index-v1-a1.m3u8
+#EXTINF:-1,ДАЙВИНГ HD
+http://strm.yandex.ru/kal/diving/diving0_169_720p.json/index-v1-a1.m3u8
+#EXTINF:-1,Дождь
+http://strm.yandex.ru/kal/tvrain/tvrain0.m3u8
+#EXTINF:-1,ДОМ 24 HD
+http://strm.yandex.ru/kal/don24/don240_169_1080p.json/index-v1-a1.m3u8
+#EXTINF:-1,ДТВ HD (Любимое ТВ)
+http://strm.yandex.ru/kal/lovedtv/lovedtv0_169_720p.json/index-v1-a1.m3u8
+#EXTINF:-1,Загородный
+http://strm.yandex.ru/kal/zagorod/zagorod0.m3u8
+#EXTINF:-1,Классика кино
+http://strm.yandex.ru/kal/kinoclassic/kinoclassic0.m3u8
+#EXTINF:-1,Крик ТВ
+http://strm.yandex.ru/kal/krik_tv/krik_tv0_169_720p.json/index-v1-a1.m3u8
+#EXTINF:-1,Любимое ТВ
+http://strm.yandex.ru/kal/lovedtv/lovedtv0.m3u8
+#EXTINF:-1,МИР 24
+http://strm.yandex.ru/kal/mir24_supres/mir24_supres0_169_720p.json/index-v1-a1.m3u8
+#EXTINF:-1,Наша Сибирь
+http://strm.yandex.ru/kal/sibir/sibir0.m3u8
+#EXTINF:-1,Неизвестная планета
+http://strm.yandex.ru/kal/unknownplanet/unknownplanet0.m3u8
+#EXTINF:-1,О2ТВ
+http://strm.yandex.ru/kal/o2/o20.m3u8
+#EXTINF:-1,Охотник и Рыболов
+http://strm.yandex.ru/kal/ohotnik/ohotnik0.m3u8
+#EXTINF:-1,Ратник
+http://strm.yandex.ru/kal/ratnik/ratnik0.m3u8
+#EXTINF:-1,Синергия ТВ
+http://strm.yandex.ru/kal/synergytv/synergytv0.m3u8
+#EXTINF:-1,Сказки Зайки
+http://strm.yandex.ru/kal/skazkizayki/skazkizayki0_169_720p.json/index-v1-a1.m3u8
+#EXTINF:-1,Советские мультфильмы
+http://strm.yandex.ru/kal/sovmult/sovmult0_169_576p.json/index-v1-a1.m3u8
+#EXTINF:-1,Советское Кино
+http://strm.yandex.ru/kal/sovkino/sovkino0_169_576p.json/index-v1-a1.m3u8
+#EXTINF:-1,Союз
+http://strm.yandex.ru/kal/soyuz_supres/soyuz_supres0_169_720p.json/index-v1-a1.m3u8
+#EXTINF:-1,Старт
+http://strm.yandex.ru/kal/start/start0.m3u8
+#EXTINF:-1,ТВТУР
+http://strm.yandex.ru/kal/tvtour/tvtour0_169_720p.json/index-v1-a1.m3u8
+#EXTINF:-1,ТК Футбол
+http://strm.yandex.ru/kal/football/football0.m3u8
+#EXTINF:-1,Тномер
+http://strm.yandex.ru/kal/tnomer/tnomer0_169_576p.json/index-v1-a1.m3u8
+#EXTINF:-1,Точка ТВ
+http://strm.yandex.ru/kal/tochkatv_cv/tochkatv_cv0.m3u8
+#EXTINF:-1,УСПЕХ
+http://strm.yandex.ru/kal/uspehtv_supres/uspehtv_supres0_1511_720p.json/index-v1-a1.m3u8
+#EXTINF:-1,Футбол
+http://strm.yandex.ru/kal/football/football0.m3u8
+
+
+#EXTINF:-1,Лёва
+http://strm.yandex.ru/kal/leva/leva0.m3u8
+#EXTINF:-1,Вкусное ТВ
+http://strm.yandex.ru/kal/vkusnoetv/vkusnoetv0.m3u8
+#EXTINF:-1,EarthTV
+http://strm.yandex.ru/kal/worldlife/worldlife0.m3u8
+#EXTINF:-1,Мир сериала
+http://strm.yandex.ru/kal/mirseriala/mirseriala0.m3u8
+#EXTINF:-1,Телеканал МИР
+http://strm.yandex.ru/kal/mir_supres/mir_supres0.m3u8
+#EXTINF:-1,Терра Инкогнита
+http://strm.yandex.ru/kal/terra/terra0.m3u8
+#EXTINF:-1,Ю
+http://strm.yandex.ru/kal/utv/utv0.m3u8
+#EXTINF:-1,360 Новости
+http://strm.yandex.ru/kal/360news_supres/360news_supres0.m3u8
+#EXTINF:-1,Известия
+http://strm.yandex.ru/kal/izvestia/izvestia0.m3u8
+#EXTINF:-1,КХЛ
+http://strm.yandex.ru/kal/khl_belarus/khl_belarus0.m3u8
+#EXTINF:-1,Удар
+http://strm.yandex.ru/kal/udar/udar0.m3u8
