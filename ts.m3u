@@ -493,6 +493,89 @@ udp://@239.255.2.140:5500
 udp://@239.255.2.138:5500
 
 
+
+#EXTINF:-1,Первый канал
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_1TVSD/variant.m3u8
+#EXTINF:-1,Первый канал HD
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_C01_1TVHD/variant.m3u8
+#EXTINF:-1,Россия 1
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_RUSSIA1/variant.m3u8
+#EXTINF:-1,Россия 1 (+4)
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_RUSSIA1_4/variant.m3u8
+#EXTINF:-1,Россия 1 HD
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_C01_RUSSIA1HD/variant.m3u8
+#EXTINF:-1,Матч ТВ
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_MATCHTV/variant.m3u8
+#EXTINF:-1,Матч ТВ HD
+http://sdp.svc.iptv.rt.ru:8080/hls/CH_C01_MATCHTVHD/variant.m3u8
+#EXTINF:-1,НТВ
+http://hlsstr03.svc.iptv.rt.ru/hls/CH_NTV/variant.m3u8
+#EXTINF:-1,5 канал
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_5TV/variant.m3u8
+#EXTINF:-1,Россия К
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_RUSSIAK/variant.m3u8
+#EXTINF:-1,Россия 24
+http://hlsstr02.svc.iptv.rt.ru/hls/CH_RUSSIA24/variant.m3u8
+#EXTINF:-1,Карусель
+http://hlsstr02.svc.iptv.rt.ru/hls/CH_KARUSEL/variant.m3u8
+#EXTINF:-1,ОТР
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_OTR/variant.m3u8
+#EXTINF:-1,ТВ Центр
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_TVC/variant.m3u8
+#EXTINF:-1,РЕН ТВ
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_RENTV/variant.m3u8
+#EXTINF:-1,СТС
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_STS/variant.m3u8
+#EXTINF:-1,Домашний
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_DOMASHNIY/variant.m3u8
+#EXTINF:-1,ТВ3
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_TV3/variant.m3u8
+#EXTINF:-1,Пятница!
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_PYATNIZZA/variant.m3u8
+#EXTINF:-1,Звезда
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_ZVEZDA/variant.m3u8
+#EXTINF:-1,Мир
+http://hlsstr03.svc.iptv.rt.ru/hls/CH_MIR/variant.m3u8
+#EXTINF:-1,ТНТ
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_TNT/variant.m3u8
+#EXTINF:-1,ТНТ4
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_TNT4/variant.m3u8
+#EXTINF:-1,2x2
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_2X2/variant.m3u8
+#EXTINF:-1,Муз ТВ
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_MUZTV/variant.m3u8
+#EXTINF:-1,Ю
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_U/variant.m3u8
+#EXTINF:-1,Че
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_CHE/variant.m3u8
+#EXTINF:-1,Disney
+http://hlsstr02.svc.iptv.rt.ru/hls/CH_DISNEY/variant.m3u8
+#EXTINF:-1,Мульт
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_MULT/variant.m3u8
+#EXTINF:-1,TiJi
+http://hlsstr04.svc.iptv.rt.ru/hls/CH_TIJI/variant.m3u8
+#EXTINF:-1,JimJam
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_JIMJAM/variant.m3u8
+#EXTINF:-1,Русский Иллюзион
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_RUSSIANILLUSION/variant.m3u8
+#EXTINF:-1,Дикая охота HD
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_DIKAYAOHOTAHD/variant.m3u8
+#EXTINF:-1,Дикая рыбалка HD
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_DIKAYARYBALKAHD/variant.m3u8
+#EXTINF:-1,Страшное HD
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_C01_STRASHNOEHD/variant.m3u8
+#EXTINF:-1,Bollywood HD
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_BOLLYWOODHD/variant.m3u8
+#EXTINF:-1,ID Xtra HD
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_IDXTRAHD/variant.m3u8
+#EXTINF:-1,Discovery Investigation
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_DISCOVERYINVEST/variant.m3u8
+#EXTINF:-1,Известия HD
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_C03_IZVESTIYAHD/variant.m3u8
+#EXTINF:-1,MCM Top
+http://hlsstr01.svc.iptv.rt.ru/hls/CH_MCMTOP/variant.m3u8
+
+
 #EXTINF:-1,БелМуз ТВ
 http://streams.tv.mts.by/belmustv/1/index.m3u8
 #EXTINF:-1,Перец International
