@@ -56,3 +56,44 @@ http://tvip.btk.teleos.ru:8081/chid518/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (ранее выданные)",Кинопремьера HD — JekaLich proxy
 https://jekalich.github.io/smtk/channels/kinopremiera-hd.m3u8
+
+
+#EXTM3U
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="странное",Канал 1
+https://tinyurl.com/4tfv9tup/1/index.m3u8
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="странное",Канал 2
+https://tinyurl.com/4tfv9tup/2/index.m3u8
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="странное",Канал 3
+https://tinyurl.com/4tfv9tup/3/index.m3u8
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="странное",Канал 4
+https://tinyurl.com/4tfv9tup/4/index.m3u8
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="странное",Канал 5
+https://tinyurl.com/4tfv9tup/5/index.m3u8
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="странное",Канал 6
+https://tinyurl.com/4tfv9tup/6/index.m3u8
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="странное",Канал 7
+https://tinyurl.com/4tfv9tup/7/index.m3u8
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="странное",Канал 8
+https://tinyurl.com/4tfv9tup/8/index.m3u8
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="странное",Канал 9
+https://tinyurl.com/4tfv9tup/9/index.m3u8
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="странное",Канал 10
+https://tinyurl.com/4tfv9tup/10/index.m3u8
+
+# ... далее по той же схеме до 2162 ...
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (НОВЫЕ)",Кинопремьера — tinyurl 2163 (Новый!)
+https://tinyurl.com/4tfv9tup/2163/index.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="странное",Канал 2164
+https://tinyurl.com/4tfv9tup/2164/index.m3u8
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="странное",Канал 2165
+https://tinyurl.com/4tfv9tup/2165/index.m3u8
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="странное",Канал 2166
+https://tinyurl.com/4tfv9tup/2166/index.m3u8
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="странное",Канал 2167
+https://tinyurl.com/4tfv9tup/2167/index.m3u8
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="странное",Канал 2168
+https://tinyurl.com/4tfv9tup/2168/index.m3u8
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="странное",Канал 2169
+https://tinyurl.com/4tfv9tup/2169/index.m3u8
