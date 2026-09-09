@@ -576,6 +576,20 @@ http://hlsstr01.svc.iptv.rt.ru/hls/CH_C03_IZVESTIYAHD/variant.m3u8
 http://hlsstr01.svc.iptv.rt.ru/hls/CH_MCMTOP/variant.m3u8
 
 
+#EXTINF:-1 tvg-name="Кинопремьера" tvg-logo="https://i.imgur.com/placeholder.png" group-title="Кино",Кинопремьера (SD) — Teleos
+http://tvip.btk.teleos.ru:8081/chid518/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-name="Кинопремьера" tvg-logo="https://i.imgur.com/placeholder.png" group-title="Кино",Кинопремьера (SD) — VK IPTV
+http://178.217.72.66:80/225.201.2.46/playlist.m3u8
+#EXTINF:-1 tvg-name="Кинопремьера" tvg-logo="https://i.imgur.com/placeholder.png" group-title="Кино",Кинопремьера (SD) — Beltelecom
+http://178.124.183.5/hls/CH_KINOPREMERA/variant.m3u8
+#EXTINF:-1 tvg-name="Кинопремьера HD" tvg-logo="https://i.imgur.com/placeholder.png" group-title="Кино",Кинопремьера HD — MaximKiselev
+http://178.124.179.122:8088/Kinopremiera/index.m3u8
+#EXTINF:-1 tvg-name="Кинопремьера HD" tvg-logo="https://i.imgur.com/placeholder.png" group-title="Кино",Кинопремьера HD — Beltelecom
+http://178.124.183.14/hls/CH_KINOPREMERA/variant.m3u8
+#EXTINF:-1 tvg-name="Кинопремьера HD" tvg-logo="https://i.imgur.com/placeholder.png" group-title="Кино",Кинопремьера HD — JekaLich
+https://jekalich.github.io/smtk/channels/kinopremiera-hd.m3u8
+
+
 #EXTINF:-1,БелМуз ТВ
 http://streams.tv.mts.by/belmustv/1/index.m3u8
 #EXTINF:-1,Перец International
