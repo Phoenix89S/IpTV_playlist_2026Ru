@@ -491,3 +491,19 @@ udp://@239.255.2.142:5500
 udp://@239.255.2.140:5500
 #EXTINF:-1 group-title="Радио",Энергия
 udp://@239.255.2.138:5500
+
+
+#EXTINF:-1,БелМуз ТВ
+http://streams.tv.mts.by/belmustv/1/index.m3u8
+#EXTINF:-1,Перец International
+http://streams.tv.mts.by/peretz_int/1/index.m3u8
+#EXTINF:-1,CBS Reality
+http://streams.tv.mts.by/cbs_reality/1/index.m3u8
+#EXTINF:-1,Кинозал Зарубежная киноклассика
+http://streams.tv.mts.by/zarubezhnaya_classica/1/index.m3u8
+#EXTINF:-1,Кинозал Советская киноклассика
+http://streams.tv.mts.by/soviet_classic/1/index.m3u8
+#EXTINF:-1,Кинозал Индийская киноклассика
+http://streams.tv.mts.by/indiyskaya_classica/1/index.m3u8
+#EXTINF:-1,Кинозал Классика Голливуда
+http://streams.tv.mts.by/hollywood_classic/1/index.m3u8
