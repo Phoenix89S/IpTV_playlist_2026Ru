@@ -1,0 +1,493 @@
+#EXTM3U
+
+# === ИСТОЧНИК 1: RazielMalah/MTS-IPTV (239.10.127.x:5500) ===
+
+# --- Мультиплекс 1 (РТРС-1) ---
+#EXTINF:-1 group-title="Мультиплекс 1",Первый канал
+udp://@239.10.127.1:5500
+#EXTINF:-1 group-title="Мультиплекс 1",Россия-1
+udp://@239.10.127.2:5500
+#EXTINF:-1 group-title="Мультиплекс 1",Матч!
+udp://@239.10.127.3:5500
+#EXTINF:-1 group-title="Мультиплекс 1",НТВ
+udp://@239.10.127.4:5500
+#EXTINF:-1 group-title="Мультиплекс 1",Пятый канал
+udp://@239.10.127.5:5500
+#EXTINF:-1 group-title="Мультиплекс 1",Россия-К
+udp://@239.10.127.6:5500
+#EXTINF:-1 group-title="Мультиплекс 1",Россия-24
+udp://@239.10.127.7:5500
+#EXTINF:-1 group-title="Мультиплекс 1",Карусель
+udp://@239.10.127.8:5500
+#EXTINF:-1 group-title="Мультиплекс 1",ОТР
+udp://@239.10.127.9:5500
+#EXTINF:-1 group-title="Мультиплекс 1",ТВ Центр
+udp://@239.10.127.10:5500
+
+# --- Мультиплекс 2 (РТРС-2) ---
+#EXTINF:-1 group-title="Мультиплекс 2",РЕН ТВ
+udp://@239.10.127.11:5500
+#EXTINF:-1 group-title="Мультиплекс 2",Спас
+udp://@239.10.127.12:5500
+#EXTINF:-1 group-title="Мультиплекс 2",СТС
+udp://@239.10.127.13:5500
+#EXTINF:-1 group-title="Мультиплекс 2",Домашний
+udp://@239.10.127.14:5500
+#EXTINF:-1 group-title="Мультиплекс 2",ТВ-3
+udp://@239.10.127.15:5500
+#EXTINF:-1 group-title="Мультиплекс 2",Пятница!
+udp://@239.10.127.16:5500
+#EXTINF:-1 group-title="Мультиплекс 2",Звезда
+udp://@239.10.127.17:5500
+#EXTINF:-1 group-title="Мультиплекс 2",Мир
+udp://@239.10.127.18:5500
+#EXTINF:-1 group-title="Мультиплекс 2",ТНТ
+udp://@239.10.127.19:5500
+#EXTINF:-1 group-title="Мультиплекс 2",Муз-ТВ
+udp://@239.10.127.20:5500
+
+# --- Региональные ---
+#EXTINF:-1 group-title="Региональные",Губерния
+udp://@239.10.127.21:5500
+#EXTINF:-1 group-title="Региональные",ТВ-6
+udp://@239.10.127.22:5500
+
+# === ИСТОЧНИК 2: LetItCode/mgts-iptv (239.255.0.x:5500) — МГТС Москва ===
+
+# --- Федеральные ---
+#EXTINF:-1 group-title="Федеральные (МГТС)",СТС
+udp://@239.255.2.61:5500
+#EXTINF:-1 group-title="Федеральные (МГТС)",Ю
+udp://@239.255.2.62:5500
+#EXTINF:-1 group-title="Федеральные (МГТС)",Россия 1
+udp://@239.255.2.67:5500
+#EXTINF:-1 group-title="Федеральные (МГТС)",Россия К
+udp://@239.255.2.68:5500
+#EXTINF:-1 group-title="Федеральные (МГТС)",Россия 24
+udp://@239.255.2.109:5500
+#EXTINF:-1 group-title="Федеральные (МГТС)",ТВ3
+udp://@239.255.2.90:5500
+#EXTINF:-1 group-title="Федеральные (МГТС)",Звезда
+udp://@239.255.2.91:5500
+#EXTINF:-1 group-title="Федеральные (МГТС)",НТВ
+udp://@239.255.2.95:5500
+#EXTINF:-1 group-title="Федеральные (МГТС)",Пятница!
+udp://@239.255.2.98:5500
+#EXTINF:-1 group-title="Федеральные (МГТС)",ТНТ
+udp://@239.255.2.100:5500
+#EXTINF:-1 group-title="Федеральные (МГТС)",PRO Бизнес
+udp://@239.255.2.119:5500
+#EXTINF:-1 group-title="Федеральные (МГТС)",Россия HD
+udp://@239.255.2.120:5500
+#EXTINF:-1 group-title="Федеральные (МГТС)",ОТР
+udp://@239.255.2.210:5500
+
+# --- Детские ---
+#EXTINF:-1 group-title="Детские",2x2
+udp://@239.255.2.115:5500
+#EXTINF:-1 group-title="Детские",Детский Мир
+udp://@239.255.0.35:5500
+#EXTINF:-1 group-title="Детские",Карусель
+udp://@239.255.0.114:5500
+#EXTINF:-1 group-title="Детские",Мульт
+udp://@239.255.0.121:5500
+#EXTINF:-1 group-title="Детские",Мультимания
+udp://@239.255.0.221:5500
+#EXTINF:-1 group-title="Детские",Радость Моя
+udp://@239.255.0.193:5500
+#EXTINF:-1 group-title="Детские",Рыжий
+udp://@239.255.0.56:5500
+#EXTINF:-1 group-title="Детские",Детский канал
+udp://@239.255.2.47:5500
+#EXTINF:-1 group-title="Детские [НЕТ В РФ]",Cartoon Network
+udp://@239.255.0.106:5500
+#EXTINF:-1 group-title="Детские [НЕТ В РФ]",Nickelodeon HD
+udp://@239.255.0.162:5500
+#EXTINF:-1 group-title="Детские [НЕТ В РФ]",Baby TV
+udp://@239.255.0.254:5500
+#EXTINF:-1 group-title="Детские [НЕТ В РФ]",Gulli
+udp://@239.255.0.242:5500
+#EXTINF:-1 group-title="Детские [НЕТ В РФ]",JimJam
+udp://@239.255.0.31:5500
+#EXTINF:-1 group-title="Детские [НЕТ В РФ]",Nick Jr
+udp://@239.255.0.212:5500
+#EXTINF:-1 group-title="Детские [НЕТ В РФ]",Tiji
+udp://@239.255.0.145:5500
+#EXTINF:-1 group-title="Детские [НЕТ В РФ]",Disney Channel
+udp://@239.255.2.57:5500
+
+# --- Познавательные ---
+#EXTINF:-1 group-title="Познавательные",Бобер
+udp://@239.255.0.149:5500
+#EXTINF:-1 group-title="Познавательные",24 DOC
+udp://@239.255.0.133:5500
+#EXTINF:-1 group-title="Познавательные",365 дней
+udp://@239.255.0.134:5500
+#EXTINF:-1 group-title="Познавательные",Нано-ТВ
+udp://@239.255.0.143:5500
+#EXTINF:-1 group-title="Познавательные",RTG HD
+udp://@239.255.0.191:5500
+#EXTINF:-1 group-title="Познавательные",WBC HD
+udp://@239.255.0.108:5500
+#EXTINF:-1 group-title="Познавательные",Авто 24 HD
+udp://@239.255.0.250:5500
+#EXTINF:-1 group-title="Познавательные",Авто Плюс
+udp://@239.255.0.173:5500
+#EXTINF:-1 group-title="Познавательные",Время
+udp://@239.255.0.135:5500
+#EXTINF:-1 group-title="Познавательные",История
+udp://@239.255.0.209:5500
+#EXTINF:-1 group-title="Познавательные",Моя планета
+udp://@239.255.0.73:5500
+#EXTINF:-1 group-title="Познавательные",Наука 2.0
+udp://@239.255.0.140:5500
+#EXTINF:-1 group-title="Познавательные",Оружие
+udp://@239.255.0.237:5500
+#EXTINF:-1 group-title="Познавательные",Просвещение
+udp://@239.255.0.174:5500
+#EXTINF:-1 group-title="Познавательные",Совершенно секретно
+udp://@239.255.0.217:5500
+#EXTINF:-1 group-title="Познавательные",Т24
+udp://@239.255.0.51:5500
+#EXTINF:-1 group-title="Познавательные",Театр ТВ
+udp://@239.255.0.154:5500
+#EXTINF:-1 group-title="Познавательные",Теледом
+udp://@239.255.0.205:5500
+#EXTINF:-1 group-title="Познавательные",Успех
+udp://@239.255.0.144:5500
+#EXTINF:-1 group-title="Познавательные",English Club
+udp://@239.255.2.83:5500
+#EXTINF:-1 group-title="Познавательные [НЕТ В РФ]",Discovery Science
+udp://@239.255.0.178:5500
+#EXTINF:-1 group-title="Познавательные [НЕТ В РФ]",Travel+Adventure HD
+udp://@239.255.0.177:5500
+#EXTINF:-1 group-title="Познавательные [НЕТ В РФ]",Animal Planet HD
+udp://@239.255.0.161:5500
+#EXTINF:-1 group-title="Познавательные [НЕТ В РФ]",National Geographic HD
+udp://@239.255.0.197:5500
+#EXTINF:-1 group-title="Познавательные [НЕТ В РФ]",Da Vinci Learning
+udp://@239.255.0.44:5500
+#EXTINF:-1 group-title="Познавательные [НЕТ В РФ]",Discovery HD
+udp://@239.255.0.132:5500
+#EXTINF:-1 group-title="Познавательные [НЕТ В РФ]",History
+udp://@239.255.0.105:5500
+#EXTINF:-1 group-title="Познавательные [НЕТ В РФ]",Nat Geo Wild HD
+udp://@239.255.0.198:5500
+#EXTINF:-1 group-title="Познавательные [НЕТ В РФ]",TLC HD
+udp://@239.255.0.171:5500
+#EXTINF:-1 group-title="Познавательные [НЕТ В РФ]",Viasat Explore
+udp://@239.255.0.99:5500
+#EXTINF:-1 group-title="Познавательные [НЕТ В РФ]",Viasat History HD
+udp://@239.255.0.84:5500
+#EXTINF:-1 group-title="Познавательные [НЕТ В РФ]",Viasat Nature HD
+udp://@239.255.0.186:5500
+#EXTINF:-1 group-title="Познавательные [НЕТ В РФ]",Zee TV
+udp://@239.255.0.220:5500
+
+# --- Кино ---
+#EXTINF:-1 group-title="Кино",Дом кино
+udp://@239.255.0.113:5500
+#EXTINF:-1 group-title="Кино",Дом кино Премиум
+udp://@239.255.0.70:5500
+#EXTINF:-1 group-title="Кино",Еврокино
+udp://@239.255.0.10:5500
+#EXTINF:-1 group-title="Кино",Русский Бестселлер
+udp://@239.255.0.214:5500
+#EXTINF:-1 group-title="Кино",Русский Иллюзион
+udp://@239.255.0.53:5500
+#EXTINF:-1 group-title="Кино",Русский роман
+udp://@239.255.0.180:5500
+#EXTINF:-1 group-title="Кино",Точка ТВ
+udp://@239.255.0.4:5500
+#EXTINF:-1 group-title="Кино",Феникс+Кино
+udp://@239.255.0.236:5500
+#EXTINF:-1 group-title="Кино",Много ТВ
+udp://@239.255.0.139:5500
+#EXTINF:-1 group-title="Кино",Мужское кино
+udp://@239.255.0.224:5500
+#EXTINF:-1 group-title="Кино",НСТ
+udp://@239.255.0.107:5500
+#EXTINF:-1 group-title="Кино",Наше ТВ
+udp://@239.255.0.142:5500
+#EXTINF:-1 group-title="Кино",Наше кино
+udp://@239.255.0.153:5500
+#EXTINF:-1 group-title="Кино",Наше новое кино
+udp://@239.255.0.244:5500
+#EXTINF:-1 group-title="Кино [НЕТ В РФ]",TV1000 Comedy HD
+udp://@239.255.0.189:5500
+#EXTINF:-1 group-title="Кино [НЕТ В РФ]",TV1000 Megahit HD
+udp://@239.255.0.188:5500
+#EXTINF:-1 group-title="Кино [НЕТ В РФ]",TV1000 Premium HD
+udp://@239.255.0.187:5500
+#EXTINF:-1 group-title="Кино [НЕТ В РФ]",TV1000 Русское кино
+udp://@239.255.0.87:5500
+#EXTINF:-1 group-title="Кино [НЕТ В РФ]",Amedia 1
+udp://@239.255.0.213:5500
+#EXTINF:-1 group-title="Кино [НЕТ В РФ]",Amedia 2
+udp://@239.255.0.216:5500
+#EXTINF:-1 group-title="Кино [НЕТ В РФ]",Amedia Hit HD
+udp://@239.255.0.6:5500
+#EXTINF:-1 group-title="Кино [НЕТ В РФ]",Amedia Premium HD
+udp://@239.255.0.247:5500
+#EXTINF:-1 group-title="Кино [НЕТ В РФ]",AMC
+udp://@239.255.0.74:5500
+#EXTINF:-1 group-title="Кино [НЕТ В РФ]",HD Кино
+udp://@239.255.0.3:5500
+#EXTINF:-1 group-title="Кино [НЕТ В РФ]",Fox HD
+udp://@239.255.0.231:5500
+
+# --- Музыка ---
+#EXTINF:-1 group-title="Музыка",Bridge TV
+udp://@239.255.0.211:5500
+#EXTINF:-1 group-title="Музыка",Dange TV
+udp://@239.255.0.201:5500
+#EXTINF:-1 group-title="Музыка",Europa Plus TV
+udp://@239.255.0.239:5500
+#EXTINF:-1 group-title="Музыка",MUSICBOX
+udp://@239.255.0.60:5500
+#EXTINF:-1 group-title="Музыка",RU.TV
+udp://@239.255.0.111:5500
+#EXTINF:-1 group-title="Музыка",RUSONG TV
+udp://@239.255.0.232:5500
+#EXTINF:-1 group-title="Музыка",RUSSIAN MUSICBOX
+udp://@239.255.0.207:5500
+#EXTINF:-1 group-title="Музыка",Ля-минор
+udp://@239.255.0.233:5500
+#EXTINF:-1 group-title="Музыка",Муз ТВ
+udp://@239.255.0.46:5500
+#EXTINF:-1 group-title="Музыка",Музыка Первого
+udp://@239.255.0.136:5500
+#EXTINF:-1 group-title="Музыка",ТНТ Музыка
+udp://@239.255.0.66:5500
+#EXTINF:-1 group-title="Музыка [НЕТ В РФ]",MCM Top
+udp://@239.255.0.33:5500
+#EXTINF:-1 group-title="Музыка [НЕТ В РФ]",Mezzo
+udp://@239.255.0.34:5500
+#EXTINF:-1 group-title="Музыка [НЕТ В РФ]",Mezzo Live HD
+udp://@239.255.0.127:5500
+#EXTINF:-1 group-title="Музыка [НЕТ В РФ]",MTV Dance
+udp://@239.255.0.190:5500
+#EXTINF:-1 group-title="Музыка [НЕТ В РФ]",MTV Hits
+udp://@239.255.0.79:5500
+#EXTINF:-1 group-title="Музыка [НЕТ В РФ]",MTV Live HD
+udp://@239.255.0.163:5500
+#EXTINF:-1 group-title="Музыка [НЕТ В РФ]",MTV Rocks
+udp://@239.255.0.76:5500
+#EXTINF:-1 group-title="Музыка [НЕТ В РФ]",VH1
+udp://@239.255.0.45:5500
+#EXTINF:-1 group-title="Музыка [НЕТ В РФ]",VH1 Classic
+udp://@239.255.0.78:5500
+
+# --- Новости ---
+#EXTINF:-1 group-title="Новости",360° Подмосковье
+udp://@239.255.0.39:5500
+#EXTINF:-1 group-title="Новости",Мир 24
+udp://@239.255.0.200:5500
+#EXTINF:-1 group-title="Новости",Москва 24
+udp://@239.255.0.175:5500
+#EXTINF:-1 group-title="Новости",Russia Today HD
+udp://@239.255.0.206:5500
+#EXTINF:-1 group-title="Новости",РБК-ТВ
+udp://@239.255.0.64:5500
+#EXTINF:-1 group-title="Новости",Телеканал Совета Федерации
+udp://@239.255.0.72:5500
+#EXTINF:-1 group-title="Новости [НЕТ В РФ]",BBC World News
+udp://@239.255.0.41:5500
+#EXTINF:-1 group-title="Новости [НЕТ В РФ]",DWTV
+udp://@239.255.0.24:5500
+#EXTINF:-1 group-title="Новости [НЕТ В РФ]",Euronews
+udp://@239.255.0.28:5500
+#EXTINF:-1 group-title="Новости [НЕТ В РФ]",France 24
+udp://@239.255.0.128:5500
+#EXTINF:-1 group-title="Новости [НЕТ В РФ]",Life (HD)
+udp://@239.255.0.81:5500
+#EXTINF:-1 group-title="Новости [НЕТ В РФ]",Дождь
+udp://@239.255.0.137:5500
+#EXTINF:-1 group-title="Новости [НЕТ В РФ]",Евроновости
+udp://@239.255.0.131:5500
+
+# --- Спорт ---
+#EXTINF:-1 group-title="Спорт",Боец
+udp://@239.255.0.228:5500
+#EXTINF:-1 group-title="Спорт",Наш футбол
+udp://@239.255.0.25:5500
+#EXTINF:-1 group-title="Спорт",Футбол телеканал
+udp://@239.255.0.230:5500
+#EXTINF:-1 group-title="Спорт [НЕТ В РФ]",Eurosport 1 HD
+udp://@239.255.0.7:5500
+#EXTINF:-1 group-title="Спорт [НЕТ В РФ]",Eurosport 2 HD
+udp://@239.255.0.222:5500
+#EXTINF:-1 group-title="Спорт [НЕТ В РФ]",Eurosport News
+udp://@239.255.0.20:5500
+#EXTINF:-1 group-title="Спорт [НЕТ В РФ]",Viasat Golf
+udp://@239.255.0.245:5500
+#EXTINF:-1 group-title="Спорт [НЕТ В РФ]",Viasat Sport HD
+udp://@239.255.0.168:5500
+#EXTINF:-1 group-title="Спорт [НЕТ В РФ]",Футбол 3 HD
+udp://@239.255.0.253:5500
+
+# --- Развлекательные ---
+#EXTINF:-1 group-title="Развлекательные",8 канал
+udp://@239.255.0.202:5500
+#EXTINF:-1 group-title="Развлекательные",TVMChannel
+udp://@239.255.0.22:5500
+#EXTINF:-1 group-title="Развлекательные",Драйв
+udp://@239.255.0.11:5500
+#EXTINF:-1 group-title="Развлекательные",Живи!
+udp://@239.255.0.117:5500
+#EXTINF:-1 group-title="Развлекательные",Здоровое ТВ
+udp://@239.255.0.13:5500
+#EXTINF:-1 group-title="Развлекательные",Кухня ТВ
+udp://@239.255.0.85:5500
+#EXTINF:-1 group-title="Развлекательные",Мир HD
+udp://@239.255.0.192:5500
+#EXTINF:-1 group-title="Развлекательные",ЮМОР ТВ
+udp://@239.255.0.92:5500
+#EXTINF:-1 group-title="Развлекательные",Эгоист ТВ
+udp://@239.255.0.129:5500
+#EXTINF:-1 group-title="Развлекательные [НЕТ В РФ]",Fashion One HD
+udp://@239.255.0.130:5500
+
+# === ИСТОЧНИК 3: zona-iptv.ru (239.255.2.x / 239.255.3.x) — старый МГТС ===
+
+# --- Федеральные (доп.) ---
+#EXTINF:-1 group-title="Федеральные (старый МГТС)",Первый канал
+udp://@239.255.2.97:5500
+#EXTINF:-1 group-title="Федеральные (старый МГТС)",ТВЦ
+udp://@239.255.2.58:5500
+#EXTINF:-1 group-title="Федеральные (старый МГТС)",REN TV
+udp://@239.255.2.59:5500
+#EXTINF:-1 group-title="Федеральные (старый МГТС)",5 канал
+udp://@239.255.2.18:5500
+#EXTINF:-1 group-title="Федеральные (старый МГТС)",RUSSIA TODAY
+udp://@239.255.2.17:5500
+#EXTINF:-1 group-title="Федеральные (старый МГТС)",Ю
+udp://@239.255.3.62:5500
+#EXTINF:-1 group-title="Федеральные (старый МГТС)",Domashnii
+udp://@239.255.3.63:5500
+#EXTINF:-1 group-title="Федеральные (старый МГТС)",RBC
+udp://@239.255.3.64:5500
+#EXTINF:-1 group-title="Федеральные (старый МГТС)",Match!
+udp://@239.255.3.65:5500
+#EXTINF:-1 group-title="Федеральные (старый МГТС)",Russia 1
+udp://@239.255.3.67:5500
+#EXTINF:-1 group-title="Федеральные (старый МГТС)",Rossia-K
+udp://@239.255.3.68:5500
+
+# --- Документальные (доп.) ---
+#EXTINF:-1 group-title="Документальные (старый МГТС)",Animal Planet
+udp://@239.255.2.101:5500
+#EXTINF:-1 group-title="Документальные (старый МГТС)",Discovery Channel
+udp://@239.255.2.102:5500
+#EXTINF:-1 group-title="Документальные (старый МГТС)",Discovery Science
+udp://@239.255.2.104:5500
+#EXTINF:-1 group-title="Документальные (старый МГТС)",Discovery World
+udp://@239.255.2.105:5500
+#EXTINF:-1 group-title="Документальные (старый МГТС)",Discovery Travel & Living
+udp://@239.255.2.103:5500
+#EXTINF:-1 group-title="Документальные (старый МГТС)",ID Investigation Discovery HD
+udp://@239.255.2.38:5500
+#EXTINF:-1 group-title="Документальные (старый МГТС)",Моя планета
+udp://@239.255.3.73:5500
+#EXTINF:-1 group-title="Документальные (старый МГТС)",Наука 2.0
+udp://@239.255.3.140:5500
+#EXTINF:-1 group-title="Документальные (старый МГТС)",ID Xtra
+udp://@239.255.3.151:5500
+#EXTINF:-1 group-title="Документальные (старый МГТС)",TLC HD
+udp://@239.255.3.171:5500
+#EXTINF:-1 group-title="Документальные (старый МГТС)",Moskva 24
+udp://@239.255.3.175:5500
+
+# --- Кино (доп.) ---
+#EXTINF:-1 group-title="Кино (старый МГТС)",TV XXI
+udp://@239.255.2.55:5500
+#EXTINF:-1 group-title="Кино (старый МГТС)",TV1000 Viasat
+udp://@239.255.2.82:5500
+#EXTINF:-1 group-title="Кино (старый МГТС)",TV1000 Русское Кино
+udp://@239.255.2.87:5500
+#EXTINF:-1 group-title="Кино (старый МГТС)",ЕвроКино
+udp://@239.255.2.15:5500
+#EXTINF:-1 group-title="Кино (старый МГТС)",Иллюзион+
+udp://@239.255.2.71:5500
+#EXTINF:-1 group-title="Кино (старый МГТС)",SET
+udp://@239.255.2.89:5500
+#EXTINF:-1 group-title="Кино (старый МГТС)",Кинопремьера HD
+udp://@239.255.2.147:5500
+#EXTINF:-1 group-title="Кино (старый МГТС)",Amedia Premium (SD)
+udp://@239.255.2.218:5500
+#EXTINF:-1 group-title="Кино (старый МГТС)",NTV HD
+udp://@239.255.2.219:5500
+#EXTINF:-1 group-title="Кино (старый МГТС)",ZEE
+udp://@239.255.2.220:5500
+#EXTINF:-1 group-title="Кино (старый МГТС)",Multimania
+udp://@239.255.2.221:5500
+
+# --- Музыка (доп.) ---
+#EXTINF:-1 group-title="Музыка (старый МГТС)",Mezzo
+udp://@239.255.2.34:5500
+#EXTINF:-1 group-title="Музыка (старый МГТС)",MCM TOP
+udp://@239.255.2.33:5500
+#EXTINF:-1 group-title="Музыка (старый МГТС)",MTV Russia
+udp://@239.255.2.98:5500
+#EXTINF:-1 group-title="Музыка (старый МГТС)",Eurosport 2 Russia HD
+udp://@239.255.2.222:5500
+#EXTINF:-1 group-title="Музыка (старый МГТС)",ТНТ Музыка
+udp://@239.255.2.121:5500
+
+# --- Развлекательные (доп.) ---
+#EXTINF:-1 group-title="Развлекательные (старый МГТС)",Усадьба
+udp://@239.255.2.14:5500
+#EXTINF:-1 group-title="Развлекательные (старый МГТС)",Охота и рыбалка
+udp://@239.255.2.12:5500
+#EXTINF:-1 group-title="Развлекательные (старый МГТС)",Sarafan
+udp://@239.255.2.70:5500
+#EXTINF:-1 group-title="Развлекательные (старый МГТС)",Драйв
+udp://@239.255.2.11:5500
+#EXTINF:-1 group-title="Развлекательные (старый МГТС)",Здоровое ТВ
+udp://@239.255.2.13:5500
+#EXTINF:-1 group-title="Развлекательные (старый МГТС)",Travel
+udp://@239.255.2.26:5500
+#EXTINF:-1 group-title="Развлекательные (старый МГТС)",Спас
+udp://@239.255.2.99:5500
+#EXTINF:-1 group-title="Развлекательные (старый МГТС)",Мир
+udp://@239.255.2.116:5500
+#EXTINF:-1 group-title="Развлекательные (старый МГТС)",Style TV
+udp://@239.255.2.56:5500
+#EXTINF:-1 group-title="Развлекательные (старый МГТС)",Fashion TV
+udp://@239.255.2.22:5500
+#EXTINF:-1 group-title="Развлекательные (старый МГТС)",World Fashion
+udp://@239.255.2.30:5500
+#EXTINF:-1 group-title="Развлекательные (старый МГТС)",TV-Sale
+udp://@239.255.2.69:5500
+
+# --- Спорт (доп.) ---
+#EXTINF:-1 group-title="Спорт (старый МГТС)",Русский Экстрим
+udp://@239.255.2.75:5500
+#EXTINF:-1 group-title="Спорт (старый МГТС)",EPSN Classic Sport
+udp://@239.255.2.85:5500
+#EXTINF:-1 group-title="Спорт (старый МГТС)",Extreme Sports
+udp://@239.255.2.51:5500
+#EXTINF:-1 group-title="Спорт (старый МГТС)",Sport Viasat
+udp://@239.255.2.110:5500
+#EXTINF:-1 group-title="Спорт (старый МГТС)",NTV+ Football
+udp://@239.255.2.148:5500
+#EXTINF:-1 group-title="Спорт (старый МГТС)",Sport 1 SD
+udp://@239.255.2.141:5500
+#EXTINF:-1 group-title="Спорт (старый МГТС)",RTD HD
+udp://@239.255.2.198:5500
+
+# --- Радио ---
+#EXTINF:-1 group-title="Радио",Love
+udp://@239.255.2.149:5500
+#EXTINF:-1 group-title="Радио",Юмор-FM
+udp://@239.255.2.146:5500
+#EXTINF:-1 group-title="Радио",Шансон
+udp://@239.255.2.145:5500
+#EXTINF:-1 group-title="Радио",Эхо Москвы
+udp://@239.255.2.143:5500
+#EXTINF:-1 group-title="Радио",Авторадио
+udp://@239.255.2.142:5500
+#EXTINF:-1 group-title="Радио",RelaxFM
+udp://@239.255.2.140:5500
+#EXTINF:-1 group-title="Радио",Энергия
+udp://@239.255.2.138:5500
