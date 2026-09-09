@@ -1,0 +1,58 @@
+#EXTM3U url-tvg="https://iptvx.one/EPG"
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (НОВЫЕ)",Кинопремьера HD — 77.235.1.19 (Новый!)
+http://77.235.1.19:8000/play/a08f/index.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (НОВЫЕ)",Кинопремьера — tivi-one (Новый!)
+http://line.tivi-one.net:80/play/live.php?mac=A0:BB:3E:75:52:64&stream=1031893&extension=ts&play_token=FVTY1Deq2j
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (НОВЫЕ)",Кинопремьера — tinyurl 2163 (Новый!)
+https://tinyurl.com/4tfv9tup/2163/index.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (НОВЫЕ)",Кинопремьера — mcquack 73 (Новый!)
+http://stream.mcquack.net/73/index.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (НОВЫЕ)",Кинопремьера — kinowalk (Новый!)
+http://kinowalk.hopto.org/kinopro_live
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (НОВЫЕ)",Кинопремьера — CineMan tinyurl (Новый!)
+https://tinyurl.com/upwnsw7p/11001/index.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (НОВЫЕ)",Кинопремьера — kazmazpaz (Новый!)
+http://88b9da48.kazmazpaz.ru/iptv/D7M94NBVB5DLFS/742/index.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (НОВЫЕ)",Кинопремьера HD — uplink video.m3u8 (Новый!)
+http://fs.uplink.kz/kinopremiera_hd/video.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (НОВЫЕ)",Кинопремьера HD — id-tv.kz (прямая, без суффикса)
+https://sc.id-tv.kz/Kinopremiera_hd.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (ранее выданные)",Кинопремьера HD — uplink.kz (ts)
+https://fs.uplink.kz/kinopremiera_hd/tracks-v1a1/mono.ts.m3u8?token=onlinetv
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (ранее выданные)",Кинопремьера — georgia_play
+http://158.101.222.193:88/georgia_play.php?id=kinopremyerahd
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (ранее выданные)",Кинопремьера — tvs.by (Беларусь)
+http://radio.tvs.by:8088/Kinopremiera/index.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (ранее выданные)",Кинопремьера HD — vnet.am (Армения)
+http://stream02.vnet.am/Kinopremera/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (ранее выданные)",Кинопремьера HD — Яндекс Беларусь
+https://strm.yandex.ru/kal/kinopremiera_hd_belarus/kinopremiera_hd_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (ранее выданные)",Кинопремьера — mcquack 304
+http://stream.mcquack.net/304/index.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (ранее выданные)",Кинопремьера — 188.113.190.15
+http://188.113.190.15/309/video.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (ранее выданные)",Кинопремьера HD — 195.49.206.244
+http://195.49.206.244:90/Kinopremiera/video.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (ранее выданные)",Кинопремьера SD — Teleos
+http://tvip.btk.teleos.ru:8081/chid518/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера (ранее выданные)",Кинопремьера HD — JekaLich proxy
+https://jekalich.github.io/smtk/channels/kinopremiera-hd.m3u8
