@@ -1,0 +1,115 @@
+name: RTOCHKA - TELEVIZOR 24 TOCHKA M3U8 SCANNER 1-1000
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "30 3 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    name: RTOCHKA scan 1-1000
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run rtochka.py
+        run: |
+          python rtochka.py
+
+      - name: Show RTOCHKA results
+        if: always()
+        run: |
+          echo "=============================================="
+          echo "RTOCHKA - TELEVIZOR 24 TOCHKA"
+          echo "M3U8 SCANNER 1-1000"
+          echo "=============================================="
+
+          if [ -d "televizor_scan_1_1000" ]; then
+            echo
+            echo "Output directory:"
+            ls -lah televizor_scan_1_1000/
+          fi
+
+          if [ -f "televizor_scan_1_1000/televizor_1_1000_full.json" ]; then
+            echo
+            echo "JSON:"
+            ls -lh televizor_scan_1_1000/televizor_1_1000_full.json
+          fi
+
+          if [ -f "televizor_scan_1_1000/televizor_1_1000_report.csv" ]; then
+            echo
+            echo "CSV:"
+            ls -lh televizor_scan_1_1000/televizor_1_1000_report.csv
+          fi
+
+          if [ -f "televizor_scan_1_1000/televizor_1_1000.m3u" ]; then
+            echo
+            echo "M3U:"
+            ls -lh televizor_scan_1_1000/televizor_1_1000.m3u
+
+            echo
+            echo "M3U lines:"
+            wc -l televizor_scan_1_1000/televizor_1_1000.m3u
+          fi
+
+          if [ -f "televizor_scan_1_1000/televizor_missing.txt" ]; then
+            echo
+            echo "Missing/errors:"
+            wc -l televizor_scan_1_1000/televizor_missing.txt
+          fi
+
+          if [ -f "televizor_scan_1_1000/scanner.log" ]; then
+            echo
+            echo "Scanner log:"
+            tail -50 televizor_scan_1_1000/scanner.log
+          fi
+
+      - name: Upload RTOCHKA scan artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rtochka-televizor-scan-1-1000-${{ github.run_number }}
+          path: |
+            televizor_scan_1_1000/televizor_1_1000_full.json
+            televizor_scan_1_1000/televizor_1_1000_report.csv
+            televizor_scan_1_1000/televizor_1_1000.m3u
+            televizor_scan_1_1000/televizor_missing.txt
+            televizor_scan_1_1000/scanner.log
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Commit RTOCHKA results
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add televizor_scan_1_1000/
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "RTOCHKA scan 1-1000: run ${{ github.run_number }}"
+            git push
+          fi
