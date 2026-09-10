@@ -1,0 +1,46 @@
+#EXTM3U url-tvg="https://iptvx.one/EPG"
+
+#EXTINF:-1 tvg-id="kinopremiera" group-title="Кинопремьера",Кинопремьера — Zala.by (Беларусь) НОВЫЙ!
+http://mfe.svc.ott.zala.by/hls/CH_KINOPREMERA_HLS/variant.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера",Кинопремьера — 31.148.48.15 (Россия) НОВЫЙ!
+http://31.148.48.15/Kinopremiera/index.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера",Кинопремьера HD — 31.148.48.15 (Россия) НОВЫЙ!
+http://31.148.48.15:80/Kinopremiera_HD/mono.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера",Кинопремьера HD — uplink.kz (официальный)
+http://fs.uplink.kz/kinopremiera_hd/video.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера",Кинопремьера HD — id-tv.kz (Казахстан)
+https://sc.id-tv.kz/Kinopremiera_hd.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera" group-title="Кинопремьера",Кинопремьера — Teleos (Россия)
+http://tvip.btk.teleos.ru:8081/chid518/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера",Кинопремьера HD — Beltelecom (Беларусь)
+http://178.124.179.122:8088/Kinopremiera/index.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера",Кинопремьера — persik.by (Беларусь)
+http://persik.by/stream/8682/252987/10240.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера",Кинопремьера — tvs.by (Беларусь)
+http://radio.tvs.by:8088/Kinopremiera/index.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера",Кинопремьера HD — vnet.am (Армения)
+http://stream02.vnet.am/Kinopremera/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера",Кинопремьера HD — Яндекс (Беларусь)
+https://strm.yandex.ru/kal/kinopremiera_hd_belarus/kinopremiera_hd_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера",Кинопремьера HD — 195.49.206.244 (Россия)
+http://195.49.206.244:90/Kinopremiera/video.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера",Кинопремьера HD — mcquack 304
+http://stream.mcquack.net/304/index.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера",Кинопремьера — georgia_play (прокси)
+http://158.101.222.193:88/georgia_play.php?id=kinopremyerahd
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера",Кинопремьера HD — JekaLich (прокси)
+https://jekalich.github.io/smtk/channels/kinopremiera-hd.m3u8
