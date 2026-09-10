@@ -1,4 +1,4 @@
-name: RTOCHKA - TELEVIZOR 24 TOCHKA M3U8 SCANNER 1-1000
+name: RTOCHKA - TELEVIZOR 24 TOCHKA M3U8 SCANNER 1-2800
 
 on:
   workflow_dispatch:
@@ -9,18 +9,35 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: rtochka-televizor-scan
+  cancel-in-progress: false
+
 jobs:
+
   scan:
-    name: RTOCHKA scan 1-1000
+
+    name: RTOCHKA scan 1-2800
+
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+
+    timeout-minutes: 120
 
     steps:
+
+      # ======================================================
+      # CHECKOUT
+      # ======================================================
 
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+
+      # ======================================================
+      # PYTHON
+      # ======================================================
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -28,88 +45,340 @@ jobs:
           python-version: "3.12"
           cache: "pip"
 
+
+      # ======================================================
+      # DEPENDENCIES
+      # ======================================================
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install requests
 
+
+      # ======================================================
+      # RUN RTOCHKA
+      # ======================================================
+
       - name: Run rtochka.py
         run: |
           python rtochka.py
 
+
+      # ======================================================
+      # CHECK RESULTS
+      # ======================================================
+
       - name: Show RTOCHKA results
         if: always()
         run: |
+
           echo "=============================================="
-          echo "RTOCHKA - TELEVIZOR 24 TOCHKA"
-          echo "M3U8 SCANNER 1-1000"
+          echo "RTOCHKA"
+          echo "TELEVIZOR 24 TOCHKA"
+          echo "M3U8 SCANNER 1-2800"
           echo "=============================================="
 
-          if [ -d "televizor_scan_1_1000" ]; then
-            echo
-            echo "Output directory:"
-            ls -lah televizor_scan_1_1000/
+          echo
+          echo "Repository:"
+          pwd
+
+          echo
+          echo "Output directory:"
+
+          if [ -d "televizor_scan_1_2800" ]; then
+            ls -lah televizor_scan_1_2800/
+          else
+            echo "Output directory not found."
           fi
 
-          if [ -f "televizor_scan_1_1000/televizor_1_1000_full.json" ]; then
+
+          echo
+          echo "=============================================="
+          echo "M3U"
+          echo "=============================================="
+
+          if [ -f "televizor_scan_1_2800/televizor_1_2800.m3u" ]; then
+            ls -lh \
+              televizor_scan_1_2800/televizor_1_2800.m3u
+
             echo
-            echo "JSON:"
-            ls -lh televizor_scan_1_1000/televizor_1_1000_full.json
+            echo "M3U line count:"
+
+            wc -l \
+              televizor_scan_1_2800/televizor_1_2800.m3u
+
+            echo
+            echo "M3U entries:"
+
+            grep -c "^#EXTINF:" \
+              televizor_scan_1_2800/televizor_1_2800.m3u || true
           fi
 
-          if [ -f "televizor_scan_1_1000/televizor_1_1000_report.csv" ]; then
-            echo
-            echo "CSV:"
-            ls -lh televizor_scan_1_1000/televizor_1_1000_report.csv
+
+          echo
+          echo "=============================================="
+          echo "JSON"
+          echo "=============================================="
+
+          if [ -f "televizor_scan_1_2800/televizor_1_2800_full.json" ]; then
+            ls -lh \
+              televizor_scan_1_2800/televizor_1_2800_full.json
           fi
 
-          if [ -f "televizor_scan_1_1000/televizor_1_1000.m3u" ]; then
-            echo
-            echo "M3U:"
-            ls -lh televizor_scan_1_1000/televizor_1_1000.m3u
+
+          echo
+          echo "=============================================="
+          echo "CSV"
+          echo "=============================================="
+
+          if [ -f "televizor_scan_1_2800/televizor_1_2800_report.csv" ]; then
+            ls -lh \
+              televizor_scan_1_2800/televizor_1_2800_report.csv
 
             echo
-            echo "M3U lines:"
-            wc -l televizor_scan_1_1000/televizor_1_1000.m3u
+            echo "CSV lines:"
+
+            wc -l \
+              televizor_scan_1_2800/televizor_1_2800_report.csv
           fi
 
-          if [ -f "televizor_scan_1_1000/televizor_missing.txt" ]; then
+
+          echo
+          echo "=============================================="
+          echo "MISSING"
+          echo "=============================================="
+
+          if [ -f "televizor_scan_1_2800/televizor_missing.txt" ]; then
+            ls -lh \
+              televizor_scan_1_2800/televizor_missing.txt
+
             echo
-            echo "Missing/errors:"
-            wc -l televizor_scan_1_1000/televizor_missing.txt
+            echo "Missing/error lines:"
+
+            wc -l \
+              televizor_scan_1_2800/televizor_missing.txt
           fi
 
-          if [ -f "televizor_scan_1_1000/scanner.log" ]; then
-            echo
-            echo "Scanner log:"
-            tail -50 televizor_scan_1_1000/scanner.log
+
+          echo
+          echo "=============================================="
+          echo "SUMMARY"
+          echo "=============================================="
+
+          if [ -f "televizor_scan_1_2800/scan_summary.json" ]; then
+            cat \
+              televizor_scan_1_2800/scan_summary.json
           fi
 
-      - name: Upload RTOCHKA scan artifacts
+
+          echo
+          echo "=============================================="
+          echo "LAST LOG LINES"
+          echo "=============================================="
+
+          if [ -f "televizor_scan_1_2800/scanner.log" ]; then
+            tail -50 \
+              televizor_scan_1_2800/scanner.log
+          fi
+
+
+      # ======================================================
+      # UPLOAD ACTIONS ARTIFACT
+      # ======================================================
+
+      - name: Upload complete RTOCHKA artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: rtochka-televizor-scan-1-1000-${{ github.run_number }}
+
+          name: rtochka-televizor-1-2800-run-${{ github.run_number }}
+
           path: |
-            televizor_scan_1_1000/televizor_1_1000_full.json
-            televizor_scan_1_1000/televizor_1_1000_report.csv
-            televizor_scan_1_1000/televizor_1_1000.m3u
-            televizor_scan_1_1000/televizor_missing.txt
-            televizor_scan_1_1000/scanner.log
+            televizor_scan_1_2800/
+
           if-no-files-found: warn
+
           retention-days: 30
 
-      - name: Commit RTOCHKA results
-        if: success()
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add televizor_scan_1_1000/
+      # ======================================================
+      # PREPARE REPOSITORY PUBLICATION
+      # ======================================================
+
+      - name: Prepare repository publication
+        if: always()
+        run: |
+
+          mkdir -p \
+            data/rtochka/televizor_1_2800
+
+
+          # --------------------------------------------------
+          # Копируем результаты в постоянную структуру РЕПО
+          # --------------------------------------------------
+
+          if [ -d "televizor_scan_1_2800" ]; then
+
+            cp -f \
+              televizor_scan_1_2800/televizor_1_2800_full.json \
+              data/rtochka/televizor_1_2800/ \
+              2>/dev/null || true
+
+            cp -f \
+              televizor_scan_1_2800/televizor_1_2800_report.csv \
+              data/rtochka/televizor_1_2800/ \
+              2>/dev/null || true
+
+            cp -f \
+              televizor_scan_1_2800/televizor_1_2800.m3u \
+              data/rtochka/televizor_1_2800/ \
+              2>/dev/null || true
+
+            cp -f \
+              televizor_scan_1_2800/televizor_missing.txt \
+              data/rtochka/televizor_1_2800/ \
+              2>/dev/null || true
+
+            cp -f \
+              televizor_scan_1_2800/scan_summary.json \
+              data/rtochka/televizor_1_2800/ \
+              2>/dev/null || true
+
+            cp -f \
+              televizor_scan_1_2800/scanner.log \
+              data/rtochka/televizor_1_2800/ \
+              2>/dev/null || true
+
+          fi
+
+
+          # --------------------------------------------------
+          # README для структуры результатов
+          # --------------------------------------------------
+
+          cat > data/rtochka/televizor_1_2800/README.md <<'EOF'
+          # RTOCHKA — TELEVIZOR 24 TOCHKA
+
+          Автоматический диапазон сканирования:
+
+          `1.m3u8` — `2800.m3u8`
+
+          ## Файлы
+
+          - `televizor_1_2800.m3u` — полный сгенерированный M3U со всеми 2800 URL
+          - `televizor_1_2800_full.json` — полный результат анализа
+          - `televizor_1_2800_report.csv` — табличный отчёт
+          - `televizor_missing.txt` — URL, которые не были распознаны как M3U8
+          - `scan_summary.json` — сводная статистика
+          - `scanner.log` — журнал выполнения
+
+          ## Основной URL
+
+          https://streaming.televizor-24-tochka.ru/live/
+
+          ## HTTP Referer
+
+          https://televizor24tochka.ru/
+
+          ## Диапазон
+
+          1-2800
+
+          ## Важно
+
+          Итоговый M3U содержит все URL диапазона 1-2800,
+          независимо от результата проверки.
+
+          Если название канала не обнаружено внутри M3U8,
+          используется:
+
+          `Канал N`
+
+          Сам видеопоток и его сегменты сканером не скачиваются.
+          Анализируется содержимое M3U8 playlist.
+          EOF
+
+
+      # ======================================================
+      # PUBLICATION SUMMARY
+      # ======================================================
+
+      - name: Show repository publication
+        if: always()
+        run: |
+
+          echo "=============================================="
+          echo "RTOCHKA REPOSITORY PUBLICATION"
+          echo "=============================================="
+
+          if [ -d "data/rtochka/televizor_1_2800" ]; then
+            find \
+              data/rtochka/televizor_1_2800 \
+              -maxdepth 1 \
+              -type f \
+              -printf "%f %s bytes\n" \
+              | sort
+          fi
+
+
+      # ======================================================
+      # COMMIT + PUSH TO REPOSITORY
+      # ======================================================
+
+      - name: Publish scan results to repository
+        if: always()
+        run: |
+
+          git config user.name \
+            "github-actions[bot]"
+
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+
+
+          # --------------------------------------------------
+          # Добавляем scanner и результаты
+          # --------------------------------------------------
+
+          git add \
+            rtochka.py \
+            data/rtochka/televizor_1_2800/ \
+            .github/workflows/rtochka.yml
+
+
+          # --------------------------------------------------
+          # Показываем staged
+          # --------------------------------------------------
+
+          echo "=============================================="
+          echo "STAGED FILES"
+          echo "=============================================="
+
+          git status --short
+
+
+          # --------------------------------------------------
+          # Если изменений нет
+          # --------------------------------------------------
 
           if git diff --cached --quiet; then
-            echo "No changes to commit."
+
+            echo
+            echo "No repository changes."
+
           else
-            git commit -m "RTOCHKA scan 1-1000: run ${{ github.run_number }}"
+
+            echo
+            echo "Creating commit..."
+
+            git commit \
+              -m "RTOCHKA: scan Televizor 24 Tochka 1-2800 run ${{ github.run_number }}"
+
+
+            echo
+            echo "Pushing to repository..."
+
             git push
+
           fi
