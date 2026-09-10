@@ -1,0 +1,316 @@
+#EXTM3U url-tvg="https://iptvx.one/EPG" catchup="append" catchup-source="?offset=-${offset}&duration=1"
+
+#--- КИНО (24) ---
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epgx.site/p/kinopremiera.png" group-title="Кино",Кинопремьера HD
+https://strm.yandex.ru/kal/kinopremiera_hd_belarus/kinopremiera_hd_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="kinohit" tvg-logo="https://epgx.site/p/kinohit.png" group-title="Кино",Кинохит
+https://strm.yandex.ru/kal/kinohit_belarus/kinohit_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="kinomiks" tvg-logo="https://epgx.site/p/kinomiks.png" group-title="Кино",Киномикс
+https://strm.yandex.ru/kal/kinomiks_belarus/kinomiks_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="kinosemya" tvg-logo="https://epgx.site/p/kinosemya.png" group-title="Кино",Киносемья
+https://strm.yandex.ru/kal/kinosemya_belarus/kinosemya_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="kinokomediya" tvg-logo="https://epgx.site/p/kinokomediya.png" group-title="Кино",Кинокомедия
+https://strm.yandex.ru/kal/kinokomedia_belarus/kinokomedia_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="kinosvidanie" tvg-logo="https://epgx.site/p/kinosvidanie.png" group-title="Кино",Киносвидание
+https://strm.yandex.ru/kal/kinosvidanie_sd_belarus/kinosvidanie_sd_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="nashe-novoe-kino" tvg-logo="https://epgx.site/p/nashe-novoe-kino.png" group-title="Кино",Наше новое кино
+https://strm.yandex.ru/kal/nashe_novoe_kino_belarus/nashe_novoe_kino_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="rodnoe-kino" tvg-logo="https://epgx.site/p/rodnoe-kino.png" group-title="Кино",Родное кино
+https://strm.yandex.ru/kal/rodnoe_kino_belarus/rodnoe_kino_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="kinoseria" tvg-logo="https://epgx.site/p/kinoseria.png" group-title="Кино",Киносерия
+https://strm.yandex.ru/kal/kinoseria_belarus/kinoseria_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/indiiskoe-kino.png" group-title="Кино",Индийское кино
+https://strm.yandex.ru/kal/indiiskoe_kino_belarus/indiiskoe_kino_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/bollywood-hd.png" group-title="Кино",Bollywood HD
+https://strm.yandex.ru/kal/bollywood_belarus/bollywood_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/hollywood-hd.png" group-title="Кино",Hollywood HD
+https://strm.yandex.ru/kal/hollywood_belarus/hollywood_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/timeless-dizi-channel.png" group-title="Кино",Timeless Dizi Channel HD
+https://strm.yandex.ru/kal/timeless_dizi_channel_belarus/timeless_dizi_channel_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/kinoman.png" group-title="Кино",Киноман
+https://strm.yandex.ru/kal/kinoman_belarus/kinoman_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="tv-xxi" tvg-logo="https://epgx.site/p/tv-xxi.png" group-title="Кино",TV XXI
+https://strm.yandex.ru/kal/tv_21_belarus/tv_21_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/cinema.png" group-title="Кино",CINEMA HD
+https://strm.yandex.ru/kal/cinema_tv_belarus/cinema_tv_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="nst" tvg-logo="https://epgx.site/p/nst.png" group-title="Кино",НСТ
+http://strm.yandex.ru/kal/nst_belarus/nst_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/vhs-ka.png" group-title="Кино",VHS-ка
+https://strm.yandex.ru/kal/vhs_ka/vhs_ka1080.m3u8
+
+#EXTINF:-1 tvg-id="muzhskoe-kino" tvg-logo="https://epgx.site/p/muzhskoe-kino.png" group-title="Кино",Мужское кино
+https://strm.yandex.ru/kal/muzhskoe_kino_belarus/muzhskoe_kino_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="ntv-serial" tvg-logo="https://epgx.site/p/ntv-serial.png" group-title="Кино",НТВ Сериал HD
+https://strm.yandex.ru/kal/ntv_serial_new/ntv_serial_new0.m3u8
+
+#EXTINF:-1 tvg-id="ntv-stil" tvg-logo="https://epgx.site/p/ntv-stil.png" group-title="Кино",НТВ Стиль HD
+https://strm.yandex.ru/kal/ntv_stil/ntv_stil0.m3u8
+
+#EXTINF:-1 tvg-id="ntv-hit" tvg-logo="https://epgx.site/p/ntv-hit.png" group-title="Кино",НТВ Хит HD
+https://strm.yandex.ru/kal/ntv_hit/ntv_hit0.m3u8
+
+#EXTINF:-1 tvg-id="start" tvg-logo="https://epgx.site/p/start.png" group-title="Кино",Старт HD
+https://strm.yandex.ru/kal/start/start0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/start-triumf.png" group-title="Кино",Старт Триумф HD
+https://strm.yandex.ru/kal/start_triumf/start_triumf0.m3u8
+
+#--- СПОРТ (9) ---
+
+#EXTINF:-1 tvg-id="football-ru" tvg-logo="https://epgx.site/p/football-ru.png" group-title="Спорт",Футбол
+https://strm.yandex.ru/kal/futbol_belarus/futbol_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="kxl" tvg-logo="https://epgx.site/p/kxl.png" group-title="Спорт",КХЛ
+https://strm.yandex.ru/kal/khl_belarus/khl_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="kxl-hd" tvg-logo="https://epgx.site/p/kxl-hd.png" group-title="Спорт",КХЛ Prime HD
+https://strm.yandex.ru/kal/khl_prime_belarus/khl_prime_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="ufc" tvg-logo="https://epgx.site/p/ufc.png" group-title="Спорт",UDAR HD
+https://strm.yandex.ru/kal/udar/udar0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/mma-tv.png" group-title="Спорт",MMA TV
+https://strm.yandex.ru/kal/mma_tv_belarus/mma_tv_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="match-planeta" tvg-logo="https://epgx.site/p/match-planeta.png" group-title="Спорт",Матч Планета
+https://strm.yandex.ru/kal/match_planeta_belarus/match_planeta_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/arsenal.png" group-title="Спорт",Арсенал
+https://strm.yandex.ru/kal/arsenal_belarus/arsenal_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="russkiy-ekstrim" tvg-logo="https://epgx.site/p/russkiy-ekstrim.png" group-title="Спорт",SD REX (Русский Экстрим)
+https://strm.yandex.ru/kal/russkoe_ekstremalnoe_tv_belarus/russkoe_ekstremalnoe_tv_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/boks-tv.png" group-title="Спорт",Бокс ТВ Плюс
+https://strm.yandex.ru/kal/boks_tv_plus_belarus/boks_tv_plus_belarus0.m3u8
+
+#--- ДЕТСКИЕ (11) ---
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/mult.png" group-title="Детские",Мульт
+https://strm.yandex.ru/kal/mult_belarus/mult_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/multilandia.png" group-title="Детские",Мультиландия HD
+https://strm.yandex.ru/kal/multilandia/multilandia0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/v-gostyah-u-skazki.png" group-title="Детские",В гостях у сказки HD
+https://strm.yandex.ru/kal/v_gostyah_u_skazki/v_gostyah_u_skazki0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/kapitan-fantastika.png" group-title="Детские",Капитан Фантастика HD
+https://strm.yandex.ru/kal/kapitan_fantastika_belarus/kapitan_fantastika_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ducktv.png" group-title="Детские",Duck TV HD
+https://strm.yandex.ru/kal/ducktv_belarus/ducktv_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="tiji" tvg-logo="https://epgx.site/p/tiji.png" group-title="Детские",TiJI
+https://strm.yandex.ru/kal/tiji_belarus/tiji_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/gulli-girl.png" group-title="Детские",Gulli Girl
+https://strm.yandex.ru/kal/gulli_girl_belarus/gulli_girl_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ryzhii.png" group-title="Детские",Рыжий
+https://strm.yandex.ru/kal/ryzhii_sd_belarus/ryzhii_sd_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/leva.png" group-title="Детские",Лёва HD
+https://strm.yandex.ru/kal/leva/leva0.m3u8
+
+#EXTINF:-1 tvg-id="2x2" tvg-logo="https://epgx.site/p/2x2.png" group-title="Детские",2x2
+https://strm.yandex.ru/kal/2x2_belarus/2x2_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/baby-time.png" group-title="Детские",Baby Time
+https://strm.yandex.ru/kal/baby_time/baby_time0.m3u8
+
+#--- ПОЗНАВАТЕЛЬНЫЕ (17) ---
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/rtg.png" group-title="Познавательные",RTG HD
+https://strm.yandex.ru/kal/rtg/rtg0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/neizvestnaia-rossia.png" group-title="Познавательные",Неизвестная Россия HD
+https://strm.yandex.ru/kal/neizvestnaia_rossia/neizvestnaia_rossia0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/v-mire-zhivotnykh.png" group-title="Познавательные",В мире животных HD
+https://strm.yandex.ru/kal/v_mire_zhivotnykh_belarus/v_mire_zhivotnykh_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="moya-planeta" tvg-logo="https://epgx.site/p/moya-planeta.png" group-title="Познавательные",Моя планета HD
+https://strm.yandex.ru/kal/moya_planeta_hd_belarus/moya_planeta_hd_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/prikluchenia.png" group-title="Познавательные",Приключения HD
+https://strm.yandex.ru/kal/prikluchenia_belarus/prikluchenia_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="nauka" tvg-logo="https://epgx.site/p/nauka.png" group-title="Познавательные",Наука 2.0 HD
+https://strm.yandex.ru/kal/nauka_belarus/nauka_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/tainy-galaktiki.png" group-title="Познавательные",Galaxy TV HD
+https://strm.yandex.ru/kal/tainy_galaktiki_belarus/tainy_galaktiki_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/pervyi-kosmicheskiy.png" group-title="Познавательные",Первый космический HD
+https://strm.yandex.ru/kal/pervyi_kosmicheskiy_belarus/pervyi_kosmicheskiy_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ohotnik-rybolov.png" group-title="Познавательные",Охотник и рыболов Int HD
+https://strm.yandex.ru/kal/ohotnik_rybolov_belarus/ohotnik_rybolov_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ocean-tv.png" group-title="Познавательные",Ocean TV
+https://strm.yandex.ru/kal/ocean_tv_belarus/ocean_tv_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/sibir.png" group-title="Познавательные",Наша Сибирь HD
+https://strm.yandex.ru/kal/sibir/sibir0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/dialogi.png" group-title="Познавательные",Диалоги о рыбалке HD
+https://strm.yandex.ru/kal/dialogi/dialogi0.m3u8
+
+#EXTINF:-1 tvg-id="zagorodnaya-zhizn" tvg-logo="https://epgx.site/p/zagorodnaya-zhizn.png" group-title="Познавательные",Загородная жизнь
+https://strm.yandex.ru/kal/zagorodnaia_zhizn_belarus/zagorodnaia_zhizn_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/t24.png" group-title="Познавательные",Т24
+https://strm.yandex.ru/kal/t24_belarus/t24_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/365-dnei-tv.png" group-title="Познавательные",365 Дней ТВ
+https://strm.yandex.ru/kal/365_dnei_tv_belarus/365_dnei_tv_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/avto-plus.png" group-title="Познавательные",Авто Плюс HD
+https://strm.yandex.ru/kal/avto_plus_belarus/avto_plus_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/muzhskoi.png" group-title="Познавательные",Мужской
+https://strm.yandex.ru/kal/muzhskoi_belarus/muzhskoi_belarus0.m3u8
+
+#--- МУЗЫКА (14) ---
+
+#EXTINF:-1 tvg-id="bridge-tv" tvg-logo="https://epgx.site/p/bridge-tv.png" group-title="Музыка",Bridge TV
+https://strm.yandex.ru/kal/bridgetv/bridgetv0.m3u8
+
+#EXTINF:-1 tvg-id="bridge-tv-classic" tvg-logo="https://epgx.site/p/bridge-tv-classic.png" group-title="Музыка",Bridge TV Classic
+https://strm.yandex.ru/kal/bridgetvclassic/bridgetvclassic0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/bridge-tv-deluxe.png" group-title="Музыка",Bridge TV Deluxe HD
+https://strm.yandex.ru/kal/bridgetvdeluxe/bridgetvdeluxe0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/bridge-tv-fresh.png" group-title="Музыка",Bridge TV Rock HD
+https://strm.yandex.ru/kal/bridge_tv_fresh/bridge_tv_fresh0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/bridge-tv-hits.png" group-title="Музыка",Bridge TV Hits HD
+https://strm.yandex.ru/kal/bridgetvhits/bridgetvhits0.m3u8
+
+#EXTINF:-1 tvg-id="bridge-tv-russkiyhit" tvg-logo="https://epgx.site/p/bridge-tv-russkiyhit.png" group-title="Музыка",Bridge TV Русский Хит HD
+https://strm.yandex.ru/kal/bridgetv_russkiyhit/bridgetv_russkiyhit0.m3u8
+
+#EXTINF:-1 tvg-id="bridge-tv-shlager" tvg-logo="https://epgx.site/p/bridge-tv-shlager.png" group-title="Музыка",Bridge TV Шлягер
+https://strm.yandex.ru/kal/bridgetv_shlyager/bridgetv_shlyager0.m3u8
+
+#EXTINF:-1 tvg-id="rutv" tvg-logo="https://epgx.site/p/rutv.png" group-title="Музыка",RU.TV HD
+https://strm.yandex.ru/kal/rutv_cv/rutv_cv0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/tntmusic.png" group-title="Музыка",ТНТ Music HD
+https://strm.yandex.ru/kal/tntmusic/tntmusic0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/musicboxgold.png" group-title="Музыка",Music Box Gold
+https://strm.yandex.ru/kal/musicboxgold/musicboxgold0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/rmbox.png" group-title="Музыка",Music Box Russia HD
+https://strm.yandex.ru/kal/rmbox/rmbox0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/europa-plus-tv.png" group-title="Музыка",Europa Plus TV
+https://strm.yandex.ru/kal/europa_plus_tv/europa_plus_tv0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/zhara-tv.png" group-title="Музыка",Жара TV
+https://strm.yandex.ru/kal/ot_rassveta_do_zakata_zhara/ot_rassveta_do_zakata_zhara0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/belmuztv.png" group-title="Музыка",БелМУЗ ТВ
+https://strm.yandex.ru/kal/belmuztv/belmuztv0.m3u8
+
+#--- ОБЩИЕ И РАЗВЛЕКАТЕЛЬНЫЕ (10) ---
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/5-kanal.png" group-title="Общие",Пятый канал International
+https://strm.yandex.ru/kal/5_kanal_int_belarus/5_kanal_int_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="mir" tvg-logo="https://epgx.site/p/mir.png" group-title="Общие",МИР
+https://strm.yandex.ru/kal/mir_belarus/mir_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="mir24" tvg-logo="https://epgx.site/p/mir24.png" group-title="Общие",МИР 24 HD
+https://strm.yandex.ru/kal/mir24/mir240.m3u8
+
+#EXTINF:-1 tvg-id="tnt-int" tvg-logo="https://epgx.site/p/tnt-int.png" group-title="Общие",ТНТ International HD
+https://strm.yandex.ru/kal/tnt_interneshnl_belarus/tnt_interneshnl_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="utv" tvg-logo="https://epgx.site/p/utv.png" group-title="Общие",Ю
+https://strm.yandex.ru/kal/utv/utv0.m3u8
+
+#EXTINF:-1 tvg-id="360-tv" tvg-logo="https://epgx.site/p/360-tv.png" group-title="Общие",360° HD
+https://strm.yandex.ru/kal/360tv/360tv0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/360news.png" group-title="Общие",360° Новости HD
+https://strm.yandex.ru/kal/360news/360news0.m3u8
+
+#EXTINF:-1 tvg-id="msk24" tvg-logo="https://epgx.site/p/msk24.png" group-title="Общие",Москва 24
+https://strm.yandex.ru/kal/msk24_n/msk24_n0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/sarahfan.png" group-title="Общие",Сарафан
+https://strm.yandex.ru/kal/sarahfan_belarus/sarahfan_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="kvn-tv" tvg-logo="https://epgx.site/p/kvn-tv.png" group-title="Общие",КВН ТВ
+https://strm.yandex.ru/kal/kvn_tv_belarus/kvn_tv_belarus0.m3u8
+
+#--- ПРОЧЕЕ (4) ---
+
+#EXTINF:-1 tvg-id="ntv-pravo" tvg-logo="https://epgx.site/p/ntv-pravo.png" group-title="Прочее",НТВ Право
+https://strm.yandex.ru/kal/ntv_pravo_new/ntv_pravo_new0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/eda-premium.png" group-title="Прочее",Еда Премиум HD
+https://strm.yandex.ru/kal/eda_premium_int_belarus/eda_premium_int_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/zhivi.png" group-title="Прочее",Живи
+https://strm.yandex.ru/kal/zhivi_belarus/zhivi_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/fashion-tv.png" group-title="Прочее",Fashion TV HD
+https://strm.yandex.ru/kal/fashion_tv/fashion_tv0.m3u8
+
+#--- БЕЛАРУСЬ (9) ---
+
+#EXTINF:-1 tvg-id="belarus-1" tvg-logo="https://epgx.site/p/belarus-1.png" group-title="Беларусь",Беларусь 1
+http://strm.yandex.ru/kal/belarus_1/belarus_10.m3u8
+
+#EXTINF:-1 tvg-id="belarus-2" tvg-logo="https://epgx.site/p/belarus-2.png" group-title="Беларусь",Беларусь 2
+http://strm.yandex.ru/kal/belarus_2/belarus_20.m3u8
+
+#EXTINF:-1 tvg-id="belarus-3" tvg-logo="https://epgx.site/p/belarus-3.png" group-title="Беларусь",Беларусь 3
+http://strm.yandex.ru/kal/belarus_3/belarus_30.m3u8
+
+#EXTINF:-1 tvg-id="belarus-5" tvg-logo="https://epgx.site/p/belarus-5.png" group-title="Беларусь",Беларусь 5
+http://strm.yandex.ru/kal/belarus_5/belarus_50.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ont.png" group-title="Беларусь",ОНТ
+https://strm.yandex.ru/kal/ont_belarus/ont_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/stv.png" group-title="Беларусь",СТВ
+https://strm.yandex.ru/kal/stv_belarus/stv_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ntv.png" group-title="Беларусь",НТВ (Беларусь)
+https://strm.yandex.ru/kal/ntv_belarus/ntv_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/rtr-belarus.png" group-title="Беларусь",РТР (Беларусь)
+https://strm.yandex.ru/kal/rtr_belarus/rtr_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="tv3" tvg-logo="https://epgx.site/p/tv3.png" group-title="Беларусь",ТВ3 (Беларусь)
+https://strm.yandex.ru/kal/tv3_belarus/tv3_belarus0.m3u8
+
+#--- РЕГИОНЫ (1) ---
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/volgograd1.png" group-title="Регионы",Волгоград 1
+https://strm.yandex.ru/kal/volgograd1/volgograd10.m3u8
