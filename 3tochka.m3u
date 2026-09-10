@@ -1,0 +1,139 @@
+#EXTM3U url-tvg="https://iptvx.one/EPG"
+
+#--- Эфирные ---
+
+#EXTINF:-1 tvg-id="pervy" group-title="Эфирные",Первый канал
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/1.m3u8
+
+#EXTINF:-1 tvg-id="rossia1" group-title="Эфирные",Россия 1
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/2.m3u8
+
+#EXTINF:-1 tvg-id="match" group-title="Эфирные",Матч ТВ
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/6.m3u8
+
+#EXTINF:-1 tvg-id="ntv" group-title="Эфирные",НТВ
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/7.m3u8
+
+#EXTINF:-1 tvg-id="5kanal" group-title="Эфирные",Пятый канал
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/8.m3u8
+
+#EXTINF:-1 tvg-id="rossia-k" group-title="Эфирные",Россия К
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/9.m3u8
+
+#EXTINF:-1 tvg-id="karusel" group-title="Эфирные",Карусель
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/11.m3u8
+
+#EXTINF:-1 tvg-id="otr" group-title="Эфирные",ОТР
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/12.m3u8
+
+#EXTINF:-1 tvg-id="rentv" group-title="Эфирные",Рен ТВ
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/14.m3u8
+
+#EXTINF:-1 tvg-id="spas" group-title="Эфирные",Спас
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/15.m3u8
+
+#EXTINF:-1 tvg-id="sts" group-title="Эфирные",СТС
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/16.m3u8
+
+#EXTINF:-1 tvg-id="domashniy" group-title="Эфирные",Домашний
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/17.m3u8
+
+#EXTINF:-1 tvg-id="tv3" group-title="Эфирные",ТВ-3
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/18.m3u8
+
+#EXTINF:-1 tvg-id="pyatnica" group-title="Эфирные",Пятница!
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/19.m3u8
+
+#EXTINF:-1 tvg-id="tnt" group-title="Эфирные",ТНТ
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/21.m3u8
+
+#EXTINF:-1 tvg-id="muztv" group-title="Эфирные",МузТВ
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/20.m3u8
+
+#EXTINF:-1 group-title="Эфирные",МузТВ (alt)
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/618.m3u8
+
+#--- Информационные ---
+
+#EXTINF:-1 tvg-id="rossia24" group-title="Информационные",Россия 24
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/10.m3u8
+
+#EXTINF:-1 group-title="Информационные",Крым 24
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/28.m3u8
+
+#EXTINF:-1 group-title="Информационные",Луганск 24
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/29.m3u8
+
+#--- Регионы Новороссии ---
+
+#EXTINF:-1 group-title="Регионы",ЗА!ТВ (Запорожье)
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/25.m3u8
+
+#EXTINF:-1 group-title="Регионы",ТНР (Запорожье/Херсон)
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/26.m3u8
+
+#EXTINF:-1 group-title="Регионы",Юнион (ДНР)
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/27.m3u8
+
+#EXTINF:-1 group-title="Регионы",Таврия
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/30.m3u8
+
+#EXTINF:-1 group-title="Регионы",Первый Республиканский
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/31.m3u8
+
+#EXTINF:-1 group-title="Регионы",Победа
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/32.m3u8
+
+#--- Кино ---
+
+#EXTINF:-1 tvg-id="dom-kino" group-title="Кино",Дом Кино
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/44.m3u8
+
+#--- Прочие ---
+
+#EXTINF:-1 group-title="Прочие",МИР
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/22.m3u8
+
+#EXTINF:-1 tvg-id="zvezda" group-title="Прочие",Звезда
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/23.m3u8
+
+#EXTINF:-1 tvg-id="rtr-planeta" group-title="Прочие",РТР-Планета
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/211.m3u8
+
+#EXTINF:-1 group-title="Прочие",НТВ Мир
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/24.m3u8
+
+#EXTINF:-1 group-title="Прочие",RT Documentary Russian
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/554.m3u8
