@@ -44,3 +44,33 @@ http://158.101.222.193:88/georgia_play.php?id=kinopremyerahd
 
 #EXTINF:-1 tvg-id="kinopremiera-hd" group-title="Кинопремьера",Кинопремьера HD — JekaLich (прокси)
 https://jekalich.github.io/smtk/channels/kinopremiera-hd.m3u8
+
+
+#EXTM3U url-tvg="https://iptvx.one/EPG"
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="РАБОЧИЕ (проверено 10.09.26)",Кинопремьера HD — watcher.uz (НОВЫЙ! 1080p)
+https://s04.watcher.uz/5/video.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250cmFjdF9pZCI6MjcwMTc3LCJsb2dpbiI6InR2LTI3MDE3NyIsInRlbXBvcmFyeSI6ZmFsc2UsImlzX29hdXRoIjpmYWxzZSwiY3JlYXRlZF90aW1lIjoxNjUwMjgzMDI3fQ.LadLj4b6plIxTGCWntQQqsQGZ3R9EsvwhaXQd1sur2g%3A15
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="РАБОЧИЕ (проверено 10.09.26)",Кинопремьера — starcius-cinema 10110 (НОВЫЙ!)
+http://starcius-cinema.com/10110/index.m3u8?token=010101010101
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="РАБОЧИЕ (проверено 10.09.26)",Кинопремьера HD — starcius-cinema 10167 (НОВЫЙ!)
+http://starcius-cinema.com/10167/index.m3u8?token=010101010101
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="РАБОЧИЕ (проверено 10.09.26)",Кинопремьера — 188.113.190.12/329 (НОВЫЙ!)
+http://188.113.190.12/329/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="РАБОЧИЕ (проверено 10.09.26)",Кинопремьера HD — Настрой Кино! (kazaktelekom)
+http://yandex5.kazaktelekom.com/iptv/2EZAKDSGZZRHAQ/224/index.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="РАБОЧИЕ (проверено 10.09.26)",Кинопремьера HD — uplink.kz (mono)
+https://fs.uplink.kz/kinopremiera_hd/mono.m3u8?token=onlinetv
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="РАБОЧИЕ (проверено 10.09.26)",Кинопремьера HD — uplink.kz (ts)
+https://fs.uplink.kz/kinopremiera_hd/tracks-v1a1/mono.ts.m3u8?token=onlinetv
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="РАБОЧИЕ (проверено 10.09.26)",Кинопремьера HD — 188.113.190.15
+http://188.113.190.15/309/video.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" group-title="РАБОЧИЕ (проверено 10.09.26)",Кинопремьера HD — mcquack 304
+http://stream.mcquack.net/304/index.m3u8
