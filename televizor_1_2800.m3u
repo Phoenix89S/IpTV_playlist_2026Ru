@@ -11200,3 +11200,33 @@ https://streaming.televizor-24-tochka.ru/live/2799.m3u8
 #EXTINF:-1 group-title="Televizor 24",2800.m3u8 — Канал 2800
 #EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
 https://streaming.televizor-24-tochka.ru/live/2800.m3u8
+
+#EXTINF:-1 group-title="Новые/Скрытые",Поток 1
+https://streaming.televizor-24-tochka.ru/live/1.m3u8
+#EXTINF:-1 group-title="Новые/Скрытые",Поток 3
+https://streaming.televizor-24-tochka.ru/live/3.m3u8
+#EXTINF:-1 group-title="Новые/Скрытые",Поток 45
+https://streaming.televizor-24-tochka.ru/live/45.m3u8
+#EXTINF:-1 group-title="Новые/Скрытые",Поток 46
+https://streaming.televizor-24-tochka.ru/live/46.m3u8
+#EXTINF:-1 group-title="Новые/Скрытые",Поток 250 (1080p)
+https://streaming.televizor-24-tochka.ru/live/250.m3u8
+#EXTINF:-1 group-title="Новые/Скрытые",Поток 863 (1080p)
+https://streaming.televizor-24-tochka.ru/live/863.m3u8
+#EXTINF:-1 group-title="Ambient",Океан (1000)
+https://streaming.televizor-24-tochka.ru/live/1000.m3u8
+#EXTINF:-1 group-title="Ambient",Медузы под водой (2000)
+https://streaming.televizor-24-tochka.ru/live/2000.m3u8
+#EXTINF:-1 group-title="Ambient",Поток 3000
+https://streaming.televizor-24-tochka.ru/live/3000.m3u8
+#EXTINF:-1 group-title="Ambient",Поток 5000
+https://streaming.televizor-24-tochka.ru/live/5000.m3u8
+#EXTINF:-1 group-title="Новые/Скрытые",Поток 6050
+https://streaming.televizor-24-tochka.ru/live/6050.m3u8
+#EXTINF:-1 group-title="Новые/Скрытые",Поток 6051
+https://streaming.televizor-24-tochka.ru/live/6051.m3u8
+#EXTINF:-1 group-title="Новые/Скрытые",Поток 6052
+https://streaming.televizor-24-tochka.ru/live/6052.m3u8
+
+
+
