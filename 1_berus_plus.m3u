@@ -1,206 +1,689 @@
 #EXTM3U url-tvg="https://iptvx.one/EPG" catchup="append" catchup-source="?offset=-${offset}&duration=1"
 
-#--- Кино (24) ---
+
+#--- КИНО (24) ---
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epgx.site/p/kinopremiera.png" group-title="Кино",Кинопремьера HD [naggdd]
+https://stream8.cinerama.uz/1207/index.m3u8
 #EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epgx.site/p/kinopremiera.png" group-title="Кино",Кинопремьера HD [IPTVMIR]
-http://188.113.190.15/309/video.m3u8
+https://s04.watcher.uz/5/video.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250cmFjdF9pZCI6MjA0ODg3LCJ0cmFuc2xhdG9yX2lkIjoyLCJhZG1pbl9pZCI6MCwiZXhwIjoxNzcyNzc2MjU0fQ.y7HEO9l3pVR4mSTqQKsX-1So0z9UQzLmG6X2QXQKsXw
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epgx.site/p/kinopremiera.png" group-title="Кино",Кинопремьера HD [IPTVMIR]
+https://stream8.cinerama.uz/1207/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epgx.site/p/kinopremiera.png" group-title="Кино",Кинопремьера HD [IPTVMIR]
 http://starcius-cinema.com/10167/index.m3u8?token=010101010101
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epgx.site/p/kinopremiera.png" group-title="Кино",Кинопремьера HD [maltsevvv]
+http://178.124.183.5:80/hls/CH_KINOPREMERA_HLS/variant.m3u8
 #EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epgx.site/p/kinopremiera.png" group-title="Кино",Кинопремьера HD [Yandex]
 https://strm.yandex.ru/kal/kinopremiera_hd_belarus/kinopremiera_hd_belarus0.m3u8
 
-#EXTINF:-1 tvg-id="kinohit" tvg-logo="https://epgx.site/p/kinohit.png" group-title="Кино",Кинохит [naggdd]
-http://stream.mcquack.net/126/index.m3u8
-#EXTINF:-1 tvg-id="kinohit" tvg-logo="https://epgx.site/p/kinohit.png" group-title="Кино",Кинохит [naggdd]
-http://stream.mcquack.net/60/index.m3u8
-#EXTINF:-1 tvg-id="kinohit" tvg-logo="https://epgx.site/p/kinohit.png" group-title="Кино",Кинохит [smolnp-ru]
-http://fs.uplink.kz/o/tracks-v1a1/mono.ts.m3u8?token=onlinetv
 #EXTINF:-1 tvg-id="kinohit" tvg-logo="https://epgx.site/p/kinohit.png" group-title="Кино",Кинохит [IPTVMIR]
-http://188.113.190.15/136/tracks-v1a1/index.m3u8
+https://s04.watcher.uz/6/video.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250cmFjdF9pZCI6MjA0ODg3LCJ0cmFuc2xhdG9yX2lkIjoyLCJhZG1pbl9pZCI6MCwiZXhwIjoxNzcyNzc2MjU0fQ.y7HEO9l3pVR4mSTqQKsX-1So0z9UQzLmG6X2QXQKsXw
 #EXTINF:-1 tvg-id="kinohit" tvg-logo="https://epgx.site/p/kinohit.png" group-title="Кино",Кинохит [IPTVMIR]
-http://iptv46.mcx-ix.ru:8077/o_/index.m3u8
-#EXTINF:-1 tvg-id="kinohit" tvg-logo="https://epgx.site/p/kinohit.png" group-title="Кино",Кинохит [naggdd]
-http://stream.mcquack.net/363/index.m3u8
+https://stream8.cinerama.uz/1203/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="kinohit" tvg-logo="https://epgx.site/p/kinohit.png" group-title="Кино",Кинохит [maltsevvv]
+http://178.124.183.5:80/hls/CH_KINOHIT_HLS/variant.m3u8
 #EXTINF:-1 tvg-id="kinohit" tvg-logo="https://epgx.site/p/kinohit.png" group-title="Кино",Кинохит [Yandex]
 https://strm.yandex.ru/kal/kinohit_belarus/kinohit_belarus0.m3u8
 
+#EXTINF:-1 tvg-id="kinomiks" tvg-logo="https://epgx.site/p/kinomiks.png" group-title="Кино",Киномикс [naggdd]
+https://stream8.cinerama.uz/1208/index.m3u8
 #EXTINF:-1 tvg-id="kinomiks" tvg-logo="https://epgx.site/p/kinomiks.png" group-title="Кино",Киномикс [IPTVMIR]
-http://93.170.254.17/Kinomiks/index.m3u8
+https://s04.watcher.uz/8/video.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250cmFjdF9pZCI6MjA0ODg3LCJ0cmFuc2xhdG9yX2lkIjoyLCJhZG1pbl9pZCI6MCwiZXhwIjoxNzcyNzc2MjU0fQ.y7HEO9l3pVR4mSTqQKsX-1So0z9UQzLmG6X2QXQKsXw
 #EXTINF:-1 tvg-id="kinomiks" tvg-logo="https://epgx.site/p/kinomiks.png" group-title="Кино",Киномикс [IPTVMIR]
-http://176.118.197.101/Kinomix/index.m3u8
-#EXTINF:-1 tvg-id="kinomiks" tvg-logo="https://epgx.site/p/kinomiks.png" group-title="Кино",Киномикс [IPTVMIR]
-http://starcius-cinema.com/10136/index.m3u8?token=010101010101
-#EXTINF:-1 tvg-id="kinomiks" tvg-logo="https://epgx.site/p/kinomiks.png" group-title="Кино",Киномикс [IPTVMIR]
-http://188.113.190.15/308/video.m3u8
-#EXTINF:-1 tvg-id="kinomiks" tvg-logo="https://epgx.site/p/kinomiks.png" group-title="Кино",Киномикс [IPTVMIR]
-http://starcius-cinema.com/10137/index.m3u8?token=010101010101
+https://stream8.cinerama.uz/1208/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="kinomiks" tvg-logo="https://epgx.site/p/kinomiks.png" group-title="Кино",Киномикс [maltsevvv]
+http://178.124.183.5:80/hls/CH_KINOMIKS_HLS/variant.m3u8
 #EXTINF:-1 tvg-id="kinomiks" tvg-logo="https://epgx.site/p/kinomiks.png" group-title="Кино",Киномикс [Yandex]
 https://strm.yandex.ru/kal/kinomiks_belarus/kinomiks_belarus0.m3u8
 
+#EXTINF:-1 tvg-id="kinosemya" tvg-logo="https://epgx.site/p/kinosemya.png" group-title="Кино",Киносемья [naggdd]
+https://stream8.cinerama.uz/1210/index.m3u8
 #EXTINF:-1 tvg-id="kinosemya" tvg-logo="https://epgx.site/p/kinosemya.png" group-title="Кино",Киносемья [IPTVMIR]
-http://188.113.190.15/311/video.m3u8
+https://s04.watcher.uz/10/video.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250cmFjdF9pZCI6MjA0ODg3LCJ0cmFuc2xhdG9yX2lkIjoyLCJhZG1pbl9pZCI6MCwiZXhwIjoxNzcyNzc2MjU0fQ.y7HEO9l3pVR4mSTqQKsX-1So0z9UQzLmG6X2QXQKsXw
+#EXTINF:-1 tvg-id="kinosemya" tvg-logo="https://epgx.site/p/kinosemya.png" group-title="Кино",Киносемья [IPTVMIR]
+https://stream8.cinerama.uz/1210/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="kinosemya" tvg-logo="https://epgx.site/p/kinosemya.png" group-title="Кино",Киносемья [maltsevvv]
+http://178.124.183.5:80/hls/CH_KINOSEMYA_HLS/variant.m3u8
 #EXTINF:-1 tvg-id="kinosemya" tvg-logo="https://epgx.site/p/kinosemya.png" group-title="Кино",Киносемья [Yandex]
 https://strm.yandex.ru/kal/kinosemya_belarus/kinosemya_belarus0.m3u8
 
 #EXTINF:-1 tvg-id="kinokomediya" tvg-logo="https://epgx.site/p/kinokomediya.png" group-title="Кино",Кинокомедия [naggdd]
-https://cityeden.catcast.tv/content/41331/index.m3u8
+https://stream8.cinerama.uz/1209/index.m3u8
 #EXTINF:-1 tvg-id="kinokomediya" tvg-logo="https://epgx.site/p/kinokomediya.png" group-title="Кино",Кинокомедия [IPTVMIR]
-http://cityeden.catcast.tv/content/41331/index.m3u8
+https://s04.watcher.uz/9/video.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250cmFjdF9pZCI6MjA0ODg3LCJ0cmFuc2xhdG9yX2lkIjoyLCJhZG1pbl9pZCI6MCwiZXhwIjoxNzcyNzc2MjU0fQ.y7HEO9l3pVR4mSTqQKsX-1So0z9UQzLmG6X2QXQKsXw
 #EXTINF:-1 tvg-id="kinokomediya" tvg-logo="https://epgx.site/p/kinokomediya.png" group-title="Кино",Кинокомедия [IPTVMIR]
-http://176.118.197.101/Kinokomediya/index.m3u8
-#EXTINF:-1 tvg-id="kinokomediya" tvg-logo="https://epgx.site/p/kinokomediya.png" group-title="Кино",Кинокомедия [IPTVMIR]
-http://starcius-cinema.com/10134/index.m3u8?token=010101010101
-#EXTINF:-1 tvg-id="kinokomediya" tvg-logo="https://epgx.site/p/kinokomediya.png" group-title="Кино",Кинокомедия [IPTVMIR]
-http://starcius-cinema.com/10135/index.m3u8?token=010101010101
+https://stream8.cinerama.uz/1209/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="kinokomediya" tvg-logo="https://epgx.site/p/kinokomediya.png" group-title="Кино",Кинокомедия [maltsevvv]
+http://178.124.183.5:80/hls/CH_KINOKOMEDIYA_HLS/variant.m3u8
 #EXTINF:-1 tvg-id="kinokomediya" tvg-logo="https://epgx.site/p/kinokomediya.png" group-title="Кино",Кинокомедия [Yandex]
 https://strm.yandex.ru/kal/kinokomedia_belarus/kinokomedia_belarus0.m3u8
 
 #EXTINF:-1 tvg-id="kinosvidanie" tvg-logo="https://epgx.site/p/kinosvidanie.png" group-title="Кино",Киносвидание [naggdd]
-http://5.188.159.128:8070/kinosvidanie/index.m3u8
+https://stream8.cinerama.uz/1213/index.m3u8
+#EXTINF:-1 tvg-id="kinosvidanie" tvg-logo="https://epgx.site/p/kinosvidanie.png" group-title="Кино",Киносвидание [IPTVMIR]
+https://s04.watcher.uz/13/video.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250cmFjdF9pZCI6MjA0ODg3LCJ0cmFuc2xhdG9yX2lkIjoyLCJhZG1pbl9pZCI6MCwiZXhwIjoxNzcyNzc2MjU0fQ.y7HEO9l3pVR4mSTqQKsX-1So0z9UQzLmG6X2QXQKsXw
+#EXTINF:-1 tvg-id="kinosvidanie" tvg-logo="https://epgx.site/p/kinosvidanie.png" group-title="Кино",Киносвидание [IPTVMIR]
+https://stream8.cinerama.uz/1213/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="kinosvidanie" tvg-logo="https://epgx.site/p/kinosvidanie.png" group-title="Кино",Киносвидание [maltsevvv]
+http://178.124.183.5:80/hls/CH_KINOSVIDANIE_HLS/variant.m3u8
 #EXTINF:-1 tvg-id="kinosvidanie" tvg-logo="https://epgx.site/p/kinosvidanie.png" group-title="Кино",Киносвидание [Yandex]
 https://strm.yandex.ru/kal/kinosvidanie_sd_belarus/kinosvidanie_sd_belarus0.m3u8
 
 #EXTINF:-1 tvg-id="nashe-novoe-kino" tvg-logo="https://epgx.site/p/nashe-novoe-kino.png" group-title="Кино",Наше новое кино [naggdd]
-http://stream.mcquack.net/60/index.m3u8
-#EXTINF:-1 tvg-id="nashe-novoe-kino" tvg-logo="https://epgx.site/p/nashe-novoe-kino.png" group-title="Кино",Наше новое кино [smolnp-ru]
-http://fs.uplink.kz/o/tracks-v1a1/mono.ts.m3u8?token=onlinetv
+https://stream8.cinerama.uz/1211/index.m3u8
 #EXTINF:-1 tvg-id="nashe-novoe-kino" tvg-logo="https://epgx.site/p/nashe-novoe-kino.png" group-title="Кино",Наше новое кино [IPTVMIR]
-http://188.113.190.15/136/tracks-v1a1/index.m3u8
+https://s04.watcher.uz/11/video.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250cmFjdF9pZCI6MjA0ODg3LCJ0cmFuc2xhdG9yX2lkIjoyLCJhZG1pbl9pZCI6MCwiZXhwIjoxNzcyNzc2MjU0fQ.y7HEO9l3pVR4mSTqQKsX-1So0z9UQzLmG6X2QXQKsXw
 #EXTINF:-1 tvg-id="nashe-novoe-kino" tvg-logo="https://epgx.site/p/nashe-novoe-kino.png" group-title="Кино",Наше новое кино [IPTVMIR]
-http://iptv46.mcx-ix.ru:8077/o_/index.m3u8
-#EXTINF:-1 tvg-id="nashe-novoe-kino" tvg-logo="https://epgx.site/p/nashe-novoe-kino.png" group-title="Кино",Наше новое кино [naggdd]
-http://hls127.freeott.top:8080/Nashe_Novoe_Kino_HD/video.m3u8
-#EXTINF:-1 tvg-id="nashe-novoe-kino" tvg-logo="https://epgx.site/p/nashe-novoe-kino.png" group-title="Кино",Наше новое кино [naggdd]
-http://stream.mcquack.net/217/index.m3u8
-#EXTINF:-1 tvg-id="nashe-novoe-kino" tvg-logo="https://epgx.site/p/nashe-novoe-kino.png" group-title="Кино",Наше новое кино [IPTVMIR]
-http://iptv46.mcx-ix.ru:8077/nashe/index.m3u8
+https://stream8.cinerama.uz/1211/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="nashe-novoe-kino" tvg-logo="https://epgx.site/p/nashe-novoe-kino.png" group-title="Кино",Наше новое кино [Yandex]
 https://strm.yandex.ru/kal/nashe_novoe_kino_belarus/nashe_novoe_kino_belarus0.m3u8
 
+#EXTINF:-1 tvg-id="rodnoe-kino" tvg-logo="https://epgx.site/p/rodnoe-kino.png" group-title="Кино",Родное кино [naggdd]
+https://stream8.cinerama.uz/1212/index.m3u8
 #EXTINF:-1 tvg-id="rodnoe-kino" tvg-logo="https://epgx.site/p/rodnoe-kino.png" group-title="Кино",Родное кино [IPTVMIR]
-http://31.148.48.15/Rodnoe_kino/index.m3u8
+https://s04.watcher.uz/12/video.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250cmFjdF9pZCI6MjA0ODg3LCJ0cmFuc2xhdG9yX2lkIjoyLCJhZG1pbl9pZCI6MCwiZXhwIjoxNzcyNzc2MjU0fQ.y7HEO9l3pVR4mSTqQKsX-1So0z9UQzLmG6X2QXQKsXw
 #EXTINF:-1 tvg-id="rodnoe-kino" tvg-logo="https://epgx.site/p/rodnoe-kino.png" group-title="Кино",Родное кино [IPTVMIR]
-http://176.118.197.101/RodnoeKino/index.m3u8
+https://stream8.cinerama.uz/1212/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="rodnoe-kino" tvg-logo="https://epgx.site/p/rodnoe-kino.png" group-title="Кино",Родное кино [maltsevvv]
+http://178.124.183.5:80/hls/CH_RODNOEKINO_HLS/variant.m3u8
 #EXTINF:-1 tvg-id="rodnoe-kino" tvg-logo="https://epgx.site/p/rodnoe-kino.png" group-title="Кино",Родное кино [Yandex]
 https://strm.yandex.ru/kal/rodnoe_kino_belarus/rodnoe_kino_belarus0.m3u8
 
 #EXTINF:-1 tvg-id="kinoseria" tvg-logo="https://epgx.site/p/kinoseria.png" group-title="Кино",Киносерия [IPTVMIR]
-http://176.118.197.101/Kinoseria/index.m3u8
-#EXTINF:-1 tvg-id="kinoseria" tvg-logo="https://epgx.site/p/kinoseria.png" group-title="Кино",Киносерия [IPTVMIR]
-http://188.113.190.15/312/video.m3u8
+https://stream8.cinerama.uz/1214/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="kinoseria" tvg-logo="https://epgx.site/p/kinoseria.png" group-title="Кино",Киносерия [Yandex]
 https://strm.yandex.ru/kal/kinoseria_belarus/kinoseria_belarus0.m3u8
 
+#EXTINF:-1 tvg-logo="https://epgx.site/p/indiiskoe-kino.png" group-title="Кино",Индийское кино [naggdd]
+https://stream8.cinerama.uz/1226/index.m3u8
 #EXTINF:-1 tvg-logo="https://epgx.site/p/indiiskoe-kino.png" group-title="Кино",Индийское кино [IPTVMIR]
-http://188.113.190.12/329/tracks-v1a1/mono.m3u8
-#EXTINF:-1 tvg-logo="https://epgx.site/p/indiiskoe-kino.png" group-title="Кино",Индийское кино [IPTVMIR]
-http://188.113.190.12/329/index.m3u8
-#EXTINF:-1 tvg-logo="https://epgx.site/p/indiiskoe-kino.png" group-title="Кино",Индийское кино [IPTVMIR]
-http://188.113.190.15/329/video.m3u8
+https://stream8.cinerama.uz/1226/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-logo="https://epgx.site/p/indiiskoe-kino.png" group-title="Кино",Индийское кино [Yandex]
 https://strm.yandex.ru/kal/indiiskoe_kino_belarus/indiiskoe_kino_belarus0.m3u8
 
-#EXTINF:-1 tvg-logo="https://epgx.site/p/bollywood-hd.png" group-title="Кино",Bollywood HD [smolnp-ru]
-http://iptv.mega.net.ru:8888/Bollywood_HD/index.m3u8
-#EXTINF:-1 tvg-logo="https://epgx.site/p/bollywood-hd.png" group-title="Кино",Bollywood HD [IPTVMIR]
-http://45.145.32.13:20440/bollywood_hd/index.m3u8?token=test
-#EXTINF:-1 tvg-logo="https://epgx.site/p/bollywood-hd.png" group-title="Кино",Bollywood HD [IPTVMIR]
-http://213.230.65.254:8000/play/a02e
-#EXTINF:-1 tvg-logo="https://epgx.site/p/bollywood-hd.png" group-title="Кино",Bollywood HD [IPTVMIR]
-http://176.118.197.101/Bollywood_HD/index.m3u8
-#EXTINF:-1 tvg-logo="https://epgx.site/p/bollywood-hd.png" group-title="Кино",Bollywood HD [Yandex]
+#EXTINF:-1 tvg-logo="https://epgx.site/p/bollywood.png" group-title="Кино",Bollywood HD [IPTVMIR]
+https://stream8.cinerama.uz/1230/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/bollywood.png" group-title="Кино",Bollywood HD [Yandex]
 https://strm.yandex.ru/kal/bollywood_belarus/bollywood_belarus0.m3u8
 
-#EXTINF:-1 tvg-logo="https://epgx.site/p/hollywood-hd.png" group-title="Кино",Hollywood HD [smolnp-ru]
-http://iptv.mega.net.ru:8888/Hollywood/index.m3u8
-#EXTINF:-1 tvg-logo="https://epgx.site/p/hollywood-hd.png" group-title="Кино",Hollywood HD [smolnp-ru]
-http://iptv.mega.net.ru:8888/Hollywood_HD/index.m3u8
-#EXTINF:-1 tvg-logo="https://epgx.site/p/hollywood-hd.png" group-title="Кино",Hollywood HD [IPTVMIR]
-http://213.230.65.254:8000/play/a02h
-#EXTINF:-1 tvg-logo="https://epgx.site/p/hollywood-hd.png" group-title="Кино",Hollywood HD [IPTVMIR]
-http://31.148.48.15:80/MGM_HD/index.m3u8
-#EXTINF:-1 tvg-logo="https://epgx.site/p/hollywood-hd.png" group-title="Кино",Hollywood HD [Yandex]
+#EXTINF:-1 tvg-logo="https://epgx.site/p/hollywood.png" group-title="Кино",Hollywood HD [naggdd]
+https://stream8.cinerama.uz/1229/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/hollywood.png" group-title="Кино",Hollywood HD [IPTVMIR]
+https://stream8.cinerama.uz/1229/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/hollywood.png" group-title="Кино",Hollywood HD [Yandex]
 https://strm.yandex.ru/kal/hollywood_belarus/hollywood_belarus0.m3u8
 
-#EXTINF:-1 tvg-logo="https://epgx.site/p/timeless-dizi-channel.png" group-title="Кино",Timeless Dizi Channel HD [IPTVMIR]
-https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/m-plus/master.m3u8?ads.vf=6otIjpqWKPe
-#EXTINF:-1 tvg-logo="https://epgx.site/p/timeless-dizi-channel.png" group-title="Кино",Timeless Dizi Channel HD [Yandex]
+#EXTINF:-1 tvg-logo="https://epgx.site/p/timeless-dizi.png" group-title="Кино",Timeless Dizi Channel HD [Yandex]
 https://strm.yandex.ru/kal/timeless_dizi_channel_belarus/timeless_dizi_channel_belarus0.m3u8
 
 #EXTINF:-1 tvg-logo="https://epgx.site/p/kinoman.png" group-title="Кино",Киноман [IPTVMIR]
-http://188.225.31.197/bpk-tv/000003871/tve/index.m3u8
+https://stream8.cinerama.uz/1228/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-logo="https://epgx.site/p/kinoman.png" group-title="Кино",Киноман [Yandex]
 https://strm.yandex.ru/kal/kinoman_belarus/kinoman_belarus0.m3u8
 
-#EXTINF:-1 tvg-id="tv-xxi" tvg-logo="https://epgx.site/p/tv-xxi.png" group-title="Кино",TV XXI [IPTVMIR]
-http://31.210.208.171:8080/xxi/index.m3u8?token=+W2MSER
-#EXTINF:-1 tvg-id="tv-xxi" tvg-logo="https://epgx.site/p/tv-xxi.png" group-title="Кино",TV XXI [IPTVMIR]
-http://starcius-cinema.com/10148/index.m3u8?token=010101010101
-#EXTINF:-1 tvg-id="tv-xxi" tvg-logo="https://epgx.site/p/tv-xxi.png" group-title="Кино",TV XXI [Yandex]
+#EXTINF:-1 tvg-id="tv-21" tvg-logo="https://epgx.site/p/tvxxi.png" group-title="Кино",TV XXI [naggdd]
+https://stream8.cinerama.uz/1206/index.m3u8
+#EXTINF:-1 tvg-id="tv-21" tvg-logo="https://epgx.site/p/tvxxi.png" group-title="Кино",TV XXI [IPTVMIR]
+https://stream8.cinerama.uz/1206/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="tv-21" tvg-logo="https://epgx.site/p/tvxxi.png" group-title="Кино",TV XXI [iptv-org-ru]
+http://176.114.197.42:8080/TVXXI/index.m3u8
+#EXTINF:-1 tvg-id="tv-21" tvg-logo="https://epgx.site/p/tvxxi.png" group-title="Кино",TV XXI [Yandex]
 https://strm.yandex.ru/kal/tv_21_belarus/tv_21_belarus0.m3u8
 
-#EXTINF:-1 tvg-logo="https://epgx.site/p/cinema.png" group-title="Кино",CINEMA HD [iptv-org-ru]
-http://catchup.videoline.ru/cinema/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://epgx.site/p/cinema.png" group-title="Кино",CINEMA HD [naggdd]
-http://176.118.197.101/Cinema/index.m3u8
-#EXTINF:-1 tvg-logo="https://epgx.site/p/cinema.png" group-title="Кино",CINEMA HD [smolnp-ru]
-http://iptv.mega.net.ru:8888/Cinema/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/cinema.png" group-title="Кино",CINEMA HD [IPTVMIR]
+https://stream8.cinerama.uz/1218/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-logo="https://epgx.site/p/cinema.png" group-title="Кино",CINEMA HD [Yandex]
 https://strm.yandex.ru/kal/cinema_tv_belarus/cinema_tv_belarus0.m3u8
 
-#EXTINF:-1 tvg-id="nst" tvg-logo="https://epgx.site/p/nst.png" group-title="Кино",НСТ [naggdd]
-http://176.118.197.101/HCT/index.m3u8
-#EXTINF:-1 tvg-id="nst" tvg-logo="https://epgx.site/p/nst.png" group-title="Кино",НСТ [IPTVMIR]
-http://ott.watch/stream/6HAPZWKKG3/207.m3u8
-#EXTINF:-1 tvg-id="nst" tvg-logo="https://epgx.site/p/nst.png" group-title="Кино",НСТ [IPTVMIR]
-http://188.113.190.15/48/tracks-v1a1/index.m3u8
-#EXTINF:-1 tvg-id="nst" tvg-logo="https://epgx.site/p/nst.png" group-title="Кино",НСТ [Yandex]
+#EXTINF:-1 tvg-logo="https://epgx.site/p/nst.png" group-title="Кино",НСТ [IPTVMIR]
+http://31.148.48.15:80/HDkino/index.m3u8?token=test
+#EXTINF:-1 tvg-logo="https://epgx.site/p/nst.png" group-title="Кино",НСТ [Yandex]
 http://strm.yandex.ru/kal/nst_belarus/nst_belarus0.m3u8
 
-#EXTINF:-1 tvg-logo="https://epgx.site/p/vhs-ka.png" group-title="Кино",VHS-ка [IPTVMIR]
-http://starcius-cinema.com/10113/index.m3u8?token=010101010101
 #EXTINF:-1 tvg-logo="https://epgx.site/p/vhs-ka.png" group-title="Кино",VHS-ка [Yandex]
 https://strm.yandex.ru/kal/vhs_ka/vhs_ka1080.m3u8
 
-#EXTINF:-1 tvg-id="muzhskoe-kino" tvg-logo="https://epgx.site/p/muzhskoe-kino.png" group-title="Кино",Мужское кино [naggdd]
-http://stream.mcquack.net/107/index.m3u8
-#EXTINF:-1 tvg-id="muzhskoe-kino" tvg-logo="https://epgx.site/p/muzhskoe-kino.png" group-title="Кино",Мужское кино [IPTVMIR]
-http://188.113.190.15/136/tracks-v1a1/index.m3u8
-#EXTINF:-1 tvg-id="muzhskoe-kino" tvg-logo="https://epgx.site/p/muzhskoe-kino.png" group-title="Кино",Мужское кино [Yandex]
+#EXTINF:-1 tvg-logo="https://epgx.site/p/muzhskoe-kino.png" group-title="Кино",Мужское кино [IPTVMIR]
+https://stream8.cinerama.uz/1227/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/muzhskoe-kino.png" group-title="Кино",Мужское кино [Yandex]
 https://strm.yandex.ru/kal/muzhskoe_kino_belarus/muzhskoe_kino_belarus0.m3u8
 
-#EXTINF:-1 tvg-id="ntv-serial" tvg-logo="https://epgx.site/p/ntv-serial.png" group-title="Кино",НТВ Сериал HD [naggdd]
-https://cdn.ntv.ru/th_serial/index.m3u8
-#EXTINF:-1 tvg-id="ntv-serial" tvg-logo="https://epgx.site/p/ntv-serial.png" group-title="Кино",НТВ Сериал HD [smolnp-ru]
-http://cdn.ntv.ru/th_serial/tracks-v1a1/mono.m3u8
-#EXTINF:-1 tvg-id="ntv-serial" tvg-logo="https://epgx.site/p/ntv-serial.png" group-title="Кино",НТВ Сериал HD [IPTVMIR]
-http://ott.watch/stream/6HAPZWKKG3/301.m3u8
-#EXTINF:-1 tvg-id="ntv-serial" tvg-logo="https://epgx.site/p/ntv-serial.png" group-title="Кино",НТВ Сериал HD [Yandex]
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ntv-serial.png" group-title="Кино",НТВ Сериал HD [IPTVMIR]
+http://185.46.16.239:8000/NTVSerial
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ntv-serial.png" group-title="Кино",НТВ Сериал HD [Yandex]
 https://strm.yandex.ru/kal/ntv_serial_new/ntv_serial_new0.m3u8
 
-#EXTINF:-1 tvg-id="ntv-stil" tvg-logo="https://epgx.site/p/ntv-stil.png" group-title="Кино",НТВ Стиль HD [naggdd]
-https://cdn.ntv.ru/th_style/index.m3u8
-#EXTINF:-1 tvg-id="ntv-stil" tvg-logo="https://epgx.site/p/ntv-stil.png" group-title="Кино",НТВ Стиль HD [smolnp-ru]
-http://cdn2.ntv.ru/th_style/tracks-v1a1/mono.m3u8
-#EXTINF:-1 tvg-id="ntv-stil" tvg-logo="https://epgx.site/p/ntv-stil.png" group-title="Кино",НТВ Стиль HD [Yandex]
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ntv-stil.png" group-title="Кино",НТВ Стиль HD [IPTVMIR]
+http://185.46.16.239:8000/NTVStil
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ntv-stil.png" group-title="Кино",НТВ Стиль HD [Yandex]
 https://strm.yandex.ru/kal/ntv_stil/ntv_stil0.m3u8
 
-#EXTINF:-1 tvg-id="ntv-hit" tvg-logo="https://epgx.site/p/ntv-hit.png" group-title="Кино",НТВ Хит HD [naggdd]
-https://cdn.ntv.ru/th_hit/index.m3u8
-#EXTINF:-1 tvg-id="ntv-hit" tvg-logo="https://epgx.site/p/ntv-hit.png" group-title="Кино",НТВ Хит HD [smolnp-ru]
-http://cdn2.ntv.ru/th_hit/playlist.m3u8
-#EXTINF:-1 tvg-id="ntv-hit" tvg-logo="https://epgx.site/p/ntv-hit.png" group-title="Кино",НТВ Хит HD [Yandex]
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ntv-hit.png" group-title="Кино",НТВ Хит HD [IPTVMIR]
+http://185.46.16.239:8000/NTVHit
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ntv-hit.png" group-title="Кино",НТВ Хит HD [Yandex]
 https://strm.yandex.ru/kal/ntv_hit/ntv_hit0.m3u8
 
-#EXTINF:-1 tvg-id="start" tvg-logo="https://epgx.site/p/start.png" group-title="Кино",Старт HD [smolnp-ru]
-https://bl.webcaster.pro/media/playlist/api_free_fd14ed34164a52d1090e4cb9db93683f/4_79276517/480p/d33bbf3e6ac7c41524eae5d1c3d9258d/4873167902.m3u8?live=15&ref=https://tvstart.ru/channels/tv-start/
-#EXTINF:-1 tvg-id="start" tvg-logo="https://epgx.site/p/start.png" group-title="Кино",Старт HD [IPTVMIR]
-http://188.113.190.15/127/tracks-v1a1/index.m3u8
-#EXTINF:-1 tvg-id="start" tvg-logo="https://epgx.site/p/start.png" group-title="Кино",Старт HD [Yandex]
+#EXTINF:-1 tvg-logo="https://epgx.site/p/start.png" group-title="Кино",Старт HD [IPTVMIR]
+http://176.118.197.125/KinoSerial/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/start.png" group-title="Кино",Старт HD [Yandex]
 https://strm.yandex.ru/kal/start/start0.m3u8
 
-#EXTINF:-1 tvg-logo="https://epgx.site/p/start-triumf.png" group-title="Кино",Старт Триумф HD [naggdd]
-https://bl.webcaster.pro/media/playlist/free_672d700f2f9510be660253786e4406fe_hd/33_85479982/1080p/4eaec8986e2012fb936478856fbf3b4b/4818731006.m3u8
-#EXTINF:-1 tvg-logo="https://epgx.site/p/start-triumf.png" group-title="Кино",Старт Триумф HD [smolnp-ru]
-https://bl.webcaster.pro/media/playlist/free_672d700f2f9510be660253786e4406fe_hd/33_85479982/480p/4eaec8986e2012fb936478856fbf3b4b/4818731006.m3u8
 #EXTINF:-1 tvg-logo="https://epgx.site/p/start-triumf.png" group-title="Кино",Старт Триумф HD [Yandex]
 https://strm.yandex.ru/kal/start_triumf/start_triumf0.m3u8
+
+
+
+#--- СПОРТ (9) ---
+#EXTINF:-1 tvg-logo="https://epgx.site/p/futbol.png" group-title="Спорт",Футбол [naggdd]
+https://stream8.cinerama.uz/1252/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/futbol.png" group-title="Спорт",Футбол [IPTVMIR]
+https://stream8.cinerama.uz/1252/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/futbol.png" group-title="Спорт",Футбол [maltsevvv]
+http://178.124.183.5:80/hls/CH_FUTBOL_HLS/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/futbol.png" group-title="Спорт",Футбол [Yandex]
+https://strm.yandex.ru/kal/futbol_belarus/futbol_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/khl.png" group-title="Спорт",КХЛ [naggdd]
+https://fs.uplink.kz/khl/mono.m3u8?token=onlinetv
+#EXTINF:-1 tvg-logo="https://epgx.site/p/khl.png" group-title="Спорт",КХЛ [iptv-org-ru]
+https://streaminglive.rustream.online/hls2/khl/khl_720/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/khl.png" group-title="Спорт",КХЛ [iptv-org-ru]
+http://stream.mcquack.net/176/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/khl.png" group-title="Спорт",КХЛ [iptv-org-ru]
+https://fs.uplink.kz/khl/mono.m3u8?token=onlinetv
+#EXTINF:-1 tvg-logo="https://epgx.site/p/khl.png" group-title="Спорт",КХЛ [iptv-org-ru]
+https://strm.yandex.ru/kal/khl_cv/khl_cv0.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/khl.png" group-title="Спорт",КХЛ [smolnp]
+https://strm.yandex.ru/kal/khl_cv/khl_cv0.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/khl.png" group-title="Спорт",КХЛ [maltsevvv]
+http://178.124.183.5:80/hls/CH_KHL_HLS/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/khl.png" group-title="Спорт",КХЛ [Yandex]
+https://strm.yandex.ru/kal/khl_belarus/khl_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/khl-prime.png" group-title="Спорт",КХЛ Prime HD [iptv-org-ru]
+http://stream.mcquack.net/178/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/khl-prime.png" group-title="Спорт",КХЛ Prime HD [iptv-org-ru]
+https://fs.uplink.kz/khl_prime/mono.m3u8?token=onlinetv
+#EXTINF:-1 tvg-logo="https://epgx.site/p/khl-prime.png" group-title="Спорт",КХЛ Prime HD [naggdd]
+https://fs.uplink.kz/khl_prime/index.m3u8?token=onlinetv
+#EXTINF:-1 tvg-logo="https://epgx.site/p/khl-prime.png" group-title="Спорт",КХЛ Prime HD [Yandex]
+https://strm.yandex.ru/kal/khl_prime_belarus/khl_prime_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/udar.png" group-title="Спорт",UDAR HD [Yandex]
+https://strm.yandex.ru/kal/udar/udar0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/mma-tv.png" group-title="Спорт",MMA TV [IPTVMIR]
+http://stream-tv.ew21.ru/024/video.m3u8?hash=TN66TE4YB
+#EXTINF:-1 tvg-logo="https://epgx.site/p/mma-tv.png" group-title="Спорт",MMA TV [Yandex]
+https://strm.yandex.ru/kal/mma_tv_belarus/mma_tv_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="match-planeta" tvg-logo="https://epgx.site/p/match-planeta.png" group-title="Спорт",Матч Планета [naggdd]
+https://fs.uplink.kz/match_planeta/mono.m3u8?token=onlinetv
+#EXTINF:-1 tvg-id="match-planeta" tvg-logo="https://epgx.site/p/match-planeta.png" group-title="Спорт",Матч Планета [IPTVMIR]
+https://stream8.cinerama.uz/1049/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="match-planeta" tvg-logo="https://epgx.site/p/match-planeta.png" group-title="Спорт",Матч Планета [Yandex]
+https://strm.yandex.ru/kal/match_planeta_belarus/match_planeta_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/arsenal.png" group-title="Спорт",Арсенал [IPTVMIR]
+http://31.148.48.15:80/Arsenal/index.m3u8?token=test
+#EXTINF:-1 tvg-logo="https://epgx.site/p/arsenal.png" group-title="Спорт",Арсенал [Yandex]
+https://strm.yandex.ru/kal/arsenal_belarus/arsenal_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/sd-rex.png" group-title="Спорт",SD REX (Русский Экстрим) [IPTVMIR]
+https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIANEXTREMEULTRA/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/sd-rex.png" group-title="Спорт",SD REX (Русский Экстрим) [IPTVMIR]
+http://85.208.223.249:8888/play/a004
+#EXTINF:-1 tvg-logo="https://epgx.site/p/sd-rex.png" group-title="Спорт",SD REX (Русский Экстрим) [IPTVMIR]
+http://31.148.48.15:80/Russkiy_Ekstrim/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/sd-rex.png" group-title="Спорт",SD REX (Русский Экстрим) [Yandex]
+https://strm.yandex.ru/kal/russkoe_ekstremalnoe_tv_belarus/russkoe_ekstremalnoe_tv_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/boks-tv.png" group-title="Спорт",Бокс ТВ Плюс [IPTVMIR]
+http://31.148.48.15:80/Boks/index.m3u8?token=test
+#EXTINF:-1 tvg-logo="https://epgx.site/p/boks-tv.png" group-title="Спорт",Бокс ТВ Плюс [Yandex]
+https://strm.yandex.ru/kal/boks_tv_plus_belarus/boks_tv_plus_belarus0.m3u8
+
+
+#--- ДЕТСКИЕ (11) ---
+#EXTINF:-1 tvg-id="mult" tvg-logo="https://epgx.site/p/mult.png" group-title="Детские",Мульт [naggdd]
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MULT/variant.m3u8
+#EXTINF:-1 tvg-id="mult" tvg-logo="https://epgx.site/p/mult.png" group-title="Детские",Мульт [IPTVMIR]
+http://zabava-htlive.cdn.ngenix.net/hls/CH_MULT/variant.m3u8
+#EXTINF:-1 tvg-id="mult" tvg-logo="https://epgx.site/p/mult.png" group-title="Детские",Мульт [maltsevvv]
+http://178.124.183.5:80/hls/CH_MULT_HLS/variant.m3u8
+#EXTINF:-1 tvg-id="mult" tvg-logo="https://epgx.site/p/mult.png" group-title="Детские",Мульт [Yandex]
+https://strm.yandex.ru/kal/mult_belarus/mult_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/multilandia.png" group-title="Детские",Мультиландия HD [IPTVMIR]
+http://iptv46.mcx-ix.ru:8077/multilandia/video.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/multilandia.png" group-title="Детские",Мультиландия HD [Yandex]
+https://strm.yandex.ru/kal/multilandia/multilandia0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/v-gostyah-u-skazki.png" group-title="Детские",В гостях у сказки HD [IPTVMIR]
+http://31.148.48.15:80/Skazka/index.m3u8?token=test
+#EXTINF:-1 tvg-logo="https://epgx.site/p/v-gostyah-u-skazki.png" group-title="Детские",В гостях у сказки HD [Yandex]
+https://strm.yandex.ru/kal/v_gostyah_u_skazki/v_gostyah_u_skazki0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/kapitan-fantastika.png" group-title="Детские",Капитан Фантастика HD [IPTVMIR]
+https://stream8.cinerama.uz/1217/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/kapitan-fantastika.png" group-title="Детские",Капитан Фантастика HD [Yandex]
+https://strm.yandex.ru/kal/kapitan_fantastika_belarus/kapitan_fantastika_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ducktv.png" group-title="Детские",Duck TV HD [IPTVMIR]
+http://176.118.197.125/DuckTV/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ducktv.png" group-title="Детские",Duck TV HD [Yandex]
+https://strm.yandex.ru/kal/ducktv_belarus/ducktv_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="tiji" tvg-logo="https://epgx.site/p/tiji.png" group-title="Детские",TiJI [maltsevvv]
+http://178.124.183.5:80/hls/CH_TIJI_HLS/variant.m3u8
+#EXTINF:-1 tvg-id="tiji" tvg-logo="https://epgx.site/p/tiji.png" group-title="Детские",TiJI [Yandex]
+https://strm.yandex.ru/kal/tiji_belarus/tiji_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/gulli-girl.png" group-title="Детские",Gulli Girl [maltsevvv]
+http://178.124.183.5:80/hls/CH_GULLIGIRL_HLS/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/gulli-girl.png" group-title="Детские",Gulli Girl [Yandex]
+https://strm.yandex.ru/kal/gulli_girl_belarus/gulli_girl_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ryzhii.png" group-title="Детские",Рыжий [maltsevvv]
+http://178.124.183.5:80/hls/CH_RYZHIY_HLS/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ryzhii.png" group-title="Детские",Рыжий [Yandex]
+https://strm.yandex.ru/kal/ryzhii_sd_belarus/ryzhii_sd_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/leva.png" group-title="Детские",Лёва HD [Yandex]
+https://strm.yandex.ru/kal/leva/leva0.m3u8
+
+#EXTINF:-1 tvg-id="2x2" tvg-logo="https://epgx.site/p/2x2.png" group-title="Детские",2x2 [naggdd]
+https://zabava-htlive.cdn.ngenix.net/hls/CH_2X2/variant.m3u8
+#EXTINF:-1 tvg-id="2x2" tvg-logo="https://epgx.site/p/2x2.png" group-title="Детские",2x2 [IPTVMIR]
+http://zabava-htlive.cdn.ngenix.net/hls/CH_2X2/variant.m3u8
+#EXTINF:-1 tvg-id="2x2" tvg-logo="https://epgx.site/p/2x2.png" group-title="Детские",2x2 [IPTVMIR]
+http://31.148.48.15:80/2x2/index.m3u8?token=test
+#EXTINF:-1 tvg-id="2x2" tvg-logo="https://epgx.site/p/2x2.png" group-title="Детские",2x2 [IPTVMIR]
+http://31.148.48.15/2x2/tracks-v2a2a1/mono.m3u8
+#EXTINF:-1 tvg-id="2x2" tvg-logo="https://epgx.site/p/2x2.png" group-title="Детские",2x2 [IPTVMIR]
+http://iptv46.mcx-ix.ru:8077/2x2/index.m3u8
+#EXTINF:-1 tvg-id="2x2" tvg-logo="https://epgx.site/p/2x2.png" group-title="Детские",2x2 [IPTVMIR]
+http://31.148.48.15/2x2/tracks-v1a1/mono.m3u8?token=default
+#EXTINF:-1 tvg-id="2x2" tvg-logo="https://epgx.site/p/2x2.png" group-title="Детские",2x2 [maltsevvv]
+http://178.124.183.5:80/hls/EU9VTLDQCN_HLS/variant.m3u8
+#EXTINF:-1 tvg-id="2x2" tvg-logo="https://epgx.site/p/2x2.png" group-title="Детские",2x2 [Yandex]
+https://strm.yandex.ru/kal/2x2_belarus/2x2_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/baby-time.png" group-title="Детские",Baby Time [Yandex]
+https://strm.yandex.ru/kal/baby_time/baby_time0.m3u8
+
+#--- ПОЗНАВАТЕЛЬНЫЕ (17) ---
+#EXTINF:-1 tvg-id="rtg" tvg-logo="https://epgx.site/p/rtg.png" group-title="Познавательные",RTG HD [IPTVMIR]
+http://176.118.197.101/RTGHD/index.m3u8
+#EXTINF:-1 tvg-id="rtg" tvg-logo="https://epgx.site/p/rtg.png" group-title="Познавательные",RTG HD [Yandex]
+https://strm.yandex.ru/kal/rtg/rtg0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/neizvestnaia-rossia.png" group-title="Познавательные",Неизвестная Россия HD [IPTVMIR]
+http://176.118.197.125/NeizvestnayaRossiya/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/neizvestnaia-rossia.png" group-title="Познавательные",Неизвестная Россия HD [Yandex]
+https://strm.yandex.ru/kal/neizvestnaia_rossia/neizvestnaia_rossia0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/v-mire-zhivotnykh.png" group-title="Познавательные",В мире животных HD [IPTVMIR]
+http://31.148.48.15:80/Animal/index.m3u8?token=test
+#EXTINF:-1 tvg-logo="https://epgx.site/p/v-mire-zhivotnykh.png" group-title="Познавательные",В мире животных HD [Yandex]
+https://strm.yandex.ru/kal/v_mire_zhivotnykh_belarus/v_mire_zhivotnykh_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="moya-planeta" tvg-logo="https://epgx.site/p/moya-planeta.png" group-title="Познавательные",Моя планета HD [IPTVMIR]
+http://176.118.197.125/MoyaPlaneta/index.m3u8
+#EXTINF:-1 tvg-id="moya-planeta" tvg-logo="https://epgx.site/p/moya-planeta.png" group-title="Познавательные",Моя планета HD [Yandex]
+https://strm.yandex.ru/kal/moya_planeta_hd_belarus/moya_planeta_hd_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/prikluchenia.png" group-title="Познавательные",Приключения HD [IPTVMIR]
+http://31.148.48.15:80/Priklycheniya/index.m3u8?token=test
+#EXTINF:-1 tvg-logo="https://epgx.site/p/prikluchenia.png" group-title="Познавательные",Приключения HD [Yandex]
+https://strm.yandex.ru/kal/prikluchenia_belarus/prikluchenia_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="nauka" tvg-logo="https://epgx.site/p/nauka.png" group-title="Познавательные",Наука 2.0 HD [IPTVMIR]
+http://176.118.197.125/Nauka2/index.m3u8
+#EXTINF:-1 tvg-id="nauka" tvg-logo="https://epgx.site/p/nauka.png" group-title="Познавательные",Наука 2.0 HD [Yandex]
+https://strm.yandex.ru/kal/nauka_belarus/nauka_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/galaxy.png" group-title="Познавательные",Galaxy TV HD [IPTVMIR]
+http://176.118.197.125/TainyGalaktiki/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/galaxy.png" group-title="Познавательные",Galaxy TV HD [Yandex]
+https://strm.yandex.ru/kal/tainy_galaktiki_belarus/tainy_galaktiki_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/pervyi-kosmicheskiy.png" group-title="Познавательные",Первый космический HD [IPTVMIR]
+http://176.118.197.125/PerviyKosmicheskiy/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/pervyi-kosmicheskiy.png" group-title="Познавательные",Первый космический HD [Yandex]
+https://strm.yandex.ru/kal/pervyi_kosmicheskiy_belarus/pervyi_kosmicheskiy_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ohotnik-rybolov.png" group-title="Познавательные",Охотник и рыболов Int HD [naggdd]
+https://zabava-htlive.cdn.ngenix.net/hls/CH_OHOTNIKRYBOLOV/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ohotnik-rybolov.png" group-title="Познавательные",Охотник и рыболов Int HD [IPTVMIR]
+http://zabava-htlive.cdn.ngenix.net/hls/CH_OHOTNIKRYBOLOV/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ohotnik-rybolov.png" group-title="Познавательные",Охотник и рыболов Int HD [Yandex]
+https://strm.yandex.ru/kal/ohotnik_rybolov_belarus/ohotnik_rybolov_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ocean-tv.png" group-title="Познавательные",Ocean TV [IPTVMIR]
+http://31.148.48.15:80/Ocean/index.m3u8?token=test
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ocean-tv.png" group-title="Познавательные",Ocean TV [Yandex]
+https://strm.yandex.ru/kal/ocean_tv_belarus/ocean_tv_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/sibir.png" group-title="Познавательные",Наша Сибирь HD [IPTVMIR]
+http://176.118.197.125/NashaSibir/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/sibir.png" group-title="Познавательные",Наша Сибирь HD [Yandex]
+https://strm.yandex.ru/kal/sibir/sibir0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/dialogi.png" group-title="Познавательные",Диалоги о рыбалке HD [IPTVMIR]
+http://176.118.197.125/DialogiRybalka/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/dialogi.png" group-title="Познавательные",Диалоги о рыбалке HD [Yandex]
+https://strm.yandex.ru/kal/dialogi/dialogi0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/zagorodnaia.png" group-title="Познавательные",Загородная жизнь [IPTVMIR]
+http://31.148.48.15:80/ZagorodnayaZizn/index.m3u8?token=test
+#EXTINF:-1 tvg-logo="https://epgx.site/p/zagorodnaia.png" group-title="Познавательные",Загородная жизнь [Yandex]
+https://strm.yandex.ru/kal/zagorodnaia_zhizn_belarus/zagorodnaia_zhizn_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/t24.png" group-title="Познавательные",Т24 [IPTVMIR]
+http://31.148.48.15:80/T24/index.m3u8?token=test
+#EXTINF:-1 tvg-logo="https://epgx.site/p/t24.png" group-title="Познавательные",Т24 [Yandex]
+https://strm.yandex.ru/kal/t24_belarus/t24_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/365-dnei.png" group-title="Познавательные",365 Дней ТВ [naggdd]
+https://zabava-htlive.cdn.ngenix.net/hls/CH_365_DNEY_TV/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/365-dnei.png" group-title="Познавательные",365 Дней ТВ [IPTVMIR]
+http://zabava-htlive.cdn.ngenix.net/hls/CH_365_DNEY_TV/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/365-dnei.png" group-title="Познавательные",365 Дней ТВ [Yandex]
+https://strm.yandex.ru/kal/365_dnei_tv_belarus/365_dnei_tv_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/avto-plus.png" group-title="Познавательные",Авто Плюс HD [IPTVMIR]
+http://31.148.48.15:80/AutoPlus/index.m3u8?token=test
+#EXTINF:-1 tvg-logo="https://epgx.site/p/avto-plus.png" group-title="Познавательные",Авто Плюс HD [Yandex]
+https://strm.yandex.ru/kal/avto_plus_belarus/avto_plus_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/muzhskoi.png" group-title="Познавательные",Мужской [IPTVMIR]
+http://31.148.48.15:80/Muzhskoy/index.m3u8?token=test
+#EXTINF:-1 tvg-logo="https://epgx.site/p/muzhskoi.png" group-title="Познавательные",Мужской [Yandex]
+https://strm.yandex.ru/kal/muzhskoi_belarus/muzhskoi_belarus0.m3u8
+
+
+#--- МУЗЫКА (14) ---
+#EXTINF:-1 tvg-logo="https://epgx.site/p/bridgetv.png" group-title="Музыка",Bridge TV [IPTVMIR]
+http://iptv46.mcx-ix.ru:8077/bridge-tv/video.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/bridgetv.png" group-title="Музыка",Bridge TV [IPTVMIR]
+http://62.89.220.15/streams/media/bridge-tv_720x576/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/bridgetv.png" group-title="Музыка",Bridge TV [Yandex]
+https://strm.yandex.ru/kal/bridgetv/bridgetv0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/bridgetv-classic.png" group-title="Музыка",Bridge TV Classic [IPTVMIR]
+http://iptv46.mcx-ix.ru:8077/bridge-classic/video.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/bridgetv-classic.png" group-title="Музыка",Bridge TV Classic [Yandex]
+https://strm.yandex.ru/kal/bridgetvclassic/bridgetvclassic0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/bridgetv-deluxe.png" group-title="Музыка",Bridge TV Deluxe HD [IPTVMIR]
+http://iptv46.mcx-ix.ru:8077/bridge-dx/video.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/bridgetv-deluxe.png" group-title="Музыка",Bridge TV Deluxe HD [Yandex]
+https://strm.yandex.ru/kal/bridgetvdeluxe/bridgetvdeluxe0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/bridgetv-fresh.png" group-title="Музыка",Bridge TV Rock HD [Yandex]
+https://strm.yandex.ru/kal/bridge_tv_fresh/bridge_tv_fresh0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/bridgetv-hits.png" group-title="Музыка",Bridge TV Hits HD [IPTVMIR]
+http://iptv46.mcx-ix.ru:8077/bridge-hits/video.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/bridgetv-hits.png" group-title="Музыка",Bridge TV Hits HD [Yandex]
+https://strm.yandex.ru/kal/bridgetvhits/bridgetvhits0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/bridgetv-russkiyhit.png" group-title="Музыка",Bridge TV Русский Хит HD [IPTVMIR]
+http://iptv46.mcx-ix.ru:8077/bridge-rutube/video.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/bridgetv-russkiyhit.png" group-title="Музыка",Bridge TV Русский Хит HD [Yandex]
+https://strm.yandex.ru/kal/bridgetv_russkiyhit/bridgetv_russkiyhit0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/bridgetv-shlyager.png" group-title="Музыка",Bridge TV Шлягер [Yandex]
+https://strm.yandex.ru/kal/bridgetv_shlyager/bridgetv_shlyager0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/rutv.png" group-title="Музыка",RU.TV HD [IPTVMIR]
+http://iptv46.mcx-ix.ru:8077/ru-tv/video.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/rutv.png" group-title="Музыка",RU.TV HD [smolnp]
+https://rutvru-lh.akamaized.net/out/rutv_rutvru1.smil/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/rutv.png" group-title="Музыка",RU.TV HD [IPTVMIR]
+http://176.118.197.101/RUTV/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/rutv.png" group-title="Музыка",RU.TV HD [IPTVMIR]
+http://176.118.197.125/RUTV/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/rutv.png" group-title="Музыка",RU.TV HD [IPTVMIR]
+http://91.239.143.57:8080/RUTV/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/rutv.png" group-title="Музыка",RU.TV HD [Yandex]
+https://strm.yandex.ru/kal/rutv_cv/rutv_cv0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/tnt-music.png" group-title="Музыка",ТНТ Music HD [IPTVMIR]
+http://iptv46.mcx-ix.ru:8077/tnt-music/video.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/tnt-music.png" group-title="Музыка",ТНТ Music HD [Yandex]
+https://strm.yandex.ru/kal/tntmusic/tntmusic0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/musicbox-gold.png" group-title="Музыка",Music Box Gold [Yandex]
+https://strm.yandex.ru/kal/musicboxgold/musicboxgold0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/musicbox-russia.png" group-title="Музыка",Music Box Russia HD [IPTVMIR]
+http://iptv46.mcx-ix.ru:8077/music-box/video.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/musicbox-russia.png" group-title="Музыка",Music Box Russia HD [Yandex]
+https://strm.yandex.ru/kal/rmbox/rmbox0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/europa-plus.png" group-title="Музыка",Europa Plus TV [IPTVMIR]
+http://iptv46.mcx-ix.ru:8077/europa-plus/video.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/europa-plus.png" group-title="Музыка",Europa Plus TV [Yandex]
+https://strm.yandex.ru/kal/europa_plus_tv/europa_plus_tv0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/zhara.png" group-title="Музыка",Жара TV [IPTVMIR]
+http://iptv46.mcx-ix.ru:8077/zhara/video.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/zhara.png" group-title="Музыка",Жара TV [Yandex]
+https://strm.yandex.ru/kal/ot_rassveta_do_zakata_zhara/ot_rassveta_do_zakata_zhara0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/belmuztv.png" group-title="Музыка",БелМУЗ ТВ [Yandex]
+https://strm.yandex.ru/kal/belmuztv/belmuztv0.m3u8
+
+#--- ОБЩИЕ И РАЗВЛЕКАТЕЛЬНЫЕ (10) ---
+#EXTINF:-1 tvg-id="5kanal" tvg-logo="https://epgx.site/p/5kanal.png" group-title="Общие и развлекательные",Пятый канал International [naggdd]
+http://spbtvonline.ru/5tv/5tvint.m3u8
+#EXTINF:-1 tvg-id="5kanal" tvg-logo="https://epgx.site/p/5kanal.png" group-title="Общие и развлекательные",Пятый канал International [iptv-org-ru]
+https://strm.yandex.ru/kal/5kanal_cv/5kanal_cv0.m3u8
+#EXTINF:-1 tvg-id="5kanal" tvg-logo="https://epgx.site/p/5kanal.png" group-title="Общие и развлекательные",Пятый канал International [IPTVMIR]
+http://185.46.16.239:8000/5Kanal
+#EXTINF:-1 tvg-id="5kanal" tvg-logo="https://epgx.site/p/5kanal.png" group-title="Общие и развлекательные",Пятый канал International [Yandex]
+https://strm.yandex.ru/kal/5_kanal_int_belarus/5_kanal_int_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="mir" tvg-logo="https://epgx.site/p/mir.png" group-title="Общие и развлекательные",МИР [naggdd]
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MIR/variant.m3u8
+#EXTINF:-1 tvg-id="mir" tvg-logo="https://epgx.site/p/mir.png" group-title="Общие и развлекательные",МИР [IPTVMIR]
+https://s91412.cdn.ngenix.net/mdrm/CH_MIR/variant.m3u8
+#EXTINF:-1 tvg-id="mir" tvg-logo="https://epgx.site/p/mir.png" group-title="Общие и развлекательные",МИР [IPTVMIR]
+http://stream-tv.ew21.ru/018/video.m3u8?hash=TN66TE4YB
+#EXTINF:-1 tvg-id="mir" tvg-logo="https://epgx.site/p/mir.png" group-title="Общие и развлекательные",МИР [IPTVMIR]
+https://stream8.cinerama.uz/1218/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="mir" tvg-logo="https://epgx.site/p/mir.png" group-title="Общие и развлекательные",МИР [IPTVMIR]
+http://net42.rafail1982.uz/Mir/index.m3u8
+#EXTINF:-1 tvg-id="mir" tvg-logo="https://epgx.site/p/mir.png" group-title="Общие и развлекательные",МИР [IPTVMIR]
+http://176.118.197.125/Mir/index.m3u8
+#EXTINF:-1 tvg-id="mir" tvg-logo="https://epgx.site/p/mir.png" group-title="Общие и развлекательные",МИР [IPTVMIR]
+http://iptv46.mcx-ix.ru:8077/mir/index.m3u8
+#EXTINF:-1 tvg-id="mir" tvg-logo="https://epgx.site/p/mir.png" group-title="Общие и развлекательные",МИР [maltsevvv]
+http://178.124.183.5:80/hls/M4K3ZYBPWQ_HLS/variant.m3u8
+#EXTINF:-1 tvg-id="mir" tvg-logo="https://epgx.site/p/mir.png" group-title="Общие и развлекательные",МИР [Yandex]
+https://strm.yandex.ru/kal/mir_belarus/mir_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="mir24" tvg-logo="https://epgx.site/p/mir24.png" group-title="Общие и развлекательные",МИР 24 HD [naggdd]
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MIR24/variant.m3u8
+#EXTINF:-1 tvg-id="mir24" tvg-logo="https://epgx.site/p/mir24.png" group-title="Общие и развлекательные",МИР 24 HD [IPTVMIR]
+http://zabava-htlive.cdn.ngenix.net/hls/CH_MIR24/variant.m3u8
+#EXTINF:-1 tvg-id="mir24" tvg-logo="https://epgx.site/p/mir24.png" group-title="Общие и развлекательные",МИР 24 HD [IPTVMIR]
+https://hls-mirtv.cdnvideo.ru/mirtv-parampublish/mir24_2500/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="mir24" tvg-logo="https://epgx.site/p/mir24.png" group-title="Общие и развлекательные",МИР 24 HD [Yandex]
+https://strm.yandex.ru/kal/mir24/mir240.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/tnt.png" group-title="Общие и развлекательные",ТНТ International HD [IPTVMIR]
+http://91.239.143.57:8080/TNT/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/tnt.png" group-title="Общие и развлекательные",ТНТ International HD [Yandex]
+https://strm.yandex.ru/kal/tnt_interneshnl_belarus/tnt_interneshnl_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/u.png" group-title="Общие и развлекательные",Ю [naggdd]
+https://zabava-htlive.cdn.ngenix.net/hls/CH_U/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/u.png" group-title="Общие и развлекательные",Ю [IPTVMIR]
+http://zabava-htlive.cdn.ngenix.net/hls/CH_U/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/u.png" group-title="Общие и развлекательные",Ю [IPTVMIR]
+http://185.46.16.239:8000/U
+#EXTINF:-1 tvg-logo="https://epgx.site/p/u.png" group-title="Общие и развлекательные",Ю [IPTVMIR]
+http://91.239.143.57:8080/U/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/u.png" group-title="Общие и развлекательные",Ю [IPTVMIR]
+http://176.118.197.125/U/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/u.png" group-title="Общие и развлекательные",Ю [Yandex]
+https://strm.yandex.ru/kal/utv/utv0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/360tv.png" group-title="Общие и развлекательные",360° HD [naggdd]
+https://zabava-htlive.cdn.ngenix.net/hls/CH_360TV/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/360tv.png" group-title="Общие и развлекательные",360° HD [IPTVMIR]
+http://zabava-htlive.cdn.ngenix.net/hls/CH_360TV/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/360tv.png" group-title="Общие и развлекательные",360° HD [Yandex]
+https://strm.yandex.ru/kal/360tv/360tv0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/360news.png" group-title="Общие и развлекательные",360° Новости HD [naggdd]
+https://zabava-htlive.cdn.ngenix.net/hls/CH_360TVNOVOSTI/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/360news.png" group-title="Общие и развлекательные",360° Новости HD [IPTVMIR]
+http://zabava-htlive.cdn.ngenix.net/hls/CH_360TVNOVOSTI/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/360news.png" group-title="Общие и развлекательные",360° Новости HD [Yandex]
+https://strm.yandex.ru/kal/360news/360news0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/msk24.png" group-title="Общие и развлекательные",Москва 24 [naggdd]
+https://zabava-htlive.cdn.ngenix.net/hls/CH_MOSKVA24/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/msk24.png" group-title="Общие и развлекательные",Москва 24 [IPTVMIR]
+http://zabava-htlive.cdn.ngenix.net/hls/CH_MOSKVA24/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/msk24.png" group-title="Общие и развлекательные",Москва 24 [Yandex]
+https://strm.yandex.ru/kal/msk24_n/msk24_n0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/sarahfan.png" group-title="Общие и развлекательные",Сарафан [IPTVMIR]
+http://176.118.197.125/Sarafan/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/sarahfan.png" group-title="Общие и развлекательные",Сарафан [Yandex]
+https://strm.yandex.ru/kal/sarahfan_belarus/sarahfan_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/kvn.png" group-title="Общие и развлекательные",КВН ТВ [IPTVMIR]
+http://176.118.197.125/KVN/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/kvn.png" group-title="Общие и развлекательные",КВН ТВ [Yandex]
+https://strm.yandex.ru/kal/kvn_tv_belarus/kvn_tv_belarus0.m3u8
+
+
+#--- ПРОЧЕЕ (4) ---
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ntv-pravo.png" group-title="Прочее",НТВ Право [IPTVMIR]
+http://185.46.16.239:8000/NTVPravo
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ntv-pravo.png" group-title="Прочее",НТВ Право [Yandex]
+https://strm.yandex.ru/kal/ntv_pravo_new/ntv_pravo_new0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/eda-premium.png" group-title="Прочее",Еда Премиум HD [IPTVMIR]
+http://176.118.197.125/Eda/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/eda-premium.png" group-title="Прочее",Еда Премиум HD [Yandex]
+https://strm.yandex.ru/kal/eda_premium_int_belarus/eda_premium_int_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/zhivi.png" group-title="Прочее",Живи [IPTVMIR]
+http://31.148.48.15:80/Zhivi/index.m3u8?token=test
+#EXTINF:-1 tvg-logo="https://epgx.site/p/zhivi.png" group-title="Прочее",Живи [Yandex]
+https://strm.yandex.ru/kal/zhivi_belarus/zhivi_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/fashion-tv.png" group-title="Прочее",Fashion TV HD [IPTVMIR]
+http://176.118.197.101/Fashion/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/fashion-tv.png" group-title="Прочее",Fashion TV HD [Yandex]
+https://strm.yandex.ru/kal/fashion_tv/fashion_tv0.m3u8
+
+
+#--- БЕЛАРУСЬ (9) ---
+#EXTINF:-1 tvg-logo="https://epgx.site/p/belarus1.png" group-title="Беларусь",Беларусь 1 [naggdd]
+https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus1/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/belarus1.png" group-title="Беларусь",Беларусь 1 [IPTVMIR]
+https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus1/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/belarus1.png" group-title="Беларусь",Беларусь 1 [maltsevvv]
+http://178.124.183.5:80/hls/M52YG9EVYD_HLS/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/belarus1.png" group-title="Беларусь",Беларусь 1 [Yandex]
+http://strm.yandex.ru/kal/belarus_1/belarus_10.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/belarus2.png" group-title="Беларусь",Беларусь 2 [naggdd]
+https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus2/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/belarus2.png" group-title="Беларусь",Беларусь 2 [IPTVMIR]
+https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus2/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/belarus2.png" group-title="Беларусь",Беларусь 2 [maltsevvv]
+http://178.124.183.5:80/hls/LZTKNZNWPT_HLS/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/belarus2.png" group-title="Беларусь",Беларусь 2 [Yandex]
+http://strm.yandex.ru/kal/belarus_2/belarus_20.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/belarus3.png" group-title="Беларусь",Беларусь 3 [naggdd]
+https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus3/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/belarus3.png" group-title="Беларусь",Беларусь 3 [IPTVMIR]
+https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus3/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/belarus3.png" group-title="Беларусь",Беларусь 3 [Yandex]
+http://strm.yandex.ru/kal/belarus_3/belarus_30.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/belarus5.png" group-title="Беларусь",Беларусь 5 [naggdd]
+https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus5/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/belarus5.png" group-title="Беларусь",Беларусь 5 [IPTVMIR]
+https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus5/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/belarus5.png" group-title="Беларусь",Беларусь 5 [Yandex]
+http://strm.yandex.ru/kal/belarus_5/belarus_50.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ont.png" group-title="Беларусь",ОНТ [naggdd]
+https://ngtrk.dc.beltelecom.by/ngtrk/smil:ont/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ont.png" group-title="Беларусь",ОНТ [IPTVMIR]
+https://ngtrk.dc.beltelecom.by/ngtrk/smil:ont/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ont.png" group-title="Беларусь",ОНТ [Yandex]
+https://strm.yandex.ru/kal/ont_belarus/ont_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/stv.png" group-title="Беларусь",СТВ [naggdd]
+https://ngtrk.dc.beltelecom.by/ngtrk/smil:stv/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/stv.png" group-title="Беларусь",СТВ [IPTVMIR]
+https://ngtrk.dc.beltelecom.by/ngtrk/smil:stv/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/stv.png" group-title="Беларусь",СТВ [Yandex]
+https://strm.yandex.ru/kal/stv_belarus/stv_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ntv.png" group-title="Беларусь",НТВ (Беларусь) [naggdd]
+https://zabava-htlive.cdn.ngenix.net/hls/CH_NTV/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ntv.png" group-title="Беларусь",НТВ (Беларусь) [IPTVMIR]
+http://5.188.221.43:8080/play/ntv
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ntv.png" group-title="Беларусь",НТВ (Беларусь) [IPTVMIR]
+http://185.46.16.239:8000/NTV
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ntv.png" group-title="Беларусь",НТВ (Беларусь) [IPTVMIR]
+http://stream-tv.ew21.ru/004/video.m3u8?hash=TN66TE4YB
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ntv.png" group-title="Беларусь",НТВ (Беларусь) [IPTVMIR]
+https://stream8.cinerama.uz/1023/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ntv.png" group-title="Беларусь",НТВ (Беларусь) [IPTVMIR]
+http://176.118.197.101/NTV/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ntv.png" group-title="Беларусь",НТВ (Беларусь) [IPTVMIR]
+http://91.239.143.57:8080/NTV/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ntv.png" group-title="Беларусь",НТВ (Беларусь) [smolnp]
+http://cdn.ntv.ru/ntv0_hd/tracks-v1a1/rewind-7150.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ntv.png" group-title="Беларусь",НТВ (Беларусь) [maltsevvv]
+http://178.124.183.5:80/hls/DYJ5GH8HOK_HLS/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/ntv.png" group-title="Беларусь",НТВ (Беларусь) [Yandex]
+https://strm.yandex.ru/kal/ntv_belarus/ntv_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/rtr.png" group-title="Беларусь",РТР (Беларусь) [naggdd]
+http://player.smotrim.ru/iframe/stream/live_id/d7fef212-df66-485d-9952-7eab82d7d
+#EXTINF:-1 tvg-logo="https://epgx.site/p/rtr.png" group-title="Беларусь",РТР (Беларусь) [naggdd]
+https://streaming.televizor-24-tochka.ru/live/211.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/rtr.png" group-title="Беларусь",РТР (Беларусь) [IPTVMIR]
+https://streaming.thestream.cyou/live/211-req_offset_28000000-req_window_0-1k_v5
+#EXTINF:-1 tvg-logo="https://epgx.site/p/rtr.png" group-title="Беларусь",РТР (Беларусь) [Yandex]
+https://strm.yandex.ru/kal/rtr_belarus/rtr_belarus0.m3u8
+
+#EXTINF:-1 tvg-logo="https://epgx.site/p/tv3.png" group-title="Беларусь",ТВ3 (Беларусь) [naggdd]
+https://zabava-htlive.cdn.ngenix.net/hls/CH_TV3/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/tv3.png" group-title="Беларусь",ТВ3 (Беларусь) [IPTVMIR]
+http://zabava-htlive.cdn.ngenix.net/hls/CH_TV3/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/tv3.png" group-title="Беларусь",ТВ3 (Беларусь) [IPTVMIR]
+http://5.188.221.43:8080/play/tv3
+#EXTINF:-1 tvg-logo="https://epgx.site/p/tv3.png" group-title="Беларусь",ТВ3 (Беларусь) [IPTVMIR]
+http://185.46.16.239:8000/TV3
+#EXTINF:-1 tvg-logo="https://epgx.site/p/tv3.png" group-title="Беларусь",ТВ3 (Беларусь) [IPTVMIR]
+http://stream-tv.ew21.ru/006/video.m3u8?hash=TN66TE4YB
+#EXTINF:-1 tvg-logo="https://epgx.site/p/tv3.png" group-title="Беларусь",ТВ3 (Беларусь) [IPTVMIR]
+http://176.118.197.125/TV3/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/tv3.png" group-title="Беларусь",ТВ3 (Беларусь) [IPTVMIR]
+http://91.239.143.57:8080/TV3/index.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/tv3.png" group-title="Беларусь",ТВ3 (Беларусь) [maltsevvv]
+http://178.124.183.5:80/hls/CH_TV3BEL_HLS/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/tv3.png" group-title="Беларусь",ТВ3 (Беларусь) [Yandex]
+https://strm.yandex.ru/kal/tv3_belarus/tv3_belarus0.m3u8
+
+
+#--- РЕГИОНЫ (1) ---
+#EXTINF:-1 tvg-logo="https://epgx.site/p/volgograd1.png" group-title="Регионы",Волгоград 1 [IPTVMIR]
+https://rt-sth-vgrad-htlive.cdn.ngenix.net/hls/CH_R06_OTT_STH_VGRAD_VOLGOGRAD1/variant.m3u8
+#EXTINF:-1 tvg-logo="https://epgx.site/p/volgograd1.png" group-title="Регионы",Волгоград 1 [Yandex]
+https://strm.yandex.ru/kal/volgograd1/volgograd10.m3u8
