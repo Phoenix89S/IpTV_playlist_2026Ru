@@ -4,9 +4,15 @@ import logging
 import re
 import time
 from pathlib import Path
-from urllib.parse import urljoin
 
 import requests
+
+
+# ============================================================
+# RTOCHKA
+# TELEVIZOR 24 TOCHKA
+# M3U8 SCANNER 1-2800
+# ============================================================
 
 
 # ============================================================
@@ -17,32 +23,75 @@ BASE_URL = "https://streaming.televizor-24-tochka.ru/live/"
 REFERER = "https://televizor24tochka.ru/"
 
 START = 1
-END = 1000
+END = 2800
 
 # Вежливый режим.
+# Пауза между проверками.
 DELAY = 0.15
 
 HEAD_TIMEOUT = 10
 GET_TIMEOUT = 15
 
-# Сколько максимум читать из ответа M3U8.
-# Для поиска метаданных обычно этого более чем достаточно.
-MAX_BYTES = 128 * 1024
+# ВАЖНО:
+# НЕТ MAX_BYTES.
+#
+# M3U8 читается полностью.
+# Сам видеопоток и его сегменты (.ts/.m4s)
+# этот скрипт НЕ скачивает.
+#
+# Он получает и анализирует только playlist M3U8.
 
-OUTPUT_DIR = Path("televizor_scan_1_1000")
 
-JSON_FILE = OUTPUT_DIR / "televizor_1_1000_full.json"
-CSV_FILE = OUTPUT_DIR / "televizor_1_1000_report.csv"
-M3U_FILE = OUTPUT_DIR / "televizor_1_1000.m3u"
-MISSING_FILE = OUTPUT_DIR / "televizor_missing.txt"
-LOG_FILE = OUTPUT_DIR / "scanner.log"
+# ============================================================
+# ПУТИ РЕЗУЛЬТАТОВ
+# ============================================================
+
+OUTPUT_DIR = Path("televizor_scan_1_2800")
+
+JSON_FILE = (
+    OUTPUT_DIR /
+    "televizor_1_2800_full.json"
+)
+
+CSV_FILE = (
+    OUTPUT_DIR /
+    "televizor_1_2800_report.csv"
+)
+
+M3U_FILE = (
+    OUTPUT_DIR /
+    "televizor_1_2800.m3u"
+)
+
+MISSING_FILE = (
+    OUTPUT_DIR /
+    "televizor_missing.txt"
+)
+
+LOG_FILE = (
+    OUTPUT_DIR /
+    "scanner.log"
+)
+
+SUMMARY_FILE = (
+    OUTPUT_DIR /
+    "scan_summary.json"
+)
+
+
+# ============================================================
+# СОЗДАНИЕ ПАПКИ
+# ============================================================
+
+OUTPUT_DIR.mkdir(
+    parents=True,
+    exist_ok=True
+)
 
 
 # ============================================================
 # ЛОГИ
 # ============================================================
-
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 logging.basicConfig(
     level=logging.INFO,
@@ -56,7 +105,9 @@ logging.basicConfig(
     ]
 )
 
-logger = logging.getLogger("TELEVIZOR-SCANNER")
+logger = logging.getLogger(
+    "RTOCHKA-TELEVIZOR-SCANNER"
+)
 
 
 # ============================================================
@@ -67,7 +118,8 @@ session = requests.Session()
 
 session.headers.update({
     "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "Mozilla/5.0 "
+        "(Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 "
         "(KHTML, like Gecko) "
         "Chrome/140.0 Safari/537.36"
@@ -75,7 +127,9 @@ session.headers.update({
 
     "Referer": REFERER,
 
-    "Origin": "https://televizor24tochka.ru",
+    "Origin": (
+        "https://televizor24tochka.ru"
+    ),
 
     "Accept": (
         "application/vnd.apple.mpegurl,"
@@ -84,7 +138,10 @@ session.headers.update({
         "*/*"
     ),
 
-    "Accept-Language": "ru-RU,ru;q=0.9,en-US;q=0.8",
+    "Accept-Language": (
+        "ru-RU,ru;q=0.9,"
+        "en-US;q=0.8"
+    ),
 
     "Cache-Control": "no-cache",
 
@@ -97,7 +154,10 @@ session.headers.update({
 # ============================================================
 
 def make_url(number):
-    return f"{BASE_URL}{number}.m3u8"
+    return (
+        f"{BASE_URL}"
+        f"{number}.m3u8"
+    )
 
 
 # ============================================================
@@ -106,7 +166,7 @@ def make_url(number):
 
 def parse_attributes(value):
     """
-    Разбирает:
+    Разбирает HLS-атрибуты:
 
     BANDWIDTH=2000000,
     RESOLUTION=1920x1080,
@@ -115,12 +175,21 @@ def parse_attributes(value):
 
     result = {}
 
-    pattern = r'([A-Z0-9-]+)=(".*?"|[^,]*)'
+    pattern = (
+        r'([A-Z0-9-]+)=(".*?"|[^,]*)'
+    )
 
-    for key, val in re.findall(pattern, value):
+    for key, val in re.findall(
+        pattern,
+        value
+    ):
+
         val = val.strip()
 
-        if val.startswith('"') and val.endswith('"'):
+        if (
+            val.startswith('"')
+            and val.endswith('"')
+        ):
             val = val[1:-1]
 
         result[key] = val
@@ -134,7 +203,9 @@ def parse_attributes(value):
 
 def analyze_m3u8(text):
     """
-    Максимально полезный анализ содержимого M3U8.
+    Полный анализ полученного M3U8.
+
+    Ничего искусственно не обрезается.
     """
 
     result = {
@@ -150,6 +221,8 @@ def analyze_m3u8(text):
         "streams": [],
 
         "bandwidths": [],
+        "average_bandwidths": [],
+
         "resolutions": [],
         "codecs": [],
         "frame_rates": [],
@@ -174,81 +247,118 @@ def analyze_m3u8(text):
 
     lines = text.splitlines()
 
-    # --------------------------------------------------------
-    # Базовая проверка
-    # --------------------------------------------------------
+    # ========================================================
+    # БАЗОВАЯ ПРОВЕРКА
+    # ========================================================
 
     stripped = text.lstrip()
 
-    if not stripped.startswith("#EXTM3U"):
+    if not stripped.startswith(
+        "#EXTM3U"
+    ):
 
         if "#EXT-X-" not in text:
             return result
 
     result["valid_m3u8"] = True
 
-    # --------------------------------------------------------
-    # Построчный анализ
-    # --------------------------------------------------------
 
-    for index, raw_line in enumerate(lines):
+    # ========================================================
+    # ПОСТРОЧНЫЙ АНАЛИЗ
+    # ========================================================
+
+    for index, raw_line in enumerate(
+        lines
+    ):
 
         line = raw_line.strip()
 
         if not line:
             continue
 
-        # ----------------------------------------------------
-        # Все HLS-теги
-        # ----------------------------------------------------
+
+        # ====================================================
+        # ВСЕ HLS TAG
+        # ====================================================
 
         if line.startswith("#EXT-X-"):
 
-            result["raw_tags"].append(line)
+            result[
+                "raw_tags"
+            ].append(line)
 
-        # ----------------------------------------------------
-        # Master playlist
-        # ----------------------------------------------------
 
-        if line.startswith("#EXT-X-STREAM-INF:"):
+        # ====================================================
+        # MASTER PLAYLIST
+        # ====================================================
+
+        if line.startswith(
+            "#EXT-X-STREAM-INF:"
+        ):
 
             result["is_master"] = True
 
             attrs = parse_attributes(
-                line.split(":", 1)[1]
+                line.split(
+                    ":",
+                    1
+                )[1]
             )
 
             stream = {
-                "bandwidth": attrs.get("BANDWIDTH"),
-                "average_bandwidth": attrs.get(
-                    "AVERAGE-BANDWIDTH"
-                ),
-                "resolution": attrs.get(
-                    "RESOLUTION"
-                ),
-                "codecs": attrs.get(
-                    "CODECS"
-                ),
-                "frame_rate": attrs.get(
-                    "FRAME-RATE"
-                ),
-                "audio": attrs.get(
-                    "AUDIO"
-                ),
-                "video": attrs.get(
-                    "VIDEO"
-                ),
-                "subtitles": attrs.get(
-                    "SUBTITLES"
-                ),
-                "closed_captions": attrs.get(
-                    "CLOSED-CAPTIONS"
-                ),
+                "bandwidth":
+                    attrs.get(
+                        "BANDWIDTH"
+                    ),
+
+                "average_bandwidth":
+                    attrs.get(
+                        "AVERAGE-BANDWIDTH"
+                    ),
+
+                "resolution":
+                    attrs.get(
+                        "RESOLUTION"
+                    ),
+
+                "codecs":
+                    attrs.get(
+                        "CODECS"
+                    ),
+
+                "frame_rate":
+                    attrs.get(
+                        "FRAME-RATE"
+                    ),
+
+                "audio":
+                    attrs.get(
+                        "AUDIO"
+                    ),
+
+                "video":
+                    attrs.get(
+                        "VIDEO"
+                    ),
+
+                "subtitles":
+                    attrs.get(
+                        "SUBTITLES"
+                    ),
+
+                "closed_captions":
+                    attrs.get(
+                        "CLOSED-CAPTIONS"
+                    ),
+
                 "uri": None
             }
 
-            # Следующая непустая строка,
-            # не являющаяся тегом — URI варианта.
+
+            # ------------------------------------------------
+            # URI ВАРИАНТА
+            # ------------------------------------------------
+
             for next_index in range(
                 index + 1,
                 len(lines)
@@ -266,87 +376,227 @@ def analyze_m3u8(text):
 
                 stream["uri"] = next_line
 
-                result["uris"].append(
+                result[
+                    "uris"
+                ].append(
                     next_line
                 )
 
                 break
 
-            result["streams"].append(stream)
 
-            if attrs.get("BANDWIDTH"):
+            result[
+                "streams"
+            ].append(stream)
+
+
+            # ------------------------------------------------
+            # BANDWIDTH
+            # ------------------------------------------------
+
+            if attrs.get(
+                "BANDWIDTH"
+            ):
+
                 try:
-                    result["bandwidths"].append(
-                        int(attrs["BANDWIDTH"])
+
+                    result[
+                        "bandwidths"
+                    ].append(
+                        int(
+                            attrs[
+                                "BANDWIDTH"
+                            ]
+                        )
                     )
+
                 except ValueError:
                     pass
 
-            if attrs.get("RESOLUTION"):
-                result["resolutions"].append(
-                    attrs["RESOLUTION"]
-                )
 
-            if attrs.get("CODECS"):
-                result["codecs"].append(
-                    attrs["CODECS"]
-                )
+            # ------------------------------------------------
+            # AVERAGE-BANDWIDTH
+            # ------------------------------------------------
 
-            if attrs.get("FRAME-RATE"):
+            if attrs.get(
+                "AVERAGE-BANDWIDTH"
+            ):
+
                 try:
-                    result["frame_rates"].append(
-                        float(attrs["FRAME-RATE"])
+
+                    result[
+                        "average_bandwidths"
+                    ].append(
+                        int(
+                            attrs[
+                                "AVERAGE-BANDWIDTH"
+                            ]
+                        )
                     )
+
                 except ValueError:
                     pass
 
-            if attrs.get("AUDIO"):
-                result["audio_groups"].append(
-                    attrs["AUDIO"]
+
+            # ------------------------------------------------
+            # RESOLUTION
+            # ------------------------------------------------
+
+            if attrs.get(
+                "RESOLUTION"
+            ):
+
+                result[
+                    "resolutions"
+                ].append(
+                    attrs[
+                        "RESOLUTION"
+                    ]
                 )
 
-            if attrs.get("VIDEO"):
-                result["video_groups"].append(
-                    attrs["VIDEO"]
+
+            # ------------------------------------------------
+            # CODECS
+            # ------------------------------------------------
+
+            if attrs.get(
+                "CODECS"
+            ):
+
+                result[
+                    "codecs"
+                ].append(
+                    attrs[
+                        "CODECS"
+                    ]
                 )
 
-            if attrs.get("SUBTITLES"):
-                result["subtitles"].append(
-                    attrs["SUBTITLES"]
+
+            # ------------------------------------------------
+            # FRAME-RATE
+            # ------------------------------------------------
+
+            if attrs.get(
+                "FRAME-RATE"
+            ):
+
+                try:
+
+                    result[
+                        "frame_rates"
+                    ].append(
+                        float(
+                            attrs[
+                                "FRAME-RATE"
+                            ]
+                        )
+                    )
+
+                except ValueError:
+                    pass
+
+
+            # ------------------------------------------------
+            # AUDIO
+            # ------------------------------------------------
+
+            if attrs.get(
+                "AUDIO"
+            ):
+
+                result[
+                    "audio_groups"
+                ].append(
+                    attrs[
+                        "AUDIO"
+                    ]
                 )
 
-        # ----------------------------------------------------
+
+            # ------------------------------------------------
+            # VIDEO
+            # ------------------------------------------------
+
+            if attrs.get(
+                "VIDEO"
+            ):
+
+                result[
+                    "video_groups"
+                ].append(
+                    attrs[
+                        "VIDEO"
+                    ]
+                )
+
+
+            # ------------------------------------------------
+            # SUBTITLES
+            # ------------------------------------------------
+
+            if attrs.get(
+                "SUBTITLES"
+            ):
+
+                result[
+                    "subtitles"
+                ].append(
+                    attrs[
+                        "SUBTITLES"
+                    ]
+                )
+
+
+        # ====================================================
         # EXT-X-MEDIA
-        # ----------------------------------------------------
+        # ====================================================
 
-        elif line.startswith("#EXT-X-MEDIA:"):
+        elif line.startswith(
+            "#EXT-X-MEDIA:"
+        ):
 
             attrs = parse_attributes(
-                line.split(":", 1)[1]
+                line.split(
+                    ":",
+                    1
+                )[1]
             )
 
-            media_type = attrs.get("TYPE")
+            media_type = attrs.get(
+                "TYPE"
+            )
 
-            name = attrs.get("NAME")
+            name = attrs.get(
+                "NAME"
+            )
 
             if name:
-                result["channel_names"].append(
-                    name
-                )
+
+                result[
+                    "channel_names"
+                ].append(name)
+
 
             if media_type == "SUBTITLES":
+
                 if name:
-                    result["subtitles"].append(
-                        name
-                    )
 
-        # ----------------------------------------------------
+                    result[
+                        "subtitles"
+                    ].append(name)
+
+
+        # ====================================================
         # EXTINF
-        # ----------------------------------------------------
+        # ====================================================
 
-        elif line.startswith("#EXTINF:"):
+        elif line.startswith(
+            "#EXTINF:"
+        ):
 
-            result["is_media"] = True
+            result[
+                "is_media"
+            ] = True
 
             try:
 
@@ -362,12 +612,18 @@ def analyze_m3u8(text):
 
                 result[
                     "segment_durations"
-                ].append(float(duration))
+                ].append(
+                    float(duration)
+                )
 
             except Exception:
                 pass
 
-            # Возможное название:
+
+            # ------------------------------------------------
+            # ВОЗМОЖНОЕ НАЗВАНИЕ
+            # ------------------------------------------------
+
             if "," in line:
 
                 name = line.split(
@@ -377,51 +633,66 @@ def analyze_m3u8(text):
 
                 if (
                     name
-                    and name not in result[
+                    and name not in
+                    result[
                         "channel_names"
                     ]
                 ):
+
                     result[
                         "channel_names"
                     ].append(name)
 
-        # ----------------------------------------------------
+
+        # ====================================================
         # TARGETDURATION
-        # ----------------------------------------------------
+        # ====================================================
 
         elif line.startswith(
             "#EXT-X-TARGETDURATION:"
         ):
 
             try:
+
                 result[
                     "target_duration"
                 ] = int(
-                    line.split(":", 1)[1]
+                    line.split(
+                        ":",
+                        1
+                    )[1]
                 )
+
             except ValueError:
                 pass
 
-        # ----------------------------------------------------
+
+        # ====================================================
         # MEDIA-SEQUENCE
-        # ----------------------------------------------------
+        # ====================================================
 
         elif line.startswith(
             "#EXT-X-MEDIA-SEQUENCE:"
         ):
 
             try:
+
                 result[
                     "media_sequence"
                 ] = int(
-                    line.split(":", 1)[1]
+                    line.split(
+                        ":",
+                        1
+                    )[1]
                 )
+
             except ValueError:
                 pass
 
-        # ----------------------------------------------------
+
+        # ====================================================
         # PLAYLIST-TYPE
-        # ----------------------------------------------------
+        # ====================================================
 
         elif line.startswith(
             "#EXT-X-PLAYLIST-TYPE:"
@@ -429,85 +700,154 @@ def analyze_m3u8(text):
 
             result[
                 "playlist_type"
-            ] = line.split(":", 1)[1].strip()
+            ] = line.split(
+                ":",
+                1
+            )[1].strip()
 
-        # ----------------------------------------------------
-        # URI сегмента
-        # ----------------------------------------------------
+
+        # ====================================================
+        # URI СЕГМЕНТА / URI
+        # ====================================================
 
         elif not line.startswith("#"):
 
-            result["uris"].append(line)
+            result[
+                "uris"
+            ].append(line)
 
-    # --------------------------------------------------------
-    # Определяем тип
-    # --------------------------------------------------------
+
+    # ========================================================
+    # ТИП PLAYLIST
+    # ========================================================
 
     if result["is_master"]:
-        result["playlist_type"] = (
-            result["playlist_type"]
+
+        result[
+            "playlist_type"
+        ] = (
+            result[
+                "playlist_type"
+            ]
             or "MASTER"
         )
 
     elif result["is_media"]:
-        result["playlist_type"] = (
-            result["playlist_type"]
+
+        result[
+            "playlist_type"
+        ] = (
+            result[
+                "playlist_type"
+            ]
             or "MEDIA"
         )
 
-    # --------------------------------------------------------
-    # Количество сегментов
-    # --------------------------------------------------------
 
-    result["segment_count"] = len(
-        result["segment_durations"]
+    # ========================================================
+    # SEGMENT COUNT
+    # ========================================================
+
+    result[
+        "segment_count"
+    ] = len(
+        result[
+            "segment_durations"
+        ]
     )
 
-    # --------------------------------------------------------
-    # Уникальные значения
-    # --------------------------------------------------------
 
-    result["channel_names"] = list(
+    # ========================================================
+    # УНИКАЛИЗАЦИЯ
+    # ========================================================
+
+    result[
+        "channel_names"
+    ] = list(
         dict.fromkeys(
-            result["channel_names"]
+            result[
+                "channel_names"
+            ]
         )
     )
 
-    result["bandwidths"] = sorted(
-        set(result["bandwidths"])
-    )
-
-    result["resolutions"] = list(
-        dict.fromkeys(
-            result["resolutions"]
+    result[
+        "bandwidths"
+    ] = sorted(
+        set(
+            result[
+                "bandwidths"
+            ]
         )
     )
 
-    result["codecs"] = list(
-        dict.fromkeys(
-            result["codecs"]
+    result[
+        "average_bandwidths"
+    ] = sorted(
+        set(
+            result[
+                "average_bandwidths"
+            ]
         )
     )
 
-    result["frame_rates"] = sorted(
-        set(result["frame_rates"])
-    )
-
-    result["audio_groups"] = list(
+    result[
+        "resolutions"
+    ] = list(
         dict.fromkeys(
-            result["audio_groups"]
+            result[
+                "resolutions"
+            ]
         )
     )
 
-    result["video_groups"] = list(
+    result[
+        "codecs"
+    ] = list(
         dict.fromkeys(
-            result["video_groups"]
+            result[
+                "codecs"
+            ]
         )
     )
 
-    result["subtitles"] = list(
+    result[
+        "frame_rates"
+    ] = sorted(
+        set(
+            result[
+                "frame_rates"
+            ]
+        )
+    )
+
+    result[
+        "audio_groups"
+    ] = list(
         dict.fromkeys(
-            result["subtitles"]
+            result[
+                "audio_groups"
+            ]
+        )
+    )
+
+    result[
+        "video_groups"
+    ] = list(
+        dict.fromkeys(
+            result[
+                "video_groups"
+            ]
+        )
+    )
+
+    result[
+        "subtitles"
+    ] = list(
+        dict.fromkeys(
+            result[
+                "subtitles"
+            ]
         )
     )
 
@@ -515,42 +855,7 @@ def analyze_m3u8(text):
 
 
 # ============================================================
-# ЧТЕНИЕ ОГРАНИЧЕННОГО ОБЪЁМА
-# ============================================================
-
-def download_limited(response):
-    """
-    Читаем максимум MAX_BYTES.
-    """
-
-    data = bytearray()
-
-    for chunk in response.iter_content(
-        chunk_size=8192
-    ):
-
-        if not chunk:
-            continue
-
-        remaining = (
-            MAX_BYTES - len(data)
-        )
-
-        if remaining <= 0:
-            break
-
-        data.extend(
-            chunk[:remaining]
-        )
-
-        if len(data) >= MAX_BYTES:
-            break
-
-    return bytes(data)
-
-
-# ============================================================
-# ОДИН ПОТОК
+# ОДИН ПОТОК / ОДНА ССЫЛКА
 # ============================================================
 
 def scan_one(number):
@@ -559,20 +864,32 @@ def scan_one(number):
 
     result = {
         "number": number,
-        "filename": f"{number}.m3u8",
+
+        "filename":
+            f"{number}.m3u8",
+
         "url": url,
 
         "status": None,
+
+        "get_status": None,
+
         "content_type": None,
+
         "content_length": None,
 
+        "get_content_length": None,
+
         "final_url": None,
+
         "redirect_chain": [],
 
         "server": None,
+
         "via": None,
 
         "response_bytes": 0,
+
         "elapsed_ms": None,
 
         "classification": None,
@@ -580,6 +897,7 @@ def scan_one(number):
         "valid_m3u8": False,
 
         "channel_name": None,
+
         "channel_names": [],
 
         "playlist": {},
@@ -589,91 +907,158 @@ def scan_one(number):
 
     started = time.perf_counter()
 
+
     try:
 
         # ====================================================
         # HEAD
         # ====================================================
 
-        head = session.head(
-            url,
-            timeout=HEAD_TIMEOUT,
-            allow_redirects=True
-        )
+        try:
 
-        result["status"] = head.status_code
-
-        result["content_type"] = (
-            head.headers.get(
-                "Content-Type"
+            head = session.head(
+                url,
+                timeout=HEAD_TIMEOUT,
+                allow_redirects=True
             )
-        )
-
-        result["content_length"] = (
-            head.headers.get(
-                "Content-Length"
-            )
-        )
-
-        result["final_url"] = head.url
-
-        result["server"] = (
-            head.headers.get("Server")
-        )
-
-        result["via"] = (
-            head.headers.get("Via")
-        )
-
-        if head.history:
 
             result[
-                "redirect_chain"
-            ] = [
-                r.url
-                for r in head.history
-            ]
+                "status"
+            ] = head.status_code
 
-        # ====================================================
-        # Даже при HEAD 200 всё равно делаем GET.
-        # ====================================================
-
-        if head.status_code >= 400:
-
-            result["classification"] = (
-                f"HTTP_{head.status_code}"
+            result[
+                "content_type"
+            ] = head.headers.get(
+                "Content-Type"
             )
 
-            return finish_result(
-                result,
-                started
+            result[
+                "content_length"
+            ] = head.headers.get(
+                "Content-Length"
             )
+
+            result[
+                "final_url"
+            ] = head.url
+
+            result[
+                "server"
+            ] = head.headers.get(
+                "Server"
+            )
+
+            result[
+                "via"
+            ] = head.headers.get(
+                "Via"
+            )
+
+            if head.history:
+
+                result[
+                    "redirect_chain"
+                ] = [
+                    r.url
+                    for r in head.history
+                ]
+
+        except requests.exceptions.RequestException as e:
+
+            logger.debug(
+                "HEAD failed for %s: %s",
+                url,
+                e
+            )
+
 
         # ====================================================
         # GET
+        #
+        # ВАЖНО:
+        # GET выполняется независимо от HEAD.
         # ====================================================
 
         response = session.get(
             url,
             timeout=GET_TIMEOUT,
-            allow_redirects=True,
-            stream=True
+            allow_redirects=True
         )
 
-        content = download_limited(
-            response
+        result[
+            "get_status"
+        ] = response.status_code
+
+        result[
+            "status"
+        ] = response.status_code
+
+        result[
+            "content_type"
+        ] = (
+            response.headers.get(
+                "Content-Type"
+            )
+            or result[
+                "content_type"
+            ]
         )
 
-        result["response_bytes"] = len(
-            content
+        result[
+            "get_content_length"
+        ] = response.headers.get(
+            "Content-Length"
         )
 
-        result["final_url"] = (
-            response.url
+        result[
+            "final_url"
+        ] = response.url
+
+        result[
+            "server"
+        ] = (
+            response.headers.get(
+                "Server"
+            )
+            or result[
+                "server"
+            ]
         )
+
+        result[
+            "via"
+        ] = (
+            response.headers.get(
+                "Via"
+            )
+            or result[
+                "via"
+            ]
+        )
+
+        if response.history:
+
+            result[
+                "redirect_chain"
+            ] = [
+                r.url
+                for r in response.history
+            ]
+
 
         # ====================================================
-        # Декодирование
+        # ПОЛНЫЙ BODY M3U8
+        # ====================================================
+
+        content = response.content
+
+        result[
+            "response_bytes"
+        ] = len(content)
+
+
+        # ====================================================
+        # ДЕКОДИРОВАНИЕ
         # ====================================================
 
         try:
@@ -689,45 +1074,62 @@ def scan_one(number):
                 errors="replace"
             )
 
+
         # ====================================================
-        # Анализ
+        # АНАЛИЗ
         # ====================================================
 
         metadata = analyze_m3u8(
             text
         )
 
-        result["playlist"] = metadata
+        result[
+            "playlist"
+        ] = metadata
 
-        result["valid_m3u8"] = (
-            metadata["valid_m3u8"]
-        )
+        result[
+            "valid_m3u8"
+        ] = metadata[
+            "valid_m3u8"
+        ]
 
-        result["channel_names"] = (
-            metadata["channel_names"]
-        )
+        result[
+            "channel_names"
+        ] = metadata[
+            "channel_names"
+        ]
 
-        if metadata["channel_names"]:
 
-            result["channel_name"] = (
-                metadata[
-                    "channel_names"
-                ][0]
-            )
+        if metadata[
+            "channel_names"
+        ]:
+
+            result[
+                "channel_name"
+            ] = metadata[
+                "channel_names"
+            ][0]
+
 
         # ====================================================
-        # Классификация
+        # КЛАССИФИКАЦИЯ
         # ====================================================
 
-        if metadata["valid_m3u8"]:
+        if metadata[
+            "valid_m3u8"
+        ]:
 
-            if metadata["is_master"]:
+            if metadata[
+                "is_master"
+            ]:
 
                 result[
                     "classification"
                 ] = "M3U8_MASTER"
 
-            elif metadata["is_media"]:
+            elif metadata[
+                "is_media"
+            ]:
 
                 result[
                     "classification"
@@ -759,11 +1161,21 @@ def scan_one(number):
                 "classification"
             ] = "HTML"
 
+        elif response.status_code >= 400:
+
+            result[
+                "classification"
+            ] = (
+                f"HTTP_"
+                f"{response.status_code}"
+            )
+
         else:
 
             result[
                 "classification"
             ] = "UNKNOWN"
+
 
     except requests.exceptions.Timeout:
 
@@ -771,9 +1183,10 @@ def scan_one(number):
             "classification"
         ] = "TIMEOUT"
 
-        result["error"] = (
-            "Request timeout"
-        )
+        result[
+            "error"
+        ] = "Request timeout"
+
 
     except requests.exceptions.ConnectionError as e:
 
@@ -781,7 +1194,10 @@ def scan_one(number):
             "classification"
         ] = "CONNECTION_ERROR"
 
-        result["error"] = str(e)
+        result[
+            "error"
+        ] = str(e)
+
 
     except requests.exceptions.RequestException as e:
 
@@ -789,7 +1205,10 @@ def scan_one(number):
             "classification"
         ] = "REQUEST_ERROR"
 
-        result["error"] = str(e)
+        result[
+            "error"
+        ] = str(e)
+
 
     except Exception as e:
 
@@ -797,7 +1216,10 @@ def scan_one(number):
             "classification"
         ] = "ERROR"
 
-        result["error"] = repr(e)
+        result[
+            "error"
+        ] = repr(e)
+
 
     return finish_result(
         result,
@@ -814,7 +1236,9 @@ def finish_result(
     started
 ):
 
-    result["elapsed_ms"] = round(
+    result[
+        "elapsed_ms"
+    ] = round(
         (
             time.perf_counter()
             - started
@@ -832,45 +1256,74 @@ def finish_result(
 def save_csv(results):
 
     fields = [
+
         "number",
         "filename",
+
         "url",
+
         "status",
+        "get_status",
+
         "content_type",
+
         "content_length",
+        "get_content_length",
+
         "final_url",
+
         "redirect_chain",
+
         "server",
         "via",
+
         "response_bytes",
+
         "elapsed_ms",
+
         "classification",
+
         "valid_m3u8",
+
         "channel_name",
         "channel_names",
 
         "playlist_type",
+
         "is_master",
         "is_media",
 
         "bandwidths",
+        "average_bandwidths",
+
         "resolutions",
+
         "codecs",
+
         "frame_rates",
 
         "audio_groups",
         "video_groups",
+
         "subtitles",
 
         "target_duration",
+
         "media_sequence",
 
         "segment_count",
 
+        "segment_durations",
+
         "uris",
+
+        "raw_tags",
+
+        "streams",
 
         "error"
     ]
+
 
     with open(
         CSV_FILE,
@@ -886,6 +1339,7 @@ def save_csv(results):
 
         writer.writeheader()
 
+
         for item in results:
 
             playlist = item.get(
@@ -893,135 +1347,246 @@ def save_csv(results):
                 {}
             )
 
+
             row = {
-                "number": item["number"],
-                "filename": item["filename"],
-                "url": item["url"],
-                "status": item["status"],
-                "content_type": item[
-                    "content_type"
-                ],
-                "content_length": item[
-                    "content_length"
-                ],
-                "final_url": item[
-                    "final_url"
-                ],
-                "redirect_chain": "; ".join(
+
+                "number":
                     item[
-                        "redirect_chain"
-                    ]
-                ),
-                "server": item["server"],
-                "via": item["via"],
-                "response_bytes": item[
-                    "response_bytes"
-                ],
-                "elapsed_ms": item[
-                    "elapsed_ms"
-                ],
-                "classification": item[
-                    "classification"
-                ],
-                "valid_m3u8": item[
-                    "valid_m3u8"
-                ],
-                "channel_name": item[
-                    "channel_name"
-                ],
-                "channel_names": "; ".join(
+                        "number"
+                    ],
+
+                "filename":
                     item[
-                        "channel_names"
-                    ]
-                ),
+                        "filename"
+                    ],
 
-                "playlist_type": playlist.get(
-                    "playlist_type"
-                ),
+                "url":
+                    item[
+                        "url"
+                    ],
 
-                "is_master": playlist.get(
-                    "is_master"
-                ),
+                "status":
+                    item[
+                        "status"
+                    ],
 
-                "is_media": playlist.get(
-                    "is_media"
-                ),
+                "get_status":
+                    item[
+                        "get_status"
+                    ],
 
-                "bandwidths": "; ".join(
-                    map(
-                        str,
+                "content_type":
+                    item[
+                        "content_type"
+                    ],
+
+                "content_length":
+                    item[
+                        "content_length"
+                    ],
+
+                "get_content_length":
+                    item[
+                        "get_content_length"
+                    ],
+
+                "final_url":
+                    item[
+                        "final_url"
+                    ],
+
+                "redirect_chain":
+                    "; ".join(
+                        item[
+                            "redirect_chain"
+                        ]
+                    ),
+
+                "server":
+                    item[
+                        "server"
+                    ],
+
+                "via":
+                    item[
+                        "via"
+                    ],
+
+                "response_bytes":
+                    item[
+                        "response_bytes"
+                    ],
+
+                "elapsed_ms":
+                    item[
+                        "elapsed_ms"
+                    ],
+
+                "classification":
+                    item[
+                        "classification"
+                    ],
+
+                "valid_m3u8":
+                    item[
+                        "valid_m3u8"
+                    ],
+
+                "channel_name":
+                    item[
+                        "channel_name"
+                    ],
+
+                "channel_names":
+                    "; ".join(
+                        item[
+                            "channel_names"
+                        ]
+                    ),
+
+                "playlist_type":
+                    playlist.get(
+                        "playlist_type"
+                    ),
+
+                "is_master":
+                    playlist.get(
+                        "is_master"
+                    ),
+
+                "is_media":
+                    playlist.get(
+                        "is_media"
+                    ),
+
+                "bandwidths":
+                    "; ".join(
+                        map(
+                            str,
+                            playlist.get(
+                                "bandwidths",
+                                []
+                            )
+                        )
+                    ),
+
+                "average_bandwidths":
+                    "; ".join(
+                        map(
+                            str,
+                            playlist.get(
+                                "average_bandwidths",
+                                []
+                            )
+                        )
+                    ),
+
+                "resolutions":
+                    "; ".join(
                         playlist.get(
-                            "bandwidths",
+                            "resolutions",
                             []
                         )
-                    )
-                ),
+                    ),
 
-                "resolutions": "; ".join(
-                    playlist.get(
-                        "resolutions",
-                        []
-                    )
-                ),
-
-                "codecs": "; ".join(
-                    playlist.get(
-                        "codecs",
-                        []
-                    )
-                ),
-
-                "frame_rates": "; ".join(
-                    map(
-                        str,
+                "codecs":
+                    "; ".join(
                         playlist.get(
-                            "frame_rates",
+                            "codecs",
                             []
                         )
-                    )
-                ),
+                    ),
 
-                "audio_groups": "; ".join(
+                "frame_rates":
+                    "; ".join(
+                        map(
+                            str,
+                            playlist.get(
+                                "frame_rates",
+                                []
+                            )
+                        )
+                    ),
+
+                "audio_groups":
+                    "; ".join(
+                        playlist.get(
+                            "audio_groups",
+                            []
+                        )
+                    ),
+
+                "video_groups":
+                    "; ".join(
+                        playlist.get(
+                            "video_groups",
+                            []
+                        )
+                    ),
+
+                "subtitles":
+                    "; ".join(
+                        playlist.get(
+                            "subtitles",
+                            []
+                        )
+                    ),
+
+                "target_duration":
                     playlist.get(
-                        "audio_groups",
-                        []
-                    )
-                ),
+                        "target_duration"
+                    ),
 
-                "video_groups": "; ".join(
+                "media_sequence":
                     playlist.get(
-                        "video_groups",
-                        []
-                    )
-                ),
+                        "media_sequence"
+                    ),
 
-                "subtitles": "; ".join(
+                "segment_count":
                     playlist.get(
-                        "subtitles",
-                        []
-                    )
-                ),
+                        "segment_count"
+                    ),
 
-                "target_duration": playlist.get(
-                    "target_duration"
-                ),
+                "segment_durations":
+                    "; ".join(
+                        map(
+                            str,
+                            playlist.get(
+                                "segment_durations",
+                                []
+                            )
+                        )
+                    ),
 
-                "media_sequence": playlist.get(
-                    "media_sequence"
-                ),
+                "uris":
+                    "; ".join(
+                        playlist.get(
+                            "uris",
+                            []
+                        )
+                    ),
 
-                "segment_count": playlist.get(
-                    "segment_count"
-                ),
+                "raw_tags":
+                    " | ".join(
+                        playlist.get(
+                            "raw_tags",
+                            []
+                        )
+                    ),
 
-                "uris": "; ".join(
-                    playlist.get(
-                        "uris",
-                        []
-                    )
-                ),
+                "streams":
+                    json.dumps(
+                        playlist.get(
+                            "streams",
+                            []
+                        ),
+                        ensure_ascii=False
+                    ),
 
-                "error": item["error"]
+                "error":
+                    item[
+                        "error"
+                    ]
             }
 
             writer.writerow(row)
@@ -1034,23 +1599,36 @@ def save_csv(results):
 def save_json(results):
 
     data = {
-        "scanner": (
-            "TELEVIZOR-24-TOCHKA "
-            "M3U8 SCANNER"
-        ),
 
-        "base_url": BASE_URL,
-        "referer": REFERER,
+        "scanner":
+            "RTOCHKA / "
+            "TELEVIZOR-24-TOCHKA "
+            "M3U8 SCANNER",
+
+        "base_url":
+            BASE_URL,
+
+        "referer":
+            REFERER,
 
         "range": {
-            "start": START,
-            "end": END
+            "start":
+                START,
+
+            "end":
+                END
         },
 
-        "total": len(results),
+        "total":
+            len(results),
 
-        "results": results
+        "generated_urls":
+            END - START + 1,
+
+        "results":
+            results
     }
+
 
     JSON_FILE.write_text(
         json.dumps(
@@ -1064,36 +1642,55 @@ def save_json(results):
 
 # ============================================================
 # ИТОГОВЫЙ M3U
+#
+# ВАЖНО:
+# ВСЕ 2800 ССЫЛОК.
+#
+# Не только найденные.
 # ============================================================
 
 def save_m3u(results):
 
+    result_by_number = {
+        item[
+            "number"
+        ]: item
+        for item in results
+    }
+
+
     lines = [
+
         "#EXTM3U",
+
         'url-tvg="https://iptvx.one/EPG"',
+
         ""
     ]
 
-    found = [
-        x
-        for x in results
-        if x["valid_m3u8"]
-    ]
 
-    found.sort(
-        key=lambda x: x["number"]
-    )
+    for number in range(
+        START,
+        END + 1
+    ):
 
-    for item in found:
+        item = result_by_number.get(
+            number
+        )
 
-        number = item["number"]
 
         # ----------------------------------------------------
-        # Если сервер сам сообщил название,
-        # используем его.
+        # Название только если сервер реально его сообщил.
         # ----------------------------------------------------
 
-        name = item["channel_name"]
+        name = None
+
+        if item:
+
+            name = item.get(
+                "channel_name"
+            )
+
 
         if not name:
 
@@ -1101,9 +1698,16 @@ def save_m3u(results):
                 f"Канал {number}"
             )
 
+
         display_name = (
-            f"{number}.m3u8 — {name}"
+            f"{number}.m3u8 — "
+            f"{name}"
         )
+
+
+        # ----------------------------------------------------
+        # EXTINF
+        # ----------------------------------------------------
 
         lines.append(
             '#EXTINF:-1 '
@@ -1111,16 +1715,28 @@ def save_m3u(results):
             + display_name
         )
 
-        lines.append(
-            f"#EXTVLCOPT:http-referrer="
-            f"{REFERER}"
-        )
+
+        # ----------------------------------------------------
+        # HTTP REFERRER
+        # ----------------------------------------------------
 
         lines.append(
-            item["url"]
+            "#EXTVLCOPT:"
+            "http-referrer="
+            + REFERER
+        )
+
+
+        # ----------------------------------------------------
+        # URL
+        # ----------------------------------------------------
+
+        lines.append(
+            make_url(number)
         )
 
         lines.append("")
+
 
     M3U_FILE.write_text(
         "\n".join(lines),
@@ -1129,7 +1745,7 @@ def save_m3u(results):
 
 
 # ============================================================
-# MISSING
+# MISSING / ERRORS
 # ============================================================
 
 def save_missing(results):
@@ -1137,8 +1753,11 @@ def save_missing(results):
     missing = [
         x
         for x in results
-        if not x["valid_m3u8"]
+        if not x[
+            "valid_m3u8"
+        ]
     ]
+
 
     lines = []
 
@@ -1147,12 +1766,147 @@ def save_missing(results):
         lines.append(
             f'{item["number"]}.m3u8 | '
             f'{item["classification"]} | '
-            f'HTTP={item["status"]} | '
-            f'{item["error"] or ""}'
+            f'HEAD={item["status"]} | '
+            f'GET={item["get_status"]} | '
+            f'{item["error"] or ""} | '
+            f'{item["url"]}'
         )
+
 
     MISSING_FILE.write_text(
         "\n".join(lines),
+        encoding="utf-8"
+    )
+
+
+# ============================================================
+# SUMMARY JSON
+# ============================================================
+
+def save_summary(results, elapsed):
+
+    found = [
+        x
+        for x in results
+        if x[
+            "valid_m3u8"
+        ]
+    ]
+
+
+    master = [
+        x
+        for x in found
+        if x[
+            "playlist"
+        ].get(
+            "is_master"
+        )
+    ]
+
+
+    media = [
+        x
+        for x in found
+        if x[
+            "playlist"
+        ].get(
+            "is_media"
+        )
+    ]
+
+
+    named = [
+        x
+        for x in found
+        if x[
+            "channel_name"
+        ]
+    ]
+
+
+    classifications = {}
+
+    for item in results:
+
+        classification = (
+            item[
+                "classification"
+            ]
+            or "UNKNOWN"
+        )
+
+        classifications[
+            classification
+        ] = (
+            classifications.get(
+                classification,
+                0
+            ) + 1
+        )
+
+
+    summary = {
+
+        "scanner":
+            "RTOCHKA",
+
+        "target":
+            "TELEVIZOR-24-TOCHKA",
+
+        "base_url":
+            BASE_URL,
+
+        "referer":
+            REFERER,
+
+        "start":
+            START,
+
+        "end":
+            END,
+
+        "generated_urls":
+            END - START + 1,
+
+        "checked":
+            len(results),
+
+        "valid_m3u8":
+            len(found),
+
+        "master":
+            len(master),
+
+        "media":
+            len(media),
+
+        "with_name":
+            len(named),
+
+        "without_name":
+            len(found) - len(named),
+
+        "not_valid_m3u8":
+            len(results) - len(found),
+
+        "classifications":
+            classifications,
+
+        "elapsed_seconds":
+            round(
+                elapsed,
+                2
+            )
+    }
+
+
+    SUMMARY_FILE.write_text(
+        json.dumps(
+            summary,
+            ensure_ascii=False,
+            indent=2
+        ),
         encoding="utf-8"
     )
 
@@ -1163,22 +1917,31 @@ def save_missing(results):
 
 def print_result(item):
 
-    number = item["number"]
+    number = item[
+        "number"
+    ]
 
-    classification = (
-        item["classification"]
-    )
+    classification = item[
+        "classification"
+    ]
 
-    if item["valid_m3u8"]:
+
+    if item[
+        "valid_m3u8"
+    ]:
 
         name = (
-            item["channel_name"]
+            item[
+                "channel_name"
+            ]
             or "название не указано"
         )
+
 
         playlist = item[
             "playlist"
         ]
+
 
         resolutions = ", ".join(
             playlist.get(
@@ -1186,6 +1949,7 @@ def print_result(item):
                 []
             )
         )
+
 
         bandwidths = ", ".join(
             map(
@@ -1197,6 +1961,7 @@ def print_result(item):
             )
         )
 
+
         logger.info(
             "[%04d] FOUND | %s | "
             "%s | RES=%s | BW=%s",
@@ -1207,13 +1972,20 @@ def print_result(item):
             bandwidths or "-"
         )
 
+
     else:
 
         logger.info(
-            "[%04d] %s | HTTP=%s",
+            "[%04d] %s | "
+            "HEAD=%s | GET=%s",
             number,
             classification,
-            item["status"]
+            item[
+                "status"
+            ],
+            item[
+                "get_status"
+            ]
         )
 
 
@@ -1228,7 +2000,12 @@ def main():
     )
 
     logger.info(
-        "TELEVIZOR-24-TOCHKA M3U8 SCANNER"
+        "RTOCHKA"
+    )
+
+    logger.info(
+        "TELEVIZOR-24-TOCHKA "
+        "M3U8 SCANNER"
     )
 
     logger.info(
@@ -1238,12 +2015,36 @@ def main():
     )
 
     logger.info(
+        "Всего URL будет сгенерировано: %d",
+        END - START + 1
+    )
+
+    logger.info(
+        "M3U8 читается полностью: YES"
+    )
+
+    logger.info(
+        "Видеосегменты не скачиваются: YES"
+    )
+
+    logger.info(
+        "HTTP Referrer: %s",
+        REFERER
+    )
+
+    logger.info(
         "=============================================="
     )
+
 
     results = []
 
     started = time.perf_counter()
+
+
+    # ========================================================
+    # СКАНИРОВАНИЕ
+    # ========================================================
 
     for number in range(
         START,
@@ -1254,17 +2055,16 @@ def main():
             number
         )
 
+
         results.append(
             result
         )
+
 
         print_result(
             result
         )
 
-        # ----------------------------------------------------
-        # Вежливая задержка.
-        # ----------------------------------------------------
 
         if DELAY > 0:
 
@@ -1272,67 +2072,104 @@ def main():
                 DELAY
             )
 
-    # --------------------------------------------------------
-    # Сортировка
-    # --------------------------------------------------------
+
+    # ========================================================
+    # СОРТИРОВКА
+    # ========================================================
 
     results.sort(
-        key=lambda x: x["number"]
+        key=lambda x:
+        x["number"]
     )
 
-    # --------------------------------------------------------
-    # Сохранение
-    # --------------------------------------------------------
 
-    save_json(results)
-    save_csv(results)
-    save_m3u(results)
-    save_missing(results)
+    # ========================================================
+    # СОХРАНЕНИЕ
+    # ========================================================
 
-    # --------------------------------------------------------
-    # Статистика
-    # --------------------------------------------------------
+    save_json(
+        results
+    )
 
-    found = [
-        x
-        for x in results
-        if x["valid_m3u8"]
-    ]
+    save_csv(
+        results
+    )
 
-    master = [
-        x
-        for x in found
-        if x["playlist"].get(
-            "is_master"
-        )
-    ]
+    save_m3u(
+        results
+    )
 
-    media = [
-        x
-        for x in found
-        if x["playlist"].get(
-            "is_media"
-        )
-    ]
+    save_missing(
+        results
+    )
 
-    named = [
-        x
-        for x in found
-        if x["channel_name"]
-    ]
+
+    # ========================================================
+    # ИТОГ
+    # ========================================================
 
     elapsed = (
         time.perf_counter()
         - started
     )
 
+
+    found = [
+        x
+        for x in results
+        if x[
+            "valid_m3u8"
+        ]
+    ]
+
+
+    master = [
+        x
+        for x in found
+        if x[
+            "playlist"
+        ].get(
+            "is_master"
+        )
+    ]
+
+
+    media = [
+        x
+        for x in found
+        if x[
+            "playlist"
+        ].get(
+            "is_media"
+        )
+    ]
+
+
+    named = [
+        x
+        for x in found
+        if x[
+            "channel_name"
+        ]
+    ]
+
+
+    save_summary(
+        results,
+        elapsed
+    )
+
+
     logger.info("")
+
     logger.info(
         "=============================================="
     )
+
     logger.info(
         "СКАНИРОВАНИЕ ЗАВЕРШЕНО"
     )
+
     logger.info(
         "=============================================="
     )
@@ -1340,6 +2177,11 @@ def main():
     logger.info(
         "Проверено:              %d",
         len(results)
+    )
+
+    logger.info(
+        "Сгенерировано URL:      %d",
+        END - START + 1
     )
 
     logger.info(
@@ -1378,6 +2220,7 @@ def main():
     )
 
     logger.info("")
+
     logger.info(
         "JSON:    %s",
         JSON_FILE
@@ -1399,6 +2242,11 @@ def main():
     )
 
     logger.info(
+        "Summary: %s",
+        SUMMARY_FILE
+    )
+
+    logger.info(
         "Log:     %s",
         LOG_FILE
     )
@@ -1417,7 +2265,8 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
 
         logger.warning(
-            "Сканирование остановлено пользователем."
+            "Сканирование остановлено "
+            "пользователем."
         )
 
     except Exception as e:
@@ -1426,3 +2275,5 @@ if __name__ == "__main__":
             "Критическая ошибка: %s",
             e
         )
+
+        raise
