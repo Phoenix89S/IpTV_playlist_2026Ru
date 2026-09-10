@@ -74,3 +74,79 @@ http://188.113.190.15/309/video.m3u8
 
 #EXTINF:-1 tvg-id="kinopremiera-hd" group-title="РАБОЧИЕ (проверено 10.09.26)",Кинопремьера HD — mcquack 304
 http://stream.mcquack.net/304/index.m3u8
+
+
+
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="НОВЫЕ",Кинопремьера HD — TTK (Российский провайдер) ⭐ НОВЫЙ!
+http://flu.ttk.mx:9090/Kinopremiera/index.m3u8?token=orh6o
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="НОВЫЕ",Кинопремьера — TTK port 90 (по шаблону Alex-sherp2) НОВЫЙ!
+http://flu.ttk.mx:90/Kinopremiera/mono.m3u8?token=hs06e
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="НОВЫЕ",Кинопремьера HD — Beltelecom mediatech (Беларусь) НОВЫЙ!
+http://178.124.141.167:1935/liveedge/HD_KINO_360p.stream/playlist.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="НОВЫЕ",Кинопремьера HD — Beltelecom 178.124.182.25 (Беларусь) НОВЫЙ!
+http://178.124.182.25:7017/play/a00d_a17
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="НОВЫЕ",Кинопремьера — mcquack 229 НОВЫЙ!
+http://stream.mcquack.net/229/index.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="Ранее выданные",Кинопремьера HD — Zabava/Ростелеком
+#EXTVLCOPT:http-user-agent=SmartSDK
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KINOPREMIEREHD/variant.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="Ранее выданные",Кинопремьера — Zabava/Ростелеком SD
+#EXTVLCOPT:http-user-agent=SmartSDK
+https://zabava-htlive.cdn.ngenix.net/hls/CH_KINOPREMIERE/variant.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="Ранее выданные",Кинопремьера HD — uplink.kz
+https://fs.uplink.kz/kinopremiera_hd/mono.m3u8?token=onlinetv
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="Ранее выданные",Кинопремьера HD — id-tv.kz
+https://sc.id-tv.kz/Kinopremiera_hd_34_35.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="Ранее выданные",Кинопремьера — mcquack 304
+http://stream.mcquack.net/304/index.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="Ранее выданные",Кинопремьера — mcquack 169
+http://stream.mcquack.net/169/index.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="Ранее выданные",Кинопремьера — mcquack 128
+http://stream.mcquack.net/128/index.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="Ранее выданные",Кинопремьера — 188.113.190.12
+http://188.113.190.12/329/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="Ранее выданные",Кинопремьера — 188.113.190.15
+http://188.113.190.15/309/video.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="Ранее выданные",Кинопремьера — Teleos
+http://tvip.btk.teleos.ru:8081/chid518/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="Ранее выданные",Кинопремьера — persik.by
+http://persik.by/stream/8682/252987/10240.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="Ранее выданные",Кинопремьера — tvs.by
+http://radio.tvs.by:8088/Kinopremiera/index.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="Ранее выданные",Кинопремьера — vnet.am
+http://stream02.vnet.am/Kinopremera/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="Ранее выданные",Кинопремьера HD — Яндекс Беларусь
+https://strm.yandex.ru/kal/kinopremiera_hd_belarus/kinopremiera_hd_belarus0.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="Ранее выданные",Кинопремьера — georgia_play
+http://158.101.222.193:88/georgia_play.php?id=kinopremyerahd
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="Ранее выданные",Кинопремьера HD — JekaLich
+https://jekalich.github.io/smtk/channels/kinopremiera-hd.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="Ранее выданные",Кинопремьера — akadatel
+http://d1525871.akadatel.com/iptv/ZKW8EHAZG2XM38/11004/index.m3u8
+
+#EXTINF:-1 tvg-id="kinopremiera-hd" tvg-logo="https://epg.iptvx.one/picons/kinopremiera.png" group-title="Ранее выданные",Кинопремьера HD — 195.49.206.244
+http://195.49.206.244:90/Kinopremiera/video.m3u8
+
+
