@@ -1,0 +1,182 @@
+#EXTM3U
+url-tvg="https://iptvx.one/EPG"
+
+#EXTINF:-1 group-title="Televizor 24",1.m3u8 — Канал 1
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/1.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",3.m3u8 — Канал 3
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/3.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",4.m3u8 — Канал 4
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/4.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",5.m3u8 — Канал 5
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/5.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",6.m3u8 — Канал 6
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/6.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",7.m3u8 — Канал 7
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/7.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",8.m3u8 — Канал 8
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/8.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",9.m3u8 — Канал 9
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/9.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",10.m3u8 — Канал 10
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/10.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",11.m3u8 — Канал 11
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/11.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",12.m3u8 — Канал 12
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/12.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",13.m3u8 — Канал 13
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/13.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",14.m3u8 — Канал 14
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/14.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",15.m3u8 — Канал 15
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/15.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",16.m3u8 — Канал 16
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/16.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",17.m3u8 — Канал 17
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/17.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",18.m3u8 — Канал 18
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/18.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",19.m3u8 — Канал 19
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/19.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",20.m3u8 — Канал 20
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/20.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",21.m3u8 — Канал 21
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/21.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",22.m3u8 — Канал 22
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/22.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",23.m3u8 — Канал 23
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/23.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",24.m3u8 — Канал 24
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/24.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",25.m3u8 — Канал 25
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/25.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",26.m3u8 — Канал 26
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/26.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",27.m3u8 — Канал 27
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/27.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",28.m3u8 — Канал 28
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/28.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",29.m3u8 — Канал 29
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/29.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",30.m3u8 — Канал 30
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/30.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",38.m3u8 — Канал 38
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/38.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",43.m3u8 — Канал 43
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/43.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",44.m3u8 — Канал 44
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/44.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",45.m3u8 — Канал 45
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/45.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",46.m3u8 — Канал 46
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/46.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",210.m3u8 — Канал 210
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/210.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",211.m3u8 — Канал 211
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/211.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",213.m3u8 — Канал 213
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/213.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",232.m3u8 — Канал 232
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/232.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",250.m3u8 — Канал 250
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/250.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",296.m3u8 — Канал 296
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/296.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",554.m3u8 — Канал 554
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/554.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",618.m3u8 — Канал 618
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/618.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",748.m3u8 — Канал 748
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/748.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",863.m3u8 — Канал 863
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/863.m3u8
+
+#EXTINF:-1 group-title="Televizor 24",1000.m3u8 — Канал 1000
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/1000.m3u8
