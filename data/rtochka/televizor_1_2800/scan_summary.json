@@ -1,0 +1,23 @@
+{
+  "scanner": "RTOCHKA",
+  "target": "TELEVIZOR-24-TOCHKA",
+  "base_url": "https://streaming.televizor-24-tochka.ru/live/",
+  "referer": "https://televizor24tochka.ru/",
+  "start": 1,
+  "end": 2800,
+  "generated_urls": 2800,
+  "checked": 2800,
+  "valid_m3u8": 46,
+  "master": 46,
+  "media": 0,
+  "with_name": 0,
+  "without_name": 46,
+  "not_valid_m3u8": 2754,
+  "classifications": {
+    "M3U8_MASTER": 46,
+    "NOT_FOUND": 10,
+    "HTML": 2743,
+    "CONNECTION_ERROR": 1
+  },
+  "elapsed_seconds": 2407.52
+}
