@@ -421,6 +421,10 @@ http://maxtv.123tv.to:8080/live/GregWoi/6zb7jrUQNK/1316.m3u8
 http://maxtv.123tv.to:8080/live/GregWoi/6zb7jrUQNK/97.m3u8
 #EXTINF:-1 tvg-id="EUROSPORT 2 DE" tvg-logo="http://tugapt.com/picons/eurosport2xtrahdde.png" group-title="Germany",Eurosport 2 Xtra HD DE
 http://maxtv.123tv.to:8080/live/GregWoi/6zb7jrUQNK/7430.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="Germany",Sky Sport NFL HD DE
+http://maxtv.123tv.to:8080/live/GregWoi/6zb7jrUQNK/146436.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="Germany",Sky Sport NFL FHD DE
+http://maxtv.123tv.to:8080/live/GregWoi/6zb7jrUQNK/146437.m3u8
 #EXTINF:-1 tvg-id="SSS Sport News DE" tvg-logo="http://tugapt.com/picons/skysportnewsde.png" group-title="Germany",Sky Sport News DE
 http://maxtv.123tv.to:8080/live/GregWoi/6zb7jrUQNK/24381.m3u8
 #EXTINF:-1 tvg-id="SSS Sport News DE" tvg-logo="http://tugapt.com/picons/skysportnewshdde.png" group-title="Germany",Sky Sport News HD DE
