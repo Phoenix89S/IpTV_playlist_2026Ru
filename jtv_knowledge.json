@@ -1,6 +1,6 @@
 {
   "source": "eppg_provider",
-  "total": 562,
+  "total": 558,
   "items": [
     {
       "raw_name": "Первый_Крымский",
@@ -63,14 +63,14 @@
       "source": "eppg_legacy"
     },
     {
-      "raw_name": "Канал_12_Череповец",
-      "alias": "канал_12_череповец",
+      "raw_name": "Первый_канал_(Орбита_2__6)",
+      "alias": "первый_канал_(орбита_2__6)",
       "confidence": 0.95,
       "source": "eppg_legacy"
     },
     {
-      "raw_name": "Первый_канал_(Орбита_2__6)",
-      "alias": "первый_канал_(орбита_2__6)",
+      "raw_name": "Любимое_SD",
+      "alias": "любимое_sd",
       "confidence": 0.95,
       "source": "eppg_legacy"
     },
@@ -297,12 +297,6 @@
       "source": "eppg_legacy"
     },
     {
-      "raw_name": "Наша_Сибирь",
-      "alias": "наша_сибирь",
-      "confidence": 0.95,
-      "source": "eppg_legacy"
-    },
-    {
       "raw_name": "Тюменское_время",
       "alias": "тюменское_время",
       "confidence": 0.95,
@@ -359,6 +353,12 @@
     {
       "raw_name": "Романтичное_HD",
       "alias": "романтичное_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Тип_Топ",
+      "alias": "тип_топ",
       "confidence": 0.95,
       "source": "eppg_legacy"
     },
@@ -687,20 +687,8 @@
       "source": "eppg_legacy"
     },
     {
-      "raw_name": "Футбол_2",
-      "alias": "футбол_2",
-      "confidence": 0.95,
-      "source": "eppg_legacy"
-    },
-    {
       "raw_name": "Epic",
       "alias": "epic",
-      "confidence": 0.95,
-      "source": "eppg_legacy"
-    },
-    {
-      "raw_name": "НТВ_(_4)",
-      "alias": "нтв_(_4)",
       "confidence": 0.95,
       "source": "eppg_legacy"
     },
@@ -1073,6 +1061,12 @@
     {
       "raw_name": "Афонтово",
       "alias": "афонтово",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Кино_Ultra_HD",
+      "alias": "кино_ultra_hd",
       "confidence": 0.95,
       "source": "eppg_legacy"
     },
@@ -1475,12 +1469,6 @@
     {
       "raw_name": "Продвижение",
       "alias": "продвижение",
-      "confidence": 0.95,
-      "source": "eppg_legacy"
-    },
-    {
-      "raw_name": "НТВ_HD",
-      "alias": "нтв_hd",
       "confidence": 0.95,
       "source": "eppg_legacy"
     },
@@ -1949,12 +1937,6 @@
     {
       "raw_name": "Мульт",
       "alias": "мульт",
-      "confidence": 0.95,
-      "source": "eppg_legacy"
-    },
-    {
-      "raw_name": "MTV_European",
-      "alias": "mtv_european",
       "confidence": 0.95,
       "source": "eppg_legacy"
     },
@@ -2583,12 +2565,6 @@
       "source": "eppg_legacy"
     },
     {
-      "raw_name": "НТВ_Беларусь",
-      "alias": "нтв_беларусь",
-      "confidence": 0.95,
-      "source": "eppg_legacy"
-    },
-    {
       "raw_name": "Моя_стихия_HD",
       "alias": "моя_стихия_hd",
       "confidence": 0.95,
@@ -2627,6 +2603,12 @@
     {
       "raw_name": "Матч!_Футбол_3_HD",
       "alias": "матч!_футбол_3_hd",
+      "confidence": 0.95,
+      "source": "eppg_legacy"
+    },
+    {
+      "raw_name": "Наше",
+      "alias": "наше",
       "confidence": 0.95,
       "source": "eppg_legacy"
     },
@@ -2975,12 +2957,6 @@
     {
       "raw_name": "viju__Premiere",
       "alias": "viju__premiere",
-      "confidence": 0.95,
-      "source": "eppg_legacy"
-    },
-    {
-      "raw_name": "Спорт_2_(Украина)",
-      "alias": "спорт_2_(украина)",
       "confidence": 0.95,
       "source": "eppg_legacy"
     },
