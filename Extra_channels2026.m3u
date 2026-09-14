@@ -13107,10 +13107,27 @@ http://stream.mcquack.net/492/index.m3u8
 http://stream.mcquack.net/493/index.m3u8
 
 
-
-
-
-
+# 13.5.2.1 СТС Kids
+#EXTINF:-1 group-title="СТС Кидс проверка",13.5.2.1 СТС Kids
+https://s70379.cdn.ngenix.net/ctc_kids/3/index.m3u8
+# 13.5.2.2 СТС Kids
+#EXTINF:-1 group-title="СТС Кидс проверка",13.5.2.2 СТС Kids
+https://s70379.cdn.ngenix.net/ctc_kids/4/index.m3u8
+# 13.5.2.3 СТС Kids
+#EXTINF:-1 group-title="СТС Кидс проверка",13.5.2.3 СТС Kids
+https://s70379.cdn.ngenix.net/ctc_kids/5/index.m3u8
+# 13.5.2.4 СТС Kids
+#EXTINF:-1 group-title="СТС Кидс проверка",13.5.2.4 СТС Kids
+https://s70379.cdn.ngenix.net/ctc_kids/6/index.m3u8
+# 13.5.2.5 СТС Kids
+#EXTINF:-1 group-title="СТС Кидс проверка",13.5.2.5 СТС Kids
+https://s70379.cdn.ngenix.net/ctc_kids/7/index.m3u8
+# 13.5.2.6 СТС Kids
+#EXTINF:-1 group-title="СТС Кидс проверка",13.5.2.6 СТС Kids
+https://s70379.cdn.ngenix.net/ctc_kids/8/index.m3u8
+# 13.5.2.7 СТС Kids
+#EXTINF:-1 group-title="СТС Кидс проверка",13.5.2.7 СТС Kids
+https://s70379.cdn.ngenix.net/ctc_kids/9/index.m3u8
 
 
 
