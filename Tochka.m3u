@@ -1,0 +1,7 @@
+#EXTINF:-1 tvg-chno="47" tvg-id="MiamiTV" group-title="Televizor 24",47. Miami TV
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/1.m3u8
+
+#EXTINF:-1 tvg-chno="47.1" tvg-id="MiamiTVLatino" group-title="Televizor 24",47.1. Miami TV Latino
+#EXTVLCOPT:http-referrer=https://televizor24tochka.ru/
+https://streaming.televizor-24-tochka.ru/live/3.m3u8
