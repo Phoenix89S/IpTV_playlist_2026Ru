@@ -13129,6 +13129,75 @@ https://s70379.cdn.ngenix.net/ctc_kids/8/index.m3u8
 #EXTINF:-1 group-title="СТС Кидс проверка",13.5.2.7 СТС Kids
 https://s70379.cdn.ngenix.net/ctc_kids/9/index.m3u8
 
+#EXTM3U url-tvg="https://iptvx.one/EPG"
+
+#EXTINF:-1 tvg-id="rutube_9ae8e8a6dc58bdad66190475f9872ecd" tvg-name="Rutube TV" group-title="Эфирное ТВ/Rutube" subgroup-title="Все эфиры", 0.1 Rutube TV
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+https://bl.rutube.ru/livestream/9ae8e8a6dc58bdad66190475f9872ecd/index.m3u8?s=rb0ezrfRKIySfLqM7VJkQw&e=2089472521&scheme=https
+
+#EXTINF:-1 tvg-id="rutube_c58f502c7bb34a8fcdd976b221fca292" tvg-name="Первый канал HD" group-title="Эфирное ТВ/Rutube" subgroup-title="Все эфиры" tvg-logo="https://pic.rtbcdn.ru/user/63/a2/63a2eb1886a45be2b1da64729397230c.jpg", 1. Первый канал HD
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+https://bl.rutube.ru/livestream/c58f502c7bb34a8fcdd976b221fca292/index.m3u8?s=rhp8dF7SoeJDKW7KWyQPoA&e=2089472524&scheme=https
+
+#EXTINF:-1 tvg-id="rutube_c37cd74192c6bc3d6cd6077c0c4fd686" tvg-name="НТВ HD" group-title="Эфирное ТВ/Rutube" subgroup-title="Все эфиры" tvg-logo="https://pic.rtbcdn.ru/user/63/a2/63a2eb1886a45be2b1da64729397230c.jpg", 4. НТВ HD
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+https://bl.rutube.ru/livestream/c37cd74192c6bc3d6cd6077c0c4fd686/index.m3u8?s=yhKxPS9HqiOIL_A6tun88w&e=2089472525&scheme=https
+
+#EXTINF:-1 tvg-id="rutube_5ab908fccfac5bb43ef2b1e4182256b0" tvg-name="Звезда" group-title="Эфирное ТВ/Rutube" subgroup-title="Все эфиры" tvg-logo="https://pic.rtbcdn.ru/user/1f/ec/1fec36d83dfaabbf819c84a5cb044858.jpg", 17. Звезда 
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+https://bl.rutube.ru/livestream/5ab908fccfac5bb43ef2b1e4182256b0/index.m3t8?s=jxibJnJ-4QMmJ7ppeDQXhQ&e=2089472526&scheme=https
+
+#EXTINF:-1 tvg-id="rutube_c9b87c0b00cfff9b37f95b9c8e4eed42" tvg-name="Соловьев Live" group-title="Эфирное ТВ/Rutube" subgroup-title="Все эфиры" tvg-logo="https://pic.rtbcdn.ru/user/ff/64/ff64a51d68312512bfbf77c06c28d23b.jpg", 50.1 Соловьев Live
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+https://bl.rutube.ru/livestream/c9b87c0b00cfff9b37f95b9c8e4eed42/index.m3u8?s=EtFTtarmlGi3KCMxA2ZzTQ&e=2089472528&scheme=https
+
+#EXTINF:-1 tvg-id="rutube_2742a3c42be661ea732705f80adb7bdd" tvg-name="Россия 1 HD" group-title="Эфирное ТВ/Rutube" subgroup-title="Все эфиры" tvg-logo="https://pic.rtbcdn.ru/user/2026-07-02/84/9d/849d75d3bc12374fb7982e6a72a7fa51.jpg", 2.1 Россия 1 HD
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+https://bl.rutube.ru/livestream/2742a3c42be661ea732705f80adb7bdd/index.m3u8?s=esBZXljrVEKIeQ4wPkJk3A&e=2089472530&scheme=https
+
+#EXTINF:-1 tvg-id="rutube_6947be59fd96d84b978d8a831f82bc30" tvg-name="Мультиландия" group-title="Эфирное ТВ/Rutube" subgroup-title="Все эфиры" tvg-logo="https://pic.rtbcdn.ru/user/2025-02-24/59/f2/59f297ee687a9efe83c248bb2cf17911.jpg", 116.1 Мультиландия 
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+https://bl.rutube.ru/livestream/6947be59fd96d84b978d8a831f82bc30/index.m3u8?s=_Wx12Ilf2jG0hzjjhy_XpQ&e=2089472534&scheme=https
+
+#EXTINF:-1 tvg-id="rutube_ad6ba2e9e587406b29978b861b7b7dd1" tvg-name="Россия 24" group-title="Эфирное ТВ/Rutube" subgroup-title="Все эфиры" tvg-logo="https://pic.rtbcdn.ru/user/2025-02-24/59/f2/59f297ee687a9efe83c248bb2cf17911.jpg", 7.1 Россия 24
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+https://bl.rutube.ru/livestream/ad6ba2e9e587406b29978b861b7b7dd1/index.m3u8?s=lcJM6XmCd7jFHpk-IIs9OQ&e=2089472535&scheme=https
+
+#EXTINF:-1 tvg-id="rutube_310744c10a5809da38aa445c952976da" tvg-name="Суббота!" group-title="Эфирное ТВ/Rutube" subgroup-title="Все эфиры" tvg-logo="https://pic.rtbcdn.ru/user/2026-04-30/59/39/5939d16adf27040a2fab5e2c2faf48af.jpg", 45.1 Суббота!
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+https://bl.rutube.ru/livestream/310744c10a5809da38aa445c952976da/index.m3u8?s=0X2RdB3buQwT2ZuXm8Eh8Q&e=2089472536&scheme=https
+
+#EXTINF:-1 tvg-id="rutube_2bbfa9ebf9d79ade480d7281fcef1008" tvg-name="Спас" group-title="Эфирное ТВ/Rutube" subgroup-title="Все эфиры" tvg-logo="https://pic.rtbcdn.ru/user/dd/0e/dd0e078410ed58d778b38164b3ccdc0d.jpg", 12.1 Спас 
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+https://bl.rutube.ru/livestream/2bbfa9ebf9d79ade480d7281fcef1008/index.m3u8?s=jLoYyDO1eJ-l4r9aHJOdJw&e=2089472537&scheme=https
+
+#EXTINF:-1 tvg-id="rutube_88f6485ee28d56daf13302ac6fe3d931" tvg-name="РБК" group-title="Эфирное ТВ/Rutube" subgroup-title="Все эфиры" tvg-logo="https://pic.rtbcdn.ru/user/2025-08-26/9b/d9/9bd9372e6d0f3a93cc41df3660133ad2.jpg", 38.1 РБК
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+https://bl.rutube.ru/livestream/88f6485ee28d56daf13302ac6fe3d931/index.m3u8?s=H72dl6CUnb7BzPVzGWYIRg&e=2089472538&scheme=https
+
+#EXTINF:-1 tvg-id="rutube_5bbff90167d1b1d88fda92376ec7a651" tvg-name="Че" group-title="Эфирное ТВ/Rutube" subgroup-title="Все эфиры" tvg-logo="https://pic.rtbcdn.ru/user/1f/79/1f7921d6d623ef9459152aefef2dd3e7.jpg", 77.1 Че
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+https://bl.rutube.ru/livestream/5bbff90167d1b1d88fda92376ec7a651/index.m3u8?s=ofDiK2FzIXCIMEQsUSVIRw&e=2089472539&scheme=https
+
+#EXTINF:-1 tvg-id="rutube_faa934385b83f9e8a92f5484defae5fa" tvg-name="ОТР" group-title="Эфирное ТВ/Rutube" subgroup-title="Все эфиры" tvg-logo="https://pic.rtbcdn.ru/user/2025-04-02/9f/6c/9f6ce6521ba7b5cc82aa668c5feb9544.jpg", 9.1 ОТР
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+https://bl.rutube.ru/livestream/faa934385b83f9e8a92f5484defae5fa/index.m3u8?s=Or0sP_pZXEhCTQ2HgZtSRg&e=2089472540&scheme=https
+
+#EXTINF:-1 tvg-id="rutube_32dc45cf878497abe1c9695e228f039b" tvg-name="СТС Love" group-title="Эфирное ТВ/Rutube" subgroup-title="Все эфиры" tvg-logo="https://pic.rtbcdn.ru/user/2026-01-16/28/9e/289eb073bc7ac621aa65f50fd016f5f7.jpg", 13.3 СТС Love
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+https://bl.rutube.ru/livestream/32dc45cf878497abe1c9695e228f039b/index.m3u8?s=6EiCJA4byIasxUCOUipU7g&e=2089472540&scheme=https
+
+#EXTINF:-1 tvg-id="rutube_3c47861a8b4b51639e41be092053b966" tvg-name="Известия" group-title="Эфирное ТВ/Rutube" subgroup-title="Все эфиры" tvg-logo="https://pic.rtbcdn.ru/user/c2/f3/c2f3b025b6b81c32b24460d77c08c51d.jpg", 79.1 Известия 
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+https://bl.rutube.ru/livestream/3c47861a8b4b51639e41be092053b966/index.m3u8?s=BiusOTNEpUiB4fmnEBuvsw&e=2089472541&scheme=https
+
+#EXTINF:-1 tvg-id="rutube_1da5d92af8c55b16241f1eb12a27f00c" tvg-name="Охотник и рыболов Int" group-title="Эфирное ТВ/Rutube" subgroup-title="Все эфиры" tvg-logo="https://pic.rtbcdn.ru/user/38/5c/385ccd850d0053603ffc0b99d3d38c74.jpg", 300.1 Охотник и рыболов Int
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+https://bl.rutube.ru/livestream/1da5d92af8c55b16241f1eb12a27f00c/index.m3u8?s=RuEk-JzF78hXT8cUab7T-A&e=2089472542&scheme=https
+
+
+
+
 
 
 ##### продолжение ниже:
