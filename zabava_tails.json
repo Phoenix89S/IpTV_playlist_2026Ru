@@ -1,11 +1,11 @@
 {
   "scanner": "zabava_tails.py",
   "version": "1.0",
-  "timestamp": "2026-09-16T08:24:14.391838+00:00",
+  "timestamp": "2026-09-17T08:29:47.440744+00:00",
   "source": "http://dmitry-tv.ddns.net/iptv/freesat/gtmedia/ZABAVA/custom_url.m3u",
   "statistics": {
-    "urls_found": 373,
-    "tails_found": 371
+    "urls_found": 374,
+    "tails_found": 372
   },
   "tails": [
     "/hls/DVB-T2/CH_1TV-1.m3u8",
@@ -177,6 +177,7 @@
     "/hls/zabava/region/EKT/CH_VEKTORHD720_TRNSK.m3u8",
     "/hls/zabava/region/EKT/CH_TELEKON24HD.m3u8",
     "/hls/zabava/region/EKT/CH_4CHANNEL.m3u8",
+    "/hls/zabava/region/EKT/CH_MIGTV_KRASN.m3u8",
     "/hls/zabava/region/IVAN/CH_BARS.m3u8",
     "/hls/zabava/region/IVAN/CH_IOT.m3u8",
     "/hls/zabava/region/IZHSK/CH_MYUDMURTIA.m3u8",
