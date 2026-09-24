@@ -15,8 +15,8 @@
   "not_valid_m3u8": 2754,
   "classifications": {
     "M3U8_MASTER": 46,
-    "NOT_FOUND": 11,
-    "HTML": 2743
+    "NOT_FOUND": 10,
+    "HTML": 2744
   },
-  "elapsed_seconds": 2500.18
+  "elapsed_seconds": 2341.29
 }
