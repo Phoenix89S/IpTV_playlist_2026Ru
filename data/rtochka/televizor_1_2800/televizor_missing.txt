@@ -367,7 +367,7 @@
 407.m3u8 | NOT_FOUND | HEAD=404 | GET=404 |  | https://streaming.televizor-24-tochka.ru/live/407.m3u8
 408.m3u8 | NOT_FOUND | HEAD=404 | GET=404 |  | https://streaming.televizor-24-tochka.ru/live/408.m3u8
 409.m3u8 | NOT_FOUND | HEAD=404 | GET=404 |  | https://streaming.televizor-24-tochka.ru/live/409.m3u8
-410.m3u8 | HTML | HEAD=502 | GET=502 |  | https://streaming.televizor-24-tochka.ru/live/410.m3u8
+410.m3u8 | NOT_FOUND | HEAD=404 | GET=404 |  | https://streaming.televizor-24-tochka.ru/live/410.m3u8
 411.m3u8 | HTML | HEAD=504 | GET=504 |  | https://streaming.televizor-24-tochka.ru/live/411.m3u8
 412.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/412.m3u8
 413.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/413.m3u8
