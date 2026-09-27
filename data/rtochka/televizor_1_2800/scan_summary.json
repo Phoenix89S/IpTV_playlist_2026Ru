@@ -16,7 +16,8 @@
   "classifications": {
     "M3U8_MASTER": 46,
     "NOT_FOUND": 12,
-    "HTML": 2742
+    "HTML": 2741,
+    "CONNECTION_ERROR": 1
   },
-  "elapsed_seconds": 2569.06
+  "elapsed_seconds": 2593.91
 }
