@@ -5,34 +5,60 @@
 CINERAMA SCALA GRAPH PROCESSOR / VERIFICATOR
 
 Назначение:
-    1. Загружает/читает реальный M3U-плейлист.
-    2. Находит URL потоков.
-    3. Заменяет:
+    1. Получает исходный M3U-плейлист из gh-pages.
+    2. Исходный файл локально называется:
+           Extra_channels2026.m3u
+    3. Находит URL потоков.
+    4. Заменяет:
            https://stream8.cinerama.uz
        на:
            https://stream1.cinerama.uz
-    4. Реально проверяет сетевой HLS-поток.
-    5. Проверяет HTTP-ответ.
-    6. Проверяет содержимое HLS playlist.
-    7. Для media playlist проверяет наличие сегментов.
-    8. Проверяет несколько первых HLS-сегментов.
-    9. Подробно записывает каждую операцию в playlist_log.txt.
-   10. В конце формирует двуязычную статистику RU / EN.
-   11. В verified M3U попадают только VERIFIED-потоки.
+    5. Реально проверяет сетевой HLS-поток.
+    6. Проверяет HTTP-ответ.
+    7. Проверяет #EXTM3U.
+    8. Проверяет HLS playlist.
+    9. Проверяет HLS-сегменты.
+   10. Только реально прошедшие потоки получают статус VERIFIED.
+   11. Формирует:
+           Extra_channels2026_verified.m3u
+   12. Подробный лог:
+           playlist_log.txt
 
-Выход:
-    Extra_channels2026_verified.m3u
+Архитектура GitHub:
 
-Лог:
+    gh-pages
+        └── Extra_channels2026.m3u
+                    │
+                    ▼
+        GitHub Actions скачивает файл
+                    │
+                    ▼
+        Extra_channels2026.m3u
+                    │
+                    ▼
+        CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py
+                    │
+                    ├── stream8 -> stream1
+                    ├── HTTP
+                    ├── HLS
+                    └── сегменты
+                    │
+                    ▼
+        Extra_channels2026_verified.m3u
+                    │
+                    ▼
+        gh-pages-2
+
     playlist_log.txt
-
-Пример запуска:
-    python3 CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py input.m3u
-
-Если аргумент не указан:
-    используется INPUT_PLAYLIST из переменной окружения,
-    либо файл input.m3u.
+            │
+            ▼
+          main
 """
+
+
+# ============================================================================
+# IMPORTS
+# ============================================================================
 
 import sys
 import os
@@ -42,8 +68,15 @@ import socket
 import logging
 import urllib.request
 import urllib.error
+import urllib.parse
+
 from datetime import datetime
-from concurrent.futures import ThreadPoolExecutor, as_completed
+
+from concurrent.futures import (
+    ThreadPoolExecutor,
+    as_completed
+)
+
 from collections import Counter
 
 
@@ -51,25 +84,79 @@ from collections import Counter
 # НАСТРОЙКИ
 # ============================================================================
 
-LOG_FILE = "playlist_log.txt"
+# ============================================================================
+# ИСХОДНЫЙ M3U
+# ============================================================================
 
+# ВАЖНО:
+#
+# Этот файл берётся GitHub Actions из ветки:
+#
+#     gh-pages
+#
+# и скачивается в рабочую директорию runner.
+#
+# Фактический источник:
+#
+#     gh-pages/Extra_channels2026.m3u
+#
+INPUT_PLAYLIST = "Extra_channels2026.m3u"
+
+
+# ============================================================================
+# ВЫХОДНОЙ VERIFIED M3U
+# ============================================================================
+
+# Этот файл после обработки workflow отправляет в:
+#
+#     gh-pages-2
+#
 OUTPUT_FILE = "Extra_channels2026_verified.m3u"
 
-DEFAULT_INPUT_FILE = "input.m3u"
 
-# Максимальное количество параллельных проверок.
+# ============================================================================
+# ЛОГ
+# ============================================================================
+
+# Лог остаётся в main:
+#
+#     main/playlist_log.txt
+#
+LOG_FILE = "playlist_log.txt"
+
+
+# ============================================================================
+# ПАРАЛЛЕЛЬНОСТЬ
+# ============================================================================
+
 MAX_WORKERS = 12
 
-# Общий timeout одного HTTP-запроса.
+
+# ============================================================================
+# HTTP TIMEOUT
+# ============================================================================
+
 HTTP_TIMEOUT = 8
 
-# Сколько HLS-сегментов проверять.
+
+# ============================================================================
+# КОЛИЧЕСТВО HLS-СЕГМЕНТОВ
+# ============================================================================
+
 SEGMENT_CHECK_COUNT = 3
 
-# Минимальный размер допустимого HLS-ответа.
+
+# ============================================================================
+# МИНИМАЛЬНЫЙ РАЗМЕР PLAYLIST
+# ============================================================================
+
 MIN_PLAYLIST_SIZE = 20
 
-# User-Agent.
+
+# ============================================================================
+# USER AGENT
+# ============================================================================
+
 USER_AGENT = (
     "Mozilla/5.0 "
     "(Linux; Android 12) "
@@ -78,7 +165,11 @@ USER_AGENT = (
     "CineramaScalaVerifier/1.0"
 )
 
-# Максимальный размер playlist, который разрешено прочитать.
+
+# ============================================================================
+# МАКСИМАЛЬНЫЙ РАЗМЕР HLS PLAYLIST
+# ============================================================================
+
 MAX_PLAYLIST_BYTES = 2 * 1024 * 1024
 
 
@@ -100,12 +191,15 @@ logging.basicConfig(
         logging.StreamHandler(sys.stdout),
         logging.FileHandler(
             LOG_FILE,
+            mode="w",
             encoding="utf-8"
         )
     ]
 )
 
-logger = logging.getLogger("CineramaScalaGraph")
+logger = logging.getLogger(
+    "CineramaScalaGraph"
+)
 
 
 # ============================================================================
@@ -113,7 +207,8 @@ logger = logging.getLogger("CineramaScalaGraph")
 # ============================================================================
 
 CINERAMA_HOST_REPLACEMENTS = {
-    "https://stream8.cinerama.uz": "https://stream1.cinerama.uz",
+    "https://stream8.cinerama.uz":
+        "https://stream1.cinerama.uz",
 }
 
 
@@ -122,24 +217,26 @@ CINERAMA_HOST_REPLACEMENTS = {
 # ============================================================================
 
 stats = {
+
+    # Всего URL потоков.
     "total_streams": 0,
 
-    # Сколько потоков реально отправлено на проверку.
+    # Реально отправлено на проверку.
     "checked": 0,
 
-    # Сколько получили положительный HTTP/HLS результат.
+    # Получен HTTP-ответ.
     "responded": 0,
 
-    # Сколько закончились ошибкой.
+    # Общие ошибки.
     "errors": 0,
 
-    # Сколько stream8 было заменено.
+    # Заменено stream8 -> stream1.
     "stream8_replaced": 0,
 
-    # Сколько URL уже были stream1 и поэтому не потребовали замены.
+    # Уже stream1.
     "stream1_unchanged": 0,
 
-    # Сколько именно ошибок проверки.
+    # Ошибки проверки.
     "verification_errors": 0,
 
     # VERIFIED.
@@ -154,20 +251,23 @@ stats = {
     # Timeout.
     "timeouts": 0,
 
-    # DNS / connection errors.
+    # Connection / DNS.
     "connection_errors": 0,
 
     # HLS errors.
     "hls_errors": 0,
 
-    # Неизвестные ошибки.
+    # Unknown.
     "unknown_errors": 0,
 
-    # Сегменты проверены.
+    # Проверено сегментов.
     "segments_checked": 0,
 
     # Ошибки сегментов.
     "segment_errors": 0,
+
+    # Сработало правил замены.
+    "matched_rules": 0,
 }
 
 
@@ -192,18 +292,74 @@ def reset_statistics():
 
 def get_input_file():
 
-    # 1. Первый аргумент командной строки.
-    if len(sys.argv) > 1:
-        return sys.argv[1]
+    """
+    Приоритет:
 
-    # 2. Переменная окружения.
-    env_input = os.getenv("INPUT_PLAYLIST")
+    1. Аргумент командной строки.
+    2. Переменная INPUT_PLAYLIST.
+    3. INPUT_PLAYLIST из настроек.
+
+    В GitHub Actions используется:
+
+        python3 \
+          CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py \
+          Extra_channels2026.m3u
+    """
+
+    # ------------------------------------------------------------------------
+    # ARGUMENT
+    # ------------------------------------------------------------------------
+
+    if len(sys.argv) > 1:
+
+        input_file = sys.argv[1]
+
+        logger.info(
+            "INPUT SOURCE / ИСТОЧНИК M3U:"
+        )
+
+        logger.info(
+            f"  Передан аргументом: {input_file}"
+        )
+
+        return input_file
+
+
+    # ------------------------------------------------------------------------
+    # ENVIRONMENT
+    # ------------------------------------------------------------------------
+
+    env_input = os.getenv(
+        "INPUT_PLAYLIST"
+    )
 
     if env_input:
+
+        logger.info(
+            "INPUT SOURCE / ИСТОЧНИК M3U:"
+        )
+
+        logger.info(
+            f"  Из переменной окружения: "
+            f"{env_input}"
+        )
+
         return env_input
 
-    # 3. Значение по умолчанию.
-    return DEFAULT_INPUT_FILE
+
+    # ------------------------------------------------------------------------
+    # DEFAULT
+    # ------------------------------------------------------------------------
+
+    logger.info(
+        "INPUT SOURCE / ИСТОЧНИК M3U:"
+    )
+
+    logger.info(
+        f"  По умолчанию: {INPUT_PLAYLIST}"
+    )
+
+    return INPUT_PLAYLIST
 
 
 # ============================================================================
@@ -214,21 +370,27 @@ def load_playlist(path):
 
     logger.info("")
     logger.info("=" * 100)
+
     logger.info(
         "ЗАГРУЗКА ПЛЕЙЛИСТА / PLAYLIST LOADING"
     )
+
     logger.info("=" * 100)
 
     logger.info(
-        f"Файл / File:\n"
+        "Источник / Source:"
+    )
+
+    logger.info(
         f"  {path}"
     )
 
     if not os.path.exists(path):
 
         raise FileNotFoundError(
-            f"Input playlist not found / "
-            f"Входной плейлист не найден: {path}"
+            "Исходный M3U не найден / "
+            "Source M3U not found: "
+            f"{path}"
         )
 
     with open(
@@ -240,9 +402,20 @@ def load_playlist(path):
 
         content = f.read()
 
-    logger.info(
-        f"Размер / Size: {len(content.encode('utf-8'))} bytes"
+    size = len(
+        content.encode("utf-8")
     )
+
+    logger.info(
+        f"Размер / Size: {size} bytes"
+    )
+
+    if size < MIN_PLAYLIST_SIZE:
+
+        logger.warning(
+            "Размер M3U очень маленький / "
+            "M3U size is very small"
+        )
 
     logger.info(
         "Плейлист успешно загружен / "
@@ -259,12 +432,16 @@ def load_playlist(path):
 def process_node_scala_style(url):
 
     original_url = url.strip()
+
     target_url = original_url
 
     replacement_applied = False
+
     replacement_rule = None
 
+
     logger.info("")
+
     logger.info(
         "[GRAPH NODE / УЗЕЛ ГРАФА]"
     )
@@ -274,28 +451,45 @@ def process_node_scala_style(url):
         f"  {original_url}"
     )
 
-    for old_host, new_host in CINERAMA_HOST_REPLACEMENTS.items():
 
-        if original_url.startswith(old_host):
+    # ------------------------------------------------------------------------
+    # ПЕРЕБОР ПРАВИЛ
+    # ------------------------------------------------------------------------
+
+    for old_host, new_host in (
+        CINERAMA_HOST_REPLACEMENTS.items()
+    ):
+
+        if original_url.startswith(
+            old_host
+        ):
 
             replacement_rule = (
                 f"{old_host} -> {new_host}"
             )
 
-            target_url = original_url.replace(
-                old_host,
-                new_host,
-                1
+            target_url = (
+                original_url.replace(
+                    old_host,
+                    new_host,
+                    1
+                )
             )
 
             replacement_applied = True
 
-            stats["stream8_replaced"] += 1
-            stats["matched_rules"] += 1
+            stats[
+                "stream8_replaced"
+            ] += 1
+
+            stats[
+                "matched_rules"
+            ] += 1
 
             replacement_counter[
                 replacement_rule
             ] += 1
+
 
             logger.info(
                 "[GRAPH TRANSFORMATION / "
@@ -303,47 +497,58 @@ def process_node_scala_style(url):
             )
 
             logger.info(
-                f"  • Было / Original:\n"
+                f"  Было / Original:\n"
                 f"    {original_url}"
             )
 
             logger.info(
-                f"  • Правило / Rule:\n"
+                f"  Правило / Rule:\n"
                 f"    {replacement_rule}"
             )
 
             logger.info(
-                f"  • Стало / New:\n"
+                f"  Стало / New:\n"
                 f"    {target_url}"
             )
 
             logger.info(
-                "  • Замена выполнена / "
+                "  Замена выполнена / "
                 "Replacement applied: YES"
             )
 
             break
 
-    # Уже stream1.
+
+    # ------------------------------------------------------------------------
+    # УЖЕ STREAM1
+    # ------------------------------------------------------------------------
+
     if original_url.startswith(
         "https://stream1.cinerama.uz"
     ):
 
-        stats["stream1_unchanged"] += 1
+        stats[
+            "stream1_unchanged"
+        ] += 1
 
         logger.info(
-            "[STREAM1 UNCHANGED / STREAM1 БЕЗ ЗАМЕНЫ]"
+            "[STREAM1 UNCHANGED / "
+            "STREAM1 БЕЗ ЗАМЕНЫ]"
         )
 
         logger.info(
-            "  • URL уже использует stream1"
+            "  URL уже использует stream1"
         )
 
         logger.info(
-            "  • URL already uses stream1"
+            "  URL already uses stream1"
         )
 
-    # Другой host.
+
+    # ------------------------------------------------------------------------
+    # ДРУГОЙ HOST
+    # ------------------------------------------------------------------------
+
     elif not replacement_applied:
 
         logger.info(
@@ -351,12 +556,13 @@ def process_node_scala_style(url):
         )
 
         logger.info(
-            "  • Правило замены не применялось"
+            "  Правило замены не применялось"
         )
 
         logger.info(
-            "  • No replacement rule applied"
+            "  No replacement rule applied"
         )
+
 
     return (
         target_url,
@@ -379,18 +585,23 @@ def http_get(
         url,
         headers={
             "User-Agent": USER_AGENT,
+
             "Accept": (
                 "application/vnd.apple.mpegurl,"
                 "application/x-mpegURL,"
                 "application/octet-stream,"
                 "*/*"
             ),
+
             "Accept-Encoding": "identity",
+
             "Connection": "close",
         }
     )
 
+
     started = time.perf_counter()
+
 
     try:
 
@@ -400,9 +611,14 @@ def http_get(
             context=SSL_CONTEXT
         ) as response:
 
-            elapsed = time.perf_counter() - started
+            elapsed = (
+                time.perf_counter()
+                - started
+            )
 
-            status_code = response.getcode()
+            status_code = (
+                response.getcode()
+            )
 
             content_type = (
                 response.headers.get(
@@ -411,7 +627,9 @@ def http_get(
                 )
             )
 
-            final_url = response.geturl()
+            final_url = (
+                response.geturl()
+            )
 
             content_length_header = (
                 response.headers.get(
@@ -419,10 +637,13 @@ def http_get(
                 )
             )
 
+
             try:
 
                 declared_length = (
-                    int(content_length_header)
+                    int(
+                        content_length_header
+                    )
                     if content_length_header
                     else None
                 )
@@ -431,138 +652,217 @@ def http_get(
 
                 declared_length = None
 
+
             data = response.read(
                 max_bytes + 1
             )
+
 
             truncated = (
                 len(data) > max_bytes
             )
 
+
             if truncated:
 
-                data = data[:max_bytes]
+                data = data[
+                    :max_bytes
+                ]
+
 
             return {
+
                 "success": True,
+
                 "status": status_code,
+
                 "content_type": content_type,
+
                 "final_url": final_url,
+
                 "elapsed": elapsed,
+
                 "data": data,
-                "declared_length": declared_length,
-                "truncated": truncated,
+
+                "declared_length":
+                    declared_length,
+
+                "truncated":
+                    truncated,
+
                 "error": None,
             }
 
+
     except urllib.error.HTTPError as exc:
 
-        elapsed = time.perf_counter() - started
+        elapsed = (
+            time.perf_counter()
+            - started
+        )
 
         return {
+
             "success": False,
+
             "status": exc.code,
+
             "content_type": "",
+
             "final_url": url,
+
             "elapsed": elapsed,
+
             "data": b"",
+
             "declared_length": None,
+
             "truncated": False,
+
             "error": (
                 f"HTTP {exc.code} "
                 f"{exc.reason}"
             ),
         }
 
+
     except urllib.error.URLError as exc:
 
-        elapsed = time.perf_counter() - started
+        elapsed = (
+            time.perf_counter()
+            - started
+        )
 
         return {
+
             "success": False,
+
             "status": None,
+
             "content_type": "",
+
             "final_url": url,
+
             "elapsed": elapsed,
+
             "data": b"",
+
             "declared_length": None,
+
             "truncated": False,
-            "error": str(exc.reason),
+
+            "error": str(
+                exc.reason
+            ),
         }
+
 
     except socket.timeout:
 
-        elapsed = time.perf_counter() - started
+        elapsed = (
+            time.perf_counter()
+            - started
+        )
 
         return {
+
             "success": False,
+
             "status": None,
+
             "content_type": "",
+
             "final_url": url,
+
             "elapsed": elapsed,
+
             "data": b"",
+
             "declared_length": None,
+
             "truncated": False,
+
             "error": "TIMEOUT",
         }
+
 
     except TimeoutError:
 
-        elapsed = time.perf_counter() - started
+        elapsed = (
+            time.perf_counter()
+            - started
+        )
 
         return {
+
             "success": False,
+
             "status": None,
+
             "content_type": "",
+
             "final_url": url,
+
             "elapsed": elapsed,
+
             "data": b"",
+
             "declared_length": None,
+
             "truncated": False,
+
             "error": "TIMEOUT",
         }
 
+
     except Exception as exc:
 
-        elapsed = time.perf_counter() - started
+        elapsed = (
+            time.perf_counter()
+            - started
+        )
 
         return {
+
             "success": False,
+
             "status": None,
+
             "content_type": "",
+
             "final_url": url,
+
             "elapsed": elapsed,
+
             "data": b"",
+
             "declared_length": None,
+
             "truncated": False,
+
             "error": str(exc),
         }
 
 
 # ============================================================================
-# HLS URL
+# URL В ABSOLUTE
 # ============================================================================
 
-def make_absolute_url(base_url, value):
+def make_absolute_url(
+    base_url,
+    value
+):
 
     value = value.strip()
 
     if not value:
+
         return None
 
     return urllib.parse.urljoin(
         base_url,
         value
     )
-
-
-# ============================================================================
-# URLJOIN
-# ============================================================================
-
-# Импортируем здесь, чтобы весь основной список импортов
-# оставался компактным.
-import urllib.parse
 
 
 # ============================================================================
@@ -574,11 +874,14 @@ def extract_media_segments(
     playlist_url
 ):
 
-    lines = playlist_text.splitlines()
+    lines = (
+        playlist_text.splitlines()
+    )
 
     segments = []
 
-    for index, line in enumerate(lines):
+
+    for line in lines:
 
         line = line.strip()
 
@@ -588,12 +891,19 @@ def extract_media_segments(
         if line.startswith("#"):
             continue
 
-        absolute = urllib.parse.urljoin(
-            playlist_url,
-            line
+
+        absolute = (
+            urllib.parse.urljoin(
+                playlist_url,
+                line
+            )
         )
 
-        segments.append(absolute)
+
+        segments.append(
+            absolute
+        )
+
 
     return segments
 
@@ -607,53 +917,67 @@ def extract_variant_playlists(
     playlist_url
 ):
 
-    lines = playlist_text.splitlines()
+    lines = (
+        playlist_text.splitlines()
+    )
 
     variants = []
 
-    for index, line in enumerate(lines):
+
+    for index, line in enumerate(
+        lines
+    ):
 
         line = line.strip()
 
         if not line:
             continue
 
+
         if line.startswith(
             "#EXT-X-STREAM-INF:"
         ):
 
-            # Следующая непустая строка,
-            # не являющаяся комментариями,
-            # должна быть URI variant playlist.
             for next_index in range(
                 index + 1,
                 len(lines)
             ):
 
                 candidate = (
-                    lines[next_index].strip()
+                    lines[
+                        next_index
+                    ].strip()
                 )
 
                 if not candidate:
                     continue
 
-                if candidate.startswith("#"):
+                if candidate.startswith(
+                    "#"
+                ):
                     continue
 
-                absolute = urllib.parse.urljoin(
-                    playlist_url,
-                    candidate
+
+                absolute = (
+                    urllib.parse.urljoin(
+                        playlist_url,
+                        candidate
+                    )
                 )
 
-                variants.append(absolute)
+
+                variants.append(
+                    absolute
+                )
 
                 break
+
 
     return variants
 
 
 # ============================================================================
-# ПРОВЕРКА HLS
+# HLS PLAYLIST VERIFICATION
 # ============================================================================
 
 def verify_hls_playlist(
@@ -662,44 +986,62 @@ def verify_hls_playlist(
 ):
 
     result = {
+
         "hls_ok": False,
-        "playlist_type": "UNKNOWN",
+
+        "playlist_type":
+            "UNKNOWN",
+
         "segments": [],
+
         "variants": [],
+
         "error": None,
     }
+
 
     if not response_data:
 
         result["error"] = (
-            "Empty response / Пустой ответ"
+            "Empty response / "
+            "Пустой ответ"
         )
 
         return result
 
+
     try:
 
-        text = response_data.decode(
-            "utf-8",
-            errors="replace"
+        text = (
+            response_data.decode(
+                "utf-8",
+                errors="replace"
+            )
         )
 
     except Exception as exc:
 
         result["error"] = (
-            f"Decode error / Ошибка декодирования: "
+            "Decode error / "
+            "Ошибка декодирования: "
             f"{exc}"
         )
 
         return result
 
-    text = text.lstrip("\ufeff")
 
-    # ------------------------------------------------------------------------
+    text = text.lstrip(
+        "\ufeff"
+    )
+
+
+    # =========================================================================
     # HLS HEADER
-    # ------------------------------------------------------------------------
+    # =========================================================================
 
-    if not text.startswith("#EXTM3U"):
+    if not text.startswith(
+        "#EXTM3U"
+    ):
 
         result["error"] = (
             "Missing #EXTM3U / "
@@ -708,58 +1050,96 @@ def verify_hls_playlist(
 
         return result
 
-    # ------------------------------------------------------------------------
-    # MASTER PLAYLIST
-    # ------------------------------------------------------------------------
 
-    variants = extract_variant_playlists(
-        text,
-        playlist_url
+    # =========================================================================
+    # MASTER PLAYLIST
+    # =========================================================================
+
+    variants = (
+        extract_variant_playlists(
+            text,
+            playlist_url
+        )
     )
+
 
     if variants:
 
-        result["playlist_type"] = "MASTER"
-        result["variants"] = variants
+        result[
+            "playlist_type"
+        ] = "MASTER"
+
+        result[
+            "variants"
+        ] = variants
+
 
         logger.info(
             "[HLS MASTER / MASTER PLAYLIST]"
         )
 
         logger.info(
-            f"  • Variant playlists: "
+            f"  Variant playlists: "
             f"{len(variants)}"
         )
 
-        # Проверяем первый variant.
-        variant_url = variants[0]
+
+        variant_url = (
+            variants[0]
+        )
+
 
         logger.info(
-            f"  • Проверяем variant:\n"
+            f"  Проверяем variant:\n"
             f"    {variant_url}"
         )
 
-        variant_response = http_get(
-            variant_url
+
+        variant_response = (
+            http_get(
+                variant_url
+            )
         )
 
-        if not variant_response["success"]:
+
+        if not variant_response[
+            "success"
+        ]:
 
             result["error"] = (
-                "Variant playlist request failed: "
+                "Variant playlist request "
+                "failed: "
                 f"{variant_response['error']}"
             )
 
             return result
 
+
+        if variant_response[
+            "status"
+        ] != 200:
+
+            result["error"] = (
+                "Variant HTTP status: "
+                f"{variant_response['status']}"
+            )
+
+            return result
+
+
         variant_text = (
-            variant_response["data"]
+            variant_response[
+                "data"
+            ]
             .decode(
                 "utf-8",
                 errors="replace"
             )
-            .lstrip("\ufeff")
+            .lstrip(
+                "\ufeff"
+            )
         )
+
 
         if not variant_text.startswith(
             "#EXTM3U"
@@ -771,6 +1151,7 @@ def verify_hls_playlist(
 
             return result
 
+
         variant_segments = (
             extract_media_segments(
                 variant_text,
@@ -778,28 +1159,41 @@ def verify_hls_playlist(
             )
         )
 
+
         if not variant_segments:
 
             result["error"] = (
-                "No media segments in variant"
+                "No media segments "
+                "in variant"
             )
 
             return result
 
-        result["segments"] = variant_segments
+
+        result[
+            "segments"
+        ] = variant_segments
+
 
         return result
 
-    # ------------------------------------------------------------------------
+
+    # =========================================================================
     # MEDIA PLAYLIST
-    # ------------------------------------------------------------------------
+    # =========================================================================
 
-    result["playlist_type"] = "MEDIA"
+    result[
+        "playlist_type"
+    ] = "MEDIA"
 
-    segments = extract_media_segments(
-        text,
-        playlist_url
+
+    segments = (
+        extract_media_segments(
+            text,
+            playlist_url
+        )
     )
+
 
     if not segments:
 
@@ -810,7 +1204,11 @@ def verify_hls_playlist(
 
         return result
 
-    result["segments"] = segments
+
+    result[
+        "segments"
+    ] = segments
+
 
     return result
 
@@ -825,35 +1223,45 @@ def verify_segments(
 ):
 
     checked = 0
+
     errors = 0
+
 
     max_segments = min(
         SEGMENT_CHECK_COUNT,
         len(segments)
     )
 
+
     logger.info(
         f"[SEGMENTS / СЕГМЕНТЫ] "
         f"Stream #{stream_number}"
     )
 
-    logger.info(
-        f"  • Найдено сегментов / "
-        f"Segments found: {len(segments)}"
-    )
 
     logger.info(
-        f"  • Проверяем / Checking: "
+        f"  Найдено / Found: "
+        f"{len(segments)}"
+    )
+
+
+    logger.info(
+        f"  Проверяем / Checking: "
         f"{max_segments}"
     )
+
 
     for index in range(
         max_segments
     ):
 
-        segment_url = segments[index]
+        segment_url = (
+            segments[index]
+        )
+
 
         checked += 1
+
 
         response = http_get(
             segment_url,
@@ -861,16 +1269,26 @@ def verify_segments(
             max_bytes=1024 * 1024
         )
 
-        stats["segments_checked"] += 1
 
-        if response["success"]:
+        stats[
+            "segments_checked"
+        ] += 1
 
-            status = response["status"]
+
+        if response[
+            "success"
+        ]:
+
+            status = (
+                response["status"]
+            )
+
 
             if status == 200:
 
                 logger.info(
-                    f"  SEGMENT {index + 1}: "
+                    f"  SEGMENT "
+                    f"{index + 1}: "
                     f"HTTP {status} OK | "
                     f"{response['elapsed']:.3f}s | "
                     f"{len(response['data'])} bytes"
@@ -879,23 +1297,33 @@ def verify_segments(
             else:
 
                 errors += 1
-                stats["segment_errors"] += 1
+
+                stats[
+                    "segment_errors"
+                ] += 1
 
                 logger.warning(
-                    f"  SEGMENT {index + 1}: "
+                    f"  SEGMENT "
+                    f"{index + 1}: "
                     f"HTTP {status} FAILED"
                 )
+
 
         else:
 
             errors += 1
-            stats["segment_errors"] += 1
+
+            stats[
+                "segment_errors"
+            ] += 1
 
             logger.warning(
-                f"  SEGMENT {index + 1}: "
+                f"  SEGMENT "
+                f"{index + 1}: "
                 f"FAILED | "
                 f"{response['error']}"
             )
+
 
     return (
         checked,
@@ -914,325 +1342,525 @@ def verify_stream(
 
     started = time.perf_counter()
 
+
     logger.info("")
     logger.info("=" * 100)
 
+
     logger.info(
         f"[STREAM #{stream_number}] "
-        "ПРОВЕРКА ПОТОКА / STREAM VERIFICATION"
+        "ПРОВЕРКА ПОТОКА / "
+        "STREAM VERIFICATION"
     )
+
 
     logger.info(
         f"Original / Исходный:\n"
         f"  {original_url}"
     )
 
-    # ------------------------------------------------------------------------
-    # GRAPH REPLACEMENT
-    # ------------------------------------------------------------------------
 
-    target_url, replaced, rule = (
-        process_node_scala_style(
-            original_url
-        )
+    # =========================================================================
+    # GRAPH REPLACEMENT
+    # =========================================================================
+
+    (
+        target_url,
+        replaced,
+        rule
+    ) = process_node_scala_style(
+        original_url
     )
+
 
     logger.info(
         f"Target / Проверяемый URL:\n"
         f"  {target_url}"
     )
 
-    # ------------------------------------------------------------------------
-    # HTTP REQUEST
-    # ------------------------------------------------------------------------
 
-    stats["checked"] += 1
+    # =========================================================================
+    # NETWORK CHECK
+    # =========================================================================
+
+    stats[
+        "checked"
+    ] += 1
+
 
     response = http_get(
         target_url
     )
+
 
     elapsed = (
         time.perf_counter()
         - started
     )
 
-    logger.info(
-        "[NETWORK CHECK / СЕТЕВАЯ ПРОВЕРКА]"
-    )
 
     logger.info(
-        f"  • HTTP status / HTTP статус: "
+        "[NETWORK CHECK / "
+        "СЕТЕВАЯ ПРОВЕРКА]"
+    )
+
+
+    logger.info(
+        f"  HTTP status / HTTP статус: "
         f"{response['status']}"
     )
 
+
     logger.info(
-        f"  • Response time / Время ответа: "
+        f"  Response time / Время ответа: "
         f"{response['elapsed']:.3f} sec"
     )
 
+
     logger.info(
-        f"  • Content-Type / Тип: "
+        f"  Content-Type / Тип: "
         f"{response['content_type'] or 'N/A'}"
     )
 
+
     logger.info(
-        f"  • Response size / Размер ответа: "
+        f"  Response size / Размер: "
         f"{len(response['data'])} bytes"
     )
 
-    # ------------------------------------------------------------------------
+
+    # =========================================================================
     # HTTP ERROR
-    # ------------------------------------------------------------------------
+    # =========================================================================
 
-    if not response["success"]:
+    if not response[
+        "success"
+    ]:
 
-        stats["errors"] += 1
-        stats["failed"] += 1
-        stats["verification_errors"] += 1
+        stats[
+            "errors"
+        ] += 1
 
-        error_text = response["error"]
+        stats[
+            "failed"
+        ] += 1
+
+        stats[
+            "verification_errors"
+        ] += 1
+
+
+        error_text = (
+            response["error"]
+        )
+
 
         if (
             error_text
-            and "TIMEOUT" in error_text.upper()
+            and
+            "TIMEOUT"
+            in
+            error_text.upper()
         ):
 
-            stats["timeouts"] += 1
+            stats[
+                "timeouts"
+            ] += 1
 
-        elif response["status"] is not None:
 
-            stats["http_errors"] += 1
+        elif response[
+            "status"
+        ] is not None:
+
+            stats[
+                "http_errors"
+            ] += 1
+
 
         elif error_text:
 
-            stats["connection_errors"] += 1
+            stats[
+                "connection_errors"
+            ] += 1
+
+
+        else:
+
+            stats[
+                "unknown_errors"
+            ] += 1
+
 
         logger.error(
             "[FAILED / ОШИБКА]"
         )
 
+
         logger.error(
-            f"  • Error / Ошибка: "
+            f"  Error / Ошибка: "
             f"{error_text}"
         )
 
+
         logger.error(
-            f"  • Total time / Общее время: "
+            f"  Total time / Общее время: "
             f"{elapsed:.3f} sec"
         )
+
 
         logger.info(
             "=" * 100
         )
 
+
         return {
-            "stream_number": stream_number,
-            "original_url": original_url,
-            "final_url": target_url,
-            "verified": False,
-            "replaced": replaced,
-            "rule": rule,
-            "error": error_text,
+
+            "stream_number":
+                stream_number,
+
+            "original_url":
+                original_url,
+
+            "final_url":
+                target_url,
+
+            "verified":
+                False,
+
+            "replaced":
+                replaced,
+
+            "rule":
+                rule,
+
+            "error":
+                error_text,
         }
 
-    # ------------------------------------------------------------------------
-    # HTTP RESPONSE
-    # ------------------------------------------------------------------------
 
-    if response["status"] != 200:
+    # =========================================================================
+    # HTTP STATUS
+    # =========================================================================
 
-        stats["errors"] += 1
-        stats["failed"] += 1
-        stats["verification_errors"] += 1
-        stats["http_errors"] += 1
+    if response[
+        "status"
+    ] != 200:
+
+        stats[
+            "errors"
+        ] += 1
+
+        stats[
+            "failed"
+        ] += 1
+
+        stats[
+            "verification_errors"
+        ] += 1
+
+        stats[
+            "http_errors"
+        ] += 1
+
 
         logger.error(
             "[FAILED / ОШИБКА]"
         )
 
+
         logger.error(
-            f"HTTP status {response['status']} "
+            f"HTTP status "
+            f"{response['status']} "
             f"is not 200"
         )
+
 
         logger.info(
             "=" * 100
         )
 
+
         return {
-            "stream_number": stream_number,
-            "original_url": original_url,
-            "final_url": target_url,
-            "verified": False,
-            "replaced": replaced,
-            "rule": rule,
-            "error": (
-                f"HTTP {response['status']}"
-            ),
+
+            "stream_number":
+                stream_number,
+
+            "original_url":
+                original_url,
+
+            "final_url":
+                target_url,
+
+            "verified":
+                False,
+
+            "replaced":
+                replaced,
+
+            "rule":
+                rule,
+
+            "error":
+                f"HTTP {response['status']}",
         }
 
-    # ------------------------------------------------------------------------
-    # SERVER RESPONDED
-    # ------------------------------------------------------------------------
 
-    stats["responded"] += 1
+    # =========================================================================
+    # HTTP RESPONSE OK
+    # =========================================================================
 
-    # ------------------------------------------------------------------------
+    stats[
+        "responded"
+    ] += 1
+
+
+    # =========================================================================
     # HLS CHECK
-    # ------------------------------------------------------------------------
+    # =========================================================================
 
     hls = verify_hls_playlist(
         target_url,
         response["data"]
     )
 
+
     logger.info(
         "[HLS CHECK / ПРОВЕРКА HLS]"
     )
 
+
     logger.info(
-        f"  • Playlist type / Тип: "
+        f"  Playlist type / Тип: "
         f"{hls['playlist_type']}"
     )
 
-    if hls["error"]:
 
-        stats["errors"] += 1
-        stats["failed"] += 1
-        stats["verification_errors"] += 1
-        stats["hls_errors"] += 1
+    if hls[
+        "error"
+    ]:
+
+        stats[
+            "errors"
+        ] += 1
+
+        stats[
+            "failed"
+        ] += 1
+
+        stats[
+            "verification_errors"
+        ] += 1
+
+        stats[
+            "hls_errors"
+        ] += 1
+
 
         logger.error(
             "[HLS FAILED / HLS ОШИБКА]"
         )
 
+
         logger.error(
-            f"  • {hls['error']}"
+            f"  {hls['error']}"
         )
+
 
         logger.info(
             "=" * 100
         )
 
+
         return {
-            "stream_number": stream_number,
-            "original_url": original_url,
-            "final_url": target_url,
-            "verified": False,
-            "replaced": replaced,
-            "rule": rule,
-            "error": hls["error"],
+
+            "stream_number":
+                stream_number,
+
+            "original_url":
+                original_url,
+
+            "final_url":
+                target_url,
+
+            "verified":
+                False,
+
+            "replaced":
+                replaced,
+
+            "rule":
+                rule,
+
+            "error":
+                hls["error"],
         }
 
-    logger.info(
-        "  • #EXTM3U: OK"
-    )
 
     logger.info(
-        f"  • Segments / Сегменты: "
+        "  #EXTM3U: OK"
+    )
+
+
+    logger.info(
+        f"  Segments / Сегменты: "
         f"{len(hls['segments'])}"
     )
 
-    # ------------------------------------------------------------------------
-    # SEGMENT CHECK
-    # ------------------------------------------------------------------------
 
-    checked_segments, segment_errors = (
-        verify_segments(
-            hls["segments"],
-            stream_number
-        )
+    # =========================================================================
+    # SEGMENT CHECK
+    # =========================================================================
+
+    (
+        checked_segments,
+        segment_errors
+    ) = verify_segments(
+        hls["segments"],
+        stream_number
     )
 
+
     logger.info(
-        f"  • Checked segments / "
+        f"  Checked segments / "
         f"Проверено сегментов: "
         f"{checked_segments}"
     )
 
+
     logger.info(
-        f"  • Segment errors / "
+        f"  Segment errors / "
         f"Ошибок сегментов: "
         f"{segment_errors}"
     )
 
-    # ------------------------------------------------------------------------
-    # FINAL RESULT
-    # ------------------------------------------------------------------------
+
+    # =========================================================================
+    # SEGMENT FAILURE
+    # =========================================================================
 
     if segment_errors > 0:
 
-        stats["errors"] += 1
-        stats["failed"] += 1
-        stats["verification_errors"] += 1
+        stats[
+            "errors"
+        ] += 1
+
+        stats[
+            "failed"
+        ] += 1
+
+        stats[
+            "verification_errors"
+        ] += 1
+
 
         logger.error(
             "[FAILED / ОШИБКА]"
         )
+
 
         logger.error(
             "HLS playlist exists, "
             "but segment verification failed"
         )
 
+
         logger.info(
             "=" * 100
         )
 
+
         return {
-            "stream_number": stream_number,
-            "original_url": original_url,
-            "final_url": target_url,
-            "verified": False,
-            "replaced": replaced,
-            "rule": rule,
-            "error": "Segment verification failed",
+
+            "stream_number":
+                stream_number,
+
+            "original_url":
+                original_url,
+
+            "final_url":
+                target_url,
+
+            "verified":
+                False,
+
+            "replaced":
+                replaced,
+
+            "rule":
+                rule,
+
+            "error":
+                "Segment verification failed",
         }
 
-    # ------------------------------------------------------------------------
-    # VERIFIED
-    # ------------------------------------------------------------------------
 
-    stats["verified"] += 1
+    # =========================================================================
+    # VERIFIED
+    # =========================================================================
+
+    stats[
+        "verified"
+    ] += 1
+
 
     logger.info(
         "[VERIFIED / ПРОВЕРЕНО]"
     )
 
-    logger.info(
-        "  • HTTP: OK"
-    )
 
     logger.info(
-        "  • HLS: OK"
+        "  HTTP: OK"
     )
 
-    logger.info(
-        "  • Segments: OK"
-    )
 
     logger.info(
-        "  • STATUS: VERIFIED"
+        "  HLS: OK"
     )
 
+
     logger.info(
-        f"  • Total time / Общее время: "
+        "  Segments: OK"
+    )
+
+
+    logger.info(
+        "  STATUS: VERIFIED"
+    )
+
+
+    logger.info(
+        f"  Total time / Общее время: "
         f"{elapsed:.3f} sec"
     )
+
 
     logger.info(
         "=" * 100
     )
 
+
     return {
-        "stream_number": stream_number,
-        "original_url": original_url,
-        "final_url": target_url,
-        "verified": True,
-        "replaced": replaced,
-        "rule": rule,
-        "error": None,
+
+        "stream_number":
+            stream_number,
+
+        "original_url":
+            original_url,
+
+        "final_url":
+            target_url,
+
+        "verified":
+            True,
+
+        "replaced":
+            replaced,
+
+        "rule":
+            rule,
+
+        "error":
+            None,
     }
 
 
@@ -1240,63 +1868,102 @@ def verify_stream(
 # ПАРСИНГ M3U
 # ============================================================================
 
-def parse_m3u_entries(content):
+def parse_m3u_entries(
+    content
+):
 
-    lines = content.splitlines()
+    lines = (
+        content.splitlines()
+    )
 
     entries = []
 
     current_metadata = []
 
+
     for line in lines:
 
         stripped = line.strip()
 
+
         if not stripped:
             continue
 
-        # URL.
+
+        # ---------------------------------------------------------------------
+        # URL
+        # ---------------------------------------------------------------------
+
         if (
             not stripped.startswith("#")
-            and (
+            and
+            (
                 stripped.startswith(
                     "http://"
                 )
-                or stripped.startswith(
+                or
+                stripped.startswith(
                     "https://"
                 )
             )
         ):
 
             entries.append({
-                "metadata": list(
-                    current_metadata
-                ),
-                "url": stripped,
+
+                "metadata":
+                    list(
+                        current_metadata
+                    ),
+
+                "url":
+                    stripped,
             })
+
 
             current_metadata = []
 
+
+        # ---------------------------------------------------------------------
+        # METADATA
+        # ---------------------------------------------------------------------
+
         else:
 
-            # Сохраняем metadata.
-            if stripped.startswith("#EXTINF"):
-                current_metadata.append(line)
+            if stripped.startswith(
+                "#EXTINF"
+            ):
+
+                current_metadata.append(
+                    line
+                )
+
 
             elif stripped.startswith(
                 "#EXTVLCOPT"
             ):
-                current_metadata.append(line)
+
+                current_metadata.append(
+                    line
+                )
+
 
             elif stripped.startswith(
                 "#KODIPROP"
             ):
-                current_metadata.append(line)
+
+                current_metadata.append(
+                    line
+                )
+
 
             elif stripped.startswith(
                 "#EXTGRP"
             ):
-                current_metadata.append(line)
+
+                current_metadata.append(
+                    line
+                )
+
 
     return entries
 
@@ -1311,69 +1978,105 @@ def build_verified_playlist(
     results
 ):
 
-    # Только VERIFIED.
     verified_results = [
+
         result
+
         for result in results
-        if result["verified"]
+
+        if result[
+            "verified"
+        ]
     ]
+
 
     output_lines = [
+
         "#EXTM3U",
+
         "#PLAYLIST:Extra Channels 2026 - Verified",
-        (
-            "# Generated by "
-            "CINERAMA SCALA GRAPH PROCESSOR"
-        ),
-        (
-            "# Status: VERIFIED"
-        ),
+
+        "# Generated by "
+        "CINERAMA SCALA GRAPH PROCESSOR",
+
+        "# Status: VERIFIED",
+
         (
             "# Generated: "
-            f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+            +
+            datetime.now().strftime(
+                "%Y-%m-%d %H:%M:%S"
+            )
         ),
     ]
 
-    # Сопоставление по номеру потока.
+
     result_map = {
-        result["stream_number"]: result
+
+        result[
+            "stream_number"
+        ]:
+        result
+
         for result in results
     }
+
+
+    # =========================================================================
+    # ДОБАВЛЯЕМ ТОЛЬКО VERIFIED
+    # =========================================================================
 
     for index, entry in enumerate(
         entries,
         start=1
     ):
 
-        result = result_map.get(index)
+        result = (
+            result_map.get(
+                index
+            )
+        )
+
 
         if not result:
             continue
 
-        if not result["verified"]:
+
+        if not result[
+            "verified"
+        ]:
             continue
 
+
         # Metadata.
-        for metadata_line in entry[
-            "metadata"
-        ]:
+        for metadata_line in (
+            entry["metadata"]
+        ):
 
             output_lines.append(
                 metadata_line
             )
 
+
         # Проверенный URL.
         output_lines.append(
-            result["final_url"]
+            result[
+                "final_url"
+            ]
         )
 
-    return "\n".join(
-        output_lines
-    ) + "\n"
+
+    return (
+        "\n".join(
+            output_lines
+        )
+        +
+        "\n"
+    )
 
 
 # ============================================================================
-# СОХРАНЕНИЕ
+# СОХРАНЕНИЕ VERIFIED PLAYLIST
 # ============================================================================
 
 def save_verified_playlist(
@@ -1386,249 +2089,373 @@ def save_verified_playlist(
         encoding="utf-8"
     ) as f:
 
-        f.write(content)
+        f.write(
+            content
+        )
+
 
     logger.info("")
+
     logger.info("=" * 100)
+
     logger.info(
         "VERIFIED PLAYLIST CREATED"
     )
+
     logger.info("=" * 100)
 
+
     logger.info(
-        f"Файл / File:\n"
+        "Файл / File:"
+    )
+
+    logger.info(
         f"  {OUTPUT_FILE}"
     )
+
 
     logger.info(
         "Статус / Status: VERIFIED"
     )
+
 
     logger.info(
         f"Размер / Size: "
         f"{len(content.encode('utf-8'))} bytes"
     )
 
+
     logger.info("=" * 100)
 
 
 # ============================================================================
-# ФИНАЛЬНАЯ ДВУЯЗЫЧНАЯ СТАТИСТИКА
+# ФИНАЛЬНАЯ СТАТИСТИКА
 # ============================================================================
 
 def print_final_statistics():
 
     logger.info("")
     logger.info("")
-    logger.info("=" * 100)
+
     logger.info(
-        "ИТОГОВАЯ СТАТИСТИКА / FINAL STATISTICS"
+        "=" * 100
     )
-    logger.info("=" * 100)
+
+    logger.info(
+        "ИТОГОВАЯ СТАТИСТИКА / "
+        "FINAL STATISTICS"
+    )
+
+    logger.info(
+        "=" * 100
+    )
+
 
     # =========================================================================
     # РУССКИЙ
     # =========================================================================
 
     logger.info("")
+
     logger.info(
         "РУССКИЙ / RUSSIAN"
     )
+
     logger.info("")
+
 
     logger.info(
         f"Всего потоков:        "
         f"{stats['total_streams']}"
     )
 
+
     logger.info(
         f"Проверено:             "
         f"{stats['checked']}"
     )
+
 
     logger.info(
         f"Ответили:              "
         f"{stats['responded']}"
     )
 
+
     logger.info(
         f"Ошибок:                "
         f"{stats['errors']}"
     )
+
 
     logger.info(
         f"Заменено stream8:       "
         f"{stats['stream8_replaced']}"
     )
 
+
     logger.info(
         f"stream1 без замены:    "
         f"{stats['stream1_unchanged']}"
     )
+
 
     logger.info(
         f"Ошибок проверки:       "
         f"{stats['verification_errors']}"
     )
 
+
     # =========================================================================
-    # АНГЛИЙСКИЙ
+    # ENGLISH
     # =========================================================================
 
     logger.info("")
+
     logger.info(
         "АНГЛИЙСКИЙ / ENGLISH"
     )
+
     logger.info("")
+
 
     logger.info(
         f"Total streams:         "
         f"{stats['total_streams']}"
     )
 
+
     logger.info(
         f"Checked:                "
         f"{stats['checked']}"
     )
+
 
     logger.info(
         f"Responded:              "
         f"{stats['responded']}"
     )
 
+
     logger.info(
         f"Errors:                 "
         f"{stats['errors']}"
     )
+
 
     logger.info(
         f"stream8 replaced:       "
         f"{stats['stream8_replaced']}"
     )
 
+
     logger.info(
         f"stream1 unchanged:      "
         f"{stats['stream1_unchanged']}"
     )
+
 
     logger.info(
         f"Verification errors:    "
         f"{stats['verification_errors']}"
     )
 
+
     # =========================================================================
-    # ДОПОЛНИТЕЛЬНАЯ ТЕХНИЧЕСКАЯ СТАТИСТИКА
+    # ДОПОЛНИТЕЛЬНАЯ СТАТИСТИКА
     # =========================================================================
 
     logger.info("")
+
     logger.info(
         "ДОПОЛНИТЕЛЬНО / ADDITIONAL"
     )
+
     logger.info("")
+
 
     logger.info(
         f"VERIFIED:               "
         f"{stats['verified']}"
     )
 
+
     logger.info(
         f"FAILED:                 "
         f"{stats['failed']}"
     )
+
 
     logger.info(
         f"HTTP errors:            "
         f"{stats['http_errors']}"
     )
 
+
     logger.info(
         f"Timeouts:               "
         f"{stats['timeouts']}"
     )
+
 
     logger.info(
         f"Connection errors:      "
         f"{stats['connection_errors']}"
     )
 
+
     logger.info(
         f"HLS errors:             "
         f"{stats['hls_errors']}"
     )
+
 
     logger.info(
         f"Segments checked:       "
         f"{stats['segments_checked']}"
     )
 
+
     logger.info(
         f"Segment errors:         "
         f"{stats['segment_errors']}"
     )
+
 
     # =========================================================================
     # VERIFIED PLAYLIST
     # =========================================================================
 
     logger.info("")
-    logger.info("=" * 100)
+
+    logger.info(
+        "=" * 100
+    )
+
     logger.info(
         "VERIFIED PLAYLIST"
     )
-    logger.info("=" * 100)
 
     logger.info(
-        f"Output / Результат:\n"
+        "=" * 100
+    )
+
+
+    logger.info(
+        "Output / Результат:"
+    )
+
+    logger.info(
         f"  {OUTPUT_FILE}"
     )
+
 
     logger.info(
         "Status / Статус: VERIFIED"
     )
 
-    logger.info("=" * 100)
+
+    logger.info(
+        "=" * 100
+    )
 
 
 # ============================================================================
-# ОСНОВНАЯ ФУНКЦИЯ
+# MAIN
 # ============================================================================
 
 def main():
 
     reset_statistics()
 
-    input_file = get_input_file()
+
+    # =========================================================================
+    # INPUT
+    # =========================================================================
+
+    input_file = (
+        get_input_file()
+    )
+
 
     logger.info("")
-    logger.info("#" * 100)
+
+    logger.info(
+        "#" * 100
+    )
+
     logger.info(
         "CINERAMA SCALA GRAPH PROCESSOR"
     )
+
     logger.info(
         "REAL NETWORK / HLS VERIFICATOR"
     )
+
     logger.info(
-        "Расширенная проверка / Extended verification"
+        "РАСШИРЕННАЯ ПРОВЕРКА / "
+        "EXTENDED VERIFICATION"
     )
+
+    logger.info("")
+
     logger.info(
-        f"Input:  {input_file}"
+        "SOURCE BRANCH / ВЕТКА ИСТОЧНИКА:"
     )
+
     logger.info(
-        f"Output: {OUTPUT_FILE}"
+        "  gh-pages"
     )
+
+    logger.info("")
+
     logger.info(
-        f"Log:    {LOG_FILE}"
+        "SOURCE FILE / ИСХОДНЫЙ ФАЙЛ:"
     )
+
+    logger.info(
+        f"  {input_file}"
+    )
+
+    logger.info("")
+
+    logger.info(
+        "OUTPUT FILE / ВЫХОДНОЙ ФАЙЛ:"
+    )
+
+    logger.info(
+        f"  {OUTPUT_FILE}"
+    )
+
+    logger.info("")
+
+    logger.info(
+        "LOG FILE / ФАЙЛ ЛОГА:"
+    )
+
+    logger.info(
+        f"  {LOG_FILE}"
+    )
+
+    logger.info("")
+
     logger.info(
         f"Workers: {MAX_WORKERS}"
     )
+
     logger.info(
         f"HTTP timeout: {HTTP_TIMEOUT}s"
     )
+
     logger.info(
-        f"Segment checks: {SEGMENT_CHECK_COUNT}"
+        f"Segment checks: "
+        f"{SEGMENT_CHECK_COUNT}"
     )
-    logger.info("#" * 100)
+
+    logger.info(
+        "#" * 100
+    )
+
 
     # =========================================================================
     # ЗАГРУЗКА
@@ -1638,70 +2465,105 @@ def main():
         input_file
     )
 
+
     # =========================================================================
     # ПАРСИНГ
     # =========================================================================
 
-    entries = parse_m3u_entries(
-        content
+    entries = (
+        parse_m3u_entries(
+            content
+        )
     )
 
-    stats["total_streams"] = len(
-        entries
-    )
+
+    stats[
+        "total_streams"
+    ] = len(entries)
+
 
     logger.info("")
-    logger.info("=" * 100)
+
+    logger.info(
+        "=" * 100
+    )
+
     logger.info(
         "РАЗБОР M3U / M3U PARSING"
     )
-    logger.info("=" * 100)
 
     logger.info(
-        f"Найдено потоков / Streams found: "
+        "=" * 100
+    )
+
+
+    logger.info(
+        f"Найдено потоков / "
+        f"Streams found: "
         f"{stats['total_streams']}"
     )
+
 
     if not entries:
 
         logger.warning(
-            "Потоки не найдены / No streams found"
+            "Потоки не найдены / "
+            "No streams found"
         )
 
-        # Создаём пустой verified playlist.
+
         verified_playlist = (
             "#EXTM3U\n"
             "#PLAYLIST:Extra Channels 2026 - Verified\n"
             "# Status: VERIFIED\n"
         )
 
+
         save_verified_playlist(
             verified_playlist
         )
 
+
         print_final_statistics()
+
 
         return 0
 
+
     # =========================================================================
-    # ПАРАЛЛЕЛЬНАЯ ПРОВЕРКА
+    # NETWORK VERIFICATION
     # =========================================================================
 
     logger.info("")
-    logger.info("=" * 100)
+
+    logger.info(
+        "=" * 100
+    )
+
     logger.info(
         "НАЧАЛО СЕТЕВОЙ ПРОВЕРКИ / "
         "START NETWORK VERIFICATION"
     )
-    logger.info("=" * 100)
+
+    logger.info(
+        "=" * 100
+    )
+
 
     results = []
+
 
     with ThreadPoolExecutor(
         max_workers=MAX_WORKERS
     ) as executor:
 
+
         future_map = {}
+
+
+        # ---------------------------------------------------------------------
+        # ЗАПУСК ВСЕХ ПОТОКОВ
+        # ---------------------------------------------------------------------
 
         for stream_number, entry in enumerate(
             entries,
@@ -1714,31 +2576,57 @@ def main():
                 entry["url"]
             )
 
+
             future_map[
                 future
             ] = stream_number
+
+
+        # ---------------------------------------------------------------------
+        # ПОЛУЧЕНИЕ РЕЗУЛЬТАТОВ
+        # ---------------------------------------------------------------------
 
         for future in as_completed(
             future_map
         ):
 
-            stream_number = future_map[
-                future
-            ]
+            stream_number = (
+                future_map[
+                    future
+                ]
+            )
+
 
             try:
 
-                result = future.result()
+                result = (
+                    future.result()
+                )
+
 
                 results.append(
                     result
                 )
 
+
             except Exception as exc:
 
-                stats["errors"] += 1
-                stats["failed"] += 1
-                stats["verification_errors"] += 1
+                stats[
+                    "errors"
+                ] += 1
+
+                stats[
+                    "failed"
+                ] += 1
+
+                stats[
+                    "verification_errors"
+                ] += 1
+
+                stats[
+                    "unknown_errors"
+                ] += 1
+
 
                 logger.exception(
                     f"[STREAM #{stream_number}] "
@@ -1747,46 +2635,67 @@ def main():
                     f"{exc}"
                 )
 
-                # Чтобы результат оставался
-                # структурно полным.
+
                 results.append({
-                    "stream_number": stream_number,
-                    "original_url": (
+
+                    "stream_number":
+                        stream_number,
+
+                    "original_url":
                         entries[
                             stream_number - 1
-                        ]["url"]
-                    ),
-                    "final_url": (
+                        ]["url"],
+
+                    "final_url":
                         entries[
                             stream_number - 1
-                        ]["url"]
-                    ),
-                    "verified": False,
-                    "replaced": False,
-                    "rule": None,
-                    "error": str(exc),
+                        ]["url"],
+
+                    "verified":
+                        False,
+
+                    "replaced":
+                        False,
+
+                    "rule":
+                        None,
+
+                    "error":
+                        str(exc),
                 })
 
+
     # =========================================================================
-    # СОРТИРОВКА РЕЗУЛЬТАТОВ
+    # СОРТИРОВКА
     # =========================================================================
 
     results.sort(
         key=lambda item:
-        item["stream_number"]
+        item[
+            "stream_number"
+        ]
     )
 
+
     # =========================================================================
-    # ФОРМИРОВАНИЕ VERIFIED M3U
+    # VERIFIED M3U
     # =========================================================================
 
     logger.info("")
-    logger.info("=" * 100)
+
+    logger.info(
+        "=" * 100
+    )
+
     logger.info(
         "ФОРМИРОВАНИЕ VERIFIED M3U / "
         "BUILDING VERIFIED M3U"
     )
-    logger.info("=" * 100)
+
+    logger.info(
+        "=" * 100
+    )
+
 
     verified_playlist = (
         build_verified_playlist(
@@ -1796,32 +2705,69 @@ def main():
         )
     )
 
+
     save_verified_playlist(
         verified_playlist
     )
 
+
     # =========================================================================
-    # СТАТИСТИКА
+    # ФИНАЛЬНАЯ СТАТИСТИКА
     # =========================================================================
 
     print_final_statistics()
 
+
     logger.info("")
+
     logger.info(
-        f"Лог / Log:\n"
+        "Лог / Log:"
+    )
+
+    logger.info(
         f"  {LOG_FILE}"
     )
 
+
     logger.info(
-        f"Плейлист / Playlist:\n"
+        "Verified playlist / "
+        "Проверенный плейлист:"
+    )
+
+    logger.info(
         f"  {OUTPUT_FILE}"
     )
 
+
     logger.info("")
+
+    logger.info(
+        "ИСТОЧНИК / SOURCE:"
+    )
+
+    logger.info(
+        "  gh-pages/"
+        f"{input_file}"
+    )
+
+
+    logger.info(
+        "РЕЗУЛЬТАТ / RESULT:"
+    )
+
+    logger.info(
+        "  gh-pages-2/"
+        f"{OUTPUT_FILE}"
+    )
+
+
+    logger.info("")
+
     logger.info(
         "ОБРАБОТКА ЗАВЕРШЕНА / "
         "PROCESSING COMPLETED"
     )
+
 
     return 0
 
@@ -1840,20 +2786,20 @@ if __name__ == "__main__":
             exit_code
         )
 
+
     except KeyboardInterrupt:
 
         logger.warning(
-            ""
             "ОБРАБОТКА ПРЕРВАНА ПОЛЬЗОВАТЕЛЕМ / "
             "PROCESSING INTERRUPTED BY USER"
         )
 
         sys.exit(130)
 
+
     except Exception as exc:
 
         logger.exception(
-            ""
             "КРИТИЧЕСКАЯ ОШИБКА / "
             "CRITICAL ERROR:\n"
             f"{exc}"
