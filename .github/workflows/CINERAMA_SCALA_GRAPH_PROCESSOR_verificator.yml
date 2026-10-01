@@ -2,6 +2,7 @@ name: Cinerama Scala Graph Processor Verificator
 
 on:
   workflow_dispatch:
+
   schedule:
     - cron: "0 3 * * *"
 
@@ -17,10 +18,16 @@ jobs:
   cinerama-verification:
 
     name: Cinerama HLS Verification
+
     runs-on: ubuntu-latest
+
     timeout-minutes: 120
 
     steps:
+
+      # ============================================================
+      # 1. CHECKOUT MAIN
+      # ============================================================
 
       - name: Checkout main
         uses: actions/checkout@v4
@@ -29,149 +36,506 @@ jobs:
           fetch-depth: 0
           persist-credentials: true
 
+
+      # ============================================================
+      # 2. SETUP PYTHON
+      # ============================================================
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
 
+
+      # ============================================================
+      # 3. DOWNLOAD CINERAMA PYTHON VERIFIER
+      # ============================================================
+
       - name: Download Cinerama verifier
         shell: bash
         run: |
-          set +e
+          set -e
+
+          echo "============================================================"
           echo "DOWNLOAD CINERAMA VERIFIER"
+          echo "============================================================"
 
           PYTHON_URL="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py"
 
-          curl --fail --location "$PYTHON_URL" -o CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py
-          if [ $? -ne 0 ]; then
-            echo "WARNING: Python verifier not downloaded."
-          else
-            python3 -m py_compile CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py
-            echo "Python syntax OK"
-          fi
+          echo "Python source:"
+          echo "$PYTHON_URL"
 
-      - name: Download source M3U
+          curl \
+            --fail \
+            --location \
+            --retry 5 \
+            --retry-delay 3 \
+            --connect-timeout 20 \
+            --max-time 120 \
+            "$PYTHON_URL" \
+            -o CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py
+
+          echo
+          echo "Downloaded Python:"
+          ls -lh CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py
+
+          echo
+          echo "Python syntax check:"
+
+          python3 -m py_compile \
+            CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py
+
+          echo "Python syntax: OK"
+
+
+      # ============================================================
+      # 4. DOWNLOAD SOURCE M3U FROM GH-PAGES
+      #
+      # ИСПОЛЬЗУЕТСЯ ЖЁСТКАЯ ПРОВЕРЕННАЯ ССЫЛКА.
+      #
+      # НЕ ИСПОЛЬЗУЕМ:
+      # ${GITHUB_REPOSITORY}
+      #
+      # ПОТОМУ ЧТО WORKFLOW МОЖЕТ НАХОДИТЬСЯ В ДРУГОМ
+      # РЕПОЗИТОРИИ.
+      # ============================================================
+
+      - name: Download source M3U from gh-pages
         shell: bash
         run: |
-          set +e
-          echo "DOWNLOAD SOURCE M3U"
+          set -e
+
+          echo "============================================================"
+          echo "DOWNLOAD SOURCE M3U FROM GH-PAGES"
+          echo "============================================================"
 
           SOURCE_URL="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/gh-pages/Extra_channels2026.m3u"
 
-          curl --fail --location "$SOURCE_URL" -o Extra_channels2026.m3u
-          if [ $? -ne 0 ]; then
-            echo "WARNING: M3U not downloaded."
-          else
-            echo "M3U header:"
-            head -n 5 Extra_channels2026.m3u
-          fi
+          echo "Source:"
+          echo "$SOURCE_URL"
+
+          curl \
+            --fail \
+            --location \
+            --retry 5 \
+            --retry-delay 3 \
+            --connect-timeout 20 \
+            --max-time 180 \
+            "$SOURCE_URL" \
+            -o Extra_channels2026.m3u
+
+          echo
+          echo "Downloaded source playlist:"
+          ls -lh Extra_channels2026.m3u
+
+          echo
+          echo "M3U header:"
+          head -n 5 Extra_channels2026.m3u
+
+          echo
+          echo "HTTP/HTTPS URLs found:"
+
+          grep -cE '^https?://' \
+            Extra_channels2026.m3u \
+            || true
+
+
+      # ============================================================
+      # 5. VALIDATE SOURCE M3U
+      # ============================================================
 
       - name: Validate source M3U
         shell: bash
         run: |
-          set +e
+          set -e
+
+          echo "============================================================"
           echo "VALIDATE SOURCE M3U"
+          echo "============================================================"
 
           if [ ! -s Extra_channels2026.m3u ]; then
-            echo "WARNING: M3U empty or missing."
+            echo "ERROR: Extra_channels2026.m3u is empty."
+            exit 1
           fi
 
-          if ! grep -q '^#EXTM3U' Extra_channels2026.m3u 2>/dev/null; then
-            echo "WARNING: #EXTM3U missing."
+          if ! grep -q '^#EXTM3U' Extra_channels2026.m3u; then
+            echo "ERROR: Source file does not contain #EXTM3U."
+            exit 1
           fi
 
-          URL_COUNT=$(grep -cE '^https?://' Extra_channels2026.m3u 2>/dev/null || echo 0)
-          echo "URL count: $URL_COUNT"
+          URL_COUNT=$(
+            grep -cE '^https?://' \
+            Extra_channels2026.m3u \
+            || true
+          )
+
+          echo
+          echo "Source URL count:"
+          echo "$URL_COUNT"
+
+          if [ "$URL_COUNT" -eq 0 ]; then
+            echo "ERROR: No HTTP/HTTPS URLs found."
+            exit 1
+          fi
+
+          echo
+          echo "Source M3U validation: OK"
+
+
+      # ============================================================
+      # 6. VALIDATE CINERAMA VERIFIER
+      # ============================================================
 
       - name: Validate verifier mode
         shell: bash
         run: |
-          set +e
-          echo "VALIDATE VERIFIER"
+          set -e
 
-          for CHECK in sample_m3u INPUT_PLAYLIST SEGMENT_CHECK_COUNT stream8.cinerama.uz stream1.cinerama.uz; do
-            if ! grep -q "$CHECK" CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py 2>/dev/null; then
-              echo "WARNING: Missing $CHECK"
-            else
-              echo "OK: $CHECK"
-            fi
-          done
+          echo "============================================================"
+          echo "VALIDATE CINERAMA VERIFIER"
+          echo "============================================================"
+
+          if grep -q "sample_m3u" \
+            CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py; then
+
+            echo "ERROR:"
+            echo "Downloaded verifier still contains sample_m3u."
+            echo "Real playlist processing is required."
+
+            exit 1
+          fi
+
+          if ! grep -q "INPUT_PLAYLIST" \
+            CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py; then
+
+            echo "ERROR:"
+            echo "INPUT_PLAYLIST was not found."
+
+            exit 1
+          fi
+
+          if ! grep -q "SEGMENT_CHECK_COUNT" \
+            CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py; then
+
+            echo "ERROR:"
+            echo "HLS segment verification was not found."
+
+            exit 1
+          fi
+
+          if ! grep -q "stream8.cinerama.uz" \
+            CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py; then
+
+            echo "ERROR:"
+            echo "Cinerama stream8 replacement rule was not found."
+
+            exit 1
+          fi
+
+          if ! grep -q "stream1.cinerama.uz" \
+            CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py; then
+
+            echo "ERROR:"
+            echo "Cinerama stream1 replacement target was not found."
+
+            exit 1
+          fi
+
+          echo
+          echo "Verifier validation: OK"
+
+
+      # ============================================================
+      # 7. RUN CINERAMA HLS VERIFICATION
+      # ============================================================
 
       - name: Run Cinerama verifier
         shell: bash
         run: |
-          set +e
-          echo "RUN VERIFIER"
+          set -o pipefail
 
-          python3 CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py Extra_channels2026.m3u
-          echo "Verifier executed (errors ignored)."
+          echo "============================================================"
+          echo "RUN CINERAMA HLS VERIFICATION"
+          echo "============================================================"
+
+          python3 \
+            CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py \
+            Extra_channels2026.m3u
+
+
+      # ============================================================
+      # 8. VALIDATE GENERATED FILES
+      # ============================================================
 
       - name: Validate generated files
         shell: bash
         run: |
-          set +e
+          set -e
+
+          echo "============================================================"
           echo "VALIDATE GENERATED FILES"
+          echo "============================================================"
 
           if [ ! -f playlist_log.txt ]; then
-            echo "WARNING: playlist_log.txt missing."
+            echo "ERROR: playlist_log.txt was not generated."
+            exit 1
           fi
 
           if [ ! -f Extra_channels2026_verified.m3u ]; then
-            echo "WARNING: verified playlist missing."
+            echo "ERROR: Extra_channels2026_verified.m3u was not generated."
+            exit 1
           fi
+
+          echo
+          echo "Verification log:"
+          ls -lh playlist_log.txt
+
+          echo
+          echo "Verified playlist:"
+          ls -lh Extra_channels2026_verified.m3u
+
+          echo
+          echo "Verified playlist header:"
+          head -n 10 Extra_channels2026_verified.m3u
+
+          VERIFIED_COUNT=$(
+            grep -cE '^https?://' \
+            Extra_channels2026_verified.m3u \
+            || true
+          )
+
+          echo
+          echo "Verified playlist URL count:"
+          echo "$VERIFIED_COUNT"
+
+          if [ "$VERIFIED_COUNT" -eq 0 ]; then
+            echo "ERROR: Verified playlist contains no URLs."
+            exit 1
+          fi
+
+
+      # ============================================================
+      # 9. SHOW FINAL STATISTICS
+      # ============================================================
 
       - name: Show final statistics
         shell: bash
         run: |
-          set +e
-          echo "FINAL STATISTICS"
-          grep -A 100 "ИТОГОВАЯ СТАТИСТИКА" playlist_log.txt 2>/dev/null || echo "No statistics."
+          echo "============================================================"
+          echo "FINAL VERIFICATION STATISTICS"
+          echo "============================================================"
+
+          grep \
+            -A 100 \
+            "ИТОГОВАЯ СТАТИСТИКА / FINAL STATISTICS" \
+            playlist_log.txt \
+            || true
+
+
+      # ============================================================
+      # 10. COMMIT VERIFICATION LOG TO MAIN
+      # ============================================================
 
       - name: Commit verification log to main
         shell: bash
         run: |
-          set +e
-          echo "COMMIT LOG"
+          set -e
 
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          echo "============================================================"
+          echo "COMMIT VERIFICATION LOG TO MAIN"
+          echo "============================================================"
+
+          git config \
+            user.name \
+            "github-actions[bot]"
+
+          git config \
+            user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add playlist_log.txt
-          git commit -m "Update log" 2>/dev/null
-          git push origin HEAD:main 2>/dev/null || echo "WARNING: push failed."
+
+          if git diff --cached --quiet; then
+
+            echo "playlist_log.txt has no changes."
+
+          else
+
+            git commit \
+              -m "Update Cinerama verification log"
+
+            git push \
+              origin \
+              HEAD:main
+
+          fi
+
+
+      # ============================================================
+      # 11. PREPARE GH-PAGES-2
+      # ============================================================
 
       - name: Prepare gh-pages-2
         shell: bash
         run: |
-          set +e
+          set -e
+
+          echo "============================================================"
           echo "PREPARE GH-PAGES-2"
+          echo "============================================================"
 
-          git fetch origin gh-pages-2 2>/dev/null
-          git worktree add gh-pages-2 origin/gh-pages-2 2>/dev/null || git worktree add --detach gh-pages-2
+          if git ls-remote \
+            --exit-code \
+            --heads \
+            origin \
+            gh-pages-2 \
+            >/dev/null 2>&1; then
 
-      - name: Publish verified playlist
+            echo "Branch gh-pages-2 exists."
+
+            git fetch \
+              origin \
+              gh-pages-2
+
+            git worktree add \
+              gh-pages-2 \
+              origin/gh-pages-2
+
+          else
+
+            echo "Branch gh-pages-2 does not exist."
+            echo "Creating orphan branch."
+
+            git worktree add \
+              --detach \
+              gh-pages-2
+
+            cd gh-pages-2
+
+            git switch \
+              --orphan \
+              gh-pages-2
+
+            git rm \
+              -rf \
+              . \
+              2>/dev/null \
+              || true
+
+            find . \
+              -mindepth 1 \
+              -maxdepth 1 \
+              -exec rm -rf {} +
+
+          fi
+
+
+      # ============================================================
+      # 12. PUBLISH VERIFIED PLAYLIST TO GH-PAGES-2
+      # ============================================================
+
+      - name: Publish verified playlist to gh-pages-2
         shell: bash
         run: |
-          set +e
+          set -e
+
+          echo "============================================================"
           echo "PUBLISH VERIFIED PLAYLIST"
+          echo "============================================================"
 
-          cp Extra_channels2026_verified.m3u gh-pages-2/Extra_channels2026_verified.m3u 2>/dev/null || echo "WARNING: copy failed."
+          cp \
+            Extra_channels2026_verified.m3u \
+            gh-pages-2/Extra_channels2026_verified.m3u
 
-      - name: Commit verified playlist
+          echo
+          echo "Published file:"
+          ls -lh \
+            gh-pages-2/Extra_channels2026_verified.m3u
+
+          echo
+          echo "Published playlist header:"
+          head -n 10 \
+            gh-pages-2/Extra_channels2026_verified.m3u
+
+
+      # ============================================================
+      # 13. COMMIT VERIFIED PLAYLIST TO GH-PAGES-2
+      # ============================================================
+
+      - name: Commit verified playlist to gh-pages-2
         shell: bash
         run: |
-          set +e
-          echo "COMMIT VERIFIED PLAYLIST"
+          set -e
+
+          echo "============================================================"
+          echo "COMMIT VERIFIED PLAYLIST TO GH-PAGES-2"
+          echo "============================================================"
 
           cd gh-pages-2
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add Extra_channels2026_verified.m3u
-          git commit -m "Update verified playlist" 2>/dev/null
-          git push origin HEAD:gh-pages-2 2>/dev/null || echo "WARNING: push failed."
+          git config \
+            user.name \
+            "github-actions[bot]"
+
+          git config \
+            user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add \
+            Extra_channels2026_verified.m3u
+
+          if git diff --cached --quiet; then
+
+            echo "Verified playlist has no changes."
+
+          else
+
+            git commit \
+              -m "Update verified Cinerama playlist"
+
+            git push \
+              origin \
+              HEAD:gh-pages-2
+
+          fi
+
+
+      # ============================================================
+      # 14. FINAL RESULT
+      # ============================================================
 
       - name: Final result
         shell: bash
         run: |
-          echo "CINERAMA PROCESSING COMPLETED (NO FAILS)"
+          echo
+          echo "============================================================"
+          echo "CINERAMA PROCESSING COMPLETED"
+          echo "============================================================"
+
+          echo
+          echo "SOURCE M3U:"
+          echo "https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/gh-pages/Extra_channels2026.m3u"
+
+          echo
+          echo "PYTHON VERIFIER:"
+          echo "https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py"
+
+          echo
+          echo "VERIFICATION LOG:"
+          echo "main/playlist_log.txt"
+
+          echo
+          echo "VERIFIED PLAYLIST:"
+          echo "gh-pages-2/Extra_channels2026_verified.m3u"
+
+          echo
+          echo "============================================================"
+          echo "SOURCE:"
+          echo "IpTV_playlist_2026Ru / gh-pages"
+          echo
+          echo "PROCESSOR:"
+          echo "IpTV_playlist_2026Ru / main"
+          echo
+          echo "RESULT:"
+          echo "gh-pages-2"
+          echo "============================================================"
