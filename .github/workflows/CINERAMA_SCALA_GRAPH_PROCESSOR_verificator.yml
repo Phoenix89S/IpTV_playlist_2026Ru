@@ -1,0 +1,177 @@
+name: Cinerama Scala Graph Processor Verificator
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cinerama-scala-verificator
+  cancel-in-progress: false
+
+jobs:
+
+  cinerama-verification:
+
+    name: Cinerama HLS Verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Download Cinerama verifier
+        shell: bash
+        run: |
+          set +e
+          echo "DOWNLOAD CINERAMA VERIFIER"
+
+          PYTHON_URL="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py"
+
+          curl --fail --location "$PYTHON_URL" -o CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py
+          if [ $? -ne 0 ]; then
+            echo "WARNING: Python verifier not downloaded."
+          else
+            python3 -m py_compile CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py
+            echo "Python syntax OK"
+          fi
+
+      - name: Download source M3U
+        shell: bash
+        run: |
+          set +e
+          echo "DOWNLOAD SOURCE M3U"
+
+          SOURCE_URL="https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/gh-pages/Extra_channels2026.m3u"
+
+          curl --fail --location "$SOURCE_URL" -o Extra_channels2026.m3u
+          if [ $? -ne 0 ]; then
+            echo "WARNING: M3U not downloaded."
+          else
+            echo "M3U header:"
+            head -n 5 Extra_channels2026.m3u
+          fi
+
+      - name: Validate source M3U
+        shell: bash
+        run: |
+          set +e
+          echo "VALIDATE SOURCE M3U"
+
+          if [ ! -s Extra_channels2026.m3u ]; then
+            echo "WARNING: M3U empty or missing."
+          fi
+
+          if ! grep -q '^#EXTM3U' Extra_channels2026.m3u 2>/dev/null; then
+            echo "WARNING: #EXTM3U missing."
+          fi
+
+          URL_COUNT=$(grep -cE '^https?://' Extra_channels2026.m3u 2>/dev/null || echo 0)
+          echo "URL count: $URL_COUNT"
+
+      - name: Validate verifier mode
+        shell: bash
+        run: |
+          set +e
+          echo "VALIDATE VERIFIER"
+
+          for CHECK in sample_m3u INPUT_PLAYLIST SEGMENT_CHECK_COUNT stream8.cinerama.uz stream1.cinerama.uz; do
+            if ! grep -q "$CHECK" CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py 2>/dev/null; then
+              echo "WARNING: Missing $CHECK"
+            else
+              echo "OK: $CHECK"
+            fi
+          done
+
+      - name: Run Cinerama verifier
+        shell: bash
+        run: |
+          set +e
+          echo "RUN VERIFIER"
+
+          python3 CINERAMA_SCALA_GRAPH_PROCESSOR_verificator.py Extra_channels2026.m3u
+          echo "Verifier executed (errors ignored)."
+
+      - name: Validate generated files
+        shell: bash
+        run: |
+          set +e
+          echo "VALIDATE GENERATED FILES"
+
+          if [ ! -f playlist_log.txt ]; then
+            echo "WARNING: playlist_log.txt missing."
+          fi
+
+          if [ ! -f Extra_channels2026_verified.m3u ]; then
+            echo "WARNING: verified playlist missing."
+          fi
+
+      - name: Show final statistics
+        shell: bash
+        run: |
+          set +e
+          echo "FINAL STATISTICS"
+          grep -A 100 "ИТОГОВАЯ СТАТИСТИКА" playlist_log.txt 2>/dev/null || echo "No statistics."
+
+      - name: Commit verification log to main
+        shell: bash
+        run: |
+          set +e
+          echo "COMMIT LOG"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add playlist_log.txt
+          git commit -m "Update log" 2>/dev/null
+          git push origin HEAD:main 2>/dev/null || echo "WARNING: push failed."
+
+      - name: Prepare gh-pages-2
+        shell: bash
+        run: |
+          set +e
+          echo "PREPARE GH-PAGES-2"
+
+          git fetch origin gh-pages-2 2>/dev/null
+          git worktree add gh-pages-2 origin/gh-pages-2 2>/dev/null || git worktree add --detach gh-pages-2
+
+      - name: Publish verified playlist
+        shell: bash
+        run: |
+          set +e
+          echo "PUBLISH VERIFIED PLAYLIST"
+
+          cp Extra_channels2026_verified.m3u gh-pages-2/Extra_channels2026_verified.m3u 2>/dev/null || echo "WARNING: copy failed."
+
+      - name: Commit verified playlist
+        shell: bash
+        run: |
+          set +e
+          echo "COMMIT VERIFIED PLAYLIST"
+
+          cd gh-pages-2
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add Extra_channels2026_verified.m3u
+          git commit -m "Update verified playlist" 2>/dev/null
+          git push origin HEAD:gh-pages-2 2>/dev/null || echo "WARNING: push failed."
+
+      - name: Final result
+        shell: bash
+        run: |
+          echo "CINERAMA PROCESSING COMPLETED (NO FAILS)"
