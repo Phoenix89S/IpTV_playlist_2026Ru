@@ -50,17 +50,17 @@ https://vod.tuva.ru/nauka2/index.m3u8
 #EXTINF:-1, Победа
 https://cdn4.skygo.mn/live/disk1/Pobeda/HLSv3-FTA/Pobeda.m3u8
 #EXTINF:-1, National Geographic
-https://stream8.cinerama.uz/1041/tracks-v1a1/mono.m3u8
+https://stream1.cinerama.uz/1041/tracks-v1a1/mono.m3u8
 #EXTINF:-1, Живая Планета
 https://stream8.cinerama.uz/1250/tracks-v1a1/mono.m3u8
 #EXTINF:-1, Моя Планета
 http://vod.tuva.ru/myplanet/index.m3u8
 #EXTINF:-1, Техно 24
-https://stream8.cinerama.uz/1037/tracks-v1a1/mono.m3u8
+https://stream1.cinerama.uz/1037/tracks-v1a1/mono.m3u8
 #EXTINF:-1, Доктор
 http://45.11.139.43:8555/doctor/index.m3u8
 #EXTINF:-1, Домашние Животные
-https://stream8.cinerama.uz/1426/tracks-v1a1/mono.m3u8
+https://stream1.cinerama.uz/1426/tracks-v1a1/mono.m3u8
 #EXTINF:-1, Просвещение
 http://cdn-01.bonus-tv.ru/prosveschenie_edge/playlist.m3u8
 #EXTINF:-1, Просвещение
@@ -70,7 +70,7 @@ https://bl.rutube.ru/livestream/5fa486bf465c8735fff9f41b372610cc/index.m3u8?s=-O
 #EXTINF:-1, Discovery HD
 http://5.188.159.128:8070/DiscoveryChannel/index.m3u8
 #EXTINF:-1, Nat Geo Wild
-https://stream8.cinerama.uz/1042/tracks-v1a1/mono.m3u8
+https://stream1.cinerama.uz/1042/tracks-v1a1/mono.m3u8
 #EXTINF:-1, Ugra Travel
 http://rt-ural-sur-htlive.cdn.ngenix.net/hls/CH_R04_OTT_UGRA_TRAVEL/variant.m3u8
 #EXTINF:-1, Неизвестная Планета
@@ -82,13 +82,13 @@ http://rt-vlg-orb-htlive.cdn.ngenix.net/hls/CH_R03_ORTPLANET/variant.m3u8
 #EXTINF:-1, Оружие
 http://31.210.208.171:8080/oruzhie/index.m3u8?token=+W2MSER
 #EXTINF:-1, Усадьба
-https://stream8.cinerama.uz/1427/tracks-v1a1/mono.m3u8
+https://stream1.cinerama.uz/1427/tracks-v1a1/mono.m3u8
 #EXTINF:-1, Оружие
 http://194.158.222.36:6093/
 #EXTINF:-1, Discovery Channel HD
-https://stream8.cinerama.uz/1039/tracks-v1a1/mono.m3u8
+https://stream1.cinerama.uz/1039/tracks-v1a1/mono.m3u8
 #EXTINF:-1, Загородный
-https://stream8.cinerama.uz/1044/tracks-v1a1/mono.m3u8
+https://stream1.cinerama.uz/1044/tracks-v1a1/mono.m3u8
 #EXTINF:-1, История
 http://31.210.208.171:8080/istoriya/index.m3u8?token=+W2MSER
 #EXTINF:-1, Живая Планета
@@ -116,4 +116,4 @@ http://iptv.mega.net.ru:8888/Usad_ba_TV/index.m3u8
 #EXTINF:-1, Моя Планета
 http://iptv.mega.net.ru:8888/Moa_Planeta/index.m3u8
 #EXTINF:-1, Загородный
-https://stream8.cinerama.uz/1044/index.m3u8
+https://stream1.cinerama.uz/1044/index.m3u8
