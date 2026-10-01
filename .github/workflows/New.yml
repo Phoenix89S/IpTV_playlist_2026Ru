@@ -1,0 +1,29 @@
+name: Run new.py
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - gh-pages-3
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Download new.py
+        run: |
+          curl -L -o new.py https://raw.githubusercontent.com/Phoenix89S/IpTV_playlist_2026Ru/main/new.py
+
+      - name: Run new.py
+        run: |
+          python3 new.py
