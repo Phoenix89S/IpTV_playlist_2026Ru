@@ -1,0 +1,81 @@
+name: Update CINERAMA Verified Playlist
+
+on:
+  schedule:
+    # Запуск каждый день в 03:00 по UTC
+    - cron: '0 3 * * *'
+  workflow_dispatch: # Возможность ручного запуска
+  push:
+    # Дополнительно запускать при изменении самого скрипта
+    paths:
+      - 'Verified_channels.py'
+      - '.github/workflows/update-playlist.yml'
+
+permissions:
+  contents: write # Необходимо для коммита и пуша
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    name: Generate and push playlist
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Обязательно для возможности пуша из воркфлоу
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          # Если у вас есть requirements.txt, используйте его
+          # pip install -r requirements.txt
+          
+          # Если нет — устанавливаем зависимости вручную
+          pip install requests
+
+      - name: Run playlist generator
+        run: |
+          python Verified_channels.py
+        
+      - name: Check for changes
+        id: git_status
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          # Проверяем, есть ли изменения в целевом файле
+          if git diff --exit-code --quiet CINERAMA_VERIFIED.m3u; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "Файл не изменился, коммит не требуется."
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Файл изменился, готовим коммит."
+          fi
+
+      - name: Commit and Push changes
+        if: steps.git_status.outputs.changed == 'true'
+        run: |
+          git add CINERAMA_VERIFIED.m3u
+          
+          # Формируем сообщение коммита с датой
+          COMMIT_MSG="chore: update CINERAMA_VERIFIED.m3u [ci skip] ($(date +'%Y-%m-%d'))"
+          
+          git commit -m "$COMMIT_MSG"
+          
+          # Пушим напрямую в ветку, с которой запущен воркфлоу
+          git push origin HEAD:${{ github.ref_name }}
