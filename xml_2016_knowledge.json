@@ -103,9 +103,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "11international",
-        "11_international",
         "11-international",
+        "11_international",
+        "11international",
         "1plus1-int"
       ],
       "year": 2016,
@@ -184,8 +184,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "22",
-        "2plus2"
+        "2plus2",
+        "22"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -250,8 +250,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "360tunebox",
-        "360-tunebox"
+        "360-tunebox",
+        "360tunebox"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -524,9 +524,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "adult_channel",
+        "adultchannel",
         "adult-channel",
-        "adultchannel"
+        "adult_channel"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -553,8 +553,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "ajaratv",
-        "ajara_tv",
-        "ajara-tv"
+        "ajara-tv",
+        "ajara_tv"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -567,9 +567,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "al-jazeera-int",
         "aljazeerainternational",
         "al-jazeera-international",
-        "al-jazeera-int",
         "al_jazeera_international"
       ],
       "year": 2016,
@@ -624,9 +624,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "amediapremiumhd",
         "amedia-premium-hd",
-        "amedia_premium_hd",
-        "amediapremiumhd"
+        "amedia_premium_hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -639,9 +639,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "amedia_1",
+        "amedia1",
         "amedia-1",
-        "amedia1"
+        "amedia_1"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -654,9 +654,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "amedia_2",
         "amedia-2",
-        "amedia2"
+        "amedia2",
+        "amedia_2"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -710,10 +710,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "animal-planet-europe",
-        "animal_planet_europe",
         "animal-planet-eu",
-        "animalplaneteurope"
+        "animal_planet_europe",
+        "animalplaneteurope",
+        "animal-planet-europe"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -727,8 +727,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "animal_planet_hd",
-        "animal-planet-hd",
-        "animalplanethd"
+        "animalplanethd",
+        "animal-planet-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -741,10 +741,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "animal-planet",
-        "animalplanet",
         "animal_planet",
-        "animal-planet-ru"
+        "animalplanet",
+        "animal-planet-ru",
+        "animal-planet"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -931,9 +931,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "bbcentertainment",
         "bbc-entertainment",
-        "bbc_entertainment"
+        "bbc_entertainment",
+        "bbcentertainment"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -946,9 +946,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "bbc-world",
         "bbc_world",
-        "bbcworld"
+        "bbcworld",
+        "bbc-world"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -961,9 +961,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "bbcworldnews",
+        "bbc_world_news",
         "bbc-world-news",
-        "bbc_world_news"
+        "bbcworldnews"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -1160,9 +1160,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "bollywood_hd",
         "bollywoodhd",
-        "bollywood-hd"
+        "bollywood-hd",
+        "bollywood_hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -1201,9 +1201,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "boutique_tv",
         "boutiquetv",
-        "boutique-tv"
+        "boutique-tv",
+        "boutique_tv"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -1286,8 +1286,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "bridge-hd",
-        "bridgehd",
-        "bridge_hd"
+        "bridge_hd",
+        "bridgehd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -1300,9 +1300,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "bridgetv",
         "bridge-tv",
-        "bridge_tv",
-        "bridgetv"
+        "bridge_tv"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -1380,9 +1380,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "c-music-tv",
+        "c_music_tv",
         "cmusictv",
-        "c_music_tv"
+        "c-music-tv"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -1408,9 +1408,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "candy_3d_hd",
         "candy-3d-hd",
         "candy3dhd",
-        "candy_3d_hd",
         "candy-3dhd"
       ],
       "year": 2016,
@@ -1437,9 +1437,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "cartoon_network",
         "cartoon-network",
-        "cartoonnetwork"
+        "cartoonnetwork",
+        "cartoon_network"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -1452,9 +1452,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "cbs-drama",
         "cbsdrama",
-        "cbs_drama"
+        "cbs_drama",
+        "cbs-drama"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -1467,8 +1467,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "cbs-reality",
         "cbs_reality",
+        "cbs-reality",
         "cbsreality"
       ],
       "year": 2016,
@@ -1495,9 +1495,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "cctv_news",
         "cctv-news",
-        "cctvnews",
-        "cctv_news"
+        "cctvnews"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -1653,8 +1653,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "cine-plus",
-        "cine"
+        "cine",
+        "cine-plus"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -1683,10 +1683,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "cinehithd",
-        "cine-hit-hd",
         "cine-plus-hit-hd",
-        "cine_hit_hd"
+        "cine_hit_hd",
+        "cinehithd",
+        "cine-hit-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -1700,9 +1700,9 @@
       "icon_alias": "",
       "cdn_candidates": [
         "cine-kids",
-        "cine-plus-kids",
+        "cinekids",
         "cine_kids",
-        "cinekids"
+        "cine-plus-kids"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -1731,10 +1731,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "cine-plus-ledend",
+        "cinelegend",
         "cine-legend",
-        "cine_legend",
-        "cinelegend"
+        "cine-plus-ledend",
+        "cine_legend"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -1789,9 +1789,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "cnbceurope",
         "cnbc_europe",
-        "cnbc-europe",
-        "cnbceurope"
+        "cnbc-europe"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -1872,9 +1872,9 @@
       "icon_alias": "",
       "cdn_candidates": [
         "da-vinci-learning-eu",
-        "davincilearningeurope",
+        "da-vinci-learning-europe",
         "da_vinci_learning_europe",
-        "da-vinci-learning-europe"
+        "davincilearningeurope"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -1926,9 +1926,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "dange-tv",
+        "dangetv",
         "dange_tv",
-        "dangetv"
+        "dange-tv"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -2032,9 +2032,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "discovery_channel",
+        "discoverychannel",
         "discovery-channel",
-        "discoverychannel"
+        "discovery_channel"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -2060,9 +2060,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "discoverychannelhd",
+        "discovery-channel-hd",
         "discovery_channel_hd",
-        "discovery-channel-hd"
+        "discoverychannelhd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -2089,8 +2089,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "discovery_hd_showcase",
-        "discovery-hd-showcase",
-        "discoveryhdshowcase"
+        "discoveryhdshowcase",
+        "discovery-hd-showcase"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -2129,9 +2129,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "discoveryscience",
         "discovery-science",
-        "discovery_science",
-        "discoveryscience"
+        "discovery_science"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -2144,9 +2144,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "discoverysciencehd",
+        "discovery-science-hd",
         "discovery_science_hd",
-        "discovery-science-hd"
+        "discoverysciencehd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -2211,9 +2211,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "docuboxhd",
         "docubox-hd",
-        "docubox_hd",
-        "docuboxhd"
+        "docubox_hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -2577,10 +2577,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "english-club-tv-hd",
         "english_club_tv_hd",
-        "english-club-hd",
-        "englishclubtvhd"
+        "englishclubtvhd",
+        "english-club-tv-hd",
+        "english-club-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -2593,9 +2593,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "englishclubtv",
         "english-club-tv",
-        "english_club_tv"
+        "english_club_tv",
+        "englishclubtv"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -2753,8 +2753,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "eureka-hd",
         "eureka_hd",
+        "eureka-hd",
         "eurekahd"
       ],
       "year": 2016,
@@ -2781,9 +2781,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "europa-plus-tv",
+        "europa_plus_tv",
         "europaplustv",
-        "europa_plus_tv"
+        "europa-plus-tv"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -2796,9 +2796,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "eurosport-news",
         "eurosport_news",
-        "eurosportnews"
+        "eurosportnews",
+        "eurosport-news"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -2811,8 +2811,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "eurosport_1",
         "eurosport-1",
+        "eurosport_1",
         "eurosport1"
       ],
       "year": 2016,
@@ -2826,8 +2826,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "eurosport1-hd",
         "eurosport_1_hd",
+        "eurosport1-hd",
         "eurosport1hd",
         "eurosport-1-hd"
       ],
@@ -2855,9 +2855,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "eurosport-2",
         "eurosport_2",
-        "eurosport2"
+        "eurosport2",
+        "eurosport-2"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -2870,10 +2870,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "eurosport-2-hd",
         "eurosport2-hd",
-        "eurosport2hd",
-        "eurosport_2_hd"
+        "eurosport_2_hd",
+        "eurosport-2-hd",
+        "eurosport2hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -2886,10 +2886,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "eurosport-2-north-east",
-        "eurosport2-northeast",
+        "eurosport2northeast",
         "eurosport_2_northeast",
-        "eurosport2northeast"
+        "eurosport-2-north-east",
+        "eurosport2-northeast"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -2902,10 +2902,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "eurosport2-northeast-hd",
-        "eurosport-2-north-east-hd",
         "eurosport_2_northeast_hd",
-        "eurosport2northeasthd"
+        "eurosport2northeasthd",
+        "eurosport2-northeast-hd",
+        "eurosport-2-north-east-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -2957,9 +2957,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "extreme_sports",
+        "extreme-sports",
         "extremesports",
-        "extreme-sports"
+        "extreme_sports"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -2988,8 +2988,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "fashion_one_4k",
-        "fashionone4k",
-        "fashion-one-4k"
+        "fashion-one-4k",
+        "fashionone4k"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3017,10 +3017,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "fashion-tv-europe",
         "fashion_tv_europe",
-        "fashion-tv-eu",
         "fashiontveurope",
-        "fashion-tv-europe"
+        "fashion-tv-eu"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3034,8 +3034,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "fashion_tv_hd",
-        "fashiontvhd",
-        "fashion-tv-hd"
+        "fashion-tv-hd",
+        "fashiontvhd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3061,8 +3061,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "fashionbox_hd",
         "fashionboxhd",
+        "fashionbox_hd",
         "fashionbox-hd"
       ],
       "year": 2016,
@@ -3115,9 +3115,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "fightboxhd",
         "fightbox-hd",
-        "fightbox_hd"
+        "fightbox_hd",
+        "fightboxhd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3145,10 +3145,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "filmbox-ru",
         "filmbox_russia",
-        "filmboxrussia",
         "filmbox-russia",
-        "filmbox-ru"
+        "filmboxrussia"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3201,8 +3201,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "fineliving",
         "fine-living",
+        "fineliving",
         "fine_living"
       ],
       "year": 2016,
@@ -3216,9 +3216,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "finelivinghd",
         "fine_living_hd",
-        "fine-living-hd",
-        "finelivinghd"
+        "fine-living-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3246,9 +3246,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "food_network",
         "foodnetwork",
-        "food-network",
-        "food_network"
+        "food-network"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3261,8 +3261,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "food-network-hd",
         "foodnetworkhd",
+        "food-network-hd",
         "food_network_hd"
       ],
       "year": 2016,
@@ -3354,9 +3354,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "fox-hd",
         "fox_hd",
-        "foxhd"
+        "foxhd",
+        "fox-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3369,9 +3369,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "fox_life",
         "fox-life",
-        "foxlife",
-        "fox_life"
+        "foxlife"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3384,10 +3384,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "foxlifehd",
+        "fox_life_hd",
         "foxlife-hd",
-        "fox-life-hd",
-        "fox_life_hd"
+        "foxlifehd",
+        "fox-life-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3400,10 +3400,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "france_24_english",
-        "france24english",
         "france24-en",
-        "france-24-english"
+        "france_24_english",
+        "france-24-english",
+        "france24english"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3416,10 +3416,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "france-24-francais",
-        "france24-fr",
+        "france24francais",
         "france_24_francais",
-        "france24francais"
+        "france24-fr",
+        "france-24-francais"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3432,8 +3432,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "french_lover",
         "frenchlover",
+        "french_lover",
         "french-lover"
       ],
       "year": 2016,
@@ -3447,9 +3447,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "ftv-hd",
+        "ftv_hd",
         "ftvhd",
-        "ftv_hd"
+        "ftv-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3462,9 +3462,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "fuel_tv_hd",
         "fuel-tv-hd",
-        "fueltvhd",
-        "fuel_tv_hd"
+        "fueltvhd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3491,8 +3491,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "gameshow",
         "game-show",
+        "gameshow",
         "game_show"
       ],
       "year": 2016,
@@ -3506,9 +3506,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "ginger_hd",
         "gingerhd",
-        "ginger-hd",
-        "ginger_hd"
+        "ginger-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3560,9 +3560,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "globalstar",
+        "global_star",
         "global-star",
-        "global_star"
+        "globalstar"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3601,9 +3601,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "gulli-girl",
+        "gulligirl",
         "gulli_girl",
-        "gulligirl"
+        "gulli-girl"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3657,9 +3657,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "hd-life",
         "hdlife",
-        "hd_life",
-        "hd-life"
+        "hd_life"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3724,9 +3724,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "historyhd",
         "history-hd",
-        "history_hd"
+        "history_hd",
+        "historyhd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3779,8 +3779,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "hustler-3dhd",
-        "hustler3dhd",
-        "hustler_3dhd"
+        "hustler_3dhd",
+        "hustler3dhd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3793,9 +3793,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "hustler-hd",
         "hustlerhd",
-        "hustler_hd"
+        "hustler_hd",
+        "hustler-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3808,8 +3808,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "hustlertv",
         "hustler_tv",
+        "hustlertv",
         "hustler-tv"
       ],
       "year": 2016,
@@ -3836,8 +3836,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "ictv-ua",
-        "ictv"
+        "ictv",
+        "ictv-ua"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3850,9 +3850,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "id-fashion",
         "id_fashion",
-        "idfashion",
-        "id-fashion"
+        "idfashion"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -3956,9 +3956,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "insight_ultra_hd",
         "insight-ultra-hd",
-        "insightultrahd",
-        "insight_ultra_hd"
+        "insightultrahd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -4010,9 +4010,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "iqhd",
         "iq_hd",
-        "iq-hd",
-        "iqhd"
+        "iq-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -4104,8 +4104,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "jstvtv",
-        "jstv-tv",
-        "jstv_tv"
+        "jstv_tv",
+        "jstv-tv"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -4342,8 +4342,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "kino_polska_international",
-        "kinopolska-int",
         "kino-polska-international",
+        "kinopolska-int",
         "kinopolskainternational"
       ],
       "year": 2016,
@@ -4357,9 +4357,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "kino-polska-muzyka-international",
         "kinopolskamuzykainternational",
         "kinopolskamuz-int",
+        "kino-polska-muzyka-international",
         "kino_polska_muzyka_international"
       ],
       "year": 2016,
@@ -4776,9 +4776,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "lifenews-78",
         "lifenews78",
-        "lifenews_78",
-        "lifenews-78"
+        "lifenews_78"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -4910,9 +4910,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "m-television",
+        "mtelevision",
         "m_television",
-        "mtelevision"
+        "m-television"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -5003,9 +5003,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "man_tv",
+        "mantv",
         "man-tv",
-        "mantv"
+        "man_tv"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -5213,8 +5213,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "maxxitv",
-        "maxxi-tv"
+        "maxxi-tv",
+        "maxxitv"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -5240,9 +5240,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "mcm_pop",
         "mcm-pop",
-        "mcmpop",
-        "mcm_pop"
+        "mcmpop"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -5255,9 +5255,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "mcm_top",
         "mcm-top",
-        "mcmtop"
+        "mcmtop",
+        "mcm_top"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -5283,8 +5283,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "melody_zen_tv",
         "melodyzentv",
+        "melody_zen_tv",
         "melody-zen-tv"
       ],
       "year": 2016,
@@ -5326,9 +5326,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "mgm-hd",
+        "mgm_hd",
         "mgmhd",
-        "mgm_hd"
+        "mgm-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -5577,9 +5577,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "mtv-dance",
         "mtvdance",
-        "mtv_dance"
+        "mtv_dance",
+        "mtv-dance"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -5592,10 +5592,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "mtv-dance-international",
-        "mtv-dance-int",
         "mtv_dance_international",
-        "mtvdanceinternational"
+        "mtv-dance-international",
+        "mtvdanceinternational",
+        "mtv-dance-int"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -5608,8 +5608,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "mtv-hits",
         "mtvhits",
+        "mtv-hits",
         "mtv_hits"
       ],
       "year": 2016,
@@ -5623,10 +5623,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "mtv_hits_international",
-        "mtvhitsinternational",
+        "mtv-hits-int",
         "mtv-hits-international",
-        "mtv-hits-int"
+        "mtv_hits_international",
+        "mtvhitsinternational"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -5639,9 +5639,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "mtv_live_hd",
         "mtvlivehd",
-        "mtv-live-hd",
-        "mtv_live_hd"
+        "mtv-live-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -5655,8 +5655,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "mtv-rocks",
-        "mtvrocks",
-        "mtv_rocks"
+        "mtv_rocks",
+        "mtvrocks"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -5669,10 +5669,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "mtv_rocks_international",
         "mtv-rocks-int",
         "mtv-rocks-international",
-        "mtvrocksinternational"
+        "mtvrocksinternational",
+        "mtv_rocks_international"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -5685,9 +5685,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "mtv-russia",
+        "mtv_russia",
         "mtvrussia",
-        "mtv_russia"
+        "mtv-russia"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -5726,8 +5726,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "museum_hd",
         "museum-hd",
+        "museum_hd",
         "museumhd"
       ],
       "year": 2016,
@@ -5754,9 +5754,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "musicbox-ru",
         "musicboxru",
-        "musicbox_ru"
+        "musicbox_ru",
+        "musicbox-ru"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -5769,9 +5769,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "musicboxtv",
         "musicbox-tv",
-        "musicbox_tv",
-        "musicboxtv"
+        "musicbox_tv"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -5784,9 +5784,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "musicbox_ua",
         "musicboxua",
-        "musicbox-ua"
+        "musicbox-ua",
+        "musicbox_ua"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -5800,8 +5800,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "musicbox-ua-hd",
-        "musicbox_ua_hd",
-        "musicboxuahd"
+        "musicboxuahd",
+        "musicbox_ua_hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -6074,9 +6074,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "natgeowild",
         "nat-geo-wild",
-        "nat_geo_wild",
-        "natgeowild"
+        "nat_geo_wild"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -6089,9 +6089,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "natgeowildhd",
         "nat-geo-wild-hd",
-        "nat_geo_wild_hd"
+        "nat_geo_wild_hd",
+        "natgeowildhd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -6104,9 +6104,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "national_geographic",
         "nationalgeographic",
-        "national-geographic",
-        "national_geographic"
+        "national-geographic"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -6119,9 +6119,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "nationalgeographichd",
         "national-geographic-hd",
-        "national_geographic_hd",
-        "nationalgeographichd"
+        "national_geographic_hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -6173,8 +6173,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "newsone",
-        "newsone-ua"
+        "newsone-ua",
+        "newsone"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -6216,9 +6216,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "nick-jr",
         "nickjr",
-        "nick_jr",
-        "nick-jr"
+        "nick_jr"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -6244,8 +6244,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "nickelodeonhd",
         "nickelodeon-hd",
+        "nickelodeonhd",
         "nickelodeon_hd"
       ],
       "year": 2016,
@@ -6611,8 +6611,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "o-la-la",
-        "olala"
+        "olala",
+        "o-la-la"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -6652,9 +6652,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "oceantv",
         "ocean_tv",
-        "ocean-tv",
-        "oceantv"
+        "ocean-tv"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -6667,9 +6667,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "odessaint",
         "odessa_int",
-        "odessa-int"
+        "odessa-int",
+        "odessaint"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -6839,8 +6839,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "outdoor-channel",
-        "outdoor_channel",
-        "outdoorchannel"
+        "outdoorchannel",
+        "outdoor_channel"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -6853,9 +6853,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "outdoor-channel-hd",
         "outdoor_channel_hd",
-        "outdoorchannelhd",
-        "outdoor-channel-hd"
+        "outdoorchannelhd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -6907,9 +6907,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "paramount_channel",
+        "paramountchannel",
         "paramount-channel",
-        "paramountchannel"
+        "paramount_channel"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -6922,9 +6922,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "paramountchannelhd",
+        "paramount_channel_hd",
         "paramount-channel-hd",
-        "paramount_channel_hd"
+        "paramountchannelhd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -6937,9 +6937,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "paramount-comedy",
+        "paramountcomedy",
         "paramount_comedy",
-        "paramountcomedy"
+        "paramount-comedy"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -7384,8 +7384,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "playboy_tv",
-        "playboy-tv",
-        "playboytv"
+        "playboytv",
+        "playboy-tv"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -7399,8 +7399,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "playboy_tv_uk",
-        "playboytvuk",
-        "playboy-tv-uk"
+        "playboy-tv-uk",
+        "playboytvuk"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -7479,8 +7479,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "privatetv",
-        "private_tv",
-        "private-tv"
+        "private-tv",
+        "private_tv"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -7834,8 +7834,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "riga-tv24",
-        "rigatv24",
-        "riga_tv24"
+        "riga_tv24",
+        "rigatv24"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -7978,9 +7978,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "rt-doc",
+        "rtdoc",
         "rt_doc",
-        "rtdoc"
+        "rt-doc"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -7993,9 +7993,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "rtespanol",
         "rt-es",
         "rt-espanol",
-        "rtespanol",
         "rt_espanol"
       ],
       "year": 2016,
@@ -8062,8 +8062,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "rtg_hd",
-        "rtg-hd",
-        "rtghd"
+        "rtghd",
+        "rtg-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -8076,10 +8076,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "rtg-int",
-        "rtginternational",
+        "rtg_international",
         "rtg-international",
-        "rtg_international"
+        "rtg-int",
+        "rtginternational"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -8092,9 +8092,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "rtg_tv",
         "rtg-tv",
-        "rtgtv",
-        "rtg_tv"
+        "rtgtv"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -8251,8 +8251,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "rusong-tv",
-        "rusongtv",
-        "rusong_tv"
+        "rusong_tv",
+        "rusongtv"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -8265,8 +8265,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "russia-today",
         "russiatoday",
+        "russia-today",
         "russia_today"
       ],
       "year": 2016,
@@ -8280,9 +8280,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "russia_today_hd",
         "russia-today-hd",
-        "russiatodayhd",
-        "russia_today_hd"
+        "russiatodayhd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -8308,9 +8308,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "russianmusicbox",
         "russian_musicbox",
-        "russian-musicbox"
+        "russian-musicbox",
+        "russianmusicbox"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -8338,9 +8338,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "russiantravelguide",
+        "russian_travel_guide",
         "russian-travel-guide",
-        "russian_travel_guide"
+        "russiantravelguide"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -8354,8 +8354,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "russian_travel_guide_hd",
-        "russian-travel-guide-hd",
-        "russiantravelguidehd"
+        "russiantravelguidehd",
+        "russian-travel-guide-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -8589,9 +8589,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "set_hd",
+        "set-hd",
         "sethd",
-        "set-hd"
+        "set_hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -8617,9 +8617,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "setantasportseurasia",
-        "setanta-sports",
         "setanta_sports_eurasia",
+        "setanta-sports",
+        "setantasportseurasia",
         "setanta-sports-eurasia"
       ],
       "year": 2016,
@@ -8633,9 +8633,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "setantasportsgeorgia",
         "setanta-sports-georgia",
-        "setanta_sports_georgia",
-        "setantasportsgeorgia"
+        "setanta_sports_georgia"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -8648,10 +8648,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "setanta_sports_",
         "setanta-sports-",
-        "setanta-sports-plus",
-        "setantasports"
+        "setanta_sports_",
+        "setantasports",
+        "setanta-sports-plus"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -8768,9 +8768,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "shopping_live",
+        "shopping-live",
         "shoppinglive",
-        "shopping-live"
+        "shopping_live"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -8783,9 +8783,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "shopping_tv",
         "shopping-tv",
-        "shoppingtv",
-        "shopping_tv"
+        "shoppingtv"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -8825,8 +8825,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "slowhd",
-        "slow-hd",
-        "slow_hd"
+        "slow_hd",
+        "slow-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -8865,9 +8865,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "sochi_life",
         "sochi-life",
-        "sochilife"
+        "sochilife",
+        "sochi_life"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -8895,8 +8895,8 @@
       "cdn_candidates": [
         "sonyscifi",
         "sony-sci-fi",
-        "sony-scifi",
-        "sony_scifi"
+        "sony_scifi",
+        "sony-scifi"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -8909,9 +8909,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "sonyturbo",
+        "sony-turbo",
         "sony_turbo",
-        "sony-turbo"
+        "sonyturbo"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -9041,8 +9041,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "star_cinema",
         "starcinema",
+        "star_cinema",
         "star-cinema"
       ],
       "year": 2016,
@@ -9057,8 +9057,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "starfamily",
-        "star-family",
-        "star_family"
+        "star_family",
+        "star-family"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -9435,9 +9435,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "teletravel-hd",
+        "teletravelhd",
         "teletravel_hd",
-        "teletravelhd"
+        "teletravel-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -9502,10 +9502,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "top-shop-tv",
+        "topshoptv",
         "top_shop_tv",
-        "tiop-shop-tv",
-        "topshoptv"
+        "top-shop-tv",
+        "tiop-shop-tv"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -9559,9 +9559,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "tlc-pan-regional",
         "tlcpanregional",
         "tlc_pan_regional",
+        "tlc-pan-regional",
         "tlc-panregional"
       ],
       "year": 2016,
@@ -9913,9 +9913,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "topsong_tv",
         "topsongtv",
-        "topsong-tv",
-        "topsong_tv"
+        "topsong-tv"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -9928,9 +9928,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "trace_sport_stars",
+        "trace-sport-stars",
         "tracesportstars",
-        "trace-sport-stars"
+        "trace_sport_stars"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -9958,9 +9958,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "traceurban",
+        "trace_urban",
         "trace-urban",
-        "trace_urban"
+        "traceurban"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -9973,9 +9973,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "traceurbanhd",
+        "trace_urban_hd",
         "trace-urban-hd",
-        "trace_urban_hd"
+        "traceurbanhd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -10002,10 +10002,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "traveladventurehd",
         "traveladventure-hd",
-        "travel-adventure-hd",
         "traveladventure_hd",
-        "traveladventurehd"
+        "travel-adventure-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -10018,8 +10018,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "travel-channel",
         "travel_channel",
+        "travel-channel",
         "travelchannel"
       ],
       "year": 2016,
@@ -10034,8 +10034,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "travel_channel_hd",
-        "travel-channel-hd",
-        "travelchannelhd"
+        "travelchannelhd",
+        "travel-channel-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -10218,8 +10218,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "tv-club",
-        "tv_club",
-        "tvclub"
+        "tvclub",
+        "tv_club"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -10232,9 +10232,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "tvmail",
         "tv-mail",
-        "tv_mail"
+        "tv_mail",
+        "tvmail"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -10247,8 +10247,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "tv-rus",
-        "tvrus"
+        "tvrus",
+        "tv-rus"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -10262,8 +10262,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "tv_sale",
-        "tvsale",
-        "tv-sale"
+        "tv-sale",
+        "tvsale"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -10328,9 +10328,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "tv1000_action",
+        "tv1000action",
         "tv1000-action",
-        "tv1000action"
+        "tv1000_action"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -10343,9 +10343,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "tv1000-action-east",
         "tv1000_action_east",
-        "tv1000actioneast",
-        "tv1000-action-east"
+        "tv1000actioneast"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -10359,8 +10359,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "tv1000comedy",
-        "tv1000_comedy",
-        "tv1000-comedy"
+        "tv1000-comedy",
+        "tv1000_comedy"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -10374,8 +10374,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "tv1000-comedy-hd",
-        "tv1000comedyhd",
-        "tv1000_comedy_hd"
+        "tv1000_comedy_hd",
+        "tv1000comedyhd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -10389,8 +10389,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "tv1000_east",
-        "tv1000east",
-        "tv1000-east"
+        "tv1000-east",
+        "tv1000east"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -10404,8 +10404,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "tv1000_megahit",
-        "tv1000megahit",
-        "tv1000-megahit"
+        "tv1000-megahit",
+        "tv1000megahit"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -10418,9 +10418,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "tv1000-megahit-hd",
+        "tv1000_megahit_hd",
         "tv1000megahithd",
-        "tv1000_megahit_hd"
+        "tv1000-megahit-hd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -10433,9 +10433,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "tv1000-premium",
+        "tv1000premium",
         "tv1000_premium",
-        "tv1000premium"
+        "tv1000-premium"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -10448,9 +10448,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "tv1000_premium_hd",
         "tv1000-premium-hd",
-        "tv1000premiumhd",
-        "tv1000_premium_hd"
+        "tv1000premiumhd"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -10606,10 +10606,10 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "tv5-monde-europe",
-        "tv5mondeeurope",
         "tv5-monde",
-        "tv5_monde_europe"
+        "tv5_monde_europe",
+        "tv5mondeeurope",
+        "tv5-monde-europe"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -10778,9 +10778,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "tvpinfo",
         "tvp-info",
-        "tvp_info"
+        "tvp_info",
+        "tvpinfo"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -10793,9 +10793,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "tvp_kultura",
         "tvp-kultura",
-        "tvpkultura",
-        "tvp_kultura"
+        "tvpkultura"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -10808,8 +10808,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "tvp-polonia",
         "tvppolonia",
+        "tvp-polonia",
         "tvp_polonia"
       ],
       "year": 2016,
@@ -10823,9 +10823,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "tv_xxi",
         "tvxxi",
-        "tv-xxi"
+        "tv-xxi",
+        "tv_xxi"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -11023,8 +11023,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "utv-hd",
         "utv_hd",
+        "utv-hd",
         "utvhd"
       ],
       "year": 2016,
@@ -11090,9 +11090,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "vh1classic",
+        "vh1_classic",
         "vh1-classic",
-        "vh1_classic"
+        "vh1classic"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -11105,8 +11105,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "vh1-european",
-        "vh1"
+        "vh1",
+        "vh1-european"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -11119,9 +11119,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "viasat-explore",
+        "viasat_explore",
         "viasatexplore",
-        "viasat_explore"
+        "viasat-explore"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -11175,9 +11175,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "viasat_golf",
+        "viasat-golf",
         "viasatgolf",
-        "viasat-golf"
+        "viasat_golf"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -11205,9 +11205,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "viasathistory",
         "viasat_history",
-        "viasat-history",
-        "viasathistory"
+        "viasat-history"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -11220,8 +11220,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "viasat-history-hd",
         "viasat_history_hd",
+        "viasat-history-hd",
         "viasathistoryhd"
       ],
       "year": 2016,
@@ -11235,9 +11235,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "viasat_nature",
         "viasat-nature",
-        "viasatnature"
+        "viasatnature",
+        "viasat_nature"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -11251,8 +11251,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "viasat_nature_cee",
-        "viasatnaturecee",
-        "viasat-nature-cee"
+        "viasat-nature-cee",
+        "viasatnaturecee"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -11291,9 +11291,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
+        "viasatsportbaltics",
         "viasat_sport_baltics",
-        "viasat-sport-baltics",
-        "viasatsportbaltics"
+        "viasat-sport-baltics"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -11358,8 +11358,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "viva_polska",
         "vivapolska",
+        "viva_polska",
         "viva-polska"
       ],
       "year": 2016,
@@ -11464,8 +11464,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "world_business_channel",
         "world-business-channel",
+        "world_business_channel",
         "worldbusinesschannel"
       ],
       "year": 2016,
@@ -11480,8 +11480,8 @@
       "icon_alias": "",
       "cdn_candidates": [
         "worldfashionchannel",
-        "world_fashion_channel",
-        "world-fashion-channel"
+        "world-fashion-channel",
+        "world_fashion_channel"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -11494,8 +11494,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "world_music_channel",
         "world-music-channel",
+        "world_music_channel",
         "worldmusicchannel"
       ],
       "year": 2016,
@@ -11824,8 +11824,8 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "zoom",
-        "zoom-ua"
+        "zoom-ua",
+        "zoom"
       ],
       "year": 2016,
       "confidence": 0.99
@@ -11851,9 +11851,9 @@
       ],
       "icon_alias": "",
       "cdn_candidates": [
-        "zoo_tv",
+        "zoo-tv",
         "zootv",
-        "zoo-tv"
+        "zoo_tv"
       ],
       "year": 2016,
       "confidence": 0.99
