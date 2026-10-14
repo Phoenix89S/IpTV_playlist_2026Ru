@@ -7,16 +7,18 @@
   "end": 2800,
   "generated_urls": 2800,
   "checked": 2800,
-  "valid_m3u8": 46,
-  "master": 46,
+  "valid_m3u8": 45,
+  "master": 45,
   "media": 0,
   "with_name": 0,
-  "without_name": 46,
-  "not_valid_m3u8": 2754,
+  "without_name": 45,
+  "not_valid_m3u8": 2755,
   "classifications": {
-    "M3U8_MASTER": 46,
+    "CONNECTION_ERROR": 1,
     "NOT_FOUND": 12,
-    "HTML": 2742
+    "M3U8_MASTER": 45,
+    "HTML": 2722,
+    "TIMEOUT": 20
   },
-  "elapsed_seconds": 2975.11
+  "elapsed_seconds": 3208.87
 }
