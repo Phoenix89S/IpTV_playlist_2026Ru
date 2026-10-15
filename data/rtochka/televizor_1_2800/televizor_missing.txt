@@ -1,5 +1,4 @@
-1.m3u8 | CONNECTION_ERROR | HEAD=200 | GET=None | ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) | https://streaming.televizor-24-tochka.ru/live/1.m3u8
-2.m3u8 | NOT_FOUND | HEAD=404 | GET=404 |  | https://streaming.televizor-24-tochka.ru/live/2.m3u8
+2.m3u8 | HTML | HEAD=504 | GET=504 |  | https://streaming.televizor-24-tochka.ru/live/2.m3u8
 31.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/31.m3u8
 32.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/32.m3u8
 33.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/33.m3u8
@@ -277,13 +276,13 @@
 316.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/316.m3u8
 317.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/317.m3u8
 318.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/318.m3u8
-319.m3u8 | TIMEOUT | HEAD=None | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/319.m3u8
-320.m3u8 | TIMEOUT | HEAD=None | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/320.m3u8
-321.m3u8 | TIMEOUT | HEAD=None | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/321.m3u8
-322.m3u8 | TIMEOUT | HEAD=None | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/322.m3u8
-323.m3u8 | TIMEOUT | HEAD=None | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/323.m3u8
-324.m3u8 | TIMEOUT | HEAD=None | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/324.m3u8
-325.m3u8 | TIMEOUT | HEAD=None | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/325.m3u8
+319.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/319.m3u8
+320.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/320.m3u8
+321.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/321.m3u8
+322.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/322.m3u8
+323.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/323.m3u8
+324.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/324.m3u8
+325.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/325.m3u8
 326.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/326.m3u8
 327.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/327.m3u8
 328.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/328.m3u8
@@ -368,7 +367,7 @@
 407.m3u8 | NOT_FOUND | HEAD=404 | GET=404 |  | https://streaming.televizor-24-tochka.ru/live/407.m3u8
 408.m3u8 | NOT_FOUND | HEAD=404 | GET=404 |  | https://streaming.televizor-24-tochka.ru/live/408.m3u8
 409.m3u8 | NOT_FOUND | HEAD=404 | GET=404 |  | https://streaming.televizor-24-tochka.ru/live/409.m3u8
-410.m3u8 | HTML | HEAD=504 | GET=504 |  | https://streaming.televizor-24-tochka.ru/live/410.m3u8
+410.m3u8 | NOT_FOUND | HEAD=404 | GET=404 |  | https://streaming.televizor-24-tochka.ru/live/410.m3u8
 411.m3u8 | NOT_FOUND | HEAD=404 | GET=404 |  | https://streaming.televizor-24-tochka.ru/live/411.m3u8
 412.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/412.m3u8
 413.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/413.m3u8
@@ -1355,13 +1354,13 @@
 1399.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/1399.m3u8
 1400.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/1400.m3u8
 1401.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/1401.m3u8
-1402.m3u8 | TIMEOUT | HEAD=412 | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/1402.m3u8
-1403.m3u8 | TIMEOUT | HEAD=None | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/1403.m3u8
-1404.m3u8 | TIMEOUT | HEAD=None | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/1404.m3u8
-1405.m3u8 | TIMEOUT | HEAD=None | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/1405.m3u8
-1406.m3u8 | TIMEOUT | HEAD=None | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/1406.m3u8
-1407.m3u8 | TIMEOUT | HEAD=None | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/1407.m3u8
-1408.m3u8 | TIMEOUT | HEAD=None | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/1408.m3u8
+1402.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/1402.m3u8
+1403.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/1403.m3u8
+1404.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/1404.m3u8
+1405.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/1405.m3u8
+1406.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/1406.m3u8
+1407.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/1407.m3u8
+1408.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/1408.m3u8
 1409.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/1409.m3u8
 1410.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/1410.m3u8
 1411.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/1411.m3u8
@@ -2287,16 +2286,16 @@
 2332.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2332.m3u8
 2333.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2333.m3u8
 2334.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2334.m3u8
-2335.m3u8 | TIMEOUT | HEAD=412 | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/2335.m3u8
+2335.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2335.m3u8
 2336.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2336.m3u8
 2337.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2337.m3u8
 2338.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2338.m3u8
 2339.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2339.m3u8
-2340.m3u8 | TIMEOUT | HEAD=None | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/2340.m3u8
-2341.m3u8 | TIMEOUT | HEAD=None | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/2341.m3u8
-2342.m3u8 | TIMEOUT | HEAD=None | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/2342.m3u8
-2343.m3u8 | TIMEOUT | HEAD=None | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/2343.m3u8
-2344.m3u8 | TIMEOUT | HEAD=None | GET=None | Request timeout | https://streaming.televizor-24-tochka.ru/live/2344.m3u8
+2340.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2340.m3u8
+2341.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2341.m3u8
+2342.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2342.m3u8
+2343.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2343.m3u8
+2344.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2344.m3u8
 2345.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2345.m3u8
 2346.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2346.m3u8
 2347.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2347.m3u8
@@ -2599,7 +2598,7 @@
 2644.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2644.m3u8
 2645.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2645.m3u8
 2646.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2646.m3u8
-2647.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2647.m3u8
+2647.m3u8 | CONNECTION_ERROR | HEAD=412 | GET=None | ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) | https://streaming.televizor-24-tochka.ru/live/2647.m3u8
 2648.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2648.m3u8
 2649.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2649.m3u8
 2650.m3u8 | HTML | HEAD=412 | GET=412 |  | https://streaming.televizor-24-tochka.ru/live/2650.m3u8
