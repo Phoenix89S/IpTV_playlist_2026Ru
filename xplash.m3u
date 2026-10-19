@@ -12043,7 +12043,7 @@ http://nocable.cc:8080/live/s5pPNV/514479/188776.m3u8
 http://nocable.cc:8080/live/s5pPNV/514479/188777.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",USA | NFL REDZONE 3
 http://nocable.cc:8080/live/s5pPNV/514479/208830.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 00: Baltimore Ravens VS Cleveland Browns
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 00: 
 http://nocable.cc:8080/live/s5pPNV/514479/208896.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="Sports Fanatic's ",US (LN) HBCU Go
 http://nocable.cc:8080/live/s5pPNV/514479/209775.m3u8
@@ -12117,23 +12117,23 @@ http://nocable.cc:8080/live/s5pPNV/514479/224556.m3u8
 http://nocable.cc:8080/live/s5pPNV/514479/224557.m3u8
 #EXTINF:-1 tvg-id="my17wphl.us" tvg-logo="" group-title="USA | NEWS | REGIONALS ",US PHL17 (WPHL-TV) Philadelphia 
 http://nocable.cc:8080/live/s5pPNV/514479/224582.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 01: Carolina Panthers VS Philadelphia Eagles
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 01: 
 http://nocable.cc:8080/live/s5pPNV/514479/252010.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 02: Chicago Bears VS Atlanta Falcons
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 02: 
 http://nocable.cc:8080/live/s5pPNV/514479/252011.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 03: New Orleans Saints VS New York Giants
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 03: 
 http://nocable.cc:8080/live/s5pPNV/514479/252012.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 04 New York Jets VS New England Patriots
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 04
 http://nocable.cc:8080/live/s5pPNV/514479/252013.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 05: Pittsburgh Steelers VS Tampa Bay Buccaneers
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 05: 
 http://nocable.cc:8080/live/s5pPNV/514479/252014.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 06: Tennessee Titans VS Indianapolis Colts
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 06: 
 http://nocable.cc:8080/live/s5pPNV/514479/252015.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 07: Arizona Cardinals VS Los Angeles Rams
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 07: 
 http://nocable.cc:8080/live/s5pPNV/514479/252016.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 08:  Buffalo Bills VS Las Vegas Raiders
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 08:  
 http://nocable.cc:8080/live/s5pPNV/514479/252017.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 09: Los Angeles Chargers VS Kansas City Chiefs
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 09: 
 http://nocable.cc:8080/live/s5pPNV/514479/252018.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 10: Dallas Cowboys VS Green Bay Packers
 http://nocable.cc:8080/live/s5pPNV/514479/252019.m3u8
@@ -101795,9 +101795,7 @@ http://nocable.cc:8080/live/s5pPNV/514479/324458.m3u8
 http://nocable.cc:8080/live/s5pPNV/514479/324459.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="USA | NEWS | REGIONALS ",FL | Miami | FOX (WSVN)
 http://nocable.cc:8080/live/s5pPNV/514479/324460.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="USA | NEWS | REGIONALS ",FL | Miami | FOX (WSVN)
-http://nocable.cc:8080/live/s5pPNV/514479/324461.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="USA | NEWS | REGIONALS ",FL | Miami | MY TV (WBFS)
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="USA | NEWS | REGIONALS ",US CW 33 (WBFS) Miami (A)
 http://nocable.cc:8080/live/s5pPNV/514479/324462.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="USA | NEWS | REGIONALS ",FL | Miami | MY TV (WBFS)
 http://nocable.cc:8080/live/s5pPNV/514479/324463.m3u8
