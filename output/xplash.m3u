@@ -12043,7 +12043,7 @@ http://nocable.cc:8080/live/s5pPNV/514479/188776.m3u8
 http://nocable.cc:8080/live/s5pPNV/514479/188777.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",USA | NFL REDZONE 3
 http://nocable.cc:8080/live/s5pPNV/514479/208830.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 00: 
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 00: Washington Commanders VS San Francisco 49ers
 http://nocable.cc:8080/live/s5pPNV/514479/208896.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="Sports Fanatic's ",US (LN) HBCU Go
 http://nocable.cc:8080/live/s5pPNV/514479/209775.m3u8
@@ -12117,7 +12117,7 @@ http://nocable.cc:8080/live/s5pPNV/514479/224556.m3u8
 http://nocable.cc:8080/live/s5pPNV/514479/224557.m3u8
 #EXTINF:-1 tvg-id="my17wphl.us" tvg-logo="" group-title="USA | NEWS | REGIONALS ",US PHL17 (WPHL-TV) Philadelphia 
 http://nocable.cc:8080/live/s5pPNV/514479/224582.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 01: 
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 01: Washington Commanders VS San Francisco 49ers
 http://nocable.cc:8080/live/s5pPNV/514479/252010.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 02: 
 http://nocable.cc:8080/live/s5pPNV/514479/252011.m3u8
@@ -12135,7 +12135,7 @@ http://nocable.cc:8080/live/s5pPNV/514479/252016.m3u8
 http://nocable.cc:8080/live/s5pPNV/514479/252017.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 09: 
 http://nocable.cc:8080/live/s5pPNV/514479/252018.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 10: Dallas Cowboys VS Green Bay Packers
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 10: 
 http://nocable.cc:8080/live/s5pPNV/514479/252019.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 11: 
 http://nocable.cc:8080/live/s5pPNV/514479/252020.m3u8
@@ -103305,159 +103305,19 @@ http://nocable.cc:8080/live/s5pPNV/514479/333093.m3u8
 http://nocable.cc:8080/live/s5pPNV/514479/333094.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",NBA 14: Denver Nuggets vs Los Angeles Lakers @ 10:30 PM EDT
 http://nocable.cc:8080/live/s5pPNV/514479/333095.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 01: PRELIMS UFC FN (10.17 5:00 PM ET)
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 01: WWE Monday Night RAW (10.19 8:00 PM ET)
 http://nocable.cc:8080/live/s5pPNV/514479/333108.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 02: PRELIMS UFC FN (10.17 5:00 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333109.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 03: UFC FN Buckley vs. Malott (10.17 8:00 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333110.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 04: UFC FN Buckley vs. Malott (10.17 8:00 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333111.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 05: Post Fight Conference UFC FN (10.17 11:15 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333112.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 06: PRELIMS Cage Warriors 211 (10.17 12:00 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333113.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 07: Cage Warriors 211 (10.17 2:30 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333114.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 08: Awesome Championship Wrestling Michief Night 2 (10.17 6:30 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333115.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 09: PRELIMS BKFC 95 (10.17 8:00 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333116.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 10: BKFC 95 Herring vs. Dodson (10.17 9:00 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333117.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 11: PRELIMS Dubois vs. Wardley 2 (10.17 11:00 AM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333118.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 12: Dubois vs. Wardley 2 (10.17 2:00 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333119.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 13: Fundora vs. Hadribeaj (10.17 8:00 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333120.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 14: Volkovs vs. McIntyre (10.17 12:00 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333121.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 15: OKTAGON 95 (10.17 12:00 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333122.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 16: AEW WrestleDream (10.17 8:00 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333123.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 17: PRELIMS Glory 110 (10.17 12:00 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333124.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 18: Glory 110 Trindade vs. Demirkapu (10.17 2:00 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333125.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 19: FSC 38 Manchester (10.17 2:00 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333126.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 20: High Limit Racing All-In Championship at Texas (10.17 7:00 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333127.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 21: SMART Modified Tour at North Wilkesboro (10.17 12:50 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333128.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 22: Halloween Fest at Indianapolis (10.17 1:15 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333129.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 23: STSS Octoberfest at Hagerstown (10.17 2:00 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333130.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 24: CARS Tour Season Finale at South Boston (10.17 2:30 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333131.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 25: Lucas Oil DTWC at West Virginia (10.17 4:30 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333132.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 26: FloZone FloRacing Championship Weekend (10.17 5:00 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333133.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 27: USAC AMSOIL National Sprint Cars at Route 66 (10.17 6:45 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333134.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 28: CARS Tour West at Kevin Harvicks Kern (10.17 8:30 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333135.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 29: NARC Championship Night Cotton Classic at Kings (10.17 8:30 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333136.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 30: AMA EnduroCross at Nampa (10.17 9:00 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333137.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 31: ARCA West at Phoenix (10.17 10:45 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333138.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 32: Millbridge Speedway (10.17 6:15 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333139.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 33: Cedar Lake Speedway (10.17 6:15 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333140.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 34: Belle Clair Fairgrounds Park Speedway (10.17 7:15 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333141.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 35: Creek County Speedway (10.17 7:45 PM ET)
-http://nocable.cc:8080/live/s5pPNV/514479/333142.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 01 Ohio State @ Indiana 12PM
-http://nocable.cc:8080/live/s5pPNV/514479/333143.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 02 Florida @ Texas 12PM
-http://nocable.cc:8080/live/s5pPNV/514479/333144.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 03 Virginia @ SMU 12PM
-http://nocable.cc:8080/live/s5pPNV/514479/333145.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 04 Mississippi State @ LSU 12PM
-http://nocable.cc:8080/live/s5pPNV/514479/333146.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 05 Pittsburgh @ Boston College 12PM
-http://nocable.cc:8080/live/s5pPNV/514479/333147.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 06 Kansas @ Kansas State 12PM
-http://nocable.cc:8080/live/s5pPNV/514479/333148.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 07 Cincinnati @ West Virginia 12PM 12PM
-http://nocable.cc:8080/live/s5pPNV/514479/333149.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 08 Georgia State @ James Madison 12PM
-http://nocable.cc:8080/live/s5pPNV/514479/333150.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 09 Rutgers @ Maryland 1230PM
-http://nocable.cc:8080/live/s5pPNV/514479/333151.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 10 Charleston Southern @ Clemson 12PM
-http://nocable.cc:8080/live/s5pPNV/514479/333152.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 11 Florida Atlantic @ Army 12PM
-http://nocable.cc:8080/live/s5pPNV/514479/333153.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 12 Alabama @ Tennessee 330PM
-http://nocable.cc:8080/live/s5pPNV/514479/333154.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 13 Arizona State @ Texas Tech 330PM
-http://nocable.cc:8080/live/s5pPNV/514479/333155.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 14 Penn State @ Michigan 330PM
-http://nocable.cc:8080/live/s5pPNV/514479/333156.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 15 Northern Illinois @ Wyoming 330PM
-http://nocable.cc:8080/live/s5pPNV/514479/333157.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 16 Auburn @ Georgia 330PM 330PM
-http://nocable.cc:8080/live/s5pPNV/514479/333158.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 17 Missouri @ Ole Miss 330PM
-http://nocable.cc:8080/live/s5pPNV/514479/333159.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 18 Georgia Tech @ Virginia Tech 330PM
-http://nocable.cc:8080/live/s5pPNV/514479/333160.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 19 UNLV @ Air Force 330PM
-http://nocable.cc:8080/live/s5pPNV/514479/333161.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 20 Illinois State @ Southern Illinois 4PM
-http://nocable.cc:8080/live/s5pPNV/514479/333162.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 21 Washington State @ Oregon State 6PM
-http://nocable.cc:8080/live/s5pPNV/514479/333163.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 22 Florida State @ Miami 7PM
-http://nocable.cc:8080/live/s5pPNV/514479/333164.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 23 Arkansas @ Vanderbilt 7PM
-http://nocable.cc:8080/live/s5pPNV/514479/333165.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 24 TCU @ Baylor 7PM
-http://nocable.cc:8080/live/s5pPNV/514479/333166.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 25 Nevada @ North Dakota State 7PM
-http://nocable.cc:8080/live/s5pPNV/514479/333167.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 26 North Dakota State @ UNLV 7PM
-http://nocable.cc:8080/live/s5pPNV/514479/333168.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 27 Notre Dame @ BYU 730PM
-http://nocable.cc:8080/live/s5pPNV/514479/333169.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 28 Wisconsin @ UCLA 730PM
-http://nocable.cc:8080/live/s5pPNV/514479/333170.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 29 Oklahoma State @ Houston 730PM
-http://nocable.cc:8080/live/s5pPNV/514479/333171.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 30  Kentucky @ Oklahoma 730PM
-http://nocable.cc:8080/live/s5pPNV/514479/333172.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 31 Louisville @ Syracuse 730PM
-http://nocable.cc:8080/live/s5pPNV/514479/333173.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 32 Navy @ UTSA 8PM
-http://nocable.cc:8080/live/s5pPNV/514479/333174.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 33 Utah @ Colorado 1015PM
-http://nocable.cc:8080/live/s5pPNV/514479/333175.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 35 New Mexico @ Hawaii 1030PM
-http://nocable.cc:8080/live/s5pPNV/514479/333176.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 36 Nebraska @ Oregon 11PM
-http://nocable.cc:8080/live/s5pPNV/514479/333177.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 34 Wake Forest @ California 1030PM
-http://nocable.cc:8080/live/s5pPNV/514479/333178.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",NHL 01: NJD VS WSH (SN Feed ) @ 1:00 pm
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",NHL 01: Colorado Avalanche VS Philadelphia Flyers
 http://nocable.cc:8080/live/s5pPNV/514479/333179.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",NHL 02: NJD VS WSH (NHLN Feed ) @ 1:00 pm
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",NHL 02: Anaheim Ducks VS New York Rangers
 http://nocable.cc:8080/live/s5pPNV/514479/333180.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",NHL 03: CAR VS WPG (SN Feed ) @ 3:30 pm
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",NHL 03: San Jose Sharks VS Toronto Maple Leafs
 http://nocable.cc:8080/live/s5pPNV/514479/333181.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",NHL 04: NYI VS TOR (SN Feed ) @ 7:00 pm
 http://nocable.cc:8080/live/s5pPNV/514479/333182.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA Real NHL 05: EDM VS ANA (SN Feed ) @ 10:00 pm
 http://nocable.cc:8080/live/s5pPNV/514479/333183.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",NHL 06: BUF VS MTL (NHLN Feed ) @ 7:00 pm
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",NHL 06: Pittsburgh Penguins VS Utah Mammoth
 http://nocable.cc:8080/live/s5pPNV/514479/333184.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",NHL 07: BUF VS MTL (TVAS Feed ) @ 7:00 pm
 http://nocable.cc:8080/live/s5pPNV/514479/333185.m3u8
@@ -103473,49 +103333,3 @@ http://nocable.cc:8080/live/s5pPNV/514479/333189.m3u8
 http://nocable.cc:8080/live/s5pPNV/514479/333190.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",NHL 13: EDM VS UTA (SN Feed ) @ 10:00 pm
 http://nocable.cc:8080/live/s5pPNV/514479/333191.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 01:UFC FIGHT NIGHT BUCKLEY V MALOTT
-http://nocable.cc:8080/live/s5pPNV/514479/333192.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 02:RWS: World Championship Superfight Night
-http://nocable.cc:8080/live/s5pPNV/514479/333193.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 03:Joey Essex vs. Dapper Laughs
-http://nocable.cc:8080/live/s5pPNV/514479/333194.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 04:Schofield vs. Bahdi: Prelims
-http://nocable.cc:8080/live/s5pPNV/514479/333195.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 05:Schofield vs. Bahdi MAIN
-http://nocable.cc:8080/live/s5pPNV/514479/333196.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 06:UFC Fight Night: Allen vs Duncan
-http://nocable.cc:8080/live/s5pPNV/514479/333197.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 07:UFC Fight Night: Allen vs Duncan ESPANOL
-http://nocable.cc:8080/live/s5pPNV/514479/333198.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 08:PFL MOROCCO
-http://nocable.cc:8080/live/s5pPNV/514479/333199.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 09:F1 SINGAPORE QUALIFYING
-http://nocable.cc:8080/live/s5pPNV/514479/333200.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 25:
-http://nocable.cc:8080/live/s5pPNV/514479/333201.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV01: UFC Fight Night: Buckley vs. Malott (Paramount+) @ 05:00 PM EDT
-http://nocable.cc:8080/live/s5pPNV/514479/333202.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV02: UFC Fight Night: Buckley vs. Malott (Multi Cam) @ @ 09:00 PM EDT
-http://nocable.cc:8080/live/s5pPNV/514479/333203.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV03: GLORY 110 (PPV) @ 02:00 PM EDT
-http://nocable.cc:8080/live/s5pPNV/514479/333204.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV04: Vado Speedway Park Fall Nationals 10/16/26 (racindirt) @ 09:00 PM EDT
-http://nocable.cc:8080/live/s5pPNV/514479/333205.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV05: Fundora vs. Hadribeaj (DAZN) @ 08:00 PM EDT
-http://nocable.cc:8080/live/s5pPNV/514479/333206.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV06: Millbridge Speedway @ 06:15 PM EDT
-http://nocable.cc:8080/live/s5pPNV/514479/333207.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV07: Cedar Lake Speedway @ 06:15 PM EDT
-http://nocable.cc:8080/live/s5pPNV/514479/333208.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV08: Belle Clair Fairgrounds Park Speedway @ 07:15 PM EDT
-http://nocable.cc:8080/live/s5pPNV/514479/333209.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV09: Creek County Speedway @ 07:45 PM EDT
-http://nocable.cc:8080/live/s5pPNV/514479/333210.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV10: Vado Speedway Park Fall Nationals 10/17/26 @ 07:00 PM EDT
-http://nocable.cc:8080/live/s5pPNV/514479/333211.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV11: Mason City Motor Speedway 10/17/26 @ 05:00 PM EDT
-http://nocable.cc:8080/live/s5pPNV/514479/333212.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV13: Awesome Championship Wrestling: Mischief Night II @ 06:30 PM EDT
-http://nocable.cc:8080/live/s5pPNV/514479/333213.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV14: BKFC 95 Newark: Jamel Herring vs John Dodson @ 09:00 PM EDT
-http://nocable.cc:8080/live/s5pPNV/514479/333214.m3u8
