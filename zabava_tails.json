@@ -1,7 +1,7 @@
 {
   "scanner": "zabava_tails.py",
   "version": "1.0",
-  "timestamp": "2026-11-13T10:43:27.921593+00:00",
+  "timestamp": "2026-11-14T09:56:50.265864+00:00",
   "source": "http://dmitry-tv.ddns.net/iptv/freesat/gtmedia/ZABAVA/custom_url.m3u",
   "statistics": {
     "urls_found": 374,
