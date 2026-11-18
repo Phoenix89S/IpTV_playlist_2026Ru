@@ -12043,7 +12043,7 @@ http://nocable.cc:8080/live/s5pPNV/514479/188776.m3u8
 http://nocable.cc:8080/live/s5pPNV/514479/188777.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",USA | NFL REDZONE 3
 http://nocable.cc:8080/live/s5pPNV/514479/208830.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 00: Los Angeles Chargers  vs  Baltimore Ravens
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 00: 
 http://nocable.cc:8080/live/s5pPNV/514479/208896.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="Sports Fanatic's ",US (LN) HBCU Go
 http://nocable.cc:8080/live/s5pPNV/514479/209775.m3u8
@@ -12117,7 +12117,7 @@ http://nocable.cc:8080/live/s5pPNV/514479/224556.m3u8
 http://nocable.cc:8080/live/s5pPNV/514479/224557.m3u8
 #EXTINF:-1 tvg-id="my17wphl.us" tvg-logo="" group-title="USA | NEWS | REGIONALS ",US PHL17 (WPHL-TV) Philadelphia 
 http://nocable.cc:8080/live/s5pPNV/514479/224582.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 01: Los Angeles Chargers  vs  Baltimore Ravens
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 01: 
 http://nocable.cc:8080/live/s5pPNV/514479/252010.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 02: 
 http://nocable.cc:8080/live/s5pPNV/514479/252011.m3u8
@@ -103405,35 +103405,41 @@ http://nocable.cc:8080/live/s5pPNV/514479/334380.m3u8
 http://nocable.cc:8080/live/s5pPNV/514479/334381.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 43 North Dakota State @ Hawaii 11PM
 http://nocable.cc:8080/live/s5pPNV/514479/334382.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 01: Memphis Grizzlies vs Washington Wizards @ 07:00 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334408.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 02: Chicago Bulls vs Cleveland Cavaliers @ 07:00 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334409.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 03: Orlando Magic vs Boston Celtics @ 07:00 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334410.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 04: Houston Rockets vs Miami Heat @ 07:30 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334411.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 05: Philadelphia 76ers vs Brooklyn Nets @ 07:30 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334412.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 06: Golden State Warriors vs New Orleans Pelicans @ 08:00 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334413.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 07: Portland Trail Blazers vs Minnesota Timberwolves @ 08:00 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334414.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 08: Phoenix Suns vs Denver Nuggets @ 09:00 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334415.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 01: MTL VS NYR (TVAS Feed ) @ 7:30 pm
-http://nocable.cc:8080/live/s5pPNV/514479/334416.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 02: Vancouver Canucks vs Utah Mammoth @ 09:30 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334417.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 03: EDM VS FLA (TVAS Feed ) @ 7:00 pm
-http://nocable.cc:8080/live/s5pPNV/514479/334418.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 04: BUF VS PHI (NBCSP Feed ) @ 7:00 pm
-http://nocable.cc:8080/live/s5pPNV/514479/334419.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA Real NHL 05: EDM VS ANA (SN Feed ) @ 10:00 pm
-http://nocable.cc:8080/live/s5pPNV/514479/334420.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 06: CGY VS SJS (SN Feed ) @ 10:00 pm
-http://nocable.cc:8080/live/s5pPNV/514479/334421.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 07: CGY VS SJS (NBCSCA Feed ) @ 10:00 pm
-http://nocable.cc:8080/live/s5pPNV/514479/334422.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 01: WWE Monday Night RAW (11.16 8:00 PM ET)
 http://nocable.cc:8080/live/s5pPNV/514479/334438.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 01: New York Knicks vs Toronto Raptors @ 07:30 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334439.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 02: Portland Trail Blazers vs Minnesota Timberwolves @ 08:00 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334440.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 03: Detroit Pistons vs San Antonio Spurs @ 08:00 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334441.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 04: Utah Jazz vs Los Angeles Clippers @ 10:30 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334442.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 05: Charlotte Hornets vs Los Angeles Lakers @ 11:00 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334443.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 01: LAK VS BOS (NESN Feed ) @ 7:00 pm
+http://nocable.cc:8080/live/s5pPNV/514479/334444.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 02: EDM VS FLA (SN Feed ) @ 7:00 pm
+http://nocable.cc:8080/live/s5pPNV/514479/334445.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 03: EDM VS FLA (TVAS Feed ) @ 7:00 pm
+http://nocable.cc:8080/live/s5pPNV/514479/334446.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 04: BUF VS PHI (NBCSP Feed ) @ 7:00 pm
+http://nocable.cc:8080/live/s5pPNV/514479/334447.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA Real NHL 05: Toronto Maple Leafs  vs  Chicago Blackhawks
+http://nocable.cc:8080/live/s5pPNV/514479/334448.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 06: 	Anaheim Ducks  vs  St. Louis Blues
+http://nocable.cc:8080/live/s5pPNV/514479/334449.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 07:  Calgary Flames  vs  San Jose Sharks
+http://nocable.cc:8080/live/s5pPNV/514479/334450.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 08: Columbus Blue Jackets vs New York Islanders @ 07:00 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334451.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 09: Toronto Maple Leafs vs Chicago Blackhawks @ 07:30 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334452.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 10: Washington Capitals vs Tampa Bay Lightning @ 07:30 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334453.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 11: Nashville Predators vs Minnesota Wild @ 08:00 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334454.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 12: Anaheim Ducks vs St. Louis Blues @ 08:00 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334455.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 13: Dallas Stars vs Vegas Golden Knights @ 10:00 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334456.m3u8
