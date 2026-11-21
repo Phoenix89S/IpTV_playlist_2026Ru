@@ -12043,7 +12043,7 @@ http://nocable.cc:8080/live/s5pPNV/514479/188776.m3u8
 http://nocable.cc:8080/live/s5pPNV/514479/188777.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",USA | NFL REDZONE 3
 http://nocable.cc:8080/live/s5pPNV/514479/208830.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 00: Indianapolis Colts  vs  Houston Texans
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 00: 
 http://nocable.cc:8080/live/s5pPNV/514479/208896.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="Sports Fanatic's ",US (LN) HBCU Go
 http://nocable.cc:8080/live/s5pPNV/514479/209775.m3u8
@@ -12117,7 +12117,7 @@ http://nocable.cc:8080/live/s5pPNV/514479/224556.m3u8
 http://nocable.cc:8080/live/s5pPNV/514479/224557.m3u8
 #EXTINF:-1 tvg-id="my17wphl.us" tvg-logo="" group-title="USA | NEWS | REGIONALS ",US PHL17 (WPHL-TV) Philadelphia 
 http://nocable.cc:8080/live/s5pPNV/514479/224582.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 01:  Indianapolis Colts  vs  Houston Texans
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 01:  
 http://nocable.cc:8080/live/s5pPNV/514479/252010.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NFL",NFL 02: 
 http://nocable.cc:8080/live/s5pPNV/514479/252011.m3u8
@@ -103319,141 +103319,123 @@ http://nocable.cc:8080/live/s5pPNV/514479/334337.m3u8
 http://nocable.cc:8080/live/s5pPNV/514479/334338.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 34: Volusia Speedway Park (11.14 6:00 PM ET)
 http://nocable.cc:8080/live/s5pPNV/514479/334339.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 01 Kentucky State @ Benedict 1030AM
-http://nocable.cc:8080/live/s5pPNV/514479/334340.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 02 Northwestern @ Ohio State 12PM
-http://nocable.cc:8080/live/s5pPNV/514479/334341.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 03 Wake Forest @ SMU 12PM
-http://nocable.cc:8080/live/s5pPNV/514479/334342.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 04 Duke @ Miami (FL) 12PM
-http://nocable.cc:8080/live/s5pPNV/514479/334343.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 05 Wisconsin @ Maryland 12PM
-http://nocable.cc:8080/live/s5pPNV/514479/334344.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 06 Syracuse @ NC State 12PM
-http://nocable.cc:8080/live/s5pPNV/514479/334345.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 07 Cincinnati @ Iowa State 12PM
-http://nocable.cc:8080/live/s5pPNV/514479/334346.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 08 James Madison @ Connecticut 12PM
-http://nocable.cc:8080/live/s5pPNV/514479/334347.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 09 Georgia Tech @ Clemson 1230PM
-http://nocable.cc:8080/live/s5pPNV/514479/334348.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 10 Nebraska @ Rutgers 1230PM
-http://nocable.cc:8080/live/s5pPNV/514479/334349.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 11 Alabama @ Vanderbilt 1245PM
-http://nocable.cc:8080/live/s5pPNV/514479/334350.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 12 Kansas State @ TCU 2PM
-http://nocable.cc:8080/live/s5pPNV/514479/334351.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 13 Tennessee @ Texas A&M 3PM
-http://nocable.cc:8080/live/s5pPNV/514479/334352.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 14 Missouri @ Georgia 330PM
-http://nocable.cc:8080/live/s5pPNV/514479/334353.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 15 USC @ Indiana 330PM
-http://nocable.cc:8080/live/s5pPNV/514479/334354.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 16 Boston College @ Notre Dame 330PM
-http://nocable.cc:8080/live/s5pPNV/514479/334355.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 17 Kansas @ West Virginia 330PM
-http://nocable.cc:8080/live/s5pPNV/514479/334356.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 18 Michigan @ Oregon 330PM
-http://nocable.cc:8080/live/s5pPNV/514479/334357.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 19 California @ Virginia 330PM
-http://nocable.cc:8080/live/s5pPNV/514479/334358.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 20  Middle Tennessee @ Liberty 330PM
-http://nocable.cc:8080/live/s5pPNV/514479/334359.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 21 Fresno State @ Texas State 4PM
-http://nocable.cc:8080/live/s5pPNV/514479/334360.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 22 Ole Miss @ Oklahoma 415PM
-http://nocable.cc:8080/live/s5pPNV/514479/334361.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 23 Washington @ Michigan State 530PM
-http://nocable.cc:8080/live/s5pPNV/514479/334362.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 24 Arizona State @ UCF 530PM
-http://nocable.cc:8080/live/s5pPNV/514479/334363.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 25 Oregon State @ Boise State 6PM
-http://nocable.cc:8080/live/s5pPNV/514479/334364.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 26 Florida @ Kentucky 615PM
-http://nocable.cc:8080/live/s5pPNV/514479/334365.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 27 Louisville @ North Carolina 7PM
-http://nocable.cc:8080/live/s5pPNV/514479/334366.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 28 Minnesota @ Penn State 7PM
-http://nocable.cc:8080/live/s5pPNV/514479/334367.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 29 Baylor @ BYU 7PM
-http://nocable.cc:8080/live/s5pPNV/514479/334368.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 30 San Jose State @ Air Force 7PM
-http://nocable.cc:8080/live/s5pPNV/514479/334369.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 31 Texas @ LSU 730PM
-http://nocable.cc:8080/live/s5pPNV/514479/334370.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 32 Purdue @ Iowa 730PM
-http://nocable.cc:8080/live/s5pPNV/514479/334371.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 33 UNLV @ New Mexico 730PM
-http://nocable.cc:8080/live/s5pPNV/514479/334372.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 35 South Carolina @ Arkansas 745PM
-http://nocable.cc:8080/live/s5pPNV/514479/334373.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 36 North Texas @ UTSA 9PM
-http://nocable.cc:8080/live/s5pPNV/514479/334374.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 37 Texas Tech @ Oklahoma State 930PM
-http://nocable.cc:8080/live/s5pPNV/514479/334375.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 38 Utah State @ San Diego State 930PM
-http://nocable.cc:8080/live/s5pPNV/514479/334376.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 39 Utah @ Arizona 1030PM
-http://nocable.cc:8080/live/s5pPNV/514479/334377.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 34 Stanford @ Virginia Tech 730PM
-http://nocable.cc:8080/live/s5pPNV/514479/334378.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 40 Wyoming @ UTEP 10PM
-http://nocable.cc:8080/live/s5pPNV/514479/334379.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 41 Idaho State @ Montana 1030PM
-http://nocable.cc:8080/live/s5pPNV/514479/334380.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 42 Colorado State @ Washington State 1030PM
-http://nocable.cc:8080/live/s5pPNV/514479/334381.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 43 North Dakota State @ Hawaii 11PM
-http://nocable.cc:8080/live/s5pPNV/514479/334382.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="PPV | UFC",PPV EVENT 01: WWE Monday Night RAW (11.16 8:00 PM ET)
 http://nocable.cc:8080/live/s5pPNV/514479/334438.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 01: Philadelphia 76ers vs Orlando Magic @ 07:00 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334490.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 02: Los Angeles Clippers  vs  San Antonio Spurs
-http://nocable.cc:8080/live/s5pPNV/514479/334491.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 03: Memphis Grizzlies vs Cleveland Cavaliers @ 07:00 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334492.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 04: Milwaukee Bucks vs Miami Heat @ 07:00 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334493.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 05: Washington Wizards vs Toronto Raptors @ 07:30 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334494.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 06: 	 Portland Trail Blazers  vs  Milwaukee Bucks
-http://nocable.cc:8080/live/s5pPNV/514479/334495.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 07: 	 Golden State Warriors  vs  Memphis Grizzlies
-http://nocable.cc:8080/live/s5pPNV/514479/334496.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 08: 	 New York Knicks  vs  Minnesota Timberwolves
-http://nocable.cc:8080/live/s5pPNV/514479/334497.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 09: Detroit Pistons vs New Orleans Pelicans @ 08:00 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334498.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 10: Boston Celtics vs Denver Nuggets @ 09:30 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334499.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 11: Phoenix Suns vs Sacramento Kings @ 10:00 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334500.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 12: Utah Jazz vs Los Angeles Lakers @ 10:00 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334501.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 01: LAK VS TOR (SN Feed ) @ 7:00 pm
-http://nocable.cc:8080/live/s5pPNV/514479/334502.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 02: PHI VS OTT (NBCSP Feed ) @ 7:00 pm
-http://nocable.cc:8080/live/s5pPNV/514479/334503.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 03: MTL VS CAR (RDS Feed ) @ 7:00 pm
-http://nocable.cc:8080/live/s5pPNV/514479/334504.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 04: EDM VS TBL (SNW Feed ) @ 7:30 pm
-http://nocable.cc:8080/live/s5pPNV/514479/334505.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 01 Iowa State @ UCF 630pm
+http://nocable.cc:8080/live/s5pPNV/514479/334518.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 02 Clemson @ Duke 730pm
+http://nocable.cc:8080/live/s5pPNV/514479/334519.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 03 Bowling Green @ Toledo 730pm
+http://nocable.cc:8080/live/s5pPNV/514479/334520.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 04 Oregon @ Michigan State 8pm
+http://nocable.cc:8080/live/s5pPNV/514479/334521.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 05 UTEP @ Air Force 8pm
+http://nocable.cc:8080/live/s5pPNV/514479/334522.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 06 New Mexico @ Wyoming 9PM
+http://nocable.cc:8080/live/s5pPNV/514479/334523.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 10 Nebraska @ Rutgers 1230PM
+http://nocable.cc:8080/live/s5pPNV/514479/334524.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 11 Alabama @ Vanderbilt 1245PM
+http://nocable.cc:8080/live/s5pPNV/514479/334525.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 12 Kansas State @ TCU 2PM
+http://nocable.cc:8080/live/s5pPNV/514479/334526.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 13 Tennessee @ Texas A&M 3PM
+http://nocable.cc:8080/live/s5pPNV/514479/334527.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 14 Missouri @ Georgia 330PM
+http://nocable.cc:8080/live/s5pPNV/514479/334528.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 15 USC @ Indiana 330PM
+http://nocable.cc:8080/live/s5pPNV/514479/334529.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 16 Boston College @ Notre Dame 330PM
+http://nocable.cc:8080/live/s5pPNV/514479/334530.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 17 Kansas @ West Virginia 330PM
+http://nocable.cc:8080/live/s5pPNV/514479/334531.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 18 Michigan @ Oregon 330PM
+http://nocable.cc:8080/live/s5pPNV/514479/334532.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 19 California @ Virginia 330PM
+http://nocable.cc:8080/live/s5pPNV/514479/334533.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 20  Middle Tennessee @ Liberty 330PM
+http://nocable.cc:8080/live/s5pPNV/514479/334534.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 24 Arizona State @ UCF 530PM
+http://nocable.cc:8080/live/s5pPNV/514479/334535.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 25 Oregon State @ Boise State 6PM
+http://nocable.cc:8080/live/s5pPNV/514479/334536.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 26 Florida @ Kentucky 615PM
+http://nocable.cc:8080/live/s5pPNV/514479/334537.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 27 Louisville @ North Carolina 7PM
+http://nocable.cc:8080/live/s5pPNV/514479/334538.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 28 Minnesota @ Penn State 7PM
+http://nocable.cc:8080/live/s5pPNV/514479/334539.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 29 Baylor @ BYU 7PM
+http://nocable.cc:8080/live/s5pPNV/514479/334540.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 30 San Jose State @ Air Force 7PM
+http://nocable.cc:8080/live/s5pPNV/514479/334541.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 31 Texas @ LSU 730PM
+http://nocable.cc:8080/live/s5pPNV/514479/334542.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 32 Purdue @ Iowa 730PM
+http://nocable.cc:8080/live/s5pPNV/514479/334543.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 33 UNLV @ New Mexico 730PM
+http://nocable.cc:8080/live/s5pPNV/514479/334544.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 35 South Carolina @ Arkansas 745PM
+http://nocable.cc:8080/live/s5pPNV/514479/334545.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 37 Texas Tech @ Oklahoma State 930PM
+http://nocable.cc:8080/live/s5pPNV/514479/334546.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 38 Utah State @ San Diego State 930PM
+http://nocable.cc:8080/live/s5pPNV/514479/334547.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 39 Utah @ Arizona 1030PM
+http://nocable.cc:8080/live/s5pPNV/514479/334548.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 34 Stanford @ Virginia Tech 730PM
+http://nocable.cc:8080/live/s5pPNV/514479/334549.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 40 Wyoming @ UTEP 10PM
+http://nocable.cc:8080/live/s5pPNV/514479/334550.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 41 Idaho State @ Montana 1030PM
+http://nocable.cc:8080/live/s5pPNV/514479/334551.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NCAAF",NCAAF 42 Colorado State @ Washington State 1030PM
+http://nocable.cc:8080/live/s5pPNV/514479/334552.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 01: Charlotte Hornets vs Atlanta Hawks @ 07:00 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334553.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 02: Indiana Pacers vs Cleveland Cavaliers @ 07:30 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334554.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 03: Orlando Magic vs Brooklyn Nets @ 07:30 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334555.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 04: Toronto Raptors vs Detroit Pistons @ 07:30 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334556.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 05: New Orleans Pelicans vs Oklahoma City Thunder @ 08:00 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334557.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 06: Washington Wizards vs Chicago Bulls @ 08:00 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334558.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 07: Phoenix Suns vs Utah Jazz @ 09:30 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334559.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 08: Sacramento Kings vs Los Angeles Lakers @ 10:00 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334560.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NBA",USA NBA 09: Houston Rockets vs Denver Nuggets @ 10:00 PM EST
+http://nocable.cc:8080/live/s5pPNV/514479/334561.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 01: EDM VS CAR (SN Feed ) @ 1:00 pm
+http://nocable.cc:8080/live/s5pPNV/514479/334562.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 02: EDM VS CAR (NHLN Feed ) @ 1:00 pm
+http://nocable.cc:8080/live/s5pPNV/514479/334563.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 03: CHI VS CGY (SN Feed ) @ 3:30 pm
+http://nocable.cc:8080/live/s5pPNV/514479/334564.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 04: CHI VS CGY (SN1 Feed ) @ 3:30 pm
+http://nocable.cc:8080/live/s5pPNV/514479/334565.m3u8
 #EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA Real NHL 05: EDM VS ANA (SN Feed ) @ 10:00 pm
-http://nocable.cc:8080/live/s5pPNV/514479/334506.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 06: ANA VS COL (TVAS Feed ) @ 9:00 pm
-http://nocable.cc:8080/live/s5pPNV/514479/334507.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 07: ANA VS COL (ALT Feed ) @ 9:00 pm
-http://nocable.cc:8080/live/s5pPNV/514479/334508.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 08: DAL VS VGK (SN Feed ) @ 10:00 pm
-http://nocable.cc:8080/live/s5pPNV/514479/334509.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 09: New York Islanders vs Winnipeg Jets @ 07:00 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334510.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 10: Buffalo Sabres vs Washington Capitals @ 07:00 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334511.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 11: St. Louis Blues vs Pittsburgh Penguins @ 07:00 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334512.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 12: Columbus Blue Jackets vs Chicago Blackhawks @ 08:00 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334513.m3u8
-#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 13: Vancouver Canucks vs Seattle Kraken @ 09:40 PM EST
-http://nocable.cc:8080/live/s5pPNV/514479/334514.m3u8
+http://nocable.cc:8080/live/s5pPNV/514479/334566.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 06: CBJ VS TOR (SN Feed ) @ 7:00 pm
+http://nocable.cc:8080/live/s5pPNV/514479/334567.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 07: PHI VS MTL (SNE Feed ) @ 7:00 pm
+http://nocable.cc:8080/live/s5pPNV/514479/334568.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 08: PHI VS MTL (NHLN Feed ) @ 7:00 pm
+http://nocable.cc:8080/live/s5pPNV/514479/334569.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 09: PHI VS MTL (TVAS Feed ) @ 7:00 pm
+http://nocable.cc:8080/live/s5pPNV/514479/334570.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 10: PHI VS MTL (NBCSP Feed ) @ 7:00 pm
+http://nocable.cc:8080/live/s5pPNV/514479/334571.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 11: LAK VS OTT (SN1 Feed ) @ 7:00 pm
+http://nocable.cc:8080/live/s5pPNV/514479/334572.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 12: LAK VS OTT (TVAS2 Feed ) @ 7:00 pm
+http://nocable.cc:8080/live/s5pPNV/514479/334573.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 13: VGK VS WPG (SNW Feed ) @ 7:00 pm
+http://nocable.cc:8080/live/s5pPNV/514479/334574.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 14: MIN VS VAN (SN Feed ) @ 10:00 pm
+http://nocable.cc:8080/live/s5pPNV/514479/334575.m3u8
+#EXTINF:-1 tvg-id="None" tvg-logo="" group-title="NHL",USA NHL 15: SEA VS SJS (NBCSCA Feed ) @ 10:00 pm
+http://nocable.cc:8080/live/s5pPNV/514479/334576.m3u8
